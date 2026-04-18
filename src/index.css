@@ -107,6 +107,19 @@ body {
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.slide-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+@media (min-width: 960px) {
+  .slide-two-col {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+}
+
 /* Button base reset */
 button {
   font-family: inherit;

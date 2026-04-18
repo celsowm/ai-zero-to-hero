@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
 import { courseContent } from '../data/course-content';
 
-export const FONT_SCALE_BASE = 1.4;
 
 interface CourseContextType {
   language: Language;
@@ -107,6 +106,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCourse = () => {
   const context = useContext(CourseContext);
   if (context === undefined) {

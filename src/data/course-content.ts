@@ -31,15 +31,42 @@ export const courseContent: ISlide[] = [
   },
   {
     id: 'ia-definition',
-    type: 'markdown',
+    type: 'two-column',
     content: {
       'pt-br': {
         title: 'IA é Inferência',
-        body: '## Inteligência Artificial é engenharia de sistemas que extraem regularidades dos dados e usam essas regularidades para produzir predições úteis.\n\nNa prática, um sistema de IA precisa de três blocos trabalhando juntos:\n1. **Dados**\n2. **Modelo**\n3. **Objetivo de otimização**\n\n> IA não é consciência nem mágica; é um mecanismo estatístico para transformar entrada em estimativa sob incerteza.',
+        body: '## Inteligência Artificial é inferência.\n\nNa prática, o sistema aprende a mapear dados para saídas prováveis.\n\n1. **Dados** alimentam o treinamento.\n2. **Modelo** transforma entradas em predições.\n3. **Erro** ajusta pesos e vieses.\n\n> Em IA, prever é estimar sob incerteza.',
       },
       'en-us': {
         title: 'AI is Inference',
-        body: '## Artificial Intelligence is systems engineering that extracts regularities from data and uses those regularities to produce useful predictions.\n\nIn practice, an AI system needs three blocks working together:\n1. **Data**\n2. **Model**\n3. **Optimization Goal**\n\n> AI is not consciousness or magic; it is a statistical mechanism for transforming input into estimation under uncertainty.',
+        body: '## Artificial Intelligence is inference.\n\nIn practice, the system learns to map data to likely outputs.\n\n1. **Data** drives training.\n2. **Model** turns inputs into predictions.\n3. **Error** updates weights and biases.\n\n> In AI, prediction means estimating under uncertainty.',
+      },
+    },
+    visual: {
+      id: 'inference-diagram',
+      copy: {
+        'pt-br': {
+          diagramTitle: 'Diagrama de inferência em IA',
+          diagramDescription: 'Dados de treinamento alimentam um modelo que produz predições e recebe feedback de loss para ajustar pesos e bias.',
+          trainingTitle: 'Dados de\nTreinamento',
+          modelTitle: 'Modelo',
+          predictionsTitle: 'Predições',
+          featuresLabel: 'Atributos',
+          lossLabel: 'Loss (Erro)',
+          updateLabel: 'Ajuste de Pesos e Bias',
+          footerLabel: 'Inferência: Estimar Saídas Sob Incerteza',
+        },
+        'en-us': {
+          diagramTitle: 'AI inference diagram',
+          diagramDescription: 'Training data feeds a model that produces predictions and receives loss feedback to adjust weights and biases.',
+          trainingTitle: 'Training\nData',
+          modelTitle: 'Model',
+          predictionsTitle: 'Predictions',
+          featuresLabel: 'Features',
+          lossLabel: 'Loss (Error)',
+          updateLabel: 'Weight and Bias Updates',
+          footerLabel: 'Inference: Estimate Outputs Under Uncertainty',
+        },
       },
     },
   },

@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { ISlide, Language } from '../types/slide';
-import { FONT_SCALE_BASE, useCourse } from '../context/CourseContext';
+import { FONT_SCALE_BASE } from '../constants/course';
+import { useCourse } from '../context/CourseContext';
+import { SlideVisualRenderer } from './slide-visuals/SlideVisualRenderer';
 
 interface TwoColumnSlideProps {
   slide: ISlide;
@@ -10,8 +12,8 @@ interface TwoColumnSlideProps {
 
 export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language }) => {
   const content = slide.content[language];
-  const parts = content.body.split('---');
   const { fontScale } = useCourse();
+  const [leftPart, rightPart] = content.body.split('---');
 
   return (
     <div className="max-w-5xl w-full mx-auto animate-slide-up" style={{ padding: '0 24px' }}>
@@ -43,23 +45,51 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
         }}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {[parts[0], parts[1]].map((part, i) => (
-          <div
-            key={i}
-            style={{
-              padding: 28,
-              borderRadius: 14,
-              fontSize: 14 * FONT_SCALE_BASE * fontScale,
-              lineHeight: 1.8,
-              color: 'var(--sw-text-dim)',
-              background: 'rgba(26, 22, 40, 0.4)',
-              border: `1px solid rgba(${i === 0 ? '168, 85, 247' : '0, 229, 255'}, 0.08)`,
-            }}
-          >
-            <ReactMarkdown>{part || ''}</ReactMarkdown>
-          </div>
-        ))}
+      <div className="slide-two-col">
+        <div
+          style={{
+            padding: 28,
+            borderRadius: 14,
+            fontSize: 14 * FONT_SCALE_BASE * fontScale,
+            lineHeight: 1.8,
+            color: 'var(--sw-text-dim)',
+            background: 'rgba(26, 22, 40, 0.4)',
+            border: '1px solid rgba(168, 85, 247, 0.08)',
+            minWidth: 0,
+          }}
+        >
+          <ReactMarkdown>{leftPart || ''}</ReactMarkdown>
+        </div>
+
+        <div
+          style={{
+            padding: 20,
+            borderRadius: 14,
+            background: 'rgba(26, 22, 40, 0.32)',
+            border: '1px solid rgba(0, 229, 255, 0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 0,
+            minWidth: 0,
+            overflow: 'hidden',
+          }}
+        >
+          {slide.visual ? (
+            <SlideVisualRenderer visual={slide.visual} language={language} />
+          ) : (
+            <div
+              style={{
+                width: '100%',
+                fontSize: 14 * FONT_SCALE_BASE * fontScale,
+                lineHeight: 1.8,
+                color: 'var(--sw-text-dim)',
+              }}
+            >
+              <ReactMarkdown>{rightPart || ''}</ReactMarkdown>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

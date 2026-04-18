@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { IContent } from '../types/slide';
-import { FONT_SCALE_BASE, useCourse } from '../context/CourseContext';
+import { FONT_SCALE_BASE } from '../constants/course';
+import { useCourse } from '../context/CourseContext';
 
 interface MarkdownSlideProps {
   content: IContent;
@@ -42,8 +43,8 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
       <div style={{ fontSize: 15 * FONT_SCALE_BASE * fontScale, lineHeight: 1.8, color: 'var(--sw-text-dim)' }}>
         <ReactMarkdown
           components={{
-            h1: ({ node, ...props }) => <span className="hidden" {...props} />,
-            h2: ({ node, ...props }) => (
+            h1: (props) => <span className="hidden" {...props} />,
+            h2: ({ ...props }) => (
               <h2
                 style={{
                   fontSize: 18 * FONT_SCALE_BASE * fontScale,
@@ -55,10 +56,10 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                 {...props}
               />
             ),
-            p: ({ node, ...props }) => (
+            p: ({ ...props }) => (
               <p style={{ margin: '0 0 20px', lineHeight: 1.8 }} {...props} />
             ),
-            ul: ({ node, ...props }) => (
+            ul: ({ ...props }) => (
               <ul
                 style={{
                   listStyle: 'none',
@@ -71,7 +72,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                 {...props}
               />
             ),
-            ol: ({ node, ...props }) => (
+            ol: ({ ...props }) => (
               <ol
                 style={{
                   listStyle: 'none',
@@ -85,7 +86,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                 {...props}
               />
             ),
-            li: ({ node, ...props }) => (
+            li: ({ children, ...props }) => (
               <li
                 style={{
                   display: 'flex',
@@ -93,6 +94,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                   gap: 12,
                   paddingLeft: 4,
                 }}
+                {...props}
               >
                 <span
                   style={{
@@ -102,13 +104,13 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                     background: 'var(--sw-cyan)',
                     marginTop: 8,
                     flexShrink: 0,
-                    boxShadow: '0 0 8px rgba(0, 229, 255, 0.4)',
+                  boxShadow: '0 0 8px rgba(0, 229, 255, 0.4)',
                   }}
                 />
-                <span style={{ flex: 1 }}>{(props as any).children}</span>
+                <span style={{ flex: 1 }}>{children}</span>
               </li>
             ),
-            blockquote: ({ node, ...props }) => (
+            blockquote: ({ ...props }) => (
               <blockquote
                 style={{
                   margin: '32px 0',
@@ -124,13 +126,13 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                 {...props}
               />
             ),
-            strong: ({ node, ...props }) => (
+            strong: ({ ...props }) => (
               <strong
                 style={{ color: 'var(--sw-cyan)', fontWeight: 600 }}
                 {...props}
               />
             ),
-            code: ({ node, ...props }) => (
+            code: ({ ...props }) => (
               <code
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
