@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
 import { courseContent } from '../data/course-content';
 
+export const FONT_SCALE_BASE = 1.4;
+
 interface CourseContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -10,6 +12,9 @@ interface CourseContextType {
   goToNextSlide: () => void;
   goToPrevSlide: () => void;
   goToSlide: (index: number) => void;
+  fontScale: number;
+  increaseFontScale: () => void;
+  decreaseFontScale: () => void;
   currentSlide: ISlide;
   slides: ISlide[];
 }
@@ -29,6 +34,7 @@ function setHash(slideId: string) {
 
 export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('pt-br');
+  const [fontScale, setFontScale] = useState(1);
   const slides = courseContent;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(() => getSlideIndexFromHash(slides));
 
@@ -70,6 +76,14 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }
   }, [slides.length]);
 
+  const increaseFontScale = useCallback(() => {
+    setFontScale(prev => Math.min(prev + 0.1, 1.4));
+  }, []);
+
+  const decreaseFontScale = useCallback(() => {
+    setFontScale(prev => Math.max(prev - 0.1, 0.8));
+  }, []);
+
   const currentSlide = slides[currentSlideIndex];
 
   return (
@@ -81,6 +95,9 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         goToNextSlide,
         goToPrevSlide,
         goToSlide,
+        fontScale,
+        increaseFontScale,
+        decreaseFontScale,
         currentSlide,
         slides,
       }}

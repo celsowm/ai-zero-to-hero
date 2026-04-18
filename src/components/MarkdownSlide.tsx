@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { IContent } from '../types/slide';
+import { FONT_SCALE_BASE, useCourse } from '../context/CourseContext';
 
 interface MarkdownSlideProps {
   content: IContent;
 }
 
 export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
+  const { fontScale } = useCourse();
+
   return (
     <div className="max-w-2xl w-full mx-auto animate-slide-up" style={{ padding: '0 24px' }}>
       {/* Title */}
       <h1
         className="glow-pink"
         style={{
-          fontSize: 36,
+          fontSize: 36 * FONT_SCALE_BASE * fontScale,
           fontWeight: 700,
           letterSpacing: '-0.02em',
           lineHeight: 1.2,
@@ -36,14 +39,14 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
       />
 
       {/* Body */}
-      <div style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--sw-text-dim)' }}>
+      <div style={{ fontSize: 15 * FONT_SCALE_BASE * fontScale, lineHeight: 1.8, color: 'var(--sw-text-dim)' }}>
         <ReactMarkdown
           components={{
             h1: ({ node, ...props }) => <span className="hidden" {...props} />,
             h2: ({ node, ...props }) => (
               <h2
                 style={{
-                  fontSize: 18,
+                  fontSize: 18 * FONT_SCALE_BASE * fontScale,
                   fontWeight: 600,
                   color: 'var(--sw-text)',
                   margin: '32px 0 16px',
@@ -112,7 +115,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
                   padding: '20px 24px',
                   borderRadius: 10,
                   fontStyle: 'italic',
-                  fontSize: 14,
+                  fontSize: 14 * FONT_SCALE_BASE * fontScale,
                   lineHeight: 1.7,
                   background: 'rgba(168, 85, 247, 0.05)',
                   borderLeft: '3px solid var(--sw-purple)',
@@ -131,7 +134,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
               <code
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 13,
+                  fontSize: 13 * FONT_SCALE_BASE * fontScale,
                   padding: '2px 8px',
                   borderRadius: 6,
                   background: 'var(--sw-surface)',

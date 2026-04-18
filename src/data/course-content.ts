@@ -43,4 +43,18 @@ export const courseContent: ISlide[] = [
       },
     },
   },
+  {
+    id: 'ia-vs-tradicionais',
+    type: 'markdown',
+    content: {
+      'pt-br': {
+        title: 'IA vs sistemas tradicionais',
+        body: '1. **Software tradicional:** regras são escritas explicitamente pelo programador.\n\n2. **IA/ML:** parâmetros são ajustados a partir de exemplos e feedback de erro.\n\n3. **Tradicional:** responde bem a casos totalmente formalizáveis; **IA:** lida melhor com padrões ambíguos.\n\n4. **Leitura correta:** um é determinístico por projeto; o outro aprende uma fronteira estatística.',
+      },
+      'en-us': {
+        title: 'AI vs Traditional Systems',
+        body: '1. **Traditional software:** rules are written explicitly by the programmer.\n\n2. **AI/ML:** parameters are adjusted from examples and error feedback.\n\n3. **Traditional:** performs well on fully formalizable cases; **AI:** handles ambiguous patterns better.\n\n4. **Correct reading:** one is deterministic by design; the other learns a statistical boundary.',
+      },
+    },
+  },
 ];
