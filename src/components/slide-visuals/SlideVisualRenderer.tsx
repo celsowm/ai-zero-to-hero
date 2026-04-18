@@ -1,6 +1,11 @@
 import React from 'react';
 import type { Language, SlideVisual } from '../../types/slide';
-import { InferenceDiagram, LearningLoopDiagram, LocalizedImageVisual } from '../visuals';
+import {
+  InferenceDiagram,
+  LearningLoopDiagram,
+  LocalizedImageVisual,
+  MachineLearningPipelineDiagram,
+} from '../visuals';
 
 interface SlideVisualRendererProps {
   visual: SlideVisual;
@@ -15,6 +20,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <LearningLoopDiagram copy={visual.copy[language]} />;
     case 'localized-image':
       return <LocalizedImageVisual copy={visual.copy[language]} />;
+    case 'machine-learning-pipeline':
+      return <MachineLearningPipelineDiagram copy={visual.copy[language]} />;
     default:
       return null;
   }

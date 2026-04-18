@@ -38,6 +38,20 @@ export interface LocalizedImageCopy {
   closeLabel: string;
 }
 
+export interface MachineLearningPipelineStageCopy {
+  title: string;
+  subtitle: string;
+  accent: string;
+}
+
+export interface MachineLearningPipelineCopy {
+  diagramTitle: string;
+  diagramDescription: string;
+  stages: MachineLearningPipelineStageCopy[];
+  loopLabel: string;
+  footerLabel: string;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -53,7 +67,16 @@ export interface LocalizedImageVisual {
   copy: Record<Language, LocalizedImageCopy>;
 }
 
-export type SlideVisual = InferenceDiagramVisual | LearningLoopDiagramVisual | LocalizedImageVisual;
+export interface MachineLearningPipelineVisual {
+  id: 'machine-learning-pipeline';
+  copy: Record<Language, MachineLearningPipelineCopy>;
+}
+
+export type SlideVisual =
+  | InferenceDiagramVisual
+  | LearningLoopDiagramVisual
+  | LocalizedImageVisual
+  | MachineLearningPipelineVisual;
 
 export interface SlideOptions {
   columns?: number;

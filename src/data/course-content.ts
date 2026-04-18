@@ -122,11 +122,11 @@ export const courseContent: ISlide[] = [
     content: {
       'pt-br': {
         title: 'IA vs sistemas tradicionais',
-        body: '1. **Software tradicional:** regras são escritas explicitamente pelo programador.\n\n2. **IA/ML:** parâmetros são ajustados a partir de exemplos e feedback de erro.\n\n3. **Tradicional:** responde bem a casos totalmente formalizáveis; **IA:** lida melhor com padrões ambíguos.\n\n4. **Leitura correta:** um é determinístico por projeto; o outro aprende uma fronteira estatística.',
+        body: 'Antes de comparar tecnologias, vale a pergunta central: **a regra já é conhecida ou precisa ser descoberta a partir dos dados?**\n\n1. **Software tradicional:** o comportamento nasce de regras explícitas, escritas pelo programador. Se a lógica muda, o código precisa ser alterado.\n\n2. **IA/ML:** o comportamento é aprendido a partir de exemplos. O programador define a estrutura e o objetivo; os dados ajustam os parâmetros.\n\n3. **Quando cada abordagem brilha:** sistemas tradicionais são fortes em fluxos claros, decisões auditáveis e regras estáveis. IA é mais útil quando há ruído, ambiguidade, variação e padrões difíceis de programar manualmente.\n\n4. **Leitura correta:** tradicional = determinístico por construção. IA = probabilístico por aprendizado. Na prática, os melhores produtos combinam os dois: regras para o que é fixo; modelos para o que é incerto.\n\n> Em resumo: no software tradicional, você escreve a regra. Em IA, você ensina o sistema a aprendê-la.',
       },
       'en-us': {
         title: 'AI vs Traditional Systems',
-        body: '1. **Traditional software:** rules are written explicitly by the programmer.\n\n2. **AI/ML:** parameters are adjusted from examples and error feedback.\n\n3. **Traditional:** performs well on fully formalizable cases; **AI:** handles ambiguous patterns better.\n\n4. **Correct reading:** one is deterministic by design; the other learns a statistical boundary.',
+        body: 'Before comparing technologies, the key question is: **is the rule already known, or does it need to be discovered from data?**\n\n1. **Traditional software:** behavior comes from explicit rules written by the programmer. If the logic changes, the code must change.\n\n2. **AI/ML:** behavior is learned from examples. The programmer defines the structure and objective; the data adjust the parameters.\n\n3. **When each approach shines:** traditional systems are strong in clear workflows, auditable decisions, and stable rules. AI is more useful when there is noise, ambiguity, variation, and patterns that are hard to encode manually.\n\n4. **Correct reading:** traditional = deterministic by construction. AI = probabilistic by learning. In practice, the best products combine both: rules for what is fixed; models for what is uncertain.\n\n> In short: traditional software writes the rule. AI teaches the system to learn it.',
       },
     },
     visual: {
@@ -143,6 +143,104 @@ export const courseContent: ISlide[] = [
           alt: 'Visual comparison between AI and traditional systems in English',
           openLabel: 'Open enlarged image',
           closeLabel: 'Close enlarged image',
+        },
+      },
+    },
+  },
+  {
+    id: 'ml-pipeline',
+    type: 'two-column',
+    options: {
+      columnRatios: [0.6, 0.4],
+    },
+    content: {
+      'pt-br': {
+        title: 'Machine Learning: o pipeline',
+        body: 'Machine Learning não começa no algoritmo. Começa no dado e só termina quando o modelo continua funcionando em produção.\n\n1. **Dados e preparação:** a qualidade do pipeline começa na origem. Limpeza, seleção e engenharia de atributos definem o teto do modelo.\n\n2. **Separação correta:** treino, validação e teste precisam estar bem isolados para medir generalização de verdade.\n\n3. **Treinamento e ajuste:** o modelo aprende padrões, compara métricas e passa por iterações até reduzir erro sem decorar o conjunto.\n\n4. **Deploy e monitoramento:** depois da entrega, o sistema precisa ser observado. Mudança de contexto, viés e drift exigem acompanhamento contínuo.\n\n> Em ML, o valor não está só no algoritmo. Está no fluxo que sustenta o algoritmo.',
+      },
+      'en-us': {
+        title: 'Machine Learning: the pipeline',
+        body: 'Machine Learning does not start with the algorithm. It starts with data and only ends when the model keeps working in production.\n\n1. **Data and preparation:** pipeline quality starts at the source. Cleaning, selection, and feature engineering define the model’s ceiling.\n\n2. **Correct splitting:** training, validation, and test sets must stay isolated to measure true generalization.\n\n3. **Training and tuning:** the model learns patterns, compares metrics, and iterates until error drops without memorizing the dataset.\n\n4. **Deployment and monitoring:** after release, the system still needs observation. Context shifts, bias, and drift require continuous tracking.\n\n> In ML, the value is not only in the algorithm. It is in the flow that supports the algorithm.',
+      },
+    },
+    visual: {
+      id: 'machine-learning-pipeline',
+      copy: {
+        'pt-br': {
+          diagramTitle: 'Pipeline de Machine Learning',
+          diagramDescription: 'Um pipeline bem desenhado transforma dado bruto em decisão confiável. O ciclo começa na origem do dado, passa por preparação e treino, e continua em produção com monitoramento e realimentação.',
+          stages: [
+            {
+              title: 'Dados',
+              subtitle: 'origem e qualidade',
+              accent: '#8fb2d8',
+            },
+            {
+              title: 'Preparo',
+              subtitle: 'limpeza e features',
+              accent: '#00b8f0',
+            },
+            {
+              title: 'Split',
+              subtitle: 'treino, validação e teste',
+              accent: '#f3b72c',
+            },
+            {
+              title: 'Treino',
+              subtitle: 'ajuste de parâmetros',
+              accent: '#a855f7',
+            },
+            {
+              title: 'Avaliação',
+              subtitle: 'métricas e generalização',
+              accent: '#ef8b42',
+            },
+            {
+              title: 'Deploy',
+              subtitle: 'produção e drift',
+              accent: '#ef5b5b',
+            },
+          ],
+          loopLabel: 'retroalimenta',
+          footerLabel: 'O melhor modelo continua útil quando o mundo muda.',
+        },
+        'en-us': {
+          diagramTitle: 'Machine Learning pipeline',
+          diagramDescription: 'A well-designed pipeline turns raw data into reliable decisions. The cycle begins at the data source, moves through preparation and training, and continues in production with monitoring and feedback.',
+          stages: [
+            {
+              title: 'Data',
+              subtitle: 'source and quality',
+              accent: '#8fb2d8',
+            },
+            {
+              title: 'Prepare',
+              subtitle: 'cleaning and features',
+              accent: '#00b8f0',
+            },
+            {
+              title: 'Split',
+              subtitle: 'training, validation, test',
+              accent: '#f3b72c',
+            },
+            {
+              title: 'Train',
+              subtitle: 'parameter fitting',
+              accent: '#a855f7',
+            },
+            {
+              title: 'Evaluate',
+              subtitle: 'metrics and generalization',
+              accent: '#ef8b42',
+            },
+            {
+              title: 'Deploy',
+              subtitle: 'production and drift',
+              accent: '#ef5b5b',
+            },
+          ],
+          loopLabel: 'feeds back',
+          footerLabel: 'The best model stays useful as the world changes.',
         },
       },
     },
