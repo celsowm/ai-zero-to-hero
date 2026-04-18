@@ -35,11 +35,11 @@ export const courseContent: ISlide[] = [
     content: {
       'pt-br': {
         title: 'IA é Inferência',
-        body: '## Inteligência Artificial é inferência.\n\nNa prática, o sistema aprende a mapear dados para saídas prováveis.\n\n1. **Dados** alimentam o treinamento.\n2. **Modelo** transforma entradas em predições.\n3. **Erro** ajusta pesos e vieses.\n\n> Em IA, prever é estimar sob incerteza.',
+        body: '## IA não produz certezas\n\nInteligência Artificial, no seu núcleo, é o processo de inferir - estimar respostas a partir de dados, mesmo sob incerteza.\n\nNa prática, sistemas de IA não "sabem" respostas.\nEles aprendem a mapear entradas para saídas prováveis, com base em padrões observados anteriormente.\n\n- **Dados** representam o mundo real em forma estruturada.\n- **Modelo** captura padrões e transforma entradas em previsões.\n- **Predição** expressa uma estimativa, não uma verdade absoluta.\n\n> Inferir é prever o desconhecido com base no conhecido.',
       },
       'en-us': {
         title: 'AI is Inference',
-        body: '## Artificial Intelligence is inference.\n\nIn practice, the system learns to map data to likely outputs.\n\n1. **Data** drives training.\n2. **Model** turns inputs into predictions.\n3. **Error** updates weights and biases.\n\n> In AI, prediction means estimating under uncertainty.',
+        body: '## AI does not produce certainties\n\nArtificial Intelligence, at its core, is the process of inferring - estimating answers from data, even under uncertainty.\n\nIn practice, AI systems do not "know" answers.\nThey learn to map inputs to likely outputs based on patterns observed before.\n\n- **Data** represents the real world in structured form.\n- **Model** captures patterns and turns inputs into predictions.\n- **Prediction** expresses an estimate, not an absolute truth.\n\n> To infer is to predict the unknown from the known.',
       },
     },
     visual: {
@@ -47,25 +47,66 @@ export const courseContent: ISlide[] = [
       copy: {
         'pt-br': {
           diagramTitle: 'Diagrama de inferência em IA',
-          diagramDescription: 'Dados de treinamento alimentam um modelo que produz predições e recebe feedback de loss para ajustar pesos e bias.',
+          diagramDescription: 'Dados estruturados alimentam um modelo que produz predições e recebe feedback de loss para ajustar pesos e vieses, refinando a inferência.',
           trainingTitle: 'Dados de\nTreinamento',
           modelTitle: 'Modelo',
           predictionsTitle: 'Predições',
           featuresLabel: 'Atributos',
           lossLabel: 'Loss (Erro)',
           updateLabel: 'Ajuste de Pesos e Bias',
-          footerLabel: 'Inferência: Estimar Saídas Sob Incerteza',
+          footerLabel: 'Inferir é prever o desconhecido com base no conhecido',
         },
         'en-us': {
           diagramTitle: 'AI inference diagram',
-          diagramDescription: 'Training data feeds a model that produces predictions and receives loss feedback to adjust weights and biases.',
+          diagramDescription: 'Structured data feeds a model that produces predictions and receives loss feedback to adjust weights and biases, refining inference.',
           trainingTitle: 'Training\nData',
           modelTitle: 'Model',
           predictionsTitle: 'Predictions',
           featuresLabel: 'Features',
           lossLabel: 'Loss (Error)',
           updateLabel: 'Weight and Bias Updates',
-          footerLabel: 'Inference: Estimate Outputs Under Uncertainty',
+          footerLabel: 'Inference means predicting the unknown from the known',
+        },
+      },
+    },
+  },
+  {
+    id: 'ia-learning-loop',
+    type: 'two-column',
+    content: {
+      'pt-br': {
+        title: 'O ciclo de aprendizado',
+        body: '## A IA aprende em ciclo\n\n1. **Dados** fornecem exemplos do mundo real.\n2. **Modelo** transforma entrada em predição.\n3. **Erro** mostra a distância até o resultado real.\n4. **Ajuste** corrige os parâmetros.\n\n> Repetir esse ciclo melhora a generalização.',
+      },
+      'en-us': {
+        title: 'The Learning Loop',
+        body: '## AI learns in a loop\n\n1. **Data** provides examples from the real world.\n2. **Model** turns input into a prediction.\n3. **Error** shows the gap to the real result.\n4. **Adjustment** corrects the parameters.\n\n> Repeating this cycle improves generalization.',
+      },
+    },
+    visual: {
+      id: 'learning-loop-diagram',
+      copy: {
+        'pt-br': {
+          diagramTitle: 'O ciclo de aprendizado da IA',
+          diagramDescription: 'Dados alimentam o modelo, que gera predições, recebe feedback de erro e ajusta seus parâmetros até a próxima rodada.',
+          dataTitle: 'Dados',
+          modelTitle: 'Modelo',
+          predictionTitle: 'Predição',
+          errorTitle: 'Erro',
+          adjustTitle: 'Ajuste',
+          loopLabel: 'prever → medir → corrigir',
+          footerLabel: 'Repetir esse ciclo melhora a generalização do sistema',
+        },
+        'en-us': {
+          diagramTitle: 'The AI learning loop',
+          diagramDescription: 'Data feeds the model, which generates predictions, receives error feedback, and adjusts its parameters for the next round.',
+          dataTitle: 'Data',
+          modelTitle: 'Model',
+          predictionTitle: 'Prediction',
+          errorTitle: 'Error',
+          adjustTitle: 'Adjustment',
+          loopLabel: 'predict → measure → correct',
+          footerLabel: 'Repeating this loop improves the system’s generalization',
         },
       },
     },

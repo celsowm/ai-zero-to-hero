@@ -19,12 +19,29 @@ export interface InferenceDiagramCopy {
   footerLabel: string;
 }
 
+export interface LearningLoopDiagramCopy {
+  diagramTitle: string;
+  diagramDescription: string;
+  dataTitle: string;
+  modelTitle: string;
+  predictionTitle: string;
+  errorTitle: string;
+  adjustTitle: string;
+  loopLabel: string;
+  footerLabel: string;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
 }
 
-export type SlideVisual = InferenceDiagramVisual;
+export interface LearningLoopDiagramVisual {
+  id: 'learning-loop-diagram';
+  copy: Record<Language, LearningLoopDiagramCopy>;
+}
+
+export type SlideVisual = InferenceDiagramVisual | LearningLoopDiagramVisual;
 
 export interface ISlide {
   id: string;
