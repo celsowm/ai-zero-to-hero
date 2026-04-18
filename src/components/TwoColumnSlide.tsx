@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import type { ISlide, Language } from '../types/slide';
 import { FONT_SCALE_BASE } from '../constants/course';
 import { useCourse } from '../context/CourseContext';
-import { SlideVisualRenderer } from './slide-visuals/SlideVisualRenderer';
+import { SlideVisualRenderer } from './slide-visuals';
 
 interface TwoColumnSlideProps {
   slide: ISlide;
@@ -14,6 +14,12 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
   const content = slide.content[language];
   const { fontScale } = useCourse();
   const [leftPart, rightPart] = content.body.split('---');
+  const [leftRatio, rightRatio] = slide.options?.columnRatios ?? [0.95, 1.05];
+  const columnTemplateProperty = '--slide-two-col-columns';
+
+  const twoColumnStyle = {
+    [columnTemplateProperty]: `minmax(0, ${leftRatio}fr) minmax(0, ${rightRatio}fr)`,
+  } as React.CSSProperties;
 
   return (
     <div className="max-w-5xl w-full mx-auto animate-slide-up" style={{ padding: '0 24px' }}>
@@ -45,7 +51,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
         }}
       />
 
-      <div className="slide-two-col">
+      <div className="slide-two-col" style={twoColumnStyle}>
         <div
           style={{
             padding: 28,

@@ -1,0 +1,1 @@
+export { SlideVisualRenderer } from './SlideVisualRenderer';

@@ -31,6 +31,13 @@ export interface LearningLoopDiagramCopy {
   footerLabel: string;
 }
 
+export interface LocalizedImageCopy {
+  src: string;
+  alt: string;
+  openLabel: string;
+  closeLabel: string;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -41,16 +48,24 @@ export interface LearningLoopDiagramVisual {
   copy: Record<Language, LearningLoopDiagramCopy>;
 }
 
-export type SlideVisual = InferenceDiagramVisual | LearningLoopDiagramVisual;
+export interface LocalizedImageVisual {
+  id: 'localized-image';
+  copy: Record<Language, LocalizedImageCopy>;
+}
+
+export type SlideVisual = InferenceDiagramVisual | LearningLoopDiagramVisual | LocalizedImageVisual;
+
+export interface SlideOptions {
+  columns?: number;
+  columnRatios?: [number, number];
+  codeLanguage?: string;
+  animation?: string;
+}
 
 export interface ISlide {
   id: string;
   type: SlideType;
   content: Record<Language, IContent>;
   visual?: SlideVisual;
-  options?: {
-    columns?: number;
-    codeLanguage?: string;
-    animation?: string;
-  };
+  options?: SlideOptions;
 }

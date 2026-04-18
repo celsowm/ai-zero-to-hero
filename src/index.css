@@ -116,7 +116,7 @@ body {
 
 @media (min-width: 960px) {
   .slide-two-col {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    grid-template-columns: var(--slide-two-col-columns, minmax(0, 0.95fr) minmax(0, 1.05fr));
   }
 }
 

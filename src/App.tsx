@@ -1,9 +1,6 @@
 import React from 'react';
 import { CourseProvider, useCourse } from './context/CourseContext';
-import { Sidebar } from './components/Sidebar';
-import { FloatingNavigation } from './components/FloatingNavigation';
-import { SlideFactory } from './components/SlideFactory';
-import { SlideTopBar } from './components/SlideTopBar';
+import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar } from './components';
 
 const CourseContent: React.FC = () => {
   const { currentSlide, language } = useCourse();

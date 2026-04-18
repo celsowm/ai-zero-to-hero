@@ -1,4 +1,6 @@
 import type { ISlide } from '../types/slide';
+import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
+import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
 
 export const courseContent: ISlide[] = [
   {
@@ -113,7 +115,10 @@ export const courseContent: ISlide[] = [
   },
   {
     id: 'ia-vs-tradicionais',
-    type: 'markdown',
+    type: 'two-column',
+    options: {
+      columnRatios: [0.7, 0.3],
+    },
     content: {
       'pt-br': {
         title: 'IA vs sistemas tradicionais',
@@ -122,6 +127,23 @@ export const courseContent: ISlide[] = [
       'en-us': {
         title: 'AI vs Traditional Systems',
         body: '1. **Traditional software:** rules are written explicitly by the programmer.\n\n2. **AI/ML:** parameters are adjusted from examples and error feedback.\n\n3. **Traditional:** performs well on fully formalizable cases; **AI:** handles ambiguous patterns better.\n\n4. **Correct reading:** one is deterministic by design; the other learns a statistical boundary.',
+      },
+    },
+    visual: {
+      id: 'localized-image',
+      copy: {
+        'pt-br': {
+          src: traditionalVsAiPtBr,
+          alt: 'Comparação visual entre IA e sistemas tradicionais em português',
+          openLabel: 'Abrir imagem ampliada',
+          closeLabel: 'Fechar imagem ampliada',
+        },
+        'en-us': {
+          src: traditionalVsAiEnUs,
+          alt: 'Visual comparison between AI and traditional systems in English',
+          openLabel: 'Open enlarged image',
+          closeLabel: 'Close enlarged image',
+        },
       },
     },
   },
