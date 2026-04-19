@@ -1,0 +1,127 @@
+{
+  "id": "linear-regression-intro",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.62,
+      0.38
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Regressão Linear: como prever um valor",
+      "body": "Agora que o pipeline está claro, vamos abrir o primeiro modelo simples que aprende com dados reais. Regressão linear é esse ponto de entrada: uma forma de prever um valor numérico a partir de variáveis conhecidas.\n\n1. **Entradas conhecidas:** no nosso exemplo, usamos **altura** e **idade** como informações disponíveis.\n\n2. **Saída prevista:** o objetivo é estimar o **peso**, ou seja, prever um número e não classificar uma categoria.\n\n3. **Fórmula linear:** o modelo combina as entradas em algo como `ŷ = β₀ + β₁ * altura + β₂ * idade`, somando contribuições de cada variável.\n\n4. **Aprendizado pelos dados:** em geral, os coeficientes `β₀`, `β₁` e `β₂` são ajustados a partir de exemplos anteriores para aproximar o peso real. Antes de mostrar esse treino em Python, vamos fixar alguns valores manualmente só para abrir a conta e enxergar a mecânica.\n\n> Em regressão linear, aprender é ajustar a fórmula que melhor aproxima os dados.\n\n---"
+    },
+    "en-us": {
+      "title": "Linear Regression: how to predict a value",
+      "body": "Now that the pipeline is clear, we can open the first simple model that learns from real data. Linear regression is that entry point: a way to predict a numeric value from known variables.\n\n1. **Known inputs:** in our example, we use **height** and **age** as the available information.\n\n2. **Predicted output:** the goal is to estimate **weight**, which means predicting a number rather than classifying a category.\n\n3. **Linear formula:** the model combines the inputs into something like `ŷ = β₀ + β₁ * height + β₂ * age`, adding the contribution of each variable.\n\n4. **Learning from data:** in general, the coefficients `β₀`, `β₁`, and `β₂` are adjusted from previous examples to approximate the real weight. Before showing that training in Python, we will temporarily fix some values by hand just to open the arithmetic and inspect the mechanics.\n\n> In linear regression, learning means adjusting the formula that best approximates the data.\n\n---"
+    }
+  },
+  "visual": {
+    "id": "linear-regression-tabs",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          {
+            "label": "Formula"
+          },
+          {
+            "label": "Fluxo visual"
+          }
+        ],
+        "formulaPanel": {
+          "eyebrow": "Modelo inicial",
+          "formula": "ŷ = β₀ + β₁ * altura + β₂ * idade",
+          "description": "Aqui a ideia ainda é simples: cada entrada contribui com um pedaço da previsão, e o modelo aprende quanto cada pedaço deve pesar.",
+          "points": [
+            {
+              "label": "altura e idade são as entradas conhecidas",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "peso é o valor numérico que queremos prever",
+              "accent": "#fbbf24"
+            },
+            {
+              "label": "β₀, β₁ e β₂ são parâmetros ajustados pelos dados",
+              "accent": "#ff2e97"
+            }
+          ],
+          "footer": "Nos próximos slides, essa fórmula será detalhada em Python sem abstrair o processo."
+        },
+        "graphPanel": {
+          "eyebrow": "Leitura prática",
+          "title": "Entradas conhecidas entram no modelo e geram uma previsão",
+          "description": "Pense como uma função com parâmetros ajustáveis: os dados entram, a fórmula combina esses valores e a saída estimada aparece.",
+          "inputNodes": [
+            {
+              "label": "Altura",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "Idade",
+              "accent": "#a855f7"
+            }
+          ],
+          "outputLabel": "Saída prevista",
+          "outputNode": {
+            "label": "Peso previsto",
+            "accent": "#fbbf24"
+          },
+          "footer": "O modelo não entrega certeza; ele entrega a melhor estimativa que aprendeu a partir dos exemplos."
+        }
+      },
+      "en-us": {
+        "tabs": [
+          {
+            "label": "Formula"
+          },
+          {
+            "label": "Visual flow"
+          }
+        ],
+        "formulaPanel": {
+          "eyebrow": "Initial model",
+          "formula": "ŷ = β₀ + β₁ * height + β₂ * age",
+          "description": "The idea is still simple here: each input contributes part of the prediction, and the model learns how much each part should matter.",
+          "points": [
+            {
+              "label": "height and age are the known inputs",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "weight is the numeric value we want to predict",
+              "accent": "#fbbf24"
+            },
+            {
+              "label": "β₀, β₁, and β₂ are parameters adjusted from data",
+              "accent": "#ff2e97"
+            }
+          ],
+          "footer": "In the next slides, this formula will be unpacked in Python without hiding the process."
+        },
+        "graphPanel": {
+          "eyebrow": "Practical reading",
+          "title": "Known inputs go into the model and produce a prediction",
+          "description": "Think of it as a function with adjustable parameters: data goes in, the formula combines those values, and the estimated output comes out.",
+          "inputNodes": [
+            {
+              "label": "Height",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "Age",
+              "accent": "#a855f7"
+            }
+          ],
+          "outputLabel": "Predicted output",
+          "outputNode": {
+            "label": "Predicted weight",
+            "accent": "#fbbf24"
+          },
+          "footer": "The model does not return certainty; it returns the best estimate it learned from examples."
+        }
+      }
+    }
+  }
+}

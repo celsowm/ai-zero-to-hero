@@ -1,0 +1,14 @@
+{
+  "id": "professor",
+  "type": "markdown",
+  "content": {
+    "pt-br": {
+      "title": "Sobre o Professor",
+      "body": "# Celso Araujo Fontes\n\n- MsC em Computação pelo IME-RJ\n- Assessor de Inovações na PGE-RJ\n\nApaixonado por tecnologia e inovação, focado em transformar processos através da IA."
+    },
+    "en-us": {
+      "title": "About the Professor",
+      "body": "# Celso Araujo Fontes\n\n- MSc in Computing from IME-RJ\n- Innovation Advisor at PGE-RJ\n\nPassionate about technology and innovation, focused on transforming processes through AI."
+    }
+  }
+}

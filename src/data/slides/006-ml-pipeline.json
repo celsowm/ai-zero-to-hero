@@ -1,0 +1,101 @@
+{
+  "id": "ml-pipeline",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Machine Learning: o pipeline",
+      "body": "Machine Learning não começa no algoritmo. Começa no dado e só termina quando o modelo continua funcionando em produção.\n\n1. **Dados e preparação:** a qualidade do pipeline começa na origem. Limpeza, seleção e engenharia de atributos definem o teto do modelo.\n\n2. **Separação correta:** treino, validação e teste precisam estar bem isolados para medir generalização de verdade.\n\n3. **Treinamento e ajuste:** o modelo aprende padrões, compara métricas e passa por iterações até reduzir erro sem decorar o conjunto.\n\n4. **Deploy e monitoramento:** depois da entrega, o sistema precisa ser observado. Mudança de contexto, viés e drift exigem acompanhamento contínuo. Quando precisamos entender a predição em si, o próximo passo é um modelo simples: regressão linear.\n\n> Em ML, o valor não está só no algoritmo. Está no fluxo que sustenta o algoritmo."
+    },
+    "en-us": {
+      "title": "Machine Learning: the pipeline",
+      "body": "Machine Learning does not start with the algorithm. It starts with data and only ends when the model keeps working in production.\n\n1. **Data and preparation:** pipeline quality starts at the source. Cleaning, selection, and feature engineering define the model’s ceiling.\n\n2. **Correct splitting:** training, validation, and test sets must stay isolated to measure true generalization.\n\n3. **Training and tuning:** the model learns patterns, compares metrics, and iterates until error drops without memorizing the dataset.\n\n4. **Deployment and monitoring:** after release, the system still needs observation. Context shifts, bias, and drift require continuous tracking. When we want to understand prediction itself, the next step is a simple model: linear regression.\n\n> In ML, the value is not only in the algorithm. It is in the flow that supports the algorithm."
+    }
+  },
+  "visual": {
+    "id": "machine-learning-pipeline",
+    "copy": {
+      "pt-br": {
+        "diagramTitle": "Pipeline de Machine Learning",
+        "diagramDescription": "Um pipeline bem desenhado transforma dado bruto em decisão confiável. O ciclo começa na origem do dado, passa por preparação e treino, e continua em produção com monitoramento e realimentação.",
+        "stages": [
+          {
+            "title": "Dados",
+            "subtitle": "origem e qualidade",
+            "accent": "#8fb2d8"
+          },
+          {
+            "title": "Preparo",
+            "subtitle": "limpeza e features",
+            "accent": "#00b8f0"
+          },
+          {
+            "title": "Split",
+            "subtitle": "treino, validação e teste",
+            "accent": "#f3b72c"
+          },
+          {
+            "title": "Treino",
+            "subtitle": "ajuste de parâmetros",
+            "accent": "#a855f7"
+          },
+          {
+            "title": "Avaliação",
+            "subtitle": "métricas e generalização",
+            "accent": "#ef8b42"
+          },
+          {
+            "title": "Deploy",
+            "subtitle": "produção e drift",
+            "accent": "#ef5b5b"
+          }
+        ],
+        "loopLabel": "retroalimenta",
+        "footerLabel": "O melhor modelo continua útil quando o mundo muda."
+      },
+      "en-us": {
+        "diagramTitle": "Machine Learning pipeline",
+        "diagramDescription": "A well-designed pipeline turns raw data into reliable decisions. The cycle begins at the data source, moves through preparation and training, and continues in production with monitoring and feedback.",
+        "stages": [
+          {
+            "title": "Data",
+            "subtitle": "source and quality",
+            "accent": "#8fb2d8"
+          },
+          {
+            "title": "Prepare",
+            "subtitle": "cleaning and features",
+            "accent": "#00b8f0"
+          },
+          {
+            "title": "Split",
+            "subtitle": "training, validation, test",
+            "accent": "#f3b72c"
+          },
+          {
+            "title": "Train",
+            "subtitle": "parameter fitting",
+            "accent": "#a855f7"
+          },
+          {
+            "title": "Evaluate",
+            "subtitle": "metrics and generalization",
+            "accent": "#ef8b42"
+          },
+          {
+            "title": "Deploy",
+            "subtitle": "production and drift",
+            "accent": "#ef5b5b"
+          }
+        ],
+        "loopLabel": "feeds back",
+        "footerLabel": "The best model stays useful as the world changes."
+      }
+    }
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": "linear-regression-simple-line",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.62,
+      0.38
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Regressão Linear: combinando altura e idade",
+      "body": "Seguimos no mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Em vez de pensar em uma reta isolada, agora vale ler a regressão linear como uma combinação de duas entradas que formam uma superfície de previsão.\n\n1. **Altura e idade entram juntas:** cada pessoa chega ao modelo com dois valores conhecidos.\n\n2. **Peso é a saída prevista:** o modelo devolve um número estimado para aquele par de entradas.\n\n3. **`β₁` e `β₂` são os coeficientes angulares / inclinações:** eles dizem o quanto a previsão sobe ou desce quando altura ou idade mudam.\n\n4. **`β₀` é o coeficiente linear / intercepto:** ele desloca a previsão base para cima ou para baixo sem mudar a inclinação geral. Depois de montar essa combinação, o próximo passo é medir o quanto ela ficou perto do peso real.\n\n> Em duas variáveis, regressão linear combina entradas conhecidas para aproximar um valor numérico.\n\n---"
+    },
+    "en-us": {
+      "title": "Linear Regression: combining height and age",
+      "body": "We stay with the same example: predicting **weight** from **height** and **age**. Instead of thinking about a single line, it helps to read linear regression as a combination of two inputs that forms a prediction surface.\n\n1. **Height and age enter together:** each person reaches the model with two known values.\n\n2. **Weight is the predicted output:** the model returns an estimated number for that pair of inputs.\n\n3. **`β₁` and `β₂` are the angular coefficients / slopes:** they tell us how much the prediction rises or falls when height or age changes.\n\n4. **`β₀` is the linear coefficient / intercept:** it shifts the baseline prediction up or down without changing the overall slope. After building that combination, the next step is to measure how close it gets to the real weight.\n\n> With two variables, linear regression combines known inputs to approximate a numeric value.\n\n---"
+    }
+  },
+  "visual": {
+    "id": "linear-regression-tabs",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          {
+            "label": "Formula"
+          },
+          {
+            "label": "Gráfico"
+          }
+        ],
+        "formulaPanel": {
+          "eyebrow": "Leitura com 2 variáveis",
+          "formula": "ŷ = β₀ + β₁ * altura + β₂ * idade",
+          "description": "Com duas entradas, o modelo aprende quanto altura e idade devem pesar na previsão, além de um ajuste base.",
+          "points": [
+            {
+              "label": "altura e idade são as entradas conhecidas",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "peso é a saída numérica prevista",
+              "accent": "#fbbf24"
+            },
+            {
+              "label": "β₁ e β₂ controlam o peso de cada variável",
+              "accent": "#ff2e97"
+            },
+            {
+              "label": "β₀ ajusta o nível base da previsão",
+              "accent": "#a855f7"
+            }
+          ],
+          "footer": "Aqui o modelo continua o mesmo do slide anterior, agora lido como combinação linear explícita."
+        },
+        "graphPanel": {
+          "eyebrow": "Projeção visual",
+          "title": "A superfície de previsão pode ser lida como um corte no gráfico",
+          "description": "Mesmo com altura e idade entrando juntas, ainda podemos olhar um corte da previsão para enxergar a tendência e comparar com os pontos observados.",
+          "inputNodes": [],
+          "outputLabel": "Peso previsto",
+          "outputNode": {
+            "label": "Corte da previsão",
+            "accent": "#fbbf24"
+          },
+          "chart": {
+            "xLabel": "Altura (X)",
+            "yLabel": "Peso (Y)",
+            "lineLabel": "corte da superfície",
+            "points": [
+              {
+                "x": 130,
+                "y": 196,
+                "label": "160 / 55",
+                "accent": "#00e5ff"
+              },
+              {
+                "x": 245,
+                "y": 154,
+                "label": "170 / 64",
+                "accent": "#fbbf24"
+              },
+              {
+                "x": 365,
+                "y": 108,
+                "label": "180 / 72",
+                "accent": "#ff2e97"
+              }
+            ],
+            "lineStart": {
+              "x": 112,
+              "y": 194
+            },
+            "lineEnd": {
+              "x": 398,
+              "y": 90
+            },
+            "footer": "Esse corte resume a tendência geral sem mostrar toda a superfície ao mesmo tempo."
+          },
+          "footer": "O treino continua tentando achar a combinação de parâmetros que melhor aproxima os pesos observados."
+        }
+      },
+      "en-us": {
+        "tabs": [
+          {
+            "label": "Formula"
+          },
+          {
+            "label": "Chart"
+          }
+        ],
+        "formulaPanel": {
+          "eyebrow": "2-variable view",
+          "formula": "ŷ = β₀ + β₁ * height + β₂ * age",
+          "description": "With two inputs, the model learns how much height and age should matter in the prediction, plus a baseline adjustment.",
+          "points": [
+            {
+              "label": "height and age are the known inputs",
+              "accent": "#00e5ff"
+            },
+            {
+              "label": "weight is the predicted numeric output",
+              "accent": "#fbbf24"
+            },
+            {
+              "label": "β₁ and β₂ control each variable weight",
+              "accent": "#ff2e97"
+            },
+            {
+              "label": "β₀ adjusts the baseline level",
+              "accent": "#a855f7"
+            }
+          ],
+          "footer": "This is the same model from the previous slide, now read as an explicit linear combination."
+        },
+        "graphPanel": {
+          "eyebrow": "Visual projection",
+          "title": "The prediction surface can be read as a slice on the chart",
+          "description": "Even with height and age entering together, we can still inspect one slice of the prediction to see the trend and compare it with the observed points.",
+          "inputNodes": [],
+          "outputLabel": "Predicted weight",
+          "outputNode": {
+            "label": "Prediction slice",
+            "accent": "#fbbf24"
+          },
+          "chart": {
+            "xLabel": "Height (X)",
+            "yLabel": "Weight (Y)",
+            "lineLabel": "surface slice",
+            "points": [
+              {
+                "x": 130,
+                "y": 196,
+                "label": "160 / 55",
+                "accent": "#00e5ff"
+              },
+              {
+                "x": 245,
+                "y": 154,
+                "label": "170 / 64",
+                "accent": "#fbbf24"
+              },
+              {
+                "x": 365,
+                "y": 108,
+                "label": "180 / 72",
+                "accent": "#ff2e97"
+              }
+            ],
+            "lineStart": {
+              "x": 112,
+              "y": 194
+            },
+            "lineEnd": {
+              "x": 398,
+              "y": 90
+            },
+            "footer": "That slice summarizes the overall trend without showing the whole surface at once."
+          },
+          "footer": "Training is still trying to find the parameter combination that best approximates the observed weights."
+        }
+      }
+    }
+  }
+}

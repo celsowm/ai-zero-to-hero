@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ISlide, Language } from '../types/slide';
+import { CodeSlide } from './CodeSlide';
 import { MarkdownSlide } from './MarkdownSlide';
 import { TwoColumnSlide } from './TwoColumnSlide';
 
@@ -17,6 +18,9 @@ export const SlideFactory: React.FC<SlideFactoryProps> = ({ slide, language }) =
     
     case 'two-column':
       return <TwoColumnSlide slide={slide} language={language} />;
+
+    case 'code':
+      return <CodeSlide content={content} />;
     
     // Futuros tipos de slides serão adicionados aqui (ex: svg-anim, code)
     default:

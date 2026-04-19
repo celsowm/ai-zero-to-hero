@@ -1,0 +1,37 @@
+{
+  "id": "ia-vs-tradicionais",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.7,
+      0.3
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "IA vs sistemas tradicionais",
+      "body": "Antes de comparar tecnologias, vale a pergunta central: **a regra já é conhecida ou precisa ser descoberta a partir dos dados?**\n\n1. **Software tradicional:** o comportamento nasce de regras explícitas, escritas pelo programador. Se a lógica muda, o código precisa ser alterado.\n\n2. **IA/ML:** o comportamento é aprendido a partir de exemplos. O programador define a estrutura e o objetivo; os dados ajustam os parâmetros.\n\n3. **Quando cada abordagem brilha:** sistemas tradicionais são fortes em fluxos claros, decisões auditáveis e regras estáveis. IA é mais útil quando há ruído, ambiguidade, variação e padrões difíceis de programar manualmente.\n\n4. **Leitura correta:** tradicional = determinístico por construção. IA = probabilístico por aprendizado. Na prática, os melhores produtos combinam os dois: regras para o que é fixo; modelos para o que é incerto.\n\n> Em resumo: no software tradicional, você escreve a regra. Em IA, você ensina o sistema a aprendê-la."
+    },
+    "en-us": {
+      "title": "AI vs Traditional Systems",
+      "body": "Before comparing technologies, the key question is: **is the rule already known, or does it need to be discovered from data?**\n\n1. **Traditional software:** behavior comes from explicit rules written by the programmer. If the logic changes, the code must change.\n\n2. **AI/ML:** behavior is learned from examples. The programmer defines the structure and objective; the data adjust the parameters.\n\n3. **When each approach shines:** traditional systems are strong in clear workflows, auditable decisions, and stable rules. AI is more useful when there is noise, ambiguity, variation, and patterns that are hard to encode manually.\n\n4. **Correct reading:** traditional = deterministic by construction. AI = probabilistic by learning. In practice, the best products combine both: rules for what is fixed; models for what is uncertain.\n\n> In short: traditional software writes the rule. AI teaches the system to learn it."
+    }
+  },
+  "visual": {
+    "id": "localized-image",
+    "copy": {
+      "pt-br": {
+        "src": "traditionalVsAiPtBr",
+        "alt": "Comparação visual entre IA e sistemas tradicionais em português",
+        "openLabel": "Abrir imagem ampliada",
+        "closeLabel": "Fechar imagem ampliada"
+      },
+      "en-us": {
+        "src": "traditionalVsAiEnUs",
+        "alt": "Visual comparison between AI and traditional systems in English",
+        "openLabel": "Open enlarged image",
+        "closeLabel": "Close enlarged image"
+      }
+    }
+  }
+}

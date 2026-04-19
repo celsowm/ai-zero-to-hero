@@ -1,0 +1,20 @@
+{
+  "id": "neural-network-neuron-relu",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.62,
+      0.38
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "O neurônio: a menor peça da rede",
+      "body": "Agora a ponte fica concreta. Um neurônio artificial começa como uma soma ponderada, muito parecida com regressão linear, e só depois passa por uma função de ativação.\n\n1. **Soma linear:** `z = w * x + b` calcula um valor bruto a partir da entrada.\n\n2. **ReLU:** a ativação mais simples é `relu(z) = max(0, z)`. Se `z` for negativo, ela devolve `0`; se for positivo, devolve o próprio valor.\n\n3. **Por que isso existe:** sem ativação, várias camadas lineares continuam equivalendo a uma única transformação linear.\n\n4. **O efeito prático:** a ReLU cria uma quebra simples. Isso permite representar limiares, trechos e mudanças de ritmo.\n\n> Sem ativação, a rede só empilha retas. Com ReLU, ela ganha uma dobra.\n\n---\n\n### Fórmula mínima\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` é a resposta bruta\n- `a` é a saída ativada\n- ReLU zera o que está abaixo de zero\n\n### Intuição\nSe `x` medir carga:\n- abaixo do limiar, o neurônio fica em zero\n- acima do limiar, ele começa a reagir"
+    },
+    "en-us": {
+      "title": "The neuron: the smallest piece of the network",
+      "body": "Now the bridge becomes concrete. An artificial neuron starts as a weighted sum, very close to linear regression, and only then passes through an activation function.\n\n1. **Linear sum:** `z = w * x + b` computes a raw score from the input.\n\n2. **ReLU:** the simplest activation is `relu(z) = max(0, z)`. If `z` is negative, it returns `0`; if it is positive, it returns the value itself.\n\n3. **Why it exists:** without activation, several linear layers still collapse into a single linear transformation.\n\n4. **The practical effect:** ReLU creates a simple break. That lets the model represent thresholds, segments, and changes in pace.\n\n> Without activation, the network only stacks lines. With ReLU, it gets a bend.\n\n---\n\n### Minimum formula\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` is the raw response\n- `a` is the activated output\n- ReLU zeros out what is below zero\n\n### Intuition\nIf `x` measures load:\n- below the threshold, the neuron stays at zero\n- above the threshold, it starts reacting"
+    }
+  }
+}
