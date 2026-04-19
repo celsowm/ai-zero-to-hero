@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import type { LinearRegression3DChartVisualCopy } from '../../../types/slide';
+import type { LinearRegression2DChartCopy, LinearRegression3DChartVisualCopy } from '../../../types/slide';
 
 interface LinearRegression3DChartVisualProps {
   copy: LinearRegression3DChartVisualCopy;
@@ -103,6 +103,55 @@ const overlayGroupStyle: React.CSSProperties = {
   flexWrap: 'wrap',
 };
 
+const symbolOverlayStyle: React.CSSProperties = {
+  position: 'absolute',
+  top: 14,
+  left: 14,
+  width: 240,
+  padding: 12,
+  borderRadius: 14,
+  background: 'rgba(8, 12, 24, 0.72)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  backdropFilter: 'blur(12px)',
+  display: 'grid',
+  gap: 10,
+};
+
+const symbolOverlayTitleStyle: React.CSSProperties = {
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: 'var(--sw-cyan)',
+};
+
+const symbolChipRowStyle: React.CSSProperties = {
+  display: 'grid',
+  gap: 8,
+};
+
+const symbolChipStyle: React.CSSProperties = {
+  display: 'grid',
+  gap: 4,
+  padding: '9px 10px',
+  borderRadius: 12,
+  background: 'rgba(255,255,255,0.035)',
+  border: '1px solid rgba(255,255,255,0.06)',
+};
+
+const symbolChipLabelStyle: React.CSSProperties = {
+  fontSize: 12.5,
+  fontWeight: 700,
+  color: 'var(--sw-text)',
+  lineHeight: 1.25,
+};
+
+const symbolChipDescriptionStyle: React.CSSProperties = {
+  fontSize: 11.5,
+  lineHeight: 1.45,
+  color: 'var(--sw-text-dim)',
+};
+
 const controlsHintStyle: React.CSSProperties = {
   position: 'absolute',
   top: 14,
@@ -116,6 +165,45 @@ const controlsHintStyle: React.CSSProperties = {
   letterSpacing: '0.03em',
   color: 'var(--sw-text-muted)',
   backdropFilter: 'blur(10px)',
+};
+
+const tabButtonStyle = (active: boolean): React.CSSProperties => ({
+  flex: 1,
+  padding: '10px 12px',
+  borderRadius: 12,
+  border: '1px solid transparent',
+  fontSize: 13,
+  fontWeight: 700,
+  letterSpacing: '0.01em',
+  color: active ? '#091018' : 'var(--sw-text-dim)',
+  background: active
+    ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(168, 85, 247, 0.92))'
+    : 'rgba(255, 255, 255, 0.04)',
+  boxShadow: active ? '0 12px 30px rgba(0, 229, 255, 0.12)' : 'none',
+  transition: 'all 180ms ease',
+});
+
+const tabBarStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gap: 10,
+  padding: 8,
+  borderRadius: 16,
+  background: 'rgba(255, 255, 255, 0.03)',
+  border: '1px solid rgba(255, 255, 255, 0.05)',
+};
+
+const guideGridStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+  gap: 10,
+};
+
+const guideCardStyle: React.CSSProperties = {
+  padding: '12px 12px 11px',
+  borderRadius: 14,
+  background: 'rgba(255, 255, 255, 0.03)',
+  border: '1px solid rgba(255, 255, 255, 0.06)',
 };
 
 type Bounds = {
@@ -135,6 +223,7 @@ type ScenePoint = {
 };
 
 type ChartPoint = LinearRegression3DChartVisualCopy['dataset'][number];
+type ComparisonChartPoint = LinearRegression2DChartCopy['dataset'][number];
 
 const buildBounds = (copy: LinearRegression3DChartVisualCopy): Bounds => {
   const heights = copy.dataset.map(point => point.height);
@@ -231,6 +320,143 @@ const projectPoint = (point: ScenePoint) => ({
   x: 260 + point.x * 54 - point.z * 30,
   y: 258 - point.y * 56 - point.z * 24,
 });
+
+const build2DPoint = (value: number, min: number, max: number, start: number, end: number) => {
+  if (max === min) {
+    return (start + end) / 2;
+  }
+
+  return start + ((value - min) / (max - min)) * (end - start);
+};
+
+const Static2DComparison: React.FC<{ copy: LinearRegression2DChartCopy }> = ({ copy }) => {
+  const heights = copy.dataset.map(point => point.height);
+  const weights = copy.dataset.map(point => point.realWeight);
+  const minHeight = Math.min(...heights);
+  const maxHeight = Math.max(...heights);
+  const minWeight = Math.min(...weights);
+  const maxWeight = Math.max(...weights);
+
+  const toPoint = (point: ComparisonChartPoint) => ({
+    x: build2DPoint(point.height, minHeight, maxHeight, 92, 438),
+    y: build2DPoint(point.realWeight, minWeight, maxWeight, 232, 72),
+  });
+
+  const lineStart = copy.lineStart;
+  const lineEnd = copy.lineEnd;
+
+  return (
+    <div style={{ width: '100%', height: '100%', display: 'grid', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
+        <div style={{ minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'var(--sw-cyan)',
+              marginBottom: 10,
+            }}
+          >
+            {copy.eyebrow}
+          </div>
+          <div style={titleStyle}>{copy.title}</div>
+        </div>
+
+        <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.lineLabel}</div>
+      </div>
+
+      <p style={descriptionStyle}>{copy.description}</p>
+
+      <div
+        style={{
+          borderRadius: 18,
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.06)',
+          background:
+            'radial-gradient(circle at 20% 18%, rgba(0, 229, 255, 0.10), transparent 30%), radial-gradient(circle at 86% 10%, rgba(255, 46, 151, 0.10), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))',
+        }}
+      >
+        <svg viewBox="0 0 520 320" width="100%" height="auto" role="img" aria-label={copy.title} style={{ display: 'block' }}>
+          <defs>
+            <linearGradient id="lr2d-line-gradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#00e5ff" />
+              <stop offset="100%" stopColor="#ff2e97" />
+            </linearGradient>
+          </defs>
+
+          <rect x="0" y="0" width="520" height="320" fill="rgba(255,255,255,0.015)" />
+
+          {[92, 152, 212, 272, 332, 392, 452].map(x => (
+            <line key={x} x1={x} y1="52" x2={x} y2="258" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          ))}
+          {[72, 112, 152, 192, 232].map(y => (
+            <line key={y} x1="92" y1={y} x2="452" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          ))}
+
+          <line x1="92" y1="258" x2="452" y2="258" stroke="rgba(255,255,255,0.34)" strokeWidth="2.2" />
+          <line x1="92" y1="258" x2="92" y2="52" stroke="rgba(255,255,255,0.34)" strokeWidth="2.2" />
+
+          <line x1={lineStart.x} y1={lineStart.y} x2={lineEnd.x} y2={lineEnd.y} stroke="url(#lr2d-line-gradient)" strokeWidth="4" strokeLinecap="round" />
+
+          {copy.dataset.map(point => {
+            const projected = toPoint(point);
+            return (
+              <g key={point.label}>
+                <circle cx={projected.x} cy={projected.y} r="6.5" fill="rgba(0,0,0,0.2)" />
+                <circle cx={projected.x} cy={projected.y} r="5" fill={point.accent} />
+                <text x={projected.x} y={projected.y + 20} textAnchor="middle" fontSize="11.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.86)">
+                  {point.label}
+                </text>
+              </g>
+            );
+          })}
+
+          <text x="470" y="86" textAnchor="end" fontSize="12" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+            {copy.lineLabel}
+          </text>
+          <text x="272" y="304" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+            {copy.xLabel}
+          </text>
+          <text x="22" y="162" transform="rotate(-90 22 162)" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+            {copy.yLabel}
+          </text>
+        </svg>
+      </div>
+
+      <div
+        style={{
+          paddingTop: 2,
+          fontSize: 12.5,
+          lineHeight: 1.6,
+          color: 'var(--sw-text-muted)',
+        }}
+      >
+        {copy.footer}
+      </div>
+
+      <div style={{ display: 'grid', gap: 8 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--sw-cyan)' }}>
+          {copy.symbolGuideTitle}
+        </div>
+        <div style={guideGridStyle}>
+          {copy.symbolGuide.map(item => (
+            <div key={item.symbol} style={guideCardStyle}>
+              <div style={{ ...badgeStyle(item.accent), display: 'inline-flex', marginBottom: 8 }}>
+                {item.symbol}
+              </div>
+              <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--sw-text)', lineHeight: 1.35, marginBottom: 5 }}>
+                {item.label}
+              </div>
+              <div style={{ fontSize: 11.5, lineHeight: 1.55, color: 'var(--sw-text-dim)' }}>{item.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const StaticFallback: React.FC<{ copy: LinearRegression3DChartVisualCopy }> = ({ copy }) => {
   const bounds = buildBounds(copy);
@@ -592,76 +818,123 @@ const LinearRegression3DScene: React.FC<{ copy: LinearRegression3DChartVisualCop
   return <div ref={mountRef} style={{ width: '100%', height: '100%' }} aria-hidden="true" />;
 };
 
-export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisualProps> = ({ copy }) => (
-  <div style={cardStyle}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
-      <div style={{ minWidth: 0 }}>
-        <div
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--sw-cyan)',
-            marginBottom: 10,
-          }}
-        >
-          {copy.eyebrow}
+export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisualProps> = ({ copy }) => {
+    const [activeTab, setActiveTab] = useState(0);
+    const showComparison = Boolean(copy.tabs && copy.comparisonChart);
+    const safeIndex = showComparison && activeTab === 1 ? 1 : 0;
+
+    const renderTabs = () =>
+      showComparison ? (
+        <div style={tabBarStyle}>
+          {copy.tabs!.map((tab, index) => (
+            <button
+              key={tab.label}
+              type="button"
+              style={tabButtonStyle(safeIndex === index)}
+              aria-selected={safeIndex === index}
+              onClick={() => setActiveTab(index)}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-        <div style={titleStyle}>{copy.title}</div>
-      </div>
+      ) : null;
 
-      <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.coefficients.formula}</div>
-    </div>
+    if (safeIndex === 1 && copy.comparisonChart) {
+      return (
+        <div style={cardStyle}>
+          {renderTabs()}
+          <Static2DComparison copy={copy.comparisonChart} />
+        </div>
+      );
+    }
 
-    <p style={descriptionStyle}>{copy.description}</p>
+    return (
+      <div style={cardStyle}>
+        {renderTabs()}
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--sw-cyan)',
+                marginBottom: 10,
+              }}
+            >
+              {copy.eyebrow}
+            </div>
+            <div style={titleStyle}>{copy.title}</div>
+          </div>
+
+          <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.coefficients.formula}</div>
+        </div>
+
+        <p style={descriptionStyle}>{copy.description}</p>
 
     <div style={viewportShellStyle}>
       <LinearRegression3DScene copy={copy} />
 
-      <div style={overlayCardStyle}>
-        <div style={overlayGroupStyle}>
-          <span style={badgeStyle('#00e5ff')}>
-            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
-            {copy.planeLabel}
-          </span>
-          <span style={badgeStyle('#34d399')}>
-            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#34d399', boxShadow: '0 0 18px rgba(52,211,153,0.55)' }} />
-            {copy.realLabel}
-          </span>
-          <span style={badgeStyle('#f8fafc')}>
-            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#f8fafc', boxShadow: '0 0 18px rgba(248,250,252,0.4)' }} />
-            {copy.predictedLabel}
-          </span>
-        </div>
-
-        <div style={{ ...overlayGroupStyle, justifyContent: 'flex-end' }}>
-          <div style={metricStyle}>
-            <div style={metricLabelStyle}>X</div>
-            <div style={metricValueStyle}>{copy.axisLabels.x}</div>
-          </div>
-          <div style={metricStyle}>
-            <div style={metricLabelStyle}>Y</div>
-            <div style={metricValueStyle}>{copy.axisLabels.y}</div>
-          </div>
-          <div style={metricStyle}>
-            <div style={metricLabelStyle}>Z</div>
-            <div style={metricValueStyle}>{copy.axisLabels.z}</div>
-          </div>
+      <div style={symbolOverlayStyle}>
+        <div style={symbolOverlayTitleStyle}>{copy.symbolGuideTitle}</div>
+        <div style={symbolChipRowStyle}>
+          {copy.symbolGuide.map(item => (
+            <div key={item.symbol} style={symbolChipStyle}>
+              <div style={{ ...badgeStyle(item.accent), alignSelf: 'flex-start' }}>{item.symbol}</div>
+              <div style={symbolChipLabelStyle}>{item.label}</div>
+              <div style={symbolChipDescriptionStyle}>{item.description}</div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div style={controlsHintStyle}>arraste para girar, scroll para zoom</div>
-    </div>
+      <div style={overlayCardStyle}>
+        <div style={overlayGroupStyle}>
+          <span style={badgeStyle('#00e5ff')}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+                {copy.planeLabel}
+              </span>
+              <span style={badgeStyle('#34d399')}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#34d399', boxShadow: '0 0 18px rgba(52,211,153,0.55)' }} />
+                {copy.realLabel}
+              </span>
+              <span style={badgeStyle('#f8fafc')}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#f8fafc', boxShadow: '0 0 18px rgba(248,250,252,0.4)' }} />
+                {copy.predictedLabel}
+              </span>
+            </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-      <span style={badgeStyle('#fbbf24')}>β₀ = {copy.coefficients.beta0}</span>
-      <span style={badgeStyle('#00e5ff')}>β₁ = {copy.coefficients.beta1}</span>
-      <span style={badgeStyle('#ff2e97')}>β₂ = {copy.coefficients.beta2}</span>
-      <span style={badgeStyle('#a855f7')}>y = {copy.realLabel}</span>
-      <span style={badgeStyle('#34d399')}>ŷ = {copy.predictedLabel}</span>
-    </div>
+            <div style={{ ...overlayGroupStyle, justifyContent: 'flex-end' }}>
+              <div style={metricStyle}>
+                <div style={metricLabelStyle}>X</div>
+                <div style={metricValueStyle}>{copy.axisLabels.x}</div>
+              </div>
+              <div style={metricStyle}>
+                <div style={metricLabelStyle}>Y</div>
+                <div style={metricValueStyle}>{copy.axisLabels.y}</div>
+              </div>
+              <div style={metricStyle}>
+                <div style={metricLabelStyle}>Z</div>
+                <div style={metricValueStyle}>{copy.axisLabels.z}</div>
+              </div>
+            </div>
+          </div>
 
-    <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
-  </div>
-);
+          <div style={controlsHintStyle}>arraste para girar, scroll para zoom</div>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+          <span style={badgeStyle('#fbbf24')}>β₀ = {copy.coefficients.beta0}</span>
+          <span style={badgeStyle('#00e5ff')}>β₁ = {copy.coefficients.beta1}</span>
+          <span style={badgeStyle('#ff2e97')}>β₂ = {copy.coefficients.beta2}</span>
+          <span style={badgeStyle('#a855f7')}>y = {copy.realLabel}</span>
+          <span style={badgeStyle('#34d399')}>ŷ = {copy.predictedLabel}</span>
+        </div>
+
+        <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+      </div>
+    );
+  };

@@ -334,11 +334,11 @@ export const courseContent: ISlide[] = [
     content: {
       'pt-br': {
         title: 'Regressão Linear: combinando altura e idade',
-        body: 'Seguimos no mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Em vez de pensar em uma reta isolada, agora vale ler a regressão linear como uma combinação de duas entradas que formam uma superfície de previsão.\n\n1. **Altura e idade entram juntas:** cada pessoa chega ao modelo com dois valores conhecidos.\n\n2. **Peso é a saída prevista:** o modelo devolve um número estimado para aquele par de entradas.\n\n3. **`β₁` e `β₂` pesam cada variável:** um coeficiente ajusta a contribuição da altura e o outro ajusta a contribuição da idade.\n\n4. **`β₀` desloca a previsão base:** ele move toda a superfície para cima ou para baixo. Depois de montar essa combinação, o próximo passo é medir o quanto ela ficou perto do peso real.\n\n> Em duas variáveis, regressão linear combina entradas conhecidas para aproximar um valor numérico.\n\n---',
+        body: 'Seguimos no mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Em vez de pensar em uma reta isolada, agora vale ler a regressão linear como uma combinação de duas entradas que formam uma superfície de previsão.\n\n1. **Altura e idade entram juntas:** cada pessoa chega ao modelo com dois valores conhecidos.\n\n2. **Peso é a saída prevista:** o modelo devolve um número estimado para aquele par de entradas.\n\n3. **`β₁` e `β₂` são os coeficientes angulares / inclinações:** eles dizem o quanto a previsão sobe ou desce quando altura ou idade mudam.\n\n4. **`β₀` é o coeficiente linear / intercepto:** ele desloca a previsão base para cima ou para baixo sem mudar a inclinação geral. Depois de montar essa combinação, o próximo passo é medir o quanto ela ficou perto do peso real.\n\n> Em duas variáveis, regressão linear combina entradas conhecidas para aproximar um valor numérico.\n\n---',
       },
       'en-us': {
         title: 'Linear Regression: combining height and age',
-        body: 'We stay with the same example: predicting **weight** from **height** and **age**. Instead of thinking about a single line, it helps to read linear regression as a combination of two inputs that forms a prediction surface.\n\n1. **Height and age enter together:** each person reaches the model with two known values.\n\n2. **Weight is the predicted output:** the model returns an estimated number for that pair of inputs.\n\n3. **`β₁` and `β₂` weight each variable:** one coefficient adjusts the contribution of height and the other adjusts the contribution of age.\n\n4. **`β₀` shifts the baseline prediction:** it moves the whole surface up or down. After building that combination, the next step is to measure how close it gets to the real weight.\n\n> With two variables, linear regression combines known inputs to approximate a numeric value.\n\n---',
+        body: 'We stay with the same example: predicting **weight** from **height** and **age**. Instead of thinking about a single line, it helps to read linear regression as a combination of two inputs that forms a prediction surface.\n\n1. **Height and age enter together:** each person reaches the model with two known values.\n\n2. **Weight is the predicted output:** the model returns an estimated number for that pair of inputs.\n\n3. **`β₁` and `β₂` are the angular coefficients / slopes:** they tell us how much the prediction rises or falls when height or age changes.\n\n4. **`β₀` is the linear coefficient / intercept:** it shifts the baseline prediction up or down without changing the overall slope. After building that combination, the next step is to measure how close it gets to the real weight.\n\n> With two variables, linear regression combines known inputs to approximate a numeric value.\n\n---',
       },
     },
     visual: {
@@ -799,11 +799,11 @@ export const courseContent: ISlide[] = [
     content: {
       'pt-br': {
         title: 'Regressão Linear: lendo o plano de previsão em 3D',
-        body: 'Agora a regressão deixa de ser apenas fórmula e vira geometria. O mesmo modelo dos próximos slides aparece aqui como um gráfico 3D real.\n\n1. **Eixo X = altura:** cada pessoa entra com um valor conhecido de altura.\n\n2. **Eixo Z = idade:** a segunda entrada também entra no espaço, sem ser escondida em uma reta 2D.\n\n3. **Eixo Y = peso:** a altura vertical mostra o peso, que pode ser o valor real `y` ou o valor previsto `ŷ`.\n\n4. **Pontos coloridos = `y`:** cada ponto observado é um peso real do dataset `(160,20,55)` até `(180,36,72)`.\n\n5. **Plano = `ŷ = β₀ + β₁ * altura + β₂ * idade`:** neste exemplo didático, fixamos `β₀ = -21`, `β₁ = 0.4` e `β₂ = 0.6` manualmente para visualizar a superfície de previsão antes de mostrar o treino aprendendo seus próprios coeficientes.\n\nLegenda curta:\n- `y`: peso real observado\n- `ŷ`: peso previsto pelo modelo\n- `β₀`: intercepto base\n- `β₁` e `β₂`: pesos de altura e idade\n\n> Quando o ponto real fica longe do plano previsto, a diferença visual já antecipa o erro que depois vira MSE.\n\n---',
+        body: 'Agora a regressão deixa de ser apenas fórmula e vira geometria. O mesmo modelo dos próximos slides aparece aqui como um gráfico 3D real.\n\nMapa rápido da fórmula:\n- `β₀`: coeficiente linear / intercepto, o valor base do modelo\n- `β₁`: coeficiente angular da altura, o quanto a previsão sobe quando a altura aumenta\n- `β₂`: coeficiente angular da idade, o quanto a previsão sobe quando a idade aumenta\n- `ŷ`: soma final da previsão, depois que `β₀`, `β₁` e `β₂` fazem seu trabalho\n\n1. **Eixo X = altura:** cada pessoa entra com um valor conhecido de altura.\n\n2. **Eixo Z = idade:** a segunda entrada também entra no espaço, sem ser escondida em uma reta 2D.\n\n3. **Eixo Y = peso:** a altura vertical mostra o peso, que pode ser o valor real `y` ou o valor previsto `ŷ`.\n\n4. **Pontos coloridos = `y`:** cada ponto observado é um peso real do dataset `(160,20,55)` até `(180,36,72)`.\n\n5. **Plano = `ŷ = β₀ + β₁ * altura + β₂ * idade`:** neste exemplo didático, fixamos `β₀ = -21`, `β₁ = 0.4` e `β₂ = 0.6` manualmente para visualizar a superfície de previsão antes de mostrar o treino aprendendo seus próprios coeficientes. Aqui `β₁` e `β₂` funcionam como coeficientes angulares / inclinações, e `β₀` funciona como coeficiente linear / intercepto.\n\nLegenda curta:\n- `y`: peso real observado\n- `ŷ`: peso previsto pelo modelo\n- `β₀`: coeficiente linear / intercepto\n- `β₁` e `β₂`: coeficientes angulares / inclinações\n\n> Quando o ponto real fica longe do plano previsto, a diferença visual já antecipa o erro que depois vira MSE.\n\n---',
       },
       'en-us': {
         title: 'Linear Regression: reading the prediction plane in 3D',
-        body: 'Here regression stops being only a formula and becomes geometry. The same model from the next slides is shown as a real 3D chart.\n\n1. **X axis = height:** each person enters with a known height value.\n\n2. **Z axis = age:** the second input stays visible in space instead of being flattened into a 2D line.\n\n3. **Y axis = weight:** the vertical dimension shows weight, either as the real value `y` or the predicted value `ŷ`.\n\n4. **Colored points = `y`:** each observed point is a real dataset weight from `(160,20,55)` to `(180,36,72)`.\n\n5. **Plane = `ŷ = β₀ + β₁ * height + β₂ * age`:** in this teaching example, we manually fix `β₀ = -21`, `β₁ = 0.4`, and `β₂ = 0.6` to visualize the prediction surface before showing training learn its own coefficients.\n\nShort legend:\n- `y`: observed real weight\n- `ŷ`: model prediction\n- `β₀`: baseline intercept\n- `β₁` and `β₂`: weights for height and age\n\n> When the real point sits far from the prediction plane, that visual gap already anticipates the error that later becomes MSE.\n\n---',
+        body: 'Here regression stops being only a formula and becomes geometry. The same model from the next slides is shown as a real 3D chart.\n\nQuick formula map:\n- `β₀`: linear coefficient / intercept, the model’s base value\n- `β₁`: angular coefficient for height, how much the prediction changes when height increases\n- `β₂`: angular coefficient for age, how much the prediction changes when age increases\n- `ŷ`: final prediction after `β₀`, `β₁`, and `β₂` do their work\n\n1. **X axis = height:** each person enters with a known height value.\n\n2. **Z axis = age:** the second input stays visible in space instead of being flattened into a 2D line.\n\n3. **Y axis = weight:** the vertical dimension shows weight, either as the real value `y` or the predicted value `ŷ`.\n\n4. **Colored points = `y`:** each observed point is a real dataset weight from `(160,20,55)` to `(180,36,72)`.\n\n5. **Plane = `ŷ = β₀ + β₁ * height + β₂ * age`:** in this teaching example, we manually fix `β₀ = -21`, `β₁ = 0.4`, and `β₂ = 0.6` to visualize the prediction surface before showing training learn its own coefficients. Here `β₁` and `β₂` act like angular coefficients / slopes, and `β₀` acts like the linear coefficient / intercept.\n\nShort legend:\n- `y`: observed real weight\n- `ŷ`: model prediction\n- `β₀`: linear coefficient / intercept\n- `β₁` and `β₂`: angular coefficients / slopes\n\n> When the real point sits far from the prediction plane, that visual gap already anticipates the error that later becomes MSE.\n\n---',
       },
     },
     visual: {
@@ -813,6 +813,10 @@ export const courseContent: ISlide[] = [
           eyebrow: 'Plano de previsão',
           title: 'Altura, idade e peso no mesmo espaço',
           description: 'Os pontos mostram pesos reais do dataset. O plano semi-transparente mostra o que a regressão linear prevê para cada combinação de altura e idade.',
+          tabs: [
+            { label: '3D' },
+            { label: '2D' },
+          ],
           axisLabels: {
             x: 'Altura (X)',
             y: 'Peso (Y)',
@@ -834,12 +838,76 @@ export const courseContent: ISlide[] = [
           realLabel: 'ponto real `y`',
           predictedLabel: 'projeção prevista `ŷ`',
           planeLabel: 'plano de regressão',
+          symbolGuideTitle: 'Leitura dos símbolos',
+          symbolGuide: [
+            {
+              symbol: 'β₀',
+              label: 'Intercepto / coeficiente linear',
+              description: 'É a base do modelo. Ele move a superfície inteira para cima ou para baixo.',
+              accent: '#fbbf24',
+            },
+            {
+              symbol: 'β₁',
+              label: 'Coeficiente angular da altura',
+              description: 'Mostra o quanto a previsão muda quando a altura aumenta.',
+              accent: '#00e5ff',
+            },
+            {
+              symbol: 'β₂',
+              label: 'Coeficiente angular da idade',
+              description: 'Mostra o quanto a previsão muda quando a idade aumenta.',
+              accent: '#ff2e97',
+            },
+          ],
+          comparisonChart: {
+            eyebrow: 'Projeção plana',
+            title: 'A mesma relação vista em 2D perde a dimensão da idade',
+            description: 'Aqui olhamos apenas altura vs peso para mostrar que um gráfico plano não consegue exibir, ao mesmo tempo, o efeito da idade na previsão.',
+            xLabel: 'Altura (X)',
+            yLabel: 'Peso (Y)',
+            lineLabel: 'reta ajustada em 2D',
+            dataset: [
+              { height: 160, age: 20, realWeight: 55, label: '160 / 55', accent: '#00e5ff' },
+              { height: 165, age: 24, realWeight: 59, label: '165 / 59', accent: '#fbbf24' },
+              { height: 170, age: 28, realWeight: 64, label: '170 / 64', accent: '#ff2e97' },
+              { height: 175, age: 32, realWeight: 68, label: '175 / 68', accent: '#a855f7' },
+              { height: 180, age: 36, realWeight: 72, label: '180 / 72', accent: '#34d399' },
+            ],
+            lineStart: { x: 104, y: 224 },
+            lineEnd: { x: 432, y: 86 },
+            symbolGuideTitle: 'Leitura dos símbolos',
+            symbolGuide: [
+              {
+                symbol: 'β₀',
+                label: 'Intercepto / coeficiente linear',
+                description: 'É a base da reta. Se ele muda, a reta sobe ou desce sem mudar a inclinação.',
+                accent: '#fbbf24',
+              },
+              {
+                symbol: 'β₁',
+                label: 'Coeficiente angular da altura',
+                description: 'Mostra o quanto o peso previsto muda quando a altura aumenta.',
+                accent: '#00e5ff',
+              },
+              {
+                symbol: 'β₂',
+                label: 'Coeficiente angular da idade',
+                description: 'Existe no modelo, mas não aparece no 2D porque a idade saiu do gráfico.',
+                accent: '#ff2e97',
+              },
+            ],
+            footer: 'No plano 2D, a leitura vira uma reta e `β₂` fica escondido; no 3D, a mesma ideia vira uma superfície e a idade volta a aparecer.',
+          },
           footer: 'A leitura correta é: entradas no plano X/Z, peso no eixo Y, previsão no plano e desvio vertical como erro.',
         },
         'en-us': {
           eyebrow: 'Prediction plane',
           title: 'Height, age, and weight in the same space',
           description: 'The points show real dataset weights. The semi-transparent plane shows what linear regression predicts for each height and age combination.',
+          tabs: [
+            { label: '3D' },
+            { label: '2D' },
+          ],
           axisLabels: {
             x: 'Height (X)',
             y: 'Weight (Y)',
@@ -861,6 +929,66 @@ export const courseContent: ISlide[] = [
           realLabel: 'real point `y`',
           predictedLabel: 'predicted projection `ŷ`',
           planeLabel: 'regression plane',
+          symbolGuideTitle: 'Symbol reading',
+          symbolGuide: [
+            {
+              symbol: 'β₀',
+              label: 'Intercept / linear coefficient',
+              description: 'It is the model base. It moves the whole surface up or down.',
+              accent: '#fbbf24',
+            },
+            {
+              symbol: 'β₁',
+              label: 'Angular coefficient for height',
+              description: 'It shows how much the prediction changes when height increases.',
+              accent: '#00e5ff',
+            },
+            {
+              symbol: 'β₂',
+              label: 'Angular coefficient for age',
+              description: 'It shows how much the prediction changes when age increases.',
+              accent: '#ff2e97',
+            },
+          ],
+          comparisonChart: {
+            eyebrow: 'Flat projection',
+            title: 'The same relationship in 2D loses the age dimension',
+            description: 'Here we look only at height vs weight to show that a flat chart cannot display, at the same time, the effect of age on the prediction.',
+            xLabel: 'Height (X)',
+            yLabel: 'Weight (Y)',
+            lineLabel: '2D fitted line',
+            dataset: [
+              { height: 160, age: 20, realWeight: 55, label: '160 / 55', accent: '#00e5ff' },
+              { height: 165, age: 24, realWeight: 59, label: '165 / 59', accent: '#fbbf24' },
+              { height: 170, age: 28, realWeight: 64, label: '170 / 64', accent: '#ff2e97' },
+              { height: 175, age: 32, realWeight: 68, label: '175 / 68', accent: '#a855f7' },
+              { height: 180, age: 36, realWeight: 72, label: '180 / 72', accent: '#34d399' },
+            ],
+            lineStart: { x: 104, y: 224 },
+            lineEnd: { x: 432, y: 86 },
+            symbolGuideTitle: 'Symbol reading',
+            symbolGuide: [
+              {
+                symbol: 'β₀',
+                label: 'Intercept / linear coefficient',
+                description: 'It is the base of the line. If it changes, the line moves up or down without changing slope.',
+                accent: '#fbbf24',
+              },
+              {
+                symbol: 'β₁',
+                label: 'Angular coefficient for height',
+                description: 'It shows how much the predicted weight changes when height increases.',
+                accent: '#00e5ff',
+              },
+              {
+                symbol: 'β₂',
+                label: 'Angular coefficient for age',
+                description: 'It still exists in the model, but it is hidden here because age is not drawn on the graph.',
+                accent: '#ff2e97',
+              },
+            ],
+            footer: 'In 2D, the line shows only the height effect and `β₂` stays hidden; in 3D, the surface shows both height and age.',
+          },
           footer: 'The correct reading is: inputs on the X/Z plane, weight on Y, prediction on the plane, and the vertical gap as error.',
         },
       },
@@ -1036,11 +1164,11 @@ export const courseContent: ISlide[] = [
     content: {
       'pt-br': {
         title: 'Regressão Linear em Python: a primeira versão do treino',
-        body: 'Agora sim vamos para o Python, mantendo o mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Até aqui, usamos coeficientes fixados manualmente para entender a mecânica da previsão e do MSE; agora o código vai aprender seus próprios `beta_0`, `beta_1` e `beta_2` a partir dos dados.\n\n1. **A função da previsão:** a forma básica agora combina duas entradas com dois coeficientes e um intercepto.\n\n2. **As entradas e a saída:** altura e idade entram; peso sai. O modelo precisa aprender três números: `beta_0`, `beta_1` e `beta_2`.\n\n3. **O fluxo do treino:** calcular `ŷ`, medir o erro e ajustar os parâmetros um pouco de cada vez.\n\n4. **A leitura de programador:** `predict` calcula, `mse` mede, `train` corrige. É uma função, uma métrica e um loop.\n\n> Em Python, regressão linear continua simples: uma fórmula, um custo e uma rotina de ajuste.\n\n---\n\n```python\n# prever peso usando altura e idade\n\ndados = [\n    (160, 20, 55),\n    (165, 24, 59),\n    (170, 28, 64),\n    (175, 32, 68),\n    (180, 36, 72),\n]\n\ndef prever(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\n\n\ndef mse(dados, beta_0, beta_1, beta_2):\n    soma = 0\n    for altura, idade, y in dados:\n        y_hat = prever(altura, idade, beta_0, beta_1, beta_2)\n        erro = y_hat - y\n        soma += erro ** 2\n    return soma / len(dados)\n\n\ndef treinar_regressao_linear(dados, epochs=10000, lr=0.00001):\n    beta_0 = 0.0\n    beta_1 = 0.0\n    beta_2 = 0.0\n    n = len(dados)\n\n    for epoch in range(epochs):\n        grad_beta_0 = 0.0\n        grad_beta_1 = 0.0\n        grad_beta_2 = 0.0\n\n        for altura, idade, y in dados:\n            y_hat = prever(altura, idade, beta_0, beta_1, beta_2)\n            erro = y_hat - y\n            grad_beta_0 += 2 * erro\n            grad_beta_1 += 2 * erro * altura\n            grad_beta_2 += 2 * erro * idade\n\n        grad_beta_0 /= n\n        grad_beta_1 /= n\n        grad_beta_2 /= n\n\n        beta_0 -= lr * grad_beta_0\n        beta_1 -= lr * grad_beta_1\n        beta_2 -= lr * grad_beta_2\n\n    return beta_0, beta_1, beta_2\n\n\nbeta_0, beta_1, beta_2 = treinar_regressao_linear(dados)\n\nprint("\\nModelo final:")\nprint(f"peso = {beta_0:.4f} + {beta_1:.4f} * altura + {beta_2:.4f} * idade")\n```\n\n> O mesmo raciocínio dos slides anteriores aparece inteiro no código: entradas conhecidas, previsão `ŷ`, erro, custo e ajuste dos parâmetros.',
+        body: 'Agora sim vamos para o Python, mantendo o mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Até aqui, usamos coeficientes fixados manualmente para entender a mecânica da previsão e do MSE; agora o código vai aprender seus próprios `beta_0`, `beta_1` e `beta_2` a partir dos dados.\n\n1. **A função da previsão:** a forma básica agora combina duas entradas com dois coeficientes e um intercepto. Aqui `beta_0` é o intercepto, ou seja, o valor base que aparece mesmo antes de considerar altura e idade.\n\n2. **As entradas e a saída:** altura e idade entram; peso sai. O modelo precisa aprender três números: `beta_0`, `beta_1` e `beta_2`.\n\n3. **O fluxo do treino:** calcular `ŷ`, medir o erro e ajustar os parâmetros um pouco de cada vez.\n\n4. **A leitura de programador:** `predict` calcula, `mse` mede, `train` corrige. É uma função, uma métrica e um loop.\n\n> Em Python, regressão linear continua simples: uma fórmula, um custo e uma rotina de ajuste.\n\n---\n\n```python\n# prever peso usando altura e idade\n\ndados = [\n    (160, 20, 55),\n    (165, 24, 59),\n    (170, 28, 64),\n    (175, 32, 68),\n    (180, 36, 72),\n]\n\ndef prever(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\n\n\ndef mse(dados, beta_0, beta_1, beta_2):\n    soma = 0\n    for altura, idade, y in dados:\n        y_hat = prever(altura, idade, beta_0, beta_1, beta_2)\n        erro = y_hat - y\n        soma += erro ** 2\n    return soma / len(dados)\n\n\ndef treinar_regressao_linear(dados, epochs=10000, lr=0.00001):\n    beta_0 = 0.0\n    beta_1 = 0.0\n    beta_2 = 0.0\n    n = len(dados)\n\n    for epoch in range(epochs):\n        grad_beta_0 = 0.0\n        grad_beta_1 = 0.0\n        grad_beta_2 = 0.0\n\n        for altura, idade, y in dados:\n            y_hat = prever(altura, idade, beta_0, beta_1, beta_2)\n            erro = y_hat - y\n            grad_beta_0 += 2 * erro\n            grad_beta_1 += 2 * erro * altura\n            grad_beta_2 += 2 * erro * idade\n\n        grad_beta_0 /= n\n        grad_beta_1 /= n\n        grad_beta_2 /= n\n\n        beta_0 -= lr * grad_beta_0\n        beta_1 -= lr * grad_beta_1\n        beta_2 -= lr * grad_beta_2\n\n    return beta_0, beta_1, beta_2\n\n\nbeta_0, beta_1, beta_2 = treinar_regressao_linear(dados)\n\nprint("\\nModelo final:")\nprint(f"peso = {beta_0:.4f} + {beta_1:.4f} * altura + {beta_2:.4f} * idade")\n```\n\n> O mesmo raciocínio dos slides anteriores aparece inteiro no código: entradas conhecidas, previsão `ŷ`, erro, custo e ajuste dos parâmetros.',
       },
       'en-us': {
         title: 'Linear Regression in Python: the first training version',
-        body: 'Now we move to Python while keeping the same example: predicting **weight** from **height** and **age**. Up to this point, we used manually fixed coefficients to understand the mechanics of prediction and MSE; now the code will learn its own `beta_0`, `beta_1`, and `beta_2` from data.\n\n1. **The prediction function:** the basic form now combines two inputs with two coefficients and one intercept.\n\n2. **Inputs and output:** height and age go in; weight comes out. The model needs to learn three numbers: `beta_0`, `beta_1`, and `beta_2`.\n\n3. **Training flow:** compute `ŷ`, measure the error, and adjust the parameters little by little.\n\n4. **Programmer reading:** `predict` calculates, `mse` measures, `train` corrects. It is one function, one metric, and one loop.\n\n> In Python, linear regression still stays simple: one formula, one cost, and one adjustment routine.\n\n---\n\n```python\n# predict weight using height and age\n\ndata = [\n    (160, 20, 55),\n    (165, 24, 59),\n    (170, 28, 64),\n    (175, 32, 68),\n    (180, 36, 72),\n]\n\ndef predict(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\n\n\ndef mse(data, beta_0, beta_1, beta_2):\n    total = 0\n    for height, age, y in data:\n        y_hat = predict(height, age, beta_0, beta_1, beta_2)\n        error = y_hat - y\n        total += error ** 2\n    return total / len(data)\n\n\ndef train_linear_regression(data, epochs=10000, lr=0.00001):\n    beta_0 = 0.0\n    beta_1 = 0.0\n    beta_2 = 0.0\n    n = len(data)\n\n    for epoch in range(epochs):\n        grad_beta_0 = 0.0\n        grad_beta_1 = 0.0\n        grad_beta_2 = 0.0\n\n        for height, age, y in data:\n            y_hat = predict(height, age, beta_0, beta_1, beta_2)\n            error = y_hat - y\n            grad_beta_0 += 2 * error\n            grad_beta_1 += 2 * error * height\n            grad_beta_2 += 2 * error * age\n\n        grad_beta_0 /= n\n        grad_beta_1 /= n\n        grad_beta_2 /= n\n\n        beta_0 -= lr * grad_beta_0\n        beta_1 -= lr * grad_beta_1\n        beta_2 -= lr * grad_beta_2\n\n    return beta_0, beta_1, beta_2\n\n\nbeta_0, beta_1, beta_2 = train_linear_regression(data)\n\nprint("\\nFinal model:")\nprint(f"weight = {beta_0:.4f} + {beta_1:.4f} * height + {beta_2:.4f} * age")\n```\n\n> The same reasoning from the previous slides now appears end to end in code: known inputs, prediction `ŷ`, error, cost, and parameter adjustment.',
+        body: 'Now we move to Python while keeping the same example: predicting **weight** from **height** and **age**. Up to this point, we used manually fixed coefficients to understand the mechanics of prediction and MSE; now the code will learn its own `beta_0`, `beta_1`, and `beta_2` from data.\n\n1. **The prediction function:** the basic form now combines two inputs with two coefficients and one intercept. Here `beta_0` is the intercept, the base value added before height and age contribute.\n\n2. **Inputs and output:** height and age go in; weight comes out. The model needs to learn three numbers: `beta_0`, `beta_1`, and `beta_2`.\n\n3. **Training flow:** compute `ŷ`, measure the error, and adjust the parameters little by little.\n\n4. **Programmer reading:** `predict` calculates, `mse` measures, `train` corrects. It is one function, one metric, and one loop.\n\n> In Python, linear regression still stays simple: one formula, one cost, and one adjustment routine.\n\n---\n\n```python\n# predict weight using height and age\n\ndata = [\n    (160, 20, 55),\n    (165, 24, 59),\n    (170, 28, 64),\n    (175, 32, 68),\n    (180, 36, 72),\n]\n\ndef predict(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\n\n\ndef mse(data, beta_0, beta_1, beta_2):\n    total = 0\n    for height, age, y in data:\n        y_hat = predict(height, age, beta_0, beta_1, beta_2)\n        error = y_hat - y\n        total += error ** 2\n    return total / len(data)\n\n\ndef train_linear_regression(data, epochs=10000, lr=0.00001):\n    beta_0 = 0.0\n    beta_1 = 0.0\n    beta_2 = 0.0\n    n = len(data)\n\n    for epoch in range(epochs):\n        grad_beta_0 = 0.0\n        grad_beta_1 = 0.0\n        grad_beta_2 = 0.0\n\n        for height, age, y in data:\n            y_hat = predict(height, age, beta_0, beta_1, beta_2)\n            error = y_hat - y\n            grad_beta_0 += 2 * error\n            grad_beta_1 += 2 * error * height\n            grad_beta_2 += 2 * error * age\n\n        grad_beta_0 /= n\n        grad_beta_1 /= n\n        grad_beta_2 /= n\n\n        beta_0 -= lr * grad_beta_0\n        beta_1 -= lr * grad_beta_1\n        beta_2 -= lr * grad_beta_2\n\n    return beta_0, beta_1, beta_2\n\n\nbeta_0, beta_1, beta_2 = train_linear_regression(data)\n\nprint("\\nFinal model:")\nprint(f"weight = {beta_0:.4f} + {beta_1:.4f} * height + {beta_2:.4f} * age")\n```\n\n> The same reasoning from the previous slides now appears end to end in code: known inputs, prediction `ŷ`, error, cost, and parameter adjustment.',
       },
     },
   },

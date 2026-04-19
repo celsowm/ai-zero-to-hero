@@ -157,7 +157,23 @@ export interface LinearRegression3DPointCopy {
   accent: string;
 }
 
+export interface LinearRegression2DChartCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  xLabel: string;
+  yLabel: string;
+  lineLabel: string;
+  dataset: LinearRegression3DPointCopy[];
+  lineStart: { x: number; y: number };
+  lineEnd: { x: number; y: number };
+  symbolGuideTitle: string;
+  symbolGuide: LinearRegressionNotationLegendItemCopy[];
+  footer: string;
+}
+
 export interface LinearRegression3DChartVisualCopy {
+  tabs?: [LinearRegressionTabCopy, LinearRegressionTabCopy];
   eyebrow: string;
   title: string;
   description: string;
@@ -176,7 +192,10 @@ export interface LinearRegression3DChartVisualCopy {
   realLabel: string;
   predictedLabel: string;
   planeLabel: string;
+  symbolGuideTitle: string;
+  symbolGuide: LinearRegressionNotationLegendItemCopy[];
   footer: string;
+  comparisonChart?: LinearRegression2DChartCopy;
 }
 
 export interface ProgressStepperStepCopy {
