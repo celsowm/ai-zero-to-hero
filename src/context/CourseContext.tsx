@@ -3,6 +3,41 @@ import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
 import { courseContent } from '../data/course-content';
 
+const LANGUAGE_STORAGE_KEY = 'ai-zero-to-hero-language';
+
+function isLanguage(value: string | null | undefined): value is Language {
+  return value === 'pt-br' || value === 'en-us';
+}
+
+function normalizeBrowserLanguage(value: string | null | undefined): Language | null {
+  if (!value) return null;
+
+  const normalized = value.toLowerCase();
+
+  if (normalized.startsWith('pt')) return 'pt-br';
+  if (normalized.startsWith('en')) return 'en-us';
+
+  return null;
+}
+
+function getInitialLanguage(): Language {
+  if (typeof window === 'undefined') {
+    return 'pt-br';
+  }
+
+  try {
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    if (isLanguage(storedLanguage)) {
+      return storedLanguage;
+    }
+  } catch {
+    // Ignore storage access issues and fall back to the browser locale.
+  }
+
+  const preferredLanguage = window.navigator.languages?.[0] ?? window.navigator.language;
+  return normalizeBrowserLanguage(preferredLanguage) ?? 'pt-br';
+}
+
 
 interface CourseContextType {
   language: Language;
@@ -32,10 +67,20 @@ function setHash(slideId: string) {
 }
 
 export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('pt-br');
+  const [language, setLanguage] = useState<Language>(getInitialLanguage);
   const [fontScale, setFontScale] = useState(1);
   const slides = courseContent;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(() => getSlideIndexFromHash(slides));
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    } catch {
+      // Ignore storage access issues and keep the current in-memory language.
+    }
+
+    document.documentElement.lang = language === 'pt-br' ? 'pt-BR' : 'en-US';
+  }, [language]);
 
   // Sync URL on slide change
   useEffect(() => {

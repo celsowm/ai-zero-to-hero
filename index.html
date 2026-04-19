@@ -1,10 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Zero to Hero</title>
+    <script>
+      (function () {
+        var storageKey = 'ai-zero-to-hero-language';
+        var language = null;
+
+        function normalize(value) {
+          if (!value) return null;
+          var lower = String(value).toLowerCase();
+          if (lower.indexOf('pt') === 0) return 'pt-BR';
+          if (lower.indexOf('en') === 0) return 'en-US';
+          return null;
+        }
+
+        try {
+          language = normalize(window.localStorage.getItem(storageKey));
+        } catch (error) {
+          language = null;
+        }
+
+        if (!language) {
+          language = normalize((navigator.languages && navigator.languages[0]) || navigator.language) || 'pt-BR';
+        }
+
+        document.documentElement.lang = language;
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />

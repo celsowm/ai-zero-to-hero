@@ -22,6 +22,19 @@ const shellStyle: React.CSSProperties = {
   gap: 14,
 };
 
+const summaryGridStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+  gap: 12,
+  alignItems: 'start',
+};
+
+const summaryBlockStyle: React.CSSProperties = {
+  display: 'grid',
+  gap: 8,
+  minWidth: 0,
+};
+
 const eyebrowStyle: React.CSSProperties = {
   fontSize: 11,
   fontWeight: 700,
@@ -40,20 +53,20 @@ const titleStyle: React.CSSProperties = {
 
 const descriptionStyle: React.CSSProperties = {
   margin: 0,
-  fontSize: 13.5,
-  lineHeight: 1.7,
+  fontSize: 13,
+  lineHeight: 1.55,
   color: 'var(--sw-text-dim)',
 };
 
 const metricsGridStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-  gap: 10,
+  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gap: 8,
 };
 
 const metricCardStyle = (accent: string): React.CSSProperties => ({
-  padding: '12px 12px 11px',
-  borderRadius: 14,
+  padding: '10px 11px 9px',
+  borderRadius: 12,
   background: 'rgba(255,255,255,0.03)',
   border: `1px solid ${accent}33`,
   boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), 0 12px 28px rgba(0,0,0,0.12)`,
@@ -67,9 +80,17 @@ const metricTitleStyle: React.CSSProperties = {
   color: 'var(--sw-text-muted)',
 };
 
-const metricValueStyle: React.CSSProperties = {
+const metricRowStyle: React.CSSProperties = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'baseline',
+  gap: 8,
   marginTop: 6,
-  fontSize: 20,
+  minWidth: 0,
+};
+
+const metricValueStyle: React.CSSProperties = {
+  fontSize: 18,
   lineHeight: 1.05,
   fontWeight: 800,
   letterSpacing: '-0.04em',
@@ -77,9 +98,8 @@ const metricValueStyle: React.CSSProperties = {
 };
 
 const metricDescriptionStyle: React.CSSProperties = {
-  marginTop: 4,
-  fontSize: 11.5,
-  lineHeight: 1.45,
+  fontSize: 11,
+  lineHeight: 1.35,
   color: 'var(--sw-text-dim)',
 };
 
@@ -125,11 +145,11 @@ const chartPadding = {
   left: 70,
   right: 32,
   top: 42,
-  bottom: 62,
+  bottom: 58,
 };
 
 const chartWidth = 640;
-const chartHeight = 380;
+const chartHeight = 344;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
@@ -172,6 +192,33 @@ const buildSmoothPath = (points: ChartPoint[]) => {
   return path;
 };
 
+type GuideCallout = {
+  xOffset: number;
+  yOffset: number;
+  width: number;
+};
+
+const guideCalloutLayouts: GuideCallout[] = [
+  { xOffset: 14, yOffset: -50, width: 152 },
+  { xOffset: -12, yOffset: 18, width: 140 },
+  { xOffset: -160, yOffset: -12, width: 152 },
+];
+
+const splitGuideLabel = (label: string) => {
+  const parts = label.split(':').map(part => part.trim()).filter(Boolean);
+  if (parts.length >= 2) {
+    return [parts[0], parts.slice(1).join(': ')] as const;
+  }
+
+  const words = label.trim().split(/\s+/);
+  if (words.length <= 2) {
+    return [label, ''] as const;
+  }
+
+  const midpoint = Math.ceil(words.length / 2);
+  return [words.slice(0, midpoint).join(' '), words.slice(midpoint).join(' ')] as const;
+};
+
 export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ copy }) => {
   const minUsers = Math.min(...copy.points.map(point => point.users));
   const maxUsers = Math.max(...copy.points.map(point => point.users));
@@ -186,22 +233,26 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
   return (
     <div style={shellStyle}>
       <PanelCard minHeight={0} gap={12}>
-        <div style={{ minWidth: 0 }}>
-          <div style={eyebrowStyle}>{copy.eyebrow}</div>
-          <div style={{ marginTop: 10, display: 'grid', gap: 10 }}>
-            <div style={titleStyle}>{copy.title}</div>
-            <p style={descriptionStyle}>{copy.description}</p>
+        <div style={summaryGridStyle}>
+          <div style={summaryBlockStyle}>
+            <div style={eyebrowStyle}>{copy.eyebrow}</div>
+            <div style={{ display: 'grid', gap: 8 }}>
+              <div style={titleStyle}>{copy.title}</div>
+              <p style={descriptionStyle}>{copy.description}</p>
+            </div>
           </div>
-        </div>
 
-        <div style={metricsGridStyle}>
+          <div style={metricsGridStyle}>
           {copy.metrics.map(metric => (
             <div key={`${metric.title}-${metric.value}`} style={metricCardStyle(metric.accent)}>
               <div style={metricTitleStyle}>{metric.title}</div>
-              <div style={{ ...metricValueStyle, color: metric.accent }}>{metric.value}</div>
-              <div style={metricDescriptionStyle}>{metric.description}</div>
+              <div style={metricRowStyle}>
+                <div style={{ ...metricValueStyle, color: metric.accent }}>{metric.value}</div>
+                <div style={metricDescriptionStyle}>{metric.description}</div>
+              </div>
             </div>
           ))}
+        </div>
         </div>
 
         <div style={chartShellStyle}>
@@ -268,29 +319,39 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
             {guideIndexes.map((index, guideIndex) => {
               const point = chartPoints[index];
               const label = guideLabels[guideIndex];
-              const xOffset = guideIndex === 0 ? 14 : guideIndex === 1 ? -10 : -152;
-              const yOffset = guideIndex === 0 ? 18 : guideIndex === 1 ? -26 : -18;
+              const layout = guideCalloutLayouts[guideIndex];
+              const [primaryLine, secondaryLine] = splitGuideLabel(label);
 
               return (
                 <g key={`${label}-${index}`}>
                   <rect
-                    x={point.x + xOffset}
-                    y={point.y + yOffset}
-                    width={guideIndex === 2 ? 148 : 154}
-                    height="34"
+                    x={point.x + layout.xOffset}
+                    y={point.y + layout.yOffset}
+                    width={layout.width}
+                    height="42"
                     rx="12"
                     fill="rgba(8, 12, 24, 0.84)"
                     stroke="rgba(255,255,255,0.08)"
                   />
                   <text
-                    x={point.x + xOffset + 12}
-                    y={point.y + yOffset + 22}
-                    fontSize="11"
+                    x={point.x + layout.xOffset + 12}
+                    y={point.y + layout.yOffset + 16}
+                    fontSize="10.5"
                     fontWeight="700"
                     fontFamily={fontFamily}
                     fill="rgba(248,250,252,0.92)"
                   >
-                    {label}
+                    {primaryLine}
+                  </text>
+                  <text
+                    x={point.x + layout.xOffset + 12}
+                    y={point.y + layout.yOffset + 30}
+                    fontSize="10"
+                    fontWeight="500"
+                    fontFamily={fontFamily}
+                    fill="rgba(248,250,252,0.74)"
+                  >
+                    {secondaryLine}
                   </text>
                 </g>
               );
@@ -316,17 +377,17 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
           </svg>
         </div>
 
-        <div style={{ display: 'grid', gap: 8 }}>
+        <div style={{ display: 'grid', gap: 6 }}>
           <div style={eyebrowStyle}>{copy.legendTitle}</div>
           <div style={legendRowStyle}>
-          <span style={badgeStyle('#00e5ff')}>
-            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
-            {copy.curveLabel}
-          </span>
-          <span style={badgeStyle('#f8fafc')}>
-            <span style={{ width: 8, height: 8, borderRadius: 999, background: 'rgba(248,250,252,0.88)', boxShadow: '0 0 18px rgba(248,250,252,0.35)' }} />
-            {copy.referenceLabel}
-          </span>
+            <span style={badgeStyle('#00e5ff')}>
+              <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+              {copy.curveLabel}
+            </span>
+            <span style={badgeStyle('#f8fafc')}>
+              <span style={{ width: 8, height: 8, borderRadius: 999, background: 'rgba(248,250,252,0.88)', boxShadow: '0 0 18px rgba(248,250,252,0.35)' }} />
+              {copy.referenceLabel}
+            </span>
           </div>
         </div>
 
