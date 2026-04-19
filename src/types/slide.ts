@@ -52,6 +52,71 @@ export interface MachineLearningPipelineCopy {
   footerLabel: string;
 }
 
+export interface LinearRegressionTabCopy {
+  label: string;
+}
+
+export interface LinearRegressionFormulaPointCopy {
+  label: string;
+  accent: string;
+}
+
+export interface LinearRegressionFormulaPanelCopy {
+  eyebrow: string;
+  formula: string;
+  description: string;
+  points: LinearRegressionFormulaPointCopy[];
+  footer: string;
+}
+
+export interface LinearRegressionGraphNodeCopy {
+  label: string;
+  accent: string;
+}
+
+export interface LinearRegressionChartPointCopy {
+  x: number;
+  y: number;
+  label: string;
+  accent: string;
+}
+
+export interface LinearRegressionChartResidualCopy {
+  x: number;
+  yReal: number;
+  yPred: number;
+  label: string;
+  accent: string;
+}
+
+export interface LinearRegressionChartCopy {
+  xLabel: string;
+  yLabel: string;
+  lineLabel: string;
+  points: LinearRegressionChartPointCopy[];
+  residuals?: LinearRegressionChartResidualCopy[];
+  lineStart: { x: number; y: number };
+  lineEnd: { x: number; y: number };
+  footer: string;
+}
+
+export interface LinearRegressionGraphPanelCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  inputNodes: LinearRegressionGraphNodeCopy[];
+  outputLabel: string;
+  outputNode: LinearRegressionGraphNodeCopy;
+  chart?: LinearRegressionChartCopy;
+  footer: string;
+}
+
+export interface LinearRegressionTabsCopy {
+  tabs: [LinearRegressionTabCopy, LinearRegressionTabCopy];
+  formulaPanel: LinearRegressionFormulaPanelCopy;
+  graphPanel: LinearRegressionGraphPanelCopy;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -72,11 +137,17 @@ export interface MachineLearningPipelineVisual {
   copy: Record<Language, MachineLearningPipelineCopy>;
 }
 
+export interface LinearRegressionTabsVisual {
+  id: 'linear-regression-tabs';
+  copy: Record<Language, LinearRegressionTabsCopy>;
+}
+
 export type SlideVisual =
   | InferenceDiagramVisual
   | LearningLoopDiagramVisual
   | LocalizedImageVisual
-  | MachineLearningPipelineVisual;
+  | MachineLearningPipelineVisual
+  | LinearRegressionTabsVisual;
 
 export interface SlideOptions {
   columns?: number;

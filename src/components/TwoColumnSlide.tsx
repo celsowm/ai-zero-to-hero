@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import type { ISlide, Language } from '../types/slide';
 import { FONT_SCALE_BASE } from '../constants/course';
 import { useCourse } from '../context/CourseContext';
 import { SlideVisualRenderer } from './slide-visuals';
+import { MarkdownRenderer } from './MarkdownRenderer';
+import { SlideFrame } from './SlideFrame';
 
 interface TwoColumnSlideProps {
   slide: ISlide;
@@ -22,36 +23,8 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
   } as React.CSSProperties;
 
   return (
-    <div className="max-w-5xl w-full mx-auto animate-slide-up" style={{ padding: '0 24px' }}>
-      <h1
-        className="glow-pink"
-        style={{
-          fontSize: 36 * FONT_SCALE_BASE * fontScale,
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.2,
-          color: 'var(--sw-pink)',
-          margin: '0 0 16px 0',
-          textAlign: 'center',
-        }}
-      >
-        {content.title}
-      </h1>
-
-      <div
-        className="glow-line"
-        style={{
-          height: 2,
-          borderRadius: 2,
-          marginBottom: 40,
-          maxWidth: 200,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          background: 'linear-gradient(90deg, transparent, var(--sw-pink), var(--sw-purple), transparent)',
-        }}
-      />
-
-      <div className="slide-two-col" style={twoColumnStyle}>
+    <SlideFrame title={content.title} maxWidthClassName="max-w-5xl">
+      <div className="slide-two-col h-full min-h-0" style={twoColumnStyle}>
         <div
           style={{
             padding: 28,
@@ -62,9 +35,16 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
             background: 'rgba(26, 22, 40, 0.4)',
             border: '1px solid rgba(168, 85, 247, 0.08)',
             minWidth: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          <ReactMarkdown>{leftPart || ''}</ReactMarkdown>
+          <div style={{ flex: 1, minHeight: 0, overflow: 'auto', paddingRight: 4 }}>
+            <MarkdownRenderer body={leftPart || ''} variant="two-column" />
+          </div>
         </div>
 
         <div
@@ -74,10 +54,11 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
             background: 'rgba(26, 22, 40, 0.32)',
             border: '1px solid rgba(0, 229, 255, 0.08)',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: 'stretch',
+            justifyContent: 'stretch',
             minHeight: 0,
             minWidth: 0,
+            height: '100%',
             overflow: 'hidden',
           }}
         >
@@ -86,17 +67,25 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
           ) : (
             <div
               style={{
+                flex: 1,
+                minHeight: 0,
+                height: '100%',
                 width: '100%',
                 fontSize: 14 * FONT_SCALE_BASE * fontScale,
                 lineHeight: 1.8,
                 color: 'var(--sw-text-dim)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              <ReactMarkdown>{rightPart || ''}</ReactMarkdown>
+              <div style={{ flex: 1, minHeight: 0, overflow: 'auto', paddingRight: 4 }}>
+                <MarkdownRenderer body={rightPart || ''} variant="two-column" />
+              </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </SlideFrame>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import type { Language, SlideVisual } from '../../types/slide';
 import {
   InferenceDiagram,
+  LinearRegressionTabsVisual,
   LearningLoopDiagram,
   LocalizedImageVisual,
   MachineLearningPipelineDiagram,
@@ -22,6 +23,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <LocalizedImageVisual copy={visual.copy[language]} />;
     case 'machine-learning-pipeline':
       return <MachineLearningPipelineDiagram copy={visual.copy[language]} />;
+    case 'linear-regression-tabs':
+      return <LinearRegressionTabsVisual copy={visual.copy[language]} />;
     default:
       return null;
   }

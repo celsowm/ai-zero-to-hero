@@ -20,7 +20,7 @@ export const FloatingNavigation: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-end items-center gap-2 px-10 py-6">
+    <div className="inline-flex w-fit shrink-0 items-center gap-2 self-end px-10 py-6">
       <button
         onClick={goToPrevSlide}
         disabled={isFirst}
