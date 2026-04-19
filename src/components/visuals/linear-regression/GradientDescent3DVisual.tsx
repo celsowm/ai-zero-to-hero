@@ -188,6 +188,9 @@ const StaticGradientFallback: React.FC<{ copy: GradientDescentVisualCopy }> = ({
       <marker id="gd-fallback-arrow" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
         <path d="M0,0 L10,5 L0,10 z" fill="#ff2e97" />
       </marker>
+      <marker id="gd-fallback-step-arrow" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="#a855f7" />
+      </marker>
     </defs>
 
     <rect width="520" height="360" rx="18" fill="url(#gd-fallback-bg)" />
@@ -218,6 +221,18 @@ const StaticGradientFallback: React.FC<{ copy: GradientDescentVisualCopy }> = ({
       markerEnd="url(#gd-fallback-arrow)"
     />
 
+    <path
+      d="M 166 168 L 214 138"
+      fill="none"
+      stroke="#a855f7"
+      strokeWidth="4"
+      strokeLinecap="round"
+      markerEnd="url(#gd-fallback-step-arrow)"
+    />
+
+    <circle cx="166" cy="168" r="5" fill="#a855f7" />
+    <circle cx="214" cy="138" r="5" fill="#a855f7" />
+
     {staticPath.map((point, index) => (
       <circle
         key={`pt-${index}`}
@@ -245,6 +260,8 @@ const StaticGradientFallback: React.FC<{ copy: GradientDescentVisualCopy }> = ({
 const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ copy }) => {
   const mountRef = React.useRef<HTMLDivElement | null>(null);
   const trailMeshRef = React.useRef<THREE.Line | null>(null);
+  const learningRateSegmentRef = React.useRef<THREE.Line | null>(null);
+  const learningRateTargetRef = React.useRef<THREE.Mesh | null>(null);
   const currentMarkerRef = React.useRef<THREE.Mesh | null>(null);
   const gradientArrowRef = React.useRef<THREE.ArrowHelper | null>(null);
   const minimumMarkerRef = React.useRef<THREE.Mesh | null>(null);
@@ -364,6 +381,20 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
     scene.add(trail);
     trailMeshRef.current = trail;
 
+    const learningRateGeometry = new THREE.BufferGeometry();
+    const learningRatePositions = new Float32Array(6);
+    learningRateGeometry.setAttribute('position', new THREE.BufferAttribute(learningRatePositions, 3));
+    const learningRateSegment = new THREE.Line(
+      learningRateGeometry,
+      new THREE.LineBasicMaterial({
+        color: 0xa855f7,
+        transparent: true,
+        opacity: 0.95,
+      }),
+    );
+    scene.add(learningRateSegment);
+    learningRateSegmentRef.current = learningRateSegment;
+
     const currentMarker = new THREE.Mesh(
       new THREE.SphereGeometry(0.12, 24, 24),
       new THREE.MeshStandardMaterial({
@@ -376,6 +407,19 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
     );
     scene.add(currentMarker);
     currentMarkerRef.current = currentMarker;
+
+    const learningRateTarget = new THREE.Mesh(
+      new THREE.SphereGeometry(0.055, 18, 18),
+      new THREE.MeshStandardMaterial({
+        color: 0xa855f7,
+        emissive: 0x4c1d95,
+        emissiveIntensity: 0.75,
+        roughness: 0.28,
+        metalness: 0.18,
+      }),
+    );
+    scene.add(learningRateTarget);
+    learningRateTargetRef.current = learningRateTarget;
 
     const minimumMarker = new THREE.Mesh(
       new THREE.TorusGeometry(0.14, 0.045, 12, 32),
@@ -430,6 +474,17 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
       currentMarker.position.set(currentX, currentY + 0.11, currentZ);
       currentMarker.scale.setScalar(pulse);
 
+      const nextStepX = currentX - learningRate * currentGrad.x;
+      const nextStepZ = currentZ - learningRate * currentGrad.z;
+      const nextStepY = surfaceHeight(nextStepX, nextStepZ);
+
+      const learningRatePositions = (learningRateSegment.geometry.getAttribute('position') as THREE.BufferAttribute);
+      learningRatePositions.setXYZ(0, currentX, currentY + 0.09, currentZ);
+      learningRatePositions.setXYZ(1, nextStepX, nextStepY + 0.09, nextStepZ);
+      learningRatePositions.needsUpdate = true;
+      learningRateTarget.position.set(nextStepX, nextStepY + 0.09, nextStepZ);
+      learningRateTarget.scale.setScalar(0.92 + Math.sin(elapsed * 4.2 + 0.5) * 0.06);
+
       const minimumY = surfaceHeight(surfaceCenter.x, surfaceCenter.z);
       minimumMarker.position.set(surfaceCenter.x, minimumY + 0.02, surfaceCenter.z);
 
@@ -467,11 +522,14 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
       window.cancelAnimationFrame(raf);
       observer.disconnect();
       trailGeometry.dispose();
+      learningRateGeometry.dispose();
       surfaceGeometry.dispose();
       surfaceMaterial.dispose();
       (trail.material as THREE.Material).dispose();
+      (learningRateSegment.material as THREE.Material).dispose();
       (wireframe.material as THREE.Material).dispose();
       (currentMarker.material as THREE.Material).dispose();
+      (learningRateTarget.material as THREE.Material).dispose();
       (minimumMarker.material as THREE.Material).dispose();
       const arrow = gradientArrowRef.current;
       if (arrow) {

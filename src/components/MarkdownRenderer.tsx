@@ -109,12 +109,11 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
         pre: ({ ...props }) => (
           <pre
             style={{
-              margin: 0,
+              margin: variant === 'single' ? '0 0 24px' : '0 0 18px',
               display: 'block',
               width: '100%',
-              height: '100%',
-              minHeight: 0,
-              overflow: 'hidden',
+              overflow: 'auto',
+              scrollbarGutter: 'stable',
             }}
             {...props}
           />
@@ -129,13 +128,10 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
                 className={className}
                 style={{
                   display: 'block',
-                  height: '100%',
-                  minHeight: 0,
                   width: '100%',
                   background: 'transparent',
                   padding: 0,
-                  overflow: 'auto',
-                  scrollbarGutter: 'stable',
+                  overflow: 'visible',
                   whiteSpace: 'pre',
                   boxSizing: 'border-box',
                 }}

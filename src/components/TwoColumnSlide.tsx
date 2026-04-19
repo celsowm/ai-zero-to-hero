@@ -42,7 +42,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
             flexDirection: 'column',
           }}
         >
-          <div style={{ flex: 1, minHeight: 0, overflow: 'auto', paddingRight: 4 }}>
+          <div style={{ flex: '1 1 0', minHeight: 0, height: 0, overflow: 'auto', paddingRight: 4 }}>
             <MarkdownRenderer body={leftPart || ''} variant="two-column" />
           </div>
         </div>
@@ -79,7 +79,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
                 flexDirection: 'column',
               }}
             >
-              <div style={{ flex: 1, minHeight: 0, overflow: 'auto', paddingRight: 4 }}>
+              <div style={{ flex: '1 1 0', minHeight: 0, height: 0, overflow: 'auto', paddingRight: 4 }}>
                 <MarkdownRenderer body={rightPart || ''} variant="two-column" />
               </div>
             </div>
