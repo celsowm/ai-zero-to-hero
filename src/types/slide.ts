@@ -129,6 +129,101 @@ export interface GradientDescentVisualCopy {
   footerLabel: string;
 }
 
+export interface LinearRegressionNotationLegendItemCopy {
+  symbol: string;
+  label: string;
+  description: string;
+  accent: string;
+}
+
+export interface LinearRegressionNotationVisualCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  formula: string;
+  legendTitle: string;
+  legend: LinearRegressionNotationLegendItemCopy[];
+  comparisonTitle: string;
+  comparisonFormula: string;
+  comparisonDescription: string;
+  footer: string;
+}
+
+export interface LinearRegression3DPointCopy {
+  height: number;
+  age: number;
+  realWeight: number;
+  label: string;
+  accent: string;
+}
+
+export interface LinearRegression3DChartVisualCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  axisLabels: {
+    x: string;
+    y: string;
+    z: string;
+  };
+  dataset: LinearRegression3DPointCopy[];
+  coefficients: {
+    beta0: number;
+    beta1: number;
+    beta2: number;
+    formula: string;
+  };
+  realLabel: string;
+  predictedLabel: string;
+  planeLabel: string;
+  footer: string;
+}
+
+export interface ProgressStepperStepCopy {
+  label: string;
+  title: string;
+  description: string;
+  formula: string;
+  accent: string;
+  highlightedRowIndexes?: number[];
+}
+
+export interface ProgressStepperTableRowCopy {
+  height: string;
+  age: string;
+  realWeight: string;
+  predictedWeight?: string;
+  error?: string;
+  squaredError?: string;
+}
+
+export interface ProgressStepperTableCopy {
+  title: string;
+  headers: {
+    height: string;
+    age: string;
+    realWeight: string;
+    predictedWeight: string;
+    error: string;
+    squaredError: string;
+  };
+  rows: ProgressStepperTableRowCopy[];
+}
+
+export interface ProgressStepperVisualCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  progressLabel: string;
+  previousLabel: string;
+  nextLabel: string;
+  completionLabel: string;
+  completionDescription: string;
+  footer: string;
+  table?: ProgressStepperTableCopy;
+  steps: ProgressStepperStepCopy[];
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -159,13 +254,31 @@ export interface GradientDescentVisual {
   copy: Record<Language, GradientDescentVisualCopy>;
 }
 
+export interface LinearRegressionNotationVisual {
+  id: 'linear-regression-notation';
+  copy: Record<Language, LinearRegressionNotationVisualCopy>;
+}
+
+export interface LinearRegression3DChartVisual {
+  id: 'linear-regression-3d-chart';
+  copy: Record<Language, LinearRegression3DChartVisualCopy>;
+}
+
+export interface ProgressStepperVisual {
+  id: 'progress-stepper';
+  copy: Record<Language, ProgressStepperVisualCopy>;
+}
+
 export type SlideVisual =
   | InferenceDiagramVisual
   | LearningLoopDiagramVisual
   | LocalizedImageVisual
   | MachineLearningPipelineVisual
   | LinearRegressionTabsVisual
-  | GradientDescentVisual;
+  | GradientDescentVisual
+  | LinearRegressionNotationVisual
+  | LinearRegression3DChartVisual
+  | ProgressStepperVisual;
 
 export interface SlideOptions {
   columns?: number;

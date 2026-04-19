@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
 import { FONT_SCALE_BASE } from '../constants/course';
@@ -15,6 +16,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
 
   return (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       rehypePlugins={[[rehypeHighlight, { detect: false }]]}
       components={{
         h1: (props) => <span className="hidden" {...props} />,
@@ -96,6 +98,56 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
               background: 'rgba(168, 85, 247, 0.05)',
               borderLeft: '3px solid var(--sw-purple)',
               color: 'var(--sw-text-muted)',
+            }}
+            {...props}
+          />
+        ),
+        table: ({ ...props }) => (
+          <div
+            style={{
+              width: '100%',
+              overflowX: 'auto',
+              margin: variant === 'single' ? '0 0 24px' : '0 0 18px',
+              borderRadius: 14,
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'rgba(255,255,255,0.02)',
+            }}
+          >
+            <table
+              style={{
+                width: '100%',
+                minWidth: 520,
+                borderCollapse: 'collapse',
+                fontSize: 13 * FONT_SCALE_BASE * fontScale,
+              }}
+              {...props}
+            />
+          </div>
+        ),
+        thead: ({ ...props }) => <thead style={{ background: 'rgba(255,255,255,0.04)' }} {...props} />,
+        th: ({ ...props }) => (
+          <th
+            style={{
+              padding: '10px 12px',
+              textAlign: 'left',
+              color: 'var(--sw-text)',
+              fontSize: 11.5 * FONT_SCALE_BASE * fontScale,
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid rgba(255,255,255,0.08)',
+              whiteSpace: 'nowrap',
+            }}
+            {...props}
+          />
+        ),
+        td: ({ ...props }) => (
+          <td
+            style={{
+              padding: '10px 12px',
+              color: 'var(--sw-text-dim)',
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              whiteSpace: 'nowrap',
             }}
             {...props}
           />

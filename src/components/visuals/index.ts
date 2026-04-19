@@ -4,5 +4,8 @@ export { LocalizedImageVisual } from './LocalizedImageVisual';
 export { InferenceDiagram } from './inference/InferenceDiagram';
 export { LearningLoopDiagram } from './learning-loop/LearningLoopDiagram';
 export { GradientDescent3DVisual } from './linear-regression/GradientDescent3DVisual';
+export { LinearRegression3DChartVisual } from './linear-regression/LinearRegression3DChartVisual';
+export { LinearRegressionNotationVisual } from './linear-regression/LinearRegressionNotationVisual';
 export { MachineLearningPipelineDiagram } from './machine-learning-pipeline/MachineLearningPipelineDiagram';
 export { LinearRegressionTabsVisual } from './linear-regression/LinearRegressionTabsVisual';
+export { ProgressStepperVisual } from './stepper/ProgressStepperVisual';

@@ -3,10 +3,13 @@ import type { Language, SlideVisual } from '../../types/slide';
 import {
   InferenceDiagram,
   GradientDescent3DVisual,
+  LinearRegression3DChartVisual,
+  LinearRegressionNotationVisual,
   LinearRegressionTabsVisual,
   LearningLoopDiagram,
   LocalizedImageVisual,
   MachineLearningPipelineDiagram,
+  ProgressStepperVisual,
 } from '../visuals';
 
 interface SlideVisualRendererProps {
@@ -28,6 +31,12 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <LinearRegressionTabsVisual copy={visual.copy[language]} />;
     case 'gradient-descent-3d':
       return <GradientDescent3DVisual copy={visual.copy[language]} />;
+    case 'linear-regression-3d-chart':
+      return <LinearRegression3DChartVisual copy={visual.copy[language]} />;
+    case 'linear-regression-notation':
+      return <LinearRegressionNotationVisual copy={visual.copy[language]} />;
+    case 'progress-stepper':
+      return <ProgressStepperVisual copy={visual.copy[language]} />;
     default:
       return null;
   }
