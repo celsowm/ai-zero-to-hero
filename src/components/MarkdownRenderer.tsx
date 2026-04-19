@@ -119,7 +119,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
             {...props}
           />
         ),
-        code: ({ className, children, ...props }: any) => {
+        code: ({ className, children, ...props }: React.ComponentPropsWithoutRef<'code'>) => {
           const isBlock = Boolean(className?.includes('hljs') || className?.includes('language-'));
 
           if (isBlock) {

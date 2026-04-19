@@ -117,6 +117,18 @@ export interface LinearRegressionTabsCopy {
   graphPanel: LinearRegressionGraphPanelCopy;
 }
 
+export interface GradientDescentVisualCopy {
+  diagramTitle: string;
+  diagramDescription: string;
+  surfaceLabel: string;
+  gradientLabel: string;
+  learningRateLabel: string;
+  minimumLabel: string;
+  pathLabel: string;
+  startLabel: string;
+  footerLabel: string;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -142,12 +154,18 @@ export interface LinearRegressionTabsVisual {
   copy: Record<Language, LinearRegressionTabsCopy>;
 }
 
+export interface GradientDescentVisual {
+  id: 'gradient-descent-3d';
+  copy: Record<Language, GradientDescentVisualCopy>;
+}
+
 export type SlideVisual =
   | InferenceDiagramVisual
   | LearningLoopDiagramVisual
   | LocalizedImageVisual
   | MachineLearningPipelineVisual
-  | LinearRegressionTabsVisual;
+  | LinearRegressionTabsVisual
+  | GradientDescentVisual;
 
 export interface SlideOptions {
   columns?: number;

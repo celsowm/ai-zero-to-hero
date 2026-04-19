@@ -680,7 +680,7 @@ export const courseContent: ISlide[] = [
               { label: 'cálculo do custo para saber se melhorou', accent: '#fbbf24' },
               { label: 'novo ajuste pequeno na direção certa', accent: '#ff2e97' },
             ],
-            footer: 'Esse ciclo prepara o terreno para o código em Python.',
+            footer: 'No próximo slide, esse passo aparece como uma superfície 3D de custo.',
           },
           graphPanel: {
             eyebrow: 'Caminho de queda',
@@ -720,7 +720,7 @@ export const courseContent: ISlide[] = [
               { label: 'compute the cost to see if it improved', accent: '#fbbf24' },
               { label: 'make a small adjustment in the right direction', accent: '#ff2e97' },
             ],
-            footer: 'This cycle sets up the Python implementation.',
+            footer: 'The next slide turns this step into a 3D cost surface.',
           },
           graphPanel: {
             eyebrow: 'Downhill path',
@@ -745,6 +745,50 @@ export const courseContent: ISlide[] = [
             },
             footer: 'Training keeps repeating until the cost stops dropping meaningfully.',
           },
+        },
+      },
+    },
+  },
+  {
+    id: 'linear-regression-gradient-descent',
+    type: 'two-column',
+    options: {
+      columnRatios: [0.58, 0.42],
+    },
+    content: {
+      'pt-br': {
+        title: 'Regressão Linear: descendo o gradiente',
+        body: 'Agora a ideia deixa de ser apenas “ajustar um pouco” e passa a ter uma regra clara: caminhar na direção em que o custo cai mais rápido.\n\n1. **Superfície de custo:** cada combinação de parâmetros vira uma altura no relevo.\n\n2. **Gradiente:** ele aponta para a subida mais íngreme; para descer, seguimos no sentido oposto.\n\n3. **Taxa de aprendizado:** controla o tamanho do passo. Passos pequenos evitam overshoot; passos grandes podem passar do ponto.\n\n4. **Menor custo:** repetindo o movimento, o modelo chega perto do vale mais baixo da superfície.\n\n> Gradient descent é uma caminhada controlada até o ponto de menor erro.\n\n---',
+      },
+      'en-us': {
+        title: 'Linear Regression: descending the gradient',
+        body: 'Now the idea is no longer just “adjust a little” but a clear rule: move in the direction where the cost falls fastest.\n\n1. **Cost surface:** each parameter combination becomes a height on the terrain.\n\n2. **Gradient:** it points to the steepest uphill direction; to go down, we move in the opposite direction.\n\n3. **Learning rate:** controls the step size. Small steps avoid overshooting; large steps can skip past the minimum.\n\n4. **Lowest cost:** repeating the motion brings the model close to the lowest valley on the surface.\n\n> Gradient descent is a controlled walk toward the minimum error.\n\n---',
+      },
+    },
+    visual: {
+      id: 'gradient-descent-3d',
+      copy: {
+        'pt-br': {
+          diagramTitle: 'Superfície de custo em 3D',
+          diagramDescription: 'O ponto inicial começa alto, o gradiente mostra a direção de maior subida e a trajetória segue o lado oposto com passos curtos até chegar perto do vale.',
+          surfaceLabel: 'superfície de custo',
+          gradientLabel: 'gradiente',
+          learningRateLabel: 'taxa de aprendizado',
+          minimumLabel: 'menor custo',
+          pathLabel: 'trajetória da descida',
+          startLabel: 'ponto inicial',
+          footerLabel: 'Passos curtos e consistentes fazem o modelo descer a superfície sem perder o rumo.',
+        },
+        'en-us': {
+          diagramTitle: '3D cost surface',
+          diagramDescription: 'The starting point begins high, the gradient shows the steepest uphill direction, and the path follows the opposite side with small steps until it reaches the valley.',
+          surfaceLabel: 'cost surface',
+          gradientLabel: 'gradient',
+          learningRateLabel: 'learning rate',
+          minimumLabel: 'lowest cost',
+          pathLabel: 'descent path',
+          startLabel: 'starting point',
+          footerLabel: 'Small, steady steps help the model descend the surface without losing direction.',
         },
       },
     },
