@@ -1,36 +1,15 @@
 import React, { useState } from 'react';
 import { Activity, ArrowRight, FunctionSquare, Scale, UserRound } from 'lucide-react';
 import type { LinearRegressionTabsCopy } from '../../../types/slide';
+import { PanelCard } from '../PanelCard';
+import { TabsBar } from '../TabsBar';
+import { TabbedPanelSurface } from '../TabbedPanelSurface';
 
 interface LinearRegressionTabsVisualProps {
   copy: LinearRegressionTabsCopy;
 }
 
 const iconSize = 16;
-
-const tabButtonStyle = (active: boolean): React.CSSProperties => ({
-  flex: 1,
-  padding: '12px 14px',
-  borderRadius: 12,
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.01em',
-  color: active ? '#091018' : 'var(--sw-text-dim)',
-  background: active
-    ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(168, 85, 247, 0.92))'
-    : 'rgba(255, 255, 255, 0.04)',
-  boxShadow: active ? '0 12px 30px rgba(0, 229, 255, 0.12)' : 'none',
-  transition: 'all 180ms ease',
-});
-
-const cardStyle: React.CSSProperties = {
-  width: '100%',
-  borderRadius: 18,
-  padding: 20,
-  background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.92), rgba(14, 13, 24, 0.94))',
-  border: '1px solid rgba(255, 255, 255, 0.06)',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 40px rgba(0,0,0,0.24)',
-};
 
 const eyebrowStyle: React.CSSProperties = {
   fontSize: 11,
@@ -42,7 +21,7 @@ const eyebrowStyle: React.CSSProperties = {
 };
 
 const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }> = ({ copy }) => (
-  <div style={cardStyle}>
+  <PanelCard minHeight={560}>
     <div style={eyebrowStyle}>{copy.eyebrow}</div>
 
     <div
@@ -123,11 +102,11 @@ const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }>
     >
       {copy.footer}
     </div>
-  </div>
+  </PanelCard>
 );
 
 const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = ({ copy }) => (
-  <div style={cardStyle}>
+  <PanelCard minHeight={560}>
     <div style={eyebrowStyle}>{copy.eyebrow}</div>
 
     <div
@@ -373,43 +352,24 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
     >
       {copy.footer}
     </div>
-  </div>
+  </PanelCard>
 );
 
 export const LinearRegressionTabsVisual: React.FC<LinearRegressionTabsVisualProps> = ({ copy }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const safeIndex = activeTab === 1 ? 1 : 0;
 
   return (
-    <div style={{ width: '100%', display: 'grid', gap: 16 }}>
-      <div
-        role="tablist"
-        aria-label="Linear regression views"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: 10,
-          padding: 8,
-          borderRadius: 16,
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-        }}
-      >
-        {copy.tabs.map((tab, index) => (
-          <button
-            key={tab.label}
-            type="button"
-            role="tab"
-            aria-selected={safeIndex === index}
-            onClick={() => setActiveTab(index)}
-            style={tabButtonStyle(safeIndex === index)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <TabsBar
+        ariaLabel="Linear regression views"
+        items={copy.tabs}
+        activeIndex={activeTab}
+        onChange={setActiveTab}
+      />
 
-      {safeIndex === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : <GraphPanel copy={copy.graphPanel} />}
+      <TabbedPanelSurface>
+        {activeTab === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : <GraphPanel copy={copy.graphPanel} />}
+      </TabbedPanelSurface>
     </div>
   );
 };

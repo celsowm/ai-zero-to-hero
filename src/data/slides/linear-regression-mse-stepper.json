@@ -3,11 +3,11 @@
   "type": "two-column",
   "content": {
     "pt-br": {
-      "title": "Regressão Linear: o MSE antes do Python",
+      "title": "Regressão Linear: calculando o MSE com dados reais",
       "body": "Agora o MSE deixa de ser definição abstrata e vira conta com dados reais.\n\n1. **Dataset usado:** `(160, 20, 55)`, `(165, 24, 59)`, `(170, 28, 64)`, `(175, 32, 68)`, `(180, 36, 72)`.\n\n2. **Entradas e saída:** altura e idade entram; `y` guarda o peso real e `ŷ` guarda a previsão.\n\n3. **Modelo de exemplo:** para fechar a conta manualmente, vamos usar `ŷ = β₀ + β₁ * altura + β₂ * idade`, com `β₀ = -21`, `β₁ = 0.4` e `β₂ = 0.6` escolhidos para este exemplo didático.\n\n4. **Objetivo da conta:** calcular erro, elevar ao quadrado, somar tudo e dividir pelo total de exemplos.\n\n> Quando cada linha do dataset entra na conta, o MSE deixa de ser sigla e vira um número verificável. Aqui o foco é validar a mecânica da conta, não mostrar o resultado do treino.\n\n---"
     },
     "en-us": {
-      "title": "Linear Regression: MSE before Python",
+      "title": "Linear Regression: calculating MSE with real data",
       "body": "Now MSE stops being an abstract definition and becomes arithmetic with real data.\n\n1. **Dataset used:** `(160, 20, 55)`, `(165, 24, 59)`, `(170, 28, 64)`, `(175, 32, 68)`, `(180, 36, 72)`.\n\n2. **Inputs and output:** height and age go in; `y` stores the real weight and `ŷ` stores the prediction.\n\n3. **Example model:** to close the arithmetic by hand, we will use `ŷ = β₀ + β₁ * height + β₂ * age`, with `β₀ = -21`, `β₁ = 0.4`, and `β₂ = 0.6` chosen for this teaching example.\n\n4. **Goal of the calculation:** compute the error, square it, add everything, and divide by the total number of examples.\n\n> When each dataset row enters the arithmetic, MSE stops being an acronym and becomes a verifiable number. The goal here is to validate the mechanics of the calculation, not to show training output.\n\n---"
     }
   },

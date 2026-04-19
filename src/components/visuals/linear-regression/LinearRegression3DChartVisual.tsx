@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import type { LinearRegression2DChartCopy, LinearRegression3DChartVisualCopy } from '../../../types/slide';
+import { TabsBar } from '../TabsBar';
+import { TabbedPanelSurface } from '../TabbedPanelSurface';
 
 interface LinearRegression3DChartVisualProps {
   copy: LinearRegression3DChartVisualCopy;
@@ -12,7 +14,7 @@ const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
 const cardStyle: React.CSSProperties = {
   width: '100%',
   height: '100%',
-  minHeight: 0,
+  minHeight: 560,
   display: 'flex',
   flexDirection: 'column',
   gap: 14,
@@ -165,32 +167,6 @@ const controlsHintStyle: React.CSSProperties = {
   letterSpacing: '0.03em',
   color: 'var(--sw-text-muted)',
   backdropFilter: 'blur(10px)',
-};
-
-const tabButtonStyle = (active: boolean): React.CSSProperties => ({
-  flex: 1,
-  padding: '10px 12px',
-  borderRadius: 12,
-  border: '1px solid transparent',
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.01em',
-  color: active ? '#091018' : 'var(--sw-text-dim)',
-  background: active
-    ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(168, 85, 247, 0.92))'
-    : 'rgba(255, 255, 255, 0.04)',
-  boxShadow: active ? '0 12px 30px rgba(0, 229, 255, 0.12)' : 'none',
-  transition: 'all 180ms ease',
-});
-
-const tabBarStyle: React.CSSProperties = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-  gap: 10,
-  padding: 8,
-  borderRadius: 16,
-  background: 'rgba(255, 255, 255, 0.03)',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
 };
 
 const guideGridStyle: React.CSSProperties = {
@@ -819,122 +795,121 @@ const LinearRegression3DScene: React.FC<{ copy: LinearRegression3DChartVisualCop
 };
 
 export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisualProps> = ({ copy }) => {
-    const [activeTab, setActiveTab] = useState(0);
-    const showComparison = Boolean(copy.tabs && copy.comparisonChart);
-    const safeIndex = showComparison && activeTab === 1 ? 1 : 0;
+  const [activeTab, setActiveTab] = useState(0);
+  const showComparison = Boolean(copy.tabs && copy.comparisonChart);
+  const safeIndex = showComparison && activeTab === 1 ? 1 : 0;
 
-    const renderTabs = () =>
-      showComparison ? (
-        <div style={tabBarStyle}>
-          {copy.tabs!.map((tab, index) => (
-            <button
-              key={tab.label}
-              type="button"
-              style={tabButtonStyle(safeIndex === index)}
-              aria-selected={safeIndex === index}
-              onClick={() => setActiveTab(index)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      ) : null;
+  const renderTabs = () =>
+    showComparison ? (
+      <TabsBar
+        ariaLabel="Linear regression views"
+        items={copy.tabs!}
+        activeIndex={safeIndex}
+        onChange={setActiveTab}
+      />
+    ) : null;
 
-    if (safeIndex === 1 && copy.comparisonChart) {
-      return (
-        <div style={cardStyle}>
-          {renderTabs()}
-          <Static2DComparison copy={copy.comparisonChart} />
-        </div>
-      );
-    }
-
+  if (safeIndex === 1 && copy.comparisonChart) {
     return (
       <div style={cardStyle}>
         {renderTabs()}
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
-          <div style={{ minWidth: 0 }}>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--sw-cyan)',
-                marginBottom: 10,
-              }}
-            >
-              {copy.eyebrow}
-            </div>
-            <div style={titleStyle}>{copy.title}</div>
-          </div>
-
-          <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.coefficients.formula}</div>
-        </div>
-
-        <p style={descriptionStyle}>{copy.description}</p>
-
-    <div style={viewportShellStyle}>
-      <LinearRegression3DScene copy={copy} />
-
-      <div style={symbolOverlayStyle}>
-        <div style={symbolOverlayTitleStyle}>{copy.symbolGuideTitle}</div>
-        <div style={symbolChipRowStyle}>
-          {copy.symbolGuide.map(item => (
-            <div key={item.symbol} style={symbolChipStyle}>
-              <div style={{ ...badgeStyle(item.accent), alignSelf: 'flex-start' }}>{item.symbol}</div>
-              <div style={symbolChipLabelStyle}>{item.label}</div>
-              <div style={symbolChipDescriptionStyle}>{item.description}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div style={overlayCardStyle}>
-        <div style={overlayGroupStyle}>
-          <span style={badgeStyle('#00e5ff')}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
-                {copy.planeLabel}
-              </span>
-              <span style={badgeStyle('#34d399')}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#34d399', boxShadow: '0 0 18px rgba(52,211,153,0.55)' }} />
-                {copy.realLabel}
-              </span>
-              <span style={badgeStyle('#f8fafc')}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#f8fafc', boxShadow: '0 0 18px rgba(248,250,252,0.4)' }} />
-                {copy.predictedLabel}
-              </span>
-            </div>
-
-            <div style={{ ...overlayGroupStyle, justifyContent: 'flex-end' }}>
-              <div style={metricStyle}>
-                <div style={metricLabelStyle}>X</div>
-                <div style={metricValueStyle}>{copy.axisLabels.x}</div>
-              </div>
-              <div style={metricStyle}>
-                <div style={metricLabelStyle}>Y</div>
-                <div style={metricValueStyle}>{copy.axisLabels.y}</div>
-              </div>
-              <div style={metricStyle}>
-                <div style={metricLabelStyle}>Z</div>
-                <div style={metricValueStyle}>{copy.axisLabels.z}</div>
-              </div>
-            </div>
-          </div>
-
-          <div style={controlsHintStyle}>arraste para girar, scroll para zoom</div>
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-          <span style={badgeStyle('#fbbf24')}>β₀ = {copy.coefficients.beta0}</span>
-          <span style={badgeStyle('#00e5ff')}>β₁ = {copy.coefficients.beta1}</span>
-          <span style={badgeStyle('#ff2e97')}>β₂ = {copy.coefficients.beta2}</span>
-          <span style={badgeStyle('#a855f7')}>y = {copy.realLabel}</span>
-          <span style={badgeStyle('#34d399')}>ŷ = {copy.predictedLabel}</span>
-        </div>
-
-        <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+        <TabbedPanelSurface minHeight={560}>
+          <Static2DComparison copy={copy.comparisonChart} />
+        </TabbedPanelSurface>
       </div>
     );
-  };
+  }
+
+  return (
+    <div style={cardStyle}>
+      {renderTabs()}
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
+        <div style={{ minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'var(--sw-cyan)',
+              marginBottom: 10,
+            }}
+          >
+            {copy.eyebrow}
+          </div>
+          <div style={titleStyle}>{copy.title}</div>
+        </div>
+
+        <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.coefficients.formula}</div>
+      </div>
+
+      <p style={descriptionStyle}>{copy.description}</p>
+
+      <TabbedPanelSurface minHeight={560}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={viewportShellStyle}>
+            <LinearRegression3DScene copy={copy} />
+
+            <div style={symbolOverlayStyle}>
+              <div style={symbolOverlayTitleStyle}>{copy.symbolGuideTitle}</div>
+              <div style={symbolChipRowStyle}>
+                {copy.symbolGuide.map(item => (
+                  <div key={item.symbol} style={symbolChipStyle}>
+                    <div style={{ ...badgeStyle(item.accent), alignSelf: 'flex-start' }}>{item.symbol}</div>
+                    <div style={symbolChipLabelStyle}>{item.label}</div>
+                    <div style={symbolChipDescriptionStyle}>{item.description}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={overlayCardStyle}>
+              <div style={overlayGroupStyle}>
+                <span style={badgeStyle('#00e5ff')}>
+                  <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+                  {copy.planeLabel}
+                </span>
+                <span style={badgeStyle('#34d399')}>
+                  <span style={{ width: 8, height: 8, borderRadius: 999, background: '#34d399', boxShadow: '0 0 18px rgba(52,211,153,0.55)' }} />
+                  {copy.realLabel}
+                </span>
+                <span style={badgeStyle('#f8fafc')}>
+                  <span style={{ width: 8, height: 8, borderRadius: 999, background: '#f8fafc', boxShadow: '0 0 18px rgba(248,250,252,0.4)' }} />
+                  {copy.predictedLabel}
+                </span>
+              </div>
+
+              <div style={{ ...overlayGroupStyle, justifyContent: 'flex-end' }}>
+                <div style={metricStyle}>
+                  <div style={metricLabelStyle}>X</div>
+                  <div style={metricValueStyle}>{copy.axisLabels.x}</div>
+                </div>
+                <div style={metricStyle}>
+                  <div style={metricLabelStyle}>Y</div>
+                  <div style={metricValueStyle}>{copy.axisLabels.y}</div>
+                </div>
+                <div style={metricStyle}>
+                  <div style={metricLabelStyle}>Z</div>
+                  <div style={metricValueStyle}>{copy.axisLabels.z}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style={controlsHintStyle}>arraste para girar, scroll para zoom</div>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+            <span style={badgeStyle('#fbbf24')}>β₀ = {copy.coefficients.beta0}</span>
+            <span style={badgeStyle('#00e5ff')}>β₁ = {copy.coefficients.beta1}</span>
+            <span style={badgeStyle('#ff2e97')}>β₂ = {copy.coefficients.beta2}</span>
+            <span style={badgeStyle('#a855f7')}>y = {copy.realLabel}</span>
+            <span style={badgeStyle('#34d399')}>ŷ = {copy.predictedLabel}</span>
+          </div>
+
+          <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+        </div>
+      </TabbedPanelSurface>
+    </div>
+  );
+};

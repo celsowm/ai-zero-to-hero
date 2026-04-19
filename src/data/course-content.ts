@@ -1,6 +1,7 @@
 import type { ISlide, Language, LocalizedImageCopy } from '../types/slide';
 import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
 import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
+import { courseSlideOrder } from './course-outline';
 
 const assetRegistry = {
   traditionalVsAiPtBr,
@@ -19,6 +20,8 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'learning-loop-diagram'; copy: Record<Language, unknown> }
     | { id: 'localized-image'; copy: Record<Language, RawLocalizedImageCopy> }
     | { id: 'machine-learning-pipeline'; copy: Record<Language, unknown> }
+    | { id: 'nonlinear-regression-boundary'; copy: Record<Language, unknown> }
+    | { id: 'api-latency-growth'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-tabs'; copy: Record<Language, unknown> }
     | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-notation'; copy: Record<Language, unknown> }
@@ -63,6 +66,33 @@ function normalizeSlide(slide: RawSlide): ISlide {
   };
 }
 
-export const courseContent: ISlide[] = Object.entries(slideModules)
-  .sort(([left], [right]) => left.localeCompare(right))
-  .map(([, module]) => normalizeSlide(module.default));
+const slidesById = new Map<string, ISlide>();
+
+for (const module of Object.values(slideModules)) {
+  const slide = normalizeSlide(module.default);
+
+  if (slidesById.has(slide.id)) {
+    throw new Error(`Duplicate slide id "${slide.id}" in course content`);
+  }
+
+  slidesById.set(slide.id, slide);
+}
+
+const orderedSlides = courseSlideOrder.map((slideId) => {
+  const slide = slidesById.get(slideId);
+
+  if (!slide) {
+    throw new Error(`Slide "${slideId}" is listed in course outline but was not found in slides JSON`);
+  }
+
+  return slide;
+});
+
+const courseSlideIds = new Set<string>(courseSlideOrder);
+const unexpectedSlides = [...slidesById.keys()].filter(slideId => !courseSlideIds.has(slideId));
+
+if (unexpectedSlides.length > 0) {
+  throw new Error(`Slides are not listed in course outline: ${unexpectedSlides.join(', ')}`);
+}
+
+export const courseContent: ISlide[] = orderedSlides;

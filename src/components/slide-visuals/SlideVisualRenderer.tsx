@@ -6,6 +6,8 @@ import {
   LinearRegression3DChartVisual,
   LinearRegressionNotationVisual,
   LinearRegressionTabsVisual,
+  ApiLatencyGrowthVisual,
+  NonlinearRegressionBoundaryVisual,
   LearningLoopDiagram,
   LocalizedImageVisual,
   MachineLearningPipelineDiagram,
@@ -27,6 +29,10 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <LocalizedImageVisual copy={visual.copy[language]} />;
     case 'machine-learning-pipeline':
       return <MachineLearningPipelineDiagram copy={visual.copy[language]} />;
+    case 'nonlinear-regression-boundary':
+      return <NonlinearRegressionBoundaryVisual copy={visual.copy[language]} />;
+    case 'api-latency-growth':
+      return <ApiLatencyGrowthVisual copy={visual.copy[language]} />;
     case 'linear-regression-tabs':
       return <LinearRegressionTabsVisual copy={visual.copy[language]} />;
     case 'gradient-descent-3d':

@@ -9,11 +9,11 @@
   },
   "content": {
     "pt-br": {
-      "title": "Regressão Linear: como prever um valor",
+      "title": "Regressão Linear: a primeira previsão",
       "body": "Agora que o pipeline está claro, vamos abrir o primeiro modelo simples que aprende com dados reais. Regressão linear é esse ponto de entrada: uma forma de prever um valor numérico a partir de variáveis conhecidas.\n\n1. **Entradas conhecidas:** no nosso exemplo, usamos **altura** e **idade** como informações disponíveis.\n\n2. **Saída prevista:** o objetivo é estimar o **peso**, ou seja, prever um número e não classificar uma categoria.\n\n3. **Fórmula linear:** o modelo combina as entradas em algo como `ŷ = β₀ + β₁ * altura + β₂ * idade`, somando contribuições de cada variável.\n\n4. **Aprendizado pelos dados:** em geral, os coeficientes `β₀`, `β₁` e `β₂` são ajustados a partir de exemplos anteriores para aproximar o peso real. Antes de mostrar esse treino em Python, vamos fixar alguns valores manualmente só para abrir a conta e enxergar a mecânica.\n\n> Em regressão linear, aprender é ajustar a fórmula que melhor aproxima os dados.\n\n---"
     },
     "en-us": {
-      "title": "Linear Regression: how to predict a value",
+      "title": "Linear Regression: the first prediction",
       "body": "Now that the pipeline is clear, we can open the first simple model that learns from real data. Linear regression is that entry point: a way to predict a numeric value from known variables.\n\n1. **Known inputs:** in our example, we use **height** and **age** as the available information.\n\n2. **Predicted output:** the goal is to estimate **weight**, which means predicting a number rather than classifying a category.\n\n3. **Linear formula:** the model combines the inputs into something like `ŷ = β₀ + β₁ * height + β₂ * age`, adding the contribution of each variable.\n\n4. **Learning from data:** in general, the coefficients `β₀`, `β₁`, and `β₂` are adjusted from previous examples to approximate the real weight. Before showing that training in Python, we will temporarily fix some values by hand just to open the arithmetic and inspect the mechanics.\n\n> In linear regression, learning means adjusting the formula that best approximates the data.\n\n---"
     }
   },

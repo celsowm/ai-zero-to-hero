@@ -1,0 +1,72 @@
+{
+  "id": "nonlinear-regression-boundary",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.55, 0.45]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Quando a reta começa a falhar",
+      "body": "No exemplo da latência, a função linear tenta explicar o crescimento com uma inclinação constante, mas o sistema real acelera conforme a carga aumenta. Aqui a ideia é olhar para um dado em anéis: a linha melhora com treino real, o MSE cai, mas a precisão nunca chega a 100%.\n\n1. **A linha assume ritmo fixo:** o ajuste tenta cortar o espaço com uma única fronteira.\n\n2. **O MSE mede o erro real:** o código percorre o dataset inteiro e atualiza os pesos da linha.\n\n3. **A precisão expõe o limite:** mesmo treinada, a fronteira linear não consegue fechar um anel.\n\n> Quando o dado não é linear, a linha pode melhorar, mas não resolve a estrutura do problema.\n\n---\n\n### Leitura rápida\n- `MSE`: mede o erro médio da linha sobre todos os pontos.\n- `Precisão`: mostra quantos pontos a fronteira classificou corretamente.\n- `linha`: funciona, mas não aprende curvatura.\n\n### Ideia principal\nO limite aqui não é falta de treino. É a forma da fronteira."
+    },
+    "en-us": {
+      "title": "When the line starts to fail",
+      "body": "In the latency example, the linear function tries to explain growth with a constant slope, but the real system speeds up as load increases. Here the point is to look at a ring-shaped dataset: the line improves with real training, MSE goes down, but accuracy never reaches 100%.\n\n1. **The line assumes a fixed pace:** the fit tries to cut the space with a single boundary.\n\n2. **MSE measures the real error:** the code walks the full dataset and updates the line weights.\n\n3. **Accuracy exposes the limit:** even after training, a linear boundary cannot close a ring.\n\n> When the data is not linear, a line can improve, but it cannot solve the structure of the problem.\n\n---\n\n### Quick read\n- `MSE`: measures the average error of the line across all points.\n- `Accuracy`: shows how many points the boundary classified correctly.\n- `line`: works, but does not learn curvature.\n\n### Main idea\nThe limit here is not lack of training. It is the shape of the boundary."
+    }
+  },
+  "visual": {
+    "id": "nonlinear-regression-boundary",
+    "copy": {
+      "pt-br": {
+        "eyebrow": "Limite da fronteira linear",
+        "title": "A reta melhora com treino, mas não fecha um anel",
+        "description": "",
+        "tabLabels": ["Visual", "JS"],
+        "accuracyLabel": "Precisão",
+        "mseLabel": "MSE",
+        "statusLabel": "Estado",
+        "startLabel": "Iniciar",
+        "restartLabel": "Reiniciar",
+        "lineLabel": "Fronteira linear",
+        "innerClassLabel": "Classe interna",
+        "outerClassLabel": "Classe externa",
+        "legendTitle": "Leitura do gráfico",
+        "statusIdleLabel": "pronto",
+        "statusRunningLabel": "treinando",
+        "statusCompleteLabel": "ajuste concluído",
+        "outerClassDescription": "Pontos azuis ficam no anel externo.",
+        "innerClassDescription": "Pontos verdes ficam no anel interno.",
+        "lineDescription": "A linha tenta separar os dois anéis com um único corte.",
+        "codeTitle": "Treino em JavaScript",
+        "codeDescription": "A segunda aba mostra o loop de treino que atualiza os pesos da fronteira linear.",
+        "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
+        "footer": "A linha melhora com otimização, mas um padrão em anel continua fora do alcance de uma fronteira linear."
+      },
+      "en-us": {
+        "eyebrow": "Linear boundary limit",
+        "title": "The line improves with training, but it cannot close a ring",
+        "description": "",
+        "tabLabels": ["Visual", "JS"],
+        "accuracyLabel": "Accuracy",
+        "mseLabel": "MSE",
+        "statusLabel": "Status",
+        "startLabel": "Start",
+        "restartLabel": "Restart",
+        "lineLabel": "Linear boundary",
+        "innerClassLabel": "Inner class",
+        "outerClassLabel": "Outer class",
+        "legendTitle": "Chart reading",
+        "statusIdleLabel": "ready",
+        "statusRunningLabel": "training",
+        "statusCompleteLabel": "fit complete",
+        "outerClassDescription": "Blue points sit on the outer ring.",
+        "innerClassDescription": "Green points sit on the inner ring.",
+        "lineDescription": "The line tries to split the two rings with a single cut.",
+        "codeTitle": "Training in JavaScript",
+        "codeDescription": "The second tab shows the training loop that updates the linear boundary weights.",
+        "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
+        "footer": "The line can improve with optimization, but a ring-shaped pattern remains out of reach for a linear boundary."
+      }
+    }
+  }
+}

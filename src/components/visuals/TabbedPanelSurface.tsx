@@ -1,0 +1,28 @@
+import React from 'react';
+
+interface TabbedPanelSurfaceProps {
+  children: React.ReactNode;
+  minHeight?: number;
+}
+
+const surfaceStyle = (minHeight: number): React.CSSProperties => ({
+  width: '100%',
+  height: '100%',
+  minHeight,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 14,
+});
+
+const bodyStyle: React.CSSProperties = {
+  flex: 1,
+  minHeight: 0,
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+export const TabbedPanelSurface: React.FC<TabbedPanelSurfaceProps> = ({ children, minHeight = 560 }) => (
+  <div style={surfaceStyle(minHeight)}>
+    <div style={bodyStyle}>{children}</div>
+  </div>
+);

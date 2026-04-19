@@ -263,9 +263,76 @@ export interface MachineLearningPipelineVisual {
   copy: Record<Language, MachineLearningPipelineCopy>;
 }
 
+export interface NonlinearRegressionBoundaryVisual {
+  id: 'nonlinear-regression-boundary';
+  copy: Record<Language, NonlinearRegressionBoundaryVisualCopy>;
+}
+
+export interface NonlinearRegressionBoundaryVisualCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  tabLabels: [string, string];
+  accuracyLabel: string;
+  mseLabel: string;
+  statusLabel: string;
+  startLabel: string;
+  restartLabel: string;
+  lineLabel: string;
+  innerClassLabel: string;
+  outerClassLabel: string;
+  legendTitle: string;
+  statusIdleLabel: string;
+  statusRunningLabel: string;
+  statusCompleteLabel: string;
+  outerClassDescription: string;
+  innerClassDescription: string;
+  lineDescription: string;
+  codeTitle: string;
+  codeDescription: string;
+  code: string;
+  footer: string;
+}
+
+export interface ApiLatencyGrowthPointCopy {
+  users: number;
+  latency: number;
+  label: string;
+  accent: string;
+}
+
+export interface ApiLatencyGrowthMetricCopy {
+  title: string;
+  value: string;
+  description: string;
+  accent: string;
+}
+
+export interface ApiLatencyGrowthVisualCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  xLabel: string;
+  yLabel: string;
+  curveLabel: string;
+  referenceLabel: string;
+  lowLoadLabel: string;
+  saturationLabel: string;
+  explosionLabel: string;
+  legendTitle: string;
+  metrics: ApiLatencyGrowthMetricCopy[];
+  points: ApiLatencyGrowthPointCopy[];
+  footer: string;
+}
+
 export interface LinearRegressionTabsVisual {
   id: 'linear-regression-tabs';
   copy: Record<Language, LinearRegressionTabsCopy>;
+}
+
+export interface ApiLatencyGrowthVisual {
+  id: 'api-latency-growth';
+  copy: Record<Language, ApiLatencyGrowthVisualCopy>;
 }
 
 export interface GradientDescentVisual {
@@ -293,6 +360,8 @@ export type SlideVisual =
   | LearningLoopDiagramVisual
   | LocalizedImageVisual
   | MachineLearningPipelineVisual
+  | NonlinearRegressionBoundaryVisual
+  | ApiLatencyGrowthVisual
   | LinearRegressionTabsVisual
   | GradientDescentVisual
   | LinearRegressionNotationVisual
