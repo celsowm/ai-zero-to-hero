@@ -24,7 +24,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkMath]}
-      rehypePlugins={[[rehypeHighlight, { detect: false }], rehypeKatex]}
+      rehypePlugins={[[rehypeHighlight, { detect: true }], rehypeKatex]}
       components={{
         h1: (props) => <span className="hidden" {...props} />,
         h2: ({ ...props }) => (

@@ -6,3 +6,4 @@ export { SlideCounter } from './SlideCounter';
 export { SlideFactory } from './SlideFactory';
 export { SlideTopBar } from './SlideTopBar';
 export { TwoColumnSlide } from './TwoColumnSlide';
+export { CodeBlock } from './CodeBlock';

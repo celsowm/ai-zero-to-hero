@@ -4,6 +4,7 @@ import type { NonlinearRegressionBoundaryVisualCopy } from '../../../types/slide
 import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
+import { CodeBlock } from '../../CodeBlock';
 
 interface NonlinearRegressionBoundaryVisualProps {
   copy: NonlinearRegressionBoundaryVisualCopy;
@@ -629,9 +630,9 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
               <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{copy.codeDescription}</div>
             </div>
 
-            <pre style={codeBodyStyle}>
-              <code>{copy.code}</code>
-            </pre>
+            <div style={codeBodyStyle}>
+              <CodeBlock code={copy.code} language="javascript" />
+            </div>
           </PanelCard>
         )}
       </TabbedPanelSurface>

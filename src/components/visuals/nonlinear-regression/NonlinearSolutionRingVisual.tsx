@@ -4,6 +4,7 @@ import type { NonlinearSolutionRingVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
+import { CodeBlock } from '../../CodeBlock';
 
 interface Props {
   copy: NonlinearSolutionRingVisualCopy;
@@ -413,7 +414,9 @@ export const NonlinearSolutionRingVisual: React.FC<Props> = ({ copy }) => {
               <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)' }}>{copy.codeTitle}</div>
               <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{copy.codeDescription}</div>
             </div>
-            <pre style={codeBodyStyle}><code>{copy.code}</code></pre>
+            <div style={codeBodyStyle}>
+              <CodeBlock code={copy.code} language="javascript" />
+            </div>
           </PanelCard>
         )}
       </TabbedPanelSurface>
