@@ -8,6 +8,7 @@ import {
   LinearRegressionTabsVisual,
   ApiLatencyGrowthVisual,
   NonlinearRegressionBoundaryVisual,
+  NonlinearSolutionRingVisual,
   LearningLoopDiagram,
   LocalizedImageVisual,
   MachineLearningPipelineDiagram,
@@ -60,6 +61,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <MachineLearningPipelineDiagram copy={visual.copy[language]} />;
     case 'nonlinear-regression-boundary':
       return <NonlinearRegressionBoundaryVisual copy={visual.copy[language]} />;
+    case 'nonlinear-solution-ring':
+      return <NonlinearSolutionRingVisual copy={visual.copy[language]} />;
     case 'api-latency-growth':
       return <ApiLatencyGrowthVisual copy={visual.copy[language]} />;
     case 'linear-regression-tabs':

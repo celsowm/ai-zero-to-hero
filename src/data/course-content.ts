@@ -21,6 +21,7 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'localized-image'; copy: Record<Language, RawLocalizedImageCopy> }
     | { id: 'machine-learning-pipeline'; copy: Record<Language, unknown> }
     | { id: 'nonlinear-regression-boundary'; copy: Record<Language, unknown> }
+    | { id: 'nonlinear-solution-ring'; copy: Record<Language, unknown> }
     | { id: 'api-latency-growth'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-tabs'; copy: Record<Language, unknown> }
     | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }

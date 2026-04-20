@@ -7,6 +7,7 @@ export { GradientDescent3DVisual } from './linear-regression/GradientDescent3DVi
 export { LinearRegression3DChartVisual } from './linear-regression/LinearRegression3DChartVisual';
 export { LinearRegressionNotationVisual } from './linear-regression/LinearRegressionNotationVisual';
 export { NonlinearRegressionBoundaryVisual } from './nonlinear-regression/NonlinearRegressionBoundaryVisual';
+export { NonlinearSolutionRingVisual } from './nonlinear-regression/NonlinearSolutionRingVisual';
 export { ApiLatencyGrowthVisual } from './api-latency/ApiLatencyGrowthVisual';
 export { MachineLearningPipelineDiagram } from './machine-learning-pipeline/MachineLearningPipelineDiagram';
 export { LinearRegressionTabsVisual } from './linear-regression/LinearRegressionTabsVisual';
