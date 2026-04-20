@@ -3,8 +3,8 @@
   "type": "two-column",
   "options": {
     "columnRatios": [
-      0.6,
-      0.4
+      0.4,
+      0.6
     ]
   },
   "content": {
@@ -27,32 +27,32 @@
           {
             "title": "Dados",
             "subtitle": "origem e qualidade",
-            "accent": "#8fb2d8"
+            "accent": "#38bdf8"
           },
           {
             "title": "Preparo",
             "subtitle": "limpeza e features",
-            "accent": "#00b8f0"
+            "accent": "#0ea5e9"
           },
           {
             "title": "Split",
             "subtitle": "treino, validação e teste",
-            "accent": "#f3b72c"
+            "accent": "#facc15"
           },
           {
             "title": "Treino",
             "subtitle": "ajuste de parâmetros",
-            "accent": "#a855f7"
+            "accent": "#d946ef"
           },
           {
             "title": "Avaliação",
             "subtitle": "métricas e generalização",
-            "accent": "#ef8b42"
+            "accent": "#f97316"
           },
           {
             "title": "Deploy",
             "subtitle": "produção e drift",
-            "accent": "#ef5b5b"
+            "accent": "#f43f5e"
           }
         ],
         "loopLabel": "retroalimenta",
@@ -65,32 +65,32 @@
           {
             "title": "Data",
             "subtitle": "source and quality",
-            "accent": "#8fb2d8"
+            "accent": "#38bdf8"
           },
           {
             "title": "Prepare",
             "subtitle": "cleaning and features",
-            "accent": "#00b8f0"
+            "accent": "#0ea5e9"
           },
           {
             "title": "Split",
             "subtitle": "training, validation, test",
-            "accent": "#f3b72c"
+            "accent": "#facc15"
           },
           {
             "title": "Train",
             "subtitle": "parameter fitting",
-            "accent": "#a855f7"
+            "accent": "#d946ef"
           },
           {
             "title": "Evaluate",
             "subtitle": "metrics and generalization",
-            "accent": "#ef8b42"
+            "accent": "#f97316"
           },
           {
             "title": "Deploy",
             "subtitle": "production and drift",
-            "accent": "#ef5b5b"
+            "accent": "#f43f5e"
           }
         ],
         "loopLabel": "feeds back",

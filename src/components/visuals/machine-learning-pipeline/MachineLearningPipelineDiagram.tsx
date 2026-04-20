@@ -99,17 +99,17 @@ const StageCard: React.FC<{
   }>;
 }> = ({ x, y, width, height, title, subtitle, accent, Icon }) => (
   <g transform={`translate(${x} ${y})`}>
-    <rect x={0} y={0} width={width} height={height} rx={14} fill="rgba(255,255,255,0.90)" stroke="rgba(128, 144, 175, 0.32)" />
+    <rect x={0} y={0} width={width} height={height} rx={14} fill="#1e293b" stroke="rgba(148, 163, 184, 0.2)" />
     <rect x={0} y={0} width={7} height={height} rx={16} fill={accent} />
     <circle cx={28} cy={height / 2} r={11} fill={accent} opacity="0.18" />
     <circle cx={28} cy={height / 2} r={8.5} fill={accent} />
     <g transform={`translate(${28 - 7} ${height / 2 - 7})`}>
-      <Icon size={14} color="#ffffff" strokeWidth={2.4} />
+      <Icon size={14} color="#f8fafc" strokeWidth={2.4} />
     </g>
-    <text x={58} y={20} fontFamily={fontFamily} fontSize="13.8" fontWeight="700" fill="#24324a">
+    <text x={58} y={20} fontFamily={fontFamily} fontSize="13.8" fontWeight="700" fill="#f8fafc">
       {title}
     </text>
-    <text x={58} y={31} fontFamily={fontFamily} fontSize="10.4" fontWeight="500" fill="#617183">
+    <text x={58} y={31} fontFamily={fontFamily} fontSize="10.4" fontWeight="500" fill="#94a3b8">
       {subtitle}
     </text>
   </g>
@@ -121,8 +121,8 @@ const ArrowDown: React.FC<{
   y2: number;
 }> = ({ x, y1, y2 }) => (
   <g>
-    <line x1={x} y1={y1} x2={x} y2={y2} stroke="#8390a3" strokeWidth="3.2" strokeLinecap="round" />
-    <path d={`M ${x - 6} ${y2 - 8} L ${x} ${y2} L ${x + 6} ${y2 - 8}`} stroke="#8390a3" strokeWidth="3.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <line x1={x} y1={y1} x2={x} y2={y2} stroke="#94a3b8" strokeWidth="3.2" strokeLinecap="round" />
+    <path d={`M ${x - 6} ${y2 - 8} L ${x} ${y2} L ${x + 6} ${y2 - 8}`} stroke="#94a3b8" strokeWidth="3.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
   </g>
 );
 
@@ -150,32 +150,32 @@ export const MachineLearningPipelineDiagram: React.FC<MachineLearningPipelineDia
       <desc id="ml-pipeline-desc">{copy.diagramDescription}</desc>
       <defs>
         <linearGradient id="pipeline-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#f8faff" />
-          <stop offset="100%" stopColor="#edf2f8" />
+          <stop offset="0%" stopColor="#0f172a" />
+          <stop offset="100%" stopColor="#1e293b" />
         </linearGradient>
         <radialGradient id="pipeline-glow-pink" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#ff2e97" stopOpacity="0.13" />
-          <stop offset="100%" stopColor="#ff2e97" stopOpacity="0" />
+          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#f472b6" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="pipeline-glow-cyan" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.10" />
-          <stop offset="100%" stopColor="#00e5ff" stopOpacity="0" />
+          <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
         </radialGradient>
         <marker id="pipeline-arrow-head" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-          <path d="M0,0 L10,5 L0,10 z" fill="#8390a3" />
+          <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8" />
         </marker>
       </defs>
 
       <rect width="540" height="405" fill="url(#pipeline-bg)" rx="18" />
       <ellipse cx="448" cy="78" rx="96" ry="64" fill="url(#pipeline-glow-pink)" />
       <ellipse cx="90" cy="332" rx="110" ry="72" fill="url(#pipeline-glow-cyan)" />
-      <path d="M24 20 H516" stroke="#d8e1ed" strokeWidth="1" opacity="0.6" />
-      <path d="M24 383 H516" stroke="#ced7e4" strokeWidth="1" opacity="0.75" />
+      <path d="M24 20 H516" stroke="#334155" strokeWidth="1" opacity="0.45" />
+      <path d="M24 383 H516" stroke="#334155" strokeWidth="1" opacity="0.7" />
 
-      <text x="34" y="42" fontFamily={fontFamily} fontSize="24" fontWeight="700" fill="#233145">
+      <text x="34" y="42" fontFamily={fontFamily} fontSize="24" fontWeight="700" fill="#f8fafc">
         {copy.diagramTitle}
       </text>
-      <WrappedText x={34} y={64} text={copy.diagramDescription} maxWidth={468} fontSize={13.2} fill="#637286" />
+      <WrappedText x={34} y={64} text={copy.diagramDescription} maxWidth={468} fontSize={13.2} fill="#94a3b8" />
 
       {stages.map((stage, index) => (
         <StageCard
@@ -200,17 +200,17 @@ export const MachineLearningPipelineDiagram: React.FC<MachineLearningPipelineDia
       <path
         d="M 404 338 C 476 332, 500 286, 490 246 C 482 214, 460 194, 424 186"
         fill="none"
-        stroke="#7f8d9f"
+        stroke="#94a3b8"
         strokeWidth="3.0"
         strokeLinecap="round"
         strokeLinejoin="round"
         markerEnd="url(#pipeline-arrow-head)"
       />
-      <text x="495" y="334" textAnchor="end" fontFamily={fontFamily} fontSize="11.8" fontWeight="700" fill="#233145">
+      <text x="495" y="334" textAnchor="end" fontFamily={fontFamily} fontSize="11.8" fontWeight="700" fill="#f8fafc">
         {copy.loopLabel}
       </text>
 
-      <text x="270" y="398" textAnchor="middle" fontFamily={fontFamily} fontSize="12.4" fontWeight="500" fill="#637286">
+      <text x="270" y="398" textAnchor="middle" fontFamily={fontFamily} fontSize="12.4" fontWeight="500" fill="#94a3b8">
         {copy.footerLabel}
       </text>
     </svg>
