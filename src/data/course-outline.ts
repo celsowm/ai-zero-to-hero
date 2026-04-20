@@ -17,6 +17,7 @@ export const courseSlideOrder = [
   'linear-regression-prediction',
   'api-latency-growth-bridge',
   'nonlinear-regression-boundary',
+  'biological-vs-computational-neuron',
   'neural-network-neuron-relu',
   'neural-network-minimal-example',
   'language-modeling-intro',

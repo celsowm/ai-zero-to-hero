@@ -53,7 +53,8 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'temperature-slider-interactive'; copy: Record<Language, unknown> }
     | { id: 'gpt2-full-architecture-diagram'; copy: Record<Language, unknown> }
     | { id: 'layer-evolution-chart'; copy: Record<Language, unknown> }
-    | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> };
+    | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> }
+    | { id: 'biological-vs-computational-neuron'; copy: Record<Language, unknown> };
 };
 
 const slideModules = import.meta.glob('./slides/*.json', {

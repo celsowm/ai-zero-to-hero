@@ -428,6 +428,58 @@ export interface RoadToMiniTransformerCopy {
   endLabel: string;
 }
 
+export interface BiologicalVsComputationalNeuronCopy {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  biologyTag: string;
+  biologyTitle: string;
+  computationTag: string;
+  computationTitle: string;
+  biologicalLabels: {
+    dendrites: string;
+    soma: string;
+    cellBody: string;
+    nucleus: string;
+    axon: string;
+    myelinLine1: string;
+    myelinLine2: string;
+    synapse: string;
+    synapseGap: string;
+    terminalsLine1: string;
+    terminalsLine2: string;
+  };
+  computationalLabels: {
+    inputs: string;
+    synapses: string;
+    weightedSumBias: string;
+    activationLine1: string;
+    activationLine2: string;
+    axon: string;
+  };
+  biologyTable: {
+    headers: [string, string, string];
+    rows: Array<[string, string, string]>;
+  };
+  computationTable: {
+    headers: [string, string, string];
+    rows: Array<[string, string, string]>;
+  };
+  formulaLegend: {
+    title: string;
+    items: Array<{ symbol: string; title: string; body: string }>;
+    domainBadge: string;
+    domainFormula: string;
+    domainBody: string;
+  };
+  footerNote: string;
+}
+
+export interface BiologicalVsComputationalNeuronVisual {
+  id: 'biological-vs-computational-neuron';
+  copy: Record<Language, BiologicalVsComputationalNeuronCopy>;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -719,7 +771,8 @@ export type SlideVisual =
   | Gpt2LayerXrayVisual
   | PredictionEvolutionVisual
   | WhyTransformersWorkVisual
-  | RoadToMiniTransformerVisual;
+  | RoadToMiniTransformerVisual
+  | BiologicalVsComputationalNeuronVisual;
 
 export interface SlideOptions {
   columns?: number;

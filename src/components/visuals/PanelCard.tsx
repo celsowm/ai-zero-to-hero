@@ -6,11 +6,11 @@ interface PanelCardProps {
   padding?: number;
   gap?: number;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSProperties => ({
   width: '100%',
-  height: '100%',
   minHeight,
   display: 'flex',
   flexDirection: 'column',
@@ -21,10 +21,9 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
   border: '1px solid rgba(255, 255, 255, 0.06)',
   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 40px rgba(0,0,0,0.24)',
   boxSizing: 'border-box',
-  overflowY: 'auto',
 });
 
-export const PanelCard: React.FC<PanelCardProps> = ({ children, minHeight = 0, padding = 20, gap = 14, style }) => (
-  <div style={{ ...baseStyle(minHeight, padding, gap), ...style }}>{children}</div>
+export const PanelCard: React.FC<PanelCardProps> = ({ children, minHeight = 0, padding = 20, gap = 14, style, className }) => (
+  <div className={className} style={{ ...baseStyle(minHeight, padding, gap), ...style }}>{children}</div>
 );
 

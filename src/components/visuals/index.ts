@@ -43,3 +43,4 @@ export { Gpt2LayerXray } from './transformers/Gpt2LayerXray';
 export { PredictionEvolution } from './transformers/PredictionEvolution';
 export { WhyTransformersWork } from './transformers/WhyTransformersWork';
 export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';
+export { BiologicalVsComputationalNeuron } from './neural-networks/BiologicalVsComputationalNeuron';

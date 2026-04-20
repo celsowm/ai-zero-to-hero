@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github-dark.css';
 import { FONT_SCALE_BASE } from '../constants/course';
 import { useCourse } from '../context/CourseContext';
@@ -14,10 +17,14 @@ interface MarkdownRendererProps {
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, variant }) => {
   const { fontScale } = useCourse();
 
+  // Slides use $$...$$ for inline math, but remark-math treats $$ as block math.
+  // Convert $$...$$ that appear within a line (no newlines inside) to $...$
+  const processedBody = body.replace(/\$\$([^$\n]+?)\$\$/g, (_match, inner: string) => `$${inner}$`);
+
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[[rehypeHighlight, { detect: false }]]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[[rehypeHighlight, { detect: false }], rehypeKatex]}
       components={{
         h1: (props) => <span className="hidden" {...props} />,
         h2: ({ ...props }) => (
@@ -209,7 +216,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
         },
       }}
     >
-      {body}
+      {processedBody}
     </ReactMarkdown>
   );
 };
