@@ -21,7 +21,7 @@ const eyebrowStyle: React.CSSProperties = {
 };
 
 const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }> = ({ copy }) => (
-  <PanelCard minHeight={560}>
+  <PanelCard>
     <div style={eyebrowStyle}>{copy.eyebrow}</div>
 
     <div
@@ -106,7 +106,7 @@ const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }>
 );
 
 const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = ({ copy }) => (
-  <PanelCard minHeight={560}>
+  <PanelCard>
     <div style={eyebrowStyle}>{copy.eyebrow}</div>
 
     <div

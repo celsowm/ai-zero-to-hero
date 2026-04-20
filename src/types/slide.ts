@@ -210,6 +210,9 @@ export interface ProgressStepperStepCopy {
 export interface ProgressStepperTableRowCopy {
   height: string;
   age: string;
+  beta0?: string;
+  beta1?: string;
+  beta2?: string;
   realWeight: string;
   predictedWeight?: string;
   error?: string;
@@ -221,6 +224,9 @@ export interface ProgressStepperTableCopy {
   headers: {
     height: string;
     age: string;
+    beta0?: string;
+    beta1?: string;
+    beta2?: string;
     realWeight: string;
     predictedWeight: string;
     error: string;

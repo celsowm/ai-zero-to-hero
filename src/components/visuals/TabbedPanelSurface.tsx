@@ -21,7 +21,7 @@ const bodyStyle: React.CSSProperties = {
   flexDirection: 'column',
 };
 
-export const TabbedPanelSurface: React.FC<TabbedPanelSurfaceProps> = ({ children, minHeight = 560 }) => (
+export const TabbedPanelSurface: React.FC<TabbedPanelSurfaceProps> = ({ children, minHeight = 0 }) => (
   <div style={surfaceStyle(minHeight)}>
     <div style={bodyStyle}>{children}</div>
   </div>

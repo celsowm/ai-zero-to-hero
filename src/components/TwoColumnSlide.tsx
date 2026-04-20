@@ -59,7 +59,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
             minHeight: 0,
             minWidth: 0,
             height: '100%',
-            overflow: 'hidden',
+            overflowY: 'auto',
           }}
         >
           {slide.visual ? (

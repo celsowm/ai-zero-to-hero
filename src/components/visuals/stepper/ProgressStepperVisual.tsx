@@ -319,36 +319,71 @@ export const ProgressStepperVisual: React.FC<ProgressStepperVisualProps> = ({ co
                   >
                     <thead>
                       <tr>
-                        {[
-                          copy.table.headers.height,
-                          copy.table.headers.age,
-                          copy.table.headers.realWeight,
-                          copy.table.headers.predictedWeight,
-                          copy.table.headers.error,
-                          copy.table.headers.squaredError,
-                        ].map(header => (
-                          <th
-                            key={header}
-                            style={{
-                              padding: '8px 10px',
-                              textAlign: 'left',
-                              fontSize: 11,
-                              fontWeight: 700,
-                              letterSpacing: '0.08em',
-                              textTransform: 'uppercase',
-                              color: 'var(--sw-text-muted)',
-                              borderBottom: '1px solid rgba(255,255,255,0.08)',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
-                            {header}
-                          </th>
-                        ))}
+                        {([
+                          'height',
+                          'age',
+                          'beta0',
+                          'beta1',
+                          'beta2',
+                          'realWeight',
+                          'predictedWeight',
+                          'error',
+                          'squaredError',
+                        ] as const)
+                          .filter(key => copy.table!.headers[key])
+                          .map(key => (
+                            <th
+                              key={key}
+                              style={{
+                                padding: '8px 10px',
+                                textAlign: 'left',
+                                fontSize: 11,
+                                fontWeight: 700,
+                                letterSpacing: '0.08em',
+                                textTransform: 'uppercase',
+                                color: 'var(--sw-text-muted)',
+                                borderBottom: '1px solid rgba(255,255,255,0.08)',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              {copy.table!.headers[key]}
+                            </th>
+                          ))}
                       </tr>
                     </thead>
                     <tbody>
                       {copy.table.rows.map((row, index) => {
                         const isHighlighted = currentStep.highlightedRowIndexes?.includes(index) ?? false;
+
+                        // Logic to decide if a cell should be visible
+                        const isCellVisible = (key: string) => {
+                          // 1. Inputs are always visible
+                          const inputKeys = ['height', 'age', 'beta0', 'beta1', 'beta2', 'realWeight'];
+                          if (inputKeys.includes(key)) return true;
+
+                          // 2. Check if this row was already highlighted in the current or previous steps
+                          const hasBeenHighlighted = copy.steps
+                            .slice(0, activeStep + 1)
+                            .some(step => step.highlightedRowIndexes?.includes(index));
+
+                          // 3. For predictedWeight and error, show if the row has been highlighted
+                          // or if we are in a "summary" step (more than 1 row highlighted)
+                          const isSummaryStep = (currentStep.highlightedRowIndexes?.length ?? 0) > 1;
+                          
+                          if (key === 'predictedWeight' || key === 'error') {
+                            return hasBeenHighlighted || isSummaryStep;
+                          }
+
+                          // 4. For squaredError, show only from the "summary" steps onwards (where the math is aggregated)
+                          if (key === 'squaredError') {
+                            const reachedSummary = copy.steps
+                              .slice(0, activeStep + 1)
+                              .some(step => (step.highlightedRowIndexes?.length ?? 0) > 1);
+                            return reachedSummary;
+                          }
+
+                          return true;
+                        };
 
                         return (
                           <tr
@@ -356,24 +391,41 @@ export const ProgressStepperVisual: React.FC<ProgressStepperVisualProps> = ({ co
                             style={{
                               background: isHighlighted ? `${currentStep.accent}18` : 'transparent',
                               boxShadow: isHighlighted ? `inset 0 0 0 1px ${currentStep.accent}44` : 'none',
+                              transition: 'background 200ms ease',
                             }}
                           >
-                            {[row.height, row.age, row.realWeight, row.predictedWeight ?? '-', row.error ?? '-', row.squaredError ?? '-'].map(
-                              (cell, cellIndex) => (
-                                <td
-                                  key={`${cell}-${cellIndex}`}
-                                  style={{
-                                    padding: '10px',
-                                    borderBottom: '1px solid rgba(255,255,255,0.05)',
-                                    color: isHighlighted ? 'var(--sw-text)' : 'var(--sw-text-dim)',
-                                    fontWeight: isHighlighted ? 700 : 500,
-                                    whiteSpace: 'nowrap',
-                                  }}
-                                >
-                                  {cell}
-                                </td>
-                              ),
-                            )}
+                            {([
+                              'height',
+                              'age',
+                              'beta0',
+                              'beta1',
+                              'beta2',
+                              'realWeight',
+                              'predictedWeight',
+                              'error',
+                              'squaredError',
+                            ] as const)
+                              .filter(key => copy.table!.headers[key])
+                              .map((key, cellIndex) => {
+                                const visible = isCellVisible(key);
+                                return (
+                                  <td
+                                    key={`${key}-${cellIndex}`}
+                                    style={{
+                                      padding: '10px',
+                                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                      color: isHighlighted ? 'var(--sw-text)' : 'var(--sw-text-dim)',
+                                      fontWeight: isHighlighted ? 700 : 500,
+                                      whiteSpace: 'nowrap',
+                                      opacity: visible ? 1 : 0,
+                                      transform: `translateY(${visible ? '0' : '4px'})`,
+                                      transition: 'all 400ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                    }}
+                                  >
+                                    {row[key] ?? '-'}
+                                  </td>
+                                );
+                              })}
                           </tr>
                         );
                       })}
