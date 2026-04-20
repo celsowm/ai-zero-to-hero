@@ -1,0 +1,41 @@
+{
+  "id": "language-modeling-intro",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Modelagem de Linguagem: o que é?",
+      "body": "Antes de falarmos sobre IA que 'conversa', precisamos desmistificar o que ela realmente faz. Modelagem de linguagem não é sobre consciência, é sobre probabilidade.\n\n1. **A tarefa central:** um modelo de linguagem recebe uma sequência de texto e tenta adivinhar qual é a próxima palavra mais provável.\n\n2. **A ilusão de inteligência:** ao fazer isso bilhões de vezes, muito rápido e com extrema precisão, o modelo parece estar raciocinando, mas está apenas calculando a continuação estatisticamente mais adequada.\n\n3. **Do zero ao GPT:** todo modelo moderno, desde o simples corretor do celular até o GPT-4, compartilha esse exato mesmo princípio básico.\n\n> Modelos de linguagem não têm opiniões; eles são calculadoras de probabilidade incrivelmente sofisticadas."
+    },
+    "en-us": {
+      "title": "Language Modeling: what is it?",
+      "body": "Before we talk about AI that 'converses', we need to demystify what it actually does. Language modeling is not about consciousness, it is about probability.\n\n1. **The core task:** a language model receives a sequence of text and tries to guess what the most likely next word is.\n\n2. **The illusion of intelligence:** by doing this billions of times, very fast and with extreme precision, the model appears to be reasoning, but it is just calculating the most statistically sound continuation.\n\n3. **From scratch to GPT:** every modern model, from your phone's simple autocomplete to GPT-4, shares this exact same basic principle.\n\n> Language models do not have opinions; they are incredibly sophisticated probability calculators."
+    }
+  },
+  "visual": {
+    "id": "language-modeling-diagram",
+    "copy": {
+      "pt-br": {
+        "text": "O gato sentou no ___",
+        "options": [
+          "tapete (85%)",
+          "carro (10%)",
+          "foguete (5%)"
+        ]
+      },
+      "en-us": {
+        "text": "The cat sat on the ___",
+        "options": [
+          "mat (85%)",
+          "car (10%)",
+          "rocket (5%)"
+        ]
+      }
+    }
+  }
+}

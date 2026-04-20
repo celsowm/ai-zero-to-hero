@@ -26,7 +26,34 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-notation'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-3d-chart'; copy: Record<Language, unknown> }
-    | { id: 'progress-stepper'; copy: Record<Language, unknown> };
+    | { id: 'progress-stepper'; copy: Record<Language, unknown> }
+    | { id: 'language-modeling-diagram'; copy: Record<Language, unknown> }
+    | { id: 'next-token-interactive'; copy: Record<Language, unknown> }
+    | { id: 'token-size-comparison'; copy: Record<Language, unknown> }
+    | { id: 'tokenization-visualizer'; copy: Record<Language, unknown> }
+    | { id: 'bigram-counter'; copy: Record<Language, unknown> }
+    | { id: 'softmax-visualizer'; copy: Record<Language, unknown> }
+    | { id: 'sampling-roulette'; copy: Record<Language, unknown> }
+    | { id: 'cross-entropy-chart'; copy: Record<Language, unknown> }
+    | { id: 'embedding-space-3d'; copy: Record<Language, unknown> }
+    | { id: 'context-window-slider'; copy: Record<Language, unknown> }
+    | { id: 'mlp-text-diagram'; copy: Record<Language, unknown> }
+    | { id: 'training-loop-stepper'; copy: Record<Language, unknown> }
+    | { id: 'gpt2-blackbox-diagram'; copy: Record<Language, unknown> }
+    | { id: 'parallel-prediction-diagram'; copy: Record<Language, unknown> }
+    | { id: 'positional-embedding-adder'; copy: Record<Language, unknown> }
+    | { id: 'transformer-block-diagram'; copy: Record<Language, unknown> }
+    | { id: 'causal-mask-matrix'; copy: Record<Language, unknown> }
+    | { id: 'qkv-cocktail-party'; copy: Record<Language, unknown> }
+    | { id: 'attention-lines-diagram'; copy: Record<Language, unknown> }
+    | { id: 'multihead-diagram'; copy: Record<Language, unknown> }
+    | { id: 'residual-stream-highway'; copy: Record<Language, unknown> }
+    | { id: 'attention-vs-mlp'; copy: Record<Language, unknown> }
+    | { id: 'unembedding-diagram'; copy: Record<Language, unknown> }
+    | { id: 'temperature-slider-interactive'; copy: Record<Language, unknown> }
+    | { id: 'gpt2-full-architecture-diagram'; copy: Record<Language, unknown> }
+    | { id: 'layer-evolution-chart'; copy: Record<Language, unknown> }
+    | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> };
 };
 
 const slideModules = import.meta.glob('./slides/*.json', {

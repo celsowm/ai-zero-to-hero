@@ -27,3 +27,4 @@ export const LocalizedImageVisual: React.FC<LocalizedImageVisualProps> = ({ copy
     </figure>
   );
 };
+

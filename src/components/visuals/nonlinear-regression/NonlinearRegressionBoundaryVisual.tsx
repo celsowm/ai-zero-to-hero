@@ -638,3 +638,4 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
     </div>
   );
 };
+

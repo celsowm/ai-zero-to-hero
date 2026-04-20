@@ -1,0 +1,35 @@
+{
+  "id": "gpt2-black-box",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "O Transformer entra em cena (GPT-2)",
+      "body": "Nós vimos que Bigramas são muito fracos e MLPs não lidam bem com sequências. Então, qual é a arquitetura que domina o mundo hoje? O **Transformer**.\n\n1. **A caixa preta:** por enquanto, vamos olhar para o GPT-2 (um Transformer clássico) de fora. Ele recebe uma janela de contexto (ex: 1024 tokens) e cospe probabilidades.\n\n2. **Tamanho impressionante:** mesmo o menor GPT-2 tem 124 milhões de parâmetros (pesos/conexões). Ele é muito maior que os modelos que vimos até agora.\n\n3. **Mesmo objetivo:** por dentro ele é um monstro alienígena de engenharia, mas por fora ele faz EXATAMENTE a mesma coisa: tenta prever a próxima palavra minimizando a cross-entropy.\n\n> O GPT-2 é uma função gigantesca mapeando uma sequência de tokens para a próxima probabilidade."
+    },
+    "en-us": {
+      "title": "Enter the Transformer (GPT-2)",
+      "body": "We saw that Bigrams are too weak and MLPs do not handle sequences well. So, what architecture rules the world today? The **Transformer**.\n\n1. **The black box:** for now, let's look at GPT-2 (a classic Transformer) from the outside. It takes a context window (e.g., 1024 tokens) and spits out probabilities.\n\n2. **Staggering size:** even the smallest GPT-2 has 124 million parameters (weights/connections). It is vastly larger than the models we have seen so far.\n\n3. **Same goal:** on the inside, it is an alien monster of engineering, but on the outside, it does EXACTLY the same thing: it tries to predict the next word by minimizing cross-entropy.\n\n> GPT-2 is a massive function mapping a sequence of tokens to the next probability."
+    }
+  },
+  "visual": {
+    "id": "gpt2-blackbox-diagram",
+    "copy": {
+      "pt-br": {
+        "inputs": "Janela de Contexto (Tokens)",
+        "box": "GPT-2 (124M Parâmetros)",
+        "outputs": "Probabilidades do Próximo Token"
+      },
+      "en-us": {
+        "inputs": "Context Window (Tokens)",
+        "box": "GPT-2 (124M Parameters)",
+        "outputs": "Next Token Probabilities"
+      }
+    }
+  }
+}

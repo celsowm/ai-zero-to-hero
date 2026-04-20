@@ -129,3 +129,4 @@ export const LinearRegressionNotationVisual: React.FC<LinearRegressionNotationVi
     </div>
   </div>
 );
+

@@ -1,0 +1,35 @@
+{
+  "id": "training-language-models",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Como eles aprendem? (O Loop de Treino)",
+      "body": "Como um modelo passa de prever lixo para escrever poemas perfeitos? Através de um loop brutal de tentativa e erro sobre bilhões de palavras.\n\n1. **O Passado (Forward Pass):** o modelo lê um texto incompleto e dá o seu palpite (probabilidades) de qual é a próxima palavra.\n\n2. **O Choque de Realidade (Loss):** comparamos o palpite com a palavra real usando a Cross-Entropy. Calculamos o erro.\n\n3. **A Correção (Backpropagation):** a matemática flui de trás para frente no modelo, ajustando levemente cada número nas matrizes (pesos) para que ele erre menos da próxima vez.\n\n> Treinar IA não é preencher um banco de dados; é esculpir instintos matemáticos."
+    },
+    "en-us": {
+      "title": "How do they learn? (The Training Loop)",
+      "body": "How does a model go from predicting garbage to writing perfect poems? Through a brutal loop of trial and error over billions of words.\n\n1. **The Guess (Forward Pass):** the model reads an incomplete text and makes its guess (probabilities) for the next word.\n\n2. **The Reality Check (Loss):** we compare the guess to the actual word using Cross-Entropy. We calculate the error.\n\n3. **The Correction (Backpropagation):** math flows backwards through the model, slightly tweaking every number in the matrices (weights) so it misses less next time.\n\n> Training AI is not filling a database; it is carving mathematical instincts."
+    }
+  },
+  "visual": {
+    "id": "training-loop-stepper",
+    "copy": {
+      "pt-br": {
+        "step1": "1. Palpite",
+        "step2": "2. Erro",
+        "step3": "3. Correção"
+      },
+      "en-us": {
+        "step1": "1. Guess",
+        "step2": "2. Error",
+        "step3": "3. Correction"
+      }
+    }
+  }
+}

@@ -63,3 +63,4 @@ export const TabsBar: React.FC<TabsBarProps> = ({ items, activeIndex, onChange, 
     })}
   </div>
 );
+

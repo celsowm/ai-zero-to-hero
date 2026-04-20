@@ -26,3 +26,4 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
 export const PanelCard: React.FC<PanelCardProps> = ({ children, minHeight = 0, padding = 20, gap = 14, style }) => (
   <div style={{ ...baseStyle(minHeight, padding, gap), ...style }}>{children}</div>
 );
+

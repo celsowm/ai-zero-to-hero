@@ -217,3 +217,4 @@ export const LearningLoopDiagram: React.FC<LearningLoopDiagramProps> = ({ copy }
     </svg>
   );
 };
+

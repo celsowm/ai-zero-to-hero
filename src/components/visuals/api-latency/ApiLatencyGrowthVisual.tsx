@@ -396,3 +396,4 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
     </div>
   );
 };
+

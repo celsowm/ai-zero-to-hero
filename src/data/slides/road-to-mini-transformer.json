@@ -1,0 +1,33 @@
+{
+  "id": "road-to-mini-transformer",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Próxima parada: Construção",
+      "body": "Você agora entende a anatomia completa da IA mais poderosa do planeta. Desde a tokenização humilde até o fluxo de atenção em múltiplas cabeças.\n\n1. **A Teoria acabou:** você tem o modelo mental correto. Não há mágica, apenas matrizes, probabilidade e muito poder de cálculo.\n\n2. **Hora da prática:** no próximo módulo, nós não vamos usar uma biblioteca pronta. Vamos abrir o código e construir um mini-Transformer do zero.\n\n3. **O objetivo:** vamos treinar nosso próprio modelo para gerar texto e ver aquelas matrizes de atenção brilharem no console.\n\n> Preparado para sujar as mãos com tensores e matrizes? Vamos construir."
+    },
+    "en-us": {
+      "title": "Next stop: Construction",
+      "body": "You now understand the complete anatomy of the most powerful AI on the planet. From humble tokenization to the multi-head attention stream.\n\n1. **Theory is over:** you have the correct mental model. There is no magic, just matrices, probability, and a lot of computing power.\n\n2. **Time for practice:** in the next module, we will not use a pre-built library. We will open the code and build a mini-Transformer from scratch.\n\n3. **The goal:** we will train our own model to generate text and watch those attention matrices light up in the console.\n\n> Ready to get your hands dirty with tensors and matrices? Let's build it."
+    }
+  },
+  "visual": {
+    "id": "progress-stepper",
+    "copy": {
+      "pt-br": {
+        "currentModule": "Módulo Teórico Concluído",
+        "nextModule": "Próximo: Construindo um Transformer"
+      },
+      "en-us": {
+        "currentModule": "Theoretical Module Complete",
+        "nextModule": "Next: Building a Transformer"
+      }
+    }
+  }
+}

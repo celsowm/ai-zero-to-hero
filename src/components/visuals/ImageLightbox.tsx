@@ -161,3 +161,4 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
     </>
   );
 };
+

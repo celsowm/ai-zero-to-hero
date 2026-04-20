@@ -26,3 +26,4 @@ export const TabbedPanelSurface: React.FC<TabbedPanelSurfaceProps> = ({ children
     <div style={bodyStyle}>{children}</div>
   </div>
 );
+

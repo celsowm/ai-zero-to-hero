@@ -508,3 +508,4 @@ export const ProgressStepperVisual: React.FC<ProgressStepperVisualProps> = ({ co
     </div>
   );
 };
+

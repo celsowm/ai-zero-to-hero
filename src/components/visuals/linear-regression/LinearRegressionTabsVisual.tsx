@@ -373,3 +373,4 @@ export const LinearRegressionTabsVisual: React.FC<LinearRegressionTabsVisualProp
     </div>
   );
 };
+

@@ -238,3 +238,4 @@ export const LossPanel: React.FC<LossPanelProps> = ({ x, y, title }) => (
     <DiagramText x={61} y={21} text={title} size={14} weight={700} fill="#24324a" />
   </g>
 );
+

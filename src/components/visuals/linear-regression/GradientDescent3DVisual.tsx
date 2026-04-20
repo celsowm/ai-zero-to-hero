@@ -646,3 +646,4 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
 export const GradientDescent3DVisual: React.FC<GradientDescent3DVisualProps> = ({ copy }) => {
   return <GradientDescentScene copy={copy} />;
 };
+

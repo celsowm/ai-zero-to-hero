@@ -243,6 +243,185 @@ export interface ProgressStepperVisualCopy {
   steps: ProgressStepperStepCopy[];
 }
 
+export interface LanguageModelingDiagramCopy {
+  text: string;
+  options: string[];
+}
+
+export interface NextTokenInteractiveCopy {
+  startLabel: string;
+  nextLabel: string;
+}
+
+export interface TokenSizeComparisonCopy {
+  chars: string;
+  words: string;
+  tokens: string;
+}
+
+export interface TokenizationVisualizerCopy {
+  inputText: string;
+  tokenLabel: string;
+  idLabel: string;
+}
+
+export interface BigramCounterCopy {
+  text: string;
+  currentToken: string;
+  countsTitle: string;
+}
+
+export interface SoftmaxVisualizerCopy {
+  countsLabel: string;
+  softmaxLabel: string;
+  sumLabel: string;
+}
+
+export interface SamplingRouletteCopy {
+  rollLabel: string;
+  resultLabel: string;
+}
+
+export interface CrossEntropyChartCopy {
+  probAxis: string;
+  lossAxis: string;
+  highSurprise: string;
+  lowSurprise: string;
+}
+
+export interface EmbeddingSpace3DCopy {
+  xLabel: string;
+  yLabel: string;
+  distanceLabel: string;
+}
+
+export interface ContextWindowSliderCopy {
+  fullText: string;
+  windowLabel: string;
+  forgottenLabel: string;
+  activeLabel: string;
+}
+
+export interface MlpTextDiagramCopy {
+  inputSizeLabel: string;
+  sentence1: string;
+  sentence2: string;
+  errorLabel: string;
+}
+
+export interface TrainingLoopStepperCopy {
+  step1Title: string;
+  step1Desc: string;
+  step2Title: string;
+  step2Desc: string;
+  step3Title: string;
+  step3Desc: string;
+}
+
+export interface Gpt2BlackboxDiagramCopy {
+  inputLabel: string;
+  modelLabel: string;
+  outputLabel: string;
+}
+
+export interface ParallelPredictionDiagramCopy {
+  text: string;
+  parallelLabel: string;
+  prediction1: string;
+  prediction2: string;
+  prediction3: string;
+}
+
+export interface PositionalEmbeddingAdderCopy {
+  tokenLabel: string;
+  positionLabel: string;
+  sumLabel: string;
+  plusSign: string;
+  equalsSign: string;
+}
+
+export interface TransformerBlockDiagramCopy {
+  attentionLabel: string;
+  mlpLabel: string;
+  inputLabel: string;
+  outputLabel: string;
+}
+
+export interface CausalMaskMatrixCopy {
+  allowedLabel: string;
+  maskedLabel: string;
+  rowLabel: string;
+  colLabel: string;
+}
+
+export interface QkvCocktailPartyCopy {
+  queryLabel: string;
+  keyLabel: string;
+  valueLabel: string;
+}
+
+export interface AttentionLinesDiagramCopy {
+  token1: string;
+  token2: string;
+  token3: string;
+  strongConnection: string;
+  weakConnection: string;
+}
+
+export interface MultiheadDiagramCopy {
+  head1Label: string;
+  head2Label: string;
+  head3Label: string;
+  combineLabel: string;
+}
+
+export interface ResidualStreamHighwayCopy {
+  highwayLabel: string;
+  blockLabel: string;
+  addLabel: string;
+}
+
+export interface AttentionVsMlpCopy {
+  attentionDesc: string;
+  mlpDesc: string;
+}
+
+export interface HiddenStatesToLogitsCopy {
+  hiddenStateLabel: string;
+  unembedLabel: string;
+  logitsLabel: string;
+}
+
+export interface SamplingControlsCopy {
+  tempLabel: string;
+  topKLabel: string;
+  lowTempDesc: string;
+  highTempDesc: string;
+}
+
+export interface Gpt2LayerXrayCopy {
+  layerLabel: string;
+  inputLabel: string;
+  outputLabel: string;
+}
+
+export interface PredictionEvolutionCopy {
+  step1: string;
+  step2: string;
+  step3: string;
+}
+
+export interface WhyTransformersWorkCopy {
+  reason1: string;
+  reason2: string;
+  reason3: string;
+}
+
+export interface RoadToMiniTransformerCopy {
+  startLabel: string;
+  endLabel: string;
+}
+
 export interface InferenceDiagramVisual {
   id: 'inference-diagram';
   copy: Record<Language, InferenceDiagramCopy>;
@@ -355,6 +534,146 @@ export interface ProgressStepperVisual {
   copy: Record<Language, ProgressStepperVisualCopy>;
 }
 
+export interface LanguageModelingDiagramVisual {
+  id: 'language-modeling-diagram';
+  copy: Record<Language, LanguageModelingDiagramCopy>;
+}
+
+export interface NextTokenInteractiveVisual {
+  id: 'next-token-interactive';
+  copy: Record<Language, NextTokenInteractiveCopy>;
+}
+
+export interface TokenSizeComparisonVisual {
+  id: 'token-size-comparison';
+  copy: Record<Language, TokenSizeComparisonCopy>;
+}
+
+export interface TokenizationVisualizerVisual {
+  id: 'tokenization-visualizer';
+  copy: Record<Language, TokenizationVisualizerCopy>;
+}
+
+export interface BigramCounterVisual {
+  id: 'bigram-counter';
+  copy: Record<Language, BigramCounterCopy>;
+}
+
+export interface SoftmaxVisualizerVisual {
+  id: 'softmax-visualizer';
+  copy: Record<Language, SoftmaxVisualizerCopy>;
+}
+
+export interface SamplingRouletteVisual {
+  id: 'sampling-roulette';
+  copy: Record<Language, SamplingRouletteCopy>;
+}
+
+export interface CrossEntropyChartVisual {
+  id: 'cross-entropy-chart';
+  copy: Record<Language, CrossEntropyChartCopy>;
+}
+
+export interface EmbeddingSpace3DVisual {
+  id: 'embedding-space-3d';
+  copy: Record<Language, EmbeddingSpace3DCopy>;
+}
+
+export interface ContextWindowSliderVisual {
+  id: 'context-window-slider';
+  copy: Record<Language, ContextWindowSliderCopy>;
+}
+
+export interface MlpTextDiagramVisual {
+  id: 'mlp-text-diagram';
+  copy: Record<Language, MlpTextDiagramCopy>;
+}
+
+export interface TrainingLoopStepperVisual {
+  id: 'training-loop-stepper';
+  copy: Record<Language, TrainingLoopStepperCopy>;
+}
+
+export interface Gpt2BlackboxDiagramVisual {
+  id: 'gpt2-blackbox-diagram';
+  copy: Record<Language, Gpt2BlackboxDiagramCopy>;
+}
+
+export interface ParallelPredictionDiagramVisual {
+  id: 'parallel-prediction-diagram';
+  copy: Record<Language, ParallelPredictionDiagramCopy>;
+}
+
+export interface PositionalEmbeddingAdderVisual {
+  id: 'positional-embedding-adder';
+  copy: Record<Language, PositionalEmbeddingAdderCopy>;
+}
+
+export interface TransformerBlockDiagramVisual {
+  id: 'transformer-block-diagram';
+  copy: Record<Language, TransformerBlockDiagramCopy>;
+}
+
+export interface CausalMaskMatrixVisual {
+  id: 'causal-mask-matrix';
+  copy: Record<Language, CausalMaskMatrixCopy>;
+}
+
+export interface QkvCocktailPartyVisual {
+  id: 'qkv-cocktail-party';
+  copy: Record<Language, QkvCocktailPartyCopy>;
+}
+
+export interface AttentionLinesDiagramVisual {
+  id: 'attention-lines-diagram';
+  copy: Record<Language, AttentionLinesDiagramCopy>;
+}
+
+export interface MultiheadDiagramVisual {
+  id: 'multihead-diagram';
+  copy: Record<Language, MultiheadDiagramCopy>;
+}
+
+export interface ResidualStreamHighwayVisual {
+  id: 'residual-stream-highway';
+  copy: Record<Language, ResidualStreamHighwayCopy>;
+}
+
+export interface AttentionVsMlpVisual {
+  id: 'attention-vs-mlp';
+  copy: Record<Language, AttentionVsMlpCopy>;
+}
+
+export interface HiddenStatesToLogitsVisual {
+  id: 'hidden-states-to-logits';
+  copy: Record<Language, HiddenStatesToLogitsCopy>;
+}
+
+export interface SamplingControlsVisual {
+  id: 'sampling-controls';
+  copy: Record<Language, SamplingControlsCopy>;
+}
+
+export interface Gpt2LayerXrayVisual {
+  id: 'gpt2-layer-by-layer-xray';
+  copy: Record<Language, Gpt2LayerXrayCopy>;
+}
+
+export interface PredictionEvolutionVisual {
+  id: 'prediction-evolution-we-the-people';
+  copy: Record<Language, PredictionEvolutionCopy>;
+}
+
+export interface WhyTransformersWorkVisual {
+  id: 'why-transformers-work-so-well';
+  copy: Record<Language, WhyTransformersWorkCopy>;
+}
+
+export interface RoadToMiniTransformerVisual {
+  id: 'road-to-mini-transformer';
+  copy: Record<Language, RoadToMiniTransformerCopy>;
+}
+
 export type SlideVisual =
   | InferenceDiagramVisual
   | LearningLoopDiagramVisual
@@ -366,7 +685,35 @@ export type SlideVisual =
   | GradientDescentVisual
   | LinearRegressionNotationVisual
   | LinearRegression3DChartVisual
-  | ProgressStepperVisual;
+  | ProgressStepperVisual
+  | LanguageModelingDiagramVisual
+  | NextTokenInteractiveVisual
+  | TokenSizeComparisonVisual
+  | TokenizationVisualizerVisual
+  | BigramCounterVisual
+  | SoftmaxVisualizerVisual
+  | SamplingRouletteVisual
+  | CrossEntropyChartVisual
+  | EmbeddingSpace3DVisual
+  | ContextWindowSliderVisual
+  | MlpTextDiagramVisual
+  | TrainingLoopStepperVisual
+  | Gpt2BlackboxDiagramVisual
+  | ParallelPredictionDiagramVisual
+  | PositionalEmbeddingAdderVisual
+  | TransformerBlockDiagramVisual
+  | CausalMaskMatrixVisual
+  | QkvCocktailPartyVisual
+  | AttentionLinesDiagramVisual
+  | MultiheadDiagramVisual
+  | ResidualStreamHighwayVisual
+  | AttentionVsMlpVisual
+  | HiddenStatesToLogitsVisual
+  | SamplingControlsVisual
+  | Gpt2LayerXrayVisual
+  | PredictionEvolutionVisual
+  | WhyTransformersWorkVisual
+  | RoadToMiniTransformerVisual;
 
 export interface SlideOptions {
   columns?: number;
