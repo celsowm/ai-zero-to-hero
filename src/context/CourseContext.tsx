@@ -114,6 +114,29 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setCurrentSlideIndex(prev => (prev > 0 ? prev - 1 : prev));
   }, []);
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input
+      const target = event.target as HTMLElement;
+      const isInput =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable;
+
+      if (isInput) return;
+
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+        goToNextSlide();
+      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        goToPrevSlide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goToNextSlide, goToPrevSlide]);
+
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
       setCurrentSlideIndex(index);
