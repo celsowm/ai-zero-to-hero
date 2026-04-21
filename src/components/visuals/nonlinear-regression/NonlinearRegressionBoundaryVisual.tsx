@@ -321,8 +321,8 @@ const viewportShellStyle: React.CSSProperties = {
   overflow: 'hidden',
   border: '1px solid rgba(255,255,255,0.06)',
   background:
-    'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.08), transparent 24%), radial-gradient(circle at 80% 12%, rgba(255, 46, 151, 0.10), transparent 24%), linear-gradient(180deg, rgba(239, 245, 231, 1), rgba(225, 236, 216, 1))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 42px rgba(0,0,0,0.20)',
+    'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.10), transparent 28%), radial-gradient(circle at 80% 12%, rgba(255, 46, 151, 0.10), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
+  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 42px rgba(0,0,0,0.24)',
 };
 
 const formatAccuracy = (value: number) => `${value.toFixed(1)}%`;
@@ -554,6 +554,11 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
                   <stop offset="0%" stopColor="#ff6b6b" />
                   <stop offset="100%" stopColor="#e64545" />
                 </linearGradient>
+                <radialGradient id="nrb-surface-bg" cx="18%" cy="16%" r="85%">
+                  <stop offset="0%" stopColor="rgba(0,229,255,0.09)" />
+                  <stop offset="45%" stopColor="rgba(16,21,36,0.35)" />
+                  <stop offset="100%" stopColor="rgba(7,10,20,0.78)" />
+                </radialGradient>
                 <filter id="nrb-glow" x="-40%" y="-40%" width="180%" height="180%">
                   <feGaussianBlur stdDeviation="2.8" result="blur" />
                   <feMerge>
@@ -563,17 +568,17 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
                 </filter>
               </defs>
 
-              <rect x="0" y="0" width="640" height="420" fill="rgba(255,255,255,0.06)" />
+              <rect x="0" y="0" width="640" height="420" fill="url(#nrb-surface-bg)" />
 
               {[64, 124, 184, 244, 304, 364, 424, 484, 544, 604].map(x => (
-                <line key={`grid-v-${x}`} x1={x} y1="36" x2={x} y2="384" stroke="rgba(44, 55, 66, 0.09)" strokeWidth="1" />
+                <line key={`grid-v-${x}`} x1={x} y1="36" x2={x} y2="384" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
               ))}
               {[54, 108, 162, 216, 270, 324, 378].map(y => (
-                <line key={`grid-h-${y}`} x1="40" y1={y} x2="600" y2={y} stroke="rgba(44, 55, 66, 0.09)" strokeWidth="1" />
+                <line key={`grid-h-${y}`} x1="40" y1={y} x2="600" y2={y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
               ))}
 
-              <line x1="40" y1={210} x2="600" y2={210} stroke="rgba(34, 42, 49, 0.45)" strokeWidth="2.2" />
-              <line x1={320} y1="36" x2={320} y2="384" stroke="rgba(34, 42, 49, 0.45)" strokeWidth="2.2" />
+              <line x1="40" y1={210} x2="600" y2={210} stroke="rgba(255,255,255,0.25)" strokeWidth="2.2" />
+              <line x1={320} y1="36" x2={320} y2="384" stroke="rgba(255,255,255,0.25)" strokeWidth="2.2" />
 
               <line
                 x1={lineSegment[0].x}

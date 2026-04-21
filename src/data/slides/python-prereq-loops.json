@@ -1,0 +1,249 @@
+{
+  "id": "python-prereq-loops",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.95,
+      1.05
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Python Essencial: loop e acumulador",
+      "body": "Agora juntamos dados e função com iteração, que é a base de várias rotinas de ML.\n\n1. **`for` percorre o dataset:** cada tupla vira uma rodada de cálculo.\n\n2. **Desempacotamento:** `altura, idade, y_real` deixa o código legível.\n\n3. **Acumulador (`+=`):** soma resultados parciais sem perder o histórico.\n\n4. **Média com `len`:** divide o total pelo número de exemplos.\n\n> Esse padrão de loop prepara o terreno para MSE e treino por gradiente.\n\n---\n\n### Prévia de erro médio\n```python\ndados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\nsoma_erros = 0.0\nfor altura, idade, y_real in dados:\n    y_previsto = beta_0 + beta_1 * altura + beta_2 * idade\n    erro = y_previsto - y_real\n    soma_erros += erro\nerro_medio = soma_erros / len(dados)\nprint(f\"erro medio: {erro_medio:.2f}\")\n```\n\n- loop: calcula erro para cada amostra\n- acumulador: soma os erros\n- média final: referência rápida para qualidade da predição",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            6
+          ],
+          "content": "Este bloco prepara o dataset e os coeficientes fixos usados na simulação."
+        },
+        {
+          "lineRange": [
+            8,
+            11
+          ],
+          "content": "O loop percorre cada amostra, calcula a predição e transforma isso em erro por exemplo."
+        },
+        {
+          "lineRange": [
+            12,
+            12
+          ],
+          "content": "Aqui usamos `len(dados)` para transformar o total acumulado em erro médio."
+        },
+        {
+          "lineRange": [
+            13,
+            13
+          ],
+          "content": "A linha final imprime a média para leitura imediata."
+        }
+      ]
+    },
+    "en-us": {
+      "title": "Python Essentials: loop and accumulator",
+      "body": "Now we combine data and functions with iteration, which underpins many ML routines.\n\n1. **`for` walks through the dataset:** each tuple becomes one computation step.\n\n2. **Unpacking:** `height, age, y_real` keeps code readable.\n\n3. **Accumulator (`+=`):** adds partial results while preserving history.\n\n4. **Average with `len`:** divide the total by the number of examples.\n\n> This loop pattern prepares the ground for MSE and gradient-based training.\n\n---\n\n### Average error preview\n```python\ndata = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\ntotal_error = 0.0\nfor height, age, y_real in data:\n    y_pred = beta_0 + beta_1 * height + beta_2 * age\n    error = y_pred - y_real\n    total_error += error\navg_error = total_error / len(data)\nprint(f\"avg error: {avg_error:.2f}\")\n```\n\n- loop: computes one error per sample\n- accumulator: sums all errors\n- final average: quick reference for prediction quality",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            6
+          ],
+          "content": "This block prepares the dataset and fixed coefficients used in the simulation."
+        },
+        {
+          "lineRange": [
+            8,
+            11
+          ],
+          "content": "The loop iterates through samples, computes one prediction, and derives one error each round."
+        },
+        {
+          "lineRange": [
+            12,
+            12
+          ],
+          "content": "Here `len(data)` converts the accumulated total into an average error value."
+        },
+        {
+          "lineRange": [
+            13,
+            13
+          ],
+          "content": "The final line prints the average for immediate inspection."
+        }
+      ]
+    }
+  },
+  "visual": {
+    "id": "python-prereq-tabs",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          {
+            "label": "Código"
+          },
+          {
+            "label": "Gráfico interativo"
+          }
+        ],
+        "codePanel": {
+          "title": "Código: loop com acumulador",
+          "description": "Prévia do padrão de iteração usado depois no cálculo de erro e treino.",
+          "code": "dados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\nsoma_erros = 0.0\nfor altura, idade, y_real in dados:\n    y_previsto = beta_0 + beta_1 * altura + beta_2 * idade\n    erro = y_previsto - y_real\n    soma_erros += erro\nerro_medio = soma_erros / len(dados)\nprint(f\"erro medio: {erro_medio:.2f}\")",
+          "codeExplanations": [
+            {
+              "lineRange": [
+                1,
+                6
+              ],
+              "content": "Este bloco prepara o dataset e os coeficientes fixos usados na simulação."
+            },
+            {
+              "lineRange": [
+                8,
+                11
+              ],
+              "content": "O loop percorre cada amostra, calcula a predição e transforma isso em erro por exemplo."
+            },
+            {
+              "lineRange": [
+                12,
+                12
+              ],
+              "content": "Aqui usamos `len(dados)` para transformar o total acumulado em erro médio."
+            },
+            {
+              "lineRange": [
+                13,
+                13
+              ],
+              "content": "A linha final imprime a média para leitura imediata."
+            }
+          ]
+        },
+        "graphPanel": {
+          "type": "loops",
+          "title": "Evolução do erro no loop",
+          "description": "Avance o passo para ver o acumulador sendo construído amostra por amostra.",
+          "xLabel": "Amostras",
+          "yLabel": "Erro por amostra",
+          "stepLabel": "Passo do loop",
+          "processedLabel": "Processadas",
+          "totalErrorLabel": "Erro total",
+          "averageErrorLabel": "Erro médio",
+          "dataset": [
+            {
+              "label": "A",
+              "height": 160,
+              "age": 20,
+              "realWeight": 55
+            },
+            {
+              "label": "B",
+              "height": 165,
+              "age": 24,
+              "realWeight": 59
+            },
+            {
+              "label": "C",
+              "height": 170,
+              "age": 28,
+              "realWeight": 64
+            }
+          ],
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "A lógica do acumulador aparece aqui em versão reduzida, antes de entrar no MSE completo."
+      },
+      "en-us": {
+        "tabs": [
+          {
+            "label": "Code"
+          },
+          {
+            "label": "Interactive chart"
+          }
+        ],
+        "codePanel": {
+          "title": "Code: loop with accumulator",
+          "description": "Preview of the iteration pattern used later for error computation and training.",
+          "code": "data = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\ntotal_error = 0.0\nfor height, age, y_real in data:\n    y_pred = beta_0 + beta_1 * height + beta_2 * age\n    error = y_pred - y_real\n    total_error += error\navg_error = total_error / len(data)\nprint(f\"avg error: {avg_error:.2f}\")",
+          "codeExplanations": [
+            {
+              "lineRange": [
+                1,
+                6
+              ],
+              "content": "This block prepares the dataset and fixed coefficients used in the simulation."
+            },
+            {
+              "lineRange": [
+                8,
+                11
+              ],
+              "content": "The loop iterates through samples, computes one prediction, and derives one error each round."
+            },
+            {
+              "lineRange": [
+                12,
+                12
+              ],
+              "content": "Here `len(data)` converts the accumulated total into an average error value."
+            },
+            {
+              "lineRange": [
+                13,
+                13
+              ],
+              "content": "The final line prints the average for immediate inspection."
+            }
+          ]
+        },
+        "graphPanel": {
+          "type": "loops",
+          "title": "Error evolution in the loop",
+          "description": "Advance the step to see the accumulator being built sample by sample.",
+          "xLabel": "Samples",
+          "yLabel": "Error per sample",
+          "stepLabel": "Loop step",
+          "processedLabel": "Processed",
+          "totalErrorLabel": "Total error",
+          "averageErrorLabel": "Average error",
+          "dataset": [
+            {
+              "label": "A",
+              "height": 160,
+              "age": 20,
+              "realWeight": 55
+            },
+            {
+              "label": "B",
+              "height": 165,
+              "age": 24,
+              "realWeight": 59
+            },
+            {
+              "label": "C",
+              "height": 170,
+              "age": 28,
+              "realWeight": 64
+            }
+          ],
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "The accumulator logic appears here in compact form before full MSE."
+      }
+    }
+  }
+}

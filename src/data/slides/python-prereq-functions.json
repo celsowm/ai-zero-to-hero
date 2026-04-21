@@ -1,0 +1,229 @@
+{
+  "id": "python-prereq-functions",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.95,
+      1.05
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Python Essencial: funções e return",
+      "body": "Com dados na mão, o próximo passo é organizar cálculo em função.\n\n1. **`def` cria a rotina:** nomeamos uma tarefa reutilizável.\n\n2. **Parâmetros entram como entradas:** a função recebe valores para trabalhar.\n\n3. **`return` devolve a saída:** o resultado sai pronto para reutilização.\n\n4. **Transição para IA:** a conta de predição já aparece como função curta.\n\n> Este padrão (entrada -> cálculo -> saída) volta em praticamente todo o curso.\n\n---\n\n### Exemplo de predição simples\n```python\ndef prever_peso(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npeso_previsto = prever_peso(172, 29, beta_0, beta_1, beta_2)\nprint(f\"peso previsto: {peso_previsto:.2f}\")\n```\n\n- `prever_peso`: função de uma única conta\n- `beta_*`: coeficientes fixos neste exemplo\n- chamada da função: transforma entrada em predição",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "Aqui definimos a função com parâmetros e devolvemos a predição via `return`."
+        },
+        {
+          "lineRange": [
+            3,
+            5
+          ],
+          "content": "Estas linhas fixam coeficientes para demonstrar uso da função sem etapa de treino."
+        },
+        {
+          "lineRange": [
+            6,
+            6
+          ],
+          "content": "A chamada passa altura, idade e coeficientes, recebendo o peso previsto."
+        },
+        {
+          "lineRange": [
+            7,
+            7
+          ],
+          "content": "A linha imprime o resultado formatado para leitura rápida."
+        }
+      ]
+    },
+    "en-us": {
+      "title": "Python Essentials: functions and return",
+      "body": "Once data is ready, the next step is packaging calculations into functions.\n\n1. **`def` creates the routine:** we name a reusable task.\n\n2. **Parameters are the inputs:** the function receives values to process.\n\n3. **`return` sends output back:** the result is produced for reuse.\n\n4. **Bridge to AI:** prediction already appears as a short function.\n\n> This pattern (input -> computation -> output) appears across almost the entire course.\n\n---\n\n### Simple prediction example\n```python\ndef predict_weight(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npredicted_weight = predict_weight(172, 29, beta_0, beta_1, beta_2)\nprint(f\"predicted weight: {predicted_weight:.2f}\")\n```\n\n- `predict_weight`: one-function calculation\n- `beta_*`: fixed coefficients in this example\n- function call: turns inputs into one prediction",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "This defines the function with parameters and returns one prediction value."
+        },
+        {
+          "lineRange": [
+            3,
+            5
+          ],
+          "content": "These lines set fixed coefficients only to demonstrate function usage before training."
+        },
+        {
+          "lineRange": [
+            6,
+            6
+          ],
+          "content": "This call passes inputs and coefficients, producing the predicted weight."
+        },
+        {
+          "lineRange": [
+            7,
+            7
+          ],
+          "content": "This line prints the formatted result for quick inspection."
+        }
+      ]
+    }
+  },
+  "visual": {
+    "id": "python-prereq-tabs",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          {
+            "label": "Código"
+          },
+          {
+            "label": "Gráfico interativo"
+          }
+        ],
+        "codePanel": {
+          "title": "Código: função de predição",
+          "description": "Função curta com parâmetros e retorno, conectando entrada a saída.",
+          "code": "def prever_peso(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npeso_previsto = prever_peso(172, 29, beta_0, beta_1, beta_2)\nprint(f\"peso previsto: {peso_previsto:.2f}\")",
+          "codeExplanations": [
+            {
+              "lineRange": [
+                1,
+                2
+              ],
+              "content": "Aqui definimos a função com parâmetros e devolvemos a predição via `return`."
+            },
+            {
+              "lineRange": [
+                3,
+                5
+              ],
+              "content": "Estas linhas fixam coeficientes para demonstrar uso da função sem etapa de treino."
+            },
+            {
+              "lineRange": [
+                6,
+                6
+              ],
+              "content": "A chamada passa altura, idade e coeficientes, recebendo o peso previsto."
+            },
+            {
+              "lineRange": [
+                7,
+                7
+              ],
+              "content": "A linha imprime o resultado formatado para leitura rápida."
+            }
+          ]
+        },
+        "graphPanel": {
+          "type": "functions",
+          "title": "Predição ao variar entrada",
+          "description": "Ajuste altura e idade para ver como a função muda a saída prevista.",
+          "xLabel": "Altura",
+          "yLabel": "Peso previsto",
+          "heightLabel": "Altura de entrada",
+          "ageLabel": "Idade de entrada",
+          "predictionLabel": "Predição atual",
+          "formulaLabel": "Fórmula ativa",
+          "heightRange": [
+            150,
+            190
+          ],
+          "ageRange": [
+            18,
+            60
+          ],
+          "initialHeight": 172,
+          "initialAge": 29,
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "A função mantém a estrutura; o que muda são os valores de entrada e os coeficientes."
+      },
+      "en-us": {
+        "tabs": [
+          {
+            "label": "Code"
+          },
+          {
+            "label": "Interactive chart"
+          }
+        ],
+        "codePanel": {
+          "title": "Code: prediction function",
+          "description": "A short function with parameters and return, connecting inputs to outputs.",
+          "code": "def predict_weight(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npredicted_weight = predict_weight(172, 29, beta_0, beta_1, beta_2)\nprint(f\"predicted weight: {predicted_weight:.2f}\")",
+          "codeExplanations": [
+            {
+              "lineRange": [
+                1,
+                2
+              ],
+              "content": "This defines the function with parameters and returns one prediction value."
+            },
+            {
+              "lineRange": [
+                3,
+                5
+              ],
+              "content": "These lines set fixed coefficients only to demonstrate function usage before training."
+            },
+            {
+              "lineRange": [
+                6,
+                6
+              ],
+              "content": "This call passes inputs and coefficients, producing the predicted weight."
+            },
+            {
+              "lineRange": [
+                7,
+                7
+              ],
+              "content": "This line prints the formatted result for quick inspection."
+            }
+          ]
+        },
+        "graphPanel": {
+          "type": "functions",
+          "title": "Prediction while inputs change",
+          "description": "Adjust height and age to see how the function changes predicted output.",
+          "xLabel": "Height",
+          "yLabel": "Predicted weight",
+          "heightLabel": "Input height",
+          "ageLabel": "Input age",
+          "predictionLabel": "Current prediction",
+          "formulaLabel": "Active formula",
+          "heightRange": [
+            150,
+            190
+          ],
+          "ageRange": [
+            18,
+            60
+          ],
+          "initialHeight": 172,
+          "initialAge": 29,
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "The function keeps the same structure; what changes are inputs and coefficients."
+      }
+    }
+  }
+}

@@ -404,8 +404,9 @@ export const NonlinearSolutionRingVisual: React.FC<Props> = ({ copy }) => {
               </svg>
             </div>
 
-            <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.boundaryDescription}</div>
-            <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+            <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>
+              {[copy.boundaryDescription, copy.footer].filter(Boolean).join(' ')}
+            </div>
           </PanelCard>
         ) : (
           <PanelCard minHeight={0} gap={12}>

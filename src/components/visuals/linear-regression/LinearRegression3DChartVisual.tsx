@@ -696,6 +696,14 @@ const LinearRegression3DScene: React.FC<{ copy: LinearRegression3DChartVisualCop
       scene.add(stem);
       createdGeometries.push(stemGeometry);
       createdMaterials.push(stemMaterial);
+
+      const pointLabel = makeLabelSprite(point.label, point.accent, 22);
+      if (pointLabel) {
+        pointLabel.scale.set(1.1, 0.32, 1);
+        pointLabel.position.set(realScenePoint.x, realScenePoint.y + 0.3, realScenePoint.z);
+        scene.add(pointLabel);
+        createdSprites.push(pointLabel);
+      }
     });
 
     resize();

@@ -1,6 +1,9 @@
 export const courseSlideOrder = [
   'welcome',
   'professor',
+  'python-prereq-data',
+  'python-prereq-functions',
+  'python-prereq-loops',
   'ia-definition',
   'ia-learning-loop',
   'ia-vs-tradicionais',

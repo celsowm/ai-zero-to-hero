@@ -87,7 +87,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
                 height: 6,
                 borderRadius: '50%',
                 background: 'var(--sw-cyan)',
-                marginTop: 8,
+                // Align bullet with the first text line center (not the whole multi-line block)
+                marginTop: 'calc(0.875em - 3px)',
                 flexShrink: 0,
                 boxShadow: '0 0 8px rgba(0, 229, 255, 0.4)',
               }}

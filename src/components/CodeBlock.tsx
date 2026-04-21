@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
 import { Copy, Check, Info } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation } from '../types/slide';
+import { useCourse } from '../context/CourseContext';
 import 'highlight.js/styles/github-dark.css';
 
 export type CodeExplanation = ICodeExplanation;
@@ -75,10 +76,14 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   className,
   explanations = []
 }) => {
+  const { fontScale } = useCourse();
   const [copied, setCopied] = useState(false);
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
   const [tooltipData, setTooltipData] = useState<{ content: string; top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const codeFontSize = 11.5 * fontScale;
+  const uiFontSize = 10 * fontScale;
 
   const lang = useMemo(() => {
     const l = language.toLowerCase();
@@ -147,6 +152,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       style={{ 
         position: 'relative', 
         width: '100%', 
+        height: '100%',
+        minHeight: 0,
         display: 'flex', 
         flexDirection: 'column',
         fontFamily: "'JetBrains Mono', monospace",
@@ -164,7 +171,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, padding: '0 4px' }}>
-        <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--sw-cyan)', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ fontSize: uiFontSize, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--sw-cyan)', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--sw-cyan)' }} />
           {lang}
         </div>
@@ -193,86 +200,102 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
       <div style={{ 
         display: 'flex', 
+        flex: 1,
+        minHeight: 0,
         width: '100%', 
         overflow: 'visible', // Changed to visible to let tooltip fly out
         position: 'relative',
         borderRadius: 8,
         background: 'rgba(0, 0, 0, 0.2)',
       }}>
-        {/* Line Numbers */}
-        <div style={{
-          padding: '16px 12px 16px 8px',
-          textAlign: 'right',
-          userSelect: 'none',
-          color: 'rgba(255, 255, 255, 0.15)',
-          fontSize: '12px',
-          lineHeight: '1.7',
-          borderRight: '1px solid rgba(255, 255, 255, 0.05)',
-          minWidth: '2.5rem',
-          whiteSpace: 'pre',
-          background: 'rgba(13, 11, 21, 0.8)',
-          zIndex: 5,
-          borderRadius: '8px 0 0 8px'
-        }}>
-          {processedLines.map((_, i) => (
-            <div 
-              key={i} 
-              style={{ 
-                height: '1.7em', 
-                color: hoveredRange && (i + 1 >= hoveredRange[0] && i + 1 <= hoveredRange[1]) ? 'var(--sw-cyan)' : 'inherit',
-                transition: 'color 0.2s ease'
-              }}
-            >
-              {i + 1}
-            </div>
-          ))}
-        </div>
-
-        {/* Code Content */}
-        <div style={{ flex: 1, padding: '16px 0', overflow: 'hidden' }}>
-          {processedLines.map((lineHtml, i) => {
-            const isHighlighted = hoveredRange && (i + 1 >= hoveredRange[0] && i + 1 <= hoveredRange[1]);
-            const isDimmed = hoveredRange && !isHighlighted;
-
-            return (
-              <div
-                key={i}
-                onMouseEnter={(e) => onLineMouseEnter(i, e)}
-                onMouseLeave={onLineMouseLeave}
-                style={{
-                  padding: '0 16px',
-                  height: '1.7em',
-                  background: isHighlighted ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
-                  opacity: isDimmed ? 0.3 : 1,
-                  transition: 'all 0.2s ease',
-                  position: 'relative',
-                  whiteSpace: 'pre',
-                  fontSize: '12.5px',
-                  lineHeight: '1.7',
-                  cursor: explanations.some(e => (i + 1 >= e.lineRange[0] && i + 1 <= e.lineRange[1])) ? 'help' : 'default'
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            minHeight: 0,
+            overflow: 'auto',
+            maxHeight: 420,
+          }}
+        >
+          {/* Line Numbers */}
+          <div style={{
+            position: 'sticky',
+            left: 0,
+            padding: '16px 12px 16px 8px',
+            textAlign: 'right',
+            userSelect: 'none',
+            color: 'rgba(255, 255, 255, 0.15)',
+            fontSize: codeFontSize,
+            lineHeight: 1.7,
+            borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+            minWidth: '2.5rem',
+            whiteSpace: 'pre',
+            background: 'rgba(13, 11, 21, 0.86)',
+            zIndex: 5,
+            borderRadius: '8px 0 0 8px'
+          }}>
+            {processedLines.map((_, i) => (
+              <div 
+                key={i} 
+                style={{ 
+                  height: '1.7em', 
+                  color: hoveredRange && (i + 1 >= hoveredRange[0] && i + 1 <= hoveredRange[1]) ? 'var(--sw-cyan)' : 'inherit',
+                  transition: 'color 0.2s ease'
                 }}
               >
-                {/* Visual accent border for highlighted block */}
-                {isHighlighted && i + 1 === hoveredRange?.[0] && (
-                  <div style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: '2px',
-                    background: 'var(--sw-purple)',
-                    boxShadow: '0 0 10px var(--sw-purple)'
-                  }} />
-                )}
-                
-                <span 
-                  className="hljs"
-                  style={{ background: 'transparent' }}
-                  dangerouslySetInnerHTML={{ __html: lineHtml || ' ' }} 
-                />
+                {i + 1}
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Code Content */}
+          <div style={{ flex: 1, minHeight: 0, padding: '16px 0' }}>
+            {processedLines.map((lineHtml, i) => {
+              const isHighlighted = hoveredRange && (i + 1 >= hoveredRange[0] && i + 1 <= hoveredRange[1]);
+              const isDimmed = hoveredRange && !isHighlighted;
+
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={(e) => onLineMouseEnter(i, e)}
+                  onMouseLeave={onLineMouseLeave}
+                  style={{
+                    padding: '0 16px',
+                    height: '1.7em',
+                    width: 'max-content',
+                    minWidth: '100%',
+                    background: isHighlighted ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
+                    opacity: isDimmed ? 0.3 : 1,
+                    transition: 'all 0.2s ease',
+                    position: 'relative',
+                    whiteSpace: 'pre',
+                    fontSize: codeFontSize,
+                    lineHeight: 1.7,
+                    cursor: explanations.some(e => (i + 1 >= e.lineRange[0] && i + 1 <= e.lineRange[1])) ? 'help' : 'default'
+                  }}
+                >
+                  {/* Visual accent border for highlighted block */}
+                  {isHighlighted && i + 1 === hoveredRange?.[0] && (
+                    <div style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: '2px',
+                      background: 'var(--sw-purple)',
+                      boxShadow: '0 0 10px var(--sw-purple)'
+                    }} />
+                  )}
+                  
+                  <span 
+                    className="hljs"
+                    style={{ background: 'transparent' }}
+                    dangerouslySetInnerHTML={{ __html: lineHtml || ' ' }} 
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
