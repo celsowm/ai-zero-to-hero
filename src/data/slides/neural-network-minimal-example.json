@@ -34,11 +34,11 @@
           "outputLayer": "SAÍDA",
           "codeTitle": "Código Python"
         },
-        "pythonCode": "for epoca in range(4000):\n    for x, y in dados:\n        # Forward\n        z1 = sum(w*xi for w,xi in zip(p['w1'],x)) + p['b1']\n        h1 = max(0.0, z1)\n        z2 = sum(w*xi for w,xi in zip(p['w2'],x)) + p['b2']\n        h2 = max(0.0, z2)\n        z3 = p['v1']*h1 + p['v2']*h2 + p['c']\n        y_hat = 1/(1+exp(-z3))\n\n        # Loss & Backprop\n        d_out = (y_hat - y)\n        d_z3 = d_out * y_hat * (1 - y_hat)\n        d_h1 = d_z3 * p['v1'] * (1 if z1>0 else 0)\n        d_h2 = d_z3 * p['v2'] * (1 if z2>0 else 0)\n\n        # Weight update (SGD)\n        for i in range(4):\n            p['w1'][i] -= lr * d_h1 * x[i]\n            p['w2'][i] -= lr * d_h2 * x[i]\n        p['v1'] -= lr * d_z3 * h1\n        p['v2'] -= lr * d_z3 * h2\n        p['c']  -= lr * d_z3",
+        "pythonCode": "# Dados: [idade, pressão, colesterol, fumante]\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoca in range(4000):\n    for x, y in dados:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v1*h1 + v2*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v1 * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v2 * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v1 -= lr * d_z3 * h1\n        v2 -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Fim do Treino. Acurácia: {acc*100}%')",
         "codeHighlightRanges": {
-          "forward": [3, 9],
-          "backprop": [11, 15],
-          "update": [17, 22]
+          "forward": [13, 19],
+          "backprop": [21, 25],
+          "update": [27, 33]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -56,6 +56,11 @@
           "accuracyLabel": "Acurácia",
           "archLabel": "4→2(ReLU)→1(σ)",
           "convergenceLabel": "Convergiu!"
+        },
+        "phaseExplanations": {
+          "forward": "Nesta fase, os dados de entrada percorrem a rede. Cada neurônio calcula uma soma ponderada e aplica a função de ativação (ReLU ou Sigmoid) para gerar a predição final ŷ.",
+          "backprop": "O erro (Loss) é calculado e propagado de volta. Calculamos os gradientes para entender quanto cada peso contribuiu para o erro total.",
+          "update": "Os pesos e vieses são ajustados usando os gradientes e a taxa de aprendizagem. É aqui que a rede realmente 'aprende', tentando reduzir o erro na próxima rodada."
         }
       },
       "en-us": {
@@ -78,11 +83,11 @@
           "outputLayer": "OUTPUT",
           "codeTitle": "Python code"
         },
-        "pythonCode": "for epoch in range(4000):\n    for x, y in data:\n        # Forward\n        z1 = sum(w*xi for w,xi in zip(p['w1'],x)) + p['b1']\n        h1 = max(0.0, z1)\n        z2 = sum(w*xi for w,xi in zip(p['w2'],x)) + p['b2']\n        h2 = max(0.0, z2)\n        z3 = p['v1']*h1 + p['v2']*h2 + p['c']\n        y_hat = 1/(1+exp(-z3))\n\n        # Loss & Backprop\n        d_out = (y_hat - y)\n        d_z3 = d_out * y_hat * (1 - y_hat)\n        d_h1 = d_z3 * p['v1'] * (1 if z1>0 else 0)\n        d_h2 = d_z3 * p['v2'] * (1 if z2>0 else 0)\n\n        # Weight update (SGD)\n        for i in range(4):\n            p['w1'][i] -= lr * d_h1 * x[i]\n            p['w2'][i] -= lr * d_h2 * x[i]\n        p['v1'] -= lr * d_z3 * h1\n        p['v2'] -= lr * d_z3 * h2\n        p['c']  -= lr * d_z3",
+        "pythonCode": "# Data: [age, pressure, cholesterol, smoker]\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoch in range(4000):\n    for x, y in data:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v1*h1 + v2*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v1 * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v2 * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v1 -= lr * d_z3 * h1\n        v2 -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Training Done. Accuracy: {acc*100}%')",
         "codeHighlightRanges": {
-          "forward": [3, 9],
-          "backprop": [11, 15],
-          "update": [17, 22]
+          "forward": [13, 19],
+          "backprop": [21, 25],
+          "update": [27, 33]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -100,6 +105,11 @@
           "accuracyLabel": "Accuracy",
           "archLabel": "4→2(ReLU)→1(σ)",
           "convergenceLabel": "Converged!"
+        },
+        "phaseExplanations": {
+          "forward": "In this phase, input data travels through the network. Each neuron calculates a weighted sum and applies an activation function (ReLU or Sigmoid) to generate the final prediction ŷ.",
+          "backprop": "The error (Loss) is calculated and propagated back. We compute gradients to understand how much each weight contributed to the total error.",
+          "update": "Weights and biases are adjusted using gradients and the learning rate. This is where the network actually 'learns', aiming to reduce the error next time."
         }
       }
     }
