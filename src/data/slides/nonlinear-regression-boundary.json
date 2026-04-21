@@ -51,37 +51,44 @@
           {
             "lineRange": [
               1,
-              1
+              2
             ],
-            "content": "A função Sigmoid aperta qualquer valor para o intervalo entre 0 e 1, perfeito para representar probabilidade."
+            "content": "Aqui definimos a sigmoid, uma função que transforma qualquer número em probabilidade entre 0 e 1."
           },
           {
             "lineRange": [
               3,
-              4
+              5
             ],
-            "content": "Primeiro calculamos a reta normal e depois passamos na Sigmoid para ter uma decisão mais suave."
+            "content": "Estas linhas separam a predição em duas etapas: valor bruto da reta e probabilidade final após sigmoid."
+          },
+          {
+            "lineRange": [
+              6,
+              10
+            ],
+            "content": "Aqui começa uma época de treino e os gradientes são zerados para acumular correções novas."
           },
           {
             "lineRange": [
               11,
-              14
+              15
             ],
-            "content": "Para cada ponto, comparamos a previsão com o rótulo real. O fator mede o erro."
+            "content": "Para cada ponto, calculamos previsão, erro e fator de gradiente; gradiente é quanto e para onde cada peso deve ser ajustado."
           },
           {
             "lineRange": [
               16,
-              18
+              20
             ],
-            "content": "Somamos os gradientes de todos os pontos. Eles indicam a direção para corrigir os pesos w0, w1 e w2."
+            "content": "Este trecho acumula a contribuição de cada feature para os gradientes dos pesos `w0`, `w1` e `w2`."
           },
           {
             "lineRange": [
               21,
-              26
+              27
             ],
-            "content": "No fim da época, a reta é deslocada subtraindo o gradiente médio multiplicado pela taxa de aprendizado."
+            "content": "No final, calculamos média dos gradientes e atualizamos os pesos com a taxa de aprendizado."
           }
         ]
       },
@@ -116,37 +123,44 @@
           {
             "lineRange": [
               1,
-              1
+              2
             ],
-            "content": "The Sigmoid function squashes any value into the 0 to 1 range, perfect for representing probability."
+            "content": "Here we define sigmoid, a function that maps any number to a 0-1 probability."
           },
           {
             "lineRange": [
               3,
-              4
+              5
             ],
-            "content": "First we calculate the standard line and then pass it through Sigmoid to get a smoother decision."
+            "content": "These lines split prediction into two steps: raw linear score and final sigmoid probability."
+          },
+          {
+            "lineRange": [
+              6,
+              10
+            ],
+            "content": "This starts one training epoch and resets gradients to accumulate fresh corrections."
           },
           {
             "lineRange": [
               11,
-              14
+              15
             ],
-            "content": "For each point, we compare the prediction against the real label. The factor measures the error."
+            "content": "For each point, we compute prediction, error, and gradient factor; gradient means how much and in which direction each weight should move."
           },
           {
             "lineRange": [
               16,
-              18
+              20
             ],
-            "content": "We accumulate the gradients for all points. They indicate the direction to correct weights w0, w1 and w2."
+            "content": "This block accumulates each feature contribution into gradients for `w0`, `w1`, and `w2`."
           },
           {
             "lineRange": [
               21,
-              26
+              27
             ],
-            "content": "At the end of the epoch, the line shifts by subtracting the average gradient multiplied by the learning rate."
+            "content": "At the end, we average gradients and update weights with the learning rate."
           }
         ]
       }

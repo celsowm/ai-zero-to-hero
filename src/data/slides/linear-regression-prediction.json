@@ -17,21 +17,21 @@
             1,
             2
           ],
-          "content": "As entradas novas. Valores que o modelo nunca viu durante a fase de treino."
+          "content": "Estas linhas definem as entradas do novo exemplo: altura e idade."
         },
         {
           "lineRange": [
             3,
             3
           ],
-          "content": "A chamada para a função de previsão. Ela utiliza os coeficientes beta_0, beta_1 e beta_2 que já foram aprendidos e fixados."
+          "content": "Aqui acontece a predição: a função usa os betas treinados para calcular o peso estimado."
         },
         {
           "lineRange": [
             4,
             4
           ],
-          "content": "A saída final: a estimativa do modelo gerada instantaneamente em modo de inferência."
+          "content": "Esta linha imprime o resultado para conferência rápida."
         }
       ]
     },
@@ -44,21 +44,21 @@
             1,
             2
           ],
-          "content": "The new inputs. Values that the model has never seen during the training phase."
+          "content": "These lines define the new input values: height and age."
         },
         {
           "lineRange": [
             3,
             3
           ],
-          "content": "The call to the prediction function. It uses the beta_0, beta_1, and beta_2 coefficients that were already learned and fixed."
+          "content": "This is the prediction step: the function uses trained betas to compute estimated weight."
         },
         {
           "lineRange": [
             4,
             4
           ],
-          "content": "The final output: the model estimate generated instantly in inference mode."
+          "content": "This line prints the final result for a quick check."
         }
       ]
     }

@@ -12,23 +12,23 @@
         {
           "lineRange": [
             1,
-            2
+            4
           ],
-          "content": "ReLU é a não-linearidade. Ela ignora valores negativos (zera-os), criando a quebra que permite à rede formar curvas."
+          "content": "Este bloco define a ReLU, uma ativação que zera valores negativos e mantém positivos, criando não linearidade."
         },
         {
           "lineRange": [
             5,
-            7
+            9
           ],
-          "content": "Um neurônio completo: faz uma soma ponderada (idêntica à regressão linear) e logo após aplica o ativador."
+          "content": "Aqui temos um neurônio simples: soma ponderada (`w*x + b`) seguida de ativação."
         },
         {
           "lineRange": [
             10,
             14
           ],
-          "content": "A Rede Neural: pega os resultados intermediários (h1, h2), multiplica pelos pesos da camada de saída (v1, v2) e finaliza com um viés (c)."
+          "content": "A rede combina dois neurônios ocultos (`h1`, `h2`) e produz a saída final `y`."
         }
       ]
     },
@@ -39,23 +39,23 @@
         {
           "lineRange": [
             1,
-            2
+            4
           ],
-          "content": "ReLU is the non-linearity. It ignores negative values (zeroes them out), creating the break that allows the network to bend shapes."
+          "content": "This block defines ReLU, an activation that clips negative values to zero and keeps positive ones, creating nonlinearity."
         },
         {
           "lineRange": [
             5,
-            7
+            9
           ],
-          "content": "A complete neuron: it computes a weighted sum (identical to linear regression) and immediately applies the activator."
+          "content": "This is a simple neuron: weighted sum (`w*x + b`) followed by activation."
         },
         {
           "lineRange": [
             10,
             14
           ],
-          "content": "The Neural Network: takes intermediate results (h1, h2), multiplies them by output layer weights (v1, v2), and adds a final bias (c)."
+          "content": "The network combines two hidden neurons (`h1`, `h2`) and produces final output `y`."
         }
       ]
     }

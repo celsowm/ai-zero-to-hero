@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
 import { Copy, Check, Info } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation } from '../types/slide';
@@ -19,19 +20,21 @@ interface CodeBlockProps {
 const ExplanationTooltip: React.FC<{ 
   content: string; 
   top: number; 
+  left: number;
   visible: boolean;
-}> = ({ content, top, visible }) => {
-  if (!visible) return null;
+}> = ({ content, top, left, visible }) => {
+  if (!visible || typeof document === 'undefined') return null;
 
-  return (
+  return createPortal(
     <div style={{
-      position: 'absolute',
-      left: '10px',
-      top: top,
+      position: 'fixed',
+      left,
+      top,
       width: '280px',
       zIndex: 100,
       pointerEvents: 'none',
       animation: 'tooltipIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+      transform: 'translateY(-50%)',
     }}>
       <div style={{
         padding: '16px',
@@ -57,11 +60,12 @@ const ExplanationTooltip: React.FC<{
       
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes tooltipIn {
-          from { opacity: 0; transform: translateX(-10px); }
-          to { opacity: 1; transform: translateX(0); }
+          from { opacity: 0; transform: translateX(-10px) translateY(-50%); }
+          to { opacity: 1; transform: translateX(0) translateY(-50%); }
         }
       `}} />
-    </div>
+    </div>,
+    document.body
   );
 };
 
@@ -73,7 +77,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
-  const [tooltipData, setTooltipData] = useState<{ content: string; top: number } | null>(null);
+  const [tooltipData, setTooltipData] = useState<{ content: string; top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const lang = useMemo(() => {
@@ -116,9 +120,13 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       if (containerRef.current) {
         const rect = e.currentTarget.getBoundingClientRect();
         const containerRect = containerRef.current.getBoundingClientRect();
+        const tooltipWidth = 280;
+        const gutter = 12;
+        const leftAnchor = Math.max(8, containerRect.left - tooltipWidth - gutter);
         setTooltipData({
           content: activeExpl.content,
-          top: rect.top - containerRect.top
+          top: rect.top + rect.height / 2,
+          left: leftAnchor
         });
       }
     } else {
@@ -149,6 +157,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         <ExplanationTooltip 
           content={tooltipData.content} 
           top={tooltipData.top} 
+          left={tooltipData.left}
           visible={!!tooltipData} 
         />
       )}

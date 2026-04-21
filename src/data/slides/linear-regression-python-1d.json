@@ -14,31 +14,73 @@
       "codeExplanations": [
         {
           "lineRange": [
-            11,
-            12
+            1,
+            10
           ],
-          "content": "A fórmula central do modelo: o beta_0 é o intercepto (base), e os demais betas pesam o impacto das entradas."
+          "content": "Este bloco prepara o dataset de treino como uma lista de exemplos (entrada e saída real)."
+        },
+        {
+          "lineRange": [
+            11,
+            14
+          ],
+          "content": "Aqui a função `prever` implementa a fórmula linear com intercepto e coeficientes."
         },
         {
           "lineRange": [
             15,
-            21
+            23
           ],
-          "content": "A métrica de erro (MSE). Para cada ponto medimos a distância da previsão ao alvo (y_hat - y) e elevamos ao quadrado para não anular erros positivos com negativos."
+          "content": "Este trecho calcula o MSE (Mean Squared Error), que é a média dos erros ao quadrado, ou seja, uma medida de quão errado o modelo está."
+        },
+        {
+          "lineRange": [
+            24,
+            29
+          ],
+          "content": "Aqui começa o treino: definimos hiperparâmetros (`epochs`, `lr`) e inicializamos os betas em zero."
+        },
+        {
+          "lineRange": [
+            30,
+            34
+          ],
+          "content": "Este bloco abre as épocas e zera os gradientes; gradiente é a direção e o tamanho da correção que cada parâmetro deve receber."
         },
         {
           "lineRange": [
             35,
-            40
+            41
           ],
-          "content": "O backpropagation manual. Medimos o erro de cada exemplo e acumulamos os gradientes que apontam a direção do ajuste."
+          "content": "Para cada amostra, calculamos predição e erro, depois acumulamos contribuição de gradiente para cada beta."
+        },
+        {
+          "lineRange": [
+            42,
+            45
+          ],
+          "content": "Aqui tiramos a média dos gradientes dividindo por `n`, estabilizando o passo de atualização."
         },
         {
           "lineRange": [
             46,
-            48
+            49
           ],
-          "content": "O Passo do Gradiente (Gradient Descent): ao final de toda época, atualizamos os pesos multiplicando o gradiente médio pela taxa de aprendizado (lr)."
+          "content": "Este trecho aplica descida do gradiente: cada beta anda no sentido oposto ao erro, controlado por `lr`."
+        },
+        {
+          "lineRange": [
+            50,
+            52
+          ],
+          "content": "A função retorna os parâmetros finais já treinados."
+        },
+        {
+          "lineRange": [
+            53,
+            56
+          ],
+          "content": "Aqui chamamos o treino e exibimos o modelo final formatado para leitura humana."
         }
       ]
     },
@@ -48,31 +90,73 @@
       "codeExplanations": [
         {
           "lineRange": [
-            11,
-            12
+            1,
+            10
           ],
-          "content": "The core model formula: beta_0 is the intercept (base), and the other betas weigh the impact of each input."
+          "content": "This block prepares the training dataset as a list of examples (inputs plus true output)."
+        },
+        {
+          "lineRange": [
+            11,
+            14
+          ],
+          "content": "Here `predict` implements the linear formula with intercept and coefficients."
         },
         {
           "lineRange": [
             15,
-            21
+            23
           ],
-          "content": "The error metric (MSE). For each point, we measure the distance from prediction to target (y_hat - y) and square it so positive and negative errors do not cancel out."
+          "content": "This part computes MSE (Mean Squared Error), the average of squared errors, which measures how wrong the model is."
+        },
+        {
+          "lineRange": [
+            24,
+            29
+          ],
+          "content": "Training starts here: we set hyperparameters (`epochs`, `lr`) and initialize betas at zero."
+        },
+        {
+          "lineRange": [
+            30,
+            34
+          ],
+          "content": "This opens epochs and resets gradients; gradient means the direction and magnitude of correction for each parameter."
         },
         {
           "lineRange": [
             35,
-            40
+            41
           ],
-          "content": "Manual backpropagation. We measure the error of each sample and accumulate gradients pointing to the correct adjustment direction."
+          "content": "For each sample, we compute prediction and error, then accumulate gradient contribution for each beta."
+        },
+        {
+          "lineRange": [
+            42,
+            45
+          ],
+          "content": "Here we average gradients by dividing by `n`, which stabilizes update size."
         },
         {
           "lineRange": [
             46,
-            48
+            49
           ],
-          "content": "The Gradient Descent step: at the end of each epoch, we update the weights by multiplying the average gradient with the learning rate (lr)."
+          "content": "This is gradient descent: each beta moves opposite to error, scaled by `lr`."
+        },
+        {
+          "lineRange": [
+            50,
+            52
+          ],
+          "content": "The function returns final trained parameters."
+        },
+        {
+          "lineRange": [
+            53,
+            56
+          ],
+          "content": "Here we call training and print the final model in a readable format."
         }
       ]
     }
