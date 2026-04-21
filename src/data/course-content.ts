@@ -3,6 +3,7 @@ import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
 import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
 import { courseSlideOrder } from './course-outline';
 
+// Slide asset registry
 const assetRegistry = {
   traditionalVsAiPtBr,
   traditionalVsAiEnUs,
@@ -59,6 +60,7 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'layer-evolution-chart'; copy: Record<Language, unknown> }
     | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> }
     | { id: 'neuron-architecture-animated'; copy: Record<Language, unknown> }
+    | { id: 'neural-network-step-debugger'; copy: Record<Language, unknown> }
     | { id: 'biological-vs-computational-neuron'; copy: Record<Language, unknown> };
 };
 

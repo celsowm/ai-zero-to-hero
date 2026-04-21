@@ -137,5 +137,11 @@ export interface NeuralNetworkStepDebuggerVisualCopy {
     archLabel: string;
     convergenceLabel: string;
   };
-  phaseExplanations: Record<string, string>;
+  phaseExplanations: Record<'init' | 'forward' | 'backprop' | 'update', string>;
+  tooltips: {
+    input: string;
+    hidden: string;
+    output: string;
+    weight: string;
+  };
 }

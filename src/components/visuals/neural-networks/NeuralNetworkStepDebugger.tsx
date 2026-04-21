@@ -33,13 +33,20 @@ const HighlightedCode: React.FC<{
 
 /* ═══════════════════ SVG Graph ═══════════════════ */
 
-const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebuggerVisualCopy; activePhase: 'forward' | 'backprop' | 'update' }> = ({ snap, copy, activePhase }) => {
+const NetworkGraph: React.FC<{ 
+  snap: SampleSnapshot; 
+  copy: NeuralNetworkStepDebuggerVisualCopy; 
+  activePhase: 'init' | 'forward' | 'backprop' | 'update';
+  onHover: (text: string | null) => void;
+}> = ({ snap, copy, activePhase, onHover }) => {
   const x = snap.sample.inputs, w = snap.weightsAfter;
   const iY = [48, 98, 148, 198], hY = [80, 168], oY = 124;
 
   const isFwd = activePhase === 'forward';
   const isBwd = activePhase === 'backprop';
   const isUpd = activePhase === 'update';
+
+  const t = copy.tooltips;
 
   return (
     <svg viewBox="0 0 360 240" width="100%" height="100%" style={{ display: 'block' }}>
@@ -54,6 +61,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
           @keyframes fl_fwd { from { stroke-dashoffset: 20 } to { stroke-dashoffset: 0 } }
           @keyframes fl_bwd { from { stroke-dashoffset: 0 } to { stroke-dashoffset: 20 } }
           @keyframes pulse { 0% { stroke-opacity: 0.4; } 50% { stroke-opacity: 1; stroke-width: 3.5; } 100% { stroke-opacity: 0.4; } }
+          .g-item { cursor: help; pointer-events: all; }
         `}</style>
       </defs>
 
@@ -68,7 +76,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
         const color = isBwd ? '#ff2e97' : '#38bdf8';
         const midX = 130, midY = y1 + (y2 - y1) * 0.45;
         return (
-          <g key={`ih${i}${j}`}>
+          <g key={`ih${i}${j}`} className="g-item" onMouseEnter={() => onHover(t.weight)} onMouseLeave={() => onHover(null)}>
             <path d={`M80 ${y1} C120 ${y1},148 ${y2},180 ${y2}`} fill="none"
               stroke={color} strokeWidth={Math.max(0.6, Math.min(3, Math.abs(wv) * 6))}
               strokeDasharray="4 4" opacity={isUpd ? 1 : 0.4}
@@ -78,7 +86,6 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
                 animation: isFwd ? 'fl_fwd 1.2s linear infinite' : isBwd ? 'fl_bwd 1.2s linear infinite' : isUpd ? 'pulse 1s ease-in-out infinite' : 'none',
                 transition: 'stroke 300ms'
               }} />
-            {/* Weight value on edge */}
             <g transform={`translate(${midX}, ${midY})`}>
               <rect x="-8" y="-4.5" width="16" height="7" rx="2" fill="rgba(0,0,0,0.6)" />
               <text textAnchor="middle" fontSize="5" fontWeight="700" fill={wv >= 0 ? '#38bdf8' : '#f43f5e'}>{fmt(wv, 2)}</text>
@@ -93,7 +100,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
         const color = isBwd ? '#ff2e97' : '#66b84a';
         const midX = 275, midY = y + (oY - y) * 0.5;
         return (
-          <g key={`ho${i}`}>
+          <g key={`ho${i}`} className="g-item" onMouseEnter={() => onHover(t.weight)} onMouseLeave={() => onHover(null)}>
             <path d={`M240 ${y} C268 ${y},284 ${oY},310 ${oY}`} fill="none"
               stroke={color} strokeWidth={Math.max(0.8, Math.min(3.5, Math.abs(wv) * 5))}
               strokeDasharray="4 4" opacity={isUpd ? 1 : 0.4}
@@ -113,7 +120,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
 
       {/* Input nodes */}
       {iY.map((y, i) => (
-        <g key={`in${i}`} opacity={isFwd ? 1 : 0.6} style={{ transition: 'all 300ms' }}>
+        <g key={`in${i}`} className="g-item" opacity={isFwd ? 1 : 0.6} style={{ transition: 'all 300ms' }} onMouseEnter={() => onHover(t.input)} onMouseLeave={() => onHover(null)}>
           <circle cx="58" cy={y} r="14" fill="rgba(0,229,255,0.08)" stroke="#00e5ff" strokeWidth={isFwd ? 1.5 : 0.8} />
           <text x="58" y={y + 1} textAnchor="middle" fontSize="8" fontWeight="900" fill="#00e5ff">x{i + 1}</text>
           <text x="58" y={y + 11} textAnchor="middle" fontSize="6" fill="var(--sw-text-dim)">{fmt(x[i], 2)}</text>
@@ -126,7 +133,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
         { y: hY[0], l: 'h1', h: snap.h1, z: snap.z1 },
         { y: hY[1], l: 'h2', h: snap.h2, z: snap.z2 },
       ].map(n => (
-        <g key={n.l} opacity={isFwd || isBwd ? 1 : 0.6} style={{ transition: 'all 300ms' }}>
+        <g key={n.l} className="g-item" opacity={isFwd || isBwd ? 1 : 0.6} style={{ transition: 'all 300ms' }} onMouseEnter={() => onHover(t.hidden)} onMouseLeave={() => onHover(null)}>
           <circle cx="210" cy={n.y} r={isBwd ? 20 : 18} fill="rgba(56,189,248,0.08)" stroke={isBwd ? '#ff2e97' : '#38bdf8'} strokeWidth={isFwd || isBwd ? 1.5 : 0.8} />
           <text x="210" y={n.y - 3} textAnchor="middle" fontSize="9" fontWeight="900" fill={isBwd ? '#ff2e97' : '#38bdf8'}>{n.l}</text>
           <text x="210" y={n.y + 7} textAnchor="middle" fontSize="7" fontWeight="700" fill="var(--sw-text)">{fmt(n.h)}</text>
@@ -135,7 +142,7 @@ const NetworkGraph: React.FC<{ snap: SampleSnapshot; copy: NeuralNetworkStepDebu
       ))}
 
       {/* Output node */}
-      <g opacity={isFwd || isBwd ? 1 : 0.6} style={{ transition: 'all 300ms' }}>
+      <g className="g-item" opacity={isFwd || isBwd ? 1 : 0.6} style={{ transition: 'all 300ms' }} onMouseEnter={() => onHover(t.output)} onMouseLeave={() => onHover(null)}>
         <circle cx="332" cy={oY} r={isBwd ? 24 : 22} fill="rgba(102,184,74,0.08)" stroke={isBwd ? '#ff2e97' : '#66b84a'} strokeWidth={isFwd || isBwd ? 2 : 1} />
         <text x="332" y={oY - 5} textAnchor="middle" fontSize="10" fontWeight="900" fill={isBwd ? '#ff2e97' : '#66b84a'}>ŷ</text>
         <text x="332" y={oY + 6} textAnchor="middle" fontSize="8" fontWeight="700" fill={snap.yHat >= 0.5 ? '#22c55e' : '#f97316'}>{fmt(snap.yHat)}</text>
@@ -178,7 +185,7 @@ const MiniLossChart: React.FC<{ history: number[]; total: number; threshold: num
 
 /* ═══════════════════ Computation Details ═══════════════════ */
 
-const ComputationPanel: React.FC<{ snap: SampleSnapshot; activePhase: 'forward' | 'backprop' | 'update' }> = ({ snap, activePhase }) => {
+const ComputationPanel: React.FC<{ snap: SampleSnapshot; activePhase: 'init' | 'forward' | 'backprop' | 'update' }> = ({ snap, activePhase }) => {
   const wb = snap.weightsBefore;
   const sections = [
     { id: 'forward', title: 'Forward', color: '#38bdf8', rows: [
@@ -237,7 +244,8 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
   const [engineState, setEngineState] = useState<TrainingDebuggerState | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState<'sample' | 'epoch' | 'fast'>('sample');
-  const [phase, setPhase] = useState<'forward' | 'backprop' | 'update'>('forward');
+  const [phase, setPhase] = useState<'init' | 'forward' | 'backprop' | 'update'>('init');
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
   const animRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -286,6 +294,7 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
         lastTime = time;
         setPhase(p => {
           if (speed === 'fast') { stepOnce(); return 'update'; }
+          if (p === 'init') return 'forward';
           if (p === 'forward') return 'backprop';
           if (p === 'backprop') return 'update';
           stepOnce();
@@ -310,7 +319,8 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
   const handlePause = () => { setIsPlaying(false); if (animRef.current) cancelAnimationFrame(animRef.current); };
   const handleStep = () => {
     if (isPlaying) return;
-    if (phase === 'forward') setPhase('backprop');
+    if (phase === 'init') setPhase('forward');
+    else if (phase === 'forward') setPhase('backprop');
     else if (phase === 'backprop') setPhase('update');
     else {
       stepOnce();
@@ -325,7 +335,7 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
       const snaps = engineRef.current.stepSamples(1);
       setSnap(snaps[0] ?? null);
       setEngineState(engineRef.current.getState());
-      setPhase('forward');
+      setPhase('init');
     }
   };
 
@@ -351,14 +361,31 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
   if (!snap || !engineState) return null;
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.6fr', gap: 14, minHeight: 0 }}>
+    <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.6fr', gap: 14, minHeight: 0, position: 'relative' }}>
+      
+      {/* Custom Tooltip */}
+      {activeTooltip && (
+        <div style={{
+          position: 'absolute', top: 20, left: 20, zIndex: 100,
+          padding: '8px 12px', borderRadius: 8, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          maxWidth: 240, pointerEvents: 'none', animation: 'fadeIn 0.2s ease-out'
+        }}>
+          <div style={{ fontSize: 11, color: 'var(--sw-text)', lineHeight: 1.4, fontWeight: 500 }}>
+            {activeTooltip}
+          </div>
+        </div>
+      )}
+      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+
+      {/* COL 1 */}
       <PanelCard minHeight={0} gap={10} style={{ height: '100%', padding: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 8 }}>
           <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '.04em', color: '#00e5ff', textTransform: 'uppercase' }}>{tl.archLabel}</div>
           <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--sw-text-dim)' }}>{tl.epochLabel} <span style={{ color: 'var(--sw-text)' }}>{ep}/{copy.totalEpochs}</span></div>
         </div>
         <div style={{ flex: 1, minHeight: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}>
-          <NetworkGraph snap={snap} copy={copy} activePhase={phase} />
+          <NetworkGraph snap={snap} copy={copy} activePhase={phase} onHover={setActiveTooltip} />
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', paddingTop: 4 }}>
           <button type="button" onClick={handleStep} disabled={isPlaying || engineState.converged || engineState.done} style={{ padding: '6px 12px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: 'var(--sw-text)', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Step</button>
@@ -417,7 +444,7 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
         )}
         <div style={{ marginTop: 6, padding: '12px 14px', borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'forward' ? '#38bdf8' : phase === 'backprop' ? '#ff2e97' : '#a78bfa' }} />
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'init' ? '#94a3b8' : phase === 'forward' ? '#38bdf8' : phase === 'backprop' ? '#ff2e97' : '#a78bfa' }} />
             <div style={{ fontSize: 9, fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--sw-text-dim)' }}>Entenda o Passo</div>
           </div>
           <div style={{ fontSize: 11, lineHeight: 1.5, color: 'var(--sw-text)', fontWeight: 500, fontStyle: 'italic' }}>{copy.phaseExplanations[phase]}</div>

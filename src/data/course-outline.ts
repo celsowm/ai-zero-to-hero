@@ -23,6 +23,7 @@ export const courseSlideOrder = [
   'nonlinear-solution-ring',
   'biological-vs-computational-neuron',
   'neural-network-neuron-relu',
+  'nn-problem',
   'neural-network-minimal-example',
   'neural-network-training-debugger',
   'neural-network-prediction',

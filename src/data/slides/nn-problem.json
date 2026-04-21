@@ -1,0 +1,16 @@
+{
+  "id": "nn-problem",
+  "type": "markdown",
+  "content": {
+    "pt-br": {
+      "title": "O Problema de Classificação",
+      "subtitle": "Prevendo Risco de Saúde",
+      "body": "Imagine que temos dados históricos de pacientes com 4 características (features):\n\n1. **Idade** (Normalizada)\n2. **Pressão Arterial**\n3. **Nível de Colesterol**\n4. **Fumante** (0 ou 1)\n\nNosso objetivo é treinar uma Rede Neural para prever se um novo paciente pertence à classe **0 (Baixo Risco)** ou **1 (Alto Risco)**. \n\nA seguir, veremos como o algoritmo de **Backpropagation** ajusta os pesos da rede para aprender esses padrões."
+    },
+    "en-us": {
+      "title": "The Classification Problem",
+      "subtitle": "Predicting Health Risk",
+      "body": "Imagine we have historical patient data with 4 characteristics (features):\n\n1. **Age** (Normalized)\n2. **Blood Pressure**\n3. **Cholesterol Level**\n4. **Smoker** (0 or 1)\n\nOur goal is to train a Neural Network to predict whether a new patient belongs to class **0 (Low Risk)** or **1 (High Risk)**.\n\nNext, we will see how the **Backpropagation** algorithm adjusts the network weights to learn these patterns."
+    }
+  }
+}

@@ -34,11 +34,12 @@
           "outputLayer": "SAÍDA",
           "codeTitle": "Código Python"
         },
-        "pythonCode": "# Dados: [idade, pressão, colesterol, fumante]\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoca in range(4000):\n    for x, y in dados:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v1*h1 + v2*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v1 * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v2 * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v1 -= lr * d_z3 * h1\n        v2 -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Fim do Treino. Acurácia: {acc*100}%')",
+        "pythonCode": "# 1. Inicialização (Pesos aleatórios)\nw1 = [0.2, 0.1, 0.2, 0.1]; b1 = -0.2\nw2 = [0.1, 0.2, 0.1, 0.2]; b2 = -0.2\nv = [0.3, 0.3]; c = -0.1\n\n# 2. Dataset: [idade, pressão, colest, fumo]\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoca in range(4000):\n    for x, y in dados:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v[0]*h1 + v[1]*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v[0] * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v[1] * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v[0] -= lr * d_z3 * h1\n        v[1] -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Fim do Treino. Acurácia: {acc*100}%')",
         "codeHighlightRanges": {
-          "forward": [13, 19],
-          "backprop": [21, 25],
-          "update": [27, 33]
+          "init": [1, 15],
+          "forward": [19, 25],
+          "backprop": [27, 31],
+          "update": [33, 40]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -58,9 +59,16 @@
           "convergenceLabel": "Convergiu!"
         },
         "phaseExplanations": {
-          "forward": "Nesta fase, os dados de entrada percorrem a rede. Cada neurônio calcula uma soma ponderada e aplica a função de ativação (ReLU ou Sigmoid) para gerar a predição final ŷ.",
-          "backprop": "O erro (Loss) é calculado e propagado de volta. Calculamos os gradientes para entender quanto cada peso contribuiu para o erro total.",
-          "update": "Os pesos e vieses são ajustados usando os gradientes e a taxa de aprendizagem. É aqui que a rede realmente 'aprende', tentando reduzir o erro na próxima rodada."
+          "init": "Nesta fase preparatória, os pesos w e vieses b são inicializados com valores aleatórios calibrados. Isso quebra a simetria, permitindo que neurônios diferentes aprendam características distintas. Carregamos o dataset normalizado para evitar que o sinal se perca ou exploda logo no início.",
+          "forward": "O sinal flui da entrada para a saída. Cada neurônio calcula z = Σ(w_i · x_i) + b. Na camada oculta, aplicamos a ReLU (max(0, z)), que introduz não-linearidade. Na saída, a Sigmoid mapeia o valor para [0, 1], interpretado como a probabilidade da classe.",
+          "backprop": "Usamos a Regra da Cadeia para calcular o impacto de cada peso no erro total. Calculamos as derivadas parciais: ∂Loss/∂ŷ multiplicada pela derivada da Sigmoid, e propagamos esse 'gradiente de erro' para trás, determinando a contribuição de cada neurônio oculto.",
+          "update": "Aplicamos o Gradiente Descendente: w = w - η · ∇w. Aqui, η é a Taxa de Aprendizado. Subtraímos uma fração do gradiente dos pesos atuais para 'descer' na curva de erro, buscando o mínimo global da função de custo MSE (Mean Squared Error)."
+        },
+        "tooltips": {
+          "input": "Camada de Entrada: Representa uma característica (feature) do paciente.",
+          "hidden": "Neurônio Oculto: Aplica a função de ativação ReLU. Se o sinal for negativo, ele bloqueia (zero).",
+          "output": "Neurônio de Saída: Aplica a função Sigmoid para dar uma probabilidade entre 0 e 1.",
+          "weight": "Peso (Sinapse): Multiplica o sinal que passa por aqui. No treino, este valor é ajustado."
         }
       },
       "en-us": {
@@ -83,11 +91,12 @@
           "outputLayer": "OUTPUT",
           "codeTitle": "Python code"
         },
-        "pythonCode": "# Data: [age, pressure, cholesterol, smoker]\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoch in range(4000):\n    for x, y in data:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v1*h1 + v2*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v1 * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v2 * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v1 -= lr * d_z3 * h1\n        v2 -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Training Done. Accuracy: {acc*100}%')",
+        "pythonCode": "# 1. Initialization (Random weights)\nw1 = [0.2, 0.1, 0.2, 0.1]; b1 = -0.2\nw2 = [0.1, 0.2, 0.1, 0.2]; b2 = -0.2\nv = [0.3, 0.3]; c = -0.1\n\n# 2. Dataset: [age, pressure, cholest, smoking]\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoch in range(4000):\n    for x, y in data:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v[0]*h1 + v[1]*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v[0] * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v[1] * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v[0] -= lr * d_z3 * h1\n        v[1] -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Training Done. Accuracy: {acc*100}%')",
         "codeHighlightRanges": {
-          "forward": [13, 19],
-          "backprop": [21, 25],
-          "update": [27, 33]
+          "init": [1, 15],
+          "forward": [19, 25],
+          "backprop": [27, 31],
+          "update": [33, 40]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -107,9 +116,16 @@
           "convergenceLabel": "Converged!"
         },
         "phaseExplanations": {
-          "forward": "In this phase, input data travels through the network. Each neuron calculates a weighted sum and applies an activation function (ReLU or Sigmoid) to generate the final prediction ŷ.",
-          "backprop": "The error (Loss) is calculated and propagated back. We compute gradients to understand how much each weight contributed to the total error.",
-          "update": "Weights and biases are adjusted using gradients and the learning rate. This is where the network actually 'learns', aiming to reduce the error next time."
+          "init": "In this preparatory phase, weights w and biases b are initialized with calibrated random values. This breaks symmetry, allowing different neurons to learn distinct features. We load the normalized dataset to prevent the signal from vanishing or exploding early on.",
+          "forward": "Signal flows from input to output. Each neuron calculates z = Σ(w_i · x_i) + b. In the hidden layer, we apply ReLU (max(0, z)), introducing non-linearity. At the output, Sigmoid maps the value to [0, 1], interpreted as the class probability.",
+          "backprop": "We use the Chain Rule to calculate each weight's impact on total error. We compute partial derivatives: ∂Loss/∂ŷ multiplied by the Sigmoid derivative, and propagate this 'error gradient' backward, determining each hidden neuron's contribution.",
+          "update": "We apply Gradient Descent: w = w - η · ∇w. Here, η is the Learning Rate. We subtract a fraction of the gradient from current weights to 'descend' the error curve, seeking the global minimum of the MSE (Mean Squared Error) cost function."
+        },
+        "tooltips": {
+          "input": "Input Layer: Represents a patient's characteristic (feature).",
+          "hidden": "Hidden Neuron: Applies the ReLU activation. If the signal is negative, it blocks it (zero).",
+          "output": "Output Neuron: Applies the Sigmoid function to give a probability between 0 and 1.",
+          "weight": "Weight (Synapse): Multiplies the signal passing through. During training, this value is adjusted."
         }
       }
     }
