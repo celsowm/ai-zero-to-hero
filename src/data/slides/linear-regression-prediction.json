@@ -10,11 +10,57 @@
   "content": {
     "pt-br": {
       "title": "Regressão Linear em Python: usando o modelo treinado",
-      "body": "Agora a fórmula sai do treino e entra em modo de uso. A pergunta já não é “como ajusto `beta`?”, e sim “como obtenho uma resposta nova a partir de uma entrada nova?”.\n\n1. **Entradas conhecidas:** altura e idade chegam com valores reais.\n\n2. **Coeficientes fixos:** `beta_0`, `beta_1` e `beta_2` já vieram do treino; durante a predição, eles não mudam.\n\n3. **Uma única conta:** o modelo aplica `ŷ = beta_0 + beta_1 * altura + beta_2 * idade` e devolve o peso estimado.\n\n4. **Sem loop, sem gradiente:** predição não recalcula erro nem ajusta parâmetros. Ela só executa a fórmula aprendida.\n\n> Treino aprende os coeficientes; predição só os usa.\n\n---\n\n### Exemplo rápido\n```python\naltura = 172\nidade = 29\npeso_previsto = prever(altura, idade, beta_0, beta_1, beta_2)\nprint(peso_previsto)\n```\n\n- entrada: um novo caso que o modelo ainda não viu\n- saída: um valor estimado para esse caso\n- objetivo: responder rápido com o que o modelo aprendeu"
+      "body": "Agora a fórmula sai do treino e entra em modo de uso. A pergunta já não é “como ajusto `beta`?”, e sim “como obtenho uma resposta nova a partir de uma entrada nova?”.\n\n1. **Entradas conhecidas:** altura e idade chegam com valores reais.\n\n2. **Coeficientes fixos:** `beta_0`, `beta_1` e `beta_2` já vieram do treino; durante a predição, eles não mudam.\n\n3. **Uma única conta:** o modelo aplica `ŷ = beta_0 + beta_1 * altura + beta_2 * idade` e devolve o peso estimado.\n\n4. **Sem loop, sem gradiente:** predição não recalcula erro nem ajusta parâmetros. Ela só executa a fórmula aprendida.\n\n> Treino aprende os coeficientes; predição só os usa.\n\n---\n\n### Exemplo rápido\n```python\naltura = 172\nidade = 29\npeso_previsto = prever(altura, idade, beta_0, beta_1, beta_2)\nprint(peso_previsto)\n```\n\n- entrada: um novo caso que o modelo ainda não viu\n- saída: um valor estimado para esse caso\n- objetivo: responder rápido com o que o modelo aprendeu",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "As entradas novas. Valores que o modelo nunca viu durante a fase de treino."
+        },
+        {
+          "lineRange": [
+            3,
+            3
+          ],
+          "content": "A chamada para a função de previsão. Ela utiliza os coeficientes beta_0, beta_1 e beta_2 que já foram aprendidos e fixados."
+        },
+        {
+          "lineRange": [
+            4,
+            4
+          ],
+          "content": "A saída final: a estimativa do modelo gerada instantaneamente em modo de inferência."
+        }
+      ]
     },
     "en-us": {
       "title": "Linear Regression in Python: using the trained model",
-      "body": "Now the formula leaves training mode and enters usage mode. The question is no longer “how do I adjust `beta`?” but “how do I obtain a new answer from a new input?”.\n\n1. **Known inputs:** height and age arrive with real values.\n\n2. **Fixed coefficients:** `beta_0`, `beta_1`, and `beta_2` already came from training; during prediction, they do not change.\n\n3. **One calculation:** the model applies `ŷ = beta_0 + beta_1 * height + beta_2 * age` and returns the estimated weight.\n\n4. **No loop, no gradient:** prediction does not recompute error or update parameters. It only executes the learned formula.\n\n> Training learns the coefficients; prediction only uses them.\n\n---\n\n### Quick example\n```python\nheight = 172\nage = 29\npredicted_weight = predict(height, age, beta_0, beta_1, beta_2)\nprint(predicted_weight)\n```\n\n- input: one new case the model has never seen\n- output: an estimated value for that case\n- goal: answer quickly with what the model learned"
+      "body": "Now the formula leaves training mode and enters usage mode. The question is no longer “how do I adjust `beta`?” but “how do I obtain a new answer from a new input?”.\n\n1. **Known inputs:** height and age arrive with real values.\n\n2. **Fixed coefficients:** `beta_0`, `beta_1`, and `beta_2` already came from training; during prediction, they do not change.\n\n3. **One calculation:** the model applies `ŷ = beta_0 + beta_1 * height + beta_2 * age` and returns the estimated weight.\n\n4. **No loop, no gradient:** prediction does not recompute error or update parameters. It only executes the learned formula.\n\n> Training learns the coefficients; prediction only uses them.\n\n---\n\n### Quick example\n```python\nheight = 172\nage = 29\npredicted_weight = predict(height, age, beta_0, beta_1, beta_2)\nprint(predicted_weight)\n```\n\n- input: one new case the model has never seen\n- output: an estimated value for that case\n- goal: answer quickly with what the model learned",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "The new inputs. Values that the model has never seen during the training phase."
+        },
+        {
+          "lineRange": [
+            3,
+            3
+          ],
+          "content": "The call to the prediction function. It uses the beta_0, beta_1, and beta_2 coefficients that were already learned and fixed."
+        },
+        {
+          "lineRange": [
+            4,
+            4
+          ],
+          "content": "The final output: the model estimate generated instantly in inference mode."
+        }
+      ]
     }
   }
 }

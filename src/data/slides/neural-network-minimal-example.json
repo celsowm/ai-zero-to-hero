@@ -7,11 +7,57 @@
   "content": {
     "pt-br": {
       "title": "Uma rede neural mínima em Python",
-      "body": "Agora dá para juntar as peças. A rede abaixo tem duas unidades ocultas com ReLU e uma saída final. O foco aqui não é performance; é enxergar o papel de cada parte.\n\n1. **Entrada:** `x` entra no modelo.\n\n2. **Camada oculta:** `h1` e `h2` capturam padrões intermediários.\n\n3. **Saída:** `y` combina essas respostas para formar a previsão final.\n\n4. **Ideia central:** a rede não precisa de `x²` escrito na mão. Ela aprende a construir suas próprias transformações internas.\n\n> Uma rede neural é uma composição de pequenos neurônios com ativação.\n\n```python\ndef relu(z):\n    return max(0, z)\n\n\ndef neuronio(x, w, b):\n    z = w * x + b\n    return relu(z)\n\n\ndef rede(x, w1, b1, w2, b2, v1, v2, c):\n    h1 = neuronio(x, w1, b1)\n    h2 = neuronio(x, w2, b2)\n    y = v1 * h1 + v2 * h2 + c\n    return y\n```\n\n### O que olhar\n- `h1` e `h2` são respostas intermediárias\n- `v1` e `v2` juntam essas respostas\n- a não linearidade aparece porque `relu` quebra a linha\n"
+      "body": "Agora dá para juntar as peças. A rede abaixo tem duas unidades ocultas com ReLU e uma saída final. O foco aqui não é performance; é enxergar o papel de cada parte.\n\n1. **Entrada:** `x` entra no modelo.\n\n2. **Camada oculta:** `h1` e `h2` capturam padrões intermediários.\n\n3. **Saída:** `y` combina essas respostas para formar a previsão final.\n\n4. **Ideia central:** a rede não precisa de `x²` escrito na mão. Ela aprende a construir suas próprias transformações internas.\n\n> Uma rede neural é uma composição de pequenos neurônios com ativação.\n\n```python\ndef relu(z):\n    return max(0, z)\n\n\ndef neuronio(x, w, b):\n    z = w * x + b\n    return relu(z)\n\n\ndef rede(x, w1, b1, w2, b2, v1, v2, c):\n    h1 = neuronio(x, w1, b1)\n    h2 = neuronio(x, w2, b2)\n    y = v1 * h1 + v2 * h2 + c\n    return y\n```\n\n### O que olhar\n- `h1` e `h2` são respostas intermediárias\n- `v1` e `v2` juntam essas respostas\n- a não linearidade aparece porque `relu` quebra a linha\n",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "ReLU é a não-linearidade. Ela ignora valores negativos (zera-os), criando a quebra que permite à rede formar curvas."
+        },
+        {
+          "lineRange": [
+            5,
+            7
+          ],
+          "content": "Um neurônio completo: faz uma soma ponderada (idêntica à regressão linear) e logo após aplica o ativador."
+        },
+        {
+          "lineRange": [
+            10,
+            14
+          ],
+          "content": "A Rede Neural: pega os resultados intermediários (h1, h2), multiplica pelos pesos da camada de saída (v1, v2) e finaliza com um viés (c)."
+        }
+      ]
     },
     "en-us": {
       "title": "A minimal neural network in Python",
-      "body": "Now the pieces can be combined. The network below has two hidden units with ReLU and one final output. The goal here is not performance; it is seeing the role of each part.\n\n1. **Input:** `x` goes into the model.\n\n2. **Hidden layer:** `h1` and `h2` capture intermediate patterns.\n\n3. **Output:** `y` combines those responses into the final prediction.\n\n4. **Main idea:** the network does not need `x²` written by hand. It learns how to build its own internal transformations.\n\n> A neural network is a composition of small neurons with activation.\n\n```python\ndef relu(z):\n    return max(0, z)\n\n\ndef neuron(x, w, b):\n    z = w * x + b\n    return relu(z)\n\n\ndef network(x, w1, b1, w2, b2, v1, v2, c):\n    h1 = neuron(x, w1, b1)\n    h2 = neuron(x, w2, b2)\n    y = v1 * h1 + v2 * h2 + c\n    return y\n```\n\n### What to notice\n- `h1` and `h2` are intermediate responses\n- `v1` and `v2` combine those responses\n- the nonlinearity appears because `relu` breaks the line\n"
+      "body": "Now the pieces can be combined. The network below has two hidden units with ReLU and one final output. The goal here is not performance; it is seeing the role of each part.\n\n1. **Input:** `x` goes into the model.\n\n2. **Hidden layer:** `h1` and `h2` capture intermediate patterns.\n\n3. **Output:** `y` combines those responses into the final prediction.\n\n4. **Main idea:** the network does not need `x²` written by hand. It learns how to build its own internal transformations.\n\n> A neural network is a composition of small neurons with activation.\n\n```python\ndef relu(z):\n    return max(0, z)\n\n\ndef neuron(x, w, b):\n    z = w * x + b\n    return relu(z)\n\n\ndef network(x, w1, b1, w2, b2, v1, v2, c):\n    h1 = neuron(x, w1, b1)\n    h2 = neuron(x, w2, b2)\n    y = v1 * h1 + v2 * h2 + c\n    return y\n```\n\n### What to notice\n- `h1` and `h2` are intermediate responses\n- `v1` and `v2` combine those responses\n- the nonlinearity appears because `relu` breaks the line\n",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "ReLU is the non-linearity. It ignores negative values (zeroes them out), creating the break that allows the network to bend shapes."
+        },
+        {
+          "lineRange": [
+            5,
+            7
+          ],
+          "content": "A complete neuron: it computes a weighted sum (identical to linear regression) and immediately applies the activator."
+        },
+        {
+          "lineRange": [
+            10,
+            14
+          ],
+          "content": "The Neural Network: takes intermediate results (h1, h2), multiplies them by output layer weights (v1, v2), and adds a final bias (c)."
+        }
+      ]
     }
   }
 }

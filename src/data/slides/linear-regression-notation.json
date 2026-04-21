@@ -1,6 +1,9 @@
 {
   "id": "linear-regression-notation",
   "type": "two-column",
+  "options": {
+    "columnRatios": [0.8, 1.2]
+  },
   "content": {
     "pt-br": {
       "title": "Regressão Linear: lendo o plano de previsão em 3D",

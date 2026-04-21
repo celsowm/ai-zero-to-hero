@@ -36,7 +36,7 @@ export const CodeSlide: React.FC<CodeSlideProps> = ({ content }) => {
             color: 'var(--sw-text-dim)',
           }}
         >
-          <MarkdownRenderer body={content.body} variant="single" />
+          <MarkdownRenderer body={content.body} variant="single" codeExplanations={content.codeExplanations} />
         </div>
       </div>
     </SlideFrame>

@@ -627,7 +627,7 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
             </div>
 
             <div style={codeBodyStyle}>
-              <CodeBlock code={copy.code} language="javascript" />
+              <CodeBlock code={copy.code} language="javascript" explanations={copy.codeExplanations} />
             </div>
           </PanelCard>
         )}

@@ -2,7 +2,10 @@
   "id": "nonlinear-regression-boundary",
   "type": "two-column",
   "options": {
-    "columnRatios": [0.55, 0.45]
+    "columnRatios": [
+      0.55,
+      0.45
+    ]
   },
   "content": {
     "pt-br": {
@@ -21,7 +24,10 @@
         "eyebrow": "Limite da fronteira linear",
         "title": "A reta melhora com treino, mas não fecha um anel",
         "description": "",
-        "tabLabels": ["Visual", "JS"],
+        "tabLabels": [
+          "Visual",
+          "JS"
+        ],
         "accuracyLabel": "Precisão",
         "mseLabel": "MSE",
         "statusLabel": "Estado",
@@ -40,13 +46,53 @@
         "codeTitle": "Treino em JavaScript",
         "codeDescription": "A segunda aba mostra o loop de treino que atualiza os pesos da fronteira linear.",
         "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
-        "footer": "A linha melhora com otimização, mas um padrão em anel continua fora do alcance de uma fronteira linear."
+        "footer": "A linha melhora com otimização, mas um padrão em anel continua fora do alcance de uma fronteira linear.",
+        "codeExplanations": [
+          {
+            "lineRange": [
+              1,
+              1
+            ],
+            "content": "A função Sigmoid aperta qualquer valor para o intervalo entre 0 e 1, perfeito para representar probabilidade."
+          },
+          {
+            "lineRange": [
+              3,
+              4
+            ],
+            "content": "Primeiro calculamos a reta normal e depois passamos na Sigmoid para ter uma decisão mais suave."
+          },
+          {
+            "lineRange": [
+              11,
+              14
+            ],
+            "content": "Para cada ponto, comparamos a previsão com o rótulo real. O fator mede o erro."
+          },
+          {
+            "lineRange": [
+              16,
+              18
+            ],
+            "content": "Somamos os gradientes de todos os pontos. Eles indicam a direção para corrigir os pesos w0, w1 e w2."
+          },
+          {
+            "lineRange": [
+              21,
+              26
+            ],
+            "content": "No fim da época, a reta é deslocada subtraindo o gradiente médio multiplicado pela taxa de aprendizado."
+          }
+        ]
       },
       "en-us": {
         "eyebrow": "Linear boundary limit",
         "title": "The line improves with training, but it cannot close a ring",
         "description": "",
-        "tabLabels": ["Visual", "JS"],
+        "tabLabels": [
+          "Visual",
+          "JS"
+        ],
         "accuracyLabel": "Accuracy",
         "mseLabel": "MSE",
         "statusLabel": "Status",
@@ -65,7 +111,44 @@
         "codeTitle": "Training in JavaScript",
         "codeDescription": "The second tab shows the training loop that updates the linear boundary weights.",
         "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
-        "footer": "The line can improve with optimization, but a ring-shaped pattern remains out of reach for a linear boundary."
+        "footer": "The line can improve with optimization, but a ring-shaped pattern remains out of reach for a linear boundary.",
+        "codeExplanations": [
+          {
+            "lineRange": [
+              1,
+              1
+            ],
+            "content": "The Sigmoid function squashes any value into the 0 to 1 range, perfect for representing probability."
+          },
+          {
+            "lineRange": [
+              3,
+              4
+            ],
+            "content": "First we calculate the standard line and then pass it through Sigmoid to get a smoother decision."
+          },
+          {
+            "lineRange": [
+              11,
+              14
+            ],
+            "content": "For each point, we compare the prediction against the real label. The factor measures the error."
+          },
+          {
+            "lineRange": [
+              16,
+              18
+            ],
+            "content": "We accumulate the gradients for all points. They indicate the direction to correct weights w0, w1 and w2."
+          },
+          {
+            "lineRange": [
+              21,
+              26
+            ],
+            "content": "At the end of the epoch, the line shifts by subtracting the average gradient multiplied by the learning rate."
+          }
+        ]
       }
     }
   }

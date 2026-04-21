@@ -14,7 +14,7 @@ const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
 const cardStyle: React.CSSProperties = {
   width: '100%',
   height: '100%',
-  minHeight: 560,
+  minHeight: 700,
   display: 'flex',
   flexDirection: 'column',
   gap: 14,
@@ -38,7 +38,7 @@ const descriptionStyle: React.CSSProperties = {
 const viewportShellStyle: React.CSSProperties = {
   position: 'relative',
   flex: 1,
-  minHeight: 360,
+  minHeight: 450,
   borderRadius: 18,
   overflow: 'hidden',
   border: '1px solid rgba(255,255,255,0.06)',
@@ -103,55 +103,6 @@ const overlayGroupStyle: React.CSSProperties = {
   gap: 8,
   minWidth: 0,
   flexWrap: 'wrap',
-};
-
-const symbolOverlayStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: 14,
-  left: 14,
-  width: 240,
-  padding: 12,
-  borderRadius: 14,
-  background: 'rgba(8, 12, 24, 0.72)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  backdropFilter: 'blur(12px)',
-  display: 'grid',
-  gap: 10,
-};
-
-const symbolOverlayTitleStyle: React.CSSProperties = {
-  fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase',
-  color: 'var(--sw-cyan)',
-};
-
-const symbolChipRowStyle: React.CSSProperties = {
-  display: 'grid',
-  gap: 8,
-};
-
-const symbolChipStyle: React.CSSProperties = {
-  display: 'grid',
-  gap: 4,
-  padding: '9px 10px',
-  borderRadius: 12,
-  background: 'rgba(255,255,255,0.035)',
-  border: '1px solid rgba(255,255,255,0.06)',
-};
-
-const symbolChipLabelStyle: React.CSSProperties = {
-  fontSize: 12.5,
-  fontWeight: 700,
-  color: 'var(--sw-text)',
-  lineHeight: 1.25,
-};
-
-const symbolChipDescriptionStyle: React.CSSProperties = {
-  fontSize: 11.5,
-  lineHeight: 1.45,
-  color: 'var(--sw-text-dim)',
 };
 
 const controlsHintStyle: React.CSSProperties = {
@@ -813,7 +764,7 @@ export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisu
     return (
       <div style={cardStyle}>
         {renderTabs()}
-        <TabbedPanelSurface minHeight={560}>
+        <TabbedPanelSurface minHeight={700}>
           <Static2DComparison copy={copy.comparisonChart} />
         </TabbedPanelSurface>
       </div>
@@ -846,23 +797,10 @@ export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisu
 
       <p style={descriptionStyle}>{copy.description}</p>
 
-      <TabbedPanelSurface minHeight={560}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <TabbedPanelSurface minHeight={700}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={viewportShellStyle}>
             <LinearRegression3DScene copy={copy} />
-
-            <div style={symbolOverlayStyle}>
-              <div style={symbolOverlayTitleStyle}>{copy.symbolGuideTitle}</div>
-              <div style={symbolChipRowStyle}>
-                {copy.symbolGuide.map(item => (
-                  <div key={item.symbol} style={symbolChipStyle}>
-                    <div style={{ ...badgeStyle(item.accent), alignSelf: 'flex-start' }}>{item.symbol}</div>
-                    <div style={symbolChipLabelStyle}>{item.label}</div>
-                    <div style={symbolChipDescriptionStyle}>{item.description}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             <div style={overlayCardStyle}>
               <div style={overlayGroupStyle}>
@@ -899,15 +837,45 @@ export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisu
             <div style={controlsHintStyle}>arraste para girar, scroll para zoom</div>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-            <span style={badgeStyle('#fbbf24')}>β₀ = {copy.coefficients.beta0}</span>
-            <span style={badgeStyle('#00e5ff')}>β₁ = {copy.coefficients.beta1}</span>
-            <span style={badgeStyle('#ff2e97')}>β₂ = {copy.coefficients.beta2}</span>
-            <span style={badgeStyle('#a855f7')}>y = {copy.realLabel}</span>
-            <span style={badgeStyle('#34d399')}>ŷ = {copy.predictedLabel}</span>
+          <div style={{ display: 'grid', gap: 12 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--sw-cyan)' }}>
+              {copy.symbolGuideTitle}
+            </div>
+            <div style={guideGridStyle}>
+              {copy.symbolGuide.map(item => (
+                <div key={item.symbol} style={guideCardStyle}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                    <div style={badgeStyle(item.accent)}>{item.symbol}</div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--sw-text)' }}>
+                      {item.symbol === 'β₀' ? `β₀ = ${copy.coefficients.beta0}` : 
+                       item.symbol === 'β₁' ? `β₁ = ${copy.coefficients.beta1}` : 
+                       item.symbol === 'β₂' ? `β₂ = ${copy.coefficients.beta2}` : ''}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sw-text)', lineHeight: 1.35, marginBottom: 5 }}>
+                    {item.label}
+                  </div>
+                  <div style={{ fontSize: 11.5, lineHeight: 1.55, color: 'var(--sw-text-dim)' }}>{item.description}</div>
+                </div>
+              ))}
+              <div style={guideCardStyle}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                   <span style={badgeStyle('#a855f7')}>y</span>
+                   <span style={badgeStyle('#34d399')}>ŷ</span>
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sw-text)', lineHeight: 1.35, marginBottom: 5 }}>
+                  {copy.realLabel} vs {copy.predictedLabel}
+                </div>
+                <div style={{ fontSize: 11.5, lineHeight: 1.55, color: 'var(--sw-text-dim)' }}>
+                  A distância vertical entre o ponto real (y) e a projeção no plano (ŷ) representa o erro do modelo.
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+          <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 12 }}>
+            {copy.footer}
+          </div>
         </div>
       </TabbedPanelSurface>
     </div>

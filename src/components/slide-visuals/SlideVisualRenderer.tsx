@@ -6,6 +6,7 @@ import {
   LinearRegression3DChartVisual,
   LinearRegressionNotationVisual,
   LinearRegressionTabsVisual,
+  LinearRegressionSimpleLineVisual,
   ApiLatencyGrowthVisual,
   NonlinearRegressionBoundaryVisual,
   NonlinearSolutionRingVisual,
@@ -67,6 +68,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <ApiLatencyGrowthVisual copy={visual.copy[language]} />;
     case 'linear-regression-tabs':
       return <LinearRegressionTabsVisual copy={visual.copy[language]} />;
+    case 'linear-regression-simple-line':
+      return <LinearRegressionSimpleLineVisual copy={visual.copy[language]} />;
     case 'gradient-descent-3d':
       return <GradientDescent3DVisual copy={visual.copy[language]} />;
     case 'linear-regression-3d-chart':

@@ -2,19 +2,21 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github-dark.css';
 import { FONT_SCALE_BASE } from '../constants/course';
 import { useCourse } from '../context/CourseContext';
+import { CodeBlock } from './CodeBlock';
+import type { CodeExplanation } from '../types/slide';
 
 interface MarkdownRendererProps {
   body: string;
   variant: 'single' | 'two-column';
+  codeExplanations?: CodeExplanation[];
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, variant }) => {
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, variant, codeExplanations }) => {
   const { fontScale } = useCourse();
 
   // Slides use $$...$$ for inline math, but remark-math treats $$ as block math.
@@ -24,7 +26,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkMath]}
-      rehypePlugins={[[rehypeHighlight, { detect: true }], rehypeKatex]}
+      rehypePlugins={[rehypeKatex]}
       components={{
         h1: (props) => <span className="hidden" {...props} />,
         h2: ({ ...props }) => (
@@ -165,38 +167,36 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
             {...props}
           />
         ),
-        pre: ({ ...props }) => (
-          <pre
-            style={{
-              margin: variant === 'single' ? '0 0 24px' : '0 0 18px',
-              display: 'block',
-              width: '100%',
-              overflow: 'auto',
-              scrollbarGutter: 'stable',
-            }}
-            {...props}
-          />
+        pre: ({ children }) => (
+          <div style={{ margin: variant === 'single' ? '0 0 24px' : '0 0 18px', width: '100%' }}>
+            {children}
+          </div>
         ),
-        code: ({ className, children, ...props }: React.ComponentPropsWithoutRef<'code'>) => {
-          const isBlock = Boolean(className?.includes('hljs') || className?.includes('language-'));
+        code: ({ className, children, inline, ...rest }: { className?: string; children?: React.ReactNode; inline?: boolean; [key: string]: any }) => {
+          const match = /language-(\w+)/.exec(className || '');
+          const isBlock = !inline && match;
 
           if (isBlock) {
+            const language = match[1];
+            const codeString = String(children).replace(/\n$/, '');
+
             return (
-              <code
-                {...props}
-                className={className}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  background: 'transparent',
-                  padding: 0,
-                  overflow: 'visible',
-                  whiteSpace: 'pre',
-                  boxSizing: 'border-box',
-                }}
-              >
-                {children}
-              </code>
+              <div style={{
+                borderRadius: 12,
+                background: 'rgba(13, 11, 21, 0.4)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                padding: '16px 12px',
+                width: '100%',
+                boxSizing: 'border-box',
+                marginBottom: 24,
+                position: 'relative'
+              }}>
+                <CodeBlock 
+                  code={codeString} 
+                  language={language}
+                  explanations={codeExplanations}
+                />
+              </div>
             );
           }
 
@@ -208,7 +208,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
                 color: 'var(--sw-cyan)',
                 background: 'transparent',
               }}
-              {...props}
+              {...rest}
             >
               {children}
             </code>

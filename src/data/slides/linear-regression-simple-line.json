@@ -3,182 +3,126 @@
   "type": "two-column",
   "options": {
     "columnRatios": [
-      0.62,
-      0.38
+      0.65,
+      0.35
     ]
   },
   "content": {
     "pt-br": {
       "title": "Regressão Linear: um corte da superfície",
-      "body": "Agora que a superfície já foi apresentada em 3D, vale olhar a mesma ideia por um ângulo mais simples. Este slide não introduz uma fórmula nova; ele mostra um corte da previsão para deixar a tendência mais fácil de ler.\n\n1. **A mesma relação continua valendo:** altura e idade seguem entrando no modelo como entradas conhecidas.\n\n2. **O corte 2D é uma simplificação visual:** ele não mostra toda a superfície, mas ajuda a enxergar o comportamento geral da previsão.\n\n3. **Os parâmetros já estão definidos:** aqui não precisamos reexplicar `β₀`, `β₁` e `β₂`; a leitura principal é entender como a combinação deles se projeta no gráfico.\n\n4. **Próximo passo:** depois de enxergar a tendência, fica natural medir a diferença entre a previsão e o peso real.\n\n> O corte não muda o modelo; ele só facilita a leitura antes de falar de erro.\n\n---"
+      "body": "Agora que a superfície já foi apresentada em 3D, vale olhar a mesma ideia por um ângulo mais simples. Este slide não introduz uma fórmula nova; ele mostra um corte da previsão para deixar a tendência mais fácil de ler.\n\n1. **A mesma relação continua valendo:** altura e idade seguem entrando no modelo como entradas conhecidas.\n\n2. **O corte 2D é uma simplificação visual:** ele não mostra toda a superfície, mas ajuda a enxergar o comportamento geral da previsão.\n\n3. **O efeito da idade:** ao mover o controle deslizante, você verá o \"corte\" da superfície subindo ou descendo. Isso mostra como o coeficiente `β₂` (idade) desloca a reta de previsão.\n\n4. **Próximo passo:** depois de enxergar a tendência, fica natural medir a diferença entre a previsão e o peso real.\n\n> Use o slider de idade para ver como a reta se desloca no espaço.\n\n---"
     },
     "en-us": {
       "title": "Linear Regression: a slice of the surface",
-      "body": "Now that the surface has already been introduced in 3D, it helps to look at the same idea from a simpler angle. This slide does not introduce a new formula; it shows a prediction slice so the trend is easier to read.\n\n1. **The same relationship still applies:** height and age keep entering the model as known inputs.\n\n2. **The 2D slice is a visual simplification:** it does not show the whole surface, but it makes the overall prediction behavior easier to see.\n\n3. **The parameters are already defined:** we do not need to restate `β₀`, `β₁`, and `β₂` here; the main goal is to see how their combination projects onto the chart.\n\n4. **Next step:** once the trend is visible, it becomes natural to measure the gap between prediction and real weight.\n\n> The slice does not change the model; it only makes the reading easier before error enters the story.\n\n---"
+      "body": "Now that the surface has already been introduced in 3D, it helps to look at the same idea from a simpler angle. This slide does not introduce a new formula; it shows a prediction slice so the trend is easier to read.\n\n1. **The same relationship still applies:** height and age keep entering the model as known inputs.\n\n2. **The 2D slice is a visual simplification:** it does not show the whole surface, but it makes the overall prediction behavior easier to see.\n\n3. **The effect of age:** as you move the slider, you will see the surface \"slice\" moving up or down. This shows how the `β₂` coefficient (age) shifts the prediction line.\n\n4. **Next step:** once the trend is visible, it becomes natural to measure the gap between prediction and real weight.\n\n> Use the age slider to see how the line shifts in space.\n\n---"
     }
   },
   "visual": {
-    "id": "linear-regression-tabs",
+    "id": "linear-regression-simple-line",
     "copy": {
       "pt-br": {
-        "tabs": [
+        "eyebrow": "Projeção interativa",
+        "title": "O corte mostra a tendência variando com a idade",
+        "description": "Ajuste a idade para ver como o intercepto da reta muda enquanto a inclinação (altura) permanece constante.",
+        "xLabel": "Altura (cm)",
+        "yLabel": "Peso (kg)",
+        "lineLabel": "Corte da superfície",
+        "ageLabel": "Idade",
+        "footer": "Ao mudar a idade, a reta inteira sobe ou desce porque β₂ * idade altera o valor base da previsão.",
+        "coefficients": {
+          "beta0": -21,
+          "beta1": 0.4,
+          "beta2": 0.6
+        },
+        "dataset": [
           {
-            "label": "Formula"
+            "height": 160,
+            "age": 20,
+            "realWeight": 55,
+            "label": "160 / 20 / 55",
+            "accent": "#00e5ff"
           },
           {
-            "label": "Gráfico"
-          }
-        ],
-        "formulaPanel": {
-          "eyebrow": "Leitura com 2 variáveis",
-          "formula": "ŷ = β₀ + β₁ * altura + β₂ * idade",
-          "description": "A fórmula é a mesma, mas aqui a leitura fica mais plana: o foco é enxergar a tendência antes de medir o erro.",
-          "points": [
-            {
-              "label": "altura e idade continuam entrando no modelo",
-              "accent": "#00e5ff"
-            },
-            {
-              "label": "o corte 2D simplifica a leitura da superfície",
-              "accent": "#fbbf24"
-            },
-            {
-              "label": "os parâmetros já foram definidos no slide anterior",
-              "accent": "#ff2e97"
-            },
-            {
-              "label": "o próximo passo é medir a distância até o real",
-              "accent": "#a855f7"
-            }
-          ],
-          "footer": "A intenção aqui é reduzir a carga visual antes de entrar no erro e no MSE."
-        },
-        "graphPanel": {
-          "eyebrow": "Projeção visual",
-          "title": "O corte mostra a tendência sem repetir toda a superfície",
-          "description": "Nada novo é aprendido aqui. Só mudamos a janela de leitura para preparar a comparação com o peso real.",
-          "inputNodes": [],
-          "outputLabel": "Peso previsto",
-          "outputNode": {
-            "label": "Corte da previsão",
+            "height": 165,
+            "age": 24,
+            "realWeight": 59,
+            "label": "165 / 24 / 59",
             "accent": "#fbbf24"
           },
-          "chart": {
-            "xLabel": "Altura (X)",
-            "yLabel": "Peso (Y)",
-            "lineLabel": "corte da superfície",
-            "points": [
-              {
-                "x": 130,
-                "y": 196,
-                "label": "160 / 55",
-                "accent": "#00e5ff"
-              },
-              {
-                "x": 245,
-                "y": 154,
-                "label": "170 / 64",
-                "accent": "#fbbf24"
-              },
-              {
-                "x": 365,
-                "y": 108,
-                "label": "180 / 72",
-                "accent": "#ff2e97"
-              }
-            ],
-            "lineStart": {
-              "x": 112,
-              "y": 194
-            },
-            "lineEnd": {
-              "x": 398,
-              "y": 90
-            },
-            "footer": "O gráfico serve como ponte: primeiro a tendência, depois o erro."
+          {
+            "height": 170,
+            "age": 28,
+            "realWeight": 64,
+            "label": "170 / 28 / 64",
+            "accent": "#ff2e97"
           },
-          "footer": "Agora a leitura já está pronta para comparar previsão e realidade no próximo slide."
-        }
+          {
+            "height": 175,
+            "age": 32,
+            "realWeight": 68,
+            "label": "175 / 32 / 68",
+            "accent": "#a855f7"
+          },
+          {
+            "height": 180,
+            "age": 36,
+            "realWeight": 72,
+            "label": "180 / 36 / 72",
+            "accent": "#34d399"
+          }
+        ]
       },
       "en-us": {
-        "tabs": [
+        "eyebrow": "Interactive projection",
+        "title": "The slice shows trend varying with age",
+        "description": "Adjust age to see how the line intercept changes while slope (height) remains constant.",
+        "xLabel": "Height (cm)",
+        "yLabel": "Weight (kg)",
+        "lineLabel": "Surface slice",
+        "ageLabel": "Age",
+        "footer": "By changing age, the whole line moves up or down because β₂ * age alters the base prediction value.",
+        "coefficients": {
+          "beta0": -21,
+          "beta1": 0.4,
+          "beta2": 0.6
+        },
+        "dataset": [
           {
-            "label": "Formula"
+            "height": 160,
+            "age": 20,
+            "realWeight": 55,
+            "label": "160 / 20 / 55",
+            "accent": "#00e5ff"
           },
           {
-            "label": "Chart"
-          }
-        ],
-        "formulaPanel": {
-          "eyebrow": "2-variable view",
-          "formula": "ŷ = β₀ + β₁ * height + β₂ * age",
-          "description": "The formula is the same, but the reading is flatter here: the goal is to see the trend before measuring error.",
-          "points": [
-            {
-              "label": "height and age still enter the model",
-              "accent": "#00e5ff"
-            },
-            {
-              "label": "the 2D slice simplifies the surface reading",
-              "accent": "#fbbf24"
-            },
-            {
-              "label": "the parameters were already defined earlier",
-              "accent": "#ff2e97"
-            },
-            {
-              "label": "the next step is to measure the gap to reality",
-              "accent": "#a855f7"
-            }
-          ],
-          "footer": "The point here is to reduce visual load before error and MSE enter the story."
-        },
-        "graphPanel": {
-          "eyebrow": "Visual projection",
-          "title": "The slice shows the trend without repeating the whole surface",
-          "description": "Nothing new is learned here. We only change the viewing window to prepare the comparison with the real weight.",
-          "inputNodes": [],
-          "outputLabel": "Predicted weight",
-          "outputNode": {
-            "label": "Prediction slice",
+            "height": 165,
+            "age": 24,
+            "realWeight": 59,
+            "label": "165 / 24 / 59",
             "accent": "#fbbf24"
           },
-          "chart": {
-            "xLabel": "Height (X)",
-            "yLabel": "Weight (Y)",
-            "lineLabel": "surface slice",
-            "points": [
-              {
-                "x": 130,
-                "y": 196,
-                "label": "160 / 55",
-                "accent": "#00e5ff"
-              },
-              {
-                "x": 245,
-                "y": 154,
-                "label": "170 / 64",
-                "accent": "#fbbf24"
-              },
-              {
-                "x": 365,
-                "y": 108,
-                "label": "180 / 72",
-                "accent": "#ff2e97"
-              }
-            ],
-            "lineStart": {
-              "x": 112,
-              "y": 194
-            },
-            "lineEnd": {
-              "x": 398,
-              "y": 90
-            },
-            "footer": "The chart is a bridge: first the trend, then the error."
+          {
+            "height": 170,
+            "age": 28,
+            "realWeight": 64,
+            "label": "170 / 28 / 64",
+            "accent": "#ff2e97"
           },
-          "footer": "The reading is now ready for the next slide, where prediction is compared to reality."
-        }
+          {
+            "height": 175,
+            "age": 32,
+            "realWeight": 68,
+            "label": "175 / 32 / 68",
+            "accent": "#a855f7"
+          },
+          {
+            "height": 180,
+            "age": 36,
+            "realWeight": 72,
+            "label": "180 / 36 / 72",
+            "accent": "#34d399"
+          }
+        ]
       }
     }
   }

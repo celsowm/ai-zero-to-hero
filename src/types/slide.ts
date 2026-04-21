@@ -2,9 +2,15 @@ export type Language = 'pt-br' | 'en-us';
 
 export type SlideType = 'markdown' | 'two-column' | 'custom' | 'code';
 
+export interface CodeExplanation {
+  lineRange: [number, number];
+  content: string;
+}
+
 export interface IContent {
   title: string;
   body: string;
+  codeExplanations?: CodeExplanation[];
 }
 
 export interface InferenceDiagramCopy {
@@ -527,6 +533,7 @@ export interface NonlinearSolutionRingVisualCopy {
   codeTitle: string;
   codeDescription: string;
   code: string;
+  codeExplanations?: CodeExplanation[];
   footer: string;
 }
 
@@ -558,6 +565,7 @@ export interface NonlinearRegressionBoundaryVisualCopy {
   codeTitle: string;
   codeDescription: string;
   code: string;
+  codeExplanations?: CodeExplanation[];
   footer: string;
 }
 
@@ -762,6 +770,32 @@ export interface RoadToMiniTransformerVisual {
   copy: Record<Language, RoadToMiniTransformerCopy>;
 }
 
+export interface LinearRegressionSimpleLineVisual {
+  id: 'linear-regression-simple-line';
+  copy: Record<Language, {
+    eyebrow: string;
+    title: string;
+    description: string;
+    xLabel: string;
+    yLabel: string;
+    lineLabel: string;
+    ageLabel: string;
+    footer: string;
+    coefficients: {
+      beta0: number;
+      beta1: number;
+      beta2: number;
+    };
+    dataset: Array<{
+      height: number;
+      age: number;
+      realWeight: number;
+      accent: string;
+      label: string;
+    }>;
+  }>;
+}
+
 export type SlideVisual =
   | InferenceDiagramVisual
   | LearningLoopDiagramVisual
@@ -771,6 +805,7 @@ export type SlideVisual =
   | NonlinearSolutionRingVisual
   | ApiLatencyGrowthVisual
   | LinearRegressionTabsVisual
+  | LinearRegressionSimpleLineVisual
   | GradientDescentVisual
   | LinearRegressionNotationVisual
   | LinearRegression3DChartVisual

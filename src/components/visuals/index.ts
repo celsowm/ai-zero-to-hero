@@ -11,6 +11,7 @@ export { NonlinearSolutionRingVisual } from './nonlinear-regression/NonlinearSol
 export { ApiLatencyGrowthVisual } from './api-latency/ApiLatencyGrowthVisual';
 export { MachineLearningPipelineDiagram } from './machine-learning-pipeline/MachineLearningPipelineDiagram';
 export { LinearRegressionTabsVisual } from './linear-regression/LinearRegressionTabsVisual';
+export { LinearRegressionSimpleLineVisual } from './linear-regression/LinearRegressionSimpleLineVisual';
 export { ProgressStepperVisual } from './stepper/ProgressStepperVisual';
 export { TabsBar } from './TabsBar';
 export type { TabsBarItem } from './TabsBar';

@@ -18,7 +18,7 @@ export const MarkdownSlide: React.FC<MarkdownSlideProps> = ({ content }) => {
         className="h-full min-h-0 overflow-y-auto pr-1"
         style={{ fontSize: 15 * FONT_SCALE_BASE * fontScale, lineHeight: 1.8, color: 'var(--sw-text-dim)' }}
       >
-        <MarkdownRenderer body={content.body} variant="single" />
+        <MarkdownRenderer body={content.body} variant="single" codeExplanations={content.codeExplanations} />
       </div>
     </SlideFrame>
   );
