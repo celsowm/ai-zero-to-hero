@@ -30,19 +30,6 @@ interface PanelProps {
   filter?: string;
 }
 
-interface SoftConnectorProps {
-  d: string;
-  stroke?: string;
-  width?: number;
-  opacity?: number;
-  headX?: number;
-  headY?: number;
-  headDx?: number;
-  headDy?: number;
-  headSize?: number;
-  headWidth?: number;
-}
-
 interface ArrowProps {
   x1: number;
   y1: number;
@@ -126,37 +113,6 @@ const Panel: React.FC<PanelProps> = ({
     strokeWidth={strokeWidth}
     filter={filter}
   />
-);
-
-const SoftConnector: React.FC<SoftConnectorProps> = ({
-  d,
-  stroke = '#94a3b8',
-  width = 4,
-  opacity = 1,
-  headX,
-  headY,
-  headDx,
-  headDy,
-  headSize = 8,
-  headWidth = 7,
-}) => (
-  <g>
-    <path d={d} fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth={width + 4} strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
-    <path d={d} fill="none" stroke={stroke} strokeWidth={width} strokeLinecap="round" strokeLinejoin="round" opacity={opacity} />
-    {headX != null && headY != null && headDx != null && headDy != null ? (
-      <>
-        {(() => {
-          const wings = buildArrowWings(headX, headY, headDx, headDy, headSize, headWidth);
-          return (
-            <>
-              <line x1={headX} y1={headY} x2={wings.left.x} y2={wings.left.y} stroke={stroke} strokeWidth={width} strokeLinecap="round" opacity={opacity} />
-              <line x1={headX} y1={headY} x2={wings.right.x} y2={wings.right.y} stroke={stroke} strokeWidth={width} strokeLinecap="round" opacity={opacity} />
-            </>
-          );
-        })()}
-      </>
-    ) : null}
-  </g>
 );
 
 const Arrow: React.FC<ArrowProps> = ({

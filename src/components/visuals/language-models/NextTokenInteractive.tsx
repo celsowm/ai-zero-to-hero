@@ -21,7 +21,6 @@ export const NextTokenInteractive: React.FC<NextTokenInteractiveProps> = ({ copy
     }
   };
 
-  const currentText = sequence.slice(0, Math.max(1, step)).join('');
   const isFinished = step === sequence.length;
 
   return (

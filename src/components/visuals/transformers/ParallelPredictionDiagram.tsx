@@ -30,7 +30,7 @@ export const ParallelPredictionDiagram: React.FC<ParallelPredictionDiagramProps>
       fontFamily: "'Inter', sans-serif"
     }}>
       
-      <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: '700', color: '#1e293b', background: '#e0f2fe', padding: '12px', borderRadius: '12px', color: '#0369a1' }}>
+      <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: '700', background: '#e0f2fe', padding: '12px', borderRadius: '12px', color: '#0369a1' }}>
         {copy.parallelLabel}
       </div>
 

@@ -273,16 +273,12 @@ const codeBodyStyle: React.CSSProperties = {
   flex: 1,
   minHeight: 0,
   margin: 0,
-  padding: 16,
+  padding: '16px 16px 16px 8px',
   borderRadius: 16,
   background: 'rgba(255,255,255,0.03)',
   border: '1px solid rgba(255,255,255,0.06)',
-  overflow: 'auto',
-  whiteSpace: 'pre',
-  fontSize: 12.5,
-  lineHeight: 1.65,
-  color: 'rgba(243, 244, 246, 0.95)',
-  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 const controlBarStyle: React.CSSProperties = {
