@@ -481,9 +481,39 @@ export interface BiologicalVsComputationalNeuronCopy {
   footerNote: string;
 }
 
+export interface NeuronArchitectureAnimatedLegendItemCopy {
+  symbol: string;
+  title: string;
+  desc: string;
+  color: string;
+}
+
+export interface NeuronArchitectureAnimatedCopy {
+  ariaLabel: string;
+  title: string;
+  subtitle: string;
+  inputs: string;
+  weights: string;
+  examples: string;
+  bias: string;
+  biasNote: string;
+  weightedSum: string;
+  activation: string;
+  outputAfterActivation: [string, string, string] | [string, string];
+  outputFinal: string;
+  centerNote: string;
+  legendTitle: string;
+  legend: NeuronArchitectureAnimatedLegendItemCopy[];
+}
+
 export interface BiologicalVsComputationalNeuronVisual {
   id: 'biological-vs-computational-neuron';
   copy: Record<Language, BiologicalVsComputationalNeuronCopy>;
+}
+
+export interface NeuronArchitectureAnimatedVisual {
+  id: 'neuron-architecture-animated';
+  copy: Record<Language, NeuronArchitectureAnimatedCopy>;
 }
 
 export interface InferenceDiagramVisual {
@@ -838,6 +868,7 @@ export type SlideVisual =
   | PredictionEvolutionVisual
   | WhyTransformersWorkVisual
   | RoadToMiniTransformerVisual
+  | NeuronArchitectureAnimatedVisual
   | BiologicalVsComputationalNeuronVisual;
 
 export interface SlideOptions {

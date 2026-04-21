@@ -43,6 +43,7 @@ import {
   WhyTransformersWork,
   RoadToMiniTransformer,
   BiologicalVsComputationalNeuron,
+  NeuronArchitectureAnimated,
 } from '../visuals';
 
 interface SlideVisualRendererProps {
@@ -134,6 +135,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <WhyTransformersWork copy={visual.copy[language]} />;
     case 'road-to-mini-transformer':
       return <RoadToMiniTransformer copy={visual.copy[language]} />;
+    case 'neuron-architecture-animated':
+      return <NeuronArchitectureAnimated copy={visual.copy[language]} />;
     case 'biological-vs-computational-neuron':
       return <BiologicalVsComputationalNeuron copy={visual.copy[language]} />;
     default:

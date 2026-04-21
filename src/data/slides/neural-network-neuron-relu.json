@@ -3,14 +3,14 @@
   "type": "two-column",
   "options": {
     "columnRatios": [
-      0.62,
-      0.38
+      0.4,
+      0.6
     ]
   },
   "content": {
     "pt-br": {
       "title": "O neurônio: a menor peça da rede",
-      "body": "Agora a ponte fica concreta. Um neurônio artificial começa como uma soma ponderada, muito parecida com regressão linear, e só depois passa por uma função de ativação.\n\n1. **Soma linear:** `z = w * x + b` calcula um valor bruto a partir da entrada.\n\n2. **ReLU:** a ativação mais simples é `relu(z) = max(0, z)`. Se `z` for negativo, ela devolve `0`; se for positivo, devolve o próprio valor.\n\n3. **Por que isso existe:** sem ativação, várias camadas lineares continuam equivalendo a uma única transformação linear.\n\n4. **O efeito prático:** a ReLU cria uma quebra simples. Isso permite representar limiares, trechos e mudanças de ritmo.\n\n> Sem ativação, a rede só empilha retas. Com ReLU, ela ganha uma dobra.\n\n---\n\n### Fórmula mínima\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` é a resposta bruta\n- `a` é a saída ativada\n- ReLU zera o que está abaixo de zero\n\n### Intuição\nSe `x` medir carga:\n- abaixo do limiar, o neurônio fica em zero\n- acima do limiar, ele começa a reagir",
+      "body": "Agora a ponte fica concreta. Um neurônio artificial começa como uma soma ponderada, muito parecida com regressão linear, e só depois passa por uma função de ativação.\n\n1. **Soma linear:** `z = w * x + b` calcula um valor bruto a partir da entrada.\n\n2. **ReLU:** a ativação mais simples é `relu(z) = max(0, z)`. Se `z` for negativo, ela devolve `0`; se for positivo, devolve o próprio valor.\n\n3. **Por que isso existe:** sem ativação, várias camadas lineares continuam equivalendo a uma única transformação linear.\n\n4. **O efeito prático:** a ReLU cria uma quebra simples. Isso permite representar limiares, trechos e mudanças de ritmo.\n\n> Sem ativação, a rede só empilha retas. Com ReLU, ela ganha uma dobra.\n\n### Fórmula mínima\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` é a resposta bruta\n- `a` é a saída ativada\n- ReLU zera o que está abaixo de zero\n\n### Intuição\nSe `x` medir carga:\n- abaixo do limiar, o neurônio fica em zero\n- acima do limiar, ele começa a reagir",
       "codeExplanations": [
         {
           "lineRange": [
@@ -30,7 +30,7 @@
     },
     "en-us": {
       "title": "The neuron: the smallest piece of the network",
-      "body": "Now the bridge becomes concrete. An artificial neuron starts as a weighted sum, very close to linear regression, and only then passes through an activation function.\n\n1. **Linear sum:** `z = w * x + b` computes a raw score from the input.\n\n2. **ReLU:** the simplest activation is `relu(z) = max(0, z)`. If `z` is negative, it returns `0`; if it is positive, it returns the value itself.\n\n3. **Why it exists:** without activation, several linear layers still collapse into a single linear transformation.\n\n4. **The practical effect:** ReLU creates a simple break. That lets the model represent thresholds, segments, and changes in pace.\n\n> Without activation, the network only stacks lines. With ReLU, it gets a bend.\n\n---\n\n### Minimum formula\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` is the raw response\n- `a` is the activated output\n- ReLU zeros out what is below zero\n\n### Intuition\nIf `x` measures load:\n- below the threshold, the neuron stays at zero\n- above the threshold, it starts reacting",
+      "body": "Now the bridge becomes concrete. An artificial neuron starts as a weighted sum, very close to linear regression, and only then passes through an activation function.\n\n1. **Linear sum:** `z = w * x + b` computes a raw score from the input.\n\n2. **ReLU:** the simplest activation is `relu(z) = max(0, z)`. If `z` is negative, it returns `0`; if it is positive, it returns the value itself.\n\n3. **Why it exists:** without activation, several linear layers still collapse into a single linear transformation.\n\n4. **The practical effect:** ReLU creates a simple break. That lets the model represent thresholds, segments, and changes in pace.\n\n> Without activation, the network only stacks lines. With ReLU, it gets a bend.\n\n### Minimum formula\n```txt\nz = w * x + b\na = relu(z)\n```\n\n- `z` is the raw response\n- `a` is the activated output\n- ReLU zeros out what is below zero\n\n### Intuition\nIf `x` measures load:\n- below the threshold, the neuron stays at zero\n- above the threshold, it starts reacting",
       "codeExplanations": [
         {
           "lineRange": [
@@ -47,6 +47,59 @@
           "content": "The non-linearity. If z is negative, the neuron turns off. If positive, it activates with the value of z."
         }
       ]
+    }
+  },
+  "visual": {
+    "id": "neuron-architecture-animated",
+    "copy": {
+      "pt-br": {
+        "ariaLabel": "Diagrama animado do neurônio artificial",
+        "title": "ARQUITETURA NEURAL",
+        "subtitle": "entradas, pesos, viés, soma ponderada, ativação e saída",
+        "inputs": "Entradas",
+        "weights": "pesos",
+        "examples": "exemplos: pixels, atributos, medições",
+        "bias": "viés",
+        "biasNote": "o viés entra somando ao bloco",
+        "weightedSum": "soma ponderada",
+        "activation": "função de ativação",
+        "outputAfterActivation": ["saída", "após", "ativação"],
+        "outputFinal": "saída final",
+        "centerNote": "o neurônio primeiro calcula z e depois aplica f(z)",
+        "legendTitle": "Legenda dos símbolos",
+        "legend": [
+          { "symbol": "xᵢ", "title": "entrada", "desc": "valor de entrada", "color": "#00f3ff" },
+          { "symbol": "wᵢ", "title": "peso", "desc": "importância da entrada", "color": "#00f3ff" },
+          { "symbol": "b", "title": "viés", "desc": "termo aditivo", "color": "#ff8fc5" },
+          { "symbol": "∑", "title": "somatório", "desc": "soma ponderada", "color": "#00f3ff" },
+          { "symbol": "f(z)", "title": "ativação", "desc": "não linearidade", "color": "#ff8fc5" },
+          { "symbol": "y", "title": "saída", "desc": "resultado final", "color": "#eaf3ff" }
+        ]
+      },
+      "en-us": {
+        "ariaLabel": "Animated artificial neuron diagram",
+        "title": "NEURAL ARCHITECTURE",
+        "subtitle": "inputs, weights, bias, weighted sum, activation, and output",
+        "inputs": "Inputs",
+        "weights": "weights",
+        "examples": "examples: pixels, attributes, measurements",
+        "bias": "bias",
+        "biasNote": "bias enters as an additive term",
+        "weightedSum": "weighted sum",
+        "activation": "activation function",
+        "outputAfterActivation": ["output", "after", "activation"],
+        "outputFinal": "final output",
+        "centerNote": "the neuron first computes z and then applies f(z)",
+        "legendTitle": "Symbol legend",
+        "legend": [
+          { "symbol": "xᵢ", "title": "input", "desc": "input value", "color": "#00f3ff" },
+          { "symbol": "wᵢ", "title": "weight", "desc": "input importance", "color": "#00f3ff" },
+          { "symbol": "b", "title": "bias", "desc": "additive term", "color": "#ff8fc5" },
+          { "symbol": "∑", "title": "sum", "desc": "weighted sum", "color": "#00f3ff" },
+          { "symbol": "f(z)", "title": "activation", "desc": "non-linearity", "color": "#ff8fc5" },
+          { "symbol": "y", "title": "output", "desc": "final result", "color": "#eaf3ff" }
+        ]
+      }
     }
   }
 }
