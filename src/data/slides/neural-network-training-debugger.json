@@ -16,7 +16,7 @@
     "copy": {
       "pt-br": {
         "title": "Debugger do treino",
-        "subtitle": "A esquerda, a rede neural recebe a amostra e mostra o fluxo entre camadas. A direita, o debugger abre os valores reais do passo atual sem markdown nem abas.",
+        "subtitle": "",
         "inputSectionLabel": "Entrada",
         "hiddenSectionLabel": "Camada oculta",
         "outputSectionLabel": "Saída",
@@ -153,8 +153,8 @@
           },
           {
             "label": "Atualiza",
-            "title": "Os pesos recebem o passo de ajuste",
-            "description": "Depois de calcular os gradientes, a descida do gradiente empurra os pesos para aumentar a confiança em exemplos positivos parecidos com este.",
+            "title": "",
+            "description": "",
             "formula": "w1[0]: 0.2000 → 0.2084",
             "accent": "#ff2e97",
             "activeSection": "metrics",
@@ -183,11 +183,11 @@
             ]
           }
         ],
-        "footer": "A coluna esquerda mostra a rede neural e as iterações do treino; a direita funciona como debugger do passo atual."
+        "footer": ""
       },
       "en-us": {
         "title": "Training debugger",
-        "subtitle": "On the left, the neural network receives the sample and shows the flow across layers. On the right, the debugger opens the real values for the current step with no markdown and no tabs.",
+        "subtitle": "",
         "inputSectionLabel": "Input",
         "hiddenSectionLabel": "Hidden layer",
         "outputSectionLabel": "Output",
@@ -324,8 +324,8 @@
           },
           {
             "label": "Update",
-            "title": "The weights receive the update step",
-            "description": "After computing the gradients, gradient descent pushes the weights to increase confidence on positive examples similar to this one.",
+            "title": "",
+            "description": "",
             "formula": "w1[0]: 0.2000 → 0.2084",
             "accent": "#ff2e97",
             "activeSection": "metrics",
@@ -354,7 +354,7 @@
             ]
           }
         ],
-        "footer": "The left column shows the neural network and training iterations; the right column works like a debugger for the current step."
+        "footer": ""
       }
     }
   }

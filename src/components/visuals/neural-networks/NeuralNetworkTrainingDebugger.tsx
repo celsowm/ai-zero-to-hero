@@ -6,46 +6,6 @@ interface NeuralNetworkTrainingDebuggerProps {
   copy: NeuralNetworkTrainingDebuggerVisualCopy;
 }
 
-const sectionTitleStyle: React.CSSProperties = {
-  fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase',
-  color: 'var(--sw-text-muted)',
-  marginBottom: 10,
-};
-
-const valueCardStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  gap: 12,
-  padding: '10px 12px',
-  borderRadius: 12,
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.06)',
-};
-
-const valueGridStyle: React.CSSProperties = {
-  display: 'grid',
-  gap: 8,
-};
-
-const sectionStyle = (active: boolean, accent: string): React.CSSProperties => ({
-  padding: 14,
-  borderRadius: 16,
-  background: active ? `${accent}14` : 'rgba(255,255,255,0.03)',
-  border: `1px solid ${active ? `${accent}66` : 'rgba(255,255,255,0.06)'}`,
-  boxShadow: active ? `inset 0 0 0 1px ${accent}22` : 'none',
-  transition: 'all 180ms ease',
-});
-
-const metricGridStyle: React.CSSProperties = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-  gap: 10,
-};
-
 const findValue = (
   items: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['inputs'],
   fragments: string[],
@@ -386,7 +346,9 @@ const NetworkDiagram: React.FC<{
         </div>
       </div>
 
-      <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+      {copy.footer && (
+        <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+      )}
     </PanelCard>
   );
 };
@@ -412,114 +374,205 @@ export const NeuralNetworkTrainingDebugger: React.FC<NeuralNetworkTrainingDebugg
         />
       </div>
 
-      <PanelCard minHeight={0} gap={14} style={{ height: '100%' }}>
-        <div style={{ display: 'grid', gap: 6 }}>
+      <PanelCard minHeight={0} gap={10} style={{ height: '100%' }}>
+        <div style={{ display: 'grid', gap: 4 }}>
           <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: currentStep.accent }}>
             {copy.title}
           </div>
-          <div style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.08, color: 'var(--sw-text)' }}>
-            {currentStep.title}
-          </div>
-          <div style={{ fontSize: 13.5, lineHeight: 1.65, color: 'var(--sw-text-dim)' }}>{copy.subtitle}</div>
+          {copy.subtitle && (
+            <div style={{ fontSize: 13.5, lineHeight: 1.65, color: 'var(--sw-text-dim)' }}>{copy.subtitle}</div>
+          )}
         </div>
 
         <div
           style={{
-            padding: 16,
-            borderRadius: 18,
+            padding: 12,
+            borderRadius: 14,
             border: `1px solid ${currentStep.accent}55`,
             background: `linear-gradient(180deg, ${currentStep.accent}18, rgba(255,255,255,0.025))`,
             display: 'grid',
-            gap: 8,
+            gap: 6,
           }}
         >
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent }}>
             {activeStep + 1} / {copy.steps.length}
           </div>
-          <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, color: 'var(--sw-text)' }}>
-            {currentStep.label}
-          </div>
+          {currentStep.title && (
+            <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, color: 'var(--sw-text)' }}>
+              {currentStep.title}
+            </div>
+          )}
           <div
             style={{
               alignSelf: 'start',
               display: 'inline-flex',
-              padding: '8px 12px',
-              borderRadius: 12,
+              padding: '6px 10px',
+              borderRadius: 10,
               background: 'rgba(255,255,255,0.05)',
               border: '1px solid rgba(255,255,255,0.08)',
               color: 'var(--sw-text)',
-              fontSize: 12.5,
+              fontSize: 11.5,
               fontWeight: 700,
               wordBreak: 'break-word',
             }}
           >
             {currentStep.formula}
           </div>
-          <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{currentStep.description}</div>
+          {currentStep.description && (
+            <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--sw-text-dim)' }}>{currentStep.description}</div>
+          )}
         </div>
 
-        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'grid', gap: 12, paddingRight: 4 }}>
-          <div style={sectionStyle(currentStep.activeSection === 'inputs', currentStep.accent)}>
-            <div style={sectionTitleStyle}>{copy.inputSectionLabel}</div>
-            <div style={valueGridStyle}>
-              {currentStep.inputs.map((item) => (
-                <div key={item.label} style={valueCardStyle}>
-                  <span style={{ fontSize: 12.5, color: 'var(--sw-text-dim)' }}>{item.label}</span>
-                  <strong style={{ fontSize: 14, color: 'var(--sw-text)' }}>{item.value}</strong>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: 4 }}>
+          <div
+            style={{
+              borderRadius: 12,
+              border: '1px solid rgba(255,255,255,0.06)',
+              overflow: 'hidden',
+              background: 'rgba(255,255,255,0.02)',
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              {[
+                { label: copy.inputSectionLabel, accent: currentStep.activeSection === 'inputs' },
+                { label: copy.hiddenSectionLabel, accent: currentStep.activeSection === 'hidden' },
+                { label: copy.outputSectionLabel, accent: currentStep.activeSection === 'output' },
+              ].map(({ label, accent }, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: '7px 8px',
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    color: accent ? currentStep.accent : 'var(--sw-text-muted)',
+                    background: accent ? `${currentStep.accent}14` : 'transparent',
+                    textAlign: 'center',
+                    borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                  }}
+                >
+                  {label}
                 </div>
               ))}
             </div>
-          </div>
 
-          <div style={sectionStyle(currentStep.activeSection === 'hidden', currentStep.accent)}>
-            <div style={sectionTitleStyle}>{copy.hiddenSectionLabel}</div>
-            <div style={valueGridStyle}>
-              {currentStep.hidden.map((item) => (
-                <div key={item.label} style={valueCardStyle}>
-                  <span style={{ fontSize: 12.5, color: 'var(--sw-text-dim)' }}>{item.label}</span>
-                  <strong style={{ fontSize: 14, color: 'var(--sw-text)' }}>{item.value}</strong>
+            {/* Rows */}
+            {(() => {
+              const maxRows = Math.max(currentStep.inputs.length, currentStep.hidden.length, currentStep.output.length);
+              const rows: Array<{ inputs?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['inputs'][number]; hidden?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['hidden'][number]; output?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['output'][number] }> = [];
+
+              for (let i = 0; i < maxRows; i++) {
+                rows.push({
+                  inputs: currentStep.inputs[i],
+                  hidden: currentStep.hidden[i],
+                  output: currentStep.output[i],
+                });
+              }
+
+              return rows.map((row, rowIdx) => (
+                <div
+                  key={rowIdx}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr 1fr',
+                    borderTop: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  {/* Input cell */}
+                  {row.inputs ? (
+                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.inputs!.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.inputs!.value}</div>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)', color: 'transparent' }}>—</div>
+                  )}
+
+                  {/* Hidden cell */}
+                  {row.hidden ? (
+                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.hidden!.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.hidden!.value}</div>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)', color: 'transparent' }}>—</div>
+                  )}
+
+                  {/* Output cell */}
+                  {row.output ? (
+                    <div style={{ padding: '6px 8px', textAlign: 'center' }}>
+                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.output!.label}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.output!.value}</div>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '6px 8px', textAlign: 'center', color: 'transparent' }}>—</div>
+                  )}
                 </div>
-              ))}
-            </div>
+              ));
+            })()}
           </div>
 
-          <div style={sectionStyle(currentStep.activeSection === 'output', currentStep.accent)}>
-            <div style={sectionTitleStyle}>{copy.outputSectionLabel}</div>
-            <div style={valueGridStyle}>
-              {currentStep.output.map((item) => (
-                <div key={item.label} style={valueCardStyle}>
-                  <span style={{ fontSize: 12.5, color: 'var(--sw-text-dim)' }}>{item.label}</span>
-                  <strong style={{ fontSize: 14, color: 'var(--sw-text)' }}>{item.value}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style={sectionStyle(currentStep.activeSection === 'metrics', currentStep.accent)}>
-            <div style={sectionTitleStyle}>{copy.metricsSectionLabel}</div>
-            <div style={metricGridStyle}>
-              {currentStep.metrics.map((metric) => (
-                <div key={metric.label} style={valueCardStyle}>
-                  <span style={{ fontSize: 12.5, color: 'var(--sw-text-dim)' }}>{metric.label}</span>
-                  <strong style={{ fontSize: 14, color: 'var(--sw-text)' }}>{metric.value}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {isLast ? (
+          {/* Metrics */}
+          {currentStep.activeSection === 'metrics' && (
             <div
               style={{
-                padding: '14px 16px',
-                borderRadius: 16,
+                marginTop: 8,
+                borderRadius: 10,
+                border: '1px solid rgba(255,255,255,0.06)',
+                overflow: 'hidden',
+                background: 'rgba(255,255,255,0.02)',
+              }}
+            >
+              <div
+                style={{
+                  padding: '6px 8px',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: currentStep.accent,
+                  background: `${currentStep.accent}14`,
+                  textAlign: 'center',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}
+              >
+                {copy.metricsSectionLabel}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+                {currentStep.metrics.map((metric, i) => (
+                  <div
+                    key={metric.label}
+                    style={{
+                      padding: '6px 8px',
+                      textAlign: 'center',
+                      borderTop: i >= 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                      borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                    }}
+                  >
+                    <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{metric.label}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{metric.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {isLast && copy.completionDescription ? (
+            <div
+              style={{
+                marginTop: 8,
+                padding: '10px 12px',
+                borderRadius: 12,
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
               }}
             >
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent, marginBottom: 6 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent, marginBottom: 4 }}>
                 {copy.completionLabel}
               </div>
-              <div style={{ fontSize: 13.5, lineHeight: 1.7, color: 'var(--sw-text)' }}>{copy.completionDescription}</div>
+              <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--sw-text)' }}>{copy.completionDescription}</div>
             </div>
           ) : null}
         </div>
