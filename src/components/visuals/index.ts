@@ -48,5 +48,7 @@ export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';
 export { BiologicalVsComputationalNeuron } from './neural-networks/BiologicalVsComputationalNeuron';
 export { NeuronArchitectureAnimated } from './neural-networks/NeuronArchitectureAnimated';
 export { NeuralNetworkTrainingDebugger } from './neural-networks/NeuralNetworkTrainingDebugger';
-export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
+export { LossChart } from './neural-networks/LossChart';
+export { TrainingControls } from './neural-networks/TrainingControls';
+export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDebugger';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';

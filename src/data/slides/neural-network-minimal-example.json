@@ -1,388 +1,106 @@
 {
   "id": "neural-network-minimal-example",
-  "type": "two-column",
-  "options": {
-    "columnRatios": [
-      0.42,
-      0.58
-    ]
-  },
+  "type": "custom",
   "content": {
     "pt-br": {
-      "title": "Rede Neural em Python: treinando a primeira versão",
-      "body": "Agora a rede neural entra no Python seguindo o mesmo padrão da regressão linear: primeiro o modelo aprende com dados, depois usamos o modelo treinado para prever novos casos.\n\n1. **O problema:** prever `risco cardíaco` a partir de quatro entradas: `idade`, `pressão`, `colesterol` e `fumante`.\n\n2. **A arquitetura:** duas unidades ocultas com `ReLU` e uma saída com `sigmoid` para produzir probabilidade entre `0` e `1`.\n\n3. **O fluxo do treino:** fazer o `forward`, medir erro, propagar a correção para trás e ajustar os pesos um pouco por vez.\n\n4. **A leitura de programador:** `predict` calcula, `mse` mede, `train` corrige. A diferença para regressão linear é que agora há uma camada oculta no meio.\n\n> Exemplo didático simplificado: o objetivo aqui é enxergar o mecanismo completo de treino de uma rede pequena.\n\n### O que observar\n- a aba `Código` mostra a rede completa de verdade\n- a aba `Visual` acompanha uma iteração real de treino\n- o MSE final confirma que a rede aprendeu a separar os casos\n"
+      "title": "Rede Neural: debugger de treino",
+      "body": ""
     },
     "en-us": {
-      "title": "Neural Network in Python: training the first version",
-      "body": "Now the neural network moves into Python using the same pattern as linear regression: first the model learns from data, then we use the trained model to predict new cases.\n\n1. **The task:** predict `heart risk` from four inputs: `age`, `blood pressure`, `cholesterol`, and `smoker`.\n\n2. **The architecture:** two hidden units with `ReLU` and one `sigmoid` output to produce a probability between `0` and `1`.\n\n3. **Training flow:** run the `forward` pass, measure error, send correction backward, and adjust the weights little by little.\n\n4. **Programmer reading:** `predict` computes, `mse` measures, `train` corrects. Compared with linear regression, the difference is that there is now a hidden layer in the middle.\n\n> Simplified teaching example: the goal here is to make the full training mechanism of a small network visible.\n\n### What to watch\n- the `Code` tab shows the real full network\n- the `Visual` tab follows one real training iteration\n- the final MSE confirms that the network learned to separate the cases\n"
+      "title": "Neural Network: training debugger",
+      "body": ""
     }
   },
   "visual": {
-    "id": "neural-network-tabs-stepper",
+    "id": "neural-network-step-debugger",
     "copy": {
       "pt-br": {
-        "tabs": [
-          { "label": "Código" },
-          { "label": "Visual" }
+        "title": "Debugger de treino",
+        "subtitle": "Treine a rede amostra por amostra e veja os pesos mudando em tempo real.",
+        "featureNames": ["idade", "pressão", "colesterol", "fumante"],
+        "learningRate": 0.2,
+        "initialWeights": {
+          "w1": [0.2, 0.1, 0.2, 0.1],
+          "w2": [0.1, 0.2, 0.1, 0.2],
+          "b1": -0.2,
+          "b2": -0.2,
+          "v1": 0.3,
+          "v2": 0.3,
+          "c": -0.1
+        },
+        "labels": {
+          "inputLayer": "ENTRADA",
+          "hiddenLayer": "OCULTA",
+          "outputLayer": "SAÍDA",
+          "codeTitle": "Código Python"
+        },
+        "pythonCode": "for epoca in range(4000):\n    for x, y in dados:\n        # Forward\n        z1 = sum(w*xi for w,xi in zip(p['w1'],x)) + p['b1']\n        h1 = max(0.0, z1)\n        z2 = sum(w*xi for w,xi in zip(p['w2'],x)) + p['b2']\n        h2 = max(0.0, z2)\n        z3 = p['v1']*h1 + p['v2']*h2 + p['c']\n        y_hat = 1/(1+exp(-z3))\n\n        # Loss & Backprop\n        d_out = (y_hat - y)\n        d_z3 = d_out * y_hat * (1 - y_hat)\n        d_h1 = d_z3 * p['v1'] * (1 if z1>0 else 0)\n        d_h2 = d_z3 * p['v2'] * (1 if z2>0 else 0)\n\n        # Weight update (SGD)\n        for i in range(4):\n            p['w1'][i] -= lr * d_h1 * x[i]\n            p['w2'][i] -= lr * d_h2 * x[i]\n        p['v1'] -= lr * d_z3 * h1\n        p['v2'] -= lr * d_z3 * h2\n        p['c']  -= lr * d_z3",
+        "codeHighlightRanges": {
+          "forward": [3, 9],
+          "backprop": [11, 15],
+          "update": [17, 22]
+        },
+        "dataset": [
+          { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
+          { "inputs": [0.42, 0.65, 0.62, 0.0], "target": 0.0 },
+          { "inputs": [0.48, 0.70, 0.68, 0.0], "target": 0.0 },
+          { "inputs": [0.58, 0.78, 0.82, 1.0], "target": 1.0 },
+          { "inputs": [0.67, 0.84, 0.88, 1.0], "target": 1.0 },
+          { "inputs": [0.73, 0.90, 0.93, 1.0], "target": 1.0 }
         ],
-        "codePanel": {
-          "title": "Treino completo da rede",
-          "description": "A rede abaixo tem camada oculta real, `forward`, MSE e backpropagation manual. Nada aqui é pseudocódigo.",
-          "code": "from math import exp\n\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0.0),\n    ([0.42, 0.65, 0.62, 0.0], 0.0),\n    ([0.48, 0.70, 0.68, 0.0], 0.0),\n    ([0.58, 0.78, 0.82, 1.0], 1.0),\n    ([0.67, 0.84, 0.88, 1.0], 1.0),\n    ([0.73, 0.90, 0.93, 1.0], 1.0),\n]\n\ndef relu(z):\n    return max(0.0, z)\n\n\ndef d_relu(z):\n    return 1.0 if z > 0 else 0.0\n\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef prever(x, p):\n    z1 = sum(w * xi for w, xi in zip(p[\"w1\"], x)) + p[\"b1\"]\n    z2 = sum(w * xi for w, xi in zip(p[\"w2\"], x)) + p[\"b2\"]\n    h1 = relu(z1)\n    h2 = relu(z2)\n    z3 = p[\"v1\"] * h1 + p[\"v2\"] * h2 + p[\"c\"]\n    y_hat = sigmoid(z3)\n    return y_hat, (z1, z2, h1, h2)\n\n\ndef mse(dados, p):\n    total = 0.0\n    for x, y in dados:\n        y_hat, _ = prever(x, p)\n        total += (y_hat - y) ** 2\n    return total / len(dados)\n\n\ndef treinar_rede(dados, epochs=4000, lr=0.2):\n    p = {\n        \"w1\": [0.2, 0.1, 0.2, 0.1],\n        \"w2\": [0.1, 0.2, 0.1, 0.2],\n        \"b1\": -0.2,\n        \"b2\": -0.2,\n        \"v1\": 0.3,\n        \"v2\": 0.3,\n        \"c\": -0.1,\n    }\n\n    for _ in range(epochs):\n        for x, y in dados:\n            y_hat, (z1, z2, h1, h2) = prever(x, p)\n            d_out = 2 * (y_hat - y) * y_hat * (1 - y_hat)\n            d_h1 = d_out * p[\"v1\"] * d_relu(z1)\n            d_h2 = d_out * p[\"v2\"] * d_relu(z2)\n\n            for i in range(4):\n                p[\"w1\"][i] -= lr * d_h1 * x[i]\n                p[\"w2\"][i] -= lr * d_h2 * x[i]\n\n            p[\"b1\"] -= lr * d_h1\n            p[\"b2\"] -= lr * d_h2\n            p[\"v1\"] -= lr * d_out * h1\n            p[\"v2\"] -= lr * d_out * h2\n            p[\"c\"] -= lr * d_out\n\n    return p\n\n\nparametros = treinar_rede(dados)\nprint(\"MSE final:\", round(mse(dados, parametros), 4))\n"
-        },
-        "stepperPanel": {
-          "eyebrow": "Treino em câmera lenta",
-          "title": "Uma iteração real de backpropagation",
-          "description": "A visualização acompanha a quarta amostra positiva entrando na rede com os pesos iniciais. Todos os valores vêm do mesmo código da aba ao lado.",
-          "inputSectionLabel": "Entrada",
-          "hiddenSectionLabel": "Camada oculta",
-          "outputSectionLabel": "Saída",
-          "metricsSectionLabel": "Métricas do passo",
-          "previousLabel": "Passo anterior",
-          "nextLabel": "Próximo passo",
-          "completionLabel": "Depois de muitas épocas",
-          "completionDescription": "Essa pequena rede converge para `MSE = 0.0001` no conjunto didático e aprende a separar os casos negativos dos positivos.",
-          "steps": [
-            {
-              "label": "Entrada",
-              "title": "A amostra entra já normalizada",
-              "description": "Usamos a quarta amostra do dataset, uma classe positiva. Ainda não existe previsão: a rede só recebeu os sinais de entrada.",
-              "formula": "x = [0.58, 0.78, 0.82, 1.00], y = 1.00",
-              "accent": "#00e5ff",
-              "activeSection": "inputs",
-              "inputs": [
-                { "label": "idade", "value": "0.58" },
-                { "label": "pressão", "value": "0.78" },
-                { "label": "colesterol", "value": "0.82" },
-                { "label": "fumante", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "z1", "value": "-" },
-                { "label": "z2", "value": "-" },
-                { "label": "h1", "value": "-" },
-                { "label": "h2", "value": "-" }
-              ],
-              "output": [
-                { "label": "ŷ", "value": "-" },
-                { "label": "classe", "value": "-" },
-                { "label": "alvo", "value": "1.00" }
-              ],
-              "metrics": [
-                { "label": "amostra", "value": "4 / 6" },
-                { "label": "classe real", "value": "positiva" },
-                { "label": "lr", "value": "0.2" },
-                { "label": "épocas totais", "value": "4000" }
-              ]
-            },
-            {
-              "label": "Oculta",
-              "title": "Os neurônios ocultos fazem a primeira mistura útil",
-              "description": "Com os pesos iniciais, ambos os neurônios ocultos ativam. É aqui que a rede começa a construir combinações não lineares dos atributos.",
-              "formula": "h1 = relu(0.2580), h2 = relu(0.2960)",
-              "accent": "#38bdf8",
-              "activeSection": "hidden",
-              "inputs": [
-                { "label": "idade", "value": "0.58" },
-                { "label": "pressão", "value": "0.78" },
-                { "label": "colesterol", "value": "0.82" },
-                { "label": "fumante", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "z1", "value": "0.2580" },
-                { "label": "z2", "value": "0.2960" },
-                { "label": "h1", "value": "0.2580" },
-                { "label": "h2", "value": "0.2960" }
-              ],
-              "output": [
-                { "label": "ŷ", "value": "-" },
-                { "label": "classe", "value": "-" },
-                { "label": "alvo", "value": "1.00" }
-              ],
-              "metrics": [
-                { "label": "neurônios ativos", "value": "2 / 2" },
-                { "label": "ativação", "value": "ReLU" },
-                { "label": "viés oculto", "value": "-0.20" },
-                { "label": "camada oculta", "value": "2 unidades" }
-              ]
-            },
-            {
-              "label": "Saída",
-              "title": "A camada final transforma isso em probabilidade",
-              "description": "Depois da camada oculta, a saída linear é comprimida pela sigmoid. Neste ponto a rede prevê uma chance de pouco mais de 51%.",
-              "formula": "ŷ = sigmoid(0.0662) = 0.5165",
-              "accent": "#66b84a",
-              "activeSection": "output",
-              "inputs": [
-                { "label": "idade", "value": "0.58" },
-                { "label": "pressão", "value": "0.78" },
-                { "label": "colesterol", "value": "0.82" },
-                { "label": "fumante", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "h1", "value": "0.2580" },
-                { "label": "h2", "value": "0.2960" },
-                { "label": "v1", "value": "0.3000" },
-                { "label": "v2", "value": "0.3000" }
-              ],
-              "output": [
-                { "label": "z3", "value": "0.0662" },
-                { "label": "ŷ", "value": "0.5165" },
-                { "label": "classe provisória", "value": "sim" }
-              ],
-              "metrics": [
-                { "label": "alvo", "value": "1.0000" },
-                { "label": "erro bruto", "value": "-0.4835" },
-                { "label": "faixa da saída", "value": "0 a 1" },
-                { "label": "sigmoid", "value": "ativa" }
-              ]
-            },
-            {
-              "label": "Erro",
-              "title": "O erro vira sinal de correção",
-              "description": "Como o alvo correto é `1.0`, a rede ainda está subestimando a probabilidade. O loss e os gradientes dizem em que direção os pesos devem andar.",
-              "formula": "loss = (0.5165 - 1.0)^2 = 0.2337",
-              "accent": "#f97316",
-              "activeSection": "metrics",
-              "inputs": [
-                { "label": "alvo", "value": "1.0000" },
-                { "label": "ŷ", "value": "0.5165" },
-                { "label": "diferença", "value": "-0.4835" },
-                { "label": "loss", "value": "0.2337" }
-              ],
-              "hidden": [
-                { "label": "d_h1", "value": "-0.0724" },
-                { "label": "d_h2", "value": "-0.0724" },
-                { "label": "grad v1", "value": "-0.0623" },
-                { "label": "grad v2", "value": "-0.0715" }
-              ],
-              "output": [
-                { "label": "d_out", "value": "-0.2415" },
-                { "label": "grad c", "value": "-0.2415" },
-                { "label": "classe", "value": "ainda fraca" }
-              ],
-              "metrics": [
-                { "label": "loss", "value": "0.2337" },
-                { "label": "d_out", "value": "-0.2415" },
-                { "label": "d_h1", "value": "-0.0724" },
-                { "label": "d_h2", "value": "-0.0724" }
-              ]
-            },
-            {
-              "label": "Atualiza",
-              "title": "Os pesos recebem o passo de ajuste",
-              "description": "Depois de calcular os gradientes, a descida do gradiente move os pesos para aumentar a confiança em exemplos positivos parecidos com este.",
-              "formula": "w1[0]: 0.2000 → 0.2084",
-              "accent": "#ff2e97",
-              "activeSection": "metrics",
-              "inputs": [
-                { "label": "idade", "value": "0.58" },
-                { "label": "pressão", "value": "0.78" },
-                { "label": "colesterol", "value": "0.82" },
-                { "label": "fumante", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "w1[0]", "value": "0.2084" },
-                { "label": "w2[0]", "value": "0.1084" },
-                { "label": "b1", "value": "-0.1855" },
-                { "label": "b2", "value": "-0.1855" }
-              ],
-              "output": [
-                { "label": "v1", "value": "0.3125" },
-                { "label": "v2", "value": "0.3143" },
-                { "label": "c", "value": "-0.0517" }
-              ],
-              "metrics": [
-                { "label": "Δw1[0]", "value": "+0.0084" },
-                { "label": "Δv1", "value": "+0.0125" },
-                { "label": "Δc", "value": "+0.0483" },
-                { "label": "próximo passo", "value": "repetir" }
-              ]
-            }
-          ]
-        },
-        "footer": "A aba `Visual` mostra uma iteração real da rede com camadas e conexões; a aba `Código` contém a rotina completa de treino que leva o MSE final para `0.0001`."
+        "totalEpochs": 4000,
+        "convergenceThreshold": 0.001,
+        "trainingLabels": {
+          "epochLabel": "Época",
+          "mseLabel": "MSE",
+          "accuracyLabel": "Acurácia",
+          "archLabel": "4→2(ReLU)→1(σ)",
+          "convergenceLabel": "Convergiu!"
+        }
       },
       "en-us": {
-        "tabs": [
-          { "label": "Code" },
-          { "label": "Visual" }
+        "title": "Training debugger",
+        "subtitle": "Train the network sample by sample and watch weights change in real time.",
+        "featureNames": ["age", "pressure", "cholesterol", "smoker"],
+        "learningRate": 0.2,
+        "initialWeights": {
+          "w1": [0.2, 0.1, 0.2, 0.1],
+          "w2": [0.1, 0.2, 0.1, 0.2],
+          "b1": -0.2,
+          "b2": -0.2,
+          "v1": 0.3,
+          "v2": 0.3,
+          "c": -0.1
+        },
+        "labels": {
+          "inputLayer": "INPUT",
+          "hiddenLayer": "HIDDEN",
+          "outputLayer": "OUTPUT",
+          "codeTitle": "Python code"
+        },
+        "pythonCode": "for epoch in range(4000):\n    for x, y in data:\n        # Forward\n        z1 = sum(w*xi for w,xi in zip(p['w1'],x)) + p['b1']\n        h1 = max(0.0, z1)\n        z2 = sum(w*xi for w,xi in zip(p['w2'],x)) + p['b2']\n        h2 = max(0.0, z2)\n        z3 = p['v1']*h1 + p['v2']*h2 + p['c']\n        y_hat = 1/(1+exp(-z3))\n\n        # Loss & Backprop\n        d_out = (y_hat - y)\n        d_z3 = d_out * y_hat * (1 - y_hat)\n        d_h1 = d_z3 * p['v1'] * (1 if z1>0 else 0)\n        d_h2 = d_z3 * p['v2'] * (1 if z2>0 else 0)\n\n        # Weight update (SGD)\n        for i in range(4):\n            p['w1'][i] -= lr * d_h1 * x[i]\n            p['w2'][i] -= lr * d_h2 * x[i]\n        p['v1'] -= lr * d_z3 * h1\n        p['v2'] -= lr * d_z3 * h2\n        p['c']  -= lr * d_z3",
+        "codeHighlightRanges": {
+          "forward": [3, 9],
+          "backprop": [11, 15],
+          "update": [17, 22]
+        },
+        "dataset": [
+          { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
+          { "inputs": [0.42, 0.65, 0.62, 0.0], "target": 0.0 },
+          { "inputs": [0.48, 0.70, 0.68, 0.0], "target": 0.0 },
+          { "inputs": [0.58, 0.78, 0.82, 1.0], "target": 1.0 },
+          { "inputs": [0.67, 0.84, 0.88, 1.0], "target": 1.0 },
+          { "inputs": [0.73, 0.90, 0.93, 1.0], "target": 1.0 }
         ],
-        "codePanel": {
-          "title": "Full network training",
-          "description": "The network below has a real hidden layer, `forward`, MSE, and manual backpropagation. Nothing here is pseudocode.",
-          "code": "from math import exp\n\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0.0),\n    ([0.42, 0.65, 0.62, 0.0], 0.0),\n    ([0.48, 0.70, 0.68, 0.0], 0.0),\n    ([0.58, 0.78, 0.82, 1.0], 1.0),\n    ([0.67, 0.84, 0.88, 1.0], 1.0),\n    ([0.73, 0.90, 0.93, 1.0], 1.0),\n]\n\ndef relu(z):\n    return max(0.0, z)\n\n\ndef d_relu(z):\n    return 1.0 if z > 0 else 0.0\n\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef predict(x, p):\n    z1 = sum(w * xi for w, xi in zip(p[\"w1\"], x)) + p[\"b1\"]\n    z2 = sum(w * xi for w, xi in zip(p[\"w2\"], x)) + p[\"b2\"]\n    h1 = relu(z1)\n    h2 = relu(z2)\n    z3 = p[\"v1\"] * h1 + p[\"v2\"] * h2 + p[\"c\"]\n    y_hat = sigmoid(z3)\n    return y_hat, (z1, z2, h1, h2)\n\n\ndef mse(data, p):\n    total = 0.0\n    for x, y in data:\n        y_hat, _ = predict(x, p)\n        total += (y_hat - y) ** 2\n    return total / len(data)\n\n\ndef train_network(data, epochs=4000, lr=0.2):\n    p = {\n        \"w1\": [0.2, 0.1, 0.2, 0.1],\n        \"w2\": [0.1, 0.2, 0.1, 0.2],\n        \"b1\": -0.2,\n        \"b2\": -0.2,\n        \"v1\": 0.3,\n        \"v2\": 0.3,\n        \"c\": -0.1,\n    }\n\n    for _ in range(epochs):\n        for x, y in data:\n            y_hat, (z1, z2, h1, h2) = predict(x, p)\n            d_out = 2 * (y_hat - y) * y_hat * (1 - y_hat)\n            d_h1 = d_out * p[\"v1\"] * d_relu(z1)\n            d_h2 = d_out * p[\"v2\"] * d_relu(z2)\n\n            for i in range(4):\n                p[\"w1\"][i] -= lr * d_h1 * x[i]\n                p[\"w2\"][i] -= lr * d_h2 * x[i]\n\n            p[\"b1\"] -= lr * d_h1\n            p[\"b2\"] -= lr * d_h2\n            p[\"v1\"] -= lr * d_out * h1\n            p[\"v2\"] -= lr * d_out * h2\n            p[\"c\"] -= lr * d_out\n\n    return p\n\n\nparams = train_network(data)\nprint(\"Final MSE:\", round(mse(data, params), 4))\n"
-        },
-        "stepperPanel": {
-          "eyebrow": "Training in slow motion",
-          "title": "One real backpropagation iteration",
-          "description": "The visualization follows the fourth positive sample entering the network with the initial weights. Every number shown here comes from the same code in the tab next to it.",
-          "inputSectionLabel": "Input",
-          "hiddenSectionLabel": "Hidden layer",
-          "outputSectionLabel": "Output",
-          "metricsSectionLabel": "Step metrics",
-          "previousLabel": "Previous step",
-          "nextLabel": "Next step",
-          "completionLabel": "After many epochs",
-          "completionDescription": "This small network converges to `MSE = 0.0001` on the teaching dataset and learns to separate negative and positive cases.",
-          "steps": [
-            {
-              "label": "Input",
-              "title": "The sample enters already normalized",
-              "description": "We use the fourth sample in the dataset, a positive class. There is no prediction yet: the network has only received the input signals.",
-              "formula": "x = [0.58, 0.78, 0.82, 1.00], y = 1.00",
-              "accent": "#00e5ff",
-              "activeSection": "inputs",
-              "inputs": [
-                { "label": "age", "value": "0.58" },
-                { "label": "pressure", "value": "0.78" },
-                { "label": "cholesterol", "value": "0.82" },
-                { "label": "smoker", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "z1", "value": "-" },
-                { "label": "z2", "value": "-" },
-                { "label": "h1", "value": "-" },
-                { "label": "h2", "value": "-" }
-              ],
-              "output": [
-                { "label": "ŷ", "value": "-" },
-                { "label": "class", "value": "-" },
-                { "label": "target", "value": "1.00" }
-              ],
-              "metrics": [
-                { "label": "sample", "value": "4 / 6" },
-                { "label": "true class", "value": "positive" },
-                { "label": "lr", "value": "0.2" },
-                { "label": "total epochs", "value": "4000" }
-              ]
-            },
-            {
-              "label": "Hidden",
-              "title": "The hidden neurons make the first useful mix",
-              "description": "With the initial weights, both hidden neurons activate. This is where the network starts building nonlinear combinations of the attributes.",
-              "formula": "h1 = relu(0.2580), h2 = relu(0.2960)",
-              "accent": "#38bdf8",
-              "activeSection": "hidden",
-              "inputs": [
-                { "label": "age", "value": "0.58" },
-                { "label": "pressure", "value": "0.78" },
-                { "label": "cholesterol", "value": "0.82" },
-                { "label": "smoker", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "z1", "value": "0.2580" },
-                { "label": "z2", "value": "0.2960" },
-                { "label": "h1", "value": "0.2580" },
-                { "label": "h2", "value": "0.2960" }
-              ],
-              "output": [
-                { "label": "ŷ", "value": "-" },
-                { "label": "class", "value": "-" },
-                { "label": "target", "value": "1.00" }
-              ],
-              "metrics": [
-                { "label": "active neurons", "value": "2 / 2" },
-                { "label": "activation", "value": "ReLU" },
-                { "label": "hidden bias", "value": "-0.20" },
-                { "label": "hidden layer", "value": "2 units" }
-              ]
-            },
-            {
-              "label": "Output",
-              "title": "The final layer turns that into probability",
-              "description": "After the hidden layer, the linear output is compressed by sigmoid. At this point the network predicts a little over 51% confidence.",
-              "formula": "ŷ = sigmoid(0.0662) = 0.5165",
-              "accent": "#66b84a",
-              "activeSection": "output",
-              "inputs": [
-                { "label": "age", "value": "0.58" },
-                { "label": "pressure", "value": "0.78" },
-                { "label": "cholesterol", "value": "0.82" },
-                { "label": "smoker", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "h1", "value": "0.2580" },
-                { "label": "h2", "value": "0.2960" },
-                { "label": "v1", "value": "0.3000" },
-                { "label": "v2", "value": "0.3000" }
-              ],
-              "output": [
-                { "label": "z3", "value": "0.0662" },
-                { "label": "ŷ", "value": "0.5165" },
-                { "label": "provisional class", "value": "yes" }
-              ],
-              "metrics": [
-                { "label": "target", "value": "1.0000" },
-                { "label": "raw error", "value": "-0.4835" },
-                { "label": "output range", "value": "0 to 1" },
-                { "label": "sigmoid", "value": "active" }
-              ]
-            },
-            {
-              "label": "Error",
-              "title": "The error becomes a correction signal",
-              "description": "Because the correct target is `1.0`, the network is still underestimating the probability. The loss and gradients say which direction the weights should move.",
-              "formula": "loss = (0.5165 - 1.0)^2 = 0.2337",
-              "accent": "#f97316",
-              "activeSection": "metrics",
-              "inputs": [
-                { "label": "target", "value": "1.0000" },
-                { "label": "ŷ", "value": "0.5165" },
-                { "label": "difference", "value": "-0.4835" },
-                { "label": "loss", "value": "0.2337" }
-              ],
-              "hidden": [
-                { "label": "d_h1", "value": "-0.0724" },
-                { "label": "d_h2", "value": "-0.0724" },
-                { "label": "grad v1", "value": "-0.0623" },
-                { "label": "grad v2", "value": "-0.0715" }
-              ],
-              "output": [
-                { "label": "d_out", "value": "-0.2415" },
-                { "label": "grad c", "value": "-0.2415" },
-                { "label": "class", "value": "still weak" }
-              ],
-              "metrics": [
-                { "label": "loss", "value": "0.2337" },
-                { "label": "d_out", "value": "-0.2415" },
-                { "label": "d_h1", "value": "-0.0724" },
-                { "label": "d_h2", "value": "-0.0724" }
-              ]
-            },
-            {
-              "label": "Update",
-              "title": "The weights receive the gradient step",
-              "description": "After computing gradients, gradient descent moves the weights to increase confidence on positive examples similar to this one.",
-              "formula": "w1[0]: 0.2000 → 0.2084",
-              "accent": "#ff2e97",
-              "activeSection": "metrics",
-              "inputs": [
-                { "label": "age", "value": "0.58" },
-                { "label": "pressure", "value": "0.78" },
-                { "label": "cholesterol", "value": "0.82" },
-                { "label": "smoker", "value": "1.00" }
-              ],
-              "hidden": [
-                { "label": "w1[0]", "value": "0.2084" },
-                { "label": "w2[0]", "value": "0.1084" },
-                { "label": "b1", "value": "-0.1855" },
-                { "label": "b2", "value": "-0.1855" }
-              ],
-              "output": [
-                { "label": "v1", "value": "0.3125" },
-                { "label": "v2", "value": "0.3143" },
-                { "label": "c", "value": "-0.0517" }
-              ],
-              "metrics": [
-                { "label": "Δw1[0]", "value": "+0.0084" },
-                { "label": "Δv1", "value": "+0.0125" },
-                { "label": "Δc", "value": "+0.0483" },
-                { "label": "next action", "value": "repeat" }
-              ]
-            }
-          ]
-        },
-        "footer": "The `Visual` tab shows one real network iteration with layers and connections; the `Code` tab contains the full training routine that drives the final MSE down to `0.0001`."
+        "totalEpochs": 4000,
+        "convergenceThreshold": 0.001,
+        "trainingLabels": {
+          "epochLabel": "Epoch",
+          "mseLabel": "MSE",
+          "accuracyLabel": "Accuracy",
+          "archLabel": "4→2(ReLU)→1(σ)",
+          "convergenceLabel": "Converged!"
+        }
       }
     }
   }

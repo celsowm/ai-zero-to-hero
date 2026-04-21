@@ -1,645 +1,337 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { NeuralNetworkTrainingDebuggerVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
+import { createEngine, type EngineState } from '../../../utils/neuralTrainingEngine';
+import { LossChart } from './LossChart';
+import { TrainingControls } from './TrainingControls';
 
 interface NeuralNetworkTrainingDebuggerProps {
   copy: NeuralNetworkTrainingDebuggerVisualCopy;
 }
 
-const findValue = (
-  items: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['inputs'],
-  fragments: string[],
-) => {
-  const match = items.find((item) => {
-    const label = item.label.toLowerCase();
-    return fragments.some((fragment) => label.includes(fragment));
-  });
+const fmt = (v: number, digits = 4) => v.toFixed(digits);
 
-  return match?.value ?? '-';
-};
-
+/* ════════════════════ SVG Network (colored nodes per section) ════════════════════ */
 const NetworkDiagram: React.FC<{
-  copy: NeuralNetworkTrainingDebuggerVisualCopy;
-  step: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number];
-  stepIndex: number;
-  isFirst: boolean;
-  isLast: boolean;
-  onSelectStep: (index: number) => void;
-  onPrevious: () => void;
-  onNext: () => void;
-}> = ({ copy, step, stepIndex, isFirst, isLast, onSelectStep, onPrevious, onNext }) => {
-  const inputNodes = step.inputs.slice(0, 4);
-  const h1Value = findValue(step.hidden, ['h1']);
-  const h2Value = findValue(step.hidden, ['h2']);
-  const outputValue = findValue(step.output, ['ŷ', 'prob', 'probability']);
+  state: EngineState;
+  featureNames: string[];
+}> = ({ state, featureNames }) => {
+  const fwd = state.forward;
+  const inputX = state.currentSample?.inputs ?? [0, 0, 0, 0];
+  const h1 = fwd?.h1 ?? 0;
+  const h2 = fwd?.h2 ?? 0;
+  const yHat = fwd?.yHat ?? 0;
+  const z1 = fwd?.z1 ?? 0;
+  const z2 = fwd?.z2 ?? 0;
+  const z3 = fwd?.z3 ?? 0;
 
-  const activeInputs = step.activeSection === 'inputs' || step.activeSection === 'metrics';
-  const activeHidden = step.activeSection === 'hidden' || step.activeSection === 'metrics';
-  const activeOutput = step.activeSection === 'output' || step.activeSection === 'metrics';
-  const inputPositions = [88, 158, 228, 298];
-  const hiddenPositions = [124, 262];
-  const outputPosition = 193;
-  const accent = step.accent;
+  const inputY = [78, 148, 218, 288];
+  const hiddenY = [114, 252];
+  const outputY = 183;
 
   return (
-    <PanelCard minHeight={0} gap={12} style={{ height: '100%', padding: 18 }}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          gap: 10,
-          alignItems: 'center',
-        }}
-      >
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: accent }}>
-            {copy.iterationLabel}
-          </div>
-          <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--sw-text)' }}>{step.title}</div>
-        </div>
-        <div style={{ height: 5, borderRadius: 999, overflow: 'hidden', background: 'rgba(255,255,255,0.06)' }}>
-          <div
-            style={{
-              height: '100%',
-              width: `${((stepIndex + 1) / copy.steps.length) * 100}%`,
-              borderRadius: 999,
-              background: `linear-gradient(90deg, ${accent}, rgba(255,255,255,0.92))`,
-            }}
-          />
-        </div>
-        <div
-          style={{
-            padding: '8px 12px',
-            borderRadius: 999,
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            color: 'var(--sw-text)',
-            fontSize: 12,
-            fontWeight: 700,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {stepIndex + 1} / {copy.steps.length}
-        </div>
-      </div>
+    <svg viewBox="0 0 540 370" width="100%" height="100%" style={{ display: 'block' }}>
+      <defs>
+        <linearGradient id="eg-ih" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#00e5ff" />
+          <stop offset="100%" stopColor="#38bdf8" />
+        </linearGradient>
+        <linearGradient id="eg-ho" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#66b84a" />
+        </linearGradient>
+      </defs>
 
-      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${copy.steps.length}, minmax(0, 1fr))`, gap: 6 }}>
-        {copy.steps.map((item, index) => {
-          const active = index === stepIndex;
-          const completed = index < stepIndex;
-
-          return (
-            <button
-              key={item.label}
-              type="button"
-              onClick={() => onSelectStep(index)}
-              style={{
-                minWidth: 0,
-                padding: '7px 8px',
-                borderRadius: 11,
-                border: `1px solid ${active ? `${item.accent}88` : 'rgba(255,255,255,0.06)'}`,
-                background: active ? `${item.accent}16` : completed ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.02)',
-                color: active ? 'var(--sw-text)' : 'var(--sw-text-dim)',
-                fontSize: 11,
-                fontWeight: 700,
-                textAlign: 'center',
-              }}
-            >
-              {item.label}
-            </button>
-          );
-        })}
-      </div>
-
-      <div
-        style={{
-          flex: 1,
-          minHeight: 0,
-          borderRadius: 22,
-          padding: 18,
-          background: 'linear-gradient(180deg, rgba(13, 15, 27, 0.92), rgba(10, 12, 22, 0.96))',
-          border: '1px solid rgba(255,255,255,0.06)',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
-          display: 'grid',
-          gap: 14,
-        }}
-      >
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: 12,
-          }}
-        >
-          {[copy.inputSectionLabel, copy.hiddenSectionLabel, copy.outputSectionLabel].map((label, index) => (
-            <div
-              key={`${label}-${index}`}
-              style={{
-                padding: '8px 10px',
-                borderRadius: 12,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.06)',
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--sw-text-muted)',
-                textAlign: 'center',
-              }}
-            >
-              {label}
-            </div>
-          ))}
-        </div>
-
-        <svg viewBox="0 0 760 386" width="100%" height="100%" aria-label={copy.title} style={{ display: 'block', minHeight: 0 }}>
-          <defs>
-            <linearGradient id="nn-debug-edge-grad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="rgba(0,229,255,0.85)" />
-              <stop offset="100%" stopColor="rgba(255,46,151,0.82)" />
-            </linearGradient>
-            <marker id="nn-debug-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill={accent} />
-            </marker>
-          </defs>
-
-          <style>{`
-            @keyframes nnDebugPulse {
-              0% { opacity: 0.28; transform: scale(1); }
-              50% { opacity: 1; transform: scale(1.08); }
-              100% { opacity: 0.28; transform: scale(1); }
-            }
-            @keyframes nnDebugFlow {
-              from { stroke-dashoffset: 0; }
-              to { stroke-dashoffset: -36; }
-            }
-          `}</style>
-
-          <rect x="10" y="10" width="740" height="366" rx="28" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" />
-
-          {inputPositions.flatMap((y1, inputIndex) =>
-            hiddenPositions.map((y2, hiddenIndex) => {
-              const highlighted = activeInputs || activeHidden;
-              return (
-                <path
-                  key={`edge-i-${inputIndex}-h-${hiddenIndex}`}
-                  d={`M 166 ${y1} C 228 ${y1}, 282 ${y2}, 330 ${y2}`}
-                  fill="none"
-                  stroke={highlighted ? 'url(#nn-debug-edge-grad)' : 'rgba(148,163,184,0.24)'}
-                  strokeWidth={highlighted ? 2.5 : 1.5}
-                  strokeDasharray={highlighted ? '8 8' : undefined}
-                  markerEnd={highlighted ? 'url(#nn-debug-arrow)' : undefined}
-                  style={highlighted ? { animation: 'nnDebugFlow 1.8s linear infinite' } : undefined}
-                />
-              );
-            }),
-          )}
-
-          {hiddenPositions.map((y, hiddenIndex) => (
-            <path
-              key={`edge-h-${hiddenIndex}-o`}
-              d={`M 426 ${y} C 502 ${y}, 544 ${outputPosition}, 590 ${outputPosition}`}
-              fill="none"
-              stroke={activeHidden || activeOutput ? 'url(#nn-debug-edge-grad)' : 'rgba(148,163,184,0.24)'}
-              strokeWidth={activeHidden || activeOutput ? 3 : 1.5}
-              strokeDasharray={activeHidden || activeOutput ? '8 8' : undefined}
-              markerEnd={activeHidden || activeOutput ? 'url(#nn-debug-arrow)' : undefined}
-              style={activeHidden || activeOutput ? { animation: 'nnDebugFlow 1.6s linear infinite' } : undefined}
-            />
-          ))}
-
-          {inputNodes.map((item, index) => {
-            const y = inputPositions[index] ?? inputPositions[inputPositions.length - 1];
-            return (
-              <g key={item.label}>
-                <circle
-                  cx="126"
-                  cy={y}
-                  r="26"
-                  fill={activeInputs ? `${accent}18` : 'rgba(255,255,255,0.04)'}
-                  stroke={activeInputs ? accent : 'rgba(255,255,255,0.16)'}
-                  strokeWidth="2"
-                  style={activeInputs ? { animation: 'nnDebugPulse 1.8s ease-in-out infinite' } : undefined}
-                />
-                <text x="126" y={y + 6} textAnchor="middle" fontSize="15" fontWeight="800" fill="var(--sw-text)">
-                  x{index + 1}
-                </text>
-
-                <rect x="22" y={y - 21} width="84" height="42" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" />
-                <text x="30" y={y - 3} fontSize="11.5" fill="var(--sw-text-dim)">
-                  {item.label}
-                </text>
-                <text x="30" y={y + 13} fontSize="13" fontWeight="700" fill="var(--sw-text)">
-                  {item.value}
-                </text>
-              </g>
-            );
-          })}
-
-          {[
-            { x: 378, y: hiddenPositions[0], label: 'h1', value: h1Value },
-            { x: 378, y: hiddenPositions[1], label: 'h2', value: h2Value },
-          ].map((node) => (
-            <g key={node.label}>
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r="34"
-                fill={activeHidden ? `${accent}18` : 'rgba(255,255,255,0.04)'}
-                stroke={activeHidden ? accent : 'rgba(255,255,255,0.16)'}
-                strokeWidth="2.4"
-                style={activeHidden ? { animation: 'nnDebugPulse 1.7s ease-in-out infinite' } : undefined}
-              />
-              <text x={node.x} y={node.y - 4} textAnchor="middle" fontSize="16" fontWeight="800" fill="var(--sw-text)">
-                {node.label}
-              </text>
-              <text x={node.x} y={node.y + 16} textAnchor="middle" fontSize="12" fill="var(--sw-text-dim)">
-                {node.value}
-              </text>
-            </g>
-          ))}
-
-          <g>
-            <circle
-              cx="628"
-              cy={outputPosition}
-              r="38"
-              fill={activeOutput ? `${accent}18` : 'rgba(255,255,255,0.04)'}
-              stroke={activeOutput ? accent : 'rgba(255,255,255,0.16)'}
-              strokeWidth="2.6"
-              style={activeOutput ? { animation: 'nnDebugPulse 1.5s ease-in-out infinite' } : undefined}
-            />
-            <text x="628" y={outputPosition - 4} textAnchor="middle" fontSize="16" fontWeight="800" fill="var(--sw-text)">
-              ŷ
-            </text>
-            <text x="628" y={outputPosition + 16} textAnchor="middle" fontSize="12" fill="var(--sw-text-dim)">
-              {outputValue}
-            </text>
-          </g>
-
-          <text x="126" y="46" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.12em" fill="rgba(255,255,255,0.7)">
-            INPUTS
-          </text>
-          <text x="378" y="46" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.12em" fill="rgba(255,255,255,0.7)">
-            HIDDEN
-          </text>
-          <text x="628" y="46" textAnchor="middle" fontSize="12" fontWeight="700" letterSpacing="0.12em" fill="rgba(255,255,255,0.7)">
-            OUTPUT
-          </text>
-        </svg>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto auto',
-            gap: 12,
-            alignItems: 'center',
-          }}
-        >
-          <div
-            style={{
-              padding: '12px 14px',
-              borderRadius: 14,
-              background: `${accent}16`,
-              border: `1px solid ${accent}55`,
-              color: 'var(--sw-text)',
-              fontSize: 13.5,
-              fontWeight: 700,
-            }}
-          >
-            {step.formula}
-          </div>
-          <button
-            type="button"
-            disabled={isFirst}
-            onClick={onPrevious}
-            style={{
-              padding: '10px 12px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: isFirst ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.05)',
-              color: isFirst ? 'rgba(232,228,240,0.42)' : 'var(--sw-text)',
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: isFirst ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {copy.previousLabel}
-          </button>
-          <button
-            type="button"
-            disabled={isLast}
-            onClick={onNext}
-            style={{
-              padding: '10px 12px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: isLast ? 'rgba(255,255,255,0.025)' : `linear-gradient(135deg, ${accent}, rgba(255,255,255,0.88))`,
-              color: isLast ? 'rgba(232,228,240,0.42)' : '#091018',
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: isLast ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {copy.nextLabel}
-          </button>
-        </div>
-      </div>
-
-      {copy.footer && (
-        <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+      {/* Edges: input → hidden (cyan→blue) */}
+      {inputY.flatMap((y1, i) =>
+        hiddenY.map((y2, j) => (
+          <path key={`e-ih-${i}${j}`} d={`M142 ${y1} C200 ${y1},250 ${y2},298 ${y2}`} fill="none" stroke="url(#eg-ih)" strokeWidth={2} strokeDasharray="6 6" opacity={0.7} />
+        )),
       )}
-    </PanelCard>
+      {/* Edges: hidden → output (blue→green) */}
+      {hiddenY.map((y, i) => (
+        <path key={`e-ho-${i}`} d={`M392 ${y} C440 ${y},470 ${outputY},500 ${outputY}`} fill="none" stroke="url(#eg-ho)" strokeWidth={2.8} strokeDasharray="6 6" opacity={0.8} />
+      ))}
+
+      {/* ── Input nodes — cyan ── */}
+      {inputY.map((y, i) => (
+        <g key={`n-in-${i}`}>
+          <circle cx="108" cy={y} r="18" fill="rgba(0,229,255,.12)" stroke="#00e5ff" strokeWidth="1.6" />
+          <text x="108" y={y + 5} textAnchor="middle" fontSize="12" fontWeight="800" fill="#00e5ff">x{i + 1}</text>
+          <rect x="16" y={y - 14} width="74" height="28" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" />
+          <text x="24" y={y} fontSize="9" fill="var(--sw-text-dim)">{featureNames[i]}</text>
+          <text x="24" y={y + 12} fontSize="11" fontWeight="700" fill="var(--sw-text)">{inputX[i]?.toFixed(2)}</text>
+        </g>
+      ))}
+
+      {/* ── Hidden nodes — blue ── */}
+      {[{ y: hiddenY[0], v: h1, z: z1 }, { y: hiddenY[1], v: h2, z: z2 }].map((n, i) => (
+        <g key={`n-hid-${i}`}>
+          <circle cx="345" cy={n.y} r="24" fill="rgba(56,189,248,.12)" stroke="#38bdf8" strokeWidth="1.8" />
+          <text x="345" y={n.y - 4} textAnchor="middle" fontSize="13" fontWeight="800" fill="#38bdf8">h{i + 1}</text>
+          <text x="345" y={n.y + 8} textAnchor="middle" fontSize="9" fill="var(--sw-text-dim)">z={n.z.toFixed(4)}</text>
+          <text x="345" y={n.y + 20} textAnchor="middle" fontSize="10" fontWeight="700" fill="var(--sw-text)">{n.v.toFixed(4)}</text>
+        </g>
+      ))}
+
+      {/* ── Output node — green ── */}
+      <g>
+        <circle cx="540" cy={outputY} r="28" fill="rgba(102,184,74,.12)" stroke="#66b84a" strokeWidth="2" />
+        <text x="540" y={outputY - 6} textAnchor="middle" fontSize="13" fontWeight="800" fill="#66b84a">ŷ</text>
+        <text x="540" y={outputY + 6} textAnchor="middle" fontSize="9" fill="var(--sw-text-dim)">z3={z3.toFixed(4)}</text>
+        <text x="540" y={outputY + 20} textAnchor="middle" fontSize="11" fontWeight="700" fill={yHat >= 0.5 ? '#22c55e' : '#f97316'}>{yHat.toFixed(4)}</text>
+      </g>
+
+      {/* Section labels */}
+      <text x="108" y="24" textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing=".1em" fill="#00e5ff">ENTRADA</text>
+      <text x="345" y="24" textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing=".1em" fill="#38bdf8">OCULTA</text>
+      <text x="540" y="24" textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing=".1em" fill="#66b84a">SAÍDA</text>
+    </svg>
   );
 };
 
-export const NeuralNetworkTrainingDebugger: React.FC<NeuralNetworkTrainingDebuggerProps> = ({ copy }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const currentStep = copy.steps[activeStep];
-  const isFirst = activeStep === 0;
-  const isLast = activeStep === copy.steps.length - 1;
+/* ════════════════════ Data table ════════════════════ */
+const DataTable: React.FC<{
+  state: EngineState;
+  featureNames: string[];
+}> = ({ state, featureNames }) => {
+  const fwd = state.forward;
+  const bwd = state.backward;
+  const w = state.weights;
+  const target = state.currentSample?.target ?? 0;
+  const h1 = fwd?.h1 ?? 0;
+  const h2 = fwd?.h2 ?? 0;
+  const yHat = fwd?.yHat ?? 0;
+  const z1 = fwd?.z1 ?? 0;
+  const z2 = fwd?.z2 ?? 0;
+  const z3 = fwd?.z3 ?? 0;
+  const loss = fwd?.loss ?? 0;
+  const inputX = state.currentSample?.inputs ?? [0, 0, 0, 0];
+  const mse = state.lossHistory.length > 0 ? state.lossHistory[state.lossHistory.length - 1] : null;
+
+  type Row = { l: string; v: string };
+  const inputs: Row[] = featureNames.map((f, i) => ({ l: f, v: inputX[i].toFixed(2) }));
+  const hidden: Row[] = fwd
+    ? [
+        { l: 'z1', v: z1.toFixed(4) },
+        { l: 'z2', v: z2.toFixed(4) },
+        { l: 'h1', v: h1.toFixed(4) },
+        { l: 'h2', v: h2.toFixed(4) },
+      ]
+    : [{ l: '—', v: '—' }, { l: '—', v: '—' }, { l: '—', v: '—' }, { l: '—', v: '—' }];
+  const output: Row[] = fwd
+    ? [
+        { l: 'z3', v: z3.toFixed(4) },
+        { l: 'ŷ', v: yHat.toFixed(4) },
+        { l: 'classe', v: yHat >= 0.5 ? 'sim' : 'não' },
+        { l: 'alvo', v: target.toFixed(2) },
+      ]
+    : [{ l: '—', v: '—' }, { l: '—', v: '—' }, { l: '—', v: '—' }, { l: '—', v: '—' }];
+
+  const metrics: Row[] = fwd
+    ? [
+        { l: 'lr', v: '0.2' },
+        { l: 'MSE', v: mse !== null ? fmt(mse, 5) : '—' },
+        { l: 'w1[0]', v: w.w1[0].toFixed(4) },
+        { l: 'w2[0]', v: w.w2[0].toFixed(4) },
+        { l: 'v1', v: w.v1.toFixed(4) },
+        { l: 'v2', v: w.v2.toFixed(4) },
+        { l: 'b1', v: w.b1.toFixed(4) },
+        { l: 'b2', v: w.b2.toFixed(4) },
+        { l: 'c', v: w.c.toFixed(4) },
+        { l: 'loss', v: loss.toFixed(5) },
+        ...(bwd ? [{ l: 'd_out', v: bwd.d_out.toFixed(4) }, { l: 'd_h1', v: bwd.d_h1.toFixed(4) }] : []),
+      ]
+    : [];
+
+  const maxRows = Math.max(inputs.length, hidden.length, output.length);
+
+  const Cell = ({ item, isYhat }: { item: Row; isYhat?: boolean }) => (
+    <div style={{ padding: '3px 4px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,.04)' }}>
+      <div style={{ fontSize: 8, color: 'var(--sw-text-dim)' }}>{item.l}</div>
+      <div style={{ fontSize: 10, fontWeight: 700, color: isYhat ? (parseFloat(item.v) >= 0.5 ? '#22c55e' : '#f97316') : 'var(--sw-text)' }}>
+        {item.v}
+      </div>
+    </div>
+  );
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1.35fr 0.95fr', gap: 18, minHeight: 0 }}>
-      <div style={{ minWidth: 0, minHeight: 0 }}>
-        <NetworkDiagram
-          copy={copy}
-          step={currentStep}
-          stepIndex={activeStep}
-          isFirst={isFirst}
-          isLast={isLast}
-          onSelectStep={setActiveStep}
-          onPrevious={() => setActiveStep((step) => Math.max(0, step - 1))}
-          onNext={() => setActiveStep((step) => Math.min(copy.steps.length - 1, step + 1))}
-        />
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 5 }}>
+      {[
+        { label: 'ENTRADA', color: '#00e5ff', items: inputs },
+        { label: 'OCULTA', color: '#38bdf8', items: hidden },
+        { label: 'SAÍDA', color: '#66b84a', items: output },
+      ].map((col) => (
+        <div key={col.label} style={{ borderRadius: 8, border: `1px solid ${col.color}22`, overflow: 'hidden', background: 'rgba(255,255,255,.015)' }}>
+          <div style={{ padding: '4px 5px', fontSize: 8, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: col.color, background: `${col.color}10`, textAlign: 'center' }}>
+            {col.label}
+          </div>
+          {Array.from({ length: maxRows }, (_, ri) => {
+            const item = col.items[ri] ?? { l: '', v: '—' };
+            return <Cell key={ri} item={item} isYhat={col.label === 'SAÍDA' && item.l === 'ŷ'} />;
+          })}
+        </div>
+      ))}
+
+      {/* Metrics bar */}
+      <div style={{ gridColumn: '1 / -1', borderRadius: 8, border: '1px solid rgba(249,115,22,.15)', overflow: 'hidden', background: 'rgba(255,255,255,.015)' }}>
+        <div style={{ padding: '3px 5px', fontSize: 8, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#f97316', background: 'rgba(249,115,22,.08)', textAlign: 'center' }}>
+          MÉTRICAS
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(metrics.length, 6)}, 1fr)` }}>
+          {metrics.map((m, i) => (
+            <div key={i} style={{ padding: '3px 4px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,.04)', borderRight: (i + 1) % 6 === 0 ? 'none' : '1px solid rgba(255,255,255,.03)' }}>
+              <div style={{ fontSize: 7.5, color: 'var(--sw-text-dim)' }}>{m.l}</div>
+              <div style={{ fontSize: 9.5, fontWeight: 700, color: 'var(--sw-text)' }}>{m.v}</div>
+            </div>
+          ))}
+        </div>
       </div>
+    </div>
+  );
+};
 
+/* ════════════════════ Main ════════════════════ */
+export const NeuralNetworkTrainingDebugger: React.FC<NeuralNetworkTrainingDebuggerProps> = ({ copy }) => {
+  const engineRef = useRef<ReturnType<typeof createEngine> | null>(null);
+  const [engineState, setEngineState] = useState<EngineState | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [speed, setSpeed] = useState(10);
+  const animRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const engine = createEngine({
+      dataset: copy.dataset.map((d) => ({ inputs: d.inputs, target: d.target })),
+      learningRate: copy.learningRate,
+      totalEpochs: copy.totalEpochs,
+      convergenceThreshold: copy.convergenceThreshold,
+      seed: 42,
+    });
+    engine.runEpochs(0);
+    engineRef.current = engine;
+    const frame = requestAnimationFrame(() => setEngineState(engine.getState()));
+    return () => cancelAnimationFrame(frame);
+  }, [copy]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    let cancelled = false;
+    const loop = () => {
+      if (!engineRef.current) return;
+      const s = engineRef.current.runEpochs(speed);
+      setEngineState(s);
+      if (!cancelled && !s.converged && !s.trainingDone && isPlaying) {
+        animRef.current = requestAnimationFrame(loop);
+      } else {
+        setIsPlaying(false);
+      }
+    };
+
+    animRef.current = requestAnimationFrame(loop);
+    return () => {
+      cancelled = true;
+      if (animRef.current) cancelAnimationFrame(animRef.current);
+    };
+  }, [isPlaying, speed]);
+
+  const handlePlay = () => {
+    if (!engineRef.current || engineState?.converged || engineState?.trainingDone) return;
+    setIsPlaying(true);
+  };
+  const handlePause = () => { setIsPlaying(false); if (animRef.current) cancelAnimationFrame(animRef.current); };
+  const handleReset = () => {
+    if (!engineRef.current) return;
+    setIsPlaying(false);
+    if (animRef.current) cancelAnimationFrame(animRef.current);
+    engineRef.current.reset();
+    engineRef.current.runEpochs(0);
+    setEngineState(engineRef.current.getState());
+  };
+  const handleSkip = () => {
+    if (!engineRef.current) return;
+    setIsPlaying(false);
+    if (animRef.current) cancelAnimationFrame(animRef.current);
+    engineRef.current.skipToEnd();
+    setEngineState(engineRef.current.getState());
+  };
+
+  if (!engineState) return null;
+
+  const statusText = engineState.converged ? copy.statusConverged : engineState.trainingDone ? copy.statusDone : isPlaying ? copy.statusTraining : copy.statusPaused;
+  const mse = engineState.lossHistory.length > 0 ? engineState.lossHistory[engineState.lossHistory.length - 1] : null;
+  const pct = (engineState.epoch / copy.totalEpochs) * 100;
+
+  return (
+    <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 12, minHeight: 0 }}>
+      {/* ── LEFT: Network SVG + tables ── */}
+      <PanelCard minHeight={0} gap={6} style={{ height: '100%', padding: 10 }}>
+        {/* Top bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#00e5ff' }}>
+              Época {engineState.epoch} / {copy.totalEpochs}
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: '-.02em', color: 'var(--sw-text)' }}>
+              {engineState.converged ? 'Convergiu!' : engineState.trainingDone ? 'Treino completo' : engineState.epoch === 0 ? 'Pronto para treinar' : 'Treinando...'}
+            </div>
+          </div>
+          <span style={{ fontSize: 12, fontWeight: 800, color: engineState.converged ? '#22c55e' : 'var(--sw-text)' }}>
+            MSE: {mse !== null ? fmt(mse, 5) : '—'}
+          </span>
+        </div>
+        {/* Progress bar */}
+        <div style={{ height: 3, borderRadius: 999, overflow: 'hidden', background: 'rgba(255,255,255,.06)' }}>
+          <div style={{ height: '100%', width: `${pct}%`, borderRadius: 999, background: engineState.converged ? '#22c55e' : 'linear-gradient(90deg,#00e5ff,#ff2e97)' }} />
+        </div>
+
+        {/* SVG — colored nodes per section */}
+        <div style={{ flex: 1, minHeight: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,.06)' }}>
+          <NetworkDiagram state={engineState} featureNames={copy.featureNames} />
+        </div>
+
+        {/* Compact tables */}
+        <DataTable state={engineState} featureNames={copy.featureNames} />
+      </PanelCard>
+
+      {/* ── RIGHT: Info + chart + controls ── */}
       <PanelCard minHeight={0} gap={10} style={{ height: '100%' }}>
-        <div style={{ display: 'grid', gap: 4 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: currentStep.accent }}>
-            {copy.title}
-          </div>
-          {copy.subtitle && (
-            <div style={{ fontSize: 13.5, lineHeight: 1.65, color: 'var(--sw-text-dim)' }}>{copy.subtitle}</div>
-          )}
+        <div style={{ display: 'grid', gap: 3 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#00e5ff' }}>{copy.archLabel}</div>
+          <div style={{ fontSize: 11.5, lineHeight: 1.45, color: 'var(--sw-text-dim)' }}>{copy.subtitle}</div>
         </div>
 
-        <div
-          style={{
-            padding: 12,
-            borderRadius: 14,
-            border: `1px solid ${currentStep.accent}55`,
-            background: `linear-gradient(180deg, ${currentStep.accent}18, rgba(255,255,255,0.025))`,
-            display: 'grid',
-            gap: 6,
+        {/* Loss chart */}
+        <div style={{ borderRadius: 10, border: '1px solid rgba(255,255,255,.06)', padding: '8px 10px', background: 'rgba(255,255,255,.02)' }}>
+          <div style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--sw-text-muted)', marginBottom: 3 }}>{copy.lossLabel}</div>
+          <LossChart lossHistory={engineState.lossHistory} totalEpochs={copy.totalEpochs} convergenceThreshold={copy.convergenceThreshold} accent="#00e5ff" />
+        </div>
+
+        {/* Controls */}
+        <TrainingControls
+          isPlaying={isPlaying}
+          speed={speed}
+          epoch={engineState.epoch}
+          totalEpochs={copy.totalEpochs}
+          mse={mse}
+          converged={engineState.converged}
+          trainingDone={engineState.trainingDone}
+          statusText={statusText}
+          accent="#00e5ff"
+          onPlay={handlePlay}
+          onPause={handlePause}
+          onReset={handleReset}
+          onSkip={handleSkip}
+          onSpeedChange={setSpeed}
+          copy={{
+            playLabel: copy.playLabel,
+            pauseLabel: copy.pauseLabel,
+            resetLabel: copy.resetLabel,
+            speedLabel: copy.speedLabel,
+            epochLabel: copy.epochLabel,
+            lossLabel: copy.lossLabel,
           }}
-        >
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent }}>
-            {activeStep + 1} / {copy.steps.length}
-          </div>
-          {currentStep.title && (
-            <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, color: 'var(--sw-text)' }}>
-              {currentStep.title}
-            </div>
-          )}
-          <div
-            style={{
-              alignSelf: 'start',
-              display: 'inline-flex',
-              padding: '6px 10px',
-              borderRadius: 10,
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              color: 'var(--sw-text)',
-              fontSize: 11.5,
-              fontWeight: 700,
-              wordBreak: 'break-word',
-            }}
-          >
-            {currentStep.formula}
-          </div>
-          {currentStep.description && (
-            <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--sw-text-dim)' }}>{currentStep.description}</div>
-          )}
-        </div>
-
-        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: 4 }}>
-          <div
-            style={{
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.06)',
-              overflow: 'hidden',
-              background: 'rgba(255,255,255,0.02)',
-            }}
-          >
-            {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-              {[
-                { label: copy.inputSectionLabel, accent: currentStep.activeSection === 'inputs' },
-                { label: copy.hiddenSectionLabel, accent: currentStep.activeSection === 'hidden' },
-                { label: copy.outputSectionLabel, accent: currentStep.activeSection === 'output' },
-              ].map(({ label, accent }, i) => (
-                <div
-                  key={i}
-                  style={{
-                    padding: '7px 8px',
-                    fontSize: 10,
-                    fontWeight: 700,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: accent ? currentStep.accent : 'var(--sw-text-muted)',
-                    background: accent ? `${currentStep.accent}14` : 'transparent',
-                    textAlign: 'center',
-                    borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  }}
-                >
-                  {label}
-                </div>
-              ))}
-            </div>
-
-            {/* Rows */}
-            {(() => {
-              const maxRows = Math.max(currentStep.inputs.length, currentStep.hidden.length, currentStep.output.length);
-              const rows: Array<{ inputs?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['inputs'][number]; hidden?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['hidden'][number]; output?: NeuralNetworkTrainingDebuggerVisualCopy['steps'][number]['output'][number] }> = [];
-
-              for (let i = 0; i < maxRows; i++) {
-                rows.push({
-                  inputs: currentStep.inputs[i],
-                  hidden: currentStep.hidden[i],
-                  output: currentStep.output[i],
-                });
-              }
-
-              return rows.map((row, rowIdx) => (
-                <div
-                  key={rowIdx}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr 1fr',
-                    borderTop: '1px solid rgba(255,255,255,0.06)',
-                  }}
-                >
-                  {/* Input cell */}
-                  {row.inputs ? (
-                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.inputs!.label}</div>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.inputs!.value}</div>
-                    </div>
-                  ) : (
-                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)', color: 'transparent' }}>—</div>
-                  )}
-
-                  {/* Hidden cell */}
-                  {row.hidden ? (
-                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.hidden!.label}</div>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.hidden!.value}</div>
-                    </div>
-                  ) : (
-                    <div style={{ padding: '6px 8px', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.06)', color: 'transparent' }}>—</div>
-                  )}
-
-                  {/* Output cell */}
-                  {row.output ? (
-                    <div style={{ padding: '6px 8px', textAlign: 'center' }}>
-                      <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{row.output!.label}</div>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{row.output!.value}</div>
-                    </div>
-                  ) : (
-                    <div style={{ padding: '6px 8px', textAlign: 'center', color: 'transparent' }}>—</div>
-                  )}
-                </div>
-              ));
-            })()}
-          </div>
-
-          {/* Metrics */}
-          {currentStep.activeSection === 'metrics' && (
-            <div
-              style={{
-                marginTop: 8,
-                borderRadius: 10,
-                border: '1px solid rgba(255,255,255,0.06)',
-                overflow: 'hidden',
-                background: 'rgba(255,255,255,0.02)',
-              }}
-            >
-              <div
-                style={{
-                  padding: '6px 8px',
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: currentStep.accent,
-                  background: `${currentStep.accent}14`,
-                  textAlign: 'center',
-                  borderBottom: '1px solid rgba(255,255,255,0.06)',
-                }}
-              >
-                {copy.metricsSectionLabel}
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
-                {currentStep.metrics.map((metric, i) => (
-                  <div
-                    key={metric.label}
-                    style={{
-                      padding: '6px 8px',
-                      textAlign: 'center',
-                      borderTop: i >= 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                      borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                    }}
-                  >
-                    <div style={{ fontSize: 10, color: 'var(--sw-text-dim)' }}>{metric.label}</div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sw-text)' }}>{metric.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {isLast && copy.completionDescription ? (
-            <div
-              style={{
-                marginTop: 8,
-                padding: '10px 12px',
-                borderRadius: 12,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}
-            >
-              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: currentStep.accent, marginBottom: 4 }}>
-                {copy.completionLabel}
-              </div>
-              <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--sw-text)' }}>{copy.completionDescription}</div>
-            </div>
-          ) : null}
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 12, alignItems: 'center' }}>
-          <button
-            type="button"
-            disabled={isFirst}
-            onClick={() => setActiveStep((step) => Math.max(0, step - 1))}
-            style={{
-              padding: '9px 12px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: isFirst ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.05)',
-              color: isFirst ? 'rgba(232,228,240,0.42)' : 'var(--sw-text)',
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: isFirst ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {copy.previousLabel}
-          </button>
-
-          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${copy.steps.length}, minmax(0, 1fr))`, gap: 6 }}>
-            {copy.steps.map((step, index) => {
-              const active = index === activeStep;
-              return (
-                <button
-                  key={step.label}
-                  type="button"
-                  onClick={() => setActiveStep(index)}
-                  style={{
-                    minWidth: 0,
-                    padding: '7px 8px',
-                    borderRadius: 11,
-                    border: `1px solid ${active ? `${step.accent}88` : 'rgba(255,255,255,0.06)'}`,
-                    background: active ? `${step.accent}16` : 'rgba(255,255,255,0.03)',
-                    color: active ? 'var(--sw-text)' : 'var(--sw-text-dim)',
-                    fontSize: 11,
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                  }}
-                >
-                  {step.label}
-                </button>
-              );
-            })}
-          </div>
-
-          <button
-            type="button"
-            disabled={isLast}
-            onClick={() => setActiveStep((step) => Math.min(copy.steps.length - 1, step + 1))}
-            style={{
-              padding: '9px 12px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: isLast ? 'rgba(255,255,255,0.025)' : `linear-gradient(135deg, ${currentStep.accent}, rgba(255,255,255,0.85))`,
-              color: isLast ? 'rgba(232,228,240,0.42)' : '#091018',
-              fontSize: 12,
-              fontWeight: 700,
-              cursor: isLast ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {copy.nextLabel}
-          </button>
-        </div>
+        />
       </PanelCard>
     </div>
   );

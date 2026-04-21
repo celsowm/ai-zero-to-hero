@@ -50,8 +50,8 @@ import type {
 } from './transformers';
 import type {
   BiologicalVsComputationalNeuronCopy,
+  NeuralNetworkStepDebuggerVisualCopy,
   NeuralNetworkTrainingDebuggerVisualCopy,
-  NeuralNetworkTabsStepperVisualCopy,
   NeuronArchitectureAnimatedCopy,
 } from './neural-networks';
 
@@ -65,9 +65,9 @@ export interface NeuronArchitectureAnimatedVisual {
   copy: Record<Language, NeuronArchitectureAnimatedCopy>;
 }
 
-export interface NeuralNetworkTabsStepperVisual {
-  id: 'neural-network-tabs-stepper';
-  copy: Record<Language, NeuralNetworkTabsStepperVisualCopy>;
+export interface NeuralNetworkStepDebuggerVisual {
+  id: 'neural-network-step-debugger';
+  copy: Record<Language, NeuralNetworkStepDebuggerVisualCopy>;
 }
 
 export interface NeuralNetworkTrainingDebuggerVisual {
@@ -330,7 +330,7 @@ export type SlideVisual =
   | RoadToMiniTransformerVisual
   | NeuronArchitectureAnimatedVisual
   | BiologicalVsComputationalNeuronVisual
-  | NeuralNetworkTabsStepperVisual
+  | NeuralNetworkStepDebuggerVisual
   | NeuralNetworkTrainingDebuggerVisual;
 
 export interface SlideOptions {

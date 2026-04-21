@@ -70,72 +70,71 @@ export interface NeuronArchitectureAnimatedCopy {
   legend: NeuronArchitectureAnimatedLegendItemCopy[];
 }
 
-export interface NeuralNetworkTabsStepperTabCopy {
-  label: string;
-}
-
-export interface NeuralNetworkTabsStepperCodePanelCopy {
-  title: string;
-  description: string;
-  code: string;
-  codeExplanations?: import('./base').CodeExplanation[];
-}
-
-export interface NeuralNetworkTabsStepperValueCopy {
-  label: string;
-  value: string;
-}
-
-export interface NeuralNetworkTabsStepperMetricCopy {
-  label: string;
-  value: string;
-}
-
-export interface NeuralNetworkTabsStepperStepCopy {
-  label: string;
-  title: string;
-  description: string;
-  formula: string;
-  accent: string;
-  activeSection: 'inputs' | 'hidden' | 'output' | 'metrics';
-  inputs: NeuralNetworkTabsStepperValueCopy[];
-  hidden: NeuralNetworkTabsStepperValueCopy[];
-  output: NeuralNetworkTabsStepperValueCopy[];
-  metrics: NeuralNetworkTabsStepperMetricCopy[];
-}
-
-export interface NeuralNetworkTabsStepperVisualCopy {
-  tabs: [NeuralNetworkTabsStepperTabCopy, NeuralNetworkTabsStepperTabCopy];
-  codePanel: NeuralNetworkTabsStepperCodePanelCopy;
-  stepperPanel: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    inputSectionLabel: string;
-    hiddenSectionLabel: string;
-    outputSectionLabel: string;
-    metricsSectionLabel: string;
-    previousLabel: string;
-    nextLabel: string;
-    completionLabel: string;
-    completionDescription: string;
-    steps: NeuralNetworkTabsStepperStepCopy[];
-  };
-  footer: string;
-}
-
 export interface NeuralNetworkTrainingDebuggerVisualCopy {
   title: string;
   subtitle: string;
+  datasetLabel: string;
+  archLabel: string;
+  playLabel: string;
+  pauseLabel: string;
+  resetLabel: string;
+  speedLabel: string;
+  epochLabel: string;
+  lossLabel: string;
+  statusTraining: string;
+  statusConverged: string;
+  statusDone: string;
+  statusPaused: string;
+  convergenceThreshold: number;
+  totalEpochs: number;
+  learningRate: number;
+  dataset: Array<{ inputs: number[]; target: number }>;
+  initialWeights: {
+    w1: number[];
+    w2: number[];
+    b1: number;
+    b2: number;
+    v1: number;
+    v2: number;
+    c: number;
+  };
   inputSectionLabel: string;
   hiddenSectionLabel: string;
   outputSectionLabel: string;
   metricsSectionLabel: string;
-  iterationLabel: string;
-  previousLabel: string;
-  nextLabel: string;
-  completionLabel: string;
-  completionDescription: string;
-  steps: NeuralNetworkTabsStepperStepCopy[];
-  footer: string;
+  featureNames: string[];
+}
+
+export interface NeuralNetworkStepDebuggerVisualCopy {
+  title: string;
+  subtitle: string;
+  featureNames: string[];
+  learningRate: number;
+  initialWeights: {
+    w1: number[];
+    w2: number[];
+    b1: number;
+    b2: number;
+    v1: number;
+    v2: number;
+    c: number;
+  };
+  labels: {
+    inputLayer: string;
+    hiddenLayer: string;
+    outputLayer: string;
+    codeTitle: string;
+  };
+  pythonCode: string;
+  codeHighlightRanges: Record<string, [number, number]>;
+  dataset: Array<{ inputs: number[]; target: number }>;
+  totalEpochs: number;
+  convergenceThreshold: number;
+  trainingLabels: {
+    epochLabel: string;
+    mseLabel: string;
+    accuracyLabel: string;
+    archLabel: string;
+    convergenceLabel: string;
+  };
 }
