@@ -17,14 +17,14 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
       style={{ padding: '0 24px 18px' }}
     >
       <h1
-        className="glow-pink"
+        className="glow-pink synthwave-title"
         style={{
           fontSize: 36 * FONT_SCALE_BASE * fontScale,
           fontWeight: 700,
           letterSpacing: '-0.02em',
           lineHeight: 1.2,
           color: 'var(--sw-pink)',
-          margin: '0 0 16px 0',
+          margin: '0 0 8px 0',
           textAlign: 'center',
         }}
       >
@@ -36,7 +36,7 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
         style={{
           height: 2,
           borderRadius: 2,
-          marginBottom: 40,
+          marginBottom: 22,
           maxWidth: 200,
           marginLeft: 'auto',
           marginRight: 'auto',

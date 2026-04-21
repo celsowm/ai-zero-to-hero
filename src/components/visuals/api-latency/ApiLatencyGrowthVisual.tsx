@@ -19,19 +19,19 @@ const shellStyle: React.CSSProperties = {
   minHeight: 0,
   display: 'flex',
   flexDirection: 'column',
-  gap: 14,
+  gap: 10,
 };
 
 const summaryGridStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-  gap: 12,
-  alignItems: 'start',
+  gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1fr)',
+  gap: 10,
+  alignItems: 'end',
 };
 
 const summaryBlockStyle: React.CSSProperties = {
   display: 'grid',
-  gap: 8,
+  gap: 6,
   minWidth: 0,
 };
 
@@ -44,7 +44,7 @@ const eyebrowStyle: React.CSSProperties = {
 };
 
 const titleStyle: React.CSSProperties = {
-  fontSize: 18,
+  fontSize: 17,
   fontWeight: 700,
   letterSpacing: '-0.02em',
   color: 'var(--sw-text)',
@@ -53,27 +53,28 @@ const titleStyle: React.CSSProperties = {
 
 const descriptionStyle: React.CSSProperties = {
   margin: 0,
-  fontSize: 13,
-  lineHeight: 1.55,
+  fontSize: 12.5,
+  lineHeight: 1.45,
   color: 'var(--sw-text-dim)',
 };
 
 const metricsGridStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
   gap: 8,
 };
 
 const metricCardStyle = (accent: string): React.CSSProperties => ({
-  padding: '10px 11px 9px',
-  borderRadius: 12,
+  padding: '8px 10px',
+  borderRadius: 11,
   background: 'rgba(255,255,255,0.03)',
   border: `1px solid ${accent}33`,
   boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), 0 12px 28px rgba(0,0,0,0.12)`,
+  minWidth: 0,
 });
 
 const metricTitleStyle: React.CSSProperties = {
-  fontSize: 10.5,
+  fontSize: 10,
   fontWeight: 700,
   letterSpacing: '0.12em',
   textTransform: 'uppercase',
@@ -84,13 +85,13 @@ const metricRowStyle: React.CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'baseline',
-  gap: 8,
-  marginTop: 6,
+  gap: 6,
+  marginTop: 5,
   minWidth: 0,
 };
 
 const metricValueStyle: React.CSSProperties = {
-  fontSize: 18,
+  fontSize: 16,
   lineHeight: 1.05,
   fontWeight: 800,
   letterSpacing: '-0.04em',
@@ -98,13 +99,15 @@ const metricValueStyle: React.CSSProperties = {
 };
 
 const metricDescriptionStyle: React.CSSProperties = {
-  fontSize: 11,
+  fontSize: 10.5,
   lineHeight: 1.35,
   color: 'var(--sw-text-dim)',
 };
 
 const chartShellStyle: React.CSSProperties = {
   position: 'relative',
+  flex: 1,
+  minHeight: 0,
   borderRadius: 18,
   overflow: 'hidden',
   border: '1px solid rgba(255,255,255,0.06)',
@@ -114,8 +117,8 @@ const chartShellStyle: React.CSSProperties = {
 };
 
 const footerStyle: React.CSSProperties = {
-  fontSize: 12.5,
-  lineHeight: 1.6,
+  fontSize: 11.5,
+  lineHeight: 1.45,
   color: 'var(--sw-text-muted)',
 };
 
@@ -126,13 +129,20 @@ const legendRowStyle: React.CSSProperties = {
   alignItems: 'center',
 };
 
+const bottomBarStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'auto minmax(0, 1fr)',
+  gap: 12,
+  alignItems: 'start',
+};
+
 const badgeStyle = (accent: string): React.CSSProperties => ({
   display: 'inline-flex',
   alignItems: 'center',
   gap: 8,
-  padding: '7px 10px',
+  padding: '6px 10px',
   borderRadius: 999,
-  fontSize: 12,
+  fontSize: 11.5,
   fontWeight: 700,
   letterSpacing: '0.01em',
   color: 'var(--sw-text)',
@@ -232,27 +242,27 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
 
   return (
     <div style={shellStyle}>
-      <PanelCard minHeight={0} gap={12}>
+      <PanelCard minHeight={0} gap={10}>
         <div style={summaryGridStyle}>
           <div style={summaryBlockStyle}>
             <div style={eyebrowStyle}>{copy.eyebrow}</div>
-            <div style={{ display: 'grid', gap: 8 }}>
+            <div style={{ display: 'grid', gap: 6 }}>
               <div style={titleStyle}>{copy.title}</div>
               <p style={descriptionStyle}>{copy.description}</p>
             </div>
           </div>
 
           <div style={metricsGridStyle}>
-          {copy.metrics.map(metric => (
-            <div key={`${metric.title}-${metric.value}`} style={metricCardStyle(metric.accent)}>
-              <div style={metricTitleStyle}>{metric.title}</div>
-              <div style={metricRowStyle}>
-                <div style={{ ...metricValueStyle, color: metric.accent }}>{metric.value}</div>
-                <div style={metricDescriptionStyle}>{metric.description}</div>
+            {copy.metrics.map(metric => (
+              <div key={`${metric.title}-${metric.value}`} style={metricCardStyle(metric.accent)}>
+                <div style={metricTitleStyle}>{metric.title}</div>
+                <div style={metricRowStyle}>
+                  <div style={{ ...metricValueStyle, color: metric.accent }}>{metric.value}</div>
+                  <div style={metricDescriptionStyle}>{metric.description}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
 
         <div style={chartShellStyle}>
@@ -377,21 +387,23 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
           </svg>
         </div>
 
-        <div style={{ display: 'grid', gap: 6 }}>
-          <div style={eyebrowStyle}>{copy.legendTitle}</div>
-          <div style={legendRowStyle}>
-            <span style={badgeStyle('#00e5ff')}>
-              <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
-              {copy.curveLabel}
-            </span>
-            <span style={badgeStyle('#f8fafc')}>
-              <span style={{ width: 8, height: 8, borderRadius: 999, background: 'rgba(248,250,252,0.88)', boxShadow: '0 0 18px rgba(248,250,252,0.35)' }} />
-              {copy.referenceLabel}
-            </span>
+        <div style={bottomBarStyle}>
+          <div style={{ display: 'grid', gap: 5 }}>
+            <div style={eyebrowStyle}>{copy.legendTitle}</div>
+            <div style={legendRowStyle}>
+              <span style={badgeStyle('#00e5ff')}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+                {copy.curveLabel}
+              </span>
+              <span style={badgeStyle('#f8fafc')}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: 'rgba(248,250,252,0.88)', boxShadow: '0 0 18px rgba(248,250,252,0.35)' }} />
+                {copy.referenceLabel}
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div style={footerStyle}>{copy.footer}</div>
+          <div style={footerStyle}>{copy.footer}</div>
+        </div>
       </PanelCard>
     </div>
   );

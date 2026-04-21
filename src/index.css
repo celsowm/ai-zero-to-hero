@@ -107,6 +107,42 @@ body {
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes synthwaveTitleLoop {
+  0% {
+    color: #ff2e97;
+    text-shadow: 0 0 20px rgba(255, 46, 151, 0.45), 0 0 42px rgba(255, 46, 151, 0.2);
+  }
+  33% {
+    color: #ff6b9d;
+    text-shadow: 0 0 20px rgba(255, 107, 157, 0.45), 0 0 44px rgba(255, 107, 157, 0.2);
+  }
+  66% {
+    color: #00e5ff;
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.45), 0 0 46px rgba(0, 229, 255, 0.2);
+  }
+  100% {
+    color: #ff2e97;
+    text-shadow: 0 0 20px rgba(255, 46, 151, 0.45), 0 0 42px rgba(255, 46, 151, 0.2);
+  }
+}
+
+@keyframes synthwaveTitleFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-1.5px); }
+  100% { transform: translateY(0px); }
+}
+
+.synthwave-title {
+  animation: synthwaveTitleLoop 5.8s ease-in-out infinite, synthwaveTitleFloat 3.4s ease-in-out infinite;
+  will-change: color, text-shadow, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .synthwave-title {
+    animation: none;
+  }
+}
+
 .slide-two-col {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
