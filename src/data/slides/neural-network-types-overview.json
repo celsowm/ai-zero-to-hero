@@ -1,0 +1,20 @@
+{
+  "id": "neural-network-types-overview",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.62,
+      0.38
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Tipos de rede neural: quando cada uma entra em cena",
+      "body": "A ideia de neurônios, pesos e ativações continua a mesma, mas a arquitetura muda conforme o tipo de dado.\n\n1. **MLP:** é a rede mais comum para dados tabulares. Funciona bem quando cada linha já vem em forma de atributos numéricos ou categorizados.\n\n2. **CNN:** é especializada em imagens. Ela explora vizinhança espacial, bordas, texturas e padrões locais repetidos.\n\n3. **RNN / Transformer:** entram quando a ordem importa. São usados em texto, áudio, séries temporais e qualquer problema em que a sequência carrega contexto.\n\n> A pergunta não é só \"quero uma rede neural?\". A pergunta certa é \"que tipo de estrutura combina com meu dado?\".\n\n### Fechamento\nSe o dado for texto, não basta ter neurônios. A rede precisa respeitar o fato de que palavras chegam em sequência e carregam contexto.\n\n---\n\n### Panorama rápido\n| Tipo | Dado | Força principal | Exemplo |\n| --- | --- | --- | --- |\n| `MLP` | tabela | combinar atributos | risco cardíaco |\n| `CNN` | imagem | capturar padrões locais | detectar tumor em raio-X |\n| `RNN/Transformer` | sequência | usar contexto e ordem | prever próxima palavra |\n\n### Ideia principal\nTexto não é uma tabela comum. Ele é um fluxo sequencial, e isso empurra a arquitetura para modelos feitos para sequências.\n"
+    },
+    "en-us": {
+      "title": "Types of neural networks: when each one fits",
+      "body": "The idea of neurons, weights, and activations stays the same, but the architecture changes depending on the data type.\n\n1. **MLP:** this is the most common network for tabular data. It works well when each row already comes as numeric or categorized features.\n\n2. **CNN:** this one is specialized for images. It exploits spatial neighborhoods, edges, textures, and repeated local patterns.\n\n3. **RNN / Transformer:** these appear when order matters. They are used for text, audio, time series, and any problem where the sequence carries context.\n\n> The question is not only \"do I want a neural network?\". The real question is \"which structure matches my data?\".\n\n### Closing thought\nIf the data is text, having neurons is not enough. The network must respect the fact that words arrive in sequence and carry context.\n\n---\n\n### Quick overview\n| Type | Data | Main strength | Example |\n| --- | --- | --- | --- |\n| `MLP` | table | combining features | heart risk |\n| `CNN` | image | capturing local patterns | tumor detection in X-ray |\n| `RNN/Transformer` | sequence | using context and order | predicting the next word |\n\n### Main idea\nText is not a regular table. It is a sequential stream, and that pushes the architecture toward models built for sequences.\n"
+    }
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "id": "neural-network-prediction",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.44,
+      0.56
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Rede Neural em Python: usando o modelo treinado",
+      "body": "Agora a rede sai do modo de treino e entra em modo de uso. A pergunta deixa de ser \"como ajusto os pesos?\" e vira \"como obtenho uma probabilidade nova a partir de um caso novo?\".\n\n1. **Entradas conhecidas:** chega um novo paciente com `idade`, `pressão`, `colesterol` e `fumante`.\n\n2. **Pesos fixos:** os parâmetros já vieram do treino; durante a inferência, eles não mudam.\n\n3. **Um único forward:** a rede calcula ativações ocultas, transforma isso em probabilidade e aplica o limiar final.\n\n4. **Sem loop de correção:** inferência não recalcula gradiente nem ajusta pesos. Ela só usa o que foi aprendido.\n\n> Treino ajusta os parâmetros; inferência apenas executa a rede com uma nova entrada.\n\n### O que observar\n- a aba `Código` mostra a inferência completa com pesos treinados\n- a aba `Visual` acompanha um paciente real passando pela rede\n- nenhum peso muda: aqui só existe `forward`\n"
+    },
+    "en-us": {
+      "title": "Neural Network in Python: using the trained model",
+      "body": "Now the network leaves training mode and enters usage mode. The question stops being \"how do I adjust the weights?\" and becomes \"how do I obtain a new probability from a new case?\".\n\n1. **Known inputs:** a new patient arrives with `age`, `blood pressure`, `cholesterol`, and `smoker`.\n\n2. **Fixed weights:** the parameters already came from training; during inference, they do not change.\n\n3. **One forward pass:** the network computes hidden activations, turns that into a probability, and applies the final threshold.\n\n4. **No correction loop:** inference does not recompute gradients or update weights. It only uses what was learned.\n\n> Training adjusts the parameters; inference only executes the network with a new input.\n\n### What to watch\n- the `Code` tab shows full inference with trained weights\n- the `Visual` tab follows one real patient through the network\n- no weights change here: this is only `forward`\n"
+    }
+  },
+  "visual": {
+    "id": "neural-network-tabs-stepper",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          { "label": "Código" },
+          { "label": "Visual" }
+        ],
+        "codePanel": {
+          "title": "Inferência completa da rede",
+          "description": "Os pesos abaixo vieram do treino. Este código só executa `forward` em um novo paciente e devolve probabilidade + decisão.",
+          "code": "from math import exp\n\nparametros = {\n    \"w1\": [0.404, 0.147, 0.363, 1.939],\n    \"w2\": [0.348, 0.274, 0.306, 2.311],\n    \"b1\": -0.544,\n    \"b2\": -0.567,\n    \"v1\": 2.051,\n    \"v2\": 2.399,\n    \"c\": -4.496,\n}\n\n\ndef relu(z):\n    return max(0.0, z)\n\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef prever_probabilidade(paciente, p):\n    x = [\n        paciente[\"idade\"] / 100,\n        paciente[\"pressao\"] / 200,\n        paciente[\"colesterol\"] / 300,\n        paciente[\"fumante\"],\n    ]\n    z1 = sum(w * xi for w, xi in zip(p[\"w1\"], x)) + p[\"b1\"]\n    z2 = sum(w * xi for w, xi in zip(p[\"w2\"], x)) + p[\"b2\"]\n    h1 = relu(z1)\n    h2 = relu(z2)\n    return sigmoid(p[\"v1\"] * h1 + p[\"v2\"] * h2 + p[\"c\"])\n\n\npaciente = {\"idade\": 58, \"pressao\": 150, \"colesterol\": 245, \"fumante\": 1.0}\nprob = prever_probabilidade(paciente, parametros)\nclasse = \"sim\" if prob >= 0.5 else \"não\"\nprint(\"Probabilidade:\", round(prob, 4))\nprint(\"Classe prevista:\", classe)\n"
+        },
+        "stepperPanel": {
+          "eyebrow": "Inferência em câmera lenta",
+          "title": "Um paciente novo atravessando a rede",
+          "description": "A visualização acompanha o mesmo paciente do código. Os pesos já estão fixos; aqui só vemos o `forward` acontecendo em sequência.",
+          "inputSectionLabel": "Entrada",
+          "hiddenSectionLabel": "Camada oculta",
+          "outputSectionLabel": "Saída",
+          "metricsSectionLabel": "Leitura da inferência",
+          "previousLabel": "Passo anterior",
+          "nextLabel": "Próximo passo",
+          "completionLabel": "Resultado final",
+          "completionDescription": "A rede devolve `0.9957` para este paciente. Como esse valor supera o limiar de `0.5`, a classe prevista é `sim`.",
+          "steps": [
+            {
+              "label": "Entrada",
+              "title": "O paciente entra na rede",
+              "description": "Primeiro convertimos o caso bruto para a escala que a rede espera. É a mesma normalização usada durante o treino.",
+              "formula": "x = [0.58, 0.75, 0.8167, 1.00]",
+              "accent": "#00e5ff",
+              "activeSection": "inputs",
+              "inputs": [
+                { "label": "idade / 100", "value": "0.58" },
+                { "label": "pressão / 200", "value": "0.75" },
+                { "label": "colesterol / 300", "value": "0.8167" },
+                { "label": "fumante", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z1", "value": "-" },
+                { "label": "z2", "value": "-" },
+                { "label": "h1", "value": "-" },
+                { "label": "h2", "value": "-" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "classe", "value": "-" },
+                { "label": "limiar", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "idade bruta", "value": "58" },
+                { "label": "pressão bruta", "value": "150" },
+                { "label": "colesterol bruto", "value": "245" },
+                { "label": "fumante", "value": "1" }
+              ]
+            },
+            {
+              "label": "h1",
+              "title": "O primeiro neurônio oculto dispara forte",
+              "description": "Com os pesos treinados, o primeiro neurônio encontra um padrão consistente de risco e produz uma ativação alta.",
+              "formula": "z1 = 2.0360 → h1 = 2.0360",
+              "accent": "#38bdf8",
+              "activeSection": "hidden",
+              "inputs": [
+                { "label": "idade", "value": "0.58" },
+                { "label": "pressão", "value": "0.75" },
+                { "label": "colesterol", "value": "0.8167" },
+                { "label": "fumante", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z1", "value": "2.0360" },
+                { "label": "h1", "value": "2.0360" },
+                { "label": "w1[0]", "value": "0.404" },
+                { "label": "b1", "value": "-0.544" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "classe", "value": "-" },
+                { "label": "limiar", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "ativação", "value": "ReLU" },
+                { "label": "estado", "value": "ativo" },
+                { "label": "magnitude", "value": "alta" },
+                { "label": "papel", "value": "sinal de risco" }
+              ]
+            },
+            {
+              "label": "h2",
+              "title": "O segundo neurônio reforça o padrão",
+              "description": "O segundo neurônio também responde com força. As duas ativações positivas se somam na camada de saída.",
+              "formula": "z2 = 2.4012 → h2 = 2.4012",
+              "accent": "#66b84a",
+              "activeSection": "hidden",
+              "inputs": [
+                { "label": "idade", "value": "0.58" },
+                { "label": "pressão", "value": "0.75" },
+                { "label": "colesterol", "value": "0.8167" },
+                { "label": "fumante", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z2", "value": "2.4012" },
+                { "label": "h2", "value": "2.4012" },
+                { "label": "w2[0]", "value": "0.348" },
+                { "label": "b2", "value": "-0.567" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "classe", "value": "-" },
+                { "label": "limiar", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "ativação", "value": "ReLU" },
+                { "label": "estado", "value": "ativo" },
+                { "label": "magnitude", "value": "muito alta" },
+                { "label": "efeito", "value": "reforça a saída" }
+              ]
+            },
+            {
+              "label": "Prob.",
+              "title": "A camada final vira probabilidade quase total",
+              "description": "As ativações ocultas entram na saída linear e a sigmoid devolve uma probabilidade muito próxima de 1.",
+              "formula": "prob = sigmoid(5.4405) = 0.9957",
+              "accent": "#f97316",
+              "activeSection": "output",
+              "inputs": [
+                { "label": "h1", "value": "2.0360" },
+                { "label": "h2", "value": "2.4012" },
+                { "label": "v1", "value": "2.051" },
+                { "label": "v2", "value": "2.399" }
+              ],
+              "hidden": [
+                { "label": "c", "value": "-4.496" },
+                { "label": "z3", "value": "5.4405" },
+                { "label": "sigmoid", "value": "ativa" },
+                { "label": "faixa", "value": "0 a 1" }
+              ],
+              "output": [
+                { "label": "prob", "value": "0.9957" },
+                { "label": "confiança", "value": "99.57%" },
+                { "label": "classe provisória", "value": "sim" }
+              ],
+              "metrics": [
+                { "label": "z3", "value": "5.4405" },
+                { "label": "prob", "value": "0.9957" },
+                { "label": "sinal", "value": "fortemente positivo" },
+                { "label": "peso muda?", "value": "não" }
+              ]
+            },
+            {
+              "label": "Decisão",
+              "title": "O limiar fecha a inferência",
+              "description": "A última etapa não faz treino nenhum. Só comparamos a probabilidade com o limiar e devolvemos a decisão final.",
+              "formula": "0.9957 ≥ 0.50 → classe = sim",
+              "accent": "#ff2e97",
+              "activeSection": "output",
+              "inputs": [
+                { "label": "prob", "value": "0.9957" },
+                { "label": "limiar", "value": "0.50" },
+                { "label": "pesos", "value": "fixos" },
+                { "label": "modo", "value": "inferência" }
+              ],
+              "hidden": [
+                { "label": "backprop", "value": "desligado" },
+                { "label": "gradiente", "value": "0" },
+                { "label": "ajuste", "value": "nenhum" },
+                { "label": "forward", "value": "concluído" }
+              ],
+              "output": [
+                { "label": "prob final", "value": "0.9957" },
+                { "label": "classe final", "value": "sim" },
+                { "label": "interpretação", "value": "alto risco" }
+              ],
+              "metrics": [
+                { "label": "probabilidade", "value": "99.57%" },
+                { "label": "decisão", "value": "sim" },
+                { "label": "peso muda?", "value": "não" },
+                { "label": "tipo de passo", "value": "somente uso" }
+              ]
+            }
+          ]
+        },
+        "footer": "A aba `Visual` mostra um paciente real atravessando a rede treinada com camadas e setas; a aba `Código` contém exatamente a rotina de inferência usada para produzir `0.9957`."
+      },
+      "en-us": {
+        "tabs": [
+          { "label": "Code" },
+          { "label": "Visual" }
+        ],
+        "codePanel": {
+          "title": "Full network inference",
+          "description": "The weights below came from training. This code only runs `forward` on a new patient and returns probability + decision.",
+          "code": "from math import exp\n\nparams = {\n    \"w1\": [0.404, 0.147, 0.363, 1.939],\n    \"w2\": [0.348, 0.274, 0.306, 2.311],\n    \"b1\": -0.544,\n    \"b2\": -0.567,\n    \"v1\": 2.051,\n    \"v2\": 2.399,\n    \"c\": -4.496,\n}\n\n\ndef relu(z):\n    return max(0.0, z)\n\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef predict_probability(patient, p):\n    x = [\n        patient[\"age\"] / 100,\n        patient[\"blood_pressure\"] / 200,\n        patient[\"cholesterol\"] / 300,\n        patient[\"smoker\"],\n    ]\n    z1 = sum(w * xi for w, xi in zip(p[\"w1\"], x)) + p[\"b1\"]\n    z2 = sum(w * xi for w, xi in zip(p[\"w2\"], x)) + p[\"b2\"]\n    h1 = relu(z1)\n    h2 = relu(z2)\n    return sigmoid(p[\"v1\"] * h1 + p[\"v2\"] * h2 + p[\"c\"])\n\n\npatient = {\"age\": 58, \"blood_pressure\": 150, \"cholesterol\": 245, \"smoker\": 1.0}\nprob = predict_probability(patient, params)\nlabel = \"yes\" if prob >= 0.5 else \"no\"\nprint(\"Probability:\", round(prob, 4))\nprint(\"Predicted class:\", label)\n"
+        },
+        "stepperPanel": {
+          "eyebrow": "Inference in slow motion",
+          "title": "A new patient going through the network",
+          "description": "The visualization follows the same patient shown in the code. The weights are already fixed; here we only watch the `forward` pass happen in sequence.",
+          "inputSectionLabel": "Input",
+          "hiddenSectionLabel": "Hidden layer",
+          "outputSectionLabel": "Output",
+          "metricsSectionLabel": "Inference reading",
+          "previousLabel": "Previous step",
+          "nextLabel": "Next step",
+          "completionLabel": "Final result",
+          "completionDescription": "The network returns `0.9957` for this patient. Because that value is above the `0.5` threshold, the predicted class is `yes`.",
+          "steps": [
+            {
+              "label": "Input",
+              "title": "The patient enters the network",
+              "description": "First we convert the raw case into the scale expected by the network. This is the same normalization used during training.",
+              "formula": "x = [0.58, 0.75, 0.8167, 1.00]",
+              "accent": "#00e5ff",
+              "activeSection": "inputs",
+              "inputs": [
+                { "label": "age / 100", "value": "0.58" },
+                { "label": "pressure / 200", "value": "0.75" },
+                { "label": "cholesterol / 300", "value": "0.8167" },
+                { "label": "smoker", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z1", "value": "-" },
+                { "label": "z2", "value": "-" },
+                { "label": "h1", "value": "-" },
+                { "label": "h2", "value": "-" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "class", "value": "-" },
+                { "label": "threshold", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "raw age", "value": "58" },
+                { "label": "raw pressure", "value": "150" },
+                { "label": "raw cholesterol", "value": "245" },
+                { "label": "smoker", "value": "1" }
+              ]
+            },
+            {
+              "label": "h1",
+              "title": "The first hidden neuron fires strongly",
+              "description": "With trained weights, the first neuron finds a consistent risk pattern and produces a high activation.",
+              "formula": "z1 = 2.0360 → h1 = 2.0360",
+              "accent": "#38bdf8",
+              "activeSection": "hidden",
+              "inputs": [
+                { "label": "age", "value": "0.58" },
+                { "label": "pressure", "value": "0.75" },
+                { "label": "cholesterol", "value": "0.8167" },
+                { "label": "smoker", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z1", "value": "2.0360" },
+                { "label": "h1", "value": "2.0360" },
+                { "label": "w1[0]", "value": "0.404" },
+                { "label": "b1", "value": "-0.544" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "class", "value": "-" },
+                { "label": "threshold", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "activation", "value": "ReLU" },
+                { "label": "state", "value": "active" },
+                { "label": "magnitude", "value": "high" },
+                { "label": "role", "value": "risk signal" }
+              ]
+            },
+            {
+              "label": "h2",
+              "title": "The second neuron reinforces the pattern",
+              "description": "The second neuron also responds strongly. Both positive activations are then combined by the output layer.",
+              "formula": "z2 = 2.4012 → h2 = 2.4012",
+              "accent": "#66b84a",
+              "activeSection": "hidden",
+              "inputs": [
+                { "label": "age", "value": "0.58" },
+                { "label": "pressure", "value": "0.75" },
+                { "label": "cholesterol", "value": "0.8167" },
+                { "label": "smoker", "value": "1.00" }
+              ],
+              "hidden": [
+                { "label": "z2", "value": "2.4012" },
+                { "label": "h2", "value": "2.4012" },
+                { "label": "w2[0]", "value": "0.348" },
+                { "label": "b2", "value": "-0.567" }
+              ],
+              "output": [
+                { "label": "prob", "value": "-" },
+                { "label": "class", "value": "-" },
+                { "label": "threshold", "value": "0.50" }
+              ],
+              "metrics": [
+                { "label": "activation", "value": "ReLU" },
+                { "label": "state", "value": "active" },
+                { "label": "magnitude", "value": "very high" },
+                { "label": "effect", "value": "reinforces output" }
+              ]
+            },
+            {
+              "label": "Prob.",
+              "title": "The final layer becomes an almost certain probability",
+              "description": "The hidden activations flow into the final linear output, and sigmoid returns a probability very close to 1.",
+              "formula": "prob = sigmoid(5.4405) = 0.9957",
+              "accent": "#f97316",
+              "activeSection": "output",
+              "inputs": [
+                { "label": "h1", "value": "2.0360" },
+                { "label": "h2", "value": "2.4012" },
+                { "label": "v1", "value": "2.051" },
+                { "label": "v2", "value": "2.399" }
+              ],
+              "hidden": [
+                { "label": "c", "value": "-4.496" },
+                { "label": "z3", "value": "5.4405" },
+                { "label": "sigmoid", "value": "active" },
+                { "label": "range", "value": "0 to 1" }
+              ],
+              "output": [
+                { "label": "prob", "value": "0.9957" },
+                { "label": "confidence", "value": "99.57%" },
+                { "label": "provisional class", "value": "yes" }
+              ],
+              "metrics": [
+                { "label": "z3", "value": "5.4405" },
+                { "label": "prob", "value": "0.9957" },
+                { "label": "signal", "value": "strongly positive" },
+                { "label": "weights change?", "value": "no" }
+              ]
+            },
+            {
+              "label": "Decision",
+              "title": "The threshold closes the inference",
+              "description": "The last step performs no training at all. We only compare the probability to the threshold and return the final decision.",
+              "formula": "0.9957 ≥ 0.50 → class = yes",
+              "accent": "#ff2e97",
+              "activeSection": "output",
+              "inputs": [
+                { "label": "prob", "value": "0.9957" },
+                { "label": "threshold", "value": "0.50" },
+                { "label": "weights", "value": "fixed" },
+                { "label": "mode", "value": "inference" }
+              ],
+              "hidden": [
+                { "label": "backprop", "value": "off" },
+                { "label": "gradient", "value": "0" },
+                { "label": "update", "value": "none" },
+                { "label": "forward", "value": "done" }
+              ],
+              "output": [
+                { "label": "final prob", "value": "0.9957" },
+                { "label": "final class", "value": "yes" },
+                { "label": "interpretation", "value": "high risk" }
+              ],
+              "metrics": [
+                { "label": "probability", "value": "99.57%" },
+                { "label": "decision", "value": "yes" },
+                { "label": "weights change?", "value": "no" },
+                { "label": "step type", "value": "usage only" }
+              ]
+            }
+          ]
+        },
+        "footer": "The `Visual` tab shows one real patient flowing through the trained network with layers and arrows; the `Code` tab contains the exact inference routine used to produce `0.9957`."
+      }
+    }
+  }
+}

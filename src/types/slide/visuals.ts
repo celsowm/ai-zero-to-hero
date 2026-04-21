@@ -48,7 +48,12 @@ import type {
   TransformerBlockDiagramCopy,
   WhyTransformersWorkCopy,
 } from './transformers';
-import type { BiologicalVsComputationalNeuronCopy, NeuronArchitectureAnimatedCopy } from './neural-networks';
+import type {
+  BiologicalVsComputationalNeuronCopy,
+  NeuralNetworkTrainingDebuggerVisualCopy,
+  NeuralNetworkTabsStepperVisualCopy,
+  NeuronArchitectureAnimatedCopy,
+} from './neural-networks';
 
 export interface BiologicalVsComputationalNeuronVisual {
   id: 'biological-vs-computational-neuron';
@@ -58,6 +63,16 @@ export interface BiologicalVsComputationalNeuronVisual {
 export interface NeuronArchitectureAnimatedVisual {
   id: 'neuron-architecture-animated';
   copy: Record<Language, NeuronArchitectureAnimatedCopy>;
+}
+
+export interface NeuralNetworkTabsStepperVisual {
+  id: 'neural-network-tabs-stepper';
+  copy: Record<Language, NeuralNetworkTabsStepperVisualCopy>;
+}
+
+export interface NeuralNetworkTrainingDebuggerVisual {
+  id: 'neural-network-training-debugger';
+  copy: Record<Language, NeuralNetworkTrainingDebuggerVisualCopy>;
 }
 
 export interface InferenceDiagramVisual {
@@ -314,7 +329,9 @@ export type SlideVisual =
   | WhyTransformersWorkVisual
   | RoadToMiniTransformerVisual
   | NeuronArchitectureAnimatedVisual
-  | BiologicalVsComputationalNeuronVisual;
+  | BiologicalVsComputationalNeuronVisual
+  | NeuralNetworkTabsStepperVisual
+  | NeuralNetworkTrainingDebuggerVisual;
 
 export interface SlideOptions {
   columns?: number;

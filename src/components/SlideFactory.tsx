@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ISlide, Language } from '../types/slide';
 import { CodeSlide } from './CodeSlide';
+import { CustomVisualSlide } from './CustomVisualSlide';
 import { MarkdownSlide } from './MarkdownSlide';
 import { TwoColumnSlide } from './TwoColumnSlide';
 
@@ -21,6 +22,9 @@ export const SlideFactory: React.FC<SlideFactoryProps> = ({ slide, language }) =
 
     case 'code':
       return <CodeSlide content={content} />;
+
+    case 'custom':
+      return <CustomVisualSlide slide={slide} language={language} />;
     
     // Futuros tipos de slides serão adicionados aqui (ex: svg-anim, code)
     default:

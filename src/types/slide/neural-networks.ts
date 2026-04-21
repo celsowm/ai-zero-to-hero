@@ -69,3 +69,73 @@ export interface NeuronArchitectureAnimatedCopy {
   legendTitle: string;
   legend: NeuronArchitectureAnimatedLegendItemCopy[];
 }
+
+export interface NeuralNetworkTabsStepperTabCopy {
+  label: string;
+}
+
+export interface NeuralNetworkTabsStepperCodePanelCopy {
+  title: string;
+  description: string;
+  code: string;
+  codeExplanations?: import('./base').CodeExplanation[];
+}
+
+export interface NeuralNetworkTabsStepperValueCopy {
+  label: string;
+  value: string;
+}
+
+export interface NeuralNetworkTabsStepperMetricCopy {
+  label: string;
+  value: string;
+}
+
+export interface NeuralNetworkTabsStepperStepCopy {
+  label: string;
+  title: string;
+  description: string;
+  formula: string;
+  accent: string;
+  activeSection: 'inputs' | 'hidden' | 'output' | 'metrics';
+  inputs: NeuralNetworkTabsStepperValueCopy[];
+  hidden: NeuralNetworkTabsStepperValueCopy[];
+  output: NeuralNetworkTabsStepperValueCopy[];
+  metrics: NeuralNetworkTabsStepperMetricCopy[];
+}
+
+export interface NeuralNetworkTabsStepperVisualCopy {
+  tabs: [NeuralNetworkTabsStepperTabCopy, NeuralNetworkTabsStepperTabCopy];
+  codePanel: NeuralNetworkTabsStepperCodePanelCopy;
+  stepperPanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    inputSectionLabel: string;
+    hiddenSectionLabel: string;
+    outputSectionLabel: string;
+    metricsSectionLabel: string;
+    previousLabel: string;
+    nextLabel: string;
+    completionLabel: string;
+    completionDescription: string;
+    steps: NeuralNetworkTabsStepperStepCopy[];
+  };
+  footer: string;
+}
+
+export interface NeuralNetworkTrainingDebuggerVisualCopy {
+  title: string;
+  subtitle: string;
+  inputSectionLabel: string;
+  hiddenSectionLabel: string;
+  outputSectionLabel: string;
+  metricsSectionLabel: string;
+  iterationLabel: string;
+  previousLabel: string;
+  nextLabel: string;
+  completionLabel: string;
+  completionDescription: string;
+  steps: NeuralNetworkTabsStepperStepCopy[];
+  footer: string;
+}

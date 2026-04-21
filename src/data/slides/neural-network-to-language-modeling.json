@@ -1,0 +1,20 @@
+{
+  "id": "neural-network-to-language-modeling",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.55,
+      0.45
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Da rede neural comum para modelagem de linguagem",
+      "body": "Agora não estamos abandonando a ideia anterior. Estamos reaproveitando a mesma lógica de previsão, só que em outro domínio.\n\n1. **Antes:** a rede recebia atributos tabulares e respondia `sim/não` ou uma probabilidade.\n\n2. **Agora:** a rede recebe uma sequência de palavras ou tokens e responde qual continuação parece mais provável.\n\n3. **O coração continua igual:** existe entrada, pesos, comparação com o alvo correto e ajuste para errar menos na próxima rodada.\n\n> O modelo de linguagem é uma rede neural aplicada a sequências de texto para prever o próximo token.\n\n### O que realmente mudou\nMudou o formato da entrada e da saída. A mecânica de aprender por exemplos continua a mesma.\n\n---\n\n### Mapeamento direto\n| Rede neural geral | Modelagem de linguagem |\n| --- | --- |\n| `atributos tabulares` | `tokens + contexto` |\n| `saída sim/não` | `distribuição da próxima palavra/token` |\n| `rótulo correto` | `próximo token real` |\n| `ajuste de pesos` | `mesmo princípio de treino` |\n\n### Frase-ponte\nSai o problema de classificação em tabela. Entra o problema de continuar uma sequência de texto sem perder o contexto.\n"
+    },
+    "en-us": {
+      "title": "From a standard neural network to language modeling",
+      "body": "We are not abandoning the previous idea now. We are reusing the same prediction logic, just in a different domain.\n\n1. **Before:** the network received tabular features and answered with `yes/no` or a probability.\n\n2. **Now:** the network receives a sequence of words or tokens and answers which continuation seems most likely.\n\n3. **The core stays the same:** there is input, weights, comparison against the correct target, and adjustment to make fewer mistakes in the next round.\n\n> A language model is a neural network applied to text sequences to predict the next token.\n\n### What actually changed\nThe input and output formats changed. The learning mechanics from examples stays the same.\n\n---\n\n### Direct mapping\n| General neural network | Language modeling |\n| --- | --- |\n| `tabular features` | `tokens + context` |\n| `yes/no output` | `next word/token distribution` |\n| `correct label` | `real next token` |\n| `weight updates` | `same training principle` |\n\n### Bridge sentence\nThe tabular classification problem leaves the stage. The task now becomes continuing a text sequence without losing context.\n"
+    }
+  }
+}

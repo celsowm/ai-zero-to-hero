@@ -1,0 +1,361 @@
+{
+  "id": "neural-network-training-debugger",
+  "type": "custom",
+  "content": {
+    "pt-br": {
+      "title": "Rede Neural: debugger visual do treino",
+      "body": ""
+    },
+    "en-us": {
+      "title": "Neural Network: visual training debugger",
+      "body": ""
+    }
+  },
+  "visual": {
+    "id": "neural-network-training-debugger",
+    "copy": {
+      "pt-br": {
+        "title": "Debugger do treino",
+        "subtitle": "A esquerda, a rede neural recebe a amostra e mostra o fluxo entre camadas. A direita, o debugger abre os valores reais do passo atual sem markdown nem abas.",
+        "inputSectionLabel": "Entrada",
+        "hiddenSectionLabel": "Camada oculta",
+        "outputSectionLabel": "Saída",
+        "metricsSectionLabel": "Métricas do passo",
+        "iterationLabel": "Iterações do treino",
+        "previousLabel": "Anterior",
+        "nextLabel": "Próximo",
+        "completionLabel": "Depois de muitas épocas",
+        "completionDescription": "Essa pequena rede converge para `MSE = 0.0001` no conjunto didático e aprende a separar os casos negativos dos positivos.",
+        "steps": [
+          {
+            "label": "Entrada",
+            "title": "A amostra positiva entra na rede",
+            "description": "Usamos a quarta amostra do dataset, já normalizada. Nesse instante a rede só recebeu os sinais de entrada; ainda não existe previsão nem gradiente.",
+            "formula": "x = [0.58, 0.78, 0.82, 1.00], y = 1.00",
+            "accent": "#00e5ff",
+            "activeSection": "inputs",
+            "inputs": [
+              { "label": "idade", "value": "0.58" },
+              { "label": "pressão", "value": "0.78" },
+              { "label": "colesterol", "value": "0.82" },
+              { "label": "fumante", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "z1", "value": "-" },
+              { "label": "z2", "value": "-" },
+              { "label": "h1", "value": "-" },
+              { "label": "h2", "value": "-" }
+            ],
+            "output": [
+              { "label": "ŷ", "value": "-" },
+              { "label": "classe", "value": "-" },
+              { "label": "alvo", "value": "1.00" }
+            ],
+            "metrics": [
+              { "label": "amostra", "value": "4 / 6" },
+              { "label": "classe real", "value": "positiva" },
+              { "label": "lr", "value": "0.2" },
+              { "label": "épocas totais", "value": "4000" }
+            ]
+          },
+          {
+            "label": "Oculta",
+            "title": "A camada oculta mistura os atributos",
+            "description": "Com os pesos iniciais, os dois neurônios ocultos ativam. Esse é o primeiro ponto em que a rede combina idade, pressão, colesterol e fumante de forma não linear.",
+            "formula": "h1 = relu(0.2580), h2 = relu(0.2960)",
+            "accent": "#38bdf8",
+            "activeSection": "hidden",
+            "inputs": [
+              { "label": "idade", "value": "0.58" },
+              { "label": "pressão", "value": "0.78" },
+              { "label": "colesterol", "value": "0.82" },
+              { "label": "fumante", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "z1", "value": "0.2580" },
+              { "label": "z2", "value": "0.2960" },
+              { "label": "h1", "value": "0.2580" },
+              { "label": "h2", "value": "0.2960" }
+            ],
+            "output": [
+              { "label": "ŷ", "value": "-" },
+              { "label": "classe", "value": "-" },
+              { "label": "alvo", "value": "1.00" }
+            ],
+            "metrics": [
+              { "label": "neurônios ativos", "value": "2 / 2" },
+              { "label": "ativação", "value": "ReLU" },
+              { "label": "viés oculto", "value": "-0.20" },
+              { "label": "camada oculta", "value": "2 unidades" }
+            ]
+          },
+          {
+            "label": "Saída",
+            "title": "A camada final gera a probabilidade",
+            "description": "As ativações ocultas passam pela combinação final e pela sigmoid. A rede ainda prevê pouco mais de 51%, então ela acerta a classe, mas com confiança fraca.",
+            "formula": "ŷ = sigmoid(0.0662) = 0.5165",
+            "accent": "#66b84a",
+            "activeSection": "output",
+            "inputs": [
+              { "label": "idade", "value": "0.58" },
+              { "label": "pressão", "value": "0.78" },
+              { "label": "colesterol", "value": "0.82" },
+              { "label": "fumante", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "h1", "value": "0.2580" },
+              { "label": "h2", "value": "0.2960" },
+              { "label": "v1", "value": "0.3000" },
+              { "label": "v2", "value": "0.3000" }
+            ],
+            "output": [
+              { "label": "z3", "value": "0.0662" },
+              { "label": "ŷ", "value": "0.5165" },
+              { "label": "classe provisória", "value": "sim" }
+            ],
+            "metrics": [
+              { "label": "alvo", "value": "1.0000" },
+              { "label": "erro bruto", "value": "-0.4835" },
+              { "label": "faixa da saída", "value": "0 a 1" },
+              { "label": "sigmoid", "value": "ativa" }
+            ]
+          },
+          {
+            "label": "Erro",
+            "title": "O erro vira gradiente",
+            "description": "Como o alvo correto é 1.0, a rede ainda está subestimando a probabilidade. O loss e os gradientes mostram exatamente quais pesos precisam andar e em que direção.",
+            "formula": "loss = (0.5165 - 1.0)^2 = 0.2337",
+            "accent": "#f97316",
+            "activeSection": "metrics",
+            "inputs": [
+              { "label": "alvo", "value": "1.0000" },
+              { "label": "ŷ", "value": "0.5165" },
+              { "label": "diferença", "value": "-0.4835" },
+              { "label": "loss", "value": "0.2337" }
+            ],
+            "hidden": [
+              { "label": "d_h1", "value": "-0.0724" },
+              { "label": "d_h2", "value": "-0.0724" },
+              { "label": "grad v1", "value": "-0.0623" },
+              { "label": "grad v2", "value": "-0.0715" }
+            ],
+            "output": [
+              { "label": "d_out", "value": "-0.2415" },
+              { "label": "grad c", "value": "-0.2415" },
+              { "label": "classe", "value": "ainda fraca" }
+            ],
+            "metrics": [
+              { "label": "loss", "value": "0.2337" },
+              { "label": "d_out", "value": "-0.2415" },
+              { "label": "d_h1", "value": "-0.0724" },
+              { "label": "d_h2", "value": "-0.0724" }
+            ]
+          },
+          {
+            "label": "Atualiza",
+            "title": "Os pesos recebem o passo de ajuste",
+            "description": "Depois de calcular os gradientes, a descida do gradiente empurra os pesos para aumentar a confiança em exemplos positivos parecidos com este.",
+            "formula": "w1[0]: 0.2000 → 0.2084",
+            "accent": "#ff2e97",
+            "activeSection": "metrics",
+            "inputs": [
+              { "label": "idade", "value": "0.58" },
+              { "label": "pressão", "value": "0.78" },
+              { "label": "colesterol", "value": "0.82" },
+              { "label": "fumante", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "w1[0]", "value": "0.2084" },
+              { "label": "w2[0]", "value": "0.1084" },
+              { "label": "b1", "value": "-0.1855" },
+              { "label": "b2", "value": "-0.1855" }
+            ],
+            "output": [
+              { "label": "v1", "value": "0.3125" },
+              { "label": "v2", "value": "0.3143" },
+              { "label": "c", "value": "-0.0517" }
+            ],
+            "metrics": [
+              { "label": "Δw1[0]", "value": "+0.0084" },
+              { "label": "Δv1", "value": "+0.0125" },
+              { "label": "Δc", "value": "+0.0483" },
+              { "label": "próximo passo", "value": "repetir" }
+            ]
+          }
+        ],
+        "footer": "A coluna esquerda mostra a rede neural e as iterações do treino; a direita funciona como debugger do passo atual."
+      },
+      "en-us": {
+        "title": "Training debugger",
+        "subtitle": "On the left, the neural network receives the sample and shows the flow across layers. On the right, the debugger opens the real values for the current step with no markdown and no tabs.",
+        "inputSectionLabel": "Input",
+        "hiddenSectionLabel": "Hidden layer",
+        "outputSectionLabel": "Output",
+        "metricsSectionLabel": "Step metrics",
+        "iterationLabel": "Training iterations",
+        "previousLabel": "Previous",
+        "nextLabel": "Next",
+        "completionLabel": "After many epochs",
+        "completionDescription": "This small network converges to `MSE = 0.0001` on the teaching dataset and learns to separate negative and positive cases.",
+        "steps": [
+          {
+            "label": "Input",
+            "title": "The positive sample enters the network",
+            "description": "We use the fourth sample in the dataset, already normalized. At this moment the network has only received the input signals; there is still no prediction or gradient.",
+            "formula": "x = [0.58, 0.78, 0.82, 1.00], y = 1.00",
+            "accent": "#00e5ff",
+            "activeSection": "inputs",
+            "inputs": [
+              { "label": "age", "value": "0.58" },
+              { "label": "pressure", "value": "0.78" },
+              { "label": "cholesterol", "value": "0.82" },
+              { "label": "smoker", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "z1", "value": "-" },
+              { "label": "z2", "value": "-" },
+              { "label": "h1", "value": "-" },
+              { "label": "h2", "value": "-" }
+            ],
+            "output": [
+              { "label": "ŷ", "value": "-" },
+              { "label": "class", "value": "-" },
+              { "label": "target", "value": "1.00" }
+            ],
+            "metrics": [
+              { "label": "sample", "value": "4 / 6" },
+              { "label": "true class", "value": "positive" },
+              { "label": "lr", "value": "0.2" },
+              { "label": "total epochs", "value": "4000" }
+            ]
+          },
+          {
+            "label": "Hidden",
+            "title": "The hidden layer mixes the attributes",
+            "description": "With the initial weights, both hidden neurons activate. This is the first point where the network combines age, pressure, cholesterol, and smoker in a nonlinear way.",
+            "formula": "h1 = relu(0.2580), h2 = relu(0.2960)",
+            "accent": "#38bdf8",
+            "activeSection": "hidden",
+            "inputs": [
+              { "label": "age", "value": "0.58" },
+              { "label": "pressure", "value": "0.78" },
+              { "label": "cholesterol", "value": "0.82" },
+              { "label": "smoker", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "z1", "value": "0.2580" },
+              { "label": "z2", "value": "0.2960" },
+              { "label": "h1", "value": "0.2580" },
+              { "label": "h2", "value": "0.2960" }
+            ],
+            "output": [
+              { "label": "ŷ", "value": "-" },
+              { "label": "class", "value": "-" },
+              { "label": "target", "value": "1.00" }
+            ],
+            "metrics": [
+              { "label": "active neurons", "value": "2 / 2" },
+              { "label": "activation", "value": "ReLU" },
+              { "label": "hidden bias", "value": "-0.20" },
+              { "label": "hidden layer", "value": "2 units" }
+            ]
+          },
+          {
+            "label": "Output",
+            "title": "The final layer produces the probability",
+            "description": "The hidden activations go through the final combination and sigmoid. The network still predicts a little over 51%, so it gets the class right but with weak confidence.",
+            "formula": "ŷ = sigmoid(0.0662) = 0.5165",
+            "accent": "#66b84a",
+            "activeSection": "output",
+            "inputs": [
+              { "label": "age", "value": "0.58" },
+              { "label": "pressure", "value": "0.78" },
+              { "label": "cholesterol", "value": "0.82" },
+              { "label": "smoker", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "h1", "value": "0.2580" },
+              { "label": "h2", "value": "0.2960" },
+              { "label": "v1", "value": "0.3000" },
+              { "label": "v2", "value": "0.3000" }
+            ],
+            "output": [
+              { "label": "z3", "value": "0.0662" },
+              { "label": "ŷ", "value": "0.5165" },
+              { "label": "provisional class", "value": "yes" }
+            ],
+            "metrics": [
+              { "label": "target", "value": "1.0000" },
+              { "label": "raw error", "value": "-0.4835" },
+              { "label": "output range", "value": "0 to 1" },
+              { "label": "sigmoid", "value": "active" }
+            ]
+          },
+          {
+            "label": "Error",
+            "title": "The error becomes gradient",
+            "description": "Because the correct target is 1.0, the network is still underestimating the probability. The loss and gradients show exactly which weights need to move and in which direction.",
+            "formula": "loss = (0.5165 - 1.0)^2 = 0.2337",
+            "accent": "#f97316",
+            "activeSection": "metrics",
+            "inputs": [
+              { "label": "target", "value": "1.0000" },
+              { "label": "ŷ", "value": "0.5165" },
+              { "label": "difference", "value": "-0.4835" },
+              { "label": "loss", "value": "0.2337" }
+            ],
+            "hidden": [
+              { "label": "d_h1", "value": "-0.0724" },
+              { "label": "d_h2", "value": "-0.0724" },
+              { "label": "grad v1", "value": "-0.0623" },
+              { "label": "grad v2", "value": "-0.0715" }
+            ],
+            "output": [
+              { "label": "d_out", "value": "-0.2415" },
+              { "label": "grad c", "value": "-0.2415" },
+              { "label": "class", "value": "still weak" }
+            ],
+            "metrics": [
+              { "label": "loss", "value": "0.2337" },
+              { "label": "d_out", "value": "-0.2415" },
+              { "label": "d_h1", "value": "-0.0724" },
+              { "label": "d_h2", "value": "-0.0724" }
+            ]
+          },
+          {
+            "label": "Update",
+            "title": "The weights receive the update step",
+            "description": "After computing the gradients, gradient descent pushes the weights to increase confidence on positive examples similar to this one.",
+            "formula": "w1[0]: 0.2000 → 0.2084",
+            "accent": "#ff2e97",
+            "activeSection": "metrics",
+            "inputs": [
+              { "label": "age", "value": "0.58" },
+              { "label": "pressure", "value": "0.78" },
+              { "label": "cholesterol", "value": "0.82" },
+              { "label": "smoker", "value": "1.00" }
+            ],
+            "hidden": [
+              { "label": "w1[0]", "value": "0.2084" },
+              { "label": "w2[0]", "value": "0.1084" },
+              { "label": "b1", "value": "-0.1855" },
+              { "label": "b2", "value": "-0.1855" }
+            ],
+            "output": [
+              { "label": "v1", "value": "0.3125" },
+              { "label": "v2", "value": "0.3143" },
+              { "label": "c", "value": "-0.0517" }
+            ],
+            "metrics": [
+              { "label": "Δw1[0]", "value": "+0.0084" },
+              { "label": "Δv1", "value": "+0.0125" },
+              { "label": "Δc", "value": "+0.0483" },
+              { "label": "next action", "value": "repeat" }
+            ]
+          }
+        ],
+        "footer": "The left column shows the neural network and training iterations; the right column works like a debugger for the current step."
+      }
+    }
+  }
+}
