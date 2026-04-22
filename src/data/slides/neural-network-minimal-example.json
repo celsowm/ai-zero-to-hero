@@ -3,11 +3,11 @@
   "type": "custom",
   "content": {
     "pt-br": {
-      "title": "Rede Neural: debugger de treino",
+      "title": "Rede Neural: exemplo mínimo didático",
       "body": ""
     },
     "en-us": {
-      "title": "Neural Network: training debugger",
+      "title": "Neural Network: didactic minimal example",
       "body": ""
     }
   },
@@ -15,31 +15,54 @@
     "id": "neural-network-step-debugger",
     "copy": {
       "pt-br": {
-        "title": "Debugger de treino",
-        "subtitle": "Treine a rede amostra por amostra e veja os pesos mudando em tempo real.",
+        "title": "Exemplo mínimo didático",
+        "subtitle": "Treine uma rede 4→3→1 amostra por amostra e acompanhe forward, backprop e atualização de pesos sem hardcode de arquitetura.",
         "featureNames": ["idade", "pressão", "colesterol", "fumante"],
-        "learningRate": 0.2,
+        "architecture": {
+          "inputSize": 4,
+          "hiddenSize": 3,
+          "outputSize": 1,
+          "hiddenActivation": "sigmoid",
+          "outputActivation": "sigmoid",
+          "label": "4→3(sigmoid)→1(sigmoid)"
+        },
+        "learningRate": 0.5,
         "initialWeights": {
-          "w1": [0.2, 0.1, 0.2, 0.1],
-          "w2": [0.1, 0.2, 0.1, 0.2],
-          "b1": -0.2,
-          "b2": -0.2,
-          "v1": 0.3,
-          "v2": 0.3,
-          "c": -0.1
+          "inputToHidden": [
+            [0.35, -0.10, 0.25, 0.05],
+            [0.10, 0.40, -0.15, 0.20],
+            [-0.20, 0.15, 0.30, 0.25]
+          ],
+          "hiddenBiases": [0.05, -0.10, 0.08],
+          "hiddenToOutput": [0.45, -0.20, 0.35],
+          "outputBias": -0.12
         },
         "labels": {
           "inputLayer": "ENTRADA",
           "hiddenLayer": "OCULTA",
           "outputLayer": "SAÍDA",
-          "codeTitle": "Código Python"
+          "codeTitle": "Código Python",
+          "sampleLabel": "Amostra",
+          "lossLabel": "Loss",
+          "predictionLabel": "Predição final (ŷ)",
+          "targetLabel": "Alvo",
+          "finalClassLabel": "Classe",
+          "stepButton": "Step",
+          "playButton": "Play",
+          "pauseButton": "Pause",
+          "resetButton": "Reset",
+          "speedSample": "1×",
+          "speedEpoch": "6×",
+          "speedFast": "300×",
+          "lossHistoryTitle": "Histórico de Loss",
+          "phaseTitle": "Entenda o passo"
         },
-        "pythonCode": "# 1. Inicialização (Pesos aleatórios)\nw1 = [0.2, 0.1, 0.2, 0.1]; b1 = -0.2\nw2 = [0.1, 0.2, 0.1, 0.2]; b2 = -0.2\nv = [0.3, 0.3]; c = -0.1\n\n# 2. Dataset: [idade, pressão, colest, fumo]\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoca in range(4000):\n    for x, y in dados:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v[0]*h1 + v[1]*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v[0] * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v[1] * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v[0] -= lr * d_z3 * h1\n        v[1] -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Fim do Treino. Acurácia: {acc*100}%')",
+        "pythonCode": "import math\nimport random\n\nrandom.seed(0)\n\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1),\n]\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef dsigmoid(y):\n    return y * (1 - y)\n\nw1 = [[random.uniform(-1, 1) for _ in range(4)] for _ in range(3)]\nb1 = [0.0, 0.0, 0.0]\nw2 = [random.uniform(-1, 1) for _ in range(3)]\nb2 = 0.0\n\ndef forward(x):\n    h = []\n    for j in range(3):\n        z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]\n        h.append(sigmoid(z))\n    z_out = sum(w2[j] * h[j] for j in range(3)) + b2\n    y_hat = sigmoid(z_out)\n    return h, y_hat\n\nfor epoca in range(8000):\n    for x, alvo in dados:\n        h, y_hat = forward(x)\n        delta_out = (y_hat - alvo) * dsigmoid(y_hat)\n        delta_h = [\n            dsigmoid(h[j]) * w2[j] * delta_out\n            for j in range(3)\n        ]\n        for j in range(3):\n            w2[j] -= 0.5 * delta_out * h[j]\n        b2 -= 0.5 * delta_out\n        for j in range(3):\n            for i in range(4):\n                w1[j][i] -= 0.5 * delta_h[j] * x[i]\n            b1[j] -= 0.5 * delta_h[j]",
         "codeHighlightRanges": {
-          "init": [1, 15],
-          "forward": [19, 25],
-          "backprop": [27, 31],
-          "update": [33, 40]
+          "init": [1, 22],
+          "forward": [24, 30],
+          "backprop": [34, 39],
+          "update": [40, 46]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -49,54 +72,77 @@
           { "inputs": [0.67, 0.84, 0.88, 1.0], "target": 1.0 },
           { "inputs": [0.73, 0.90, 0.93, 1.0], "target": 1.0 }
         ],
-        "totalEpochs": 4000,
+        "totalEpochs": 8000,
         "convergenceThreshold": 0.001,
         "trainingLabels": {
           "epochLabel": "Época",
           "mseLabel": "MSE",
           "accuracyLabel": "Acurácia",
-          "archLabel": "4→2(ReLU)→1(σ)",
+          "archLabel": "Arquitetura",
           "convergenceLabel": "Convergiu!"
         },
         "phaseExplanations": {
-          "init": "Nesta fase preparatória, os pesos w e vieses b são inicializados com valores aleatórios calibrados. Isso quebra a simetria, permitindo que neurônios diferentes aprendam características distintas. Carregamos o dataset normalizado para evitar que o sinal se perca ou exploda logo no início.",
-          "forward": "O sinal flui da entrada para a saída. Cada neurônio calcula z = Σ(w_i · x_i) + b. Na camada oculta, aplicamos a ReLU (max(0, z)), que introduz não-linearidade. Na saída, a Sigmoid mapeia o valor para [0, 1], interpretado como a probabilidade da classe.",
-          "backprop": "Usamos a Regra da Cadeia para calcular o impacto de cada peso no erro total. Calculamos as derivadas parciais: ∂Loss/∂ŷ multiplicada pela derivada da Sigmoid, e propagamos esse 'gradiente de erro' para trás, determinando a contribuição de cada neurônio oculto.",
-          "update": "Aplicamos o Gradiente Descendente: w = w - η · ∇w. Aqui, η é a Taxa de Aprendizado. Subtraímos uma fração do gradiente dos pesos atuais para 'descer' na curva de erro, buscando o mínimo global da função de custo MSE (Mean Squared Error)."
+          "init": "Nesta fase ainda nao existe previsao nem erro: a rede so recebe sua configuracao inicial. O que voce esta vendo sao duas estruturas principais: a matriz `inputToHidden`, que diz quanto cada entrada influencia cada neuronio oculto, e o vetor `hiddenToOutput`, que diz quanto cada ativacao oculta influencia a saida final.\n\nOs vieses (`hiddenBiases` e `outputBias`) funcionam como deslocamentos somados antes da sigmoid. Eles permitem que um neuronio aprenda mesmo quando as entradas sao pequenas ou zero. Sem essa inicializacao, todos os neuronios poderiam comecar identicos e aprender exatamente a mesma coisa, o que reduz muito a capacidade da rede.",
+          "forward": "Aqui a amostra atual percorre a rede da esquerda para a direita. Para cada neuronio oculto, o modelo calcula uma soma ponderada `z = Σ(w·x) + b`: cada entrada e multiplicada pelo seu peso, todas essas contribuicoes sao somadas, e depois o vies e acrescentado. Os valores `z1`, `z2` e `z3` do painel mostram exatamente essas somas antes da ativacao.\n\nEm seguida, a sigmoid transforma cada `z` em uma ativacao entre 0 e 1. Isso produz `h1`, `h2` e `h3`, que podem ser lidos como sinais intermediarios que resumem a amostra original. A camada de saida repete o mesmo processo sobre essas ativacoes ocultas e gera `ŷ`. Esse `ŷ` ainda nao diz se a rede esta certa ou errada; ele so responde: \"com os pesos atuais, quao forte a rede acredita na classe 1?\"",
+          "backprop": "Agora a rede compara a previsao `ŷ` com o alvo real `y`. A diferenca entre os dois aparece primeiro como erro na saida e, depois, vira gradiente. Esse gradiente responde a pergunta central do treino: \"se eu mudar um peso um pouquinho, o erro sobe ou desce?\". O termo `d_out` mede quanto a saida final esta contribuindo para o erro naquele instante.\n\nA partir dele, o erro e propagado para tras. Cada neuronio oculto recebe uma parte desse sinal de erro proporcional ao peso que o conecta com a saida e tambem a derivada da sigmoid naquele ponto. Por isso os `d_h1`, `d_h2` e `d_h3` quase nunca sao iguais: cada neuronio oculto participou de forma diferente na previsao final e, portanto, precisa ser corrigido em intensidade diferente.",
+          "update": "Com os gradientes calculados, a rede finalmente altera seus parametros. A regra e sempre a mesma: `novo_parametro = parametro_atual - learning_rate × gradiente`. Se um peso estava empurrando a previsao na direcao errada, o gradiente o puxa de volta; se estava ajudando, a atualizacao tende a reforcar esse comportamento.\n\nNo painel voce esta vendo exatamente esse antes-e-depois. Quando um valor muda pouco, significa que sua contribuicao para o erro daquela amostra foi pequena. Quando muda mais, significa que ele teve participacao forte no erro atual. Ao repetir esse ciclo milhares de vezes, a rede deixa de responder de forma quase aleatoria e passa a produzir probabilidades alinhadas com os padroes do dataset."
         },
         "tooltips": {
-          "input": "Camada de Entrada: Representa uma característica (feature) do paciente.",
-          "hidden": "Neurônio Oculto: Aplica a função de ativação ReLU. Se o sinal for negativo, ele bloqueia (zero).",
-          "output": "Neurônio de Saída: Aplica a função Sigmoid para dar uma probabilidade entre 0 e 1.",
-          "weight": "Peso (Sinapse): Multiplica o sinal que passa por aqui. No treino, este valor é ajustado."
+          "input": "Camada de entrada: cada nó representa uma feature normalizada do paciente.",
+          "hidden": "Neurônio oculto: calcula uma combinação linear e aplica sigmoid.",
+          "output": "Neurônio de saída: produz a probabilidade prevista para a classe positiva.",
+          "weight": "Peso sináptico: valor aprendido por gradiente descendente."
         }
       },
       "en-us": {
-        "title": "Training debugger",
-        "subtitle": "Train the network sample by sample and watch weights change in real time.",
+        "title": "Didactic minimal example",
+        "subtitle": "Train a 4→3→1 network sample by sample and inspect forward pass, backpropagation, and weight updates without architecture hardcoding.",
         "featureNames": ["age", "pressure", "cholesterol", "smoker"],
-        "learningRate": 0.2,
+        "architecture": {
+          "inputSize": 4,
+          "hiddenSize": 3,
+          "outputSize": 1,
+          "hiddenActivation": "sigmoid",
+          "outputActivation": "sigmoid",
+          "label": "4→3(sigmoid)→1(sigmoid)"
+        },
+        "learningRate": 0.5,
         "initialWeights": {
-          "w1": [0.2, 0.1, 0.2, 0.1],
-          "w2": [0.1, 0.2, 0.1, 0.2],
-          "b1": -0.2,
-          "b2": -0.2,
-          "v1": 0.3,
-          "v2": 0.3,
-          "c": -0.1
+          "inputToHidden": [
+            [0.35, -0.10, 0.25, 0.05],
+            [0.10, 0.40, -0.15, 0.20],
+            [-0.20, 0.15, 0.30, 0.25]
+          ],
+          "hiddenBiases": [0.05, -0.10, 0.08],
+          "hiddenToOutput": [0.45, -0.20, 0.35],
+          "outputBias": -0.12
         },
         "labels": {
           "inputLayer": "INPUT",
           "hiddenLayer": "HIDDEN",
           "outputLayer": "OUTPUT",
-          "codeTitle": "Python code"
+          "codeTitle": "Python code",
+          "sampleLabel": "Sample",
+          "lossLabel": "Loss",
+          "predictionLabel": "Final prediction (ŷ)",
+          "targetLabel": "Target",
+          "finalClassLabel": "Class",
+          "stepButton": "Step",
+          "playButton": "Play",
+          "pauseButton": "Pause",
+          "resetButton": "Reset",
+          "speedSample": "1×",
+          "speedEpoch": "6×",
+          "speedFast": "300×",
+          "lossHistoryTitle": "Loss history",
+          "phaseTitle": "Understand the step"
         },
-        "pythonCode": "# 1. Initialization (Random weights)\nw1 = [0.2, 0.1, 0.2, 0.1]; b1 = -0.2\nw2 = [0.1, 0.2, 0.1, 0.2]; b2 = -0.2\nv = [0.3, 0.3]; c = -0.1\n\n# 2. Dataset: [age, pressure, cholest, smoking]\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1)\n]\n\nfor epoch in range(4000):\n    for x, y in data:\n        # --- FORWARD PASS ---\n        z1 = w1[0]*x[0] + w1[1]*x[1] + w1[2]*x[2] + w1[3]*x[3] + b1\n        h1 = max(0, z1)\n        z2 = w2[0]*x[0] + w2[1]*x[1] + w2[2]*x[2] + w2[3]*x[3] + b2\n        h2 = max(0, z2)\n        z3 = v[0]*h1 + v[1]*h2 + c\n        y_hat = 1 / (1 + exp(-z3))\n\n        # --- BACKPROP ---\n        d_out = y_hat - y\n        d_z3  = d_out * y_hat * (1 - y_hat)\n        d_z1 = d_z3 * v[0] * (1 if z1 > 0 else 0)\n        d_z2 = d_z3 * v[1] * (1 if z2 > 0 else 0)\n\n        # --- UPDATE ---\n        for i in range(4):\n            w1[i] -= lr * d_z1 * x[i]\n            w2[i] -= lr * d_z2 * x[i]\n        v[0] -= lr * d_z3 * h1\n        v[1] -= lr * d_z3 * h2\n        c  -= lr * d_z3\n\nprint(f'Training Done. Accuracy: {acc*100}%')",
+        "pythonCode": "import math\nimport random\n\nrandom.seed(0)\n\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1),\n]\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef dsigmoid(y):\n    return y * (1 - y)\n\nw1 = [[random.uniform(-1, 1) for _ in range(4)] for _ in range(3)]\nb1 = [0.0, 0.0, 0.0]\nw2 = [random.uniform(-1, 1) for _ in range(3)]\nb2 = 0.0\n\ndef forward(x):\n    h = []\n    for j in range(3):\n        z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]\n        h.append(sigmoid(z))\n    z_out = sum(w2[j] * h[j] for j in range(3)) + b2\n    y_hat = sigmoid(z_out)\n    return h, y_hat\n\nfor epoch in range(8000):\n    for x, target in data:\n        h, y_hat = forward(x)\n        delta_out = (y_hat - target) * dsigmoid(y_hat)\n        delta_h = [\n            dsigmoid(h[j]) * w2[j] * delta_out\n            for j in range(3)\n        ]\n        for j in range(3):\n            w2[j] -= 0.5 * delta_out * h[j]\n        b2 -= 0.5 * delta_out\n        for j in range(3):\n            for i in range(4):\n                w1[j][i] -= 0.5 * delta_h[j] * x[i]\n            b1[j] -= 0.5 * delta_h[j]",
         "codeHighlightRanges": {
-          "init": [1, 15],
-          "forward": [19, 25],
-          "backprop": [27, 31],
-          "update": [33, 40]
+          "init": [1, 22],
+          "forward": [24, 30],
+          "backprop": [34, 39],
+          "update": [40, 46]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -106,26 +152,26 @@
           { "inputs": [0.67, 0.84, 0.88, 1.0], "target": 1.0 },
           { "inputs": [0.73, 0.90, 0.93, 1.0], "target": 1.0 }
         ],
-        "totalEpochs": 4000,
+        "totalEpochs": 8000,
         "convergenceThreshold": 0.001,
         "trainingLabels": {
           "epochLabel": "Epoch",
           "mseLabel": "MSE",
           "accuracyLabel": "Accuracy",
-          "archLabel": "4→2(ReLU)→1(σ)",
+          "archLabel": "Architecture",
           "convergenceLabel": "Converged!"
         },
         "phaseExplanations": {
-          "init": "In this preparatory phase, weights w and biases b are initialized with calibrated random values. This breaks symmetry, allowing different neurons to learn distinct features. We load the normalized dataset to prevent the signal from vanishing or exploding early on.",
-          "forward": "Signal flows from input to output. Each neuron calculates z = Σ(w_i · x_i) + b. In the hidden layer, we apply ReLU (max(0, z)), introducing non-linearity. At the output, Sigmoid maps the value to [0, 1], interpreted as the class probability.",
-          "backprop": "We use the Chain Rule to calculate each weight's impact on total error. We compute partial derivatives: ∂Loss/∂ŷ multiplied by the Sigmoid derivative, and propagate this 'error gradient' backward, determining each hidden neuron's contribution.",
-          "update": "We apply Gradient Descent: w = w - η · ∇w. Here, η is the Learning Rate. We subtract a fraction of the gradient from current weights to 'descend' the error curve, seeking the global minimum of the MSE (Mean Squared Error) cost function."
+          "init": "At this stage there is still no prediction and no error: the network is only receiving its initial configuration. What you are seeing are two main parameter groups: the `inputToHidden` matrix, which says how much each input affects each hidden neuron, and the `hiddenToOutput` vector, which says how much each hidden activation affects the final output.\n\nThe biases (`hiddenBiases` and `outputBias`) act like offsets added before sigmoid. They allow a neuron to learn even when inputs are small or zero. Without this initialization, multiple neurons could start identically and learn the same thing, which weakens the model considerably.",
+          "forward": "Here the current sample moves through the network from left to right. For each hidden neuron, the model computes a weighted sum `z = Σ(w·x) + b`: every input is multiplied by its weight, those contributions are added together, and then the bias is added. The `z1`, `z2`, and `z3` values shown in the panel are exactly those pre-activation sums.\n\nNext, sigmoid converts each `z` into an activation between 0 and 1. That produces `h1`, `h2`, and `h3`, which you can read as intermediate signals summarizing the original sample. The output layer repeats the same pattern over those hidden activations and generates `ŷ`. That `ŷ` does not yet say whether the network is right or wrong; it only answers: \"with the current weights, how strongly does the network believe in class 1?\"",
+          "backprop": "Now the network compares the prediction `ŷ` with the real target `y`. Their difference first appears as output error and then becomes gradient. This gradient answers the central training question: \"if I change a weight a tiny bit, will the error go up or down?\". The `d_out` term measures how much the final output is contributing to the current error.\n\nFrom there, the error is propagated backward. Each hidden neuron receives part of that error signal in proportion to the weight connecting it to the output and also the local sigmoid derivative. That is why `d_h1`, `d_h2`, and `d_h3` are usually different: each hidden neuron participated differently in the final prediction and therefore must be corrected with a different strength.",
+          "update": "With the gradients computed, the network finally changes its parameters. The rule is always the same: `new_parameter = current_parameter - learning_rate × gradient`. If a weight was pushing the prediction in the wrong direction, the gradient pulls it back; if it was helping, the update tends to reinforce that behavior.\n\nIn the panel you are seeing the exact before-and-after values. When a parameter changes only a little, it means its contribution to the current sample's error was small. When it changes more, it means it played a stronger role in the current mistake. Repeating this cycle thousands of times is what turns the network from nearly random behavior into probabilities that match the dataset patterns."
         },
         "tooltips": {
-          "input": "Input Layer: Represents a patient's characteristic (feature).",
-          "hidden": "Hidden Neuron: Applies the ReLU activation. If the signal is negative, it blocks it (zero).",
-          "output": "Output Neuron: Applies the Sigmoid function to give a probability between 0 and 1.",
-          "weight": "Weight (Synapse): Multiplies the signal passing through. During training, this value is adjusted."
+          "input": "Input layer: each node represents one normalized patient feature.",
+          "hidden": "Hidden neuron: computes a linear combination and applies sigmoid.",
+          "output": "Output neuron: produces the predicted probability for the positive class.",
+          "weight": "Synaptic weight: a value learned through gradient descent."
         }
       }
     }

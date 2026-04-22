@@ -70,63 +70,49 @@ export interface NeuronArchitectureAnimatedCopy {
   legend: NeuronArchitectureAnimatedLegendItemCopy[];
 }
 
-export interface NeuralNetworkTrainingDebuggerVisualCopy {
-  title: string;
-  subtitle: string;
-  datasetLabel: string;
-  archLabel: string;
-  playLabel: string;
-  pauseLabel: string;
-  resetLabel: string;
-  speedLabel: string;
-  epochLabel: string;
-  lossLabel: string;
-  statusTraining: string;
-  statusConverged: string;
-  statusDone: string;
-  statusPaused: string;
-  convergenceThreshold: number;
-  totalEpochs: number;
-  learningRate: number;
-  dataset: Array<{ inputs: number[]; target: number }>;
-  initialWeights: {
-    w1: number[];
-    w2: number[];
-    b1: number;
-    b2: number;
-    v1: number;
-    v2: number;
-    c: number;
-  };
-  inputSectionLabel: string;
-  hiddenSectionLabel: string;
-  outputSectionLabel: string;
-  metricsSectionLabel: string;
-  featureNames: string[];
+export interface NeuralNetworkVisualWeightsCopy {
+  inputToHidden: number[][];
+  hiddenBiases: number[];
+  hiddenToOutput: number[];
+  outputBias: number;
 }
 
 export interface NeuralNetworkStepDebuggerVisualCopy {
   title: string;
   subtitle: string;
   featureNames: string[];
-  learningRate: number;
-  initialWeights: {
-    w1: number[];
-    w2: number[];
-    b1: number;
-    b2: number;
-    v1: number;
-    v2: number;
-    c: number;
+  architecture: {
+    inputSize: number;
+    hiddenSize: number;
+    outputSize: 1;
+    hiddenActivation: 'sigmoid';
+    outputActivation: 'sigmoid';
+    label: string;
   };
+  learningRate: number;
+  initialWeights: NeuralNetworkVisualWeightsCopy;
   labels: {
     inputLayer: string;
     hiddenLayer: string;
     outputLayer: string;
     codeTitle: string;
+    sampleLabel: string;
+    lossLabel: string;
+    predictionLabel: string;
+    targetLabel: string;
+    finalClassLabel: string;
+    stepButton: string;
+    playButton: string;
+    pauseButton: string;
+    resetButton: string;
+    speedSample: string;
+    speedEpoch: string;
+    speedFast: string;
+    lossHistoryTitle: string;
+    phaseTitle: string;
   };
   pythonCode: string;
-  codeHighlightRanges: Record<string, [number, number]>;
+  codeHighlightRanges: Record<'init' | 'forward' | 'backprop' | 'update', [number, number]>;
   dataset: Array<{ inputs: number[]; target: number }>;
   totalEpochs: number;
   convergenceThreshold: number;

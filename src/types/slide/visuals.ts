@@ -51,7 +51,6 @@ import type {
 import type {
   BiologicalVsComputationalNeuronCopy,
   NeuralNetworkStepDebuggerVisualCopy,
-  NeuralNetworkTrainingDebuggerVisualCopy,
   NeuronArchitectureAnimatedCopy,
 } from './neural-networks';
 
@@ -68,11 +67,6 @@ export interface NeuronArchitectureAnimatedVisual {
 export interface NeuralNetworkStepDebuggerVisual {
   id: 'neural-network-step-debugger';
   copy: Record<Language, NeuralNetworkStepDebuggerVisualCopy>;
-}
-
-export interface NeuralNetworkTrainingDebuggerVisual {
-  id: 'neural-network-training-debugger';
-  copy: Record<Language, NeuralNetworkTrainingDebuggerVisualCopy>;
 }
 
 export interface InferenceDiagramVisual {
@@ -330,8 +324,7 @@ export type SlideVisual =
   | RoadToMiniTransformerVisual
   | NeuronArchitectureAnimatedVisual
   | BiologicalVsComputationalNeuronVisual
-  | NeuralNetworkStepDebuggerVisual
-  | NeuralNetworkTrainingDebuggerVisual;
+  | NeuralNetworkStepDebuggerVisual;
 
 export interface SlideOptions {
   columns?: number;

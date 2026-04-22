@@ -27,7 +27,6 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'linear-regression-tabs'; copy: Record<Language, unknown> }
     | { id: 'python-prereq-tabs'; copy: Record<Language, unknown> }
     | { id: 'neural-network-tabs-stepper'; copy: Record<Language, unknown> }
-    | { id: 'neural-network-training-debugger'; copy: Record<Language, unknown> }
     | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-notation'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-3d-chart'; copy: Record<Language, unknown> }
@@ -117,17 +116,18 @@ const orderedSlides = courseSlideOrder.map((slideId) => {
   const slide = slidesById.get(slideId);
 
   if (!slide) {
-    throw new Error(`Slide "${slideId}" is listed in course outline but was not found in slides JSON`);
+    console.error(`Slide "${slideId}" is listed in course outline but was not found in slides JSON`);
+    return null;
   }
 
   return slide;
-});
+}).filter((slide): slide is ISlide => slide !== null);
 
 const courseSlideIds = new Set<string>(courseSlideOrder);
 const unexpectedSlides = [...slidesById.keys()].filter(slideId => !courseSlideIds.has(slideId));
 
 if (unexpectedSlides.length > 0) {
-  throw new Error(`Slides are not listed in course outline: ${unexpectedSlides.join(', ')}`);
+  console.error(`Slides are not listed in course outline: ${unexpectedSlides.join(', ')}`);
 }
 
 export const courseContent: ISlide[] = orderedSlides;

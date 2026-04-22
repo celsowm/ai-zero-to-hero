@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { LanguageModelingDiagramCopy } from '../../../types/slide';
 
 interface LanguageModelingDiagramProps {
@@ -6,12 +6,6 @@ interface LanguageModelingDiagramProps {
 }
 
 export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = ({ copy }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Parse options like "mat (85%)"
   const parsedOptions = copy.options.map(opt => {
     const match = opt.match(/(.+)\s*\((\d+)%\)/);
@@ -77,9 +71,9 @@ export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = (
             alignItems: 'center',
             boxShadow: '0 4px 12px rgba(15, 26, 45, 0.03)',
             border: i === 0 ? '2px solid #00e5ff' : '1px solid #eef2f8',
-            transform: mounted ? 'translateX(0)' : 'translateX(20px)',
-            opacity: mounted ? 1 : 0,
-            transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.15}s`,
+            transform: 'translateX(0)',
+            opacity: 1,
+            animation: `lm-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.15}s both`,
             position: 'relative',
             overflow: 'hidden'
           }}>
@@ -87,11 +81,11 @@ export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = (
             <div style={{
               position: 'absolute',
               left: 0, top: 0, bottom: 0,
-              width: `${mounted ? opt.prob : 0}%`,
+              width: `${opt.prob}%`,
               background: i === 0 
                 ? 'linear-gradient(90deg, rgba(0, 229, 255, 0.1) 0%, rgba(0, 229, 255, 0.2) 100%)'
                 : 'linear-gradient(90deg, rgba(143, 178, 216, 0.1) 0%, rgba(143, 178, 216, 0.2) 100%)',
-              transition: 'width 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s',
+              animation: `lm-grow-width 1s cubic-bezier(0.16, 1, 0.3, 1) ${0.5 + i * 0.1}s both`,
               zIndex: 0
             }} />
             
@@ -121,6 +115,13 @@ export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = (
           0% { opacity: 0.4; }
           50% { opacity: 1; box-shadow: 0 4px 12px rgba(0, 229, 255, 0.4); }
           100% { opacity: 0.4; }
+        }
+        @keyframes lm-slide-in {
+          from { opacity: 0; transform: translateX(20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes lm-grow-width {
+          from { width: 0; }
         }
       `}} />
     </div>

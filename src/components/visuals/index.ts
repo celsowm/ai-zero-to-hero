@@ -47,7 +47,6 @@ export { WhyTransformersWork } from './transformers/WhyTransformersWork';
 export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';
 export { BiologicalVsComputationalNeuron } from './neural-networks/BiologicalVsComputationalNeuron';
 export { NeuronArchitectureAnimated } from './neural-networks/NeuronArchitectureAnimated';
-export { NeuralNetworkTrainingDebugger } from './neural-networks/NeuralNetworkTrainingDebugger';
 export { LossChart } from './neural-networks/LossChart';
 export { TrainingControls } from './neural-networks/TrainingControls';
 export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDebugger';

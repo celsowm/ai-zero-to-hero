@@ -43,7 +43,6 @@ import {
   WhyTransformersWork,
   RoadToMiniTransformer,
   BiologicalVsComputationalNeuron,
-  NeuralNetworkTrainingDebugger,
   NeuralNetworkStepDebugger,
   NeuronArchitectureAnimated,
   PythonPrereqTabsVisual,
@@ -144,8 +143,6 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <NeuronArchitectureAnimated copy={visual.copy[language]} />;
     case 'biological-vs-computational-neuron':
       return <BiologicalVsComputationalNeuron copy={visual.copy[language]} />;
-    case 'neural-network-training-debugger':
-      return <NeuralNetworkTrainingDebugger copy={visual.copy[language]} />;
     case 'neural-network-step-debugger':
       return <NeuralNetworkStepDebugger copy={visual.copy[language]} />;
     default:

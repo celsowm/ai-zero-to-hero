@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { SoftmaxVisualizerCopy } from '../../../types/slide';
 
 interface SoftmaxVisualizerProps {
@@ -6,12 +6,6 @@ interface SoftmaxVisualizerProps {
 }
 
 export const SoftmaxVisualizer: React.FC<SoftmaxVisualizerProps> = ({ copy }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const data = [
     { word: 'the', count: 32, prob: 84 },
     { word: 'a', count: 4, prob: 11 },
@@ -93,9 +87,9 @@ export const SoftmaxVisualizer: React.FC<SoftmaxVisualizerProps> = ({ copy }) =>
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 padding: '12px', 
-                background: `linear-gradient(90deg, rgba(168, 85, 247, 0.2) ${mounted ? item.prob : 0}%, #334155 ${mounted ? item.prob : 0}%)`, 
+                background: `linear-gradient(90deg, rgba(168, 85, 247, 0.2) ${item.prob}%, #334155 ${item.prob}%)`, 
                 borderRadius: '8px',
-                transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s'
+                animation: `softmax-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.12}s both`
               }}>
                 <span style={{ fontWeight: '600' }}>{item.word}</span>
                 <span style={{ color: '#c084fc', fontWeight: '700' }}>{item.prob}%</span>
@@ -108,6 +102,12 @@ export const SoftmaxVisualizer: React.FC<SoftmaxVisualizerProps> = ({ copy }) =>
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes softmax-fade-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 };

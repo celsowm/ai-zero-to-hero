@@ -112,11 +112,6 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    setActiveResidualIndex(0);
-    setIsAutoPlaying(true);
-  }, [copy.title]);
-
-  useEffect(() => {
     if (!hasResidualTimeline || !isAutoPlaying) {
       return;
     }
@@ -191,10 +186,9 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
             <svg
               viewBox="0 0 520 300"
               width="100%"
-              height="auto"
               role="img"
               aria-label={copy.chart.lineLabel}
-              style={{ display: 'block' }}
+              style={{ display: 'block', height: 'auto' }}
             >
               <defs>
                 <linearGradient id="lr-line-gradient" x1="0" y1="0" x2="1" y2="1">
@@ -488,7 +482,7 @@ export const LinearRegressionTabsVisual: React.FC<LinearRegressionTabsVisualProp
       />
 
       <TabbedPanelSurface>
-        {activeTab === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : <GraphPanel copy={copy.graphPanel} />}
+        {activeTab === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : <GraphPanel key={copy.graphPanel.title} copy={copy.graphPanel} />}
       </TabbedPanelSurface>
     </div>
   );

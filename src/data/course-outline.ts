@@ -25,7 +25,6 @@ export const courseSlideOrder = [
   'neural-network-neuron-relu',
   'nn-problem',
   'neural-network-minimal-example',
-  'neural-network-training-debugger',
   'neural-network-prediction',
   'neural-network-types-overview',
   'neural-network-to-language-modeling',

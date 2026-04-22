@@ -173,7 +173,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
             {children}
           </div>
         ),
-        code: ({ className, children, inline, ...rest }: { className?: string; children?: React.ReactNode; inline?: boolean; [key: string]: any }) => {
+        code: ({
+          className,
+          children,
+          inline,
+          ...rest
+        }: React.ComponentPropsWithoutRef<'code'> & {
+          inline?: boolean;
+        }) => {
           const match = /language-(\w+)/.exec(className || '');
           const isBlock = !inline && match;
 
