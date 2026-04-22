@@ -40,17 +40,18 @@ function fmt(v: number) {
   return v.toFixed(4).replace(/0+$/, '').replace(/\.$/, '');
 }
 
-function zone(z: number): { label: string; color: string } {
+function zone(z: number): { key: 'center' | 'transition' | 'tail'; color: string } {
   const abs = Math.abs(z);
-  if (abs < 1.5) return { label: 'centro — gradiente forte', color: '#16e0ff' };
-  if (abs < 3.5) return { label: 'transicao — gradiente moderado', color: '#f0c040' };
-  return { label: 'cauda — gradiente fraco', color: '#ff5da2' };
+  if (abs < 1.5) return { key: 'center', color: '#16e0ff' };
+  if (abs < 3.5) return { key: 'transition', color: '#f0c040' };
+  return { key: 'tail', color: '#ff5da2' };
 }
 
 export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
   const [z, setZ] = useState(0.4);
   const sig = sigmoid(z);
   const deriv = dsigmoid(z);
+  const equivalent = sig * (1 - sig);
   const zoneInfo = zone(z);
   const curves = useMemo(() => ({ sig: path(sigmoid, 1), deriv: path(dsigmoid, 0.25) }), []);
 
@@ -87,6 +88,7 @@ export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
           <Readout label="z" value={z.toFixed(2)} color="#93a4bb" />
           <Readout label={copy.sigmoidLabel} value={sig.toFixed(4)} color="#16e0ff" />
           <Readout label={copy.derivativeLabel} value={fmt(deriv)} color="#ff5da2" />
+          <Readout label={copy.equivalenceLabel} value={fmt(equivalent)} color="#66b84a" />
           <div
             style={{
               padding: '4px 12px',
@@ -99,7 +101,7 @@ export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
               whiteSpace: 'nowrap',
             }}
           >
-            {zoneInfo.label}
+            {copy.zones[zoneInfo.key]}
           </div>
         </div>
       </div>
@@ -125,6 +127,10 @@ export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
           z={z}
           pointValue={deriv}
           ariaLabel={copy.ariaLabel}
+          referenceLine={{
+            value: 0.25,
+            label: copy.maxDerivativeLabel,
+          }}
         />
       </div>
 
@@ -156,7 +162,11 @@ const ChartPanel: React.FC<{
   z: number;
   pointValue: number;
   ariaLabel: string;
-}> = ({ title, accent, curvePath, maxY, yTicks, z, pointValue, ariaLabel }) => {
+  referenceLine?: {
+    value: number;
+    label: string;
+  };
+}> = ({ title, accent, curvePath, maxY, yTicks, z, pointValue, ariaLabel, referenceLine }) => {
   const px = xC(z);
   const py = yC(pointValue, maxY);
 
@@ -202,6 +212,15 @@ const ChartPanel: React.FC<{
               <text x={8} y={yC(t, maxY) + 4} fill="rgba(255,255,255,0.4)" fontSize="10">{fmt(t)}</text>
             </g>
           ))}
+
+          {referenceLine ? (
+            <g>
+              <line x1={PAD.left} x2={W - PAD.right} y1={yC(referenceLine.value, maxY)} y2={yC(referenceLine.value, maxY)} stroke="#66b84a" strokeDasharray="7 7" opacity="0.8" />
+              <text x={W - PAD.right - 4} y={yC(referenceLine.value, maxY) - 8} fill="#66b84a" fontSize="10" textAnchor="end">
+                {referenceLine.label}
+              </text>
+            </g>
+          ) : null}
 
           {/* zero axis */}
           <line x1={xC(0)} x2={xC(0)} y1={PAD.top} y2={H - PAD.bottom} stroke="rgba(255,255,255,0.18)" />

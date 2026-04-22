@@ -48,6 +48,7 @@ export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';
 export { BiologicalVsComputationalNeuron } from './neural-networks/BiologicalVsComputationalNeuron';
 export { NeuronArchitectureAnimated } from './neural-networks/NeuronArchitectureAnimated';
 export { ActivationFunctionsComparator } from './neural-networks/ActivationFunctionsComparator';
+export { SigmoidDeepDiveExplorer } from './neural-networks/SigmoidDeepDiveExplorer';
 export { SigmoidDerivativeExplorer } from './neural-networks/SigmoidDerivativeExplorer';
 export { FeedforwardFlowVisual } from './neural-networks/FeedforwardFlowVisual';
 export { BackpropSignalFlow } from './neural-networks/BackpropSignalFlow';

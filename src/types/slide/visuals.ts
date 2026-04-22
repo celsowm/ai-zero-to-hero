@@ -56,6 +56,7 @@ import type {
   NeuralNetworkTabsStepperCopy,
   NeuralNetworkStepDebuggerVisualCopy,
   NeuronArchitectureAnimatedCopy,
+  SigmoidDeepDiveExplorerCopy,
   SigmoidDerivativeExplorerCopy,
 } from './neural-networks';
 
@@ -72,6 +73,11 @@ export interface NeuronArchitectureAnimatedVisual {
 export interface ActivationFunctionsComparatorVisual {
   id: 'activation-functions-comparator';
   copy: Record<Language, ActivationFunctionsComparatorCopy>;
+}
+
+export interface SigmoidDeepDiveExplorerVisual {
+  id: 'sigmoid-deep-dive-explorer';
+  copy: Record<Language, SigmoidDeepDiveExplorerCopy>;
 }
 
 export interface SigmoidDerivativeExplorerVisual {
@@ -354,6 +360,7 @@ export type SlideVisual =
   | RoadToMiniTransformerVisual
   | NeuronArchitectureAnimatedVisual
   | ActivationFunctionsComparatorVisual
+  | SigmoidDeepDiveExplorerVisual
   | SigmoidDerivativeExplorerVisual
   | FeedforwardFlowVisual
   | BackpropSignalFlowVisual

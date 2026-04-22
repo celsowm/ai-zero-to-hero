@@ -6,13 +6,13 @@
   },
   "content": {
     "pt-br": {
-      "title": "Sigmoid e sua derivada: por que a rede aprende mais no meio",
-      "body": "Como o exemplo minimo usa **sigmoid** tanto na camada oculta quanto na saida, precisamos olhar para ela com mais cuidado.\n\n1. **A sigmoid transforma `z` em um valor entre `0` e `1`:**\n   - se `z` for muito negativo, a saida fica perto de `0`\n   - se `z` for muito positivo, a saida fica perto de `1`\n   - perto de `z = 0`, a curva muda mais rapido\n\n2. **Sua derivada pode ser escrita de forma compacta:**\n\n```txt\nsigmoid'(z) = sigmoid(z) * (1 - sigmoid(z))\n```\n\n3. **O que isso significa para treino:** a derivada e maior na parte central da curva e pequena nas pontas. Entao, quando um neuronio satura muito perto de `0` ou `1`, ele aprende mais devagar.\n\n4. **Conexao com o nosso codigo:** no exemplo minimo aparece `dsigmoid(y) = y * (1 - y)`. Repare que a funcao recebe **a ativacao `y`**, nao o `z` bruto. Isso funciona porque `y` ja e `sigmoid(z)`.\n\n> A sigmoid nao diz so qual e a saida do neuronio. Sua derivada tambem diz o quanto esse neuronio ainda consegue ser ajustado naquele ponto.\n\n### Intuicao curta\n- centro da curva: gradiente forte\n- extremidades: gradiente fraco\n- treino eficiente depende de ainda haver inclinacao local",
+      "title": "Sigmoid e sua derivada: onde o gradiente ainda esta vivo",
+      "body": "Depois de entender a formula da sigmoid, agora o foco muda: **como ela influencia o treino**.\n\n1. **A derivada pode ser escrita de forma muito compacta:**\n\n```txt\nsigmoid'(z) = sigmoid(z) * (1 - sigmoid(z))\n```\n\n2. **O pico acontece em `z = 0`:** nesse ponto, `sigmoid(z) = 0.5`, entao a derivada vira `0.5 * 0.5 = 0.25`. Esse e o maior valor possivel.\n\n3. **Nas pontas, a derivada cai:** quando a saida se aproxima muito de `0` ou `1`, o produto `y * (1 - y)` fica pequeno. Isso enfraquece o sinal de correcao no backpropagation.\n\n4. **Conexao direta com o nosso codigo:** no exemplo minimo usamos `dsigmoid(y) = y * (1 - y)`. A funcao recebe a ativacao `y`, nao o `z`, porque ja podemos reaproveitar a saida da sigmoid para calcular o gradiente local.\n\n> O ponto principal agora nao e so a forma da curva. E o quanto de inclinacao ainda resta para o erro conseguir ajustar os pesos.\n\n### Leitura pratica\n- em `z = 0`, o gradiente local esta no maximo\n- nas caudas, o gradiente encolhe\n- backpropagation forte depende de derivadas que ainda nao colapsaram",
       "codeExplanations": []
     },
     "en-us": {
-      "title": "Sigmoid and its derivative: why the network learns more in the middle",
-      "body": "Because the minimal example uses **sigmoid** in both the hidden layer and the output, we should inspect it more carefully.\n\n1. **Sigmoid maps `z` into a value between `0` and `1`:**\n   - if `z` is very negative, the output stays near `0`\n   - if `z` is very positive, the output stays near `1`\n   - near `z = 0`, the curve changes faster\n\n2. **Its derivative has a compact form:**\n\n```txt\nsigmoid'(z) = sigmoid(z) * (1 - sigmoid(z))\n```\n\n3. **What that means for training:** the derivative is larger in the middle of the curve and small at the tails. So when a neuron saturates close to `0` or `1`, it learns more slowly.\n\n4. **Connection to our code:** in the minimal example we use `dsigmoid(y) = y * (1 - y)`. Notice that the function receives the **activation `y`**, not the raw `z`. That works because `y` already equals `sigmoid(z)`.\n\n> Sigmoid does not only determine the neuron's output. Its derivative also tells us how adjustable that neuron still is at that point.\n\n### Short intuition\n- center of the curve: strong gradient\n- tails: weak gradient\n- efficient learning depends on having local slope left",
+      "title": "Sigmoid and its derivative: where the gradient is still alive",
+      "body": "After understanding the sigmoid formula, the focus now shifts to **how it affects training**.\n\n1. **Its derivative can be written in a very compact form:**\n\n```txt\nsigmoid'(z) = sigmoid(z) * (1 - sigmoid(z))\n```\n\n2. **The peak happens at `z = 0`:** at that point `sigmoid(z) = 0.5`, so the derivative becomes `0.5 * 0.5 = 0.25`. That is the largest value it can reach.\n\n3. **At the tails the derivative drops:** when the output gets very close to `0` or `1`, the product `y * (1 - y)` becomes small. That weakens the correction signal during backpropagation.\n\n4. **Direct connection to our code:** in the minimal example we use `dsigmoid(y) = y * (1 - y)`. The function receives the activation `y`, not `z`, because we can reuse the sigmoid output to compute the local gradient.\n\n> The key point now is not only the curve shape. It is how much slope is still left for the error signal to adjust the weights.\n\n### Practical reading\n- at `z = 0`, the local gradient is at its maximum\n- on the tails, the gradient shrinks\n- strong backpropagation depends on derivatives that have not collapsed yet",
       "codeExplanations": []
     }
   },
@@ -27,15 +27,22 @@
         "inputLabel": "z",
         "sigmoidLabel": "sigmoid(z)",
         "derivativeLabel": "sigmoid prime",
+        "equivalenceLabel": "y * (1 - y)",
         "formulaTitle": "Formula central",
         "formula": "sigmoid(z) = 1 / (1 + e^-z)",
         "derivativeFormula": "sigmoid prime = sigmoid(z) * (1 - sigmoid(z))",
+        "maxDerivativeLabel": "max = 0.25 em z = 0",
         "peakTitle": "Pico de aprendizado",
-        "peakBody": "Perto de `z = 0`, a sigmoid ainda esta inclinada. Isso torna a derivada maior e o gradiente mais informativo para atualizar os pesos.",
-        "saturationTitle": "Saturacao nas pontas",
-        "saturationBody": "Quando `z` vai muito para a esquerda ou para a direita, a curva fica quase plana. A saida muda pouco e a derivada cai.",
-        "trainingTitle": "Ligacao com o treinamento",
-        "trainingBody": "No backpropagation, a derivada atua como um multiplicador do sinal de erro. Se ela estiver pequena, a correcao que volta para os pesos tambem fica pequena."
+        "peakBody": "Em `z = 0`, a sigmoid vale `0.5`, entao a derivada vira `0.5 * 0.5 = 0.25`. Esse e o ponto em que o gradiente local carrega mais informacao.",
+        "saturationTitle": "Saturacao e gradiente fraco",
+        "saturationBody": "Quando `z` vai muito para a esquerda ou direita, a saida se aproxima de `0` ou `1`. O produto `y * (1 - y)` encolhe e o erro volta enfraquecido.",
+        "trainingTitle": "Conexao direta com dsigmoid(y)",
+        "trainingBody": "No nosso codigo, `dsigmoid(y)` recebe a ativacao ja calculada. Isso evita recalcular `sigmoid(z)` e mostra que o gradiente local pode ser obtido so com `y`.",
+        "zones": {
+          "center": "Centro: gradiente forte",
+          "transition": "Transicao: gradiente moderado",
+          "tail": "Cauda: gradiente fraco"
+        }
       },
       "en-us": {
         "ariaLabel": "Sigmoid and derivative explorer",
@@ -45,15 +52,22 @@
         "inputLabel": "z",
         "sigmoidLabel": "sigmoid(z)",
         "derivativeLabel": "sigmoid prime",
+        "equivalenceLabel": "y * (1 - y)",
         "formulaTitle": "Core formula",
         "formula": "sigmoid(z) = 1 / (1 + e^-z)",
         "derivativeFormula": "sigmoid prime = sigmoid(z) * (1 - sigmoid(z))",
+        "maxDerivativeLabel": "max = 0.25 at z = 0",
         "peakTitle": "Learning peak",
-        "peakBody": "Near `z = 0`, sigmoid still has noticeable slope. That makes the derivative larger and the gradient more informative for weight updates.",
-        "saturationTitle": "Saturation on the tails",
-        "saturationBody": "When `z` goes far to the left or right, the curve becomes almost flat. The output barely changes and the derivative drops.",
-        "trainingTitle": "Connection to training",
-        "trainingBody": "In backpropagation, the derivative acts as a multiplier on the error signal. If it is small, the correction flowing back to the weights also becomes small."
+        "peakBody": "At `z = 0`, sigmoid equals `0.5`, so the derivative becomes `0.5 * 0.5 = 0.25`. That is the point where the local gradient carries the most information.",
+        "saturationTitle": "Saturation and weak gradient",
+        "saturationBody": "When `z` moves far left or right, the output approaches `0` or `1`. The product `y * (1 - y)` shrinks and the returning error signal gets weaker.",
+        "trainingTitle": "Direct link to dsigmoid(y)",
+        "trainingBody": "In our code, `dsigmoid(y)` receives the already computed activation. That avoids recomputing `sigmoid(z)` and shows that the local gradient can be recovered from `y` alone.",
+        "zones": {
+          "center": "Center: strong gradient",
+          "transition": "Transition: moderate gradient",
+          "tail": "Tail: weak gradient"
+        }
       }
     }
   }

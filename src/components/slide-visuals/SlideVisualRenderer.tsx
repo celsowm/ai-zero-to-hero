@@ -46,6 +46,7 @@ import {
   NeuralNetworkStepDebugger,
   NeuronArchitectureAnimated,
   ActivationFunctionsComparator,
+  SigmoidDeepDiveExplorer,
   SigmoidDerivativeExplorer,
   FeedforwardFlowVisual,
   BackpropSignalFlow,
@@ -148,6 +149,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <NeuronArchitectureAnimated copy={visual.copy[language]} />;
     case 'activation-functions-comparator':
       return <ActivationFunctionsComparator copy={visual.copy[language]} />;
+    case 'sigmoid-deep-dive-explorer':
+      return <SigmoidDeepDiveExplorer copy={visual.copy[language]} />;
     case 'sigmoid-derivative-explorer':
       return <SigmoidDerivativeExplorer copy={visual.copy[language]} />;
     case 'feedforward-flow-visual':

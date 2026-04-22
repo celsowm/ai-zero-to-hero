@@ -101,6 +101,55 @@ export interface ActivationFunctionsComparatorCopy {
   };
 }
 
+export interface SigmoidDeepDiveExplorerCopy {
+  ariaLabel: string;
+  sliderLabel: string;
+  inputLabel: string;
+  outputLabel: string;
+  chartTitle: string;
+  formulaTitle: string;
+  formula: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  takeawayTitle: string;
+  takeawayBody: string;
+  eulerTitle: string;
+  eulerBody: string;
+  convergenceTitle: string;
+  convergenceBody: string;
+  convergenceRows: Array<{
+    label: string;
+    expression: string;
+    value: string;
+  }>;
+  eulerBullets: string[];
+  zoneTitle: string;
+  denominatorLabel: string;
+  steps: {
+    input: {
+      label: string;
+      body: string;
+    };
+    negation: {
+      label: string;
+      body: string;
+    };
+    exponential: {
+      label: string;
+      body: string;
+    };
+    output: {
+      label: string;
+      body: string;
+    };
+  };
+  zones: {
+    left: string;
+    middle: string;
+    right: string;
+  };
+}
+
 export interface SigmoidDerivativeExplorerCopy {
   ariaLabel: string;
   sliderLabel: string;
@@ -109,15 +158,22 @@ export interface SigmoidDerivativeExplorerCopy {
   inputLabel: string;
   sigmoidLabel: string;
   derivativeLabel: string;
+  equivalenceLabel: string;
   formulaTitle: string;
   formula: string;
   derivativeFormula: string;
+  maxDerivativeLabel: string;
   peakTitle: string;
   peakBody: string;
   saturationTitle: string;
   saturationBody: string;
   trainingTitle: string;
   trainingBody: string;
+  zones: {
+    center: string;
+    transition: string;
+    tail: string;
+  };
 }
 
 export interface NeuralNetworkVisualWeightsCopy {

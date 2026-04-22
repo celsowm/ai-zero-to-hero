@@ -1,0 +1,134 @@
+{
+  "id": "neural-network-sigmoid-deep-dive",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.34, 0.66]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Sigmoid por dentro: lendo 1 / (1 + e^-z)",
+      "body": "A ideia aqui e ler a formula da sigmoid sem jogar simbolo solto na tela.\n\n1. **`z` e o valor bruto** que sai da soma ponderada do neuronio.\n\n2. **`-z` inverte a direcao:** quando `z` sobe, `e^-z` cai; quando `z` desce, `e^-z` cresce.\n\n3. **`e` e o numero de Euler:** uma constante fixa, cerca de `2.7182818`, que aparece naturalmente quando modelamos crescimento continuo.\n\n4. **De onde esse valor vem:** se um valor `1` cresce `100%` em um ano, temos `2` quando aplicamos uma vez, `(1 + 0.5)^2 = 2.25` quando dividimos em duas aplicacoes, e em geral `(1 + 1/n)^n` quando dividimos em `n` partes. Quando `n` cresce sem limite, esse valor se aproxima de `e`.\n\n5. **`1 / (1 + e^-z)` comprime o sinal:** como o denominador sempre fica acima de `1`, a saida sempre fica entre `0` e `1`.\n\n> Em `z = 0`, temos `e^0 = 1`, entao a sigmoid passa exatamente por `0.5`.\n\n### O que observar\n- `e = lim_(n -> infinito) (1 + 1/n)^n` descreve crescimento dividido em pedacos cada vez menores\n- na sigmoid, `e^-z` e o termo exponencial que cresce ou cai muito rapido\n- cauda esquerda: saida perto de `0`\n- centro: a curva ainda muda bastante\n- cauda direita: saida perto de `1`\n- essa inclinacao no meio prepara a derivada do proximo slide",
+      "codeExplanations": []
+    },
+    "en-us": {
+      "title": "Inside sigmoid: reading 1 / (1 + e^-z)",
+      "body": "The goal here is to read the sigmoid formula without throwing symbols at the reader.\n\n1. **`z` is the raw value** coming out of the neuron's weighted sum.\n\n2. **`-z` flips the direction:** when `z` rises, `e^-z` falls; when `z` falls, `e^-z` grows.\n\n3. **`e` is the Euler number:** a fixed constant, about `2.7182818`, that appears naturally when we model continuous growth.\n\n4. **Where that value comes from:** if a value `1` grows by `100%` over one year, we get `2` when we apply it once, `(1 + 0.5)^2 = 2.25` when we split it into two applications, and in general `(1 + 1/n)^n` when we split it into `n` pieces. As `n` grows without bound, that value approaches `e`.\n\n5. **`1 / (1 + e^-z)` compresses the signal:** because the denominator always stays above `1`, the output always remains between `0` and `1`.\n\n> At `z = 0`, we get `e^0 = 1`, so sigmoid passes exactly through `0.5`.\n\n### What to watch\n- `e = lim_(n -> infinity) (1 + 1/n)^n` describes growth split into smaller and smaller pieces\n- in sigmoid, `e^-z` is the exponential term that rises or falls very quickly\n- left tail: output near `0`\n- center: the curve still changes a lot\n- right tail: output near `1`\n- that middle slope sets up the derivative on the next slide",
+      "codeExplanations": []
+    }
+  },
+  "visual": {
+    "id": "sigmoid-deep-dive-explorer",
+    "copy": {
+      "pt-br": {
+        "ariaLabel": "Explorador visual detalhado da sigmoid",
+        "sliderLabel": "Ajuste o valor bruto",
+        "inputLabel": "z",
+        "outputLabel": "sigmoid(z)",
+        "chartTitle": "A curva sobe porque o denominador cai",
+        "formulaTitle": "Formula central",
+        "formula": "sigmoid(z) = 1 / (1 + e^-z)",
+        "stepperTitle": "Desmonte a formula",
+        "stepFocusLabel": "Etapa em foco",
+        "takeawayTitle": "O que fixar",
+        "takeawayBody": "A sigmoid comprime qualquer entrada para o intervalo entre 0 e 1. O miolo da formula controla a direcao da curva, a velocidade da mudanca e o fato de ela sempre passar por 0.5 quando z = 0.",
+        "eulerTitle": "Por que aparece o numero de Euler",
+        "eulerBody": "O numero `e` e o **numero de Euler**, uma constante matematica fixa, aproximadamente `2.7182818`. A intuicao mais concreta e crescimento continuo: quando voce divide um ganho em partes cada vez menores e reaplica sobre o valor atualizado, o resultado se aproxima de `e`.",
+        "convergenceTitle": "Como isso converge para e",
+        "convergenceBody": "A mesma ideia de crescimento dividido em mais partes vai se aproximando de `2.718...`.",
+        "convergenceRows": [
+          { "label": "1 vez", "expression": "(1 + 1)^1", "value": "2" },
+          { "label": "2 vezes", "expression": "(1 + 0.5)^2", "value": "2.25" },
+          { "label": "10 vezes", "expression": "(1 + 0.1)^10", "value": "2.5937" },
+          { "label": "100 vezes", "expression": "(1 + 0.01)^100", "value": "2.7048" }
+        ],
+        "eulerBullets": [
+          "1 aplicacao de 100% de crescimento: `1 -> 2`.",
+          "2 aplicacoes de 50%: `(1 + 0.5)^2 = 2.25`.",
+          "Em geral: `(1 + 1/n)^n`; quando `n` cresce muito, isso se aproxima de `e`.",
+          "`e^-z` significa elevar `e` a `-z`, criando o termo exponencial que despenca quando `z` sobe.",
+          "Como esse termo cai quando `z` sobe, o denominador encolhe e a saida aumenta."
+        ],
+        "zoneTitle": "Leitura da zona atual",
+        "denominatorLabel": "1 + e^-z",
+        "steps": {
+          "input": {
+            "label": "1. Valor bruto z",
+            "body": "Esse e o sinal que sai da parte linear do neuronio antes da ativacao."
+          },
+          "negation": {
+            "label": "2. Inversao para -z",
+            "body": "O sinal negativo troca a direcao do efeito exponencial e prepara a curva para subir quando z aumenta."
+          },
+          "exponential": {
+            "label": "3. Exponencial e^-z",
+            "body": "Aqui o valor passa a crescer ou decair de modo suave, ficando muito grande na esquerda e muito pequeno na direita."
+          },
+          "output": {
+            "label": "4. Compressao final",
+            "body": "Ao dividir por `1 + e^-z`, a saida fica presa entre 0 e 1 e cruza o centro em 0.5."
+          }
+        },
+        "zones": {
+          "left": "Cauda esquerda: saida perto de 0",
+          "middle": "Faixa sensivel: pequenas mudancas ainda mexem bastante na saida",
+          "right": "Cauda direita: saida perto de 1"
+        }
+      },
+      "en-us": {
+        "ariaLabel": "Detailed sigmoid visual explorer",
+        "sliderLabel": "Adjust the raw value",
+        "inputLabel": "z",
+        "outputLabel": "sigmoid(z)",
+        "chartTitle": "The curve rises because the denominator shrinks",
+        "formulaTitle": "Core formula",
+        "formula": "sigmoid(z) = 1 / (1 + e^-z)",
+        "stepperTitle": "Unpack the formula",
+        "stepFocusLabel": "Focused step",
+        "takeawayTitle": "What to retain",
+        "takeawayBody": "Sigmoid compresses any input into the interval between 0 and 1. The inner pieces of the formula control the curve direction, the pace of change, and the fact that it always passes through 0.5 when z = 0.",
+        "eulerTitle": "Why the Euler number appears",
+        "eulerBody": "The number `e` is the **Euler number**, a fixed mathematical constant, about `2.7182818`. The most concrete intuition is continuous growth: when you split a gain into smaller and smaller pieces and keep reapplying it to the updated value, the result approaches `e`.",
+        "convergenceTitle": "How this converges to e",
+        "convergenceBody": "The same idea of growth split into more pieces gets closer and closer to `2.718...`.",
+        "convergenceRows": [
+          { "label": "1 time", "expression": "(1 + 1)^1", "value": "2" },
+          { "label": "2 times", "expression": "(1 + 0.5)^2", "value": "2.25" },
+          { "label": "10 times", "expression": "(1 + 0.1)^10", "value": "2.5937" },
+          { "label": "100 times", "expression": "(1 + 0.01)^100", "value": "2.7048" }
+        ],
+        "eulerBullets": [
+          "1 application of 100% growth: `1 -> 2`.",
+          "2 applications of 50%: `(1 + 0.5)^2 = 2.25`.",
+          "In general: `(1 + 1/n)^n`; as `n` gets large, this approaches `e`.",
+          "`e^-z` means raising `e` to `-z`, creating the exponential term that drops when `z` rises.",
+          "Because that term shrinks when `z` rises, the denominator shrinks and the output rises."
+        ],
+        "zoneTitle": "Reading the current zone",
+        "denominatorLabel": "1 + e^-z",
+        "steps": {
+          "input": {
+            "label": "1. Raw value z",
+            "body": "This is the signal produced by the neuron's linear part before activation."
+          },
+          "negation": {
+            "label": "2. Flip to -z",
+            "body": "The negative sign reverses the direction of the exponential effect and prepares the curve to rise as z increases."
+          },
+          "exponential": {
+            "label": "3. Exponential e^-z",
+            "body": "Here the value starts growing or decaying smoothly, becoming very large on the left and very small on the right."
+          },
+          "output": {
+            "label": "4. Final compression",
+            "body": "By dividing by `1 + e^-z`, the output stays trapped between 0 and 1 and crosses the center at 0.5."
+          }
+        },
+        "zones": {
+          "left": "Left tail: output near 0",
+          "middle": "Sensitive band: small changes still move the output a lot",
+          "right": "Right tail: output near 1"
+        }
+      }
+    }
+  }
+}
