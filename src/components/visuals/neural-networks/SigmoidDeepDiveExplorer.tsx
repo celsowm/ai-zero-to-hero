@@ -20,6 +20,19 @@ const STEP_COLORS: Record<StepKey, string> = {
   output: '#ff5da2',
 };
 
+const STEP_POSITIONS: Record<StepKey, number> = {
+  input: 1.5,
+  negation: -1.0,
+  exponential: -3.5,
+  output: 3.5,
+};
+
+const ZONE_POSITIONS: Record<'left' | 'middle' | 'right', number> = {
+  left: -4.5,
+  middle: 0,
+  right: 4.5,
+};
+
 function sigmoid(x: number) {
   return 1 / (1 + Math.exp(-x));
 }
@@ -46,12 +59,12 @@ function fmt(v: number) {
 
 function zone(z: number) {
   if (z < -1.5) {
-    return { key: 'left' as const, color: '#ff5da2' };
+    return { key: 'left' as const, color: '#66b84a' }; // Verde (onde exp domina)
   }
   if (z <= 1.5) {
-    return { key: 'middle' as const, color: '#16e0ff' };
+    return { key: 'middle' as const, color: '#16e0ff' }; // Azul (transição)
   }
-  return { key: 'right' as const, color: '#66b84a' };
+  return { key: 'right' as const, color: '#ff5da2' }; // Rosa (saturação em 1)
 }
 
 export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
@@ -68,7 +81,7 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
   const stepValues: Record<StepKey, string> = {
     input: fmt(z),
     negation: fmt(negated),
-    exponential: fmt(exponential),
+    exponential: fmt(denominator), // Agora bate com o cabeçalho "Denominador"
     output: fmt(output),
   };
 
@@ -177,7 +190,28 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
 
                 <path d={curvePath} fill="none" stroke="#ff5da2" strokeWidth="4" strokeLinecap="round" filter="url(#sigmoid-deep-glow)" />
 
-                <line x1={xC(z)} x2={xC(z)} y1={PAD.top} y2={H - PAD.bottom} stroke={zoneInfo.color} strokeDasharray="6 7" strokeWidth="1.4" />
+                {/* Vertical z line - now using active step color for perfect linking */}
+                <line 
+                  x1={xC(z)} x2={xC(z)} 
+                  y1={PAD.top} y2={H - PAD.bottom} 
+                  stroke={STEP_COLORS[activeStep]} 
+                  strokeDasharray="6 7" 
+                  strokeWidth={activeStep === 'input' ? 1.8 : 2.5} 
+                  style={{ transition: 'stroke 0.3s ease, stroke-width 0.3s ease' }}
+                />
+                
+                {/* Secondary ghost line for negation step */}
+                {activeStep === 'negation' && (
+                  <line 
+                    x1={xC(-z)} x2={xC(-z)} 
+                    y1={PAD.top} y2={H - PAD.bottom} 
+                    stroke={STEP_COLORS.negation} 
+                    strokeDasharray="3 4" 
+                    strokeWidth="1.2" 
+                    opacity="0.5"
+                  />
+                )}
+
                 <circle cx={xC(z)} cy={yC(output)} r="18" fill="#ff5da2" opacity="0.12" />
                 <circle cx={xC(z)} cy={yC(output)} r="7" fill="#ff5da2" />
                 <text x={xC(z) + 12} y={yC(output) - 12} fill="#ff5da2" fontSize="11" fontWeight="800">
@@ -275,7 +309,9 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
               <div style={{ fontSize: 10, color: zoneInfo.color, fontWeight: 900, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 8 }}>
                 {copy.zoneTitle}
               </div>
-              <div
+              <button
+                type="button"
+                onClick={() => setZ(ZONE_POSITIONS[zoneInfo.key])}
                 style={{
                   display: 'inline-flex',
                   padding: '5px 11px',
@@ -286,10 +322,14 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
                   color: zoneInfo.color,
                   fontWeight: 800,
                   marginBottom: 10,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
                 }}
+                onMouseOver={(e) => (e.currentTarget.style.background = `${zoneInfo.color}24`)}
+                onMouseOut={(e) => (e.currentTarget.style.background = `${zoneInfo.color}16`)}
               >
                 {copy.zones[zoneInfo.key]}
-              </div>
+              </button>
               <div style={{ fontSize: 12.5, color: 'var(--sw-text-dim)', lineHeight: 1.6 }}>{activeCopy.body}</div>
             </div>
 
@@ -333,8 +373,14 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
                 <button
                   key={stepKey}
                   type="button"
-                  onClick={() => setActiveStep(stepKey)}
-                  onMouseEnter={() => setActiveStep(stepKey)}
+                  onClick={() => {
+                    setActiveStep(stepKey);
+                    setZ(STEP_POSITIONS[stepKey]);
+                  }}
+                  onMouseEnter={() => {
+                    setActiveStep(stepKey);
+                    setZ(STEP_POSITIONS[stepKey]);
+                  }}
                   style={{
                     textAlign: 'left',
                     padding: '12px 12px 10px',
@@ -343,6 +389,7 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
                     background: active ? `${STEP_COLORS[stepKey]}14` : 'rgba(255,255,255,0.02)',
                     boxShadow: active ? `0 0 0 1px ${STEP_COLORS[stepKey]}33, 0 0 14px ${STEP_COLORS[stepKey]}14` : 'none',
                     cursor: 'pointer',
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, marginBottom: 8 }}>
