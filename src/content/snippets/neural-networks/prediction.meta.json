@@ -1,5 +1,5 @@
 {
   "id": "neural-networks/prediction",
   "language": "python",
-  "regions": ["bridge", "helpers", "predict", "sample", "output"]
+  "regions": ["bridge", "predict", "sample", "output"]
 }

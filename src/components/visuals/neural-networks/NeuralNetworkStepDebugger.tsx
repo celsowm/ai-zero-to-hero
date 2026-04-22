@@ -201,9 +201,9 @@ const NetworkGraph: React.FC<{
           <text x="210" y={hiddenY + 6} textAnchor="middle" fontSize="7" fontWeight="700" fill="var(--sw-text)">
             {fmt(snap.forward.hiddenActivations[hiddenIndex])}
           </text>
-          <text x="210" y={hiddenY + 15} textAnchor="middle" fontSize="5.5" fill="var(--sw-text-dim)">
-            z={fmt(snap.forward.hiddenZs[hiddenIndex])}
-          </text>
+        <text x="210" y={hiddenY + 15} textAnchor="middle" fontSize="5.5" fill="var(--sw-text-dim)">
+          {`z${hiddenIndex + 1}=${fmt(snap.forward.hiddenZs[hiddenIndex])}`}
+        </text>
         </g>
       ))}
 
@@ -217,13 +217,13 @@ const NetworkGraph: React.FC<{
           strokeWidth={isForward || isBackprop ? 2 : 1}
         />
         <text x="334" y={outputY - 5} textAnchor="middle" fontSize="10" fontWeight="900" fill={isBackprop ? '#ff2e97' : '#66b84a'}>
-          ŷ
+          y_hat
         </text>
         <text x="334" y={outputY + 6} textAnchor="middle" fontSize="8" fontWeight="700" fill={snap.forward.outputActivation >= 0.5 ? '#22c55e' : '#f97316'}>
           {fmt(snap.forward.outputActivation)}
         </text>
         <text x="334" y={outputY + 16} textAnchor="middle" fontSize="5.5" fill="var(--sw-text-dim)">
-          z={fmt(snap.forward.outputZ)}
+          {`z_out=${fmt(snap.forward.outputZ)}`}
         </text>
       </g>
 
@@ -378,25 +378,21 @@ const ComputationPanel: React.FC<{
     ...snap.forward.hiddenZs.map((value, index) => ({ label: `z${index + 1}`, value: fmt(value) })),
     ...snap.forward.hiddenActivations.map((value, index) => ({ label: `h${index + 1}`, value: fmt(value) })),
     { label: 'z_out', value: fmt(snap.forward.outputZ) },
-    { label: 'ŷ', value: fmt(snap.forward.outputActivation) },
+    { label: 'y_hat', value: fmt(snap.forward.outputActivation) },
   ];
   const lossRows = [
-    { label: '(ŷ-y)^2', value: fmt(snap.forward.loss, 6) },
-    { label: 'ŷ-y', value: fmt(snap.backward.outputError) },
+    { label: '(y_hat-target)^2', value: fmt(snap.forward.loss, 6) },
+    { label: 'y_hat-target', value: fmt(snap.backward.outputError) },
   ];
   const backpropRows = [
-    { label: 'd_out', value: fmt(snap.backward.outputDelta) },
-    ...snap.backward.hiddenDeltas.map((value, index) => ({ label: `d_h${index + 1}`, value: fmt(value) })),
+    { label: 'delta_out', value: fmt(snap.backward.outputDelta) },
+    ...snap.backward.hiddenDeltas.map((value, index) => ({ label: `delta_h[${index}]`, value: fmt(value) })),
   ];
   const updateRows = [
-    ...snap.weightsBefore.hiddenToOutput.map((weight, index) => ({
-      label: `v${index + 1}`,
-      value: `${fmt(weight)}→${fmt(snap.weightsAfter.hiddenToOutput[index])}`,
-    })),
-    {
-      label: 'b_out',
-      value: `${fmt(snap.weightsBefore.outputBias)}→${fmt(snap.weightsAfter.outputBias)}`,
-    },
+    { label: 'w2[0]', value: `${fmt(snap.weightsBefore.hiddenToOutput[0])}→${fmt(snap.weightsAfter.hiddenToOutput[0])}` },
+    { label: 'b2', value: `${fmt(snap.weightsBefore.outputBias)}→${fmt(snap.weightsAfter.outputBias)}` },
+    { label: 'w1[0][0]', value: `${fmt(snap.weightsBefore.inputToHidden[0][0])}→${fmt(snap.weightsAfter.inputToHidden[0][0])}` },
+    { label: 'b1[0]', value: `${fmt(snap.weightsBefore.hiddenBiases[0])}→${fmt(snap.weightsAfter.hiddenBiases[0])}` },
   ];
 
   return (

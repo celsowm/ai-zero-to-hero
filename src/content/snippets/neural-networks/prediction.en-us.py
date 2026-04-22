@@ -4,14 +4,8 @@
 params = final_parameters
 # endregion
 
-# region helpers
-from math import exp
-
-def sigmoid(z):
-    return 1.0 / (1.0 + exp(-z))
-# endregion
-
 # region predict
+# This assumes `sigmoid` is already defined by the training cell above.
 def predict_probability(patient, p):
     x = [
         patient["age"] / 100,

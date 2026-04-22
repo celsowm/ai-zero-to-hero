@@ -4,14 +4,8 @@
 parametros = parametros_finais
 # endregion
 
-# region helpers
-from math import exp
-
-def sigmoid(z):
-    return 1.0 / (1.0 + exp(-z))
-# endregion
-
 # region predict
+# Este trecho assume que `sigmoid` já foi definida na célula de treino acima.
 def prever_probabilidade(paciente, p):
     x = [
         paciente["idade"] / 100,

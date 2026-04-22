@@ -1,9 +1,8 @@
 # region init
 import math
-import random
 
-random.seed(0)
-
+# Training samples: each tuple is ([x1, x2, x3, x4], target).
+# The first three columns are normalized features; the last one is the binary smoker flag.
 data = [
     ([0.35, 0.60, 0.58, 0.0], 0),
     ([0.42, 0.65, 0.62, 0.0], 0),
@@ -19,10 +18,16 @@ def sigmoid(x):
 def dsigmoid(y):
     return y * (1 - y)
 
-w1 = [[random.uniform(-1, 1) for _ in range(4)] for _ in range(3)]
-b1 = [0.0, 0.0, 0.0]
-w2 = [random.uniform(-1, 1) for _ in range(3)]
-b2 = 0.0
+w1 = [
+    [0.35, -0.10, 0.25, 0.05],
+    [0.10, 0.40, -0.15, 0.20],
+    [-0.20, 0.15, 0.30, 0.25],
+]
+b1 = [0.05, -0.10, 0.08]
+w2 = [0.45, -0.20, 0.35]
+b2 = -0.12
+# These weights are fixed here so the visual matches the cards exactly.
+# In a real training run, you would usually start from random initialization.
 # endregion
 
 # region forward
@@ -36,19 +41,21 @@ def forward(x):
     return h, y_hat
 # endregion
 
-for epoch in range(600):
-    for x, target in data:
-        h, y_hat = forward(x)
-
 # region backprop
-        delta_out = (y_hat - target) * dsigmoid(y_hat)
-        delta_h = [
-            dsigmoid(h[j]) * w2[j] * delta_out
-            for j in range(3)
-        ]
+def backpropagate(h, y_hat, target, w2):
+    delta_out = (y_hat - target) * dsigmoid(y_hat)
+    delta_h = [
+        dsigmoid(h[j]) * w2[j] * delta_out
+        for j in range(3)
+    ]
+    return delta_out, delta_h
 # endregion
 
 # region update
+for epoch in range(600):
+    for x, target in data:
+        h, y_hat = forward(x)
+        delta_out, delta_h = backpropagate(h, y_hat, target, w2)
         for j in range(3):
             w2[j] -= 0.5 * delta_out * h[j]
         b2 -= 0.5 * delta_out

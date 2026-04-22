@@ -31,7 +31,7 @@
         ],
         "codePanel": {
           "title": "Inferência completa da rede",
-          "description": "Esta aba continua o slide anterior: o treino já entregou um dict Python completo (`w1`, `b1`, `w2`, `b2`), e este código só reaproveita esse snapshot para fazer inferência.",
+          "description": "Esta aba continua o slide anterior: o treino já entregou um dict Python completo (`w1`, `b1`, `w2`, `b2`), e este código só reaproveita esse snapshot para fazer inferência. Ele também assume que `sigmoid` já existe no contexto da célula anterior.",
           "source": {
             "snippetId": "neural-networks/prediction",
             "language": "python"
@@ -40,28 +40,28 @@
             {
               "lineRange": [
                 1,
-                3
+                4
               ],
-              "content": "Este bloco é a ponte com o slide anterior: a inferência começa usando o snapshot final do treino, sem recriar os pesos na mão."
+              "content": "Este bloco é a ponte com o slide anterior: a inferência começa usando o snapshot final do treino, sem recriar os pesos na mão, e reutiliza a sigmoid já definida no contexto da célula anterior."
             },
             {
               "lineRange": [
-                5,
-                7
-              ],
-              "content": "Este helper mantém o código em Python puro e aplica a sigmoid usada pela rede treinada."
-            },
-            {
-              "lineRange": [
-                10,
-                23
+                7,
+                20
               ],
               "content": "Aqui convertemos o paciente novo em features numéricas, passamos pelos três neurônios ocultos e calculamos a probabilidade final com pesos fixos."
             },
             {
               "lineRange": [
-                26,
-                28
+                23,
+                24
+              ],
+              "content": "Este é o paciente de teste usado pela inferência."
+            },
+            {
+              "lineRange": [
+                27,
+                31
               ],
               "content": "No fim aplicamos o modelo ao paciente novo, imprimimos a probabilidade e mapeamos isso para a classe prevista."
             }
@@ -78,7 +78,7 @@
           "previousLabel": "Passo anterior",
           "nextLabel": "Próximo passo",
           "completionLabel": "Resultado final",
-          "completionDescription": "A rede devolve `0.9957` para este paciente. Como esse valor supera o limiar de `0.5`, a classe prevista é `sim`.",
+        "completionDescription": "A rede devolve `0.9727` para este paciente. Como esse valor supera o limiar de `0.5`, a classe prevista é `sim`.",
           "steps": [
             {
               "label": "Entrada",
@@ -160,7 +160,7 @@
               "label": "h1",
               "title": "O primeiro neurônio oculto dispara forte",
               "description": "Com os pesos treinados, o primeiro neurônio encontra um padrão consistente de risco e produz uma ativação alta.",
-              "formula": "z1 = 2.0360 → h1 = 2.0360",
+              "formula": "z1 = 1.7752 → h1 = sigmoid(z1) = 0.8551",
               "accent": "#38bdf8",
               "activeSection": "hidden",
               "inputs": [
@@ -182,22 +182,10 @@
                 }
               ],
               "hidden": [
-                {
-                  "label": "z1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "h1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "w1[0]",
-                  "value": "0.404"
-                },
-                {
-                  "label": "b1",
-                  "value": "-0.544"
-                }
+                { "label": "z1", "value": "1.7752" },
+                { "label": "h1", "value": "0.8551" },
+                { "label": "w1[0]", "value": "0.4944" },
+                { "label": "b1", "value": "-1.4752" }
               ],
               "output": [
                 {
@@ -214,29 +202,20 @@
                 }
               ],
               "metrics": [
-                {
-                  "label": "ativação",
-                  "value": "ReLU"
-                },
+                { "label": "ativação", "value": "sigmoid" },
                 {
                   "label": "estado",
                   "value": "ativo"
                 },
-                {
-                  "label": "magnitude",
-                  "value": "alta"
-                },
-                {
-                  "label": "papel",
-                  "value": "sinal de risco"
-                }
+                { "label": "magnitude", "value": "alta" },
+                { "label": "papel", "value": "sinal de risco" }
               ]
             },
             {
               "label": "h2",
               "title": "O segundo neurônio reforça o padrão",
               "description": "O segundo neurônio também responde com força. As duas ativações positivas se somam na camada de saída.",
-              "formula": "z2 = 2.4012 → h2 = 2.4012",
+              "formula": "z2 = -1.4551 → h2 = sigmoid(z2) = 0.1892",
               "accent": "#66b84a",
               "activeSection": "hidden",
               "inputs": [
@@ -258,22 +237,10 @@
                 }
               ],
               "hidden": [
-                {
-                  "label": "z2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "h2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "w2[0]",
-                  "value": "0.348"
-                },
-                {
-                  "label": "b2",
-                  "value": "-0.567"
-                }
+                { "label": "z2", "value": "-1.4551" },
+                { "label": "h2", "value": "0.1892" },
+                { "label": "w1[1]", "value": "-0.1344" },
+                { "label": "b1", "value": "0.9120" }
               ],
               "output": [
                 {
@@ -290,112 +257,55 @@
                 }
               ],
               "metrics": [
-                {
-                  "label": "ativação",
-                  "value": "ReLU"
-                },
+                { "label": "ativação", "value": "sigmoid" },
                 {
                   "label": "estado",
                   "value": "ativo"
                 },
-                {
-                  "label": "magnitude",
-                  "value": "muito alta"
-                },
-                {
-                  "label": "efeito",
-                  "value": "reforça a saída"
-                }
+                { "label": "magnitude", "value": "moderada" },
+                { "label": "efeito", "value": "ajuda a saída" }
               ]
             },
             {
               "label": "Prob.",
               "title": "A camada final vira probabilidade quase total",
               "description": "As ativações ocultas entram na saída linear e a sigmoid devolve uma probabilidade muito próxima de 1.",
-              "formula": "prob = sigmoid(5.4405) = 0.9957",
+              "formula": "prob = sigmoid(3.5750) = 0.9727",
               "accent": "#f97316",
               "activeSection": "output",
               "inputs": [
-                {
-                  "label": "h1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "h2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "v1",
-                  "value": "2.051"
-                },
-                {
-                  "label": "v2",
-                  "value": "2.399"
-                }
+                { "label": "h1", "value": "0.8551" },
+                { "label": "h2", "value": "0.1892" },
+                { "label": "v1", "value": "3.6665" },
+                { "label": "v2", "value": "-3.3565" }
               ],
               "hidden": [
-                {
-                  "label": "c",
-                  "value": "-4.496"
-                },
-                {
-                  "label": "z3",
-                  "value": "5.4405"
-                },
-                {
-                  "label": "sigmoid",
-                  "value": "ativa"
-                },
-                {
-                  "label": "faixa",
-                  "value": "0 a 1"
-                }
+                { "label": "c", "value": "-2.2341" },
+                { "label": "z_out", "value": "3.5750" },
+                { "label": "sigmoid", "value": "ativa" },
+                { "label": "faixa", "value": "0 a 1" }
               ],
               "output": [
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "confiança",
-                  "value": "99.57%"
-                },
-                {
-                  "label": "classe provisória",
-                  "value": "sim"
-                }
+                { "label": "prob", "value": "0.9727" },
+                { "label": "confiança", "value": "97.27%" },
+                { "label": "classe provisória", "value": "sim" }
               ],
               "metrics": [
-                {
-                  "label": "z3",
-                  "value": "5.4405"
-                },
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "sinal",
-                  "value": "fortemente positivo"
-                },
-                {
-                  "label": "peso muda?",
-                  "value": "não"
-                }
+                { "label": "z_out", "value": "3.5750" },
+                { "label": "prob", "value": "0.9727" },
+                { "label": "sinal", "value": "fortemente positivo" },
+                { "label": "peso muda?", "value": "não" }
               ]
             },
             {
               "label": "Decisão",
               "title": "O limiar fecha a inferência",
               "description": "A última etapa não faz treino nenhum. Só comparamos a probabilidade com o limiar e devolvemos a decisão final.",
-              "formula": "0.9957 ≥ 0.50 → classe = sim",
+              "formula": "0.9727 ≥ 0.50 → classe = sim",
               "accent": "#ff2e97",
               "activeSection": "output",
               "inputs": [
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
+                { "label": "prob", "value": "0.9727" },
                 {
                   "label": "limiar",
                   "value": "0.50"
@@ -428,41 +338,20 @@
                 }
               ],
               "output": [
-                {
-                  "label": "prob final",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "classe final",
-                  "value": "sim"
-                },
-                {
-                  "label": "interpretação",
-                  "value": "alto risco"
-                }
+                { "label": "prob final", "value": "0.9727" },
+                { "label": "classe final", "value": "sim" },
+                { "label": "interpretação", "value": "alto risco" }
               ],
               "metrics": [
-                {
-                  "label": "probabilidade",
-                  "value": "99.57%"
-                },
-                {
-                  "label": "decisão",
-                  "value": "sim"
-                },
-                {
-                  "label": "peso muda?",
-                  "value": "não"
-                },
-                {
-                  "label": "tipo de passo",
-                  "value": "somente uso"
-                }
+                { "label": "probabilidade", "value": "97.27%" },
+                { "label": "decisão", "value": "sim" },
+                { "label": "peso muda?", "value": "não" },
+                { "label": "tipo de passo", "value": "somente uso" }
               ]
             }
           ]
         },
-        "footer": "A aba `Visual` mostra um paciente real atravessando a rede treinada com camadas e setas; a aba `Código` contém exatamente a rotina de inferência usada para produzir `0.9957`."
+        "footer": "A aba `Visual` mostra um paciente real atravessando a rede treinada com camadas e setas; a aba `Código` contém exatamente a rotina de inferência usada para produzir `0.9727`."
       },
       "en-us": {
         "tabs": [
@@ -475,7 +364,7 @@
         ],
         "codePanel": {
           "title": "Full network inference",
-          "description": "This tab continues the previous slide: training has already produced a complete Python dict (`w1`, `b1`, `w2`, `b2`), and this code only reuses that snapshot for inference.",
+          "description": "This tab continues the previous slide: training has already produced a complete Python dict (`w1`, `b1`, `w2`, `b2`), and this code only reuses that snapshot for inference. It also assumes `sigmoid` already exists in the previous cell context.",
           "source": {
             "snippetId": "neural-networks/prediction",
             "language": "python"
@@ -484,28 +373,28 @@
             {
               "lineRange": [
                 1,
-                3
+                4
               ],
-              "content": "This block is the bridge from the previous slide: inference starts by reusing the final Python snapshot instead of recreating the weights by hand."
+              "content": "This block is the bridge from the previous slide: inference starts by reusing the final Python snapshot instead of recreating the weights by hand, and it relies on the sigmoid already defined in the previous cell."
             },
             {
               "lineRange": [
-                5,
-                7
-              ],
-              "content": "This helper keeps the code in pure Python and applies the sigmoid activation used by the trained network."
-            },
-            {
-              "lineRange": [
-                10,
-                23
+                7,
+                20
               ],
               "content": "Here we convert the new patient into numeric features, run the three hidden neurons, and compute the final probability from the fixed weights."
             },
             {
               "lineRange": [
-                26,
-                28
+                23,
+                24
+              ],
+              "content": "This is the test patient used for inference."
+            },
+            {
+              "lineRange": [
+                27,
+                31
               ],
               "content": "At the end we apply the model to a new patient, print the probability, and map it to the predicted class."
             }
@@ -522,7 +411,7 @@
           "previousLabel": "Previous step",
           "nextLabel": "Next step",
           "completionLabel": "Final result",
-          "completionDescription": "The network returns `0.9957` for this patient. Because that value is above the `0.5` threshold, the predicted class is `yes`.",
+        "completionDescription": "The network returns `0.9727` for this patient. Because that value is above the `0.5` threshold, the predicted class is `yes`.",
           "steps": [
             {
               "label": "Input",
@@ -604,7 +493,7 @@
               "label": "h1",
               "title": "The first hidden neuron fires strongly",
               "description": "With trained weights, the first neuron finds a consistent risk pattern and produces a high activation.",
-              "formula": "z1 = 2.0360 → h1 = 2.0360",
+              "formula": "z1 = 1.7752 → h1 = sigmoid(z1) = 0.8551",
               "accent": "#38bdf8",
               "activeSection": "hidden",
               "inputs": [
@@ -626,22 +515,10 @@
                 }
               ],
               "hidden": [
-                {
-                  "label": "z1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "h1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "w1[0]",
-                  "value": "0.404"
-                },
-                {
-                  "label": "b1",
-                  "value": "-0.544"
-                }
+                { "label": "z1", "value": "1.7752" },
+                { "label": "h1", "value": "0.8551" },
+                { "label": "w1[0]", "value": "0.4944" },
+                { "label": "b1", "value": "-1.4752" }
               ],
               "output": [
                 {
@@ -658,29 +535,20 @@
                 }
               ],
               "metrics": [
-                {
-                  "label": "activation",
-                  "value": "ReLU"
-                },
+                { "label": "activation", "value": "sigmoid" },
                 {
                   "label": "state",
                   "value": "active"
                 },
-                {
-                  "label": "magnitude",
-                  "value": "high"
-                },
-                {
-                  "label": "role",
-                  "value": "risk signal"
-                }
+                { "label": "magnitude", "value": "high" },
+                { "label": "role", "value": "risk signal" }
               ]
             },
             {
               "label": "h2",
               "title": "The second neuron reinforces the pattern",
               "description": "The second neuron also responds strongly. Both positive activations are then combined by the output layer.",
-              "formula": "z2 = 2.4012 → h2 = 2.4012",
+              "formula": "z2 = -1.4551 → h2 = sigmoid(z2) = 0.1892",
               "accent": "#66b84a",
               "activeSection": "hidden",
               "inputs": [
@@ -702,22 +570,10 @@
                 }
               ],
               "hidden": [
-                {
-                  "label": "z2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "h2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "w2[0]",
-                  "value": "0.348"
-                },
-                {
-                  "label": "b2",
-                  "value": "-0.567"
-                }
+                { "label": "z2", "value": "-1.4551" },
+                { "label": "h2", "value": "0.1892" },
+                { "label": "w1[1]", "value": "-0.1344" },
+                { "label": "b1", "value": "0.9120" }
               ],
               "output": [
                 {
@@ -734,112 +590,55 @@
                 }
               ],
               "metrics": [
-                {
-                  "label": "activation",
-                  "value": "ReLU"
-                },
+                { "label": "activation", "value": "sigmoid" },
                 {
                   "label": "state",
                   "value": "active"
                 },
-                {
-                  "label": "magnitude",
-                  "value": "very high"
-                },
-                {
-                  "label": "effect",
-                  "value": "reinforces output"
-                }
+                { "label": "magnitude", "value": "moderate" },
+                { "label": "effect", "value": "helps output" }
               ]
             },
             {
               "label": "Prob.",
               "title": "The final layer becomes an almost certain probability",
               "description": "The hidden activations flow into the final linear output, and sigmoid returns a probability very close to 1.",
-              "formula": "prob = sigmoid(5.4405) = 0.9957",
+              "formula": "prob = sigmoid(3.5750) = 0.9727",
               "accent": "#f97316",
               "activeSection": "output",
               "inputs": [
-                {
-                  "label": "h1",
-                  "value": "2.0360"
-                },
-                {
-                  "label": "h2",
-                  "value": "2.4012"
-                },
-                {
-                  "label": "v1",
-                  "value": "2.051"
-                },
-                {
-                  "label": "v2",
-                  "value": "2.399"
-                }
+                { "label": "h1", "value": "0.8551" },
+                { "label": "h2", "value": "0.1892" },
+                { "label": "v1", "value": "3.6665" },
+                { "label": "v2", "value": "-3.3565" }
               ],
               "hidden": [
-                {
-                  "label": "c",
-                  "value": "-4.496"
-                },
-                {
-                  "label": "z3",
-                  "value": "5.4405"
-                },
-                {
-                  "label": "sigmoid",
-                  "value": "active"
-                },
-                {
-                  "label": "range",
-                  "value": "0 to 1"
-                }
+                { "label": "c", "value": "-2.2341" },
+                { "label": "z_out", "value": "3.5750" },
+                { "label": "sigmoid", "value": "active" },
+                { "label": "range", "value": "0 to 1" }
               ],
               "output": [
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "confidence",
-                  "value": "99.57%"
-                },
-                {
-                  "label": "provisional class",
-                  "value": "yes"
-                }
+                { "label": "prob", "value": "0.9727" },
+                { "label": "confidence", "value": "97.27%" },
+                { "label": "provisional class", "value": "yes" }
               ],
               "metrics": [
-                {
-                  "label": "z3",
-                  "value": "5.4405"
-                },
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "signal",
-                  "value": "strongly positive"
-                },
-                {
-                  "label": "weights change?",
-                  "value": "no"
-                }
+                { "label": "z_out", "value": "3.5750" },
+                { "label": "prob", "value": "0.9727" },
+                { "label": "signal", "value": "strongly positive" },
+                { "label": "weights change?", "value": "no" }
               ]
             },
             {
               "label": "Decision",
               "title": "The threshold closes the inference",
               "description": "The last step performs no training at all. We only compare the probability to the threshold and return the final decision.",
-              "formula": "0.9957 ≥ 0.50 → class = yes",
+              "formula": "0.9727 ≥ 0.50 → class = yes",
               "accent": "#ff2e97",
               "activeSection": "output",
               "inputs": [
-                {
-                  "label": "prob",
-                  "value": "0.9957"
-                },
+                { "label": "prob", "value": "0.9727" },
                 {
                   "label": "threshold",
                   "value": "0.50"
@@ -872,41 +671,20 @@
                 }
               ],
               "output": [
-                {
-                  "label": "final prob",
-                  "value": "0.9957"
-                },
-                {
-                  "label": "final class",
-                  "value": "yes"
-                },
-                {
-                  "label": "interpretation",
-                  "value": "high risk"
-                }
+                { "label": "final prob", "value": "0.9727" },
+                { "label": "final class", "value": "yes" },
+                { "label": "interpretation", "value": "high risk" }
               ],
               "metrics": [
-                {
-                  "label": "probability",
-                  "value": "99.57%"
-                },
-                {
-                  "label": "decision",
-                  "value": "yes"
-                },
-                {
-                  "label": "weights change?",
-                  "value": "no"
-                },
-                {
-                  "label": "step type",
-                  "value": "usage only"
-                }
+                { "label": "probability", "value": "97.27%" },
+                { "label": "decision", "value": "yes" },
+                { "label": "weights change?", "value": "no" },
+                { "label": "step type", "value": "usage only" }
               ]
             }
           ]
         },
-        "footer": "The `Visual` tab shows one real patient flowing through the trained network with layers and arrows; the `Code` tab contains the exact inference routine used to produce `0.9957`."
+        "footer": "The `Visual` tab shows one real patient flowing through the trained network with layers and arrows; the `Code` tab contains the exact inference routine used to produce `0.9727`."
       }
     }
   }
