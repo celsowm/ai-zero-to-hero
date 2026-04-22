@@ -26,22 +26,26 @@
         "exercises": [
           {
             "id": "1. Variáveis",
-            "instructions": "Crie as variáveis `altura`, `peso` e calcule o `imc` usando a fórmula: peso / (altura/100)².\n\nDepois imprima o resultado.",
+            "instructions": "Crie as variáveis `altura` e `peso` com os valores que quiser e calcule o `imc` usando a fórmula: peso / (altura/100)².\n\nDepois imprima o resultado.",
             "starterCode": "# complete as variáveis abaixo\naltura =  # em cm\npeso   =  # em kg\n\n# calcule o IMC\nimc = \n\nprint(imc)",
             "validators": [
               {
-                "type": "assertVariable",
+                "type": "assertDerivedVariable",
+                "formulaId": "bmi",
                 "variableName": "imc",
-                "expectedValue": 21.484374999999996,
+                "inputs": {
+                  "altura": "altura",
+                  "peso": "peso"
+                },
                 "tolerance": 0.001
               },
               {
-                "type": "assertOutput",
-                "expected": "21.48"
+                "type": "assertOutputMatchesVariable",
+                "variableName": "imc"
               }
             ],
             "hints": [
-              "altura deve ser 160 e peso deve ser 55",
+              "Você pode escolher qualquer altura e peso positivos.",
               "A fórmula é: peso / ((altura/100) ** 2)"
             ]
           },
@@ -171,22 +175,26 @@
         "exercises": [
           {
             "id": "1. Variables",
-            "instructions": "Create the variables `height`, `weight` and calculate `bmi` using the formula: weight / (height/100)².\n\nThen print the result.",
+            "instructions": "Create the variables `height` and `weight` with any values you want and calculate `bmi` using the formula: weight / (height/100)².\n\nThen print the result.",
             "starterCode": "# complete the variables below\nheight =  # in cm\nweight =  # in kg\n\n# calculate BMI\nbmi = \n\nprint(bmi)",
             "validators": [
               {
-                "type": "assertVariable",
+                "type": "assertDerivedVariable",
+                "formulaId": "bmi_en",
                 "variableName": "bmi",
-                "expectedValue": 21.484374999999996,
+                "inputs": {
+                  "height": "height",
+                  "weight": "weight"
+                },
                 "tolerance": 0.001
               },
               {
-                "type": "assertOutput",
-                "expected": "21.48"
+                "type": "assertOutputMatchesVariable",
+                "variableName": "bmi"
               }
             ],
             "hints": [
-              "height should be 160 and weight should be 55",
+              "You can choose any positive height and weight.",
               "The formula is: weight / ((height/100) ** 2)"
             ]
           },

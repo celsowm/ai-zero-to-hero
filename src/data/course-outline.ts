@@ -3,6 +3,7 @@ export const courseSlideOrder = [
   'professor',
   'python-prereq-data',
   'python-prereq-functions',
+  'python-prereq-conditionals',
   'python-prereq-loops',
   'python-prereq-exercises',
   'ia-definition',

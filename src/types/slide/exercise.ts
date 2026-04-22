@@ -23,6 +23,19 @@ export interface AssertFunctionReturnValidator extends ExerciseValidatorBase {
   tolerance?: number;
 }
 
+export interface AssertDerivedVariableValidator extends ExerciseValidatorBase {
+  type: 'assertDerivedVariable';
+  formulaId: string;
+  variableName: string;
+  inputs: Record<string, string>;
+  tolerance?: number;
+}
+
+export interface AssertOutputMatchesVariableValidator extends ExerciseValidatorBase {
+  type: 'assertOutputMatchesVariable';
+  variableName: string;
+}
+
 export interface AssertNoErrorValidator extends ExerciseValidatorBase {
   type: 'assertNoError';
 }
@@ -31,6 +44,8 @@ export type ExerciseValidator =
   | AssertOutputValidator
   | AssertVariableValidator
   | AssertFunctionReturnValidator
+  | AssertDerivedVariableValidator
+  | AssertOutputMatchesVariableValidator
   | AssertNoErrorValidator;
 
 export interface ExerciseItem {

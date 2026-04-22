@@ -1,7 +1,9 @@
 import type { PyodideInterface } from 'pyodide';
 import type {
+  AssertDerivedVariableValidator,
   AssertFunctionReturnValidator,
   AssertOutputValidator,
+  AssertOutputMatchesVariableValidator,
   AssertVariableValidator,
   ExerciseValidator,
 } from '../types/slide';
@@ -35,6 +37,22 @@ function compareValues(actual: unknown, expected: unknown, tolerance?: number): 
     return Math.abs(actual - expected) <= tolerance;
   }
   return JSON.stringify(actual) === JSON.stringify(expected);
+}
+
+function getGlobalValue(context: ValidationContext, variableName: string): unknown {
+  const raw = context.pyodide.globals.get(variableName);
+  return jsValue(raw);
+}
+
+function getGlobalNumber(context: ValidationContext, variableName: string): number {
+  const value = getGlobalValue(context, variableName);
+  const numeric = typeof value === 'number' ? value : Number(value);
+
+  if (!Number.isFinite(numeric)) {
+    throw new Error(`Variável "${variableName}" não é numérica: ${JSON.stringify(value)}`);
+  }
+
+  return numeric;
 }
 
 const assertOutputStrategy: ValidatorStrategy = async (context, validator) => {
@@ -90,6 +108,69 @@ const assertFunctionReturnStrategy: ValidatorStrategy = async (context, validato
   };
 };
 
+type DerivedValueResolver = (inputs: Record<string, number>) => unknown;
+
+const derivedValueRegistry: Record<string, DerivedValueResolver> = {
+  bmi: ({ altura, peso }) => peso / ((altura / 100) ** 2),
+  bmi_en: ({ height, weight }) => weight / ((height / 100) ** 2),
+};
+
+const assertDerivedVariableStrategy: ValidatorStrategy = async (context, validator) => {
+  const v = validator as AssertDerivedVariableValidator;
+  const resolver = derivedValueRegistry[v.formulaId];
+
+  if (!resolver) {
+    return {
+      success: false,
+      message: `Fórmula desconhecida: ${v.formulaId}`,
+    };
+  }
+
+  try {
+    const inputs = Object.fromEntries(
+      Object.entries(v.inputs).map(([paramName, variableName]) => [paramName, getGlobalNumber(context, variableName)]),
+    ) as Record<string, number>;
+
+    const expected = resolver(inputs);
+    const actual = getGlobalValue(context, v.variableName);
+    const matched = compareValues(actual, expected, v.tolerance);
+
+    return {
+      success: matched,
+      message: matched
+        ? undefined
+        : `Variável "${v.variableName}" esperada pela fórmula "${v.formulaId}", obtida: ${JSON.stringify(actual)}`,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Falha ao validar a variável "${v.variableName}": ${error instanceof Error ? error.message : String(error)}`,
+    };
+  }
+};
+
+const assertOutputMatchesVariableStrategy: ValidatorStrategy = async (context, validator) => {
+  const v = validator as AssertOutputMatchesVariableValidator;
+
+  try {
+    const value = getGlobalValue(context, v.variableName);
+    const expectedOutput = String(value);
+    const matched = context.stdout.trim() === expectedOutput;
+
+    return {
+      success: matched,
+      message: matched
+        ? undefined
+        : `Saída esperada para "${v.variableName}": "${expectedOutput}", obtida: "${context.stdout.trim()}" (valor atual: ${JSON.stringify(value)})`,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Falha ao validar a saída de "${v.variableName}": ${error instanceof Error ? error.message : String(error)}`,
+    };
+  }
+};
+
 const assertNoErrorStrategy: ValidatorStrategy = async (context) => {
   const hasError = Boolean(context.error) || context.stderr.trim().length > 0;
   return {
@@ -102,6 +183,8 @@ const strategyRegistry: Record<string, ValidatorStrategy> = {
   assertOutput: assertOutputStrategy,
   assertVariable: assertVariableStrategy,
   assertFunctionReturn: assertFunctionReturnStrategy,
+  assertDerivedVariable: assertDerivedVariableStrategy,
+  assertOutputMatchesVariable: assertOutputMatchesVariableStrategy,
   assertNoError: assertNoErrorStrategy,
 };
 

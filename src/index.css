@@ -159,6 +159,16 @@ body {
   }
 }
 
+.exercise-editor-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 960px) {
+  .exercise-editor-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+  }
+}
+
 /* Button base reset */
 button {
   font-family: inherit;
@@ -166,4 +176,14 @@ button {
   outline: none;
   background: none;
   cursor: pointer;
+}
+
+.cm-editor,
+.cm-editor .cm-content,
+.cm-editor .cm-line,
+.hljs,
+code,
+pre {
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0, 'calt' 0;
 }

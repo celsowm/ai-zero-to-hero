@@ -1,0 +1,94 @@
+{
+  "id": "python-prereq-conditionals",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.96,
+      1.04
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Python Essencial: condicionais",
+      "body": "Depois de ler dados e encapsular contas em funções, o próximo passo é decidir o caminho do programa.\n\n1. **`if` testa a primeira hipótese:** se for verdadeira, o bloco executa.\n\n2. **`elif` adiciona alternativas:** ele só roda se o anterior falhar.\n\n3. **`else` fecha a regra:** cobre tudo o que sobrou.\n\n4. **A ordem importa:** Python para no primeiro bloco verdadeiro.\n\n> Condicionais transformam números em decisões simples e previsíveis.\n\n---\n\n### Exemplo rápido\n```python\nsnippet:python-prereq/conditionals\n```\n\n- `classificacao`: resultado final da regra\n- exemplo neutro: classificar um número como positivo, zero ou negativo\n- a primeira condição verdadeira encerra a checagem",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "Aqui definimos um valor de entrada neutro para mostrar a estrutura da decisão."
+        },
+        {
+          "lineRange": [
+            4,
+            5
+          ],
+          "content": "Se o número for maior que zero, o primeiro bloco é executado."
+        },
+        {
+          "lineRange": [
+            6,
+            7
+          ],
+          "content": "O `elif` cobre o caso em que o número é exatamente zero."
+        },
+        {
+          "lineRange": [
+            8,
+            9
+          ],
+          "content": "O `else` pega qualquer valor que não entrou nas condições anteriores."
+        },
+        {
+          "lineRange": [
+            11,
+            11
+          ],
+          "content": "A impressão final mostra a decisão tomada pelo fluxo condicional."
+        }
+      ]
+    },
+    "en-us": {
+      "title": "Python Essentials: conditionals",
+      "body": "After reading data and packaging calculations into functions, the next step is deciding which path the program should take.\n\n1. **`if` tests the first hypothesis:** if it is true, that block runs.\n\n2. **`elif` adds alternatives:** it only runs when the previous one fails.\n\n3. **`else` closes the rule:** it covers everything left.\n\n4. **Order matters:** Python stops at the first true block.\n\n> Conditionals turn numbers into simple, predictable decisions.\n\n---\n\n### Quick example\n```python\nsnippet:python-prereq/conditionals\n```\n\n- `classification`: final result of the rule\n- neutral example: classify a number as positive, zero, or negative\n- the first true condition ends the check",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            2
+          ],
+          "content": "This sets a neutral input value so the control flow is easy to follow."
+        },
+        {
+          "lineRange": [
+            4,
+            5
+          ],
+          "content": "If the number is above zero, the first block decides the classification."
+        },
+        {
+          "lineRange": [
+            6,
+            7
+          ],
+          "content": "The `elif` covers the exact zero case, only after the first failure."
+        },
+        {
+          "lineRange": [
+            8,
+            9
+          ],
+          "content": "The `else` catches any value that did not fit previous conditions."
+        },
+        {
+          "lineRange": [
+            11,
+            11
+          ],
+          "content": "The final print shows the decision made by the conditional flow."
+        }
+      ]
+    }
+  }
+}
