@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import hljs from 'highlight.js';
 import type { NeuralNetworkStepDebuggerVisualCopy } from '../../../types/slide';
 import {
   createTrainingDebugger,
@@ -9,6 +8,7 @@ import {
   type TrainingDebuggerState,
 } from '../../../utils/neuralTrainingEngine';
 import { PanelCard } from '../PanelCard';
+import { CodeBlock } from '../../CodeBlock';
 
 interface Props {
   copy: NeuralNetworkStepDebuggerVisualCopy;
@@ -18,84 +18,6 @@ type Phase = 'init' | 'forward' | 'backprop' | 'update';
 type Speed = 'sample' | 'epoch' | 'fast';
 
 const fmt = (value: number, digits = 4) => value.toFixed(digits);
-
-const HighlightedCode: React.FC<{
-  code: string;
-  activeRange: [number, number] | null;
-}> = ({ code, activeRange }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const lines = useMemo(() => hljs.highlight(code, { language: 'python' }).value.split('\n'), [code]);
-
-  useEffect(() => {
-    if (!activeRange) {
-      return;
-    }
-
-    const targetLine = lineRefs.current[activeRange[0] - 1];
-    if (!targetLine) {
-      return;
-    }
-
-    targetLine.scrollIntoView({
-      block: 'center',
-      behavior: 'smooth',
-    });
-  }, [activeRange]);
-
-  return (
-    <div
-      ref={containerRef}
-      style={{
-        borderRadius: 8,
-        background: 'rgba(0,0,0,0.35)',
-        border: '1px solid rgba(255,255,255,0.05)',
-        overflow: 'auto',
-        flex: 1,
-        minHeight: 0,
-      }}
-    >
-      {lines.map((html, index) => {
-        const lineNumber = index + 1;
-        const active = activeRange && lineNumber >= activeRange[0] && lineNumber <= activeRange[1];
-        const dimmed = activeRange && !active;
-
-        return (
-          <div
-            key={lineNumber}
-            ref={(node) => {
-              lineRefs.current[index] = node;
-            }}
-            style={{
-              display: 'flex',
-              padding: '0 6px',
-              background: active ? 'rgba(56,189,248,0.12)' : 'transparent',
-              borderLeft: active ? '2px solid #38bdf8' : '2px solid transparent',
-              opacity: dimmed ? 0.3 : 1,
-              transition: 'all 120ms',
-              fontSize: 10,
-              lineHeight: 1.55,
-              fontFamily: "'JetBrains Mono','Fira Code',monospace",
-            }}
-          >
-            <span
-              style={{
-                color: 'rgba(255,255,255,0.15)',
-                minWidth: 18,
-                textAlign: 'right',
-                userSelect: 'none',
-                marginRight: 6,
-              }}
-            >
-              {lineNumber}
-            </span>
-            <span className="hljs" style={{ background: 'transparent', whiteSpace: 'pre' }} dangerouslySetInnerHTML={{ __html: html || ' ' }} />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
 
 function getNodeYs(count: number, top: number, bottom: number): number[] {
   if (count === 1) {
@@ -763,7 +685,12 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
             <span style={{ width: 12, height: 1, background: 'currentColor', opacity: 0.3 }} />
             {copy.labels.codeTitle}
           </div>
-          <HighlightedCode code={copy.pythonCode} activeRange={copy.codeHighlightRanges[phase]} />
+          <CodeBlock
+            code={copy.pythonCode}
+            language="python"
+            activeRange={copy.codeHighlightRanges[phase]}
+            compact
+          />
         </div>
       </PanelCard>
 
