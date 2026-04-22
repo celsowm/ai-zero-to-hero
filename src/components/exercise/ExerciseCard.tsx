@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2, XCircle } from 'lucide-react';
 import type { ExerciseItem } from '../../types/slide';
 import { usePyodide } from '../../hooks/usePyodide';
@@ -32,6 +32,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   const { run, check, status, error: pyodideError } = usePyodide();
 
   const isRunning = status === 'loading';
+
+  useEffect(() => {
+    setCode(exercise.starterCode);
+    setOutput('');
+    setStderr('');
+    setResults(null);
+    setShowHints(false);
+  }, [exercise.id, exercise.starterCode]);
 
   const handleRun = async () => {
     setResults(null);
@@ -134,6 +142,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
       {/* Editor */}
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
         <ExerciseEditor
+          key={exercise.id}
           code={code}
           onChange={setCode}
           onRun={handleRun}
