@@ -5,7 +5,11 @@ export interface Gpt2BlackboxDiagramCopy {
 }
 
 export interface TransformerOverviewTeaserCopy {
-  stepLabel: string;
+  interactiveTitle: string;
+  interactiveHint: string;
+  decodingStepLabel: string;
+  sourceLabel: string;
+  targetLabel: string;
   outputLabel: string;
   inputLabel: string;
   previousOutputsLabel: string;
@@ -14,7 +18,22 @@ export interface TransformerOverviewTeaserCopy {
   encoderLabel: string;
   decoderLabel: string;
   linearLabel: string;
-  crossAttentionLabel: string;
+  keyLabel: string;
+  valueLabel: string;
+  step1Title: string;
+  step1Description: string;
+  step2Title: string;
+  step2Description: string;
+  step3Title: string;
+  step3Description: string;
+  step4Title: string;
+  step4Description: string;
+  step5Title: string;
+  step5Description: string;
+  step6Title: string;
+  step6Description: string;
+  sourceSentence: string;
+  targetSentence: string;
 }
 
 export interface ParallelPredictionDiagramCopy {
