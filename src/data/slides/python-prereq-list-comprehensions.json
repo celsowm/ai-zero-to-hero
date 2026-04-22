@@ -1,0 +1,80 @@
+{
+  "id": "python-prereq-list-comprehensions",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.95,
+      1.05
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Python Essencial: list comprehension",
+      "body": "Depois de entender `for`, vale aprender a forma compacta de montar listas. Ela aparece muito em código numérico e em ML.\n\n1. **Mesmo resultado, menos ruído:** em vez de `lista = []` + `append`, descrevemos a lista pronta.\n\n2. **Leitura mental da sintaxe:** `[expressao for item in colecao]`.\n\n3. **Ótima para transformação simples:** extrair uma coluna, normalizar valores, gerar uma lista intermediária.\n\n4. **Não substitui tudo:** se a lógica ficar grande demais, o `for` tradicional continua melhor.\n\n> A regra prática é simples: use comprehension quando ela deixar a intenção mais clara, não mais esperta.\n\n### Tradução mental da sintaxe\n```txt\n[altura for altura, idade, peso in dados]\n```\n\nLeitura útil:\n- “para cada tupla em `dados`, pegue `altura`”\n- “monte uma nova lista com esses valores”\n\n### Ponte curta para ML\n```txt\n[x / 255 for x in pixels]\n```\n\nLeitura útil:\n- “para cada pixel, gere sua versão normalizada”\n\n---\n\n### Forma longa vs forma compacta\n```python\nsnippet:python-prereq/list-comprehensions\n```\n\n- `alturas`: construída com `for` + `append`\n- `alturas_2`: mesma lista, mas em uma linha\n- leitura útil: “para cada amostra em `dados`, pegue `altura`”",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            1
+          ],
+          "content": "Este dataset simples segue o mesmo padrão de tuplas usado em outros pré-requisitos."
+        },
+        {
+          "lineRange": [
+            3,
+            5
+          ],
+          "content": "A forma longa cria uma lista vazia, percorre cada tupla e adiciona a altura com `append`."
+        },
+        {
+          "lineRange": [
+            7,
+            8
+          ],
+          "content": "Aqui a list comprehension faz a mesma transformação em uma única expressão."
+        },
+        {
+          "lineRange": [
+            10,
+            11
+          ],
+          "content": "As duas impressões servem para mostrar que os resultados são idênticos."
+        }
+      ]
+    },
+    "en-us": {
+      "title": "Python Essentials: list comprehension",
+      "body": "Once `for` makes sense, the next useful step is the compact way to build lists. It appears often in numerical code and ML.\n\n1. **Same result, less noise:** instead of `list = []` + `append`, we describe the final list directly.\n\n2. **Mental reading of the syntax:** `[expression for item in collection]`.\n\n3. **Great for simple transformations:** extracting one column, normalizing values, creating an intermediate list.\n\n4. **Not a replacement for everything:** if the logic gets too large, the classic `for` loop is still better.\n\n> Practical rule: use comprehension when it makes the intention clearer, not just shorter.\n\n### Mental translation of the syntax\n```txt\n[height for height, age, weight in data]\n```\n\nUseful reading:\n- “for each tuple in `data`, take `height`”\n- “build a new list with those values”\n\n### Short bridge to ML\n```txt\n[x / 255 for x in pixels]\n```\n\nUseful reading:\n- “for each pixel, generate its normalized version”\n\n---\n\n### Long form vs compact form\n```python\nsnippet:python-prereq/list-comprehensions\n```\n\n- `heights`: built with `for` + `append`\n- `heights_2`: the same list in one line\n- useful reading: “for each sample in `data`, take `height`”",
+      "codeExplanations": [
+        {
+          "lineRange": [
+            1,
+            1
+          ],
+          "content": "This simple dataset follows the same tuple pattern used in the other prerequisites."
+        },
+        {
+          "lineRange": [
+            3,
+            5
+          ],
+          "content": "The long form creates an empty list, walks through each tuple, and appends the height."
+        },
+        {
+          "lineRange": [
+            7,
+            8
+          ],
+          "content": "The list comprehension performs the same transformation in a single expression."
+        },
+        {
+          "lineRange": [
+            10,
+            11
+          ],
+          "content": "The two prints confirm that both approaches produce the same result."
+        }
+      ]
+    }
+  }
+}

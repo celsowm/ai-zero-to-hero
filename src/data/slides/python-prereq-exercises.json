@@ -160,6 +160,48 @@
             "hints": [
               "Dentro do loop, adicione o peso ao acumulador: soma_pesos += peso"
             ]
+          },
+          {
+            "id": "7. List comprehension",
+            "instructions": "Use uma **list comprehension** para criar a lista `idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `[20, 24, 28]`.",
+            "starterCode": "dados = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# crie a lista usando comprehension\nidades = \n\nprint(idades)",
+            "validators": [
+              {
+                "type": "assertVariable",
+                "variableName": "idades",
+                "expectedValue": [20, 24, 28]
+              },
+              {
+                "type": "assertOutput",
+                "expected": "[20, 24, 28]"
+              }
+            ],
+            "hints": [
+              "A forma geral é: [expressao for ... in colecao]",
+              "Você pode desempacotar as tuplas como `altura, idade, peso`",
+              "A expressão que entra na lista é `idade`"
+            ]
+          },
+          {
+            "id": "8. Sum com generator",
+            "instructions": "Use `sum(...)` com uma **generator expression** para calcular a variável `soma_idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `72`.",
+            "starterCode": "dados = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# some as idades com sum(...)\nsoma_idades = \n\nprint(soma_idades)",
+            "validators": [
+              {
+                "type": "assertVariable",
+                "variableName": "soma_idades",
+                "expectedValue": 72
+              },
+              {
+                "type": "assertOutput",
+                "expected": "72"
+              }
+            ],
+            "hints": [
+              "A estrutura é: sum(expressao for ... in colecao)",
+              "A expressão a ser somada é `idade`",
+              "Você pode desempacotar as tuplas como `altura, idade, peso`"
+            ]
           }
         ]
       },
@@ -308,6 +350,48 @@
             ],
             "hints": [
               "Inside the loop, add the weight to the accumulator: total_weight += weight"
+            ]
+          },
+          {
+            "id": "7. List comprehension",
+            "instructions": "Use a **list comprehension** to build the `ages` list from the second column of `data`.\n\nThe expected output is `[20, 24, 28]`.",
+            "starterCode": "data = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# build the list using comprehension\nages = \n\nprint(ages)",
+            "validators": [
+              {
+                "type": "assertVariable",
+                "variableName": "ages",
+                "expectedValue": [20, 24, 28]
+              },
+              {
+                "type": "assertOutput",
+                "expected": "[20, 24, 28]"
+              }
+            ],
+            "hints": [
+              "The general form is: [expression for ... in collection]",
+              "You can unpack tuples as `height, age, weight`",
+              "The expression that should go into the new list is `age`"
+            ]
+          },
+          {
+            "id": "8. Sum with generator",
+            "instructions": "Use `sum(...)` with a **generator expression** to compute the variable `sum_ages` from the second column of `data`.\n\nThe expected output is `72`.",
+            "starterCode": "data = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# sum the ages with sum(...)\nsum_ages = \n\nprint(sum_ages)",
+            "validators": [
+              {
+                "type": "assertVariable",
+                "variableName": "sum_ages",
+                "expectedValue": 72
+              },
+              {
+                "type": "assertOutput",
+                "expected": "72"
+              }
+            ],
+            "hints": [
+              "The structure is: sum(expression for ... in collection)",
+              "The expression to be added is `age`",
+              "You can unpack tuples as `height, age, weight`"
             ]
           }
         ]

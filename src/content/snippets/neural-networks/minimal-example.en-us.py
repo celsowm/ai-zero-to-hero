@@ -32,12 +32,26 @@ b2 = -0.12
 
 # region forward
 def forward(x):
-    h = []
-    for j in range(3):
-        z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]
-        h.append(sigmoid(z))
-    z_out = sum(w2[j] * h[j] for j in range(3)) + b2
+    z1 = sum(w1[0][i] * x[i] for i in range(4)) + b1[0]
+    z2 = sum(w1[1][i] * x[i] for i in range(4)) + b1[1]
+    z3 = sum(w1[2][i] * x[i] for i in range(4)) + b1[2]
+
+    h1 = sigmoid(z1)
+    h2 = sigmoid(z2)
+    h3 = sigmoid(z3)
+
+    h = [h1, h2, h3]
+    z_out = (w2[0] * h1) + (w2[1] * h2) + (w2[2] * h3) + b2
     y_hat = sigmoid(z_out)
+
+    # Equivalent compact version:
+    # h = []
+    # for j in range(3):
+    #     z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]
+    #     h.append(sigmoid(z))
+    # z_out = sum(w2[j] * h[j] for j in range(3)) + b2
+    # y_hat = sigmoid(z_out)
+
     return h, y_hat
 # endregion
 
@@ -55,6 +69,8 @@ def backpropagate(h, y_hat, target, w2):
 for epoch in range(600):
     for x, target in data:
         h, y_hat = forward(x)
+        output_error = y_hat - target
+        loss = output_error ** 2
         delta_out, delta_h = backpropagate(h, y_hat, target, w2)
         for j in range(3):
             w2[j] -= 0.5 * delta_out * h[j]

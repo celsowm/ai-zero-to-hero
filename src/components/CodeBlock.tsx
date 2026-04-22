@@ -346,7 +346,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             width: '100%',
             minHeight: 0,
             overflow: 'auto',
-            maxHeight: 420,
+            flex: 1,
+            maxHeight: compact ? 'none' : 420,
           }}
         >
           <div
