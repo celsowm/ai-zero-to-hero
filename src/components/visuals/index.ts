@@ -54,4 +54,5 @@ export { BackpropSignalFlow } from './neural-networks/BackpropSignalFlow';
 export { LossChart } from './neural-networks/LossChart';
 export { TrainingControls } from './neural-networks/TrainingControls';
 export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDebugger';
+export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';

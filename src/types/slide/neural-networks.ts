@@ -1,3 +1,5 @@
+import type { CodeExplanation } from './base';
+
 export interface BiologicalVsComputationalNeuronCopy {
   eyebrow: string;
   title: string;
@@ -225,7 +227,7 @@ export interface NeuralNetworkStepDebuggerVisualCopy {
     phaseTitle: string;
   };
   pythonCode: string;
-  codeHighlightRanges: Record<'init' | 'forward' | 'backprop' | 'update', [number, number]>;
+  codeHighlightRanges: Record<'init' | 'forward' | 'backprop' | 'update' | 'finalize', [number, number]>;
   dataset: Array<{ inputs: number[]; target: number }>;
   totalEpochs: number;
   convergenceThreshold: number;
@@ -236,11 +238,53 @@ export interface NeuralNetworkStepDebuggerVisualCopy {
     archLabel: string;
     convergenceLabel: string;
   };
-  phaseExplanations: Record<'init' | 'forward' | 'backprop' | 'update', string>;
+  phaseExplanations: Record<'init' | 'forward' | 'backprop' | 'update' | 'finalize', string>;
   tooltips: {
     input: string;
     hidden: string;
     output: string;
     weight: string;
+  };
+}
+
+export interface NeuralNetworkTabsStepperRowCopy {
+  label: string;
+  value: string;
+}
+
+export interface NeuralNetworkTabsStepperStepCopy {
+  label: string;
+  title: string;
+  description: string;
+  formula: string;
+  accent: string;
+  activeSection: 'inputs' | 'hidden' | 'output';
+  inputs: NeuralNetworkTabsStepperRowCopy[];
+  hidden: NeuralNetworkTabsStepperRowCopy[];
+  output: NeuralNetworkTabsStepperRowCopy[];
+  metrics: NeuralNetworkTabsStepperRowCopy[];
+}
+
+export interface NeuralNetworkTabsStepperCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    code: string;
+    codeExplanations?: CodeExplanation[];
+  };
+  stepperPanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    inputSectionLabel: string;
+    hiddenSectionLabel: string;
+    outputSectionLabel: string;
+    metricsSectionLabel: string;
+    previousLabel: string;
+    nextLabel: string;
+    completionLabel: string;
+    completionDescription: string;
+    steps: NeuralNetworkTabsStepperStepCopy[];
   };
 }

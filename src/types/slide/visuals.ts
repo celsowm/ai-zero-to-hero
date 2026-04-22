@@ -53,6 +53,7 @@ import type {
   BackpropSignalFlowVisualCopy,
   BiologicalVsComputationalNeuronCopy,
   FeedforwardFlowVisualCopy,
+  NeuralNetworkTabsStepperCopy,
   NeuralNetworkStepDebuggerVisualCopy,
   NeuronArchitectureAnimatedCopy,
   SigmoidDerivativeExplorerCopy,
@@ -91,6 +92,11 @@ export interface BackpropSignalFlowVisual {
 export interface NeuralNetworkStepDebuggerVisual {
   id: 'neural-network-step-debugger';
   copy: Record<Language, NeuralNetworkStepDebuggerVisualCopy>;
+}
+
+export interface NeuralNetworkTabsStepperVisual {
+  id: 'neural-network-tabs-stepper';
+  copy: Record<Language, NeuralNetworkTabsStepperCopy>;
 }
 
 export interface InferenceDiagramVisual {
@@ -352,7 +358,8 @@ export type SlideVisual =
   | FeedforwardFlowVisual
   | BackpropSignalFlowVisual
   | BiologicalVsComputationalNeuronVisual
-  | NeuralNetworkStepDebuggerVisual;
+  | NeuralNetworkStepDebuggerVisual
+  | NeuralNetworkTabsStepperVisual;
 
 export interface SlideOptions {
   columns?: number;

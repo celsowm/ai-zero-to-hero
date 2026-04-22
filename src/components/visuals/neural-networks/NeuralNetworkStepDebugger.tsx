@@ -14,8 +14,14 @@ interface Props {
   copy: NeuralNetworkStepDebuggerVisualCopy;
 }
 
-type Phase = 'init' | 'forward' | 'backprop' | 'update';
+type Phase = 'init' | 'forward' | 'backprop' | 'update' | 'finalize';
 type Speed = 'sample' | 'epoch' | 'fast';
+
+const SPEED_SETTINGS: Record<Speed, { delayMs: number; batchSize: number }> = {
+  sample: { delayMs: 400, batchSize: 1 },
+  epoch: { delayMs: 100, batchSize: 10 },
+  fast: { delayMs: 16, batchSize: 100 },
+};
 
 const fmt = (value: number, digits = 4) => value.toFixed(digits);
 
@@ -457,33 +463,27 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
     node.scrollTo({ top: 0, behavior: 'smooth' });
   }, [phase]);
 
-  const stepOnce = useCallback(() => {
+  const advanceSamples = useCallback((count: number) => {
     const engine = engineRef.current;
     if (!engine) {
-      return;
+      return null;
     }
 
     const state = engine.getState();
-    if (state.converged || state.done) {
+    if (state.done) {
       setIsPlaying(false);
-      return;
+      return state;
     }
 
-    let snapshots: SampleSnapshot[] = [];
-    if (speed === 'fast') {
-      engine.skipEpochs(50);
-      snapshots = engine.stepSamples(1);
-    } else if (speed === 'epoch') {
-      snapshots = engine.stepEpochs(1);
-    } else {
-      snapshots = engine.stepSamples(1);
-    }
+    const snapshots = engine.stepSamples(count);
 
     if (snapshots.length > 0) {
       setSnap(snapshots[snapshots.length - 1]);
     }
-    setEngineState(engine.getState());
-  }, [speed]);
+    const nextState = engine.getState();
+    setEngineState(nextState);
+    return nextState;
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) {
@@ -492,16 +492,12 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
 
     let cancelled = false;
     let lastTime = 0;
+    const { delayMs, batchSize } = SPEED_SETTINGS[speed];
 
     const loop = (time: number) => {
-      const delay = speed === 'fast' ? 16 : speed === 'epoch' ? 100 : 400;
-      if (time - lastTime > delay) {
+      if (time - lastTime > delayMs) {
         lastTime = time;
         setPhase((currentPhase) => {
-          if (speed === 'fast') {
-            stepOnce();
-            return 'update';
-          }
           if (currentPhase === 'init') {
             return 'forward';
           }
@@ -511,13 +507,13 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
           if (currentPhase === 'backprop') {
             return 'update';
           }
-          stepOnce();
-          return 'forward';
+          const nextState = advanceSamples(batchSize);
+          return nextState?.done ? 'finalize' : 'forward';
         });
       }
 
       const state = engineRef.current?.getState();
-      if (!cancelled && state && !state.converged && !state.done) {
+      if (!cancelled && state && !state.done) {
         animationRef.current = requestAnimationFrame(loop);
       } else {
         setIsPlaying(false);
@@ -532,10 +528,10 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying, speed, stepOnce]);
+  }, [advanceSamples, isPlaying, speed]);
 
   const handlePlayPause = () => {
-    if (!engineState || engineState.converged || engineState.done) {
+    if (!engineState || engineState.done) {
       return;
     }
     setIsPlaying((current) => !current);
@@ -559,8 +555,8 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
       return;
     }
 
-    stepOnce();
-    setPhase('forward');
+    const nextState = advanceSamples(1);
+    setPhase(nextState?.done ? 'finalize' : 'forward');
   };
 
   const handleReset = () => {
@@ -626,10 +622,10 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
         </div>
 
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', paddingTop: 4 }}>
-          <button type="button" onClick={handleStep} disabled={isPlaying || engineState.converged || engineState.done} style={buttonStyle()}>
+          <button type="button" onClick={handleStep} disabled={isPlaying || engineState.done} style={buttonStyle()}>
             {copy.labels.stepButton}
           </button>
-          <button type="button" onClick={handlePlayPause} disabled={engineState.converged || engineState.done} style={buttonStyle('#00e5ff66', isPlaying ? '#00e5ff33' : '#00e5ff15', '#00e5ff')}>
+          <button type="button" onClick={handlePlayPause} disabled={engineState.done} style={buttonStyle('#00e5ff66', isPlaying ? '#00e5ff33' : '#00e5ff15', '#00e5ff')}>
             {isPlaying ? copy.labels.pauseButton : copy.labels.playButton}
           </button>
           <button type="button" onClick={handleReset} style={buttonStyle()}>
@@ -759,7 +755,7 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'init' ? '#94a3b8' : phase === 'forward' ? '#38bdf8' : phase === 'backprop' ? '#ff2e97' : '#a78bfa' }} />
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'init' ? '#94a3b8' : phase === 'forward' ? '#38bdf8' : phase === 'backprop' ? '#ff2e97' : phase === 'update' ? '#a78bfa' : '#22c55e' }} />
             <div style={{ fontSize: 9, fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--sw-text-dim)' }}>
               {copy.labels.phaseTitle}
             </div>

@@ -268,7 +268,8 @@ export function createTrainingDebugger(config: TrainingDebuggerConfig) {
     const snapshots: SampleSnapshot[] = [];
 
     for (let i = 0; i < count; i++) {
-      if (converged || epoch >= config.totalEpochs) {
+      // Convergence is informational here; the debugger keeps running until the epoch budget ends.
+      if (epoch >= config.totalEpochs) {
         break;
       }
       snapshots.push(processSample());
