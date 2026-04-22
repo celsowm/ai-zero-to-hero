@@ -32,7 +32,10 @@
         "codePanel": {
           "title": "Inferência completa da rede",
           "description": "Esta aba continua o slide anterior: o treino já entregou um dict Python completo (`w1`, `b1`, `w2`, `b2`), e este código só reaproveita esse snapshot para fazer inferência.",
-          "code": "# Continuação do neural-network-minimal-example.\n# O treino anterior já gerou `parametros_finais`; aqui só reaproveitamos esse snapshot.\nparametros = parametros_finais\n\nfrom math import exp\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef prever_probabilidade(paciente, p):\n    x = [\n        paciente[\"idade\"] / 100,\n        paciente[\"pressao\"] / 200,\n        paciente[\"colesterol\"] / 300,\n        paciente[\"fumante\"],\n    ]\n    h = []\n    for j in range(3):\n        z = sum(p[\"w1\"][j][i] * x[i] for i in range(4)) + p[\"b1\"][j]\n        h.append(sigmoid(z))\n    z_out = sum(p[\"w2\"][j] * h[j] for j in range(3)) + p[\"b2\"]\n    return sigmoid(z_out)\n\n\npaciente = {\"idade\": 58, \"pressao\": 150, \"colesterol\": 245, \"fumante\": 1.0}\nprob = prever_probabilidade(paciente, parametros)\nclasse = \"sim\" if prob >= 0.5 else \"não\"\nprint(\"Probabilidade:\", round(prob, 4))\nprint(\"Classe prevista:\", classe)",
+          "source": {
+            "snippetId": "neural-networks/prediction",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [
@@ -473,7 +476,10 @@
         "codePanel": {
           "title": "Full network inference",
           "description": "This tab continues the previous slide: training has already produced a complete Python dict (`w1`, `b1`, `w2`, `b2`), and this code only reuses that snapshot for inference.",
-          "code": "# Continuation of neural-network-minimal-example.\n# The previous training slide already produced `final_parameters`; here we reuse that snapshot.\nparams = final_parameters\n\nfrom math import exp\n\ndef sigmoid(z):\n    return 1.0 / (1.0 + exp(-z))\n\n\ndef predict_probability(patient, p):\n    x = [\n        patient[\"age\"] / 100,\n        patient[\"blood_pressure\"] / 200,\n        patient[\"cholesterol\"] / 300,\n        patient[\"smoker\"],\n    ]\n    h = []\n    for j in range(3):\n        z = sum(p[\"w1\"][j][i] * x[i] for i in range(4)) + p[\"b1\"][j]\n        h.append(sigmoid(z))\n    z_out = sum(p[\"w2\"][j] * h[j] for j in range(3)) + p[\"b2\"]\n    return sigmoid(z_out)\n\n\npatient = {\"age\": 58, \"blood_pressure\": 150, \"cholesterol\": 245, \"smoker\": 1.0}\nprob = predict_probability(patient, params)\nlabel = \"yes\" if prob >= 0.5 else \"no\"\nprint(\"Probability:\", round(prob, 4))\nprint(\"Predicted class:\", label)",
+          "source": {
+            "snippetId": "neural-networks/prediction",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [

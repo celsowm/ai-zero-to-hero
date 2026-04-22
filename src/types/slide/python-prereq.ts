@@ -1,4 +1,4 @@
-import type { CodeExplanation } from './base';
+import type { CodeExplanation, CodeSourceRef } from './base';
 
 export interface PythonPrereqTabCopy {
   label: string;
@@ -7,7 +7,8 @@ export interface PythonPrereqTabCopy {
 export interface PythonPrereqCodePanelCopy {
   title: string;
   description: string;
-  code: string;
+  code?: string;
+  source?: CodeSourceRef;
   codeExplanations?: CodeExplanation[];
 }
 

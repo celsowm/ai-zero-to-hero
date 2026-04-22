@@ -10,7 +10,7 @@
   "content": {
     "pt-br": {
       "title": "Python Essencial: loop e acumulador",
-      "body": "Agora juntamos dados e função com iteração, que é a base de várias rotinas de ML.\n\n1. **`for` percorre o dataset:** cada tupla vira uma rodada de cálculo.\n\n2. **Desempacotamento:** `altura, idade, y_real` deixa o código legível.\n\n3. **Acumulador (`+=`):** soma resultados parciais sem perder o histórico.\n\n4. **Média com `len`:** divide o total pelo número de exemplos.\n\n> Esse padrão de loop prepara o terreno para MSE e treino por gradiente.\n\n---\n\n### Prévia de erro médio\n```python\ndados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\nsoma_erros = 0.0\nfor altura, idade, y_real in dados:\n    y_previsto = beta_0 + beta_1 * altura + beta_2 * idade\n    erro = y_previsto - y_real\n    soma_erros += erro\nerro_medio = soma_erros / len(dados)\nprint(f\"erro medio: {erro_medio:.2f}\")\n```\n\n- loop: calcula erro para cada amostra\n- acumulador: soma os erros\n- média final: referência rápida para qualidade da predição",
+      "body": "Agora juntamos dados e função com iteração, que é a base de várias rotinas de ML.\n\n1. **`for` percorre o dataset:** cada tupla vira uma rodada de cálculo.\n\n2. **Desempacotamento:** `altura, idade, y_real` deixa o código legível.\n\n3. **Acumulador (`+=`):** soma resultados parciais sem perder o histórico.\n\n4. **Média com `len`:** divide o total pelo número de exemplos.\n\n> Esse padrão de loop prepara o terreno para MSE e treino por gradiente.\n\n---\n\n### Prévia de erro médio\n```python\nsnippet:python-prereq/loops\n```\n\n- loop: calcula erro para cada amostra\n- acumulador: soma os erros\n- média final: referência rápida para qualidade da predição",
       "codeExplanations": [
         {
           "lineRange": [
@@ -44,7 +44,7 @@
     },
     "en-us": {
       "title": "Python Essentials: loop and accumulator",
-      "body": "Now we combine data and functions with iteration, which underpins many ML routines.\n\n1. **`for` walks through the dataset:** each tuple becomes one computation step.\n\n2. **Unpacking:** `height, age, y_real` keeps code readable.\n\n3. **Accumulator (`+=`):** adds partial results while preserving history.\n\n4. **Average with `len`:** divide the total by the number of examples.\n\n> This loop pattern prepares the ground for MSE and gradient-based training.\n\n---\n\n### Average error preview\n```python\ndata = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\ntotal_error = 0.0\nfor height, age, y_real in data:\n    y_pred = beta_0 + beta_1 * height + beta_2 * age\n    error = y_pred - y_real\n    total_error += error\navg_error = total_error / len(data)\nprint(f\"avg error: {avg_error:.2f}\")\n```\n\n- loop: computes one error per sample\n- accumulator: sums all errors\n- final average: quick reference for prediction quality",
+      "body": "Now we combine data and functions with iteration, which underpins many ML routines.\n\n1. **`for` walks through the dataset:** each tuple becomes one computation step.\n\n2. **Unpacking:** `height, age, y_real` keeps code readable.\n\n3. **Accumulator (`+=`):** adds partial results while preserving history.\n\n4. **Average with `len`:** divide the total by the number of examples.\n\n> This loop pattern prepares the ground for MSE and gradient-based training.\n\n---\n\n### Average error preview\n```python\nsnippet:python-prereq/loops\n```\n\n- loop: computes one error per sample\n- accumulator: sums all errors\n- final average: quick reference for prediction quality",
       "codeExplanations": [
         {
           "lineRange": [
@@ -92,7 +92,10 @@
         "codePanel": {
           "title": "Código: loop com acumulador",
           "description": "Prévia do padrão de iteração usado depois no cálculo de erro e treino.",
-          "code": "dados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\nsoma_erros = 0.0\nfor altura, idade, y_real in dados:\n    y_previsto = beta_0 + beta_1 * altura + beta_2 * idade\n    erro = y_previsto - y_real\n    soma_erros += erro\nerro_medio = soma_erros / len(dados)\nprint(f\"erro medio: {erro_medio:.2f}\")",
+          "source": {
+            "snippetId": "python-prereq/loops",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [
@@ -174,7 +177,10 @@
         "codePanel": {
           "title": "Code: loop with accumulator",
           "description": "Preview of the iteration pattern used later for error computation and training.",
-          "code": "data = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    (170, 28, 64.0),\n]\nbeta_0, beta_1, beta_2 = -21.0, 0.4, 0.6\ntotal_error = 0.0\nfor height, age, y_real in data:\n    y_pred = beta_0 + beta_1 * height + beta_2 * age\n    error = y_pred - y_real\n    total_error += error\navg_error = total_error / len(data)\nprint(f\"avg error: {avg_error:.2f}\")",
+          "source": {
+            "snippetId": "python-prereq/loops",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [

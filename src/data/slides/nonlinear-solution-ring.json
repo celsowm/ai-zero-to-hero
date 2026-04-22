@@ -44,7 +44,10 @@
         "boundaryDescription": "A curva fecha o anel — algo impossível para uma reta.",
         "codeTitle": "Rede neural mínima em JavaScript",
         "codeDescription": "Uma camada oculta com 4 neurônios sigmoid é suficiente para aprender a fronteira circular.",
-        "code": "const sigmoid = v => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, v))));\n\n// Rede: entrada(2) → oculta(4 neurônios sigmoid) → saída(1 sigmoid)\nconst forward = (w, x, y) => {\n  const h = w.hb.map((b, j) => sigmoid(b + w.hx[j]*x + w.hy[j]*y));\n  const z = w.ob + h.reduce((s, hj, j) => s + w.ow[j]*hj, 0);\n  return sigmoid(z);\n};\n\nconst trainEpoch = (w, dataset, lr) => {\n  const g = { hb:[0,0,0,0], hx:[0,0,0,0], hy:[0,0,0,0], ob:0, ow:[0,0,0,0] };\n\n  dataset.forEach(({ x, y, label }) => {\n    const h = w.hb.map((b, j) => sigmoid(b + w.hx[j]*x + w.hy[j]*y));\n    const out = sigmoid(w.ob + h.reduce((s,hj,j) => s + w.ow[j]*hj, 0));\n\n    const dOut = 2*(out-label)*out*(1-out);\n    g.ob += dOut;\n    h.forEach((hj, j) => {\n      g.ow[j] += dOut * hj;\n      const dh = dOut * w.ow[j] * hj * (1-hj);\n      g.hb[j] += dh; g.hx[j] += dh*x; g.hy[j] += dh*y;\n    });\n  });\n\n  const n = dataset.length;\n  return {\n    hb: w.hb.map((v,j) => v - lr*g.hb[j]/n),\n    hx: w.hx.map((v,j) => v - lr*g.hx[j]/n),\n    hy: w.hy.map((v,j) => v - lr*g.hy[j]/n),\n    ob: w.ob - lr*g.ob/n,\n    ow: w.ow.map((v,j) => v - lr*g.ow[j]/n),\n  };\n};",
+        "source": {
+          "snippetId": "nonlinear-regression/ring",
+          "language": "javascript"
+        },
         "footer": "Com apenas quatro neurônios ocultos e sigmoid, o modelo aprende a fronteira circular que a reta nunca poderia traçar.",
         "codeExplanations": [
           {
@@ -122,7 +125,10 @@
         "boundaryDescription": "The curve closes the ring — something a straight line can never do.",
         "codeTitle": "Minimal neural network in JavaScript",
         "codeDescription": "A hidden layer with 4 sigmoid neurons is enough to learn the circular boundary.",
-        "code": "const sigmoid = v => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, v))));\n\n// Network: input(2) → hidden(4 sigmoid neurons) → output(1 sigmoid)\nconst forward = (w, x, y) => {\n  const h = w.hb.map((b, j) => sigmoid(b + w.hx[j]*x + w.hy[j]*y));\n  const z = w.ob + h.reduce((s, hj, j) => s + w.ow[j]*hj, 0);\n  return sigmoid(z);\n};\n\nconst trainEpoch = (w, dataset, lr) => {\n  const g = { hb:[0,0,0,0], hx:[0,0,0,0], hy:[0,0,0,0], ob:0, ow:[0,0,0,0] };\n\n  dataset.forEach(({ x, y, label }) => {\n    const h = w.hb.map((b, j) => sigmoid(b + w.hx[j]*x + w.hy[j]*y));\n    const out = sigmoid(w.ob + h.reduce((s,hj,j) => s + w.ow[j]*hj, 0));\n\n    const dOut = 2*(out-label)*out*(1-out);\n    g.ob += dOut;\n    h.forEach((hj, j) => {\n      g.ow[j] += dOut * hj;\n      const dh = dOut * w.ow[j] * hj * (1-hj);\n      g.hb[j] += dh; g.hx[j] += dh*x; g.hy[j] += dh*y;\n    });\n  });\n\n  const n = dataset.length;\n  return {\n    hb: w.hb.map((v,j) => v - lr*g.hb[j]/n),\n    hx: w.hx.map((v,j) => v - lr*g.hx[j]/n),\n    hy: w.hy.map((v,j) => v - lr*g.hy[j]/n),\n    ob: w.ob - lr*g.ob/n,\n    ow: w.ow.map((v,j) => v - lr*g.ow[j]/n),\n  };\n};",
+        "source": {
+          "snippetId": "nonlinear-regression/ring",
+          "language": "javascript"
+        },
         "footer": "With just four hidden neurons and sigmoid, the model learns the circular boundary that a straight line could never draw.",
         "codeExplanations": [
           {

@@ -1,4 +1,4 @@
-import type { CodeExplanation } from './base';
+import type { CodeExplanation, CodeSourceRef } from './base';
 
 export interface BiologicalVsComputationalNeuronCopy {
   eyebrow: string;
@@ -226,8 +226,9 @@ export interface NeuralNetworkStepDebuggerVisualCopy {
     lossHistoryTitle: string;
     phaseTitle: string;
   };
-  pythonCode: string;
-  codeHighlightRanges: Record<'init' | 'forward' | 'backprop' | 'update' | 'finalize', [number, number]>;
+  pythonCode?: string;
+  pythonSource?: CodeSourceRef;
+  codeHighlightRanges?: Record<'init' | 'forward' | 'backprop' | 'update' | 'finalize', [number, number]>;
   dataset: Array<{ inputs: number[]; target: number }>;
   totalEpochs: number;
   convergenceThreshold: number;
@@ -270,7 +271,8 @@ export interface NeuralNetworkTabsStepperCopy {
   codePanel: {
     title: string;
     description: string;
-    code: string;
+    code?: string;
+    source?: CodeSourceRef;
     codeExplanations?: CodeExplanation[];
   };
   stepperPanel: {

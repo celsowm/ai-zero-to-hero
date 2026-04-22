@@ -9,6 +9,7 @@ import { FONT_SCALE_BASE } from '../constants/course';
 import { useCourse } from '../context/CourseContext';
 import { CodeBlock } from './CodeBlock';
 import type { CodeExplanation } from '../types/slide';
+import type { CodeSourceRef, SnippetLanguage } from '../types/slide';
 
 interface MarkdownRendererProps {
   body: string;
@@ -22,6 +23,17 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
   // Slides use $$...$$ for inline math, but remark-math treats $$ as block math.
   // Convert $$...$$ that appear within a line (no newlines inside) to $...$
   const processedBody = body.replace(/\$\$([^$\n]+?)\$\$/g, (_match, inner: string) => `$${inner}$`);
+
+  const normalizeSnippetLanguage = (language: string): SnippetLanguage | null => {
+    const lowered = language.toLowerCase();
+    if (lowered === 'python' || lowered === 'py') {
+      return 'python';
+    }
+    if (lowered === 'javascript' || lowered === 'js') {
+      return 'javascript';
+    }
+    return null;
+  };
 
   return (
     <ReactMarkdown
@@ -187,6 +199,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
           if (isBlock) {
             const language = match[1];
             const codeString = String(children).replace(/\n$/, '');
+            const snippetMatch = codeString.match(/^snippet:\s*([A-Za-z0-9/_-]+)\s*$/);
 
             return (
               <div style={{
@@ -199,11 +212,39 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
                 marginBottom: 24,
                 position: 'relative'
               }}>
-                <CodeBlock 
-                  code={codeString} 
-                  language={language}
-                  explanations={codeExplanations}
-                />
+                {snippetMatch ? (
+                  (() => {
+                    const snippetLanguage = normalizeSnippetLanguage(language);
+                    if (!snippetLanguage) {
+                      return (
+                        <CodeBlock
+                          code={codeString}
+                          language={language}
+                          explanations={codeExplanations}
+                        />
+                      );
+                    }
+
+                    const sourceRef: CodeSourceRef = {
+                      snippetId: snippetMatch[1],
+                      language: snippetLanguage,
+                    };
+
+                    return (
+                      <CodeBlock
+                        sourceRef={sourceRef}
+                        language={language}
+                        explanations={codeExplanations}
+                      />
+                    );
+                  })()
+                ) : (
+                  <CodeBlock
+                    code={codeString}
+                    language={language}
+                    explanations={codeExplanations}
+                  />
+                )}
               </div>
             );
           }

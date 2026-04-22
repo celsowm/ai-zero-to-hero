@@ -10,7 +10,7 @@
   "content": {
     "pt-br": {
       "title": "Python Essencial: funções e return",
-      "body": "Com dados na mão, o próximo passo é organizar cálculo em função.\n\n1. **`def` cria a rotina:** nomeamos uma tarefa reutilizável.\n\n2. **Parâmetros entram como entradas:** a função recebe valores para trabalhar.\n\n3. **`return` devolve a saída:** o resultado sai pronto para reutilização.\n\n4. **Transição para IA:** a conta de predição já aparece como função curta.\n\n> Este padrão (entrada -> cálculo -> saída) volta em praticamente todo o curso.\n\n---\n\n### Exemplo de predição simples\n```python\ndef prever_peso(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npeso_previsto = prever_peso(172, 29, beta_0, beta_1, beta_2)\nprint(f\"peso previsto: {peso_previsto:.2f}\")\n```\n\n- `prever_peso`: função de uma única conta\n- `beta_*`: coeficientes fixos neste exemplo\n- chamada da função: transforma entrada em predição",
+      "body": "Com dados na mão, o próximo passo é organizar cálculo em função.\n\n1. **`def` cria a rotina:** nomeamos uma tarefa reutilizável.\n\n2. **Parâmetros entram como entradas:** a função recebe valores para trabalhar.\n\n3. **`return` devolve a saída:** o resultado sai pronto para reutilização.\n\n4. **Transição para IA:** a conta de predição já aparece como função curta.\n\n> Este padrão (entrada -> cálculo -> saída) volta em praticamente todo o curso.\n\n---\n\n### Exemplo de predição simples\n```python\nsnippet:python-prereq/functions\n```\n\n- `prever_peso`: função de uma única conta\n- `beta_*`: coeficientes fixos neste exemplo\n- chamada da função: transforma entrada em predição",
       "codeExplanations": [
         {
           "lineRange": [
@@ -44,7 +44,7 @@
     },
     "en-us": {
       "title": "Python Essentials: functions and return",
-      "body": "Once data is ready, the next step is packaging calculations into functions.\n\n1. **`def` creates the routine:** we name a reusable task.\n\n2. **Parameters are the inputs:** the function receives values to process.\n\n3. **`return` sends output back:** the result is produced for reuse.\n\n4. **Bridge to AI:** prediction already appears as a short function.\n\n> This pattern (input -> computation -> output) appears across almost the entire course.\n\n---\n\n### Simple prediction example\n```python\ndef predict_weight(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npredicted_weight = predict_weight(172, 29, beta_0, beta_1, beta_2)\nprint(f\"predicted weight: {predicted_weight:.2f}\")\n```\n\n- `predict_weight`: one-function calculation\n- `beta_*`: fixed coefficients in this example\n- function call: turns inputs into one prediction",
+      "body": "Once data is ready, the next step is packaging calculations into functions.\n\n1. **`def` creates the routine:** we name a reusable task.\n\n2. **Parameters are the inputs:** the function receives values to process.\n\n3. **`return` sends output back:** the result is produced for reuse.\n\n4. **Bridge to AI:** prediction already appears as a short function.\n\n> This pattern (input -> computation -> output) appears across almost the entire course.\n\n---\n\n### Simple prediction example\n```python\nsnippet:python-prereq/functions\n```\n\n- `predict_weight`: one-function calculation\n- `beta_*`: fixed coefficients in this example\n- function call: turns inputs into one prediction",
       "codeExplanations": [
         {
           "lineRange": [
@@ -92,7 +92,10 @@
         "codePanel": {
           "title": "Código: função de predição",
           "description": "Função curta com parâmetros e retorno, conectando entrada a saída.",
-          "code": "def prever_peso(altura, idade, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * altura + beta_2 * idade\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npeso_previsto = prever_peso(172, 29, beta_0, beta_1, beta_2)\nprint(f\"peso previsto: {peso_previsto:.2f}\")",
+          "source": {
+            "snippetId": "python-prereq/functions",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [
@@ -164,7 +167,10 @@
         "codePanel": {
           "title": "Code: prediction function",
           "description": "A short function with parameters and return, connecting inputs to outputs.",
-          "code": "def predict_weight(height, age, beta_0, beta_1, beta_2):\n    return beta_0 + beta_1 * height + beta_2 * age\nbeta_0 = -21.0\nbeta_1 = 0.4\nbeta_2 = 0.6\npredicted_weight = predict_weight(172, 29, beta_0, beta_1, beta_2)\nprint(f\"predicted weight: {predicted_weight:.2f}\")",
+          "source": {
+            "snippetId": "python-prereq/functions",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [

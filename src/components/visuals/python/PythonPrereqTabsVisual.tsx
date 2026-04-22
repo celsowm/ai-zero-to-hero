@@ -413,7 +413,12 @@ const CodePanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) => 
     <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)' }}>{copy.codePanel.title}</div>
     <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{copy.codePanel.description}</div>
     <div style={{ ...chartCardStyle, flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-      <CodeBlock code={copy.codePanel.code} language="python" explanations={copy.codePanel.codeExplanations} />
+      <CodeBlock
+        code={copy.codePanel.code}
+        language="python"
+        explanations={copy.codePanel.codeExplanations}
+        sourceRef={copy.codePanel.source}
+      />
     </div>
     <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
   </PanelCard>

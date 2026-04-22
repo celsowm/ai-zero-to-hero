@@ -415,7 +415,7 @@ export const NonlinearSolutionRingVisual: React.FC<Props> = ({ copy }) => {
               <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{copy.codeDescription}</div>
             </div>
             <div style={codeBodyStyle}>
-              <CodeBlock code={copy.code} language="javascript" explanations={copy.codeExplanations} />
+              <CodeBlock code={copy.code} language="javascript" explanations={copy.codeExplanations} sourceRef={copy.source} />
             </div>
           </PanelCard>
         )}

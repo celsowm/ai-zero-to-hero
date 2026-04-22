@@ -45,7 +45,10 @@
         "lineDescription": "A linha tenta separar os dois anéis com um único corte.",
         "codeTitle": "Treino em JavaScript",
         "codeDescription": "A segunda aba mostra o loop de treino que atualiza os pesos da fronteira linear.",
-        "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
+        "source": {
+          "snippetId": "nonlinear-regression/boundary",
+          "language": "javascript"
+        },
         "footer": "A linha melhora com otimização, mas um padrão em anel continua fora do alcance de uma fronteira linear.",
         "codeExplanations": [
           {
@@ -117,7 +120,10 @@
         "lineDescription": "The line tries to split the two rings with a single cut.",
         "codeTitle": "Training in JavaScript",
         "codeDescription": "The second tab shows the training loop that updates the linear boundary weights.",
-        "code": "const sigmoid = value => 1 / (1 + Math.exp(-Math.max(-18, Math.min(18, value))));\n\nconst predictRaw = (model, sample) => model.w0 + model.w1 * sample.x + model.w2 * sample.y;\nconst predictProbability = (model, sample) => sigmoid(predictRaw(model, sample));\n\nconst trainEpoch = (model, dataset, learningRate) => {\n  let gradW0 = 0;\n  let gradW1 = 0;\n  let gradW2 = 0;\n\n  dataset.forEach(sample => {\n    const prediction = predictProbability(model, sample);\n    const error = prediction - sample.label;\n    const factor = 2 * error * prediction * (1 - prediction);\n\n    gradW0 += factor;\n    gradW1 += factor * sample.x;\n    gradW2 += factor * sample.y;\n  });\n\n  const n = dataset.length;\n  return {\n    w0: model.w0 - learningRate * (gradW0 / n),\n    w1: model.w1 - learningRate * (gradW1 / n),\n    w2: model.w2 - learningRate * (gradW2 / n),\n  };\n};",
+        "source": {
+          "snippetId": "nonlinear-regression/boundary",
+          "language": "javascript"
+        },
         "footer": "The line can improve with optimization, but a ring-shaped pattern remains out of reach for a linear boundary.",
         "codeExplanations": [
           {

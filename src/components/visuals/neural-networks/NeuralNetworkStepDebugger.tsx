@@ -7,6 +7,8 @@ import {
   type SampleSnapshot,
   type TrainingDebuggerState,
 } from '../../../utils/neuralTrainingEngine';
+import { useCourse } from '../../../context/CourseContext';
+import { resolveSnippetSource } from '../../../content/registry';
 import { PanelCard } from '../PanelCard';
 import { CodeBlock } from '../../CodeBlock';
 
@@ -423,6 +425,7 @@ function evaluateAccuracy(weights: NetworkWeights, copy: NeuralNetworkStepDebugg
 }
 
 export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
+  const { language } = useCourse();
   const engineRef = useRef<ReturnType<typeof createTrainingDebugger> | null>(null);
   const animationRef = useRef<number | null>(null);
   const explanationRef = useRef<HTMLDivElement | null>(null);
@@ -579,6 +582,20 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
 
   const mse = engineState?.lossHistory.at(-1) ?? null;
   const accuracy = useMemo(() => (engineState ? evaluateAccuracy(engineState.weights, copy) : 0), [copy, engineState]);
+  const resolvedSnippet = useMemo(() => {
+    if (!copy.pythonSource) {
+      return null;
+    }
+
+    try {
+      return resolveSnippetSource(copy.pythonSource, language);
+    } catch (error) {
+      console.error(`Failed to resolve neural network snippet "${copy.pythonSource.snippetId}"`, error);
+      return null;
+    }
+  }, [copy.pythonSource, language]);
+  const activeCodeRange = resolvedSnippet?.regions[phase] ?? copy.codeHighlightRanges?.[phase] ?? null;
+  const activeCode = resolvedSnippet?.code ?? copy.pythonCode ?? '';
 
   if (!snap || !engineState) {
     return null;
@@ -682,10 +699,11 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
             {copy.labels.codeTitle}
           </div>
           <CodeBlock
-            code={copy.pythonCode}
+            code={activeCode}
             language="python"
-            activeRange={copy.codeHighlightRanges[phase]}
+            activeRange={activeCodeRange}
             compact
+            sourceRef={copy.pythonSource}
           />
         </div>
       </PanelCard>

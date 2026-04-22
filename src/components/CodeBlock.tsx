@@ -2,19 +2,21 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
 import { Copy, Check, Info } from 'lucide-react';
-import type { CodeExplanation as ICodeExplanation } from '../types/slide';
+import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
 import { useCourse } from '../context/CourseContext';
+import { resolveSnippetCode } from '../content/registry';
 import 'highlight.js/styles/github-dark.css';
 
 export type CodeExplanation = ICodeExplanation;
 
 interface CodeBlockProps {
-  code: string;
+  code?: string;
   language?: string;
   className?: string;
   explanations?: CodeExplanation[];
   activeRange?: [number, number] | null;
   compact?: boolean;
+  sourceRef?: CodeSourceRef;
 }
 
 /**
@@ -89,13 +91,27 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   explanations = [],
   activeRange,
   compact = false,
+  sourceRef,
 }) => {
-  const { fontScale } = useCourse();
+  const { fontScale, language: courseLanguage } = useCourse();
   const [copied, setCopied] = useState(false);
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
   const [tooltipData, setTooltipData] = useState<{ content: string; top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  const resolvedCode = useMemo(() => {
+    if (!sourceRef) {
+      return code ?? '';
+    }
+
+    try {
+      return resolveSnippetCode(sourceRef, courseLanguage);
+    } catch (error) {
+      console.error(`Failed to resolve snippet "${sourceRef.snippetId}"`, error);
+      return code ?? '';
+    }
+  }, [code, courseLanguage, sourceRef]);
 
   const codeFontSize = (compact ? 10 : 11.5) * fontScale;
   const uiFontSize = (compact ? 9 : 10) * fontScale;
@@ -110,11 +126,11 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   const processedLines = useMemo(() => {
     const highlighted = hljs.getLanguage(lang)
-      ? hljs.highlight(code, { language: lang }).value
-      : hljs.highlightAuto(code).value;
+      ? hljs.highlight(resolvedCode, { language: lang }).value
+      : hljs.highlightAuto(resolvedCode).value;
 
     return highlighted.split('\n');
-  }, [code, lang]);
+  }, [lang, resolvedCode]);
 
   const visualRange = activeRange !== undefined ? activeRange : hoveredRange;
 
@@ -136,7 +152,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(resolvedCode);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {

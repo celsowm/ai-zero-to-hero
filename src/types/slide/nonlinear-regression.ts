@@ -1,4 +1,4 @@
-import type { CodeExplanation } from './base';
+import type { CodeExplanation, CodeSourceRef } from './base';
 
 export interface NonlinearSolutionRingVisualCopy {
   eyebrow: string;
@@ -21,7 +21,8 @@ export interface NonlinearSolutionRingVisualCopy {
   boundaryDescription: string;
   codeTitle: string;
   codeDescription: string;
-  code: string;
+  code?: string;
+  source?: CodeSourceRef;
   codeExplanations?: CodeExplanation[];
   footer: string;
 }
@@ -48,7 +49,8 @@ export interface NonlinearRegressionBoundaryVisualCopy {
   lineDescription: string;
   codeTitle: string;
   codeDescription: string;
-  code: string;
+  code?: string;
+  source?: CodeSourceRef;
   codeExplanations?: CodeExplanation[];
   footer: string;
 }

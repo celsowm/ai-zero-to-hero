@@ -155,7 +155,12 @@ const CodePanel: React.FC<{ copy: NeuralNetworkTabsStepperCopy['codePanel']; eye
     </div>
 
     <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-      <CodeBlock code={copy.code} language="python" explanations={copy.codeExplanations} />
+      <CodeBlock
+        code={copy.code}
+        language="python"
+        explanations={copy.codeExplanations}
+        sourceRef={copy.source}
+      />
     </div>
   </PanelCard>
 );

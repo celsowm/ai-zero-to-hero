@@ -10,7 +10,7 @@
   "content": {
     "pt-br": {
       "title": "Python Essencial: dados e variáveis",
-      "body": "Antes de entrar na IA, vale alinhar o alfabeto do Python que vamos usar no curso.\n\n1. **Variáveis com nomes claros:** guardam valores que o modelo usa depois.\n\n2. **Números e tuplas:** cada observação pode virar uma tupla como `(altura, idade, peso)`.\n\n3. **Lista de exemplos:** um conjunto de tuplas vira a base para treino e análise.\n\n4. **Leitura simples:** acessar `dados[0][0]` significa “primeira linha, primeira coluna”.\n\n> Este slide é só base de leitura de dados: sem treino, sem gradiente.\n\n---\n\n### Exemplo rápido\n```python\n# dados tabulares simples\naltura = 172\nidade = 29\npeso = 68.5\namostra = (altura, idade, peso)\ndados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    amostra,\n]\nprimeira_altura = dados[0][0]\nprint(primeira_altura)\n```\n\n- `amostra`: uma tupla com 3 valores\n- `dados`: lista de amostras\n- `dados[0][0]`: primeira altura registrada",
+      "body": "Antes de entrar na IA, vale alinhar o alfabeto do Python que vamos usar no curso.\n\n1. **Variáveis com nomes claros:** guardam valores que o modelo usa depois.\n\n2. **Números e tuplas:** cada observação pode virar uma tupla como `(altura, idade, peso)`.\n\n3. **Lista de exemplos:** um conjunto de tuplas vira a base para treino e análise.\n\n4. **Leitura simples:** acessar `dados[0][0]` significa “primeira linha, primeira coluna”.\n\n> Este slide é só base de leitura de dados: sem treino, sem gradiente.\n\n---\n\n### Exemplo rápido\n```python\nsnippet:python-prereq/data\n```\n\n- `amostra`: uma tupla com 3 valores\n- `dados`: lista de amostras\n- `dados[0][0]`: primeira altura registrada",
       "codeExplanations": [
         {
           "lineRange": [
@@ -44,7 +44,7 @@
     },
     "en-us": {
       "title": "Python Essentials: data and variables",
-      "body": "Before diving into AI, we align the Python alphabet used throughout this course.\n\n1. **Clear variable names:** they store values the model will later consume.\n\n2. **Numbers and tuples:** each observation can be represented as `(height, age, weight)`.\n\n3. **List of examples:** a set of tuples becomes the base for training and analysis.\n\n4. **Simple reading:** `data[0][0]` means “first row, first column”.\n\n> This slide is only about data reading basics: no training, no gradients.\n\n---\n\n### Quick example\n```python\n# simple tabular data\nheight = 172\nage = 29\nweight = 68.5\nsample = (height, age, weight)\ndata = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    sample,\n]\nfirst_height = data[0][0]\nprint(first_height)\n```\n\n- `sample`: one tuple with 3 values\n- `data`: list of samples\n- `data[0][0]`: first recorded height",
+      "body": "Before diving into AI, we align the Python alphabet used throughout this course.\n\n1. **Clear variable names:** they store values the model will later consume.\n\n2. **Numbers and tuples:** each observation can be represented as `(height, age, weight)`.\n\n3. **List of examples:** a set of tuples becomes the base for training and analysis.\n\n4. **Simple reading:** `data[0][0]` means “first row, first column”.\n\n> This slide is only about data reading basics: no training, no gradients.\n\n---\n\n### Quick example\n```python\nsnippet:python-prereq/data\n```\n\n- `sample`: one tuple with 3 values\n- `data`: list of samples\n- `data[0][0]`: first recorded height",
       "codeExplanations": [
         {
           "lineRange": [
@@ -92,7 +92,10 @@
         "codePanel": {
           "title": "Código: estrutura de dados em Python",
           "description": "A mesma base do slide, agora com leitura guiada em linhas chave.",
-          "code": "# dados tabulares simples\naltura = 172\nidade = 29\npeso = 68.5\namostra = (altura, idade, peso)\ndados = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    amostra,\n]\nprimeira_altura = dados[0][0]\nprint(primeira_altura)",
+          "source": {
+            "snippetId": "python-prereq/data",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [
@@ -174,7 +177,10 @@
         "codePanel": {
           "title": "Code: Python data structure",
           "description": "The same base from the slide, now with guided line-level reading.",
-          "code": "# simple tabular data\nheight = 172\nage = 29\nweight = 68.5\nsample = (height, age, weight)\ndata = [\n    (160, 20, 55.0),\n    (165, 24, 59.0),\n    sample,\n]\nfirst_height = data[0][0]\nprint(first_height)",
+          "source": {
+            "snippetId": "python-prereq/data",
+            "language": "python"
+          },
           "codeExplanations": [
             {
               "lineRange": [

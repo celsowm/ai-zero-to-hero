@@ -1,0 +1,5 @@
+{
+  "id": "neural-networks/minimal-example",
+  "language": "python",
+  "regions": ["init", "forward", "backprop", "update", "finalize"]
+}

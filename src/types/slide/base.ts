@@ -1,4 +1,18 @@
 export type Language = 'pt-br' | 'en-us';
+export type SnippetLanguage = 'python' | 'javascript';
+export type CodeRegionId = string;
+
+export interface CodeSourceRef {
+  snippetId: string;
+  language: SnippetLanguage;
+}
+
+export interface CodeSnippetMeta {
+  id: string;
+  language: SnippetLanguage;
+  regions: CodeRegionId[];
+  explanations?: Partial<Record<CodeRegionId, string>>;
+}
 
 export type SlideType = 'markdown' | 'two-column' | 'custom' | 'code';
 
