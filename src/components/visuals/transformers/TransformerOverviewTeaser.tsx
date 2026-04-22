@@ -323,7 +323,7 @@ export const TransformerOverviewTeaser: React.FC<TransformerOverviewTeaserProps>
             position: 'relative',
             zIndex: 1,
             display: 'grid',
-            gridTemplateColumns: '1.06fr 0.8fr 1.08fr',
+            gridTemplateColumns: '0.84fr 1.12fr 1.04fr',
             gap: 18,
             minWidth: 0,
             alignItems: 'start',
