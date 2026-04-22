@@ -6,4 +6,5 @@ export * from './nonlinear-regression';
 export * from './language-models';
 export * from './transformers';
 export * from './neural-networks';
+export * from './exercise';
 export * from './visuals';

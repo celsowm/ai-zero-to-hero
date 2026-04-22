@@ -57,3 +57,4 @@ export { TrainingControls } from './neural-networks/TrainingControls';
 export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDebugger';
 export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
+export { PythonExerciseVisual } from './python/PythonExerciseVisual';

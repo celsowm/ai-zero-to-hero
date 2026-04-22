@@ -54,9 +54,12 @@ const metricLabelStyle: React.CSSProperties = {
 
 const metricValueStyle: React.CSSProperties = {
   marginTop: 6,
-  fontSize: 18,
+  fontSize: 16,
   fontWeight: 700,
   color: 'var(--sw-text)',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -405,7 +408,11 @@ const GraphPanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) =>
     return <FunctionsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
   }
 
-  return <LoopsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
+  if (copy.graphPanel.type === 'loops') {
+    return <LoopsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
+  }
+
+  return null;
 };
 
 const CodePanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) => (
@@ -428,9 +435,11 @@ export const PythonPrereqTabsVisual: React.FC<PythonPrereqTabsVisualProps> = ({ 
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
       <TabsBar ariaLabel={copy.codePanel.title} items={copy.tabs} activeIndex={activeTab} onChange={setActiveTab} />
-      <TabbedPanelSurface>{activeTab === 0 ? <CodePanel copy={copy} /> : <GraphPanel copy={copy} />}</TabbedPanelSurface>
+      <TabbedPanelSurface>
+        {activeTab === 0 ? <CodePanel copy={copy} /> : <GraphPanel copy={copy} />}
+      </TabbedPanelSurface>
     </div>
   );
 };

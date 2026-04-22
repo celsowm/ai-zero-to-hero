@@ -14,7 +14,7 @@ export interface CodeSnippetMeta {
   explanations?: Partial<Record<CodeRegionId, string>>;
 }
 
-export type SlideType = 'markdown' | 'two-column' | 'custom' | 'code';
+export type SlideType = 'markdown' | 'two-column' | 'custom' | 'code' | 'exercise';
 
 export interface CodeExplanation {
   lineRange: [number, number];

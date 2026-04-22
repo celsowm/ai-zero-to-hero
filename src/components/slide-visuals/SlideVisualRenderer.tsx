@@ -52,6 +52,7 @@ import {
   BackpropSignalFlow,
   NeuralNetworkTabsStepper,
   PythonPrereqTabsVisual,
+  PythonExerciseVisual,
 } from '../visuals';
 
 interface SlideVisualRendererProps {
@@ -79,6 +80,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <LinearRegressionTabsVisual copy={visual.copy[language]} />;
     case 'python-prereq-tabs':
       return <PythonPrereqTabsVisual copy={visual.copy[language]} />;
+    case 'python-exercise':
+      return <PythonExerciseVisual copy={visual.copy[language]} />;
     case 'linear-regression-simple-line':
       return <LinearRegressionSimpleLineVisual copy={visual.copy[language]} />;
     case 'gradient-descent-3d':

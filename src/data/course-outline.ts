@@ -4,6 +4,7 @@ export const courseSlideOrder = [
   'python-prereq-data',
   'python-prereq-functions',
   'python-prereq-loops',
+  'python-prereq-exercises',
   'ia-definition',
   'ia-learning-loop',
   'ia-vs-tradicionais',

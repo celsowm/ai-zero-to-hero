@@ -25,6 +25,9 @@ export const SlideFactory: React.FC<SlideFactoryProps> = ({ slide, language }) =
 
     case 'custom':
       return <CustomVisualSlide slide={slide} language={language} />;
+
+    case 'exercise':
+      return <CustomVisualSlide slide={slide} language={language} />;
     
     // Futuros tipos de slides serão adicionados aqui (ex: svg-anim, code)
     default:

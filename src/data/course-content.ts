@@ -26,6 +26,7 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'api-latency-growth'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-tabs'; copy: Record<Language, unknown> }
     | { id: 'python-prereq-tabs'; copy: Record<Language, unknown> }
+    | { id: 'python-exercise'; copy: Record<Language, unknown> }
     | { id: 'neural-network-tabs-stepper'; copy: Record<Language, unknown> }
     | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }
     | { id: 'linear-regression-notation'; copy: Record<Language, unknown> }

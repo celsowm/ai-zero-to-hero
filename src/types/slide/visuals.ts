@@ -59,6 +59,7 @@ import type {
   SigmoidDeepDiveExplorerCopy,
   SigmoidDerivativeExplorerCopy,
 } from './neural-networks';
+import type { PythonExerciseVisualCopy } from './exercise';
 
 export interface BiologicalVsComputationalNeuronVisual {
   id: 'biological-vs-computational-neuron';
@@ -103,6 +104,11 @@ export interface NeuralNetworkStepDebuggerVisual {
 export interface NeuralNetworkTabsStepperVisual {
   id: 'neural-network-tabs-stepper';
   copy: Record<Language, NeuralNetworkTabsStepperCopy>;
+}
+
+export interface PythonExerciseVisual {
+  id: 'python-exercise';
+  copy: Record<Language, PythonExerciseVisualCopy>;
 }
 
 export interface InferenceDiagramVisual {
@@ -366,7 +372,8 @@ export type SlideVisual =
   | BackpropSignalFlowVisual
   | BiologicalVsComputationalNeuronVisual
   | NeuralNetworkStepDebuggerVisual
-  | NeuralNetworkTabsStepperVisual;
+  | NeuralNetworkTabsStepperVisual
+  | PythonExerciseVisual;
 
 export interface SlideOptions {
   columns?: number;

@@ -13,7 +13,6 @@ const surfaceStyle = (minHeight: number): React.CSSProperties => ({
   flexDirection: 'column',
   gap: 14,
   minWidth: 0,
-  overflow: 'hidden',
 });
 
 const bodyStyle: React.CSSProperties = {
@@ -22,7 +21,6 @@ const bodyStyle: React.CSSProperties = {
   minWidth: 0,
   display: 'flex',
   flexDirection: 'column',
-  overflow: 'hidden',
 };
 
 export const TabbedPanelSurface: React.FC<TabbedPanelSurfaceProps> = ({ children, minHeight = 0 }) => (
