@@ -59,10 +59,10 @@
         },
         "pythonCode": "import math\nimport random\n\nrandom.seed(0)\n\ndados = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1),\n]\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef dsigmoid(y):\n    return y * (1 - y)\n\nw1 = [[random.uniform(-1, 1) for _ in range(4)] for _ in range(3)]\nb1 = [0.0, 0.0, 0.0]\nw2 = [random.uniform(-1, 1) for _ in range(3)]\nb2 = 0.0\n\ndef forward(x):\n    h = []\n    for j in range(3):\n        z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]\n        h.append(sigmoid(z))\n    z_out = sum(w2[j] * h[j] for j in range(3)) + b2\n    y_hat = sigmoid(z_out)\n    return h, y_hat\n\nfor epoca in range(8000):\n    for x, alvo in dados:\n        h, y_hat = forward(x)\n        delta_out = (y_hat - alvo) * dsigmoid(y_hat)\n        delta_h = [\n            dsigmoid(h[j]) * w2[j] * delta_out\n            for j in range(3)\n        ]\n        for j in range(3):\n            w2[j] -= 0.5 * delta_out * h[j]\n        b2 -= 0.5 * delta_out\n        for j in range(3):\n            for i in range(4):\n                w1[j][i] -= 0.5 * delta_h[j] * x[i]\n            b1[j] -= 0.5 * delta_h[j]",
         "codeHighlightRanges": {
-          "init": [1, 22],
-          "forward": [24, 30],
-          "backprop": [34, 39],
-          "update": [40, 46]
+          "init": [1, 24],
+          "forward": [26, 33],
+          "backprop": [38, 42],
+          "update": [43, 49]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },
@@ -139,10 +139,10 @@
         },
         "pythonCode": "import math\nimport random\n\nrandom.seed(0)\n\ndata = [\n    ([0.35, 0.60, 0.58, 0.0], 0),\n    ([0.42, 0.65, 0.62, 0.0], 0),\n    ([0.48, 0.70, 0.68, 0.0], 0),\n    ([0.58, 0.78, 0.82, 1.0], 1),\n    ([0.67, 0.84, 0.88, 1.0], 1),\n    ([0.73, 0.90, 0.93, 1.0], 1),\n]\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef dsigmoid(y):\n    return y * (1 - y)\n\nw1 = [[random.uniform(-1, 1) for _ in range(4)] for _ in range(3)]\nb1 = [0.0, 0.0, 0.0]\nw2 = [random.uniform(-1, 1) for _ in range(3)]\nb2 = 0.0\n\ndef forward(x):\n    h = []\n    for j in range(3):\n        z = sum(w1[j][i] * x[i] for i in range(4)) + b1[j]\n        h.append(sigmoid(z))\n    z_out = sum(w2[j] * h[j] for j in range(3)) + b2\n    y_hat = sigmoid(z_out)\n    return h, y_hat\n\nfor epoch in range(8000):\n    for x, target in data:\n        h, y_hat = forward(x)\n        delta_out = (y_hat - target) * dsigmoid(y_hat)\n        delta_h = [\n            dsigmoid(h[j]) * w2[j] * delta_out\n            for j in range(3)\n        ]\n        for j in range(3):\n            w2[j] -= 0.5 * delta_out * h[j]\n        b2 -= 0.5 * delta_out\n        for j in range(3):\n            for i in range(4):\n                w1[j][i] -= 0.5 * delta_h[j] * x[i]\n            b1[j] -= 0.5 * delta_h[j]",
         "codeHighlightRanges": {
-          "init": [1, 22],
-          "forward": [24, 30],
-          "backprop": [34, 39],
-          "update": [40, 46]
+          "init": [1, 24],
+          "forward": [26, 33],
+          "backprop": [38, 42],
+          "update": [43, 49]
         },
         "dataset": [
           { "inputs": [0.35, 0.60, 0.58, 0.0], "target": 0.0 },

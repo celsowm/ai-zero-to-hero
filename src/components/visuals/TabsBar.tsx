@@ -14,7 +14,7 @@ interface TabsBarProps {
 
 const tabBarStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))',
   gap: 8,
   padding: 8,
   borderRadius: 16,
