@@ -12,8 +12,8 @@ export const SlideTopBar: React.FC = () => {
           gap: 10,
           padding: '6px 10px',
           borderRadius: 10,
-          background: 'rgba(168, 85, 247, 0.06)',
-          border: '1px solid rgba(168, 85, 247, 0.1)',
+          background: 'transparent',
+          border: 'none',
         }}
       >
         <SlideCounter />

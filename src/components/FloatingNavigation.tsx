@@ -9,9 +9,9 @@ export const FloatingNavigation: React.FC = () => {
   const isLast = currentSlideIndex === slides.length - 1;
 
   const baseStyle: React.CSSProperties = {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -20,7 +20,7 @@ export const FloatingNavigation: React.FC = () => {
   };
 
   return (
-    <div className="inline-flex w-fit shrink-0 items-center gap-2 self-end px-10 py-6">
+    <footer className="inline-flex w-fit shrink-0 items-center gap-1.5 self-end px-10 py-2" aria-label="Slide navigation">
       <button
         onClick={goToPrevSlide}
         disabled={isFirst}
@@ -32,7 +32,7 @@ export const FloatingNavigation: React.FC = () => {
           opacity: isFirst ? 0.3 : 0.8,
         }}
       >
-        <ChevronLeft size={18} strokeWidth={2} />
+        <ChevronLeft size={16} strokeWidth={2} />
       </button>
       <button
         onClick={goToNextSlide}
@@ -49,9 +49,9 @@ export const FloatingNavigation: React.FC = () => {
             ? 'none'
             : '0 4px 20px rgba(255, 46, 151, 0.3), 0 0 40px rgba(168, 85, 247, 0.1)',
         }}
-      >
-        <ChevronRight size={18} strokeWidth={2} />
+        >
+        <ChevronRight size={16} strokeWidth={2} />
       </button>
-    </div>
+    </footer>
   );
 };

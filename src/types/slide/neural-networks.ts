@@ -70,11 +70,124 @@ export interface NeuronArchitectureAnimatedCopy {
   legend: NeuronArchitectureAnimatedLegendItemCopy[];
 }
 
+export interface ActivationFunctionDescriptorCopy {
+  label: string;
+  formula: string;
+  headline: string;
+  body: string;
+  behavior: string;
+  gradientNote: string;
+  outputRange: string;
+  example: string;
+}
+
+export interface ActivationFunctionsComparatorCopy {
+  ariaLabel: string;
+  tabsAriaLabel: string;
+  sliderLabel: string;
+  inputLabel: string;
+  outputLabel: string;
+  chartTitle: string;
+  infoTitle: string;
+  takeawayTitle: string;
+  takeawayBody: string;
+  comparisonNote: string;
+  functions: {
+    linear: ActivationFunctionDescriptorCopy;
+    relu: ActivationFunctionDescriptorCopy;
+    sigmoid: ActivationFunctionDescriptorCopy;
+  };
+}
+
+export interface SigmoidDerivativeExplorerCopy {
+  ariaLabel: string;
+  sliderLabel: string;
+  sigmoidChartTitle: string;
+  derivativeChartTitle: string;
+  inputLabel: string;
+  sigmoidLabel: string;
+  derivativeLabel: string;
+  formulaTitle: string;
+  formula: string;
+  derivativeFormula: string;
+  peakTitle: string;
+  peakBody: string;
+  saturationTitle: string;
+  saturationBody: string;
+  trainingTitle: string;
+  trainingBody: string;
+}
+
 export interface NeuralNetworkVisualWeightsCopy {
   inputToHidden: number[][];
   hiddenBiases: number[];
   hiddenToOutput: number[];
   outputBias: number;
+}
+
+export interface NeuralNetworkSampleCopy {
+  label: string;
+  inputs: number[];
+  target: number;
+}
+
+export interface FeedforwardFlowVisualCopy {
+  title: string;
+  subtitle: string;
+  featureNames: string[];
+  architectureLabel: string;
+  sampleLabel: string;
+  targetLabel: string;
+  probabilityLabel: string;
+  inputLayerLabel: string;
+  hiddenLayerLabel: string;
+  outputLayerLabel: string;
+  outputInterpretation: string;
+  sampleAriaLabel: string;
+  sequenceTitle: string;
+  sequenceSteps: Array<{
+    label: string;
+    formula: string;
+    body: string;
+  }>;
+  activationFormula: string;
+  outputFormula: string;
+  samples: NeuralNetworkSampleCopy[];
+  weights: NeuralNetworkVisualWeightsCopy;
+}
+
+export interface BackpropagationStepCopy {
+  label: string;
+  title: string;
+  formula: string;
+  body: string;
+}
+
+export interface BackpropSignalFlowVisualCopy {
+  title: string;
+  subtitle: string;
+  sampleLabel: string;
+  targetLabel: string;
+  predictionLabel: string;
+  learningRateLabel: string;
+  tabsAriaLabel: string;
+  lossLabel: string;
+  outputDeltaLabel: string;
+  hiddenDeltaLabel: string;
+  updateLabel: string;
+  updateRule: string;
+  networkLabel: string;
+  hiddenLayerLabel: string;
+  outputLayerLabel: string;
+  sample: NeuralNetworkSampleCopy;
+  learningRate: number;
+  weights: NeuralNetworkVisualWeightsCopy;
+  steps: {
+    loss: BackpropagationStepCopy;
+    output: BackpropagationStepCopy;
+    hidden: BackpropagationStepCopy;
+    update: BackpropagationStepCopy;
+  };
 }
 
 export interface NeuralNetworkStepDebuggerVisualCopy {

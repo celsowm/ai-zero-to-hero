@@ -49,9 +49,13 @@ import type {
   WhyTransformersWorkCopy,
 } from './transformers';
 import type {
+  ActivationFunctionsComparatorCopy,
+  BackpropSignalFlowVisualCopy,
   BiologicalVsComputationalNeuronCopy,
+  FeedforwardFlowVisualCopy,
   NeuralNetworkStepDebuggerVisualCopy,
   NeuronArchitectureAnimatedCopy,
+  SigmoidDerivativeExplorerCopy,
 } from './neural-networks';
 
 export interface BiologicalVsComputationalNeuronVisual {
@@ -62,6 +66,26 @@ export interface BiologicalVsComputationalNeuronVisual {
 export interface NeuronArchitectureAnimatedVisual {
   id: 'neuron-architecture-animated';
   copy: Record<Language, NeuronArchitectureAnimatedCopy>;
+}
+
+export interface ActivationFunctionsComparatorVisual {
+  id: 'activation-functions-comparator';
+  copy: Record<Language, ActivationFunctionsComparatorCopy>;
+}
+
+export interface SigmoidDerivativeExplorerVisual {
+  id: 'sigmoid-derivative-explorer';
+  copy: Record<Language, SigmoidDerivativeExplorerCopy>;
+}
+
+export interface FeedforwardFlowVisual {
+  id: 'feedforward-flow-visual';
+  copy: Record<Language, FeedforwardFlowVisualCopy>;
+}
+
+export interface BackpropSignalFlowVisual {
+  id: 'backprop-signal-flow';
+  copy: Record<Language, BackpropSignalFlowVisualCopy>;
 }
 
 export interface NeuralNetworkStepDebuggerVisual {
@@ -323,6 +347,10 @@ export type SlideVisual =
   | WhyTransformersWorkVisual
   | RoadToMiniTransformerVisual
   | NeuronArchitectureAnimatedVisual
+  | ActivationFunctionsComparatorVisual
+  | SigmoidDerivativeExplorerVisual
+  | FeedforwardFlowVisual
+  | BackpropSignalFlowVisual
   | BiologicalVsComputationalNeuronVisual
   | NeuralNetworkStepDebuggerVisual;
 

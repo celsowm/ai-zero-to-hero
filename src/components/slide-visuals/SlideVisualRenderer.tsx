@@ -45,6 +45,10 @@ import {
   BiologicalVsComputationalNeuron,
   NeuralNetworkStepDebugger,
   NeuronArchitectureAnimated,
+  ActivationFunctionsComparator,
+  SigmoidDerivativeExplorer,
+  FeedforwardFlowVisual,
+  BackpropSignalFlow,
   PythonPrereqTabsVisual,
 } from '../visuals';
 
@@ -141,6 +145,14 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <RoadToMiniTransformer copy={visual.copy[language]} />;
     case 'neuron-architecture-animated':
       return <NeuronArchitectureAnimated copy={visual.copy[language]} />;
+    case 'activation-functions-comparator':
+      return <ActivationFunctionsComparator copy={visual.copy[language]} />;
+    case 'sigmoid-derivative-explorer':
+      return <SigmoidDerivativeExplorer copy={visual.copy[language]} />;
+    case 'feedforward-flow-visual':
+      return <FeedforwardFlowVisual copy={visual.copy[language]} />;
+    case 'backprop-signal-flow':
+      return <BackpropSignalFlow copy={visual.copy[language]} />;
     case 'biological-vs-computational-neuron':
       return <BiologicalVsComputationalNeuron copy={visual.copy[language]} />;
     case 'neural-network-step-debugger':

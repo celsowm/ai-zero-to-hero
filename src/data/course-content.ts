@@ -59,6 +59,10 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'layer-evolution-chart'; copy: Record<Language, unknown> }
     | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> }
     | { id: 'neuron-architecture-animated'; copy: Record<Language, unknown> }
+    | { id: 'activation-functions-comparator'; copy: Record<Language, unknown> }
+    | { id: 'sigmoid-derivative-explorer'; copy: Record<Language, unknown> }
+    | { id: 'feedforward-flow-visual'; copy: Record<Language, unknown> }
+    | { id: 'backprop-signal-flow'; copy: Record<Language, unknown> }
     | { id: 'neural-network-step-debugger'; copy: Record<Language, unknown> }
     | { id: 'biological-vs-computational-neuron'; copy: Record<Language, unknown> };
 };
