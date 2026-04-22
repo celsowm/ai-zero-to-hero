@@ -10,6 +10,7 @@ export interface TransformerOverviewTeaserCopy {
   decodingStepLabel: string;
   sourceLabel: string;
   targetLabel: string;
+  memoryLabel: string;
   outputLabel: string;
   inputLabel: string;
   previousOutputsLabel: string;
@@ -20,6 +21,9 @@ export interface TransformerOverviewTeaserCopy {
   linearLabel: string;
   keyLabel: string;
   valueLabel: string;
+  keyHintLabel: string;
+  valueHintLabel: string;
+  nextTokenLabel: string;
   step1Title: string;
   step1Description: string;
   step2Title: string;

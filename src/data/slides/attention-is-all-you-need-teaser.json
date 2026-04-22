@@ -3,8 +3,8 @@
   "type": "two-column",
   "options": {
     "columnRatios": [
-      0.54,
-      0.46
+      0.44,
+      0.56
     ]
   },
   "content": {
@@ -26,6 +26,7 @@
         "decodingStepLabel": "Passo de decodificação",
         "sourceLabel": "Origem (PT-BR)",
         "targetLabel": "Destino (EN-US)",
+        "memoryLabel": "Memória do encoder",
         "outputLabel": "Saída",
         "inputLabel": "Entrada",
         "previousOutputsLabel": "Saídas anteriores",
@@ -36,6 +37,9 @@
         "linearLabel": "Linear + Softmax",
         "keyLabel": "Kencoder",
         "valueLabel": "Vencoder",
+        "keyHintLabel": "onde buscar",
+        "valueHintLabel": "o que recuperar",
+        "nextTokenLabel": "Próximo token",
         "step1Title": "Passo 1 - Entrada contextualizada",
         "step1Description": "Os tokens de entrada recebem embeddings semânticos e sinal de posição. Isso define ordem e conteúdo antes de qualquer atenção entre palavras.",
         "step2Title": "Passo 2 - Encoder cria memória",
@@ -57,6 +61,7 @@
         "decodingStepLabel": "Decoding time step",
         "sourceLabel": "Source (EN-US)",
         "targetLabel": "Target (FR)",
+        "memoryLabel": "Encoder memory",
         "outputLabel": "Output",
         "inputLabel": "Input",
         "previousOutputsLabel": "Previous outputs",
@@ -67,6 +72,9 @@
         "linearLabel": "Linear + Softmax",
         "keyLabel": "Kencoder",
         "valueLabel": "Vencoder",
+        "keyHintLabel": "where to look",
+        "valueHintLabel": "what to retrieve",
+        "nextTokenLabel": "Next token",
         "step1Title": "Step 1 - Contextualized input",
         "step1Description": "Input tokens receive semantic embeddings plus positional signal, so the model preserves both meaning and order before attention mixing.",
         "step2Title": "Step 2 - Encoder builds memory",
