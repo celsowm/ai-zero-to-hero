@@ -1,6 +1,7 @@
 import React from 'react';
 import { Beaker, Brain, Database, Rocket, SlidersHorizontal, Split } from 'lucide-react';
 import type { MachineLearningPipelineCopy } from '../../../types/slide';
+import { ClippedAccentMarker } from '../primitives';
 
 interface MachineLearningPipelineDiagramProps {
   copy: MachineLearningPipelineCopy;
@@ -84,6 +85,7 @@ const WrappedText: React.FC<{
 };
 
 const StageCard: React.FC<{
+  clipId: string;
   x: number;
   y: number;
   width: number;
@@ -97,19 +99,19 @@ const StageCard: React.FC<{
     strokeWidth?: number;
     absoluteStrokeWidth?: boolean;
   }>;
-}> = ({ x, y, width, height, title, subtitle, accent, Icon }) => (
+  }> = ({ clipId, x, y, width, height, title, subtitle, accent, Icon }) => (
   <g transform={`translate(${x} ${y})`}>
     <rect x={0} y={0} width={width} height={height} rx={14} fill="#1e293b" stroke="rgba(148, 163, 184, 0.2)" />
-    <rect x={0} y={0} width={7} height={height} rx={16} fill={accent} />
-    <circle cx={28} cy={height / 2} r={11} fill={accent} opacity="0.18" />
-    <circle cx={28} cy={height / 2} r={8.5} fill={accent} />
-    <g transform={`translate(${28 - 7} ${height / 2 - 7})`}>
+
+    <ClippedAccentMarker clipId={clipId} width={width} height={height} accent={accent} />
+
+    <g transform={`translate(${30 - 7} ${height / 2 - 7})`}>
       <Icon size={14} color="#f8fafc" strokeWidth={2.4} />
     </g>
-    <text x={58} y={20} fontFamily={fontFamily} fontSize="13.8" fontWeight="700" fill="#f8fafc">
+    <text x={60} y={20} fontFamily={fontFamily} fontSize="13.8" fontWeight="700" fill="#f8fafc">
       {title}
     </text>
-    <text x={58} y={31} fontFamily={fontFamily} fontSize="10.4" fontWeight="500" fill="#94a3b8">
+    <text x={60} y={31} fontFamily={fontFamily} fontSize="10.4" fontWeight="500" fill="#94a3b8">
       {subtitle}
     </text>
   </g>
@@ -180,6 +182,7 @@ export const MachineLearningPipelineDiagram: React.FC<MachineLearningPipelineDia
       {stages.map((stage, index) => (
         <StageCard
           key={stage.title}
+          clipId={`pipeline-stage-clip-${index}`}
           x={cardX}
           y={startY + index * (cardHeight + gap)}
           width={cardWidth}

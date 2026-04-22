@@ -67,6 +67,20 @@ interface LossPanelProps {
   title: string;
 }
 
+interface ClippedAccentMarkerProps {
+  clipId: string;
+  width: number;
+  height: number;
+  accent: string;
+  stripeWidth?: number;
+  stripeRadius?: number;
+  stripeX?: number;
+  stripeY?: number;
+  bubbleCx?: number;
+  bubbleOuterRadius?: number;
+  bubbleInnerRadius?: number;
+}
+
 export const DiagramFrame: React.FC<DiagramFrameProps> = ({ width, height }) => (
   <>
     <rect width={width} height={height} fill="url(#diagram-bg)" />
@@ -237,5 +251,32 @@ export const LossPanel: React.FC<LossPanelProps> = ({ x, y, title }) => (
     <line x1="83" y1="55" x2="125" y2="55" stroke="#e14040" strokeWidth="3" />
     <DiagramText x={61} y={21} text={title} size={14} weight={700} fill="#24324a" />
   </g>
+);
+
+export const ClippedAccentMarker: React.FC<ClippedAccentMarkerProps> = ({
+  clipId,
+  width,
+  height,
+  accent,
+  stripeWidth = 14,
+  stripeRadius = 6,
+  stripeX = -7,
+  stripeY = -4,
+  bubbleCx = 30,
+  bubbleOuterRadius = 11,
+  bubbleInnerRadius = 8.5,
+}) => (
+  <>
+    <defs>
+      <clipPath id={clipId}>
+        <rect x={0} y={0} width={width} height={height} rx={14} />
+      </clipPath>
+    </defs>
+    <g clipPath={`url(#${clipId})`}>
+      <rect x={stripeX} y={stripeY} width={stripeWidth} height={height - stripeY * 2} rx={stripeRadius} fill={accent} />
+      <circle cx={bubbleCx} cy={height / 2} r={bubbleOuterRadius} fill={accent} opacity="0.18" />
+      <circle cx={bubbleCx} cy={height / 2} r={bubbleInnerRadius} fill={accent} />
+    </g>
+  </>
 );
 

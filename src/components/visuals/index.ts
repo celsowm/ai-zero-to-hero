@@ -17,6 +17,7 @@ export { TabsBar } from './TabsBar';
 export type { TabsBarItem } from './TabsBar';
 export { TabbedPanelSurface } from './TabbedPanelSurface';
 export { PanelCard } from './PanelCard';
+export { ClippedAccentMarker } from './primitives';
 export { LanguageModelingDiagram } from './language-models/LanguageModelingDiagram';
 export { NextTokenInteractive } from './language-models/NextTokenInteractive';
 export { TokenSizeComparison } from './language-models/TokenSizeComparison';
@@ -58,3 +59,4 @@ export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDe
 export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
+export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';

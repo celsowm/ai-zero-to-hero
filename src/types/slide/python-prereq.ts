@@ -81,7 +81,34 @@ export interface PythonPrereqLoopGraphCopy {
   };
 }
 
-export type PythonPrereqGraphCopy = PythonPrereqDataGraphCopy | PythonPrereqFunctionGraphCopy | PythonPrereqLoopGraphCopy;
+export interface PythonPrereqConditionalsGraphCopy {
+  type: 'conditionals';
+  title: string;
+  description: string;
+  xLabel: string;
+  yLabel: string;
+  valueLabel: string;
+  branchLabel: string;
+  traceLabel: string;
+  range: [number, number];
+  initialValue: number;
+  branchLabels: {
+    negative: string;
+    zero: string;
+    positive: string;
+  };
+  branchDescriptions: {
+    negative: string;
+    zero: string;
+    positive: string;
+  };
+}
+
+export type PythonPrereqGraphCopy =
+  | PythonPrereqDataGraphCopy
+  | PythonPrereqFunctionGraphCopy
+  | PythonPrereqLoopGraphCopy
+  | PythonPrereqConditionalsGraphCopy;
 
 export interface PythonPrereqTabsVisualCopy {
   tabs: [PythonPrereqTabCopy, PythonPrereqTabCopy];

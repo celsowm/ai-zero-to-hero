@@ -73,3 +73,8 @@ export interface ApiLatencyGrowthVisualCopy {
   points: ApiLatencyGrowthPointCopy[];
   footer: string;
 }
+
+export interface WelcomeSynthwaveCopy {
+  subtitle: string;
+  instructions: string;
+}

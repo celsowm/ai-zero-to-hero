@@ -53,6 +53,7 @@ import {
   NeuralNetworkTabsStepper,
   PythonPrereqTabsVisual,
   PythonExerciseVisual,
+  WelcomeSynthwaveVisual,
 } from '../visuals';
 
 interface SlideVisualRendererProps {
@@ -148,6 +149,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <WhyTransformersWork copy={visual.copy[language]} />;
     case 'road-to-mini-transformer':
       return <RoadToMiniTransformer copy={visual.copy[language]} />;
+    case 'welcome-synthwave':
+      return <WelcomeSynthwaveVisual copy={visual.copy[language]} />;
     case 'neuron-architecture-animated':
       return <NeuronArchitectureAnimated copy={visual.copy[language]} />;
     case 'activation-functions-comparator':

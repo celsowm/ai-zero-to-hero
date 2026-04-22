@@ -5,6 +5,7 @@ import type {
   LearningLoopDiagramCopy,
   LocalizedImageCopy,
   MachineLearningPipelineCopy,
+  WelcomeSynthwaveCopy,
 } from './ai-core';
 import type {
   GradientDescentVisualCopy,
@@ -316,6 +317,11 @@ export interface RoadToMiniTransformerVisual {
   copy: Record<Language, RoadToMiniTransformerCopy>;
 }
 
+export interface WelcomeSynthwaveVisual {
+  id: 'welcome-synthwave';
+  copy: Record<Language, WelcomeSynthwaveCopy>;
+}
+
 export interface LinearRegressionSimpleLineVisual {
   id: 'linear-regression-simple-line';
   copy: Record<Language, LinearRegressionSimpleLineCopy>;
@@ -364,6 +370,7 @@ export type SlideVisual =
   | PredictionEvolutionVisual
   | WhyTransformersWorkVisual
   | RoadToMiniTransformerVisual
+  | WelcomeSynthwaveVisual
   | NeuronArchitectureAnimatedVisual
   | ActivationFunctionsComparatorVisual
   | SigmoidDeepDiveExplorerVisual

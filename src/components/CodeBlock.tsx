@@ -98,6 +98,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
   const [tooltipData, setTooltipData] = useState<{ content: string; top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const resolvedCode = useMemo(() => {
@@ -133,6 +134,18 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   }, [lang, resolvedCode]);
 
   const visualRange = activeRange !== undefined ? activeRange : hoveredRange;
+
+  useEffect(() => {
+    if (!scrollerRef.current) {
+      return;
+    }
+
+    scrollerRef.current.scrollTo({
+      left: 0,
+      top: 0,
+      behavior: 'auto',
+    });
+  }, [resolvedCode]);
 
   useEffect(() => {
     if (!activeRange) {
@@ -327,6 +340,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
       <div style={shellStyle}>
         <div
+          ref={scrollerRef}
           style={{
             display: 'flex',
             width: '100%',

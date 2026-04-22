@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import type {
   PythonPrereqDataGraphCopy,
+  PythonPrereqConditionalsGraphCopy,
   PythonPrereqFunctionGraphCopy,
   PythonPrereqLoopGraphCopy,
   PythonPrereqTabsVisualCopy,
@@ -300,6 +301,305 @@ const FunctionsGraphPanel: React.FC<{ graph: PythonPrereqFunctionGraphCopy; foot
       </div>
 
       <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{footer}</div>
+  </PanelCard>
+);
+};
+
+const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCopy; footer: string }> = ({ graph, footer }) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const steps = [
+    {
+      title: graph.branchLabels.positive,
+      value: 6,
+      branch: 'positive' as const,
+      intro: 'Primeiro teste: o programa verifica se o valor é maior que zero.',
+      explanation: graph.branchDescriptions.positive,
+      trace: 'if x > 0 -> yes',
+    },
+    {
+      title: graph.branchLabels.zero,
+      value: 0,
+      branch: 'zero' as const,
+      intro: 'Segundo passo: se o primeiro teste falhar, o programa checa se o valor é zero.',
+      explanation: graph.branchDescriptions.zero,
+      trace: 'if x > 0 -> no, elif x == 0 -> yes',
+    },
+    {
+      title: graph.branchLabels.negative,
+      value: -6,
+      branch: 'negative' as const,
+      intro: 'Passo final: se nada anterior serviu, sobra o `else`.',
+      explanation: graph.branchDescriptions.negative,
+      trace: 'if x > 0 -> no, elif x == 0 -> no, else',
+    },
+  ];
+
+  const step = steps[activeStep];
+  const branchColor = step.branch === 'negative' ? '#22d3ee' : step.branch === 'zero' ? '#facc15' : '#ff2e97';
+  const isPositive = activeStep === 0;
+  const isZero = activeStep === 1;
+  const isNegative = activeStep === 2;
+
+  const nodeFill = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.05)');
+  const nodeStroke = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.16)');
+  const lineStroke = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.3)');
+  const lineOpacity = (active: boolean) => (active ? 1 : 0.5);
+
+  return (
+    <PanelCard minHeight={0} gap={12}>
+      <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)' }}>{graph.title}</div>
+      <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{graph.description}</div>
+
+      <div style={{ display: 'grid', gap: 10 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: 8,
+          }}
+        >
+          {steps.map((item, index) => {
+            const active = index === activeStep;
+
+            return (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => setActiveStep(index)}
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: 12,
+                  border: active ? `1px solid ${branchColor}` : '1px solid rgba(255,255,255,0.08)',
+                  background: active ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)',
+                  color: active ? 'var(--sw-text)' : 'var(--sw-text-dim)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  display: 'grid',
+                  gap: 4,
+                  minWidth: 0,
+                }}
+              >
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  Passo {index + 1}
+                </div>
+                <div style={{ fontSize: 13.5, fontWeight: 700 }}>{item.title}</div>
+              </button>
+            );
+          })}
+        </div>
+
+        <div style={{
+          padding: '10px 12px',
+          borderRadius: 12,
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.06)',
+          color: 'var(--sw-text-dim)',
+          fontSize: 13.5,
+          lineHeight: 1.55,
+        }}>
+          <strong style={{ color: 'var(--sw-text)' }}>{step.title}:</strong> {step.intro}
+        </div>
+      </div>
+
+      <div style={chartCardStyle}>
+        <svg viewBox="0 0 560 340" width="100%" height="auto" role="img" aria-label={graph.title} style={{ display: 'block' }}>
+          <defs>
+            <marker id="conditionals-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.55)" />
+            </marker>
+            <marker id="conditionals-arrow-active" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill={branchColor} />
+            </marker>
+            <filter id="conditionals-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <rect x="198" y="18" width="164" height="34" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)" />
+          <text x="280" y="40" textAnchor="middle" fontSize="12.5" fill="rgba(255,255,255,0.92)">
+            entrada: {step.value}
+          </text>
+
+          <line x1="280" y1="52" x2="280" y2="68" stroke="rgba(255,255,255,0.35)" strokeWidth="2.5" markerEnd="url(#conditionals-arrow)" />
+
+          <path
+            d="M 280 68 L 334 96 L 280 124 L 226 96 Z"
+            fill={nodeFill(isPositive, 'rgba(255,46,151,0.14)')}
+            stroke={nodeStroke(isPositive, branchColor)}
+            strokeWidth="2.5"
+            filter={isPositive ? 'url(#conditionals-glow)' : undefined}
+          />
+          <text x="280" y="92" textAnchor="middle" fontSize="13" fontWeight="700" fill="rgba(255,255,255,0.96)">
+            if x &gt; 0?
+          </text>
+          <text x="280" y="109" textAnchor="middle" fontSize="11.5" fill="rgba(255,255,255,0.76)">
+            primeiro teste
+          </text>
+
+          <line
+            x1="334"
+            y1="96"
+            x2="398"
+            y2="96"
+            stroke={lineStroke(isPositive, branchColor)}
+            strokeWidth="2.5"
+            markerEnd={isPositive ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
+            opacity={lineOpacity(isPositive)}
+          />
+          <text x="366" y="86" textAnchor="middle" fontSize="11" fill={isPositive ? branchColor : 'rgba(255,255,255,0.55)'}>
+            yes
+          </text>
+          <rect
+            x="398"
+            y="76"
+            width="122"
+            height="40"
+            rx="12"
+            fill={nodeFill(isPositive, 'rgba(255,46,151,0.14)')}
+            stroke={nodeStroke(isPositive, branchColor)}
+            strokeWidth="2"
+            filter={isPositive ? 'url(#conditionals-glow)' : undefined}
+          />
+          <text x="459" y="96" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="rgba(255,255,255,0.96)">
+            {graph.branchLabels.positive}
+          </text>
+          <text x="459" y="110" textAnchor="middle" fontSize="10.5" fill="rgba(255,255,255,0.72)">
+            caminho 1
+          </text>
+
+          <line
+            x1="280"
+            y1="124"
+            x2="280"
+            y2="144"
+            stroke={lineStroke(!isPositive, 'rgba(255,255,255,0.32)')}
+            strokeWidth="2.5"
+            markerEnd="url(#conditionals-arrow)"
+            opacity={lineOpacity(!isPositive)}
+          />
+          <text x="292" y="139" textAnchor="start" fontSize="11" fill="rgba(255,255,255,0.55)">
+            no
+          </text>
+
+          <path
+            d="M 280 144 L 334 172 L 280 200 L 226 172 Z"
+            fill={nodeFill(isZero, 'rgba(250,204,21,0.14)')}
+            stroke={nodeStroke(isZero, '#facc15')}
+            strokeWidth="2.5"
+            filter={isZero ? 'url(#conditionals-glow)' : undefined}
+          />
+          <text x="280" y="168" textAnchor="middle" fontSize="13" fontWeight="700" fill="rgba(255,255,255,0.96)">
+            elif x == 0?
+          </text>
+          <text x="280" y="185" textAnchor="middle" fontSize="11.5" fill="rgba(255,255,255,0.76)">
+            segundo teste
+          </text>
+
+          <line
+            x1="334"
+            y1="172"
+            x2="398"
+            y2="172"
+            stroke={lineStroke(isZero, '#facc15')}
+            strokeWidth="2.5"
+            markerEnd={isZero ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
+            opacity={lineOpacity(isZero)}
+          />
+          <text x="366" y="162" textAnchor="middle" fontSize="11" fill={isZero ? '#facc15' : 'rgba(255,255,255,0.55)'}>
+            yes
+          </text>
+          <rect
+            x="398"
+            y="152"
+            width="122"
+            height="40"
+            rx="12"
+            fill={nodeFill(isZero, 'rgba(250,204,21,0.14)')}
+            stroke={nodeStroke(isZero, '#facc15')}
+            strokeWidth="2"
+            filter={isZero ? 'url(#conditionals-glow)' : undefined}
+          />
+          <text x="459" y="172" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="rgba(255,255,255,0.96)">
+            {graph.branchLabels.zero}
+          </text>
+          <text x="459" y="186" textAnchor="middle" fontSize="10.5" fill="rgba(255,255,255,0.72)">
+            caminho 2
+          </text>
+
+          <line
+            x1="280"
+            y1="200"
+            x2="280"
+            y2="220"
+            stroke={lineStroke(isNegative, branchColor)}
+            strokeWidth="2.5"
+            markerEnd={isNegative ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
+            opacity={lineOpacity(isNegative)}
+          />
+          <text x="292" y="216" textAnchor="start" fontSize="11" fill={isNegative ? branchColor : 'rgba(255,255,255,0.55)'}>
+            no
+          </text>
+
+          <rect
+            x="190"
+            y="220"
+            width="180"
+            height="44"
+            rx="14"
+            fill={nodeFill(isNegative, 'rgba(34,211,238,0.14)')}
+            stroke={nodeStroke(isNegative, branchColor)}
+            strokeWidth="2.5"
+            filter={isNegative ? 'url(#conditionals-glow)' : undefined}
+          />
+          <text x="280" y="242" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="rgba(255,255,255,0.96)">
+            {graph.branchLabels.negative}
+          </text>
+          <text x="280" y="256" textAnchor="middle" fontSize="10.5" fill="rgba(255,255,255,0.72)">
+            caminho 3
+          </text>
+
+          <text x="70" y="302" fontSize="11.5" fill="rgba(255,255,255,0.72)">
+            {graph.xLabel}
+          </text>
+          <text x="490" y="302" textAnchor="end" fontSize="11.5" fill="rgba(255,255,255,0.72)">
+            {graph.yLabel}
+          </text>
+        </svg>
+      </div>
+
+      <div style={metricRowStyle}>
+        <div style={metricCardStyle}>
+          <div style={metricLabelStyle}>Passo atual</div>
+          <div style={metricValueStyle}>{`0${activeStep + 1}`.slice(-2)} / 03</div>
+        </div>
+        <div style={metricCardStyle}>
+          <div style={metricLabelStyle}>{graph.branchLabel}</div>
+          <div style={{ ...metricValueStyle, color: branchColor }}>{step.title}</div>
+        </div>
+        <div style={metricCardStyle}>
+          <div style={metricLabelStyle}>{graph.traceLabel}</div>
+          <div style={{ ...metricValueStyle, fontSize: 14.5 }}>{step.trace}</div>
+        </div>
+      </div>
+
+      <div style={{
+        padding: '10px 12px',
+        borderRadius: 12,
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.06)',
+        color: 'var(--sw-text-dim)',
+        fontSize: 13.5,
+        lineHeight: 1.55,
+      }}>
+        <strong style={{ color: 'var(--sw-text)' }}>Resultado do passo:</strong> {step.explanation}
+      </div>
+
+      <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{footer}</div>
     </PanelCard>
   );
 };
@@ -410,6 +710,10 @@ const GraphPanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) =>
 
   if (copy.graphPanel.type === 'loops') {
     return <LoopsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
+  }
+
+  if (copy.graphPanel.type === 'conditionals') {
+    return <ConditionalsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
   }
 
   return null;
