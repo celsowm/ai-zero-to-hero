@@ -1,0 +1,49 @@
+{
+  "id": "attention-is-all-you-need-teaser",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Attention is all you need",
+      "body": "Em 2017, o paper **\"Attention Is All You Need\"** propôs o **Transformer** e mudou a trajetória da IA de linguagem.\n\nLink do artigo: https://arxiv.org/abs/1706.03762\n\n1. **Antes dele:** o padrão era usar arquiteturas recorrentes como **RNNs** e **LSTMs**, que processam texto token por token. Elas funcionam, mas são lentas de treinar e sofrem para escalar.\n\n2. **A virada:** o Transformer troca essa leitura sequencial por um mecanismo de **atenção** em que cada token pode se relacionar diretamente com outros tokens relevantes do contexto.\n\n3. **Por que explodiu:** como a sequência inteira entra em paralelo, essa arquitetura conversa muito melhor com GPU e escala muito mais longe.\n\n> O nome do paper virou quase um manifesto. Vamos voltar nisso com calma depois."
+    },
+    "en-us": {
+      "title": "Attention is all you need",
+      "body": "In 2017, the paper **\"Attention Is All You Need\"** proposed the **Transformer** and changed the direction of language AI.\n\nPaper link: https://arxiv.org/abs/1706.03762\n\n1. **Before it:** the default was recurrent architectures such as **RNNs** and **LSTMs**, which process text token by token. They work, but they are slow to train and hard to scale.\n\n2. **The shift:** the Transformer replaces that sequential reading with an **attention** mechanism where each token can directly relate to other relevant tokens in context.\n\n3. **Why it exploded:** because the whole sequence goes in parallel, this architecture maps far better to GPUs and scales much further.\n\n> The paper title became almost a manifesto. We will come back to it carefully later."
+    }
+  },
+  "visual": {
+    "id": "transformer-overview-teaser",
+    "copy": {
+      "pt-br": {
+        "stepLabel": "Passo de decodificação",
+        "outputLabel": "Saída",
+        "inputLabel": "Entrada",
+        "previousOutputsLabel": "Saídas anteriores",
+        "embeddingsLabel": "Embeddings",
+        "positionLabel": "Embeddings + posição",
+        "encoderLabel": "Encoders",
+        "decoderLabel": "Decoder",
+        "linearLabel": "Linear + Softmax",
+        "crossAttentionLabel": "Atenção"
+      },
+      "en-us": {
+        "stepLabel": "Decoding step",
+        "outputLabel": "Output",
+        "inputLabel": "Input",
+        "previousOutputsLabel": "Previous outputs",
+        "embeddingsLabel": "Embeddings",
+        "positionLabel": "Embeddings + position",
+        "encoderLabel": "Encoders",
+        "decoderLabel": "Decoder",
+        "linearLabel": "Linear + Softmax",
+        "crossAttentionLabel": "Attention"
+      }
+    }
+  }
+}

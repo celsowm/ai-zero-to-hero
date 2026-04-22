@@ -10,25 +10,25 @@
   "content": {
     "pt-br": {
       "title": "O Transformer entra em cena (GPT-2)",
-      "body": "Nós vimos que Bigramas são muito fracos e MLPs não lidam bem com sequências. Então, qual é a arquitetura que domina o mundo hoje? O **Transformer**.\n\n1. **A caixa preta:** por enquanto, vamos olhar para o GPT-2 (um Transformer clássico) de fora. Ele recebe uma janela de contexto (ex: 1024 tokens) e cospe probabilidades.\n\n2. **Tamanho impressionante:** mesmo o menor GPT-2 tem 124 milhões de parâmetros (pesos/conexões). Ele é muito maior que os modelos que vimos até agora.\n\n3. **Mesmo objetivo:** por dentro ele é um monstro alienígena de engenharia, mas por fora ele faz EXATAMENTE a mesma coisa: tenta prever a próxima palavra minimizando a cross-entropy.\n\n> O GPT-2 é uma função gigantesca mapeando uma sequência de tokens para a próxima probabilidade."
+      "body": "Você já viu rapidamente que o GPT-2 é um Transformer famoso. Agora vamos abrir essa caixa preta com mais cuidado.\n\n1. **Mesmo objetivo:** apesar da engenharia pesada, ele continua fazendo a mesma tarefa central: prever o próximo token a partir do contexto.\n\n2. **Outra escala:** mesmo o menor GPT-2 tem 124 milhões de parâmetros. Isso coloca o modelo em uma ordem de grandeza muito acima dos exemplos simples que vimos antes.\n\n3. **Próximo passo:** em vez de ficar só na visão externa, agora vamos desmontar a entrada, os blocos internos e a forma como a previsão sai do outro lado.\n\n> O GPT-2 é a mesma tarefa de modelagem de linguagem, mas empilhada em uma arquitetura muito mais poderosa."
     },
     "en-us": {
       "title": "Enter the Transformer (GPT-2)",
-      "body": "We saw that Bigrams are too weak and MLPs do not handle sequences well. So, what architecture rules the world today? The **Transformer**.\n\n1. **The black box:** for now, let's look at GPT-2 (a classic Transformer) from the outside. It takes a context window (e.g., 1024 tokens) and spits out probabilities.\n\n2. **Staggering size:** even the smallest GPT-2 has 124 million parameters (weights/connections). It is vastly larger than the models we have seen so far.\n\n3. **Same goal:** on the inside, it is an alien monster of engineering, but on the outside, it does EXACTLY the same thing: it tries to predict the next word by minimizing cross-entropy.\n\n> GPT-2 is a massive function mapping a sequence of tokens to the next probability."
+      "body": "You already got a quick preview that GPT-2 is a famous Transformer. Now we will open that black box more carefully.\n\n1. **Same goal:** despite the heavy engineering, it is still doing the same core task: predicting the next token from context.\n\n2. **Different scale:** even the smallest GPT-2 has 124 million parameters. That puts it in a very different league from the simple examples we have seen so far.\n\n3. **Next step:** instead of staying at the outside view, we will now unpack the input, the internal blocks, and how the prediction comes out on the other side.\n\n> GPT-2 is the same language-modeling task, stacked into a much more powerful architecture."
     }
   },
   "visual": {
     "id": "gpt2-blackbox-diagram",
     "copy": {
       "pt-br": {
-        "inputs": "Janela de Contexto (Tokens)",
-        "box": "GPT-2 (124M Parâmetros)",
-        "outputs": "Probabilidades do Próximo Token"
+        "inputLabel": "Janela de Contexto (Tokens)",
+        "modelLabel": "GPT-2 (124M Parâmetros)",
+        "outputLabel": "Probabilidades do Próximo Token"
       },
       "en-us": {
-        "inputs": "Context Window (Tokens)",
-        "box": "GPT-2 (124M Parameters)",
-        "outputs": "Next Token Probabilities"
+        "inputLabel": "Context Window (Tokens)",
+        "modelLabel": "GPT-2 (124M Parameters)",
+        "outputLabel": "Next Token Probabilities"
       }
     }
   }

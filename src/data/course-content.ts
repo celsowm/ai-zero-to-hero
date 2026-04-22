@@ -45,6 +45,7 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'mlp-text-diagram'; copy: Record<Language, unknown> }
     | { id: 'training-loop-stepper'; copy: Record<Language, unknown> }
     | { id: 'gpt2-blackbox-diagram'; copy: Record<Language, unknown> }
+    | { id: 'transformer-overview-teaser'; copy: Record<Language, unknown> }
     | { id: 'parallel-prediction-diagram'; copy: Record<Language, unknown> }
     | { id: 'positional-embedding-adder'; copy: Record<Language, unknown> }
     | { id: 'transformer-block-diagram'; copy: Record<Language, unknown> }

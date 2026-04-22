@@ -19,14 +19,14 @@ export const TransformerBlockDiagram: React.FC<TransformerBlockDiagramProps> = (
       fontFamily: "'Inter', sans-serif",
       color: '#fff'
     }}>
-      <div style={{ padding: '12px 24px', background: '#334155', borderRadius: '100px', fontWeight: '600' }}>{copy.inputLabel}</div>
+      <div style={{ padding: '12px 24px', background: 'rgba(0,229,255,0.14)', border: '1px solid rgba(0,229,255,0.35)', borderRadius: '100px', fontWeight: '600', color: 'var(--sw-cyan)' }}>{copy.inputLabel}</div>
       
-      <div style={{ width: '4px', height: '30px', background: '#64748b' }} />
+      <div style={{ width: '4px', height: '30px', background: 'rgba(255,255,255,0.12)' }} />
 
       <div style={{
         padding: '30px',
-        background: '#1e293b',
-        border: '1px solid #334155',
+        background: 'rgba(26,22,40,0.94)',
+        border: '1px solid rgba(255,255,255,0.08)',
         borderRadius: '20px',
         display: 'flex',
         flexDirection: 'column',
@@ -38,38 +38,38 @@ export const TransformerBlockDiagram: React.FC<TransformerBlockDiagramProps> = (
         <div style={{
           width: '100%',
           padding: '20px',
-          background: 'linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, var(--sw-cyan) 0%, var(--sw-purple) 100%)',
           borderRadius: '12px',
           textAlign: 'center',
           fontWeight: '700',
           fontSize: '18px',
-          boxShadow: '0 10px 20px rgba(14, 165, 233, 0.3)'
+          boxShadow: '0 0 20px rgba(0,229,255,0.16), 0 10px 20px rgba(168,85,247,0.18)'
         }}>
           {copy.attentionLabel}
         </div>
 
-        <div style={{ width: '4px', height: '20px', background: '#64748b' }} />
+        <div style={{ width: '4px', height: '20px', background: 'rgba(255,255,255,0.12)' }} />
 
         {/* MLP */}
         <div style={{
           width: '100%',
           padding: '20px',
-          background: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)',
+          background: 'linear-gradient(135deg, var(--sw-pink) 0%, var(--sw-purple) 100%)',
           borderRadius: '12px',
           textAlign: 'center',
           fontWeight: '700',
           fontSize: '18px',
-          boxShadow: '0 10px 20px rgba(239, 68, 68, 0.3)'
+          boxShadow: '0 0 20px rgba(255,46,151,0.16), 0 10px 20px rgba(168,85,247,0.18)'
         }}>
           {copy.mlpLabel}
         </div>
       </div>
 
-      <div style={{ width: '4px', height: '30px', background: '#64748b', position: 'relative' }}>
-        <div style={{ position: 'absolute', bottom: '-4px', left: '-3px', width: '10px', height: '10px', borderBottom: '2px solid #64748b', borderRight: '2px solid #64748b', transform: 'rotate(45deg)' }} />
+      <div style={{ width: '4px', height: '30px', background: 'rgba(255,255,255,0.12)', position: 'relative' }}>
+        <div style={{ position: 'absolute', bottom: '-4px', left: '-3px', width: '10px', height: '10px', borderBottom: '2px solid rgba(255,255,255,0.12)', borderRight: '2px solid rgba(255,255,255,0.12)', transform: 'rotate(45deg)' }} />
       </div>
 
-      <div style={{ padding: '12px 24px', background: '#10b981', borderRadius: '100px', fontWeight: '600', marginTop: '4px' }}>{copy.outputLabel}</div>
+      <div style={{ padding: '12px 24px', background: 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))', borderRadius: '100px', fontWeight: '600', marginTop: '4px', boxShadow: '0 0 18px rgba(255,46,151,0.2)' }}>{copy.outputLabel}</div>
     </div>
   );
 };

@@ -46,6 +46,7 @@ import type {
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
   SamplingControlsCopy,
+  TransformerOverviewTeaserCopy,
   TransformerBlockDiagramCopy,
   WhyTransformersWorkCopy,
 } from './transformers';
@@ -242,6 +243,11 @@ export interface Gpt2BlackboxDiagramVisual {
   copy: Record<Language, Gpt2BlackboxDiagramCopy>;
 }
 
+export interface TransformerOverviewTeaserVisual {
+  id: 'transformer-overview-teaser';
+  copy: Record<Language, TransformerOverviewTeaserCopy>;
+}
+
 export interface ParallelPredictionDiagramVisual {
   id: 'parallel-prediction-diagram';
   copy: Record<Language, ParallelPredictionDiagramCopy>;
@@ -355,6 +361,7 @@ export type SlideVisual =
   | MlpTextDiagramVisual
   | TrainingLoopStepperVisual
   | Gpt2BlackboxDiagramVisual
+  | TransformerOverviewTeaserVisual
   | ParallelPredictionDiagramVisual
   | PositionalEmbeddingAdderVisual
   | TransformerBlockDiagramVisual

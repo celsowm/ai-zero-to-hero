@@ -27,6 +27,7 @@ import {
   MlpTextDiagram,
   TrainingLoopStepper,
   Gpt2BlackboxDiagram,
+  TransformerOverviewTeaser,
   ParallelPredictionDiagram,
   PositionalEmbeddingAdder,
   TransformerBlockDiagram,
@@ -119,6 +120,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <TrainingLoopStepper copy={visual.copy[language]} />;
     case 'gpt2-blackbox-diagram':
       return <Gpt2BlackboxDiagram copy={visual.copy[language]} />;
+    case 'transformer-overview-teaser':
+      return <TransformerOverviewTeaser copy={visual.copy[language]} />;
     case 'parallel-prediction-diagram':
       return <ParallelPredictionDiagram copy={visual.copy[language]} />;
     case 'positional-embedding-adder':

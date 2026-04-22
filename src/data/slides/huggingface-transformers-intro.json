@@ -1,0 +1,14 @@
+{
+  "id": "huggingface-transformers-intro",
+  "type": "markdown",
+  "content": {
+    "pt-br": {
+      "title": "A biblioteca `transformers` da Hugging Face",
+      "body": "Uma coisa é entender que Transformers substituíram RNNs/LSTMs em muitos cenários. Outra é usar isso na prática. A biblioteca **`transformers`** da Hugging Face é a ponte mais comum.\n\n1. **Camada de uso:** ela empacota tokenizers, checkpoints e APIs para carregar modelos prontos como GPT-2 sem reimplementar a arquitetura.\n\n2. **Ecossistema real:** em vez de escrever atenção, embeddings e geração na mão, você chama objetos como `AutoTokenizer` e `AutoModelForCausalLM`.\n\n3. **Nosso framing:** usar pronto agora é para enxergar o destino industrial. Construir na unha depois é para entender a mecânica de verdade.\n\n> Primeiro vemos como o mercado usa. Depois voltamos para os fundamentos."
+    },
+    "en-us": {
+      "title": "The Hugging Face `transformers` library",
+      "body": "It is one thing to understand that Transformers replaced RNNs/LSTMs in many settings. It is another to use that in practice. Hugging Face's **`transformers`** library is the most common bridge.\n\n1. **Usage layer:** it packages tokenizers, checkpoints, and APIs to load ready-made models such as GPT-2 without reimplementing the architecture.\n\n2. **Real ecosystem:** instead of writing attention, embeddings, and generation by hand, you call objects such as `AutoTokenizer` and `AutoModelForCausalLM`.\n\n3. **Our framing:** using the ready tool now is to see the industrial destination. Building it by hand later is to understand the real mechanics.\n\n> First we see how the field uses it. Then we go back to fundamentals."
+    }
+  }
+}

@@ -20,17 +20,17 @@ export const ParallelPredictionDiagram: React.FC<ParallelPredictionDiagramProps>
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#fff',
+      background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
-      border: '1px solid #e2e8f0',
-      boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
+      border: '1px solid rgba(255, 255, 255, 0.07)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
       display: 'flex',
       flexDirection: 'column',
       gap: '40px',
       fontFamily: "'Inter', sans-serif"
     }}>
       
-      <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: '700', background: '#e0f2fe', padding: '12px', borderRadius: '12px', color: '#0369a1' }}>
+      <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: '700', background: 'rgba(0,229,255,0.12)', padding: '12px', borderRadius: '12px', color: 'var(--sw-cyan)', border: '1px solid rgba(0,229,255,0.22)' }}>
         {copy.parallelLabel}
       </div>
 
@@ -47,18 +47,18 @@ export const ParallelPredictionDiagram: React.FC<ParallelPredictionDiagramProps>
             transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.2}s`
           }}>
             {/* Input Token */}
-            <div style={{ padding: '16px', background: '#3b82f6', color: '#fff', borderRadius: '12px', fontSize: '20px', fontWeight: '600', width: '100%', textAlign: 'center' }}>
+            <div style={{ padding: '16px', background: 'linear-gradient(135deg, rgba(0,229,255,0.9), rgba(168,85,247,0.9))', color: '#fff', borderRadius: '12px', fontSize: '20px', fontWeight: '600', width: '100%', textAlign: 'center', boxShadow: '0 0 18px rgba(0,229,255,0.18)' }}>
               {token}
             </div>
 
             {/* Model Pipe */}
-            <div style={{ width: '40px', height: '100px', background: '#f1f5f9', borderLeft: '2px dashed #94a3b8', borderRight: '2px dashed #94a3b8', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(180deg, rgba(59, 130, 246, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%)', animation: 'flowDown 2s infinite linear' }} />
-              <div style={{ position: 'absolute', fontWeight: '800', color: '#64748b', opacity: 0.2, transform: 'rotate(-90deg)', whiteSpace: 'nowrap' }}>GPT-2</div>
+            <div style={{ width: '40px', height: '100px', background: 'rgba(26,22,40,0.92)', borderLeft: '2px dashed rgba(255,255,255,0.14)', borderRight: '2px dashed rgba(255,255,255,0.14)', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(180deg, rgba(0,229,255,0.18) 0%, rgba(255,46,151,0.18) 100%)', animation: 'flowDown 2s infinite linear' }} />
+              <div style={{ position: 'absolute', fontWeight: '800', color: 'var(--sw-text-muted)', opacity: 0.24, transform: 'rotate(-90deg)', whiteSpace: 'nowrap' }}>GPT-2</div>
             </div>
 
             {/* Output Prediction */}
-            <div style={{ padding: '16px', background: '#10b981', color: '#fff', borderRadius: '12px', fontSize: '14px', fontWeight: '600', width: '100%', textAlign: 'center', minHeight: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ padding: '16px', background: 'rgba(255,46,151,0.12)', border: '1px solid rgba(255,46,151,0.24)', color: 'var(--sw-text)', borderRadius: '12px', fontSize: '14px', fontWeight: '600', width: '100%', textAlign: 'center', minHeight: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {predictions[i]}
             </div>
           </div>

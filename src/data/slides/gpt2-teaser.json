@@ -1,0 +1,35 @@
+{
+  "id": "gpt2-teaser",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "GPT-2: um Transformer famoso",
+      "body": "Se o paper de 2017 mostrou a arquitetura, o **GPT-2** mostrou para o mundo o que acontece quando você usa essa arquitetura para **modelagem de linguagem auto-regressiva**.\n\n1. **Família GPT:** ele é um Transformer do tipo **decoder-only**, treinado para prever o próximo token repetidamente.\n\n2. **Substituindo a geração recorrente:** em vez de depender de uma cadeia RNN/LSTM carregando estado passo a passo, o GPT-2 usa a atenção sobre a janela de contexto para decidir a continuação.\n\n3. **O papel dele aqui:** por enquanto, veja o GPT-2 como o primeiro exemplo concreto de \"Transformer fazendo next-token prediction em escala\". Depois abrimos a anatomia.\n\n> O GPT-2 é menos uma exceção e mais o protótipo da família de modelos que dominou depois."
+    },
+    "en-us": {
+      "title": "GPT-2: a famous Transformer",
+      "body": "If the 2017 paper introduced the architecture, **GPT-2** showed the world what happens when you use that architecture for **autoregressive language modeling**.\n\n1. **GPT family:** it is a **decoder-only** Transformer trained to predict the next token over and over again.\n\n2. **Replacing recurrent generation:** instead of relying on an RNN/LSTM chain carrying state step by step, GPT-2 uses attention over the context window to decide the continuation.\n\n3. **Its role here:** for now, treat GPT-2 as the first concrete example of \"a Transformer doing next-token prediction at scale.\" Later we will open the anatomy.\n\n> GPT-2 is less an exception and more the prototype of the model family that took over afterwards."
+    }
+  },
+  "visual": {
+    "id": "gpt2-blackbox-diagram",
+    "copy": {
+      "pt-br": {
+        "inputLabel": "Janela de Contexto",
+        "modelLabel": "GPT-2",
+        "outputLabel": "Próximo Token"
+      },
+      "en-us": {
+        "inputLabel": "Context Window",
+        "modelLabel": "GPT-2",
+        "outputLabel": "Next Token"
+      }
+    }
+  }
+}

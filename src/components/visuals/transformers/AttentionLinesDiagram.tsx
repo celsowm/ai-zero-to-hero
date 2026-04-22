@@ -10,46 +10,46 @@ export const AttentionLinesDiagram: React.FC<AttentionLinesDiagramProps> = ({ co
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#fff',
+      background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
-      border: '1px solid #e2e8f0',
-      boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
+      border: '1px solid rgba(255, 255, 255, 0.07)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
       display: 'flex',
       flexDirection: 'column',
       gap: '20px',
-      fontFamily: "'Inter', sans-serif"
+      fontFamily: "'Space Grotesk', 'Inter', sans-serif"
     }}>
       
       <svg viewBox="0 0 500 200" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
         {/* Nodes */}
         <g transform="translate(100, 100)">
-          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
-          <text x="0" y="5" textAnchor="middle" fill="#0369a1" fontSize="16" fontWeight="700">{copy.token1}</text>
+          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="rgba(0,229,255,0.12)" stroke="rgba(0,229,255,0.7)" strokeWidth="2" />
+          <text x="0" y="5" textAnchor="middle" fill="#e8e4f0" fontSize="16" fontWeight="700">{copy.token1}</text>
         </g>
         
         <g transform="translate(250, 100)">
-          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
-          <text x="0" y="5" textAnchor="middle" fill="#0369a1" fontSize="16" fontWeight="700">{copy.token2}</text>
+          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="rgba(168,85,247,0.14)" stroke="rgba(168,85,247,0.78)" strokeWidth="2" />
+          <text x="0" y="5" textAnchor="middle" fill="#e8e4f0" fontSize="16" fontWeight="700">{copy.token2}</text>
         </g>
         
         <g transform="translate(400, 100)">
-          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
-          <text x="0" y="5" textAnchor="middle" fill="#0369a1" fontSize="16" fontWeight="700">{copy.token3}</text>
+          <rect x="-40" y="-20" width="80" height="40" rx="8" fill="rgba(255,46,151,0.14)" stroke="rgba(255,46,151,0.78)" strokeWidth="2" />
+          <text x="0" y="5" textAnchor="middle" fill="#e8e4f0" fontSize="16" fontWeight="700">{copy.token3}</text>
         </g>
 
         {/* Lines */}
         {/* We <-> the (Weak) */}
-        <path d="M 100 80 Q 175 40 250 80" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4 4" />
+        <path d="M 100 80 Q 175 40 250 80" fill="none" stroke="rgba(176,168,196,0.45)" strokeWidth="2" strokeDasharray="4 4" />
         
         {/* the <-> people (Medium) */}
-        <path d="M 250 80 Q 325 40 400 80" fill="none" stroke="#94a3b8" strokeWidth="4" />
+        <path d="M 250 80 Q 325 40 400 80" fill="none" stroke="rgba(168,85,247,0.55)" strokeWidth="4" />
         
         {/* We <-> people (Strong) */}
-        <path d="M 100 120 Q 250 180 400 120" fill="none" stroke="#0284c7" strokeWidth="8" strokeOpacity="0.8" />
+        <path d="M 100 120 Q 250 180 400 120" fill="none" stroke="rgba(0,229,255,0.88)" strokeWidth="8" strokeOpacity="0.9" />
 
         {/* Labels */}
-        <text x="250" y="160" textAnchor="middle" fill="#0284c7" fontSize="12" fontWeight="700">{copy.strongConnection}</text>
-        <text x="175" y="50" textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="600">{copy.weakConnection}</text>
+        <text x="250" y="160" textAnchor="middle" fill="#00e5ff" fontSize="12" fontWeight="700">{copy.strongConnection}</text>
+        <text x="175" y="50" textAnchor="middle" fill="#b0a8c4" fontSize="12" fontWeight="600">{copy.weakConnection}</text>
 
       </svg>
     </div>

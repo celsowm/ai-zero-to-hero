@@ -31,8 +31,8 @@ export const Gpt2LayerXray: React.FC<Gpt2LayerXrayProps> = ({ copy }) => {
     }}>
       
       {/* Output */}
-      <div style={{ padding: '8px 24px', background: '#10b981', borderRadius: '100px', fontWeight: '700' }}>{copy.outputLabel}</div>
-      <div style={{ width: '4px', height: '20px', background: '#334155' }} />
+      <div style={{ padding: '8px 24px', background: 'linear-gradient(135deg, var(--sw-cyan), var(--sw-purple))', borderRadius: '100px', fontWeight: '700', boxShadow: '0 0 18px rgba(0,229,255,0.2)' }}>{copy.outputLabel}</div>
+      <div style={{ width: '4px', height: '20px', background: 'rgba(255,255,255,0.12)' }} />
 
       {/* Layers */}
       {[3, 2, 1].map(l => (
@@ -40,26 +40,26 @@ export const Gpt2LayerXray: React.FC<Gpt2LayerXrayProps> = ({ copy }) => {
           <div style={{
             width: '280px',
             padding: '20px',
-            background: activeLayer === l ? '#3b82f6' : '#1e293b',
-            border: activeLayer === l ? '2px solid #60a5fa' : '2px solid #334155',
+            background: activeLayer === l ? 'linear-gradient(135deg, rgba(255,46,151,0.9), rgba(168,85,247,0.9))' : 'rgba(26,22,40,0.92)',
+            border: activeLayer === l ? '2px solid rgba(0,229,255,0.7)' : '2px solid rgba(255,255,255,0.08)',
             borderRadius: '16px',
             textAlign: 'center',
             fontWeight: '700',
             fontSize: '18px',
             transition: 'all 0.3s ease',
-            boxShadow: activeLayer === l ? '0 10px 30px rgba(59, 130, 246, 0.4)' : 'none',
+            boxShadow: activeLayer === l ? '0 0 22px rgba(255,46,151,0.28), 0 10px 30px rgba(168,85,247,0.25)' : 'none',
             transform: activeLayer === l ? 'scale(1.05)' : 'scale(1)'
           }}>
             {copy.layerLabel} {l}
           </div>
-          <div style={{ width: '4px', height: '20px', background: '#334155', position: 'relative' }}>
-             <div style={{ position: 'absolute', top: '-4px', left: '-3px', width: '10px', height: '10px', borderTop: '2px solid #334155', borderLeft: '2px solid #334155', transform: 'rotate(45deg)' }} />
+          <div style={{ width: '4px', height: '20px', background: 'rgba(255,255,255,0.12)', position: 'relative' }}>
+             <div style={{ position: 'absolute', top: '-4px', left: '-3px', width: '10px', height: '10px', borderTop: '2px solid rgba(255,255,255,0.12)', borderLeft: '2px solid rgba(255,255,255,0.12)', transform: 'rotate(45deg)' }} />
           </div>
         </React.Fragment>
       ))}
 
       {/* Input */}
-      <div style={{ padding: '8px 24px', background: '#38bdf8', borderRadius: '100px', fontWeight: '700' }}>{copy.inputLabel}</div>
+      <div style={{ padding: '8px 24px', background: 'rgba(0,229,255,0.14)', border: '1px solid rgba(0,229,255,0.4)', borderRadius: '100px', fontWeight: '700', color: 'var(--sw-cyan)' }}>{copy.inputLabel}</div>
 
     </div>
   );

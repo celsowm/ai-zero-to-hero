@@ -10,10 +10,10 @@ export const AttentionVsMlp: React.FC<AttentionVsMlpProps> = ({ copy }) => {
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#fff',
+      background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
-      border: '1px solid #e2e8f0',
-      boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
+      border: '1px solid rgba(255, 255, 255, 0.07)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
       display: 'flex',
       gap: '40px',
       fontFamily: "'Space Grotesk', 'Inter', sans-serif"
@@ -21,46 +21,46 @@ export const AttentionVsMlp: React.FC<AttentionVsMlpProps> = ({ copy }) => {
       
       {/* Attention Side */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-        <div style={{ fontSize: '24px', fontWeight: '800', color: '#0369a1' }}>Attention</div>
+        <div style={{ fontSize: '24px', fontWeight: '800', color: 'var(--sw-cyan)' }}>Attention</div>
         
-        <div style={{ width: '100%', height: '160px', background: '#f0f9ff', borderRadius: '16px', position: 'relative', border: '1px solid #bae6fd' }}>
+        <div style={{ width: '100%', height: '160px', background: 'rgba(0,229,255,0.07)', borderRadius: '16px', position: 'relative', border: '1px solid rgba(0,229,255,0.24)' }}>
           {/* Nodes */}
-          <div style={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', background: '#38bdf8', borderRadius: '50%', zIndex: 2 }} />
-          <div style={{ position: 'absolute', top: '60px', left: '120px', width: '40px', height: '40px', background: '#38bdf8', borderRadius: '50%', zIndex: 2 }} />
-          <div style={{ position: 'absolute', top: '100px', right: '40px', width: '40px', height: '40px', background: '#38bdf8', borderRadius: '50%', zIndex: 2 }} />
+          <div style={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', background: 'var(--sw-cyan)', borderRadius: '50%', zIndex: 2, boxShadow: '0 0 18px rgba(0,229,255,0.45)' }} />
+          <div style={{ position: 'absolute', top: '60px', left: '120px', width: '40px', height: '40px', background: 'var(--sw-cyan)', borderRadius: '50%', zIndex: 2, boxShadow: '0 0 18px rgba(0,229,255,0.45)' }} />
+          <div style={{ position: 'absolute', top: '100px', right: '40px', width: '40px', height: '40px', background: 'var(--sw-cyan)', borderRadius: '50%', zIndex: 2, boxShadow: '0 0 18px rgba(0,229,255,0.45)' }} />
           
           {/* Lines */}
           <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-            <line x1="40" y1="40" x2="140" y2="80" stroke="#7dd3fc" strokeWidth="3" />
-            <line x1="140" y1="80" x2="250" y2="120" stroke="#7dd3fc" strokeWidth="3" />
-            <line x1="40" y1="40" x2="250" y2="120" stroke="#7dd3fc" strokeWidth="3" />
+            <line x1="40" y1="40" x2="140" y2="80" stroke="rgba(0,229,255,0.7)" strokeWidth="3" />
+            <line x1="140" y1="80" x2="250" y2="120" stroke="rgba(0,229,255,0.7)" strokeWidth="3" />
+            <line x1="40" y1="40" x2="250" y2="120" stroke="rgba(0,229,255,0.7)" strokeWidth="3" />
           </svg>
         </div>
 
-        <div style={{ fontSize: '14px', color: '#64748b', textAlign: 'center', fontWeight: '500', lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: 'var(--sw-text-dim)', textAlign: 'center', fontWeight: '500', lineHeight: '1.6' }}>
           {copy.attentionDesc}
         </div>
       </div>
 
-      <div style={{ width: '1px', background: '#e2e8f0' }} />
+      <div style={{ width: '1px', background: 'rgba(255,255,255,0.08)' }} />
 
       {/* MLP Side */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-        <div style={{ fontSize: '24px', fontWeight: '800', color: '#b45309' }}>MLP</div>
+        <div style={{ fontSize: '24px', fontWeight: '800', color: 'var(--sw-pink)' }}>MLP</div>
         
-        <div style={{ width: '100%', height: '160px', background: '#fffbeb', borderRadius: '16px', position: 'relative', border: '1px solid #fde68a', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ width: '100%', height: '160px', background: 'rgba(255,46,151,0.07)', borderRadius: '16px', position: 'relative', border: '1px solid rgba(255,46,151,0.24)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '20px' }}>
             {[1, 2, 3].map(i => (
-              <div key={i} style={{ width: '40px', height: '80px', background: '#fbbf24', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                <div style={{ width: '20px', height: '4px', background: '#fff', borderRadius: '2px' }} />
-                <div style={{ width: '20px', height: '4px', background: '#fff', borderRadius: '2px' }} />
-                <div style={{ width: '20px', height: '4px', background: '#fff', borderRadius: '2px' }} />
+              <div key={i} style={{ width: '40px', height: '80px', background: 'linear-gradient(180deg, rgba(255,46,151,0.88), rgba(168,85,247,0.88))', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 18px rgba(168,85,247,0.28)' }}>
+                <div style={{ width: '20px', height: '4px', background: 'rgba(255,255,255,0.88)', borderRadius: '2px' }} />
+                <div style={{ width: '20px', height: '4px', background: 'rgba(255,255,255,0.88)', borderRadius: '2px' }} />
+                <div style={{ width: '20px', height: '4px', background: 'rgba(255,255,255,0.88)', borderRadius: '2px' }} />
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ fontSize: '14px', color: '#64748b', textAlign: 'center', fontWeight: '500', lineHeight: '1.6' }}>
+        <div style={{ fontSize: '14px', color: 'var(--sw-text-dim)', textAlign: 'center', fontWeight: '500', lineHeight: '1.6' }}>
           {copy.mlpDesc}
         </div>
       </div>

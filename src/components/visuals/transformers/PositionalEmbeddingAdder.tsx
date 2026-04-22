@@ -10,10 +10,10 @@ export const PositionalEmbeddingAdder: React.FC<PositionalEmbeddingAdderProps> =
     <div style={{
       width: '100%',
       padding: '40px',
-      background: 'linear-gradient(135deg, #f8f9fd 0%, #eef2f8 100%)',
+      background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
-      border: '1px solid #dbe2ee',
-      boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.7)',
+      border: '1px solid rgba(255, 255, 255, 0.07)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -23,38 +23,38 @@ export const PositionalEmbeddingAdder: React.FC<PositionalEmbeddingAdderProps> =
       
       {/* Token Embedding */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase' }}>{copy.tokenLabel}</div>
+        <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--sw-text-dim)', textTransform: 'uppercase' }}>{copy.tokenLabel}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[0.8, -0.2, 0.5, 0.1].map((v, i) => (
-            <div key={i} style={{ width: '80px', height: '30px', background: v > 0 ? `rgba(59, 130, 246, ${v})` : `rgba(239, 68, 68, ${Math.abs(v)})`, border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#1e293b' }}>
+            <div key={i} style={{ width: '80px', height: '30px', background: v > 0 ? `rgba(0, 229, 255, ${Math.max(0.18, v * 0.55)})` : `rgba(255, 46, 151, ${Math.max(0.18, Math.abs(v) * 0.55)})`, border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: 'var(--sw-text)' }}>
               {v}
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{ fontSize: '32px', fontWeight: '700', color: '#94a3b8' }}>{copy.plusSign}</div>
+      <div style={{ fontSize: '32px', fontWeight: '700', color: 'var(--sw-cyan)' }}>{copy.plusSign}</div>
 
       {/* Positional Embedding */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase' }}>{copy.positionLabel}</div>
+        <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--sw-text-dim)', textTransform: 'uppercase' }}>{copy.positionLabel}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[0.1, 0.9, -0.3, 0.4].map((v, i) => (
-            <div key={i} style={{ width: '80px', height: '30px', background: v > 0 ? `rgba(16, 185, 129, ${v})` : `rgba(245, 158, 11, ${Math.abs(v)})`, border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#1e293b' }}>
+            <div key={i} style={{ width: '80px', height: '30px', background: v > 0 ? `rgba(168, 85, 247, ${Math.max(0.18, v * 0.55)})` : `rgba(251, 191, 36, ${Math.max(0.18, Math.abs(v) * 0.45)})`, border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: 'var(--sw-text)' }}>
               {v}
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{ fontSize: '32px', fontWeight: '700', color: '#94a3b8' }}>{copy.equalsSign}</div>
+      <div style={{ fontSize: '32px', fontWeight: '700', color: 'var(--sw-pink)' }}>{copy.equalsSign}</div>
 
       {/* Sum Embedding */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-        <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase' }}>{copy.sumLabel}</div>
+        <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--sw-text-dim)', textTransform: 'uppercase' }}>{copy.sumLabel}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[0.9, 0.7, 0.2, 0.5].map((v, i) => (
-            <div key={i} style={{ width: '80px', height: '30px', background: `rgba(139, 92, 246, ${v})`, border: '2px solid #8b5cf6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff', fontWeight: '700', boxShadow: '0 4px 10px rgba(139, 92, 246, 0.3)' }}>
+            <div key={i} style={{ width: '80px', height: '30px', background: `rgba(168, 85, 247, ${Math.max(0.3, v * 0.7)})`, border: '2px solid var(--sw-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff', fontWeight: '700', boxShadow: '0 0 16px rgba(168, 85, 247, 0.25)' }}>
               {v}
             </div>
           ))}

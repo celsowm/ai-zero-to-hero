@@ -31,6 +31,7 @@ export { ContextWindowSlider } from './language-models/ContextWindowSlider';
 export { MlpTextDiagram } from './language-models/MlpTextDiagram';
 export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
+export { TransformerOverviewTeaser } from './transformers/TransformerOverviewTeaser';
 export { ParallelPredictionDiagram } from './transformers/ParallelPredictionDiagram';
 export { PositionalEmbeddingAdder } from './transformers/PositionalEmbeddingAdder';
 export { TransformerBlockDiagram } from './transformers/TransformerBlockDiagram';

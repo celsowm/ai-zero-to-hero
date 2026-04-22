@@ -4,6 +4,19 @@ export interface Gpt2BlackboxDiagramCopy {
   outputLabel: string;
 }
 
+export interface TransformerOverviewTeaserCopy {
+  stepLabel: string;
+  outputLabel: string;
+  inputLabel: string;
+  previousOutputsLabel: string;
+  embeddingsLabel: string;
+  positionLabel: string;
+  encoderLabel: string;
+  decoderLabel: string;
+  linearLabel: string;
+  crossAttentionLabel: string;
+}
+
 export interface ParallelPredictionDiagramCopy {
   text: string;
   parallelLabel: string;

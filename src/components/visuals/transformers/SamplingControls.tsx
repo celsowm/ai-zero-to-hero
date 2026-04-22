@@ -22,10 +22,10 @@ export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#fff',
+      background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
-      border: '1px solid #e2e8f0',
-      boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
+      border: '1px solid rgba(255, 255, 255, 0.07)',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
       display: 'flex',
       flexDirection: 'column',
       gap: '40px',
@@ -33,9 +33,9 @@ export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
     }}>
       
       {/* Controls */}
-      <div style={{ display: 'flex', gap: '40px', background: '#f8fafc', padding: '24px', borderRadius: '16px' }}>
+      <div style={{ display: 'flex', gap: '40px', background: 'rgba(26,22,40,0.92)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: '600', color: '#334155' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: '600', color: 'var(--sw-text)' }}>
             <span>{copy.tempLabel}</span>
             <span>{temp.toFixed(1)}</span>
           </div>
@@ -46,7 +46,7 @@ export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
             onChange={(e) => setTemp(parseFloat(e.target.value))}
             style={{ width: '100%' }}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--sw-text-muted)', fontWeight: '500' }}>
             <span>{copy.lowTempDesc}</span>
             <span>{copy.highTempDesc}</span>
           </div>
@@ -54,18 +54,19 @@ export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
       </div>
 
       {/* Chart */}
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '20px', height: '200px', padding: '20px 0', borderBottom: '2px solid #e2e8f0' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '20px', height: '200px', padding: '20px 0', borderBottom: '2px solid rgba(255,255,255,0.08)' }}>
         {probs.map((p, i) => (
           <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '700', color: '#0ea5e9' }}>{(p * 100).toFixed(0)}%</div>
+            <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--sw-cyan)' }}>{(p * 100).toFixed(0)}%</div>
             <div style={{ 
               width: '100%', 
               height: `${p * 150}px`, 
-              background: 'linear-gradient(180deg, #38bdf8 0%, #0284c7 100%)', 
+              background: 'linear-gradient(180deg, var(--sw-cyan) 0%, var(--sw-pink) 100%)', 
               borderRadius: '8px 8px 0 0',
-              transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 0 18px rgba(255,46,151,0.12)'
             }} />
-            <div style={{ fontWeight: '600', color: '#334155', marginTop: '8px' }}>{words[i]}</div>
+            <div style={{ fontWeight: '600', color: 'var(--sw-text)', marginTop: '8px' }}>{words[i]}</div>
           </div>
         ))}
       </div>
