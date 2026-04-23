@@ -53,6 +53,15 @@ export const SearchModal: React.FC = () => {
 
   if (!isSearchOpen) return null;
 
+  const t = {
+    emptyTitle: language === 'pt-br' ? 'BUSCA RÁPIDA' : 'QUICK SEARCH',
+    emptyDesc: language === 'pt-br' 
+      ? 'Digite o título de um tópico para pular diretamente para o conteúdo.' 
+      : 'Type a topic title to jump directly to the content.',
+    select: language === 'pt-br' ? 'Selecionar' : 'Select',
+    navigate: language === 'pt-br' ? 'Navegar' : 'Navigate',
+  };
+
   const modalContent = (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 999999,
@@ -82,7 +91,7 @@ export const SearchModal: React.FC = () => {
           <Search size={24} color="var(--sw-pink, #ff2e97)" style={{ filter: 'drop-shadow(0 0 8px rgba(255,46,151,0.5))' }} />
           <input
             ref={inputRef}
-            placeholder={language === 'pt-br' ? 'O que você quer aprender?' : 'Search for anything...'}
+            placeholder={language === 'pt-br' ? 'O que você quer aprender?' : 'What do you want to learn?'}
             value={query}
             onChange={e => setQuery(e.target.value)}
             style={{
@@ -147,8 +156,8 @@ export const SearchModal: React.FC = () => {
               <div style={{ width: '80px', height: '80px', borderRadius: '30px', background: 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', margin: '0 auto 24px', boxShadow: '0 15px 35px rgba(255,46,151,0.3)' }}>
                 <Search size={32} strokeWidth={3} />
               </div>
-              <h3 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.03em' }}>BUSCA RÁPIDA</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1.5 }}>Digite o título de um tópico para pular diretamente para o conteúdo.</p>
+              <h3 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.03em' }}>{t.emptyTitle}</h3>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1.5 }}>{t.emptyDesc}</p>
             </div>
           )}
         </div>
@@ -157,10 +166,10 @@ export const SearchModal: React.FC = () => {
         <div style={{ padding: '16px 24px', background: 'rgba(0,0,0,0.3)', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '20px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              <span style={{ padding: '2px 6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>ENTER</span> Selecionar
+              <span style={{ padding: '2px 6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>ENTER</span> {t.select}
             </span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', fontWeight: '800', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              <span style={{ padding: '2px 6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>↑↓</span> Navegar
+              <span style={{ padding: '2px 6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>↑↓</span> {t.navigate}
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255, 46, 151, 0.4)', fontSize: '10px', fontWeight: '900', letterSpacing: '0.2em' }}>
