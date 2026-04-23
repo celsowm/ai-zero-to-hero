@@ -53,6 +53,7 @@ import type {
 } from './transformers';
 import type {
   ActivationFunctionsComparatorCopy,
+  ArchitectureComparatorCopy,
   BackpropSignalFlowVisualCopy,
   BiologicalVsComputationalNeuronCopy,
   FeedforwardFlowVisualCopy,

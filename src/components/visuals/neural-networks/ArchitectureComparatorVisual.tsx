@@ -115,6 +115,7 @@ export const ArchitectureComparatorVisual: React.FC<Props> = ({ copy }) => {
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
       <TabsBar
+        ariaLabel={copy.tabs[activeTab]?.title || 'Architecture Comparison'}
         items={copy.tabs.map((t) => ({ label: t.label }))}
         activeIndex={activeTab}
         onChange={setActiveTab}
