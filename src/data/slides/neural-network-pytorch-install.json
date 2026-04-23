@@ -1,0 +1,20 @@
+{
+  "id": "neural-network-pytorch-install",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.56,
+      0.44
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Primeira biblioteca externa: instalando `torch` com `pip`",
+      "body": "Até aqui o curso usou apenas Python puro. Agora aparece a primeira biblioteca externa, e isso exige um passo novo: instalar o pacote antes de importar.\n\n1. **`torch` não vem junto com o Python:** se você abrir um projeto limpo e tentar `import torch`, o mais comum é receber erro de módulo não encontrado.\n\n2. **`pip` é o instalador de pacotes do ecossistema Python:** ele baixa a biblioteca e registra a instalação para aquele ambiente Python.\n\n3. **O comando-base recomendado:** usar `python -m pip install torch`. Esse formato reduz confusão porque garante que o `pip` usado pertence ao mesmo Python que vai executar o código.\n\n4. **Depois da instalação, teste o import:** antes de seguir para treino e inferência, vale confirmar se o Python realmente enxerga a biblioteca.\n\n> Primeiro instalamos o backend. Mais à frente, `transformers` entra por cima desse mesmo mundo.\n\n---\n\n### No terminal\n```bash\npython -m pip install torch\n```\n\n### Teste mínimo depois da instalação\n```python\nimport torch\nprint(torch.__version__)\n```\n\n### Leitura prática\n- `pip install`: baixa e instala a biblioteca\n- `import torch`: confirma se o módulo ficou disponível\n- `torch.__version__`: mostra qual versão o Python carregou\n\n### Observação importante\nEste slide mostra **setup local de terminal**. Ele não é uma célula de instalação dentro do navegador.\n"
+    },
+    "en-us": {
+      "title": "First external library: installing `torch` with `pip`",
+      "body": "Up to this point the course only used pure Python. Now the first external library appears, and that requires a new step: install the package before importing it.\n\n1. **`torch` does not come with Python by default:** if you open a clean project and try `import torch`, the usual result is a module-not-found error.\n\n2. **`pip` is the package installer for the Python ecosystem:** it downloads the library and registers that installation for the current Python environment.\n\n3. **Recommended base command:** use `python -m pip install torch`. This format reduces confusion because it makes sure the `pip` belongs to the same Python that will run the code.\n\n4. **After installation, test the import:** before moving to training and inference, it is worth confirming that Python can really see the library.\n\n> First we install the backend. Later, `transformers` comes on top of that same world.\n\n---\n\n### In the terminal\n```bash\npython -m pip install torch\n```\n\n### Minimal test after installation\n```python\nimport torch\nprint(torch.__version__)\n```\n\n### Practical reading\n- `pip install`: downloads and installs the library\n- `import torch`: checks whether the module is available\n- `torch.__version__`: shows which version Python loaded\n\n### Important note\nThis slide shows **local terminal setup**. It is not an installation cell inside the browser.\n"
+    }
+  }
+}
