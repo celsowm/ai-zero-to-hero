@@ -1,6 +1,7 @@
 export const courseSlideOrder = [
   'welcome',
   'professor',
+  'python-intro',
   'python-prereq-data',
   'python-prereq-functions',
   'python-prereq-conditionals',

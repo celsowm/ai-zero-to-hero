@@ -1,0 +1,22 @@
+{
+  "id": "python-intro",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      1,
+      1
+    ]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Python: O Motor da Inteligência Artificial",
+      "body": "Python não é apenas uma linguagem; é o ecossistema que viabiliza a IA moderna. Sua sintaxe limpa permite focar na lógica matemática e nos dados, não em burocracias de baixo nível.\n\n### 📦 Instalação Oficial\n1. Acesse **[python.org](https://www.python.org/downloads/)** e baixe a versão estável mais recente (3.10+).\n2. **Windows:** Marque obrigatoriamente a opção **\"Add Python to PATH\"**.\n3. **Verificação:** No terminal/PowerShell, digite `python --version`.\n\n### 📝 O primeiro \"Olá Mundo\" (Na mão)\nNão precisa de IDE para começar. Tente isto:\n1. Abra o **Bloco de Notas** (Win) ou **TextEdit** (Mac).\n2. Digite: `print(\"Olá, IA!\")`.\n3. Salve como `hello.py` em sua pasta de preferência.\n4. No terminal, navegue até a pasta e digite:\n   ```bash\n   python hello.py\n   ```\n\n> Se o terminal responder com a mensagem, seu ambiente está pronto!\n\n---\n\n### 🛠️ Onde escrever seu código?\nPara produtividade real, use ferramentas que entendem o código:\n\n1. **[VS Code](https://code.visualstudio.com/) (O Padrão Gold)**\n   - Instale as extensões `Python` e `Jupyter`.\n   - Gratuito, leve e extremamente poderoso.\n\n2. **[Cursor](https://cursor.com/) (O Editor de IA)**\n   - Um fork do VS Code com IA nativa que ajuda a programar.\n   - Recomendado para quem quer acelerar o aprendizado.\n\n3. **[PyCharm](https://www.jetbrains.com/pycharm/) (IDE Profissional)**\n   - Robusta, com excelente suporte a refatoração.\n\n### 🐍 Isolamento de Projetos\nPara evitar que uma biblioteca quebre outra, usamos ambientes virtuais:\n```bash\npython -m venv .venv\nsource .venv/bin/activate  # Linux/macOS\n.venv\\Scripts\\activate     # Windows\n```",
+      "codeExplanations": []
+    },
+    "en-us": {
+      "title": "Python: The Engine of Artificial Intelligence",
+      "body": "Python is not just a language; it's the ecosystem that enables modern AI. Its clean syntax allows focusing on mathematical logic and data, rather than low-level boilerplate.\n\n### 📦 Official Installation\n1. Go to **[python.org](https://www.python.org/downloads/)** and download the latest stable version (3.10+).\n2. **Windows:** You MUST check **\"Add Python to PATH\"**.\n3. **Verification:** In your terminal/PowerShell, type `python --version`.\n\n### 📝 Your first \"Hello World\" (Manual)\nYou don't need an IDE to start. Try this:\n1. Open **Notepad** (Win) or **TextEdit** (Mac).\n2. Type: `print(\"Hello, AI!\")`.\n3. Save as `hello.py` in your favorite folder.\n4. In the terminal, navigate to the folder and type:\n   ```bash\n   python hello.py\n   ```\n\n> If the terminal prints the message, your environment is ready!\n\n---\n\n### 🛠️ Where to write your code?\nFor real productivity, use tools that understand your code:\n\n1. **[VS Code](https://code.visualstudio.com/) (The Gold Standard)**\n   - Install `Python` and `Jupyter` extensions.\n   - Free, lightweight, and extremely powerful.\n\n2. **[Cursor](https://cursor.com/) (The AI Editor)**\n   - A VS Code fork with native AI that helps you code.\n   - Recommended for those who want to accelerate learning.\n\n3. **[PyCharm](https://www.jetbrains.com/pycharm/) (Professional IDE)**\n   - Robust, with excellent refactoring support.\n\n### 🐍 Project Isolation\nTo prevent libraries from conflicting, we use virtual environments:\n```bash\npython -m venv .venv\nsource .venv/bin/activate  # Linux/macOS\n.venv\\Scripts\\activate     # Windows\n```",
+      "codeExplanations": []
+    }
+  }
+}
