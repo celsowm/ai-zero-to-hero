@@ -72,3 +72,21 @@ export interface TrainingLoopStepperCopy {
   step3Title: string;
   step3Desc: string;
 }
+
+export interface NeuralNetworkToLanguageModelingComparatorCopy {
+  eyebrowLabel: string;
+  title: string;
+  intro: string;
+  leftTitle: string;
+  leftSubtitle: string;
+  rightTitle: string;
+  rightSubtitle: string;
+  rows: Array<{
+    label: string;
+    leftValue: string;
+    rightValue: string;
+  }>;
+  coreLabel: string;
+  coreValue: string;
+  footer: string;
+}

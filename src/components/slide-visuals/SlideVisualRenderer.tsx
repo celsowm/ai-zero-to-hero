@@ -26,6 +26,7 @@ import {
   ContextWindowSlider,
   MlpTextDiagram,
   TrainingLoopStepper,
+  NeuralNetworkToLanguageModelingComparator,
   Gpt2BlackboxDiagram,
   TransformerOverviewTeaser,
   ParallelPredictionDiagram,
@@ -118,6 +119,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <MlpTextDiagram copy={visual.copy[language]} />;
     case 'training-loop-stepper':
       return <TrainingLoopStepper copy={visual.copy[language]} />;
+    case 'neural-network-to-language-modeling-comparator':
+      return <NeuralNetworkToLanguageModelingComparator copy={visual.copy[language]} />;
     case 'gpt2-blackbox-diagram':
       return <Gpt2BlackboxDiagram copy={visual.copy[language]} />;
     case 'transformer-overview-teaser':

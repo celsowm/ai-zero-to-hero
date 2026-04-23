@@ -44,6 +44,7 @@ type RawSlide = Omit<ISlide, 'visual'> & {
     | { id: 'context-window-slider'; copy: Record<Language, unknown> }
     | { id: 'mlp-text-diagram'; copy: Record<Language, unknown> }
     | { id: 'training-loop-stepper'; copy: Record<Language, unknown> }
+    | { id: 'neural-network-to-language-modeling-comparator'; copy: Record<Language, unknown> }
     | { id: 'gpt2-blackbox-diagram'; copy: Record<Language, unknown> }
     | { id: 'transformer-overview-teaser'; copy: Record<Language, unknown> }
     | { id: 'parallel-prediction-diagram'; copy: Record<Language, unknown> }

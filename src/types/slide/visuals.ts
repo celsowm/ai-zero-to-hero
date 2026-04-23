@@ -25,6 +25,7 @@ import type {
   LanguageModelingDiagramCopy,
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
+  NeuralNetworkToLanguageModelingComparatorCopy,
   SamplingRouletteCopy,
   SoftmaxVisualizerCopy,
   TokenizationVisualizerCopy,
@@ -238,6 +239,11 @@ export interface TrainingLoopStepperVisual {
   copy: Record<Language, TrainingLoopStepperCopy>;
 }
 
+export interface NeuralNetworkToLanguageModelingComparatorVisual {
+  id: 'neural-network-to-language-modeling-comparator';
+  copy: Record<Language, NeuralNetworkToLanguageModelingComparatorCopy>;
+}
+
 export interface Gpt2BlackboxDiagramVisual {
   id: 'gpt2-blackbox-diagram';
   copy: Record<Language, Gpt2BlackboxDiagramCopy>;
@@ -360,6 +366,7 @@ export type SlideVisual =
   | ContextWindowSliderVisual
   | MlpTextDiagramVisual
   | TrainingLoopStepperVisual
+  | NeuralNetworkToLanguageModelingComparatorVisual
   | Gpt2BlackboxDiagramVisual
   | TransformerOverviewTeaserVisual
   | ParallelPredictionDiagramVisual
