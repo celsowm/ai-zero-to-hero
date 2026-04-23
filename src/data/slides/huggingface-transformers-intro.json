@@ -1,14 +1,37 @@
 {
   "id": "huggingface-transformers-intro",
-  "type": "markdown",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.64,
+      0.36
+    ]
+  },
   "content": {
     "pt-br": {
       "title": "A biblioteca `transformers` da Hugging Face",
-      "body": "Uma coisa é entender que Transformers substituíram RNNs/LSTMs em muitos cenários. Outra é usar isso na prática. A biblioteca **`transformers`** da Hugging Face é a ponte mais comum.\n\n1. **Camada de uso:** ela empacota tokenizers, checkpoints e APIs para carregar modelos prontos como GPT-2 sem reimplementar a arquitetura.\n\n2. **Ecossistema real:** em vez de escrever atenção, embeddings e geração na mão, você chama objetos como `AutoTokenizer` e `AutoModelForCausalLM`.\n\n3. **Nosso framing:** usar pronto agora é para enxergar o destino industrial. Construir na unha depois é para entender a mecânica de verdade.\n\n> Primeiro vemos como o mercado usa. Depois voltamos para os fundamentos."
+      "body": "Uma coisa é entender que Transformers substituíram RNNs/LSTMs em muitos cenários. Outra é usar isso na prática. A biblioteca **`transformers`** da Hugging Face é a camada que transforma a teoria em fluxo de produto.\n\n1. **Não é o modelo, é a interface:** `transformers` organiza o acesso a tokenizers, configs, checkpoints e APIs de geração para que você carregue modelos prontos sem reimplementar a arquitetura inteira.\n\n2. **A tríade principal:** `AutoTokenizer` converte texto em tokens, `AutoModelForCausalLM` carrega um modelo causal treinado para prever o próximo token, e `pipeline()` junta essas peças em uma API de alto nível para teste rápido, demo e prototipação.\n\n3. **O Hub por trás da biblioteca:** o valor real da Hugging Face é que a biblioteca conversa diretamente com o ecossistema do Hub. Isso permite buscar modelos, revisar versões, trocar checkpoints e experimentar sem sair do mesmo padrão de uso.\n\n4. **Por que isso importa aqui:** agora você vê como a indústria empacota Transformers no mundo real. Depois, quando voltarmos ao “por dentro”, vai ficar claro o que a biblioteca esconde e o que ela só automatiza.\n\n> Primeiro entendemos a interface. Depois abrimos a mecânica."
     },
     "en-us": {
       "title": "The Hugging Face `transformers` library",
-      "body": "It is one thing to understand that Transformers replaced RNNs/LSTMs in many settings. It is another to use that in practice. Hugging Face's **`transformers`** library is the most common bridge.\n\n1. **Usage layer:** it packages tokenizers, checkpoints, and APIs to load ready-made models such as GPT-2 without reimplementing the architecture.\n\n2. **Real ecosystem:** instead of writing attention, embeddings, and generation by hand, you call objects such as `AutoTokenizer` and `AutoModelForCausalLM`.\n\n3. **Our framing:** using the ready tool now is to see the industrial destination. Building it by hand later is to understand the real mechanics.\n\n> First we see how the field uses it. Then we go back to fundamentals."
+      "body": "It is one thing to understand that Transformers replaced RNNs/LSTMs in many settings. It is another to use that in practice. Hugging Face's **`transformers`** library is the layer that turns the theory into a product workflow.\n\n1. **It is not the model, it is the interface:** `transformers` organizes tokenizers, configs, checkpoints, and generation APIs so you can load ready-made models without reimplementing the full architecture.\n\n2. **The main trio:** `AutoTokenizer` turns text into tokens, `AutoModelForCausalLM` loads a causal model trained for next-token prediction, and `pipeline()` wraps those pieces in a high-level API for quick tests, demos, and prototyping.\n\n3. **The Hub behind the library:** Hugging Face's real value is the bridge to the Hub ecosystem. That makes it easy to discover models, swap checkpoints, inspect versions, and experiment without changing the overall usage pattern.\n\n4. **Why this matters here:** this is how the industry packages Transformers in the real world. Later, when we open the internals, it becomes clear what the library hides and what it only automates.\n\n> First we understand the interface. Then we open the mechanics."
+    }
+  },
+  "visual": {
+    "id": "localized-image",
+    "copy": {
+      "pt-br": {
+        "src": "huggingFaceLogoSynthwave",
+        "alt": "Logo da Hugging Face em um cartão synthwave com brilho neon",
+        "openLabel": "Abrir imagem ampliada",
+        "closeLabel": "Fechar imagem ampliada"
+      },
+      "en-us": {
+        "src": "huggingFaceLogoSynthwave",
+        "alt": "Hugging Face logo on a synthwave card with neon glow",
+        "openLabel": "Open enlarged image",
+        "closeLabel": "Close enlarged image"
+      }
     }
   }
 }
