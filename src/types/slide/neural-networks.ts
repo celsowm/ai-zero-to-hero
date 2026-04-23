@@ -346,3 +346,19 @@ export interface NeuralNetworkTabsStepperCopy {
     steps: NeuralNetworkTabsStepperStepCopy[];
   };
 }
+
+export interface ArchitectureComparatorTabCopy {
+  label: string;
+  title: string;
+  description: string;
+  code?: string;
+  source?: CodeSourceRef;
+  codeExplanations?: CodeExplanation[];
+  diagramLabel: string;
+  features: string[];
+}
+
+export interface ArchitectureComparatorCopy {
+  tabs: ArchitectureComparatorTabCopy[];
+  footer: string;
+}

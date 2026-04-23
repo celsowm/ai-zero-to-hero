@@ -53,6 +53,7 @@ import {
   FeedforwardFlowVisual,
   BackpropSignalFlow,
   NeuralNetworkTabsStepper,
+  ArchitectureComparatorVisual,
   PythonPrereqTabsVisual,
   PythonExerciseVisual,
   WelcomeSynthwaveVisual,
@@ -171,6 +172,8 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
       return <BackpropSignalFlow copy={visual.copy[language]} />;
     case 'neural-network-tabs-stepper':
       return <NeuralNetworkTabsStepper copy={visual.copy[language]} />;
+    case 'architecture-comparator':
+      return <ArchitectureComparatorVisual copy={visual.copy[language]} />;
     case 'biological-vs-computational-neuron':
       return <BiologicalVsComputationalNeuron copy={visual.copy[language]} />;
     case 'neural-network-step-debugger':

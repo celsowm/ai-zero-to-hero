@@ -1,0 +1,5 @@
+{
+  "id": "architectures/cnn",
+  "language": "python",
+  "regions": ["e2e"]
+}

@@ -1,0 +1,5 @@
+{
+  "id": "neural-networks/pytorch-hardware-test",
+  "language": "python",
+  "regions": ["validation"]
+}

@@ -109,6 +109,11 @@ export interface NeuralNetworkTabsStepperVisual {
   copy: Record<Language, NeuralNetworkTabsStepperCopy>;
 }
 
+export interface ArchitectureComparatorVisual {
+  id: 'architecture-comparator';
+  copy: Record<Language, ArchitectureComparatorCopy>;
+}
+
 export interface PythonExerciseVisual {
   id: 'python-exercise';
   copy: Record<Language, PythonExerciseVisualCopy>;
@@ -394,6 +399,7 @@ export type SlideVisual =
   | BiologicalVsComputationalNeuronVisual
   | NeuralNetworkStepDebuggerVisual
   | NeuralNetworkTabsStepperVisual
+  | ArchitectureComparatorVisual
   | PythonExerciseVisual;
 
 export interface SlideOptions {

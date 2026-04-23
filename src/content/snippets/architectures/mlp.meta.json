@@ -1,0 +1,5 @@
+{
+  "id": "architectures/mlp",
+  "language": "python",
+  "regions": ["e2e"]
+}
