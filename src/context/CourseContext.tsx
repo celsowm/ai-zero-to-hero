@@ -49,6 +49,8 @@ interface CourseContextType {
   fontScale: number;
   increaseFontScale: () => void;
   decreaseFontScale: () => void;
+  isSearchOpen: boolean;
+  setSearchOpen: (open: boolean) => void;
   currentSlide: ISlide;
   slides: ISlide[];
 }
@@ -71,6 +73,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [fontScale, setFontScale] = useState(1);
   const slides = courseContent;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(() => getSlideIndexFromHash(slides));
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -126,7 +129,11 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
       if (isInput) return;
 
-      if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+      if ((event.metaKey || event.ctrlKey) && (event.key === 'k' || event.key === 'K')) {
+        event.preventDefault();
+        console.log('Search toggled via shortcut');
+        setSearchOpen(prev => !prev);
+      } else if (event.key === 'ArrowRight' || event.key === 'PageDown') {
         goToNextSlide();
       } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
         goToPrevSlide();
@@ -165,6 +172,8 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         fontScale,
         increaseFontScale,
         decreaseFontScale,
+        isSearchOpen,
+        setSearchOpen,
         currentSlide,
         slides,
       }}

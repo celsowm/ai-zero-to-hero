@@ -1,6 +1,6 @@
 import React from 'react';
 import { CourseProvider, useCourse } from './context/CourseContext';
-import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar } from './components';
+import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar, SearchModal } from './components';
 
 const CourseContent: React.FC = () => {
   const { currentSlide, language } = useCourse();
@@ -29,6 +29,7 @@ function App() {
   return (
     <CourseProvider>
       <CourseContent />
+      <SearchModal />
     </CourseProvider>
   );
 }

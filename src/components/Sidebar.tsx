@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useCourse } from '../context/CourseContext';
-import { ChevronLeft, ChevronRight, Globe, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { slides, currentSlideIndex, goToSlide, language, setLanguage } = useCourse();
+  const { slides, currentSlideIndex, goToSlide, language, setLanguage, setSearchOpen } = useCourse();
 
   return (
     <aside
@@ -41,6 +41,30 @@ export const Sidebar: React.FC = () => {
           style={{ color: 'var(--sw-text-muted)' }}
         >
           {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
+      </div>
+
+      {/* Search Trigger */}
+      <div className={`px-2.5 py-3 ${isCollapsed ? 'flex justify-center' : ''}`}>
+        <button
+          onClick={() => setSearchOpen(true)}
+          className={`group flex items-center gap-3 w-full rounded-lg transition-all duration-200 border border-white/5 hover:border-sw-pink/30 hover:bg-white/5 ${
+            isCollapsed ? 'h-10 w-10 justify-center' : 'px-3 py-2'
+          }`}
+          style={{ background: 'rgba(255, 255, 255, 0.02)' }}
+        >
+          <Search size={16} className="text-sw-text-muted group-hover:text-sw-pink transition-colors" />
+          {!isCollapsed && (
+            <div className="flex-1 flex items-center justify-between min-w-0">
+              <span className="text-sm text-sw-text-muted group-hover:text-white transition-colors truncate">
+                {language === 'pt-br' ? 'Buscar...' : 'Search...'}
+              </span>
+              <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white/5 text-[10px] text-white/30 font-medium">
+                <Command size={10} />
+                <span>K</span>
+              </div>
+            </div>
+          )}
         </button>
       </div>
 
