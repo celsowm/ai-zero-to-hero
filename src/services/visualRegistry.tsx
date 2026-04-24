@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Language } from '../types/slide';
 
+import type { PythonExerciseVisualCopy } from '../types/slide';
+
 export interface VisualRenderProps {
   visual: { id: string; copy: unknown };
   language: Language;
@@ -10,426 +12,135 @@ export type VisualComponent = React.FC<VisualRenderProps>;
 
 const visualRegistry: Record<string, React.LazyExoticComponent<VisualComponent>> = {};
 
-function registerVisual(id: string, loader: () => Promise<{ default: VisualComponent }>) {
-  visualRegistry[id] = React.lazy(loader);
+function registerVisual(id: string, component: React.LazyExoticComponent<VisualComponent>) {
+  visualRegistry[id] = component;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type VisualCopy = any;
+/**
+ * Mapping from visual ID → exported component name in the barrel file.
+ * Add a new entry here to register a visual — no boilerplate blocks needed.
+ */
+const visualMap: Record<string, string> = {
+  // inference / learning
+  'inference-diagram': 'InferenceDiagram',
+  'learning-loop-diagram': 'LearningLoopDiagram',
 
-// Auto-register all visuals using barrel paths from visuals/index.ts
-registerVisual('inference-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { InferenceDiagram } = m;
-    return <InferenceDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // localized image
+  'localized-image': 'LocalizedImageVisual',
 
-registerVisual('learning-loop-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LearningLoopDiagram } = m;
-    return <LearningLoopDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // machine learning pipeline
+  'machine-learning-pipeline': 'MachineLearningPipelineDiagram',
 
-registerVisual('localized-image', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LocalizedImageVisual } = m;
-    return <LocalizedImageVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // nonlinear regression
+  'nonlinear-regression-boundary': 'NonlinearRegressionBoundaryVisual',
+  'nonlinear-solution-ring': 'NonlinearSolutionRingVisual',
 
-registerVisual('machine-learning-pipeline', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { MachineLearningPipelineDiagram } = m;
-    return <MachineLearningPipelineDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // api latency
+  'api-latency-growth': 'ApiLatencyGrowthVisual',
 
-registerVisual('nonlinear-regression-boundary', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NonlinearRegressionBoundaryVisual } = m;
-    return <NonlinearRegressionBoundaryVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // linear regression
+  'linear-regression-tabs': 'LinearRegressionTabsVisual',
+  'linear-regression-simple-line': 'LinearRegressionSimpleLineVisual',
+  'linear-regression-notation': 'LinearRegressionNotationVisual',
+  'linear-regression-3d-chart': 'LinearRegression3DChartVisual',
+  'gradient-descent-3d': 'GradientDescent3DVisual',
 
-registerVisual('nonlinear-solution-ring', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NonlinearSolutionRingVisual } = m;
-    return <NonlinearSolutionRingVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // stepper
+  'progress-stepper': 'ProgressStepperVisual',
 
-registerVisual('api-latency-growth', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ApiLatencyGrowthVisual } = m;
-    return <ApiLatencyGrowthVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // language models
+  'language-modeling-diagram': 'LanguageModelingDiagram',
+  'next-token-interactive': 'NextTokenInteractive',
+  'token-size-comparison': 'TokenSizeComparison',
+  'tokenization-visualizer': 'TokenizationVisualizer',
+  'bigram-counter': 'BigramCounter',
+  'softmax-visualizer': 'SoftmaxVisualizer',
+  'sampling-roulette': 'SamplingRoulette',
+  'cross-entropy-chart': 'CrossEntropyChart',
+  'embedding-space-3d': 'EmbeddingSpace3D',
+  'context-window-slider': 'ContextWindowSlider',
+  'mlp-text-diagram': 'MlpTextDiagram',
+  'training-loop-stepper': 'TrainingLoopStepper',
+  'training-loop-animation': 'TrainingLoopAnimation',
+  'neural-network-to-language-modeling-comparator': 'NeuralNetworkToLanguageModelingComparator',
 
-registerVisual('linear-regression-tabs', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LinearRegressionTabsVisual } = m;
-    return <LinearRegressionTabsVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // transformers
+  'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
+  'transformer-overview-teaser': 'TransformerOverviewTeaser',
+  'parallel-prediction-diagram': 'ParallelPredictionDiagram',
+  'positional-embedding-adder': 'PositionalEmbeddingAdder',
+  'transformer-block-diagram': 'TransformerBlockDiagram',
+  'causal-mask-matrix': 'CausalMaskMatrix',
+  'qkv-cocktail-party': 'QkvCocktailParty',
+  'attention-lines-diagram': 'AttentionLinesDiagram',
+  'multihead-diagram': 'MultiheadDiagram',
+  'residual-stream-highway': 'ResidualStreamHighway',
+  'attention-vs-mlp': 'AttentionVsMlp',
+  'hidden-states-to-logits': 'HiddenStatesToLogits',
+  'sampling-controls': 'SamplingControls',
+  'gpt2-layer-by-layer-xray': 'Gpt2LayerXray',
+  'prediction-evolution-we-the-people': 'PredictionEvolution',
+  'why-transformers-work-so-well': 'WhyTransformersWork',
+  'road-to-mini-transformer': 'RoadToMiniTransformer',
 
-registerVisual('python-prereq-tabs', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { PythonPrereqTabsVisual } = m;
-    return <PythonPrereqTabsVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // neural networks
+  'neuron-architecture-animated': 'NeuronArchitectureAnimated',
+  'activation-functions-comparator': 'ActivationFunctionsComparator',
+  'sigmoid-deep-dive-explorer': 'SigmoidDeepDiveExplorer',
+  'sigmoid-derivative-explorer': 'SigmoidDerivativeExplorer',
+  'feedforward-flow-visual': 'FeedforwardFlowVisual',
+  'backprop-signal-flow': 'BackpropSignalFlow',
+  'neural-network-step-debugger': 'NeuralNetworkStepDebugger',
+  'neural-network-tabs-stepper': 'NeuralNetworkTabsStepper',
+  'architecture-comparator': 'ArchitectureComparatorVisual',
+  'tensor-3d-explorer': 'Tensor3DExplorer',
+  'derivative-ramp-explorer': 'DerivativeRampExplorer',
+  'biological-vs-computational-neuron': 'BiologicalVsComputationalNeuron',
 
-registerVisual('python-exercise', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { PythonExerciseVisual } = m;
-    return <PythonExerciseVisual copy={(props.visual.copy as VisualCopy)[props.language]} language={props.language} />;
-  },
-})));
+  // python
+  'python-prereq-tabs': 'PythonPrereqTabsVisual',
 
-registerVisual('linear-regression-simple-line', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LinearRegressionSimpleLineVisual } = m;
-    return <LinearRegressionSimpleLineVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+  // welcome
+  'welcome-synthwave': 'WelcomeSynthwaveVisual',
+};
 
-registerVisual('gradient-descent-3d', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { GradientDescent3DVisual } = m;
-    return <GradientDescent3DVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+/**
+ * Creates a lazy visual adapter that dynamically loads a component by name
+ * from the barrel module and passes the typed copy for the current language.
+ */
+function createVisualAdapter(componentName: string) {
+  return React.lazy(async () => {
+    const barrel = await import('../components/visuals');
+    const Component = (barrel as unknown as Record<string, React.FC<{ copy: unknown }>>)[componentName];
+    if (!Component) {
+      throw new Error(`Visual component "${componentName}" not found in barrel export`);
+    }
+    return {
+      default: (props: VisualRenderProps) => (
+        <Component copy={(props.visual.copy as Record<string, unknown>)[props.language]} />
+      ),
+    };
+  });
+}
 
-registerVisual('linear-regression-notation', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LinearRegressionNotationVisual } = m;
-    return <LinearRegressionNotationVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+// Register all visuals from the declarative map
+for (const [id, componentName] of Object.entries(visualMap)) {
+  registerVisual(id, createVisualAdapter(componentName));
+}
 
-registerVisual('linear-regression-3d-chart', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LinearRegression3DChartVisual } = m;
-    return <LinearRegression3DChartVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('progress-stepper', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ProgressStepperVisual } = m;
-    return <ProgressStepperVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('language-modeling-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { LanguageModelingDiagram } = m;
-    return <LanguageModelingDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('next-token-interactive', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NextTokenInteractive } = m;
-    return <NextTokenInteractive copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('token-size-comparison', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TokenSizeComparison } = m;
-    return <TokenSizeComparison copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('tokenization-visualizer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TokenizationVisualizer } = m;
-    return <TokenizationVisualizer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('bigram-counter', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { BigramCounter } = m;
-    return <BigramCounter copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('softmax-visualizer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { SoftmaxVisualizer } = m;
-    return <SoftmaxVisualizer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('sampling-roulette', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { SamplingRoulette } = m;
-    return <SamplingRoulette copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('cross-entropy-chart', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { CrossEntropyChart } = m;
-    return <CrossEntropyChart copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('embedding-space-3d', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { EmbeddingSpace3D } = m;
-    return <EmbeddingSpace3D copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('context-window-slider', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ContextWindowSlider } = m;
-    return <ContextWindowSlider copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('mlp-text-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { MlpTextDiagram } = m;
-    return <MlpTextDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('training-loop-stepper', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TrainingLoopStepper } = m;
-    return <TrainingLoopStepper copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('training-loop-animation', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TrainingLoopAnimation } = m;
-    return <TrainingLoopAnimation copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('neural-network-to-language-modeling-comparator', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NeuralNetworkToLanguageModelingComparator } = m;
-    return <NeuralNetworkToLanguageModelingComparator copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('gpt2-blackbox-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { Gpt2BlackboxDiagram } = m;
-    return <Gpt2BlackboxDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('transformer-overview-teaser', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TransformerOverviewTeaser } = m;
-    return <TransformerOverviewTeaser copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('parallel-prediction-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ParallelPredictionDiagram } = m;
-    return <ParallelPredictionDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('positional-embedding-adder', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { PositionalEmbeddingAdder } = m;
-    return <PositionalEmbeddingAdder copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('transformer-block-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { TransformerBlockDiagram } = m;
-    return <TransformerBlockDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('causal-mask-matrix', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { CausalMaskMatrix } = m;
-    return <CausalMaskMatrix copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('qkv-cocktail-party', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { QkvCocktailParty } = m;
-    return <QkvCocktailParty copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('attention-lines-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { AttentionLinesDiagram } = m;
-    return <AttentionLinesDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('multihead-diagram', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { MultiheadDiagram } = m;
-    return <MultiheadDiagram copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('residual-stream-highway', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ResidualStreamHighway } = m;
-    return <ResidualStreamHighway copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('attention-vs-mlp', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { AttentionVsMlp } = m;
-    return <AttentionVsMlp copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('hidden-states-to-logits', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { HiddenStatesToLogits } = m;
-    return <HiddenStatesToLogits copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('sampling-controls', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { SamplingControls } = m;
-    return <SamplingControls copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('gpt2-layer-by-layer-xray', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { Gpt2LayerXray } = m;
-    return <Gpt2LayerXray copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('prediction-evolution-we-the-people', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { PredictionEvolution } = m;
-    return <PredictionEvolution copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('why-transformers-work-so-well', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { WhyTransformersWork } = m;
-    return <WhyTransformersWork copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('road-to-mini-transformer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { RoadToMiniTransformer } = m;
-    return <RoadToMiniTransformer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('welcome-synthwave', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { WelcomeSynthwaveVisual } = m;
-    return <WelcomeSynthwaveVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('neuron-architecture-animated', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NeuronArchitectureAnimated } = m;
-    return <NeuronArchitectureAnimated copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('activation-functions-comparator', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ActivationFunctionsComparator } = m;
-    return <ActivationFunctionsComparator copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('sigmoid-deep-dive-explorer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { SigmoidDeepDiveExplorer } = m;
-    return <SigmoidDeepDiveExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('sigmoid-derivative-explorer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { SigmoidDerivativeExplorer } = m;
-    return <SigmoidDerivativeExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('feedforward-flow-visual', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { FeedforwardFlowVisual } = m;
-    return <FeedforwardFlowVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('backprop-signal-flow', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { BackpropSignalFlow } = m;
-    return <BackpropSignalFlow copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('neural-network-tabs-stepper', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NeuralNetworkTabsStepper } = m;
-    return <NeuralNetworkTabsStepper copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('architecture-comparator', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { ArchitectureComparatorVisual } = m;
-    return <ArchitectureComparatorVisual copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('tensor-3d-explorer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { Tensor3DExplorer } = m;
-    return <Tensor3DExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('derivative-ramp-explorer', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { DerivativeRampExplorer } = m;
-    return <DerivativeRampExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('biological-vs-computational-neuron', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { BiologicalVsComputationalNeuron } = m;
-    return <BiologicalVsComputationalNeuron copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
-
-registerVisual('neural-network-step-debugger', () => import('../components/visuals').then(m => ({
-  default: (props: VisualRenderProps) => {
-    const { NeuralNetworkStepDebugger } = m;
-    return <NeuralNetworkStepDebugger copy={(props.visual.copy as VisualCopy)[props.language]} />;
-  },
-})));
+// Special case: python-exercise passes the `language` prop in addition to `copy`
+registerVisual('python-exercise', React.lazy(async () => {
+  const barrel = await import('../components/visuals');
+  const { PythonExerciseVisual } = barrel;
+  return {
+    default: (props: VisualRenderProps) => (
+      <PythonExerciseVisual
+        copy={(props.visual.copy as Record<string, unknown>)[props.language] as PythonExerciseVisualCopy}
+        language={props.language}
+      />
+    ),
+  };
+}));
 
 export function getVisualComponent(id: string): React.LazyExoticComponent<VisualComponent> | undefined {
   return visualRegistry[id];
