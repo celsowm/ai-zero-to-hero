@@ -21,12 +21,16 @@
     "id": "mlp-text-diagram",
     "copy": {
       "pt-br": {
-        "inputLabel": "Entradas fixas",
-        "problemLabel": "Problema: Tamanho rígido"
+        "inputSizeLabel": "Entradas fixas",
+        "sentence1": "o gato preto dormiu",
+        "sentence2": "o gato muito preto e elegante dormiu",
+        "errorLabel": "Erro: tamanho incompatível!"
       },
       "en-us": {
-        "inputLabel": "Fixed inputs",
-        "problemLabel": "Problem: Rigid size"
+        "inputSizeLabel": "Fixed inputs",
+        "sentence1": "the black cat slept",
+        "sentence2": "the very black and elegant cat slept",
+        "errorLabel": "Error: incompatible size!"
       }
     }
   }
