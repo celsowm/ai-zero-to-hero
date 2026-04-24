@@ -7,7 +7,7 @@ import {
   type SampleSnapshot,
   type TrainingDebuggerState,
 } from '../../../utils/neuralTrainingEngine';
-import { useCourse } from '../../../context/CourseContext';
+import { useLocale } from '../../../context/LocaleContext';
 import { resolveSnippetSource } from '../../../content/registry';
 import { PanelCard } from '../PanelCard';
 import { CodeBlock } from '../../CodeBlock';
@@ -538,7 +538,7 @@ const ComputationPanel: React.FC<{
   snap: SampleSnapshot;
   activePhase: Phase;
 }> = ({ snap, activePhase }) => {
-  const { language } = useCourse();
+  const { language } = useLocale();
   const isInit = activePhase === 'init';
   const forwardRows = [
     ...snap.forward.hiddenZs.map((value, index) => ({ label: `z${index + 1}`, value: isInit ? PLACEHOLDER_VALUE : fmt(value) })),
@@ -580,7 +580,7 @@ function evaluateAccuracy(weights: NetworkWeights, copy: NeuralNetworkStepDebugg
 }
 
 export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
-  const { language } = useCourse();
+  const { language } = useLocale();
   const engineRef = useRef<ReturnType<typeof createTrainingDebugger> | null>(null);
   const animationRef = useRef<number | null>(null);
   const explanationRef = useRef<HTMLDivElement | null>(null);

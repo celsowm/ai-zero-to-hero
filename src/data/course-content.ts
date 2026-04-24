@@ -156,3 +156,7 @@ if (unexpectedSlides.length > 0) {
 }
 
 export const courseContent: ISlide[] = orderedSlides;
+
+export function findSlideById(id: string): ISlide | null {
+  return slidesById.get(id) ?? null;
+}

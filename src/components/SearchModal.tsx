@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import { useCourse } from '../context/CourseContext';
+import { useLocale } from '../context/LocaleContext';
 import { useNavigation } from '../context/NavigationContext';
 import { useUI } from '../context/UIContext';
 import { Search, Command, CornerDownLeft, Hash } from 'lucide-react';
@@ -8,7 +8,7 @@ import { Search, Command, CornerDownLeft, Hash } from 'lucide-react';
 export const SearchModal: React.FC = () => {
   const { isSearchOpen, setSearchOpen } = useUI();
   const { slides, goToSlide } = useNavigation();
-  const { language } = useCourse();
+  const { language } = useLocale();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);

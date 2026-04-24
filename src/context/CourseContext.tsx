@@ -1,89 +1,46 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
 import { useNavigation } from './NavigationContext';
+import { useLocale } from './LocaleContext';
+import { findSlideById } from '../data/course-content';
 
-const LANGUAGE_STORAGE_KEY = 'ai-zero-to-hero-language';
+// Re-export LocaleContext for convenience during migration
+export { useLocale } from './LocaleContext';
 
-function isLanguage(value: string | null | undefined): value is Language {
-  return value === 'pt-br' || value === 'en-us';
-}
-
-function normalizeBrowserLanguage(value: string | null | undefined): Language | null {
-  if (!value) return null;
-
-  const normalized = value.toLowerCase();
-
-  if (normalized.startsWith('pt')) return 'pt-br';
-  if (normalized.startsWith('en')) return 'en-us';
-
-  return null;
-}
-
-function getInitialLanguage(): Language {
-  if (typeof window === 'undefined') {
-    return 'pt-br';
-  }
-
-  try {
-    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-    if (isLanguage(storedLanguage)) {
-      return storedLanguage;
-    }
-  } catch {
-    // Ignore storage access issues and fall back to the default.
-  }
-
-  const preferredLanguage = window.navigator.languages?.[0] ?? window.navigator.language;
-  return normalizeBrowserLanguage(preferredLanguage) ?? 'pt-br';
-}
-
-interface CourseContextType {
+export interface CourseContextValue {
+  currentSlide: ISlide | null;
   language: Language;
-  setLanguage: (lang: Language) => void;
-  currentSlide: ISlide;
 }
 
-const CourseContext = createContext<CourseContextType | undefined>(undefined);
+const CourseContext = createContext<CourseContextValue | null>(null);
 
-export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage);
-  const { currentSlideIndex, slides } = useNavigation();
+interface CourseProviderProps {
+  children: ReactNode;
+}
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-    } catch {
-      // Ignore storage access issues and keep the current in-memory language.
-    }
+export const CourseProvider: React.FC<CourseProviderProps> = ({ children }) => {
+  const { slides, currentSlideIndex } = useNavigation();
+  const { language } = useLocale();
 
-    document.documentElement.lang = language === 'pt-br' ? 'pt-BR' : 'en-US';
-  }, [language]);
+  const currentSlide = useMemo(() => {
+    const currentIndex = currentSlideIndex ?? 0;
+    const currentSlideId = slides[currentIndex]?.id;
+    if (!currentSlideId) return null;
+    return findSlideById(currentSlideId);
+  }, [currentSlideIndex, slides]);
 
-  const currentSlide = slides[currentSlideIndex];
-
-  const value = useMemo(() => ({
-    language,
-    setLanguage,
-    currentSlide,
-  }), [language, currentSlide]);
-
-  return (
-    <CourseContext.Provider value={value}>
-      {children}
-    </CourseContext.Provider>
-  );
+  return <CourseContext.Provider value={{ currentSlide, language }}>{children}</CourseContext.Provider>;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useCourse = () => {
   const context = useContext(CourseContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useCourse must be used within a CourseProvider');
   }
   return context;
 };
 
-// Re-export navigation and UI hooks for convenience during migration
+// Re-export navigation and UI hooks
 export { useNavigation } from './NavigationContext';
 export { useUI } from './UIContext';

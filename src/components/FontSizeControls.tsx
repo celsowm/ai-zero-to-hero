@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUI } from '../context/UIContext';
-import { useCourse } from '../context/CourseContext';
+import { useLocale } from '../context/LocaleContext';
 
 const LABELS = {
   'pt-br': { decrease: 'Diminuir fonte', increase: 'Aumentar fonte' },
@@ -9,7 +9,7 @@ const LABELS = {
 
 export const FontSizeControls: React.FC = () => {
   const { increaseFontScale, decreaseFontScale, fontScale } = useUI();
-  const { language } = useCourse();
+  const { language } = useLocale();
   const labels = LABELS[language];
 
   return (

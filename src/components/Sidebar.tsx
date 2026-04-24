@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useCourse } from '../context/CourseContext';
 import { useNavigation } from '../context/NavigationContext';
 import { useUI } from '../context/UIContext';
+import { useLocale } from '../context/LocaleContext';
 import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { slides, goToSlide, currentSlideIndex } = useNavigation();
   const { setSearchOpen } = useUI();
-  const { language, setLanguage } = useCourse();
+  const { language, switchLanguage } = useLocale();
 
   return (
     <aside
@@ -119,7 +119,7 @@ export const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className="px-2.5 py-4" style={{ borderTop: '1px solid rgba(168, 85, 247, 0.06)' }}>
         <button
-          onClick={() => setLanguage(language === 'pt-br' ? 'en-us' : 'pt-br')}
+          onClick={switchLanguage}
           className={`flex items-center gap-2 rounded-lg text-xs transition-all w-full ${
             isCollapsed ? 'px-2.5 py-2 justify-center' : 'px-3 py-2'
           }`}

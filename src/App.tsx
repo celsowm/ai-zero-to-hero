@@ -2,6 +2,7 @@ import React from 'react';
 import { CourseProvider, useCourse } from './context/CourseContext';
 import { NavigationProvider } from './context/NavigationContext';
 import { UIProvider } from './context/UIContext';
+import { LocaleProvider } from './context/LocaleContext';
 import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar, SearchModal } from './components';
 
 const CourseContent: React.FC = () => {
@@ -31,10 +32,12 @@ function App() {
   return (
     <NavigationProvider>
       <UIProvider>
-        <CourseProvider>
-          <CourseContent />
-          <SearchModal />
-        </CourseProvider>
+        <LocaleProvider>
+          <CourseProvider>
+            <CourseContent />
+            <SearchModal />
+          </CourseProvider>
+        </LocaleProvider>
       </UIProvider>
     </NavigationProvider>
   );
