@@ -1,0 +1,55 @@
+import { useEffect, useCallback } from 'react';
+
+interface SearchResult {
+  index: number;
+  id: string;
+}
+
+interface UseKeyboardNavigationArgs {
+  isOpen: boolean;
+  results: SearchResult[];
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+  onClose: () => void;
+  setSelectedIndex: (fn: number | ((prev: number) => number)) => void;
+}
+
+/**
+ * Handles keyboard shortcuts when the search modal is open:
+ * - Escape: close
+ * - ArrowDown/ArrowUp: navigate results
+ * - Enter: select current
+ */
+export function useKeyboardNavigation({
+  isOpen,
+  results,
+  selectedIndex,
+  onSelect,
+  onClose,
+  setSelectedIndex,
+}: UseKeyboardNavigationArgs) {
+  const handleSelect = useCallback(
+    (result: SearchResult) => {
+      onSelect(result.index);
+    },
+    [onSelect],
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex(prev => (prev < results.length - 1 ? prev + 1 : prev));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+      } else if (e.key === 'Enter' && results[selectedIndex]) {
+        handleSelect(results[selectedIndex]);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, results, selectedIndex, onClose, setSelectedIndex, handleSelect]);
+}
