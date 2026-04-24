@@ -10,25 +10,59 @@
   "content": {
     "pt-br": {
       "title": "Como eles aprendem? (O Loop de Treino)",
-      "body": "Como um modelo passa de prever lixo para escrever poemas perfeitos? Através de um loop brutal de tentativa e erro sobre bilhões de palavras.\n\n1. **O Passado (Forward Pass):** o modelo lê um texto incompleto e dá o seu palpite (probabilidades) de qual é a próxima palavra.\n\n2. **O Choque de Realidade (Loss):** comparamos o palpite com a palavra real usando a Cross-Entropy. Calculamos o erro.\n\n3. **A Correção (Backpropagation):** a matemática flui de trás para frente no modelo, ajustando levemente cada número nas matrizes (pesos) para que ele erre menos da próxima vez.\n\n> Treinar IA não é preencher um banco de dados; é esculpir instintos matemáticos."
+      "body": "Treinar um modelo de linguagem é repetir **o mesmo ciclo** bilhões de vezes — e cada repetição esculpe o modelo um pouco mais.\n\n1. **Forward Pass (Palpite):** o modelo recebe uma sequência tokenizado, passa por camadas de atenção + MLP e produz **logits** — números brutos para cada token do vocabulário.\n\n2. **Softmax → Probabilidades:** os logits são transformados em probabilidades. O token certo deveria ter probabilidade ~1.0, mas no começo o modelo está **chutando quase aleatoriamente**.\n\n3. **Loss (Cross-Entropy):** comparamos a distribuição prevista com a realidade (one-hot). Um único número: **a perda média** do batch. No início, esse número é alto — o modelo está \"surpreso\".\n\n4. **Backpropagation:** a perda flui de trás pra frente usando a **regra da cadeia**. Cada peso recebe um **gradiente** — uma seta dizendo \"aumente\" ou \"diminua\".\n\n5. **Update (Optimizer):** o otimizador (AdamW, Adam, SGD) usa o gradiente + **learning rate** para ajustar os pesos. O LR controla o tamanho do passo: **muito grande → diverge, muito pequeno → demora**.\n\n> Treinar IA não é preencher um banco de dados. É **esculpir instintos matemáticos** — repetição após repetição."
     },
     "en-us": {
       "title": "How do they learn? (The Training Loop)",
-      "body": "How does a model go from predicting garbage to writing perfect poems? Through a brutal loop of trial and error over billions of words.\n\n1. **The Guess (Forward Pass):** the model reads an incomplete text and makes its guess (probabilities) for the next word.\n\n2. **The Reality Check (Loss):** we compare the guess to the actual word using Cross-Entropy. We calculate the error.\n\n3. **The Correction (Backpropagation):** math flows backwards through the model, slightly tweaking every number in the matrices (weights) so it misses less next time.\n\n> Training AI is not filling a database; it is carving mathematical instincts."
+      "body": "Training a language model is repeating **the same cycle** billions of times — and each repetition carves the model a little deeper.\n\n1. **Forward Pass (Guess):** the model receives a tokenized sequence, passes through attention + MLP layers, and produces **logits** — raw numbers for every vocabulary token.\n\n2. **Softmax → Probabilities:** logits are turned into probabilities. The correct token should have prob ~1.0, but early on the model is **guessing almost randomly**.\n\n3. **Loss (Cross-Entropy):** we compare the predicted distribution with reality (one-hot). A single number: **the batch's average loss**. At the start, this number is high — the model is \"surprised\".\n\n4. **Backpropagation:** the loss flows backwards using the **chain rule**. Each weight receives a **gradient** — an arrow saying \"increase\" or \"decrease\".\n\n5. **Update (Optimizer):** the optimizer (AdamW, Adam, SGD) uses the gradient + **learning rate** to adjust weights. The LR controls step size: **too large → diverges, too small → takes forever**.\n\n> Training AI is not filling a database. It is **carving mathematical instincts** — repetition after repetition."
     }
   },
   "visual": {
-    "id": "training-loop-stepper",
+    "id": "training-loop-animation",
     "copy": {
       "pt-br": {
-        "step1": "1. Palpite",
-        "step2": "2. Erro",
-        "step3": "3. Correção"
+        "forwardLabel": "Forward Pass",
+        "softmaxLabel": "Softmax",
+        "lossLabel": "Loss",
+        "backpropLabel": "Backprop",
+        "updateLabel": "Update",
+        "playLabel": "Play",
+        "pauseLabel": "Pause",
+        "stepLabel": "Passo",
+        "epochLabel": "Época",
+        "lrLabel": "Learning Rate",
+        "lossDropped": "Loss caiu!",
+        "weightsUpdated": "Pesos atualizados",
+        "logitsText": "logits brutos",
+        "probsText": "probabilidades",
+        "gradientText": "gradientes",
+        "step0Desc": "O modelo processa a entrada e gera logits para cada token",
+        "step1Desc": "Softmax transforma logits em probabilidades (soma = 1)",
+        "step2Desc": "Cross-Entropy compara a previsão com a palavra correta",
+        "step3Desc": "Gradientes fluem para trás via regra da cadeia",
+        "step4Desc": "O otimizador ajusta os pesos usando o learning rate"
       },
       "en-us": {
-        "step1": "1. Guess",
-        "step2": "2. Error",
-        "step3": "3. Correction"
+        "forwardLabel": "Forward Pass",
+        "softmaxLabel": "Softmax",
+        "lossLabel": "Loss",
+        "backpropLabel": "Backprop",
+        "updateLabel": "Update",
+        "playLabel": "Play",
+        "pauseLabel": "Pause",
+        "stepLabel": "Step",
+        "epochLabel": "Epoch",
+        "lrLabel": "Learning Rate",
+        "lossDropped": "Loss dropped!",
+        "weightsUpdated": "Weights updated",
+        "logitsText": "raw logits",
+        "probsText": "probabilities",
+        "gradientText": "gradients",
+        "step0Desc": "Model processes input and generates logits for each token",
+        "step1Desc": "Softmax turns logits into probabilities (sum = 1)",
+        "step2Desc": "Cross-Entropy compares prediction with the correct word",
+        "step3Desc": "Gradients flow backwards via the chain rule",
+        "step4Desc": "Optimizer adjusts weights using the learning rate"
       }
     }
   }

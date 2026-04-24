@@ -207,6 +207,13 @@ registerVisual('training-loop-stepper', () => import('../components/visuals').th
   },
 })));
 
+registerVisual('training-loop-animation', () => import('../components/visuals').then(m => ({
+  default: (props: VisualRenderProps) => {
+    const { TrainingLoopAnimation } = m;
+    return <TrainingLoopAnimation copy={(props.visual.copy as VisualCopy)[props.language]} />;
+  },
+})));
+
 registerVisual('neural-network-to-language-modeling-comparator', () => import('../components/visuals').then(m => ({
   default: (props: VisualRenderProps) => {
     const { NeuralNetworkToLanguageModelingComparator } = m;

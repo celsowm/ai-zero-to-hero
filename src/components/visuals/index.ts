@@ -30,6 +30,7 @@ export { EmbeddingSpace3D } from './language-models/EmbeddingSpace3D';
 export { ContextWindowSlider } from './language-models/ContextWindowSlider';
 export { MlpTextDiagram } from './language-models/MlpTextDiagram';
 export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';
+export { TrainingLoopAnimation } from './language-models/TrainingLoopAnimation';
 export { NeuralNetworkToLanguageModelingComparator } from './language-models/NeuralNetworkToLanguageModelingComparator';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
 export { TransformerOverviewTeaser } from './transformers/TransformerOverviewTeaser';

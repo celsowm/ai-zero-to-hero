@@ -73,6 +73,29 @@ export interface TrainingLoopStepperCopy {
   step3Desc: string;
 }
 
+export interface TrainingLoopAnimationCopy {
+  forwardLabel: string;
+  softmaxLabel: string;
+  lossLabel: string;
+  backpropLabel: string;
+  updateLabel: string;
+  playLabel: string;
+  pauseLabel: string;
+  stepLabel: string;
+  epochLabel: string;
+  lrLabel: string;
+  lossDropped: string;
+  weightsUpdated: string;
+  logitsText: string;
+  probsText: string;
+  gradientText: string;
+  step0Desc: string;
+  step1Desc: string;
+  step2Desc: string;
+  step3Desc: string;
+  step4Desc: string;
+}
+
 export interface NeuralNetworkToLanguageModelingComparatorCopy {
   eyebrowLabel: string;
   title: string;

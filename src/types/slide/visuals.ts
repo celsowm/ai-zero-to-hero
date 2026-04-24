@@ -31,6 +31,7 @@ import type {
   TokenizationVisualizerCopy,
   TokenSizeComparisonCopy,
   TrainingLoopStepperCopy,
+  TrainingLoopAnimationCopy,
 } from './language-models';
 import type {
   AttentionLinesDiagramCopy,
@@ -251,6 +252,11 @@ export interface TrainingLoopStepperVisual {
   copy: Record<Language, TrainingLoopStepperCopy>;
 }
 
+export interface TrainingLoopAnimationVisual {
+  id: 'training-loop-animation';
+  copy: Record<Language, TrainingLoopAnimationCopy>;
+}
+
 export interface NeuralNetworkToLanguageModelingComparatorVisual {
   id: 'neural-network-to-language-modeling-comparator';
   copy: Record<Language, NeuralNetworkToLanguageModelingComparatorCopy>;
@@ -378,6 +384,7 @@ export type SlideVisual =
   | ContextWindowSliderVisual
   | MlpTextDiagramVisual
   | TrainingLoopStepperVisual
+  | TrainingLoopAnimationVisual
   | NeuralNetworkToLanguageModelingComparatorVisual
   | Gpt2BlackboxDiagramVisual
   | TransformerOverviewTeaserVisual
