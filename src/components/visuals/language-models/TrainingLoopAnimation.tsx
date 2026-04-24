@@ -55,6 +55,13 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
 
   const togglePlay = useCallback(() => setPlaying(p => !p), []);
 
+  const reset = useCallback(() => {
+    setPlaying(false);
+    setStep(0);
+    setEpoch(1);
+    setLossHistory([8.5]);
+  }, []);
+
   const stepLabels = [copy.forwardLabel, copy.softmaxLabel, copy.lossLabel, copy.backpropLabel, copy.updateLabel];
   const stepDescs = [copy.step0Desc, copy.step1Desc, copy.step2Desc, copy.step3Desc, copy.step4Desc];
 
@@ -547,6 +554,25 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           }}
         >
           {playing ? copy.pauseLabel : copy.playLabel}
+        </button>
+
+        {/* Reset */}
+        <button
+          onClick={reset}
+          style={{
+            padding: '8px 14px',
+            borderRadius: '12px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            background: 'rgba(255,255,255,0.03)',
+            color: '#b0a8c4',
+            fontWeight: 700,
+            fontSize: '12px',
+            cursor: 'pointer',
+            transition: 'all 180ms ease',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          ↺ Reset
         </button>
 
         {/* LR slider */}
