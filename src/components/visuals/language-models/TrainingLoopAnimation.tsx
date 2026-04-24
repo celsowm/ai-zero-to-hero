@@ -64,9 +64,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
 
   const stepLabels = [copy.forwardLabel, copy.softmaxLabel, copy.lossLabel, copy.backpropLabel, copy.updateLabel];
   const stepDescs = [copy.step0Desc, copy.step1Desc, copy.step2Desc, copy.step3Desc, copy.step4Desc];
-
-  const inputTokens = ['O', 'gato', 'senta'];
-  const vocabOptions = ['sentou', 'comeu', 'dormiu', 'correu'];
+  const { inputTokens, vocabOptions, correctIndex } = copy;
 
   // Loss curve SVG dimensions
   const chartW = 320;
@@ -270,9 +268,9 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           }}>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end', height: '90px' }}>
               {vocabOptions.map((v, i) => {
-                const probs = i === 0 ? 0.35 : 0.15 + Math.random() * 0.15;
+                const probs = i === correctIndex ? 0.35 : 0.15 + Math.random() * 0.15;
                 const barH = Math.round(probs * 80);
-                const isCorrect = i === 0;
+                const isCorrect = i === correctIndex;
                 return (
                   <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                     <div style={{

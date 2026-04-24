@@ -94,6 +94,9 @@ export interface TrainingLoopAnimationCopy {
   step2Desc: string;
   step3Desc: string;
   step4Desc: string;
+  inputTokens: string[];
+  vocabOptions: string[];
+  correctIndex: number;
 }
 
 export interface NeuralNetworkToLanguageModelingComparatorCopy {

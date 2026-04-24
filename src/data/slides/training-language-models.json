@@ -40,7 +40,10 @@
         "step1Desc": "Softmax transforma logits em probabilidades (soma = 1)",
         "step2Desc": "Cross-Entropy compara a previsão com a palavra correta",
         "step3Desc": "Gradientes fluem para trás via regra da cadeia",
-        "step4Desc": "O otimizador ajusta os pesos usando o learning rate"
+        "step4Desc": "O otimizador ajusta os pesos usando o learning rate",
+        "inputTokens": ["O", "gato", "senta"],
+        "vocabOptions": ["sentou", "comeu", "dormiu", "correu"],
+        "correctIndex": 0
       },
       "en-us": {
         "forwardLabel": "Forward Pass",
@@ -62,7 +65,10 @@
         "step1Desc": "Softmax turns logits into probabilities (sum = 1)",
         "step2Desc": "Cross-Entropy compares prediction with the correct word",
         "step3Desc": "Gradients flow backwards via the chain rule",
-        "step4Desc": "Optimizer adjusts weights using the learning rate"
+        "step4Desc": "Optimizer adjusts weights using the learning rate",
+        "inputTokens": ["The", "cat", "sits"],
+        "vocabOptions": ["sat", "ate", "slept", "ran"],
+        "correctIndex": 0
       }
     }
   }
