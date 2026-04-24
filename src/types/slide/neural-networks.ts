@@ -1,5 +1,27 @@
 import type { CodeExplanation, CodeSourceRef } from './base';
 
+export interface DerivativeRampExplorerCopy {
+  eyebrow: string;
+  sliderLabel: string;
+  functionLabel: string;
+  derivativeLabel: string;
+  tangentLabel: string;
+  uphillLabel: string;
+  downhillLabel: string;
+  flatLabel: string;
+  mathTitle: string;
+  xLabel: string;
+  fxLabel: string;
+  fxpLabel: string;
+  nudgedLabel: string;
+  fxnudgedLabel: string;
+  deltaOutput: string;
+  deltaInput: string;
+  approxLabel: string;
+  matchLabel: string;
+  functionName: string;
+}
+
 export interface Tensor3DExplorerCodePanelCopy {
   title: string;
   description: string;

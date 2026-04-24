@@ -1,0 +1,64 @@
+{
+  "id": "neural-network-derivative-intuition",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.6, 0.4]
+  },
+  "content": {
+    "pt-br": {
+      "title": "O que e uma derivada?",
+      "body": "Uma derivada e um numero **derivado** de uma funcao. Ela responde: *se eu empurrar a entrada um pouquinho, quanto a saida muda?*\n\n**A rampa:** imagine uma curva. Em cada ponto, voce pode desenhar uma reta que toca a curva. A inclinacao dessa reta e a derivada naquele ponto. Reta subindo → derivada positiva. Reta descendo → derivada negativa. Reta plana → derivada zero.\n\n**A formula:** a derivada de `f(x)` e escrita como `f'(x)` ou `df/dx`. O `d` vem de diferenca — e a razao entre uma mudanca minima na saida e uma mudanca minima na entrada:\n\n```\nf'(x) ≈ [f(x + 0.001) - f(x)] / 0.001\n```\n\nOu seja: empurre `x` um pouquinho, veja quanto `f(x)` muda, divida pelo tamanho do empurrao.\n\n**Por que importa pra IA:** cada peso da rede tem uma derivada do erro em relacao a ele. Essa derivada diz \"se voce aumentar esse peso, o erro sobe ou desce?\" — e o backpropagation usa isso pra ajustar tudo.\n\n> A derivada e uma bussola: ela aponta pra onde o erro diminui."
+    },
+    "en-us": {
+      "title": "What is a derivative?",
+      "body": "A derivative is a number **derived** from a function. It answers: *if I nudge the input a tiny bit, how much does the output change?*\n\n**The ramp:** imagine a curve. At every point, you can draw a line that touches the curve. The slope of that line is the derivative at that point. Line going up → positive derivative. Line going down → negative derivative. Flat line → zero derivative.\n\n**The formula:** the derivative of `f(x)` is written as `f'(x)` or `df/dx`. The `d` stands for difference — it's the ratio between a tiny change in the output and a tiny change in the input:\n\n```\nf'(x) ≈ [f(x + 0.001) - f(x)] / 0.001\n```\n\nIn other words: nudge `x` a little, see how much `f(x)` changes, divide by the nudge size.\n\n**Why it matters for AI:** every weight in the network has a derivative of the error with respect to it. That derivative tells you \"if you increase this weight, does the error go up or down?\" — and backpropagation uses that to adjust everything.\n\n> The derivative is a compass: it points in the direction where the error decreases."
+    }
+  },
+  "visual": {
+    "id": "derivative-ramp-explorer",
+    "copy": {
+      "pt-br": {
+        "eyebrow": "derivada",
+        "sliderLabel": "Arraste x",
+        "functionLabel": "f(x)",
+        "derivativeLabel": "f'(x)",
+        "tangentLabel": "Reta tangente",
+        "uphillLabel": "subindo",
+        "downhillLabel": "descendo",
+        "flatLabel": "plana",
+        "mathTitle": "A conta ao vivo",
+        "xLabel": "x",
+        "fxLabel": "f(x)",
+        "fxpLabel": "f'(x)",
+        "nudgedLabel": "x + 0.001",
+        "fxnudgedLabel": "f(x + 0.001)",
+        "deltaOutput": "Δ saida",
+        "deltaInput": "Δ entrada",
+        "approxLabel": "f'(x) ≈",
+        "matchLabel": "bate!",
+        "functionName": "x²"
+      },
+      "en-us": {
+        "eyebrow": "derivative",
+        "sliderLabel": "Drag x",
+        "functionLabel": "f(x)",
+        "derivativeLabel": "f'(x)",
+        "tangentLabel": "Tangent line",
+        "uphillLabel": "going up",
+        "downhillLabel": "going down",
+        "flatLabel": "flat",
+        "mathTitle": "Live math",
+        "xLabel": "x",
+        "fxLabel": "f(x)",
+        "fxpLabel": "f'(x)",
+        "nudgedLabel": "x + 0.001",
+        "fxnudgedLabel": "f(x + 0.001)",
+        "deltaOutput": "Δ output",
+        "deltaInput": "Δ input",
+        "approxLabel": "f'(x) ≈",
+        "matchLabel": "matches!",
+        "functionName": "x²"
+      }
+    }
+  }
+}

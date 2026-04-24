@@ -57,6 +57,7 @@ import type {
   ArchitectureComparatorCopy,
   BackpropSignalFlowVisualCopy,
   BiologicalVsComputationalNeuronCopy,
+  DerivativeRampExplorerCopy,
   FeedforwardFlowVisualCopy,
   NeuralNetworkTabsStepperCopy,
   NeuralNetworkStepDebuggerVisualCopy,
@@ -120,6 +121,11 @@ export interface ArchitectureComparatorVisual {
 export interface Tensor3DExplorerVisual {
   id: 'tensor-3d-explorer';
   copy: Record<Language, Tensor3DExplorerCopy>;
+}
+
+export interface DerivativeRampExplorerVisual {
+  id: 'derivative-ramp-explorer';
+  copy: Record<Language, DerivativeRampExplorerCopy>;
 }
 
 export interface PythonExerciseVisual {
@@ -415,6 +421,7 @@ export type SlideVisual =
   | NeuralNetworkTabsStepperVisual
   | ArchitectureComparatorVisual
   | Tensor3DExplorerVisual
+  | DerivativeRampExplorerVisual
   | PythonExerciseVisual
   | { id: 'unembedding-diagram'; copy: WelcomeSynthwaveCopy }
   | { id: 'temperature-slider-interactive'; copy: WelcomeSynthwaveCopy }

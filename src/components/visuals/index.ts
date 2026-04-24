@@ -62,6 +62,7 @@ export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDe
 export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
 export { ArchitectureComparatorVisual } from './neural-networks/ArchitectureComparatorVisual';
 export { Tensor3DExplorer } from './neural-networks/Tensor3DExplorer';
+export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';

@@ -410,6 +410,13 @@ registerVisual('tensor-3d-explorer', () => import('../components/visuals').then(
   },
 })));
 
+registerVisual('derivative-ramp-explorer', () => import('../components/visuals').then(m => ({
+  default: (props: VisualRenderProps) => {
+    const { DerivativeRampExplorer } = m;
+    return <DerivativeRampExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
+  },
+})));
+
 registerVisual('biological-vs-computational-neuron', () => import('../components/visuals').then(m => ({
   default: (props: VisualRenderProps) => {
     const { BiologicalVsComputationalNeuron } = m;

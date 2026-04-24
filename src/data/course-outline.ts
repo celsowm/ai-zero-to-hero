@@ -31,6 +31,7 @@ export const courseSlideOrder = [
   'neural-network-neuron-relu',
   'neural-network-activation-functions',
   'neural-network-sigmoid-deep-dive',
+  'neural-network-derivative-intuition',
   'neural-network-sigmoid-derivative',
   'neural-network-feedforward',
   'neural-network-backpropagation',
