@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import type { LinearRegression2DChartCopy, LinearRegression3DChartVisualCopy } from '../../../types/slide';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
