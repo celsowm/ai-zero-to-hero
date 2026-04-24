@@ -13,14 +13,14 @@ export interface ImageLightboxProps {
 const DEFAULT_OPEN_LABEL = 'Open enlarged image';
 const DEFAULT_CLOSE_LABEL = 'Close enlarged image';
 
-export const ImageLightbox: React.FC<ImageLightboxProps> = ({
+export const ImageLightbox = React.memo(({
   src,
   alt,
   openLabel = DEFAULT_OPEN_LABEL,
   closeLabel = DEFAULT_CLOSE_LABEL,
   className,
   maxHeight = 'min(68vh, 540px)',
-}) => {
+}: ImageLightboxProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const titleId = useId();
 
@@ -160,5 +160,5 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
         : null}
     </>
   );
-};
+});
 

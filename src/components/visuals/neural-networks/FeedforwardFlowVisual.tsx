@@ -9,7 +9,7 @@ interface Props {
 
 const fmt = (v: number, d = 3) => v.toFixed(d);
 
-export const FeedforwardFlowVisual: React.FC<Props> = ({ copy }) => {
+export const FeedforwardFlowVisual = React.memo(({ copy }: Props) => {
   const [sampleIdx, setSampleIdx] = useState(0);
   const sample = copy.samples[sampleIdx];
   const fwd = useMemo(() => forwardPass(copy.weights, sample), [copy.weights, sample]);
@@ -130,8 +130,8 @@ export const FeedforwardFlowVisual: React.FC<Props> = ({ copy }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+});
 
 /* ── Sub-components ── */
 

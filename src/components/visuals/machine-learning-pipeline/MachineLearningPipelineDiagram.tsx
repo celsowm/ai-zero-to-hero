@@ -128,7 +128,7 @@ const ArrowDown: React.FC<{
   </g>
 );
 
-export const MachineLearningPipelineDiagram: React.FC<MachineLearningPipelineDiagramProps> = ({ copy }) => {
+export const MachineLearningPipelineDiagram = React.memo(({ copy }: MachineLearningPipelineDiagramProps) => {
   const startY = 100;
   const cardWidth = 370;
   const cardHeight = 36;
@@ -218,5 +218,5 @@ export const MachineLearningPipelineDiagram: React.FC<MachineLearningPipelineDia
       </text>
     </svg>
   );
-};
+});
 

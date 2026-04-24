@@ -67,7 +67,7 @@ function buildGradientSentence(kind: FunctionKey, z: number) {
   return `gradiente local ${derivative(kind, z).toFixed(3)}, com pico perto do centro`;
 }
 
-export const ActivationFunctionsComparator: React.FC<Props> = ({ copy }) => {
+export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
   const [activeIndex, setActiveIndex] = useState(1);
   const [zValue, setZValue] = useState(1.35);
   const activeKey = FUNCTION_KEYS[activeIndex];
@@ -344,7 +344,7 @@ export const ActivationFunctionsComparator: React.FC<Props> = ({ copy }) => {
       </div>
     </TabbedPanelSurface>
   );
-};
+});
 
 const ValueBadge: React.FC<{ label: string; value: string; color: string }> = ({ label, value, color }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

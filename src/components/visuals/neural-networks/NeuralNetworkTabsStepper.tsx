@@ -542,7 +542,7 @@ const StepperPanel: React.FC<{ copy: NeuralNetworkTabsStepperCopy['stepperPanel'
   );
 };
 
-export const NeuralNetworkTabsStepper: React.FC<Props> = ({ copy }) => {
+export const NeuralNetworkTabsStepper = React.memo(({ copy }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -554,4 +554,4 @@ export const NeuralNetworkTabsStepper: React.FC<Props> = ({ copy }) => {
       </TabbedPanelSurface>
     </div>
   );
-};
+});

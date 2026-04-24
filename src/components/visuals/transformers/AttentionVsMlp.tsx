@@ -5,7 +5,7 @@ interface AttentionVsMlpProps {
   copy: AttentionVsMlpCopy;
 }
 
-export const AttentionVsMlp: React.FC<AttentionVsMlpProps> = ({ copy }) => {
+export const AttentionVsMlp = React.memo(({ copy }: AttentionVsMlpProps) => {
   return (
     <div style={{
       width: '100%',
@@ -67,5 +67,5 @@ export const AttentionVsMlp: React.FC<AttentionVsMlpProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

@@ -19,7 +19,7 @@ const STEP_ACCENT: Record<StepKey, string> = {
 
 const fmt = (v: number, d = 4) => v.toFixed(d);
 
-export const BackpropSignalFlow: React.FC<Props> = ({ copy }) => {
+export const BackpropSignalFlow = React.memo(({ copy }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeKey = STEP_KEYS[activeIndex];
   const accent = STEP_ACCENT[activeKey];
@@ -144,9 +144,7 @@ export const BackpropSignalFlow: React.FC<Props> = ({ copy }) => {
       </div>
     </div>
   );
-};
-
-/* ── Network Diagram ── */
+});
 
 const BackpropSvg: React.FC<{
   copy: BackpropSignalFlowVisualCopy;

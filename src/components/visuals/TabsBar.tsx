@@ -40,7 +40,7 @@ const tabButtonStyle = (active: boolean): React.CSSProperties => ({
   transition: 'transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease',
 });
 
-export const TabsBar: React.FC<TabsBarProps> = ({ items, activeIndex, onChange, ariaLabel }) => (
+export const TabsBar = React.memo(({ items, activeIndex, onChange, ariaLabel }: TabsBarProps) => (
   <div role="tablist" aria-label={ariaLabel} style={tabBarStyle}>
     {items.map((item, index) => {
       const active = activeIndex === index;
@@ -62,5 +62,5 @@ export const TabsBar: React.FC<TabsBarProps> = ({ items, activeIndex, onChange, 
       );
     })}
   </div>
-);
+));
 

@@ -5,7 +5,7 @@ interface TokenizationVisualizerProps {
   copy: TokenizationVisualizerCopy;
 }
 
-export const TokenizationVisualizer: React.FC<TokenizationVisualizerProps> = ({ copy }) => {
+export const TokenizationVisualizer = React.memo(({ copy }: TokenizationVisualizerProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -113,5 +113,5 @@ export const TokenizationVisualizer: React.FC<TokenizationVisualizerProps> = ({ 
       </div>
     </div>
   );
-};
+});
 

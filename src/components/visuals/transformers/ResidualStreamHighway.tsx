@@ -5,7 +5,7 @@ interface ResidualStreamHighwayProps {
   copy: ResidualStreamHighwayCopy;
 }
 
-export const ResidualStreamHighway: React.FC<ResidualStreamHighwayProps> = ({ copy }) => {
+export const ResidualStreamHighway = React.memo(({ copy }: ResidualStreamHighwayProps) => {
   return (
     <div style={{
       width: '100%',
@@ -50,5 +50,5 @@ export const ResidualStreamHighway: React.FC<ResidualStreamHighwayProps> = ({ co
       </svg>
     </div>
   );
-};
+});
 

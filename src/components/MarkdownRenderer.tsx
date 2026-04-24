@@ -5,8 +5,8 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github-dark.css';
-import { FONT_SCALE_BASE } from '../constants/course';
-import { useCourse } from '../context/CourseContext';
+import { useUI } from '../context/UIContext';
+import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { CodeBlock } from './CodeBlock';
 import type { CodeExplanation } from '../types/slide';
 import type { CodeSourceRef, SnippetLanguage } from '../types/slide';
@@ -18,7 +18,7 @@ interface MarkdownRendererProps {
 }
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, variant, codeExplanations }) => {
-  const { fontScale } = useCourse();
+  const { fontScale } = useUI();
 
   // Slides use $$...$$ for inline math, but remark-math treats $$ as block math.
   // Convert $$...$$ that appear within a line (no newlines inside) to $...$
@@ -44,7 +44,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
         h2: ({ ...props }) => (
           <h2
             style={{
-              fontSize: (variant === 'single' ? 18 : 17) * FONT_SCALE_BASE * fontScale,
+              fontSize: (variant === 'single' ? 18 : 17) * DESIGN_SCALE_MULTIPLIER * fontScale,
               fontWeight: 600,
               color: 'var(--sw-text)',
               margin: variant === 'single' ? '32px 0 16px' : '24px 0 14px',
@@ -115,7 +115,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
               padding: variant === 'single' ? '20px 24px' : '18px 20px',
               borderRadius: 10,
               fontStyle: 'italic',
-              fontSize: (variant === 'single' ? 14 : 13) * FONT_SCALE_BASE * fontScale,
+              fontSize: (variant === 'single' ? 14 : 13) * DESIGN_SCALE_MULTIPLIER * fontScale,
               lineHeight: 1.7,
               background: 'rgba(168, 85, 247, 0.05)',
               borderLeft: '3px solid var(--sw-purple)',
@@ -140,7 +140,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
                 width: '100%',
                 minWidth: 520,
                 borderCollapse: 'collapse',
-                fontSize: 13 * FONT_SCALE_BASE * fontScale,
+                fontSize: 13 * DESIGN_SCALE_MULTIPLIER * fontScale,
               }}
               {...props}
             />
@@ -153,7 +153,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
               padding: '10px 12px',
               textAlign: 'left',
               color: 'var(--sw-text)',
-              fontSize: 11.5 * FONT_SCALE_BASE * fontScale,
+              fontSize: 11.5 * DESIGN_SCALE_MULTIPLIER * fontScale,
               fontWeight: 700,
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -253,7 +253,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ body, varian
             <code
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 13 * FONT_SCALE_BASE * fontScale,
+                fontSize: 13 * DESIGN_SCALE_MULTIPLIER * fontScale,
                 color: 'var(--sw-cyan)',
                 background: 'transparent',
               }}

@@ -229,7 +229,7 @@ const splitGuideLabel = (label: string) => {
   return [words.slice(0, midpoint).join(' '), words.slice(midpoint).join(' ')] as const;
 };
 
-export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ copy }) => {
+export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisualProps) => {
   const minUsers = Math.min(...copy.points.map(point => point.users));
   const maxUsers = Math.max(...copy.points.map(point => point.users));
   const minLatency = Math.min(...copy.points.map(point => point.latency));
@@ -407,5 +407,5 @@ export const ApiLatencyGrowthVisual: React.FC<ApiLatencyGrowthVisualProps> = ({ 
       </PanelCard>
     </div>
   );
-};
+});
 

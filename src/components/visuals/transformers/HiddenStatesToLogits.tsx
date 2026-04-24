@@ -5,7 +5,7 @@ interface HiddenStatesToLogitsProps {
   copy: HiddenStatesToLogitsCopy;
 }
 
-export const HiddenStatesToLogits: React.FC<HiddenStatesToLogitsProps> = ({ copy }) => {
+export const HiddenStatesToLogits = React.memo(({ copy }: HiddenStatesToLogitsProps) => {
   return (
     <div style={{
       width: '100%',
@@ -74,5 +74,5 @@ export const HiddenStatesToLogits: React.FC<HiddenStatesToLogitsProps> = ({ copy
 
     </div>
   );
-};
+});
 

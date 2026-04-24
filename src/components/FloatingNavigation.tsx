@@ -1,9 +1,9 @@
 import React from 'react';
-import { useCourse } from '../context/CourseContext';
+import { useNavigation } from '../context/NavigationContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const FloatingNavigation: React.FC = () => {
-  const { goToNextSlide, goToPrevSlide, currentSlideIndex, slides } = useCourse();
+  const { goToNextSlide, goToPrevSlide, currentSlideIndex, slides } = useNavigation();
 
   const isFirst = currentSlideIndex === 0;
   const isLast = currentSlideIndex === slides.length - 1;

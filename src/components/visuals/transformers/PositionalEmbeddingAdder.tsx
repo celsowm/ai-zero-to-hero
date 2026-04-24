@@ -5,7 +5,7 @@ interface PositionalEmbeddingAdderProps {
   copy: PositionalEmbeddingAdderCopy;
 }
 
-export const PositionalEmbeddingAdder: React.FC<PositionalEmbeddingAdderProps> = ({ copy }) => {
+export const PositionalEmbeddingAdder = React.memo(({ copy }: PositionalEmbeddingAdderProps) => {
   return (
     <div style={{
       width: '100%',
@@ -63,5 +63,5 @@ export const PositionalEmbeddingAdder: React.FC<PositionalEmbeddingAdderProps> =
 
     </div>
   );
-};
+});
 

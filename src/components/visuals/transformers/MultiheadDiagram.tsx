@@ -5,7 +5,7 @@ interface MultiheadDiagramProps {
   copy: MultiheadDiagramCopy;
 }
 
-export const MultiheadDiagram: React.FC<MultiheadDiagramProps> = ({ copy }) => {
+export const MultiheadDiagram = React.memo(({ copy }: MultiheadDiagramProps) => {
   return (
     <div style={{
       width: '100%',
@@ -66,5 +66,5 @@ export const MultiheadDiagram: React.FC<MultiheadDiagramProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

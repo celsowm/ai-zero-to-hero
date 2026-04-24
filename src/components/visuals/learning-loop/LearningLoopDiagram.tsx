@@ -109,7 +109,7 @@ const Node: React.FC<{
   </g>
 );
 
-export const LearningLoopDiagram: React.FC<LearningLoopDiagramProps> = ({ copy }) => {
+export const LearningLoopDiagram = React.memo(({ copy }: LearningLoopDiagramProps) => {
   const rowY = 108;
   const cardXs = [26, 132, 238, 344, 450];
   const separatorDots = [124, 230, 336, 442];
@@ -217,5 +217,5 @@ export const LearningLoopDiagram: React.FC<LearningLoopDiagramProps> = ({ copy }
       <WrappedText x={280} y={355} text={copy.footerLabel} maxWidth={470} fontSize={13} weight={500} fill="#9cb0c8" anchor="middle" />
     </svg>
   );
-};
+});
 

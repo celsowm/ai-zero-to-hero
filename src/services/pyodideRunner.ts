@@ -24,6 +24,7 @@ export interface PythonRunResult {
 export async function runPython(code: string): Promise<PythonRunResult> {
   const pyodide = await getPyodide();
 
+  // Set up stdout/stderr capture for this run.
   pyodide.runPython(`
 import sys
 from io import StringIO

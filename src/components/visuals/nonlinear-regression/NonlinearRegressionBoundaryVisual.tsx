@@ -330,7 +330,7 @@ const formatMse = (value: number) => value.toFixed(4);
 
 const lineColor = '#ff6b6b';
 
-export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoundaryVisualProps> = ({ copy }) => {
+export const NonlinearRegressionBoundaryVisual = React.memo(({ copy }: NonlinearRegressionBoundaryVisualProps) => {
   const modelRef = React.useRef<Model>(initialModel);
   const [prefersReducedMotion] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -639,5 +639,5 @@ export const NonlinearRegressionBoundaryVisual: React.FC<NonlinearRegressionBoun
       </TabbedPanelSurface>
     </div>
   );
-};
+});
 

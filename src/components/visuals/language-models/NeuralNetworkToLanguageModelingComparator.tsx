@@ -29,7 +29,7 @@ function Pill({ children, accent }: { children: React.ReactNode; accent: string 
   );
 }
 
-export const NeuralNetworkToLanguageModelingComparator: React.FC<Props> = ({ copy }) => {
+export const NeuralNetworkToLanguageModelingComparator = React.memo(({ copy }: Props) => {
   return (
     <PanelCard
       minHeight={0}
@@ -146,4 +146,4 @@ export const NeuralNetworkToLanguageModelingComparator: React.FC<Props> = ({ cop
       </div>
     </PanelCard>
   );
-};
+});

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ISlide, Language } from '../types/slide';
-import { FONT_SCALE_BASE } from '../constants/course';
-import { useCourse } from '../context/CourseContext';
+import { useUI } from '../context/UIContext';
+import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { SlideVisualRenderer } from './slide-visuals';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { SlideFrame } from './SlideFrame';
@@ -13,7 +13,7 @@ interface TwoColumnSlideProps {
 
 export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language }) => {
   const content = slide.content[language];
-  const { fontScale } = useCourse();
+  const { fontScale } = useUI();
   const [leftPart, rightPart = ''] = content.body.split(/\r?\n---\r?\n/);
   const [leftRatio, rightRatio] = slide.options?.columnRatios ?? [0.95, 1.05];
   const columnTemplateProperty = '--slide-two-col-columns';
@@ -29,7 +29,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
           style={{
             padding: 28,
             borderRadius: 14,
-            fontSize: 14 * FONT_SCALE_BASE * fontScale,
+            fontSize: 14 * DESIGN_SCALE_MULTIPLIER * fontScale,
             lineHeight: 1.8,
             color: 'var(--sw-text-dim)',
             background: 'rgba(26, 22, 40, 0.4)',
@@ -71,7 +71,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
                 minHeight: 0,
                 height: '100%',
                 width: '100%',
-                fontSize: 14 * FONT_SCALE_BASE * fontScale,
+                fontSize: 14 * DESIGN_SCALE_MULTIPLIER * fontScale,
                 lineHeight: 1.8,
                 color: 'var(--sw-text-dim)',
                 overflow: 'hidden',

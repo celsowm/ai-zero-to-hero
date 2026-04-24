@@ -5,7 +5,7 @@ interface TransformerBlockDiagramProps {
   copy: TransformerBlockDiagramCopy;
 }
 
-export const TransformerBlockDiagram: React.FC<TransformerBlockDiagramProps> = ({ copy }) => {
+export const TransformerBlockDiagram = React.memo(({ copy }: TransformerBlockDiagramProps) => {
   return (
     <div style={{
       width: '100%',
@@ -72,5 +72,5 @@ export const TransformerBlockDiagram: React.FC<TransformerBlockDiagramProps> = (
       <div style={{ padding: '12px 24px', background: 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))', borderRadius: '100px', fontWeight: '600', marginTop: '4px', boxShadow: '0 0 18px rgba(255,46,151,0.2)' }}>{copy.outputLabel}</div>
     </div>
   );
-};
+});
 

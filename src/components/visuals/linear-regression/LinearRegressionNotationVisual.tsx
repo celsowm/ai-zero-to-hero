@@ -31,7 +31,7 @@ const eyebrowStyle: React.CSSProperties = {
   marginBottom: 10,
 };
 
-export const LinearRegressionNotationVisual: React.FC<LinearRegressionNotationVisualProps> = ({ copy }) => (
+export const LinearRegressionNotationVisual = React.memo(({ copy }: LinearRegressionNotationVisualProps) => (
   <div style={shellStyle}>
     <div style={cardStyle}>
       <div style={eyebrowStyle}>{copy.eyebrow}</div>
@@ -128,5 +128,5 @@ export const LinearRegressionNotationVisual: React.FC<LinearRegressionNotationVi
       <div style={{ paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: 12.5, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
     </div>
   </div>
-);
+));
 

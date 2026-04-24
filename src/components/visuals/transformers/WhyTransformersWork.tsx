@@ -5,7 +5,7 @@ interface WhyTransformersWorkProps {
   copy: WhyTransformersWorkCopy;
 }
 
-export const WhyTransformersWork: React.FC<WhyTransformersWorkProps> = ({ copy }) => {
+export const WhyTransformersWork = React.memo(({ copy }: WhyTransformersWorkProps) => {
   return (
     <div style={{
       width: '100%',
@@ -50,5 +50,5 @@ export const WhyTransformersWork: React.FC<WhyTransformersWorkProps> = ({ copy }
 
     </div>
   );
-};
+});
 

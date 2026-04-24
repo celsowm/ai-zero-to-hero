@@ -469,7 +469,7 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
   );
 };
 
-export const LinearRegressionTabsVisual: React.FC<LinearRegressionTabsVisualProps> = ({ copy }) => {
+export const LinearRegressionTabsVisual = React.memo(({ copy }: LinearRegressionTabsVisualProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -486,5 +486,5 @@ export const LinearRegressionTabsVisual: React.FC<LinearRegressionTabsVisualProp
       </TabbedPanelSurface>
     </div>
   );
-};
+});
 

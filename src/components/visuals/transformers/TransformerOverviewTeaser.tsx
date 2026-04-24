@@ -138,7 +138,7 @@ const MatrixBlock: React.FC<{
   </div>
 );
 
-export const TransformerOverviewTeaser: React.FC<TransformerOverviewTeaserProps> = ({ copy }) => {
+export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOverviewTeaserProps) => {
   const [step, setStep] = useState(3);
   const maxStep = 6;
   const eosToken = '<eos>';
@@ -473,4 +473,4 @@ export const TransformerOverviewTeaser: React.FC<TransformerOverviewTeaserProps>
       </div>
     </div>
   );
-};
+});

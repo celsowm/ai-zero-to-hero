@@ -5,7 +5,7 @@ interface EmbeddingSpace3DProps {
   copy: EmbeddingSpace3DCopy;
 }
 
-export const EmbeddingSpace3D: React.FC<EmbeddingSpace3DProps> = ({ copy }) => {
+export const EmbeddingSpace3D = React.memo(({ copy }: EmbeddingSpace3DProps) => {
   const points = [
     { word: 'Cat', x: 20, y: 30, color: '#0ea5e9' },
     { word: 'Dog', x: 25, y: 25, color: '#0ea5e9' },
@@ -69,13 +69,7 @@ export const EmbeddingSpace3D: React.FC<EmbeddingSpace3DProps> = ({ copy }) => {
           </div>
         ))}
       </div>
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes float {
-          0% { transform: translate(-50%, 50%) translateY(0); }
-          100% { transform: translate(-50%, 50%) translateY(-10px); }
-        }
-      `}} />
     </div>
   );
-};
+});
 

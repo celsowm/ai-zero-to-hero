@@ -139,7 +139,7 @@ const Arrow: React.FC<ArrowProps> = ({
   </g>
 );
 
-export const InferenceDiagram: React.FC<InferenceDiagramProps> = ({ copy }) => {
+export const InferenceDiagram = React.memo(({ copy }: InferenceDiagramProps) => {
   const trainingLines = copy.trainingTitle.split('\n');
   const footerLines = copy.footerLabel.split('\n');
   const modelNodes = {
@@ -389,5 +389,5 @@ export const InferenceDiagram: React.FC<InferenceDiagramProps> = ({ copy }) => {
       </g>
     </svg>
   );
-};
+});
 

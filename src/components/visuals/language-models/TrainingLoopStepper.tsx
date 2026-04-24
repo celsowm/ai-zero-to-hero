@@ -5,7 +5,7 @@ interface TrainingLoopStepperProps {
   copy: TrainingLoopStepperCopy;
 }
 
-export const TrainingLoopStepper: React.FC<TrainingLoopStepperProps> = ({ copy }) => {
+export const TrainingLoopStepper = React.memo(({ copy }: TrainingLoopStepperProps) => {
   const [step, setStep] = useState(1);
 
   const steps = [
@@ -93,5 +93,5 @@ export const TrainingLoopStepper: React.FC<TrainingLoopStepperProps> = ({ copy }
 
     </div>
   );
-};
+});
 

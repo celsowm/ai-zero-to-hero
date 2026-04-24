@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { useCourse } from '../context/CourseContext';
+import { useNavigation } from '../context/NavigationContext';
+import { useUI } from '../context/UIContext';
 import { Search, Command, CornerDownLeft, Hash } from 'lucide-react';
 
 export const SearchModal: React.FC = () => {
-  const { isSearchOpen, setSearchOpen, slides, language, goToSlide } = useCourse();
+  const { isSearchOpen, setSearchOpen } = useUI();
+  const { slides, goToSlide } = useNavigation();
+  const { language } = useCourse();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -54,8 +58,8 @@ export const SearchModal: React.FC = () => {
 
   const t = {
     emptyTitle: language === 'pt-br' ? 'BUSCA RÁPIDA' : 'QUICK SEARCH',
-    emptyDesc: language === 'pt-br' 
-      ? 'Digite o título de um tópico para pular diretamente para o conteúdo.' 
+    emptyDesc: language === 'pt-br'
+      ? 'Digite o título de um tópico para pular diretamente para o conteúdo.'
       : 'Type a topic title to jump directly to the content.',
     select: language === 'pt-br' ? 'Selecionar' : 'Select',
     navigate: language === 'pt-br' ? 'Navegar' : 'Navigate',

@@ -5,7 +5,7 @@ interface SoftmaxVisualizerProps {
   copy: SoftmaxVisualizerCopy;
 }
 
-export const SoftmaxVisualizer: React.FC<SoftmaxVisualizerProps> = ({ copy }) => {
+export const SoftmaxVisualizer = React.memo(({ copy }: SoftmaxVisualizerProps) => {
   const data = [
     { word: 'the', count: 32, prob: 84 },
     { word: 'a', count: 4, prob: 11 },
@@ -110,5 +110,5 @@ export const SoftmaxVisualizer: React.FC<SoftmaxVisualizerProps> = ({ copy }) =>
       `}</style>
     </div>
   );
-};
+});
 

@@ -5,7 +5,7 @@ interface ParallelPredictionDiagramProps {
   copy: ParallelPredictionDiagramCopy;
 }
 
-export const ParallelPredictionDiagram: React.FC<ParallelPredictionDiagramProps> = ({ copy }) => {
+export const ParallelPredictionDiagram = React.memo(({ copy }: ParallelPredictionDiagramProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -64,13 +64,7 @@ export const ParallelPredictionDiagram: React.FC<ParallelPredictionDiagramProps>
           </div>
         ))}
       </div>
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes flowDown {
-          0% { background-position: 0 -100px; }
-          100% { background-position: 0 100px; }
-        }
-      `}} />
     </div>
   );
-};
+});
 

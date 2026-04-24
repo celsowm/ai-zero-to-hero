@@ -39,7 +39,7 @@ const buttonBaseStyle: React.CSSProperties = {
   transition: 'all 160ms ease',
 };
 
-export const ProgressStepperVisual: React.FC<ProgressStepperVisualProps> = ({ copy }) => {
+export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisualProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const lastStepIndex = copy.steps.length - 1;
   const currentStep = copy.steps[activeStep];
@@ -558,6 +558,6 @@ export const ProgressStepperVisual: React.FC<ProgressStepperVisualProps> = ({ co
         {copy.footer}
       </div>
     </div>
-  );
-};
+  )
+});
 

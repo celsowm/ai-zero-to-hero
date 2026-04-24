@@ -7,7 +7,7 @@ interface Props {
   copy: BiologicalVsComputationalNeuronCopy;
 }
 
-export const BiologicalVsComputationalNeuron: React.FC<Props> = ({ copy }) => {
+export const BiologicalVsComputationalNeuron = React.memo(({ copy }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
@@ -206,4 +206,4 @@ export const BiologicalVsComputationalNeuron: React.FC<Props> = ({ copy }) => {
       </PanelCard>
     </div>
   );
-};
+});

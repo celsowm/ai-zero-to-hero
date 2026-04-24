@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2, XCircle } from 'lucide-react';
-import type { ExerciseItem } from '../../types/slide';
+import type { ExerciseItem, Language } from '../../types/slide';
 import { usePyodide } from '../../hooks/usePyodide';
 import type { ValidationResult } from '../../services/exerciseValidators';
 import { ExerciseEditor } from './ExerciseEditor';
+import { getExerciseMessages } from '../../i18n/messages';
 
 interface ExerciseCardProps {
   exercise: ExerciseItem;
@@ -13,6 +14,7 @@ interface ExerciseCardProps {
   errorMessage: string;
   hintLabel: string;
   outputLabel: string;
+  language: Language;
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
@@ -23,6 +25,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   errorMessage,
   hintLabel,
   outputLabel,
+  language,
 }) => {
   const [code, setCode] = useState(exercise.starterCode);
   const [output, setOutput] = useState('');
@@ -49,7 +52,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   };
 
   const handleCheck = async () => {
-    const { results: validationResults, runResult } = await check(code, exercise.validators);
+    const { results: validationResults, runResult } = await check(code, exercise.validators, language);
     setOutput(runResult.stdout);
     setStderr(runResult.stderr);
     setResults(validationResults);
@@ -57,6 +60,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
   const allPassed = results?.every((r) => r.success) ?? false;
   const someFailed = results?.some((r) => !r.success) ?? false;
+  const msg = getExerciseMessages(language);
 
   return (
     <div
@@ -79,8 +83,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             color: 'var(--sw-text)',
             whiteSpace: 'pre-wrap',
           }}
-          dangerouslySetInnerHTML={{ __html: exercise.instructions.replace(/\n/g, '<br/>') }}
-        />
+        >
+          {exercise.instructions}
+        </div>
 
         {exercise.hints && exercise.hints.length > 0 && (
           <div style={{ marginTop: 10 }}>
@@ -135,7 +140,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             flexShrink: 0,
           }}
         >
-          Falha ao carregar o interpretador Python: {pyodideError}
+          {msg.pyodideLoadFailed}: {pyodideError}
         </div>
       )}
 
@@ -153,6 +158,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
           runButtonLabel={runButtonLabel}
           checkButtonLabel={checkButtonLabel}
           outputLabel={outputLabel}
+          language={language}
         />
       </div>
 

@@ -5,7 +5,7 @@ interface MlpTextDiagramProps {
   copy: MlpTextDiagramCopy;
 }
 
-export const MlpTextDiagram: React.FC<MlpTextDiagramProps> = ({ copy }) => {
+export const MlpTextDiagram = React.memo(({ copy }: MlpTextDiagramProps) => {
   const [active, setActive] = useState<0 | 1>(0);
 
   const tokens1 = copy.sentence1.split(' ');
@@ -108,11 +108,7 @@ export const MlpTextDiagram: React.FC<MlpTextDiagramProps> = ({ copy }) => {
           </div>
         )}
       </div>
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes pop { 0% { transform: scale(0.8); opacity: 0;} 100% { transform: scale(1); opacity: 1;} }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
-      `}} />
     </div>
   );
-};
+});
 

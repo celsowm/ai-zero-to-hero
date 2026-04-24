@@ -5,7 +5,7 @@ interface LanguageModelingDiagramProps {
   copy: LanguageModelingDiagramCopy;
 }
 
-export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = ({ copy }) => {
+export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDiagramProps) => {
   // Parse options like "mat (85%)"
   const parsedOptions = copy.options.map(opt => {
     const match = opt.match(/(.+)\s*\((\d+)%\)/);
@@ -347,35 +347,7 @@ export const LanguageModelingDiagram: React.FC<LanguageModelingDiagramProps> = (
           </div>
         ) : null}
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes lm-pulse-line {
-          0% {
-            opacity: 0.42;
-            box-shadow: 0 0 0 rgba(0, 229, 255, 0);
-          }
-          50% {
-            opacity: 1;
-            box-shadow: 0 0 18px rgba(0, 229, 255, 0.4);
-          }
-          100% {
-            opacity: 0.42;
-            box-shadow: 0 0 0 rgba(0, 229, 255, 0);
-          }
-        }
-        @keyframes lm-slide-in {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes lm-grow-width {
-          from { width: 0; }
-        }
-        @keyframes lm-grid-drift {
-          from { transform: translate3d(0, 0, 0); }
-          to { transform: translate3d(-64px, -64px, 0); }
-        }
-      `}} />
     </div>
   );
-};
+});
 

@@ -735,7 +735,7 @@ const CodePanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) => 
   </PanelCard>
 );
 
-export const PythonPrereqTabsVisual: React.FC<PythonPrereqTabsVisualProps> = ({ copy }) => {
+export const PythonPrereqTabsVisual = React.memo(({ copy }: PythonPrereqTabsVisualProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -746,4 +746,4 @@ export const PythonPrereqTabsVisual: React.FC<PythonPrereqTabsVisualProps> = ({ 
       </TabbedPanelSurface>
     </div>
   );
-};
+});

@@ -1,5 +1,7 @@
 import React from 'react';
 import { CourseProvider, useCourse } from './context/CourseContext';
+import { NavigationProvider } from './context/NavigationContext';
+import { UIProvider } from './context/UIContext';
 import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar, SearchModal } from './components';
 
 const CourseContent: React.FC = () => {
@@ -27,10 +29,14 @@ const CourseContent: React.FC = () => {
 
 function App() {
   return (
-    <CourseProvider>
-      <CourseContent />
-      <SearchModal />
-    </CourseProvider>
+    <NavigationProvider>
+      <UIProvider>
+        <CourseProvider>
+          <CourseContent />
+          <SearchModal />
+        </CourseProvider>
+      </UIProvider>
+    </NavigationProvider>
   );
 }
 

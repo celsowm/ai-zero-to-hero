@@ -6,7 +6,7 @@ interface LocalizedImageVisualProps {
   copy: LocalizedImageCopy;
 }
 
-export const LocalizedImageVisual: React.FC<LocalizedImageVisualProps> = ({ copy }) => {
+export const LocalizedImageVisual = React.memo(({ copy }: LocalizedImageVisualProps) => {
   return (
     <figure
       style={{
@@ -26,5 +26,5 @@ export const LocalizedImageVisual: React.FC<LocalizedImageVisualProps> = ({ copy
       />
     </figure>
   );
-};
+});
 

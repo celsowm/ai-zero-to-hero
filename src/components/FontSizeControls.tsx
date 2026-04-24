@@ -1,16 +1,24 @@
 import React from 'react';
+import { useUI } from '../context/UIContext';
 import { useCourse } from '../context/CourseContext';
 
+const LABELS = {
+  'pt-br': { decrease: 'Diminuir fonte', increase: 'Aumentar fonte' },
+  'en-us': { decrease: 'Decrease font size', increase: 'Increase font size' },
+};
+
 export const FontSizeControls: React.FC = () => {
-  const { increaseFontScale, decreaseFontScale, fontScale } = useCourse();
+  const { increaseFontScale, decreaseFontScale, fontScale } = useUI();
+  const { language } = useCourse();
+  const labels = LABELS[language];
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
       <button
         type="button"
         onClick={decreaseFontScale}
-        aria-label="Diminuir fonte"
-        title="Diminuir fonte"
+        aria-label={labels.decrease}
+        title={labels.decrease}
         style={{
           width: 34,
           height: 28,
@@ -29,8 +37,8 @@ export const FontSizeControls: React.FC = () => {
       <button
         type="button"
         onClick={increaseFontScale}
-        aria-label="Aumentar fonte"
-        title="Aumentar fonte"
+        aria-label={labels.increase}
+        title={labels.increase}
         style={{
           width: 34,
           height: 28,

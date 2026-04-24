@@ -5,7 +5,7 @@ interface CausalMaskMatrixProps {
   copy: CausalMaskMatrixCopy;
 }
 
-export const CausalMaskMatrix: React.FC<CausalMaskMatrixProps> = ({ copy }) => {
+export const CausalMaskMatrix = React.memo(({ copy }: CausalMaskMatrixProps) => {
   const size = 4;
   const labels = ['T1', 'T2', 'T3', 'T4'];
 
@@ -72,5 +72,5 @@ export const CausalMaskMatrix: React.FC<CausalMaskMatrixProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

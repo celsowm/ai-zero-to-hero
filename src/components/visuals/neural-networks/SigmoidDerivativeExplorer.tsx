@@ -47,7 +47,7 @@ function zone(z: number): { key: 'center' | 'transition' | 'tail'; color: string
   return { key: 'tail', color: '#ff5da2' };
 }
 
-export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
+export const SigmoidDerivativeExplorer = React.memo(({ copy }: Props) => {
   const [z, setZ] = useState(0.4);
   const sig = sigmoid(z);
   const deriv = dsigmoid(z);
@@ -141,8 +141,8 @@ export const SigmoidDerivativeExplorer: React.FC<Props> = ({ copy }) => {
         <InsightCard eyebrow={copy.trainingTitle} body={copy.trainingBody} accent="#66b84a" />
       </div>
     </div>
-  );
-};
+  )
+});
 
 /* ── Sub-components ── */
 

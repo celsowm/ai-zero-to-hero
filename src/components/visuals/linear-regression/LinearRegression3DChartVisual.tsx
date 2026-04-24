@@ -753,7 +753,7 @@ const LinearRegression3DScene: React.FC<{ copy: LinearRegression3DChartVisualCop
   return <div ref={mountRef} style={{ width: '100%', height: '100%' }} aria-hidden="true" />;
 };
 
-export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisualProps> = ({ copy }) => {
+export const LinearRegression3DChartVisual = React.memo(({ copy }: LinearRegression3DChartVisualProps) => {
   const [activeTab, setActiveTab] = useState(0);
   const showComparison = Boolean(copy.tabs && copy.comparisonChart);
   const safeIndex = showComparison && activeTab === 1 ? 1 : 0;
@@ -888,5 +888,5 @@ export const LinearRegression3DChartVisual: React.FC<LinearRegression3DChartVisu
       </TabbedPanelSurface>
     </div>
   );
-};
+});
 

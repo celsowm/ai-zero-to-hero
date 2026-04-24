@@ -1,7 +1,7 @@
 import React from 'react';
 import type { IContent } from '../types/slide';
-import { FONT_SCALE_BASE } from '../constants/course';
-import { useCourse } from '../context/CourseContext';
+import { useUI } from '../context/UIContext';
+import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { SlideFrame } from './SlideFrame';
 
@@ -10,7 +10,7 @@ interface CodeSlideProps {
 }
 
 export const CodeSlide: React.FC<CodeSlideProps> = ({ content }) => {
-  const { fontScale } = useCourse();
+  const { fontScale } = useUI();
 
   return (
     <SlideFrame title={content.title} maxWidthClassName="max-w-5xl">
@@ -31,7 +31,7 @@ export const CodeSlide: React.FC<CodeSlideProps> = ({ content }) => {
             minHeight: 0,
             overflow: 'auto',
             paddingRight: 4,
-            fontSize: 14 * FONT_SCALE_BASE * fontScale,
+            fontSize: 14 * DESIGN_SCALE_MULTIPLIER * fontScale,
             lineHeight: 1.8,
             color: 'var(--sw-text-dim)',
           }}

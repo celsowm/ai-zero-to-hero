@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import type { PythonExerciseVisualCopy } from '../../../types/slide';
+import type { Language, PythonExerciseVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { ExerciseCard } from '../../exercise/ExerciseCard';
 
 interface PythonExerciseVisualProps {
   copy: PythonExerciseVisualCopy;
+  language: Language;
 }
 
-export const PythonExerciseVisual: React.FC<PythonExerciseVisualProps> = ({ copy }) => {
+export const PythonExerciseVisual = React.memo(({ copy, language }: PythonExerciseVisualProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const hasMultiple = copy.exercises.length > 1;
 
@@ -76,8 +77,9 @@ export const PythonExerciseVisual: React.FC<PythonExerciseVisualProps> = ({ copy
           errorMessage={copy.errorMessage}
           hintLabel={copy.hintLabel}
           outputLabel={copy.outputLabel}
+          language={language}
         />
       </PanelCard>
     </div>
   );
-};
+});

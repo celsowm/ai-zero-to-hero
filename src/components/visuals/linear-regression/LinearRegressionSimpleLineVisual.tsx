@@ -49,7 +49,7 @@ const badgeStyle = (accent: string): React.CSSProperties => ({
   border: `1px solid ${accent}35`,
 });
 
-export const LinearRegressionSimpleLineVisual: React.FC<LinearRegressionSimpleLineVisualProps> = ({ copy }) => {
+export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegressionSimpleLineVisualProps) => {
   const [age, setAge] = useState(28);
   const [progress, setProgress] = useState(0);
 
@@ -236,4 +236,4 @@ export const LinearRegressionSimpleLineVisual: React.FC<LinearRegressionSimpleLi
       </PanelCard>
     </div>
   );
-};
+});

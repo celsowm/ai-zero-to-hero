@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useCourse } from '../context/CourseContext';
+import { useNavigation } from '../context/NavigationContext';
+import { useUI } from '../context/UIContext';
 import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { slides, currentSlideIndex, goToSlide, language, setLanguage, setSearchOpen } = useCourse();
+  const { slides, goToSlide, currentSlideIndex } = useNavigation();
+  const { setSearchOpen } = useUI();
+  const { language, setLanguage } = useCourse();
 
   return (
     <aside

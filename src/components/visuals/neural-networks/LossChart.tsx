@@ -7,12 +7,12 @@ interface LossChartProps {
   accent: string;
 }
 
-export const LossChart: React.FC<LossChartProps> = ({
+export const LossChart = React.memo(({
   lossHistory,
   totalEpochs,
   convergenceThreshold,
   accent,
-}) => {
+}: LossChartProps) => {
   const width = 260;
   const height = 80;
   const padding = { top: 8, right: 8, bottom: 16, left: 36 };
@@ -127,4 +127,4 @@ export const LossChart: React.FC<LossChartProps> = ({
       </text>
     </svg>
   );
-};
+});

@@ -5,7 +5,7 @@ interface QkvCocktailPartyProps {
   copy: QkvCocktailPartyCopy;
 }
 
-export const QkvCocktailParty: React.FC<QkvCocktailPartyProps> = ({ copy }) => {
+export const QkvCocktailParty = React.memo(({ copy }: QkvCocktailPartyProps) => {
   return (
     <div style={{
       width: '100%',
@@ -51,5 +51,5 @@ export const QkvCocktailParty: React.FC<QkvCocktailPartyProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

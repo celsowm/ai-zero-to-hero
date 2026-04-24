@@ -27,7 +27,7 @@ interface TrainingControlsProps {
 
 const speeds = [1, 5, 25, 100, 500];
 
-export const TrainingControls: React.FC<TrainingControlsProps> = ({
+export const TrainingControls = React.memo(({
   isPlaying,
   speed,
   epoch,
@@ -43,7 +43,7 @@ export const TrainingControls: React.FC<TrainingControlsProps> = ({
   onSkip,
   onSpeedChange,
   copy,
-}) => {
+}: TrainingControlsProps) => {
   const progress = totalEpochs > 0 ? (epoch / totalEpochs) * 100 : 0;
   const statusColor = converged ? '#22c55e' : trainingDone ? '#38bdf8' : isPlaying ? accent : 'var(--sw-text-dim)';
 
@@ -211,4 +211,4 @@ export const TrainingControls: React.FC<TrainingControlsProps> = ({
       </div>
     </div>
   );
-};
+});

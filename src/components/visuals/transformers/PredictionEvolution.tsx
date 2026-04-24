@@ -5,7 +5,7 @@ interface PredictionEvolutionProps {
   copy: PredictionEvolutionCopy;
 }
 
-export const PredictionEvolution: React.FC<PredictionEvolutionProps> = ({ copy }) => {
+export const PredictionEvolution = React.memo(({ copy }: PredictionEvolutionProps) => {
   const [step, setStep] = useState(1);
 
   const steps = [
@@ -74,5 +74,5 @@ export const PredictionEvolution: React.FC<PredictionEvolutionProps> = ({ copy }
 
     </div>
   );
-};
+});
 

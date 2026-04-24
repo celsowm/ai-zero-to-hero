@@ -67,7 +67,7 @@ function zone(z: number) {
   return { key: 'right' as const, color: '#ff5da2' }; // Rosa (saturação em 1)
 }
 
-export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
+export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
   const [z, setZ] = useState(0);
   const [activeStep, setActiveStep] = useState<StepKey>('input');
   const curvePath = useMemo(() => path(), []);
@@ -407,8 +407,8 @@ export const SigmoidDeepDiveExplorer: React.FC<Props> = ({ copy }) => {
         </PanelCard>
       </div>
     </TabbedPanelSurface>
-  );
-};
+  )
+});
 
 const Readout: React.FC<{ label: string; value: string; color: string }> = ({ label, value, color }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

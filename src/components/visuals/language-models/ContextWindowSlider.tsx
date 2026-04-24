@@ -5,7 +5,7 @@ interface ContextWindowSliderProps {
   copy: ContextWindowSliderCopy;
 }
 
-export const ContextWindowSlider: React.FC<ContextWindowSliderProps> = ({ copy }) => {
+export const ContextWindowSlider = React.memo(({ copy }: ContextWindowSliderProps) => {
   const [position, setPosition] = useState(3);
   
   const tokens = copy.fullText.split(' ').map(t => t.trim()).filter(Boolean);
@@ -84,5 +84,5 @@ export const ContextWindowSlider: React.FC<ContextWindowSliderProps> = ({ copy }
       </div>
     </div>
   );
-};
+});
 

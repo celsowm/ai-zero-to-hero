@@ -92,7 +92,7 @@ const styles = `
 }
 `;
 
-export const NeuronArchitectureAnimated: React.FC<Props> = ({ copy }) => {
+export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
   const [titleHead, ...titleTailParts] = copy.title.split(' ');
   const titleTail = titleTailParts.join(' ');
 
@@ -358,5 +358,5 @@ export const NeuronArchitectureAnimated: React.FC<Props> = ({ copy }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+});

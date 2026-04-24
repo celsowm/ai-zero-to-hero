@@ -108,7 +108,7 @@ const TransformerDiagram = () => (
   </svg>
 );
 
-export const ArchitectureComparatorVisual: React.FC<Props> = ({ copy }) => {
+export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
   const currentTab = copy.tabs[activeTab];
 
@@ -244,4 +244,4 @@ export const ArchitectureComparatorVisual: React.FC<Props> = ({ copy }) => {
       </TabbedPanelSurface>
     </div>
   );
-};
+});

@@ -643,7 +643,7 @@ const GradientDescentScene: React.FC<{ copy: GradientDescentVisualCopy }> = ({ c
   );
 };
 
-export const GradientDescent3DVisual: React.FC<GradientDescent3DVisualProps> = ({ copy }) => {
+export const GradientDescent3DVisual = React.memo(({ copy }: GradientDescent3DVisualProps) => {
   return <GradientDescentScene copy={copy} />;
-};
+});
 

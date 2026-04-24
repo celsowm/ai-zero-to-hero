@@ -5,7 +5,7 @@ interface BigramCounterProps {
   copy: BigramCounterCopy;
 }
 
-export const BigramCounter: React.FC<BigramCounterProps> = ({ copy }) => {
+export const BigramCounter = React.memo(({ copy }: BigramCounterProps) => {
   const [step, setStep] = useState(0);
 
   // Parse text: "We the people. We the nation. We the world."
@@ -127,14 +127,7 @@ export const BigramCounter: React.FC<BigramCounterProps> = ({ copy }) => {
           )}
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes popIn {
-          0% { transform: scale(0.9); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-      `}} />
     </div>
   );
-};
+});
 

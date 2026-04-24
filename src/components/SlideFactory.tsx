@@ -24,8 +24,6 @@ export const SlideFactory: React.FC<SlideFactoryProps> = ({ slide, language }) =
       return <CodeSlide content={content} />;
 
     case 'custom':
-      return <CustomVisualSlide slide={slide} language={language} />;
-
     case 'exercise':
       return <CustomVisualSlide slide={slide} language={language} />;
     

@@ -1,6 +1,6 @@
 import React from 'react';
-import { FONT_SCALE_BASE } from '../constants/course';
-import { useCourse } from '../context/CourseContext';
+import { useUI } from '../context/UIContext';
+import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 
 interface SlideFrameProps {
   title: string;
@@ -9,7 +9,7 @@ interface SlideFrameProps {
 }
 
 export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidthClassName }) => {
-  const { fontScale } = useCourse();
+  const { fontScale } = useUI();
 
   return (
     <div
@@ -19,7 +19,7 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
       <h1
         className="glow-pink synthwave-title"
         style={{
-          fontSize: 36 * FONT_SCALE_BASE * fontScale,
+          fontSize: 36 * DESIGN_SCALE_MULTIPLIER * fontScale,
           fontWeight: 700,
           letterSpacing: '-0.02em',
           lineHeight: 1.2,

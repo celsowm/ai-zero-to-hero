@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
 import { Copy, Check, Info } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
+import { useUI } from '../context/UIContext';
 import { useCourse } from '../context/CourseContext';
 import { resolveSnippetCode } from '../content/registry';
 import 'highlight.js/styles/github-dark.css';
@@ -93,7 +94,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   compact = false,
   sourceRef,
 }) => {
-  const { fontScale, language: courseLanguage } = useCourse();
+  const { fontScale } = useUI();
+  const { language: courseLanguage } = useCourse();
   const [copied, setCopied] = useState(false);
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
   const [tooltipData, setTooltipData] = useState<{ content: string; top: number; left: number } | null>(null);

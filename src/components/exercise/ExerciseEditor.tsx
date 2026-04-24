@@ -1,5 +1,7 @@
 import React from 'react';
 import { Play, CheckCircle, Loader2, Terminal, AlertTriangle } from 'lucide-react';
+import type { Language } from '../../types/slide';
+import { getExerciseMessages } from '../../i18n/messages';
 import { ExerciseCodeEditor } from './ExerciseCodeEditor';
 
 interface ExerciseEditorProps {
@@ -13,6 +15,7 @@ interface ExerciseEditorProps {
   runButtonLabel: string;
   checkButtonLabel: string;
   outputLabel: string;
+  language: Language;
 }
 
 export const ExerciseEditor: React.FC<ExerciseEditorProps> = ({
@@ -26,7 +29,9 @@ export const ExerciseEditor: React.FC<ExerciseEditorProps> = ({
   runButtonLabel,
   checkButtonLabel,
   outputLabel,
+  language,
 }) => {
+  const msg = getExerciseMessages(language);
   const hasOutput = output.length > 0 || stderr.length > 0;
 
   return (
@@ -145,14 +150,14 @@ export const ExerciseEditor: React.FC<ExerciseEditorProps> = ({
                 <div style={{ color: '#f87171', marginTop: output.length > 0 ? 8 : 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
                     <AlertTriangle size={12} />
-                    <span style={{ fontWeight: 700 }}>Erro</span>
+                    <span style={{ fontWeight: 700 }}>{msg.errorLabel}</span>
                   </div>
                   {stderr}
                 </div>
               )}
             </>
           ) : (
-            <span style={{ color: 'var(--sw-text-muted)' }}>Execute ou verifique para ver a saída.</span>
+            <span style={{ color: 'var(--sw-text-muted)' }}>{msg.noOutputPlaceholder}</span>
           )}
         </div>
       </div>

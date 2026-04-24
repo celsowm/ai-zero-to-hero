@@ -5,7 +5,7 @@ interface SamplingControlsProps {
   copy: SamplingControlsCopy;
 }
 
-export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
+export const SamplingControls = React.memo(({ copy }: SamplingControlsProps) => {
   const [temp, setTemp] = useState(1.0);
   
   const baseLogits = [3.0, 2.0, 1.0, 0.5, -1.0];
@@ -73,5 +73,5 @@ export const SamplingControls: React.FC<SamplingControlsProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

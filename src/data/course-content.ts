@@ -1,4 +1,4 @@
-import type { ISlide, Language, LocalizedImageCopy } from '../types/slide';
+import type { ISlide, Language, LocalizedImageCopy, SlideVisual } from '../types/slide';
 import huggingFaceLogoSynthwave from '../assets/hf-logo-synthwave.svg';
 import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
 import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
@@ -17,60 +17,75 @@ type RawLocalizedImageCopy = Omit<LocalizedImageCopy, 'src'> & {
   src: AssetKey;
 };
 
+/**
+ * Extract the visual copy type from the SlideVisual union for a given visual id.
+ * This avoids duplicating the visual union type — it's derived from the canonical
+ * SlideVisual type in types/slide/visuals.ts.
+ */
+type VisualCopyForId<T extends SlideVisual['id']> = Extract<SlideVisual, { id: T }>['copy'];
+
 type RawSlide = Omit<ISlide, 'visual'> & {
   visual?:
-    | { id: 'inference-diagram'; copy: Record<Language, unknown> }
-    | { id: 'learning-loop-diagram'; copy: Record<Language, unknown> }
+    | { id: 'inference-diagram'; copy: VisualCopyForId<'inference-diagram'> }
+    | { id: 'learning-loop-diagram'; copy: VisualCopyForId<'learning-loop-diagram'> }
     | { id: 'localized-image'; copy: Record<Language, RawLocalizedImageCopy> }
-    | { id: 'machine-learning-pipeline'; copy: Record<Language, unknown> }
-    | { id: 'nonlinear-regression-boundary'; copy: Record<Language, unknown> }
-    | { id: 'nonlinear-solution-ring'; copy: Record<Language, unknown> }
-    | { id: 'api-latency-growth'; copy: Record<Language, unknown> }
-    | { id: 'linear-regression-tabs'; copy: Record<Language, unknown> }
-    | { id: 'python-prereq-tabs'; copy: Record<Language, unknown> }
-    | { id: 'python-exercise'; copy: Record<Language, unknown> }
-    | { id: 'neural-network-tabs-stepper'; copy: Record<Language, unknown> }
-    | { id: 'gradient-descent-3d'; copy: Record<Language, unknown> }
-    | { id: 'linear-regression-notation'; copy: Record<Language, unknown> }
-    | { id: 'linear-regression-3d-chart'; copy: Record<Language, unknown> }
-    | { id: 'progress-stepper'; copy: Record<Language, unknown> }
-    | { id: 'language-modeling-diagram'; copy: Record<Language, unknown> }
-    | { id: 'next-token-interactive'; copy: Record<Language, unknown> }
-    | { id: 'token-size-comparison'; copy: Record<Language, unknown> }
-    | { id: 'tokenization-visualizer'; copy: Record<Language, unknown> }
-    | { id: 'bigram-counter'; copy: Record<Language, unknown> }
-    | { id: 'softmax-visualizer'; copy: Record<Language, unknown> }
-    | { id: 'sampling-roulette'; copy: Record<Language, unknown> }
-    | { id: 'cross-entropy-chart'; copy: Record<Language, unknown> }
-    | { id: 'embedding-space-3d'; copy: Record<Language, unknown> }
-    | { id: 'context-window-slider'; copy: Record<Language, unknown> }
-    | { id: 'mlp-text-diagram'; copy: Record<Language, unknown> }
-    | { id: 'training-loop-stepper'; copy: Record<Language, unknown> }
-    | { id: 'neural-network-to-language-modeling-comparator'; copy: Record<Language, unknown> }
-    | { id: 'gpt2-blackbox-diagram'; copy: Record<Language, unknown> }
-    | { id: 'transformer-overview-teaser'; copy: Record<Language, unknown> }
-    | { id: 'parallel-prediction-diagram'; copy: Record<Language, unknown> }
-    | { id: 'positional-embedding-adder'; copy: Record<Language, unknown> }
-    | { id: 'transformer-block-diagram'; copy: Record<Language, unknown> }
-    | { id: 'causal-mask-matrix'; copy: Record<Language, unknown> }
-    | { id: 'qkv-cocktail-party'; copy: Record<Language, unknown> }
-    | { id: 'attention-lines-diagram'; copy: Record<Language, unknown> }
-    | { id: 'multihead-diagram'; copy: Record<Language, unknown> }
-    | { id: 'residual-stream-highway'; copy: Record<Language, unknown> }
-    | { id: 'attention-vs-mlp'; copy: Record<Language, unknown> }
-    | { id: 'unembedding-diagram'; copy: Record<Language, unknown> }
-    | { id: 'temperature-slider-interactive'; copy: Record<Language, unknown> }
-    | { id: 'gpt2-full-architecture-diagram'; copy: Record<Language, unknown> }
-    | { id: 'layer-evolution-chart'; copy: Record<Language, unknown> }
-    | { id: 'transformer-scaling-chart'; copy: Record<Language, unknown> }
-    | { id: 'neuron-architecture-animated'; copy: Record<Language, unknown> }
-    | { id: 'activation-functions-comparator'; copy: Record<Language, unknown> }
-    | { id: 'sigmoid-deep-dive-explorer'; copy: Record<Language, unknown> }
-    | { id: 'sigmoid-derivative-explorer'; copy: Record<Language, unknown> }
-    | { id: 'feedforward-flow-visual'; copy: Record<Language, unknown> }
-    | { id: 'backprop-signal-flow'; copy: Record<Language, unknown> }
-    | { id: 'neural-network-step-debugger'; copy: Record<Language, unknown> }
-    | { id: 'biological-vs-computational-neuron'; copy: Record<Language, unknown> };
+    | { id: 'machine-learning-pipeline'; copy: VisualCopyForId<'machine-learning-pipeline'> }
+    | { id: 'nonlinear-regression-boundary'; copy: VisualCopyForId<'nonlinear-regression-boundary'> }
+    | { id: 'nonlinear-solution-ring'; copy: VisualCopyForId<'nonlinear-solution-ring'> }
+    | { id: 'api-latency-growth'; copy: VisualCopyForId<'api-latency-growth'> }
+    | { id: 'linear-regression-tabs'; copy: VisualCopyForId<'linear-regression-tabs'> }
+    | { id: 'python-prereq-tabs'; copy: VisualCopyForId<'python-prereq-tabs'> }
+    | { id: 'python-exercise'; copy: VisualCopyForId<'python-exercise'> }
+    | { id: 'neural-network-tabs-stepper'; copy: VisualCopyForId<'neural-network-tabs-stepper'> }
+    | { id: 'gradient-descent-3d'; copy: VisualCopyForId<'gradient-descent-3d'> }
+    | { id: 'linear-regression-notation'; copy: VisualCopyForId<'linear-regression-notation'> }
+    | { id: 'linear-regression-3d-chart'; copy: VisualCopyForId<'linear-regression-3d-chart'> }
+    | { id: 'progress-stepper'; copy: VisualCopyForId<'progress-stepper'> }
+    | { id: 'language-modeling-diagram'; copy: VisualCopyForId<'language-modeling-diagram'> }
+    | { id: 'next-token-interactive'; copy: VisualCopyForId<'next-token-interactive'> }
+    | { id: 'token-size-comparison'; copy: VisualCopyForId<'token-size-comparison'> }
+    | { id: 'tokenization-visualizer'; copy: VisualCopyForId<'tokenization-visualizer'> }
+    | { id: 'bigram-counter'; copy: VisualCopyForId<'bigram-counter'> }
+    | { id: 'softmax-visualizer'; copy: VisualCopyForId<'softmax-visualizer'> }
+    | { id: 'sampling-roulette'; copy: VisualCopyForId<'sampling-roulette'> }
+    | { id: 'cross-entropy-chart'; copy: VisualCopyForId<'cross-entropy-chart'> }
+    | { id: 'embedding-space-3d'; copy: VisualCopyForId<'embedding-space-3d'> }
+    | { id: 'context-window-slider'; copy: VisualCopyForId<'context-window-slider'> }
+    | { id: 'mlp-text-diagram'; copy: VisualCopyForId<'mlp-text-diagram'> }
+    | { id: 'training-loop-stepper'; copy: VisualCopyForId<'training-loop-stepper'> }
+    | { id: 'neural-network-to-language-modeling-comparator'; copy: VisualCopyForId<'neural-network-to-language-modeling-comparator'> }
+    | { id: 'gpt2-blackbox-diagram'; copy: VisualCopyForId<'gpt2-blackbox-diagram'> }
+    | { id: 'transformer-overview-teaser'; copy: VisualCopyForId<'transformer-overview-teaser'> }
+    | { id: 'parallel-prediction-diagram'; copy: VisualCopyForId<'parallel-prediction-diagram'> }
+    | { id: 'positional-embedding-adder'; copy: VisualCopyForId<'positional-embedding-adder'> }
+    | { id: 'transformer-block-diagram'; copy: VisualCopyForId<'transformer-block-diagram'> }
+    | { id: 'causal-mask-matrix'; copy: VisualCopyForId<'causal-mask-matrix'> }
+    | { id: 'qkv-cocktail-party'; copy: VisualCopyForId<'qkv-cocktail-party'> }
+    | { id: 'attention-lines-diagram'; copy: VisualCopyForId<'attention-lines-diagram'> }
+    | { id: 'multihead-diagram'; copy: VisualCopyForId<'multihead-diagram'> }
+    | { id: 'residual-stream-highway'; copy: VisualCopyForId<'residual-stream-highway'> }
+    | { id: 'attention-vs-mlp'; copy: VisualCopyForId<'attention-vs-mlp'> }
+    | { id: 'unembedding-diagram'; copy: VisualCopyForId<'unembedding-diagram'> }
+    | { id: 'temperature-slider-interactive'; copy: VisualCopyForId<'temperature-slider-interactive'> }
+    | { id: 'gpt2-full-architecture-diagram'; copy: VisualCopyForId<'gpt2-full-architecture-diagram'> }
+    | { id: 'layer-evolution-chart'; copy: VisualCopyForId<'layer-evolution-chart'> }
+    | { id: 'transformer-scaling-chart'; copy: VisualCopyForId<'transformer-scaling-chart'> }
+    | { id: 'neuron-architecture-animated'; copy: VisualCopyForId<'neuron-architecture-animated'> }
+    | { id: 'activation-functions-comparator'; copy: VisualCopyForId<'activation-functions-comparator'> }
+    | { id: 'sigmoid-deep-dive-explorer'; copy: VisualCopyForId<'sigmoid-deep-dive-explorer'> }
+    | { id: 'sigmoid-derivative-explorer'; copy: VisualCopyForId<'sigmoid-derivative-explorer'> }
+    | { id: 'feedforward-flow-visual'; copy: VisualCopyForId<'feedforward-flow-visual'> }
+    | { id: 'backprop-signal-flow'; copy: VisualCopyForId<'backprop-signal-flow'> }
+    | { id: 'neural-network-step-debugger'; copy: VisualCopyForId<'neural-network-step-debugger'> }
+    | { id: 'biological-vs-computational-neuron'; copy: VisualCopyForId<'biological-vs-computational-neuron'> }
+    | { id: 'architecture-comparator'; copy: VisualCopyForId<'architecture-comparator'> }
+    | { id: 'linear-regression-simple-line'; copy: VisualCopyForId<'linear-regression-simple-line'> }
+    | { id: 'welcome-synthwave'; copy: VisualCopyForId<'welcome-synthwave'> }
+    | { id: 'hidden-states-to-logits'; copy: VisualCopyForId<'hidden-states-to-logits'> }
+    | { id: 'sampling-controls'; copy: VisualCopyForId<'sampling-controls'> }
+    | { id: 'prediction-evolution-we-the-people'; copy: VisualCopyForId<'prediction-evolution-we-the-people'> }
+    | { id: 'why-transformers-work-so-well'; copy: VisualCopyForId<'why-transformers-work-so-well'> }
+    | { id: 'road-to-mini-transformer'; copy: VisualCopyForId<'road-to-mini-transformer'> };
 };
 
 const slideModules = import.meta.glob('./slides/*.json', {

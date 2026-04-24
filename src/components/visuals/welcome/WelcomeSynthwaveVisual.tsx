@@ -6,7 +6,7 @@ interface WelcomeSynthwaveVisualProps {
   copy: WelcomeSynthwaveCopy;
 }
 
-export const WelcomeSynthwaveVisual: React.FC<WelcomeSynthwaveVisualProps> = ({ copy }) => {
+export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisualProps) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const [prefersReducedMotion] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -529,4 +529,4 @@ export const WelcomeSynthwaveVisual: React.FC<WelcomeSynthwaveVisualProps> = ({ 
       )}
     </div>
   );
-};
+});

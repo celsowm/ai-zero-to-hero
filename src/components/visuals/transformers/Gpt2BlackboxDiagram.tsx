@@ -5,7 +5,7 @@ interface Gpt2BlackboxDiagramProps {
   copy: Gpt2BlackboxDiagramCopy;
 }
 
-export const Gpt2BlackboxDiagram: React.FC<Gpt2BlackboxDiagramProps> = ({ copy }) => {
+export const Gpt2BlackboxDiagram = React.memo(({ copy }: Gpt2BlackboxDiagramProps) => {
   return (
     <div style={{
       width: '100%',
@@ -70,14 +70,7 @@ export const Gpt2BlackboxDiagram: React.FC<Gpt2BlackboxDiagramProps> = ({ copy }
           {copy.outputLabel}
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes pulseBox {
-          0% { box-shadow: 0 0 24px rgba(255,46,151,0.18), 0 12px 28px rgba(168,85,247,0.2); }
-          100% { box-shadow: 0 0 38px rgba(255,46,151,0.32), 0 18px 48px rgba(168,85,247,0.28); }
-        }
-      `}} />
     </div>
   );
-};
+});
 

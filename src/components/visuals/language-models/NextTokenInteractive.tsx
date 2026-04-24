@@ -5,7 +5,7 @@ interface NextTokenInteractiveProps {
   copy: NextTokenInteractiveCopy;
 }
 
-export const NextTokenInteractive: React.FC<NextTokenInteractiveProps> = ({ copy }) => {
+export const NextTokenInteractive = React.memo(({ copy }: NextTokenInteractiveProps) => {
   const [step, setStep] = useState(0);
 
   const stepsPT = ['Era', ' uma', ' vez', ' um', ' reino', ' distante...'];
@@ -102,14 +102,7 @@ export const NextTokenInteractive: React.FC<NextTokenInteractiveProps> = ({ copy
           {step === 0 ? copy.startLabel : isFinished ? copy.startLabel : copy.nextLabel}
         </button>
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}} />
     </div>
   );
-};
+});
 

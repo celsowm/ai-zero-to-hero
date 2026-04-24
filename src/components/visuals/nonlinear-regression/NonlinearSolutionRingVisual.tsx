@@ -180,7 +180,7 @@ const codeBodyStyle: React.CSSProperties = {
 const boundaryColor = '#c084fc';
 
 /* ── Component ───────────────────────────────────────────────── */
-export const NonlinearSolutionRingVisual: React.FC<Props> = ({ copy }) => {
+export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
   const wRef = useRef<W>(initialW);
   const [prefersReduced] = useState(() =>
     typeof window !== 'undefined' && typeof window.matchMedia === 'function'
@@ -422,4 +422,4 @@ export const NonlinearSolutionRingVisual: React.FC<Props> = ({ copy }) => {
       </TabbedPanelSurface>
     </div>
   );
-};
+});

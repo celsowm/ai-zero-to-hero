@@ -24,7 +24,7 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
   overflow: 'hidden',
 });
 
-export const PanelCard: React.FC<PanelCardProps> = ({ children, minHeight = 0, padding = 20, gap = 14, style, className }) => (
+export const PanelCard = React.memo(({ children, minHeight = 0, padding = 20, gap = 14, style, className }: PanelCardProps) => (
   <div className={className} style={{ ...baseStyle(minHeight, padding, gap), ...style }}>{children}</div>
-);
+));
 

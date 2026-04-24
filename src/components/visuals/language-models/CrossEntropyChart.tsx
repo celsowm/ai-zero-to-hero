@@ -5,7 +5,7 @@ interface CrossEntropyChartProps {
   copy: CrossEntropyChartCopy;
 }
 
-export const CrossEntropyChart: React.FC<CrossEntropyChartProps> = ({ copy }) => {
+export const CrossEntropyChart = React.memo(({ copy }: CrossEntropyChartProps) => {
   return (
     <div style={{
       width: '100%',
@@ -57,5 +57,5 @@ export const CrossEntropyChart: React.FC<CrossEntropyChartProps> = ({ copy }) =>
       </svg>
     </div>
   );
-};
+});
 

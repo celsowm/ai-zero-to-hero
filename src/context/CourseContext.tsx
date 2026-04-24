@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
-import { courseContent } from '../data/course-content';
+import { useNavigation } from './NavigationContext';
 
 const LANGUAGE_STORAGE_KEY = 'ai-zero-to-hero-language';
 
@@ -31,49 +31,24 @@ function getInitialLanguage(): Language {
       return storedLanguage;
     }
   } catch {
-    // Ignore storage access issues and fall back to the browser locale.
+    // Ignore storage access issues and fall back to the default.
   }
 
   const preferredLanguage = window.navigator.languages?.[0] ?? window.navigator.language;
   return normalizeBrowserLanguage(preferredLanguage) ?? 'pt-br';
 }
 
-
 interface CourseContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  currentSlideIndex: number;
-  goToNextSlide: () => void;
-  goToPrevSlide: () => void;
-  goToSlide: (index: number) => void;
-  fontScale: number;
-  increaseFontScale: () => void;
-  decreaseFontScale: () => void;
-  isSearchOpen: boolean;
-  setSearchOpen: (open: boolean) => void;
   currentSlide: ISlide;
-  slides: ISlide[];
 }
 
 const CourseContext = createContext<CourseContextType | undefined>(undefined);
 
-function getSlideIndexFromHash(slides: ISlide[]): number {
-  const hash = window.location.hash.replace(/^#\/?/, '');
-  if (!hash) return 0;
-  const idx = slides.findIndex(s => s.id === hash);
-  return idx >= 0 ? idx : 0;
-}
-
-function setHash(slideId: string) {
-  window.history.pushState(null, '', `#/${slideId}`);
-}
-
 export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(getInitialLanguage);
-  const [fontScale, setFontScale] = useState(1);
-  const slides = courseContent;
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(() => getSlideIndexFromHash(slides));
-  const [isSearchOpen, setSearchOpen] = useState(false);
+  const { currentSlideIndex, slides } = useNavigation();
 
   useEffect(() => {
     try {
@@ -85,99 +60,16 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     document.documentElement.lang = language === 'pt-br' ? 'pt-BR' : 'en-US';
   }, [language]);
 
-  // Sync URL on slide change
-  useEffect(() => {
-    const currentHash = window.location.hash.replace(/^#\/?/, '');
-    if (slides[currentSlideIndex].id !== currentHash) {
-      setHash(slides[currentSlideIndex].id);
-    }
-  }, [currentSlideIndex, slides]);
-
-  // Handle browser back/forward
-  useEffect(() => {
-    const onHashChange = () => {
-      setCurrentSlideIndex(getSlideIndexFromHash(slides));
-    };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, [slides]);
-
-  // Set initial hash if empty
-  useEffect(() => {
-    if (!window.location.hash) {
-      window.history.replaceState(null, '', `#/${slides[0].id}`);
-    }
-  }, [slides]);
-
-  const goToNextSlide = useCallback(() => {
-    setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
-  }, [slides.length]);
-
-  const goToPrevSlide = useCallback(() => {
-    setCurrentSlideIndex(prev => (prev > 0 ? prev - 1 : prev));
-  }, []);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Don't trigger if user is typing in an input
-      const target = event.target as HTMLElement;
-      const isInput =
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.isContentEditable;
-
-      if (isInput) return;
-
-      if ((event.metaKey || event.ctrlKey) && (event.key === 'k' || event.key === 'K')) {
-        event.preventDefault();
-        console.log('Search toggled via shortcut');
-        setSearchOpen(prev => !prev);
-      } else if (event.key === 'ArrowRight' || event.key === 'PageDown') {
-        goToNextSlide();
-      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
-        goToPrevSlide();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goToNextSlide, goToPrevSlide]);
-
-  const goToSlide = useCallback((index: number) => {
-    if (index >= 0 && index < slides.length) {
-      setCurrentSlideIndex(index);
-    }
-  }, [slides.length]);
-
-  const increaseFontScale = useCallback(() => {
-    setFontScale(prev => Math.min(prev + 0.1, 1.4));
-  }, []);
-
-  const decreaseFontScale = useCallback(() => {
-    setFontScale(prev => Math.max(prev - 0.1, 0.8));
-  }, []);
-
   const currentSlide = slides[currentSlideIndex];
 
+  const value = useMemo(() => ({
+    language,
+    setLanguage,
+    currentSlide,
+  }), [language, currentSlide]);
+
   return (
-    <CourseContext.Provider
-      value={{
-        language,
-        setLanguage,
-        currentSlideIndex,
-        goToNextSlide,
-        goToPrevSlide,
-        goToSlide,
-        fontScale,
-        increaseFontScale,
-        decreaseFontScale,
-        isSearchOpen,
-        setSearchOpen,
-        currentSlide,
-        slides,
-      }}
-    >
+    <CourseContext.Provider value={value}>
       {children}
     </CourseContext.Provider>
   );
@@ -191,3 +83,7 @@ export const useCourse = () => {
   }
   return context;
 };
+
+// Re-export navigation and UI hooks for convenience during migration
+export { useNavigation } from './NavigationContext';
+export { useUI } from './UIContext';

@@ -31,7 +31,7 @@ const ItemRow = ({ title, items, color, delay, mounted }: { title: string, items
   </div>
 );
 
-export const TokenSizeComparison: React.FC<TokenSizeComparisonProps> = ({ copy }) => {
+export const TokenSizeComparison = React.memo(({ copy }: TokenSizeComparisonProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -65,5 +65,5 @@ export const TokenSizeComparison: React.FC<TokenSizeComparisonProps> = ({ copy }
       <ItemRow title={copy.tokens} items={tokens} color="#8b5cf6" delay={0.9} mounted={mounted} />
     </div>
   );
-};
+});
 

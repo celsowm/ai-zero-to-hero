@@ -5,7 +5,7 @@ interface Gpt2LayerXrayProps {
   copy: Gpt2LayerXrayCopy;
 }
 
-export const Gpt2LayerXray: React.FC<Gpt2LayerXrayProps> = ({ copy }) => {
+export const Gpt2LayerXray = React.memo(({ copy }: Gpt2LayerXrayProps) => {
   const [activeLayer, setActiveLayer] = useState(0);
 
   useEffect(() => {
@@ -63,5 +63,5 @@ export const Gpt2LayerXray: React.FC<Gpt2LayerXrayProps> = ({ copy }) => {
 
     </div>
   );
-};
+});
 

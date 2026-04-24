@@ -5,7 +5,7 @@ interface RoadToMiniTransformerProps {
   copy: RoadToMiniTransformerCopy;
 }
 
-export const RoadToMiniTransformer: React.FC<RoadToMiniTransformerProps> = ({ copy }) => {
+export const RoadToMiniTransformer = React.memo(({ copy }: RoadToMiniTransformerProps) => {
   return (
     <div style={{
       width: '100%',
@@ -43,5 +43,5 @@ export const RoadToMiniTransformer: React.FC<RoadToMiniTransformerProps> = ({ co
 
     </div>
   );
-};
+});
 

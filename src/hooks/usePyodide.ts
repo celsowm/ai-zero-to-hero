@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import type { PyodideInterface } from 'pyodide';
 import { getPyodide, runPython, type PythonRunResult } from '../services/pyodideRunner';
-import type { ExerciseValidator } from '../types/slide';
+import type { ExerciseValidator, Language } from '../types/slide';
 import { validateExercise, type ValidationResult } from '../services/exerciseValidators';
 
 type PyodideStatus = 'idle' | 'loading' | 'ready' | 'error';
@@ -10,7 +10,7 @@ export interface UsePyodideReturn {
   status: PyodideStatus;
   error: string | null;
   run: (code: string) => Promise<PythonRunResult>;
-  check: (code: string, validators: ExerciseValidator[]) => Promise<{ success: boolean; results: ValidationResult[]; runResult: PythonRunResult }>;
+  check: (code: string, validators: ExerciseValidator[], language: Language) => Promise<{ success: boolean; results: ValidationResult[]; runResult: PythonRunResult }>;
 }
 
 export function usePyodide(): UsePyodideReturn {
@@ -55,7 +55,7 @@ export function usePyodide(): UsePyodideReturn {
   );
 
   const check = useCallback(
-    async (code: string, validators: ExerciseValidator[]) => {
+    async (code: string, validators: ExerciseValidator[], language: Language) => {
       const instance = await ensureReady();
       const runResult = await runPython(code);
 
@@ -64,6 +64,7 @@ export function usePyodide(): UsePyodideReturn {
         stdout: runResult.stdout,
         stderr: runResult.stderr,
         error: runResult.error,
+        language,
       };
 
       const validation = await validateExercise(context, validators);

@@ -5,7 +5,7 @@ interface AttentionLinesDiagramProps {
   copy: AttentionLinesDiagramCopy;
 }
 
-export const AttentionLinesDiagram: React.FC<AttentionLinesDiagramProps> = ({ copy }) => {
+export const AttentionLinesDiagram = React.memo(({ copy }: AttentionLinesDiagramProps) => {
   return (
     <div style={{
       width: '100%',
@@ -54,5 +54,5 @@ export const AttentionLinesDiagram: React.FC<AttentionLinesDiagramProps> = ({ co
       </svg>
     </div>
   );
-};
+});
 

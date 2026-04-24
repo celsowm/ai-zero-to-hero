@@ -579,7 +579,7 @@ function evaluateAccuracy(weights: NetworkWeights, copy: NeuralNetworkStepDebugg
   return evaluateDataset(weights, copy.dataset).accuracy;
 }
 
-export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
+export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
   const { language } = useCourse();
   const engineRef = useRef<ReturnType<typeof createTrainingDebugger> | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -968,7 +968,7 @@ export const NeuralNetworkStepDebugger: React.FC<Props> = ({ copy }) => {
       </PanelCard>
     </div>
   );
-};
+});
 
 const MetricCard: React.FC<{
   label: string;

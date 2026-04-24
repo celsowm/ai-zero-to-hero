@@ -1,8 +1,8 @@
 import React from 'react';
-import { useCourse } from '../context/CourseContext';
+import { useNavigation } from '../context/NavigationContext';
 
 export const SlideCounter: React.FC = () => {
-  const { currentSlideIndex, slides } = useCourse();
+  const { currentSlideIndex, slides } = useNavigation();
 
   return (
     <div
