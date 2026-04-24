@@ -50,7 +50,7 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 0.9;
     mount.appendChild(renderer.domElement);
 
     /* ── Post-processing ── */
@@ -70,9 +70,9 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
       const renderScene = new RenderPass(scene, camera);
       const bloomPass = new UnrealBloomPass(
         new THREE.Vector2(window.innerWidth, window.innerHeight),
-        1.0,
-        0.45,
-        0.20,
+        0.6,   // strength — mais suave
+        0.6,   // radius — mais focado
+        0.35,  // threshold — só brilha o que é realmente quente
       );
       composer = new EffectComposer(renderer);
       composer.addPass(renderScene);
@@ -135,7 +135,7 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
         transparent: true,
         fog: false,
       }));
-      const sunGeometry = track(new THREE.PlaneGeometry(350, 350));
+      const sunGeometry = track(new THREE.PlaneGeometry(250, 250));
       sun = new THREE.Mesh(sunGeometry, sunMaterial);
       sun.position.set(0, 150, -750);
       scene.add(sun);
