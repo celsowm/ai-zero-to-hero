@@ -1,7 +1,8 @@
-def predict_weight(height, age, beta_0, beta_1, beta_2):
-    return beta_0 + beta_1 * height + beta_2 * age
-beta_0 = -21.0
-beta_1 = 0.4
-beta_2 = 0.6
-predicted_weight = predict_weight(172, 29, beta_0, beta_1, beta_2)
-print(f"predicted weight: {predicted_weight:.2f}")
+# simple prediction function: takes input and returns output
+def predict_weight(height, beta0, beta1):
+    # linear calculation: intercept + coefficient * variable
+    return beta0 + beta1 * height
+
+# function call with concrete values
+result = predict_weight(170, -21, 0.5)
+print(result)
