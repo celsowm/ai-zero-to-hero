@@ -10,29 +10,36 @@ interface SlideFactoryProps {
   language: Language;
 }
 
+interface SlideRenderer {
+  render: (slide: ISlide, language: Language) => React.ReactNode;
+}
+
+const slideRenderers: Record<string, SlideRenderer> = {
+  markdown: {
+    render: (slide, language) => <MarkdownSlide content={slide.content[language]} />,
+  },
+  'two-column': {
+    render: (slide, language) => <TwoColumnSlide slide={slide} language={language} />,
+  },
+  code: {
+    render: (slide, language) => <CodeSlide content={slide.content[language]} />,
+  },
+  custom: {
+    render: (slide, language) => <CustomVisualSlide slide={slide} language={language} />,
+  },
+  exercise: {
+    render: (slide, language) => <CustomVisualSlide slide={slide} language={language} />,
+  },
+};
+
 export const SlideFactory: React.FC<SlideFactoryProps> = ({ slide, language }) => {
-  const content = slide.content[language];
-
-  switch (slide.type) {
-    case 'markdown':
-      return <MarkdownSlide content={content} />;
-    
-    case 'two-column':
-      return <TwoColumnSlide slide={slide} language={language} />;
-
-    case 'code':
-      return <CodeSlide content={content} />;
-
-    case 'custom':
-    case 'exercise':
-      return <CustomVisualSlide slide={slide} language={language} />;
-    
-    // Futuros tipos de slides serão adicionados aqui (ex: svg-anim, code)
-    default:
-      return (
-        <div className="flex items-center justify-center h-full text-slate-500 italic">
-          Slide type "{slide.type}" not yet implemented.
-        </div>
-      );
+  const renderer = slideRenderers[slide.type];
+  if (!renderer) {
+    return (
+      <div className="flex items-center justify-center h-full text-slate-500 italic">
+        Slide type &quot;{slide.type}&quot; not yet implemented.
+      </div>
+    );
   }
+  return <>{renderer.render(slide, language)}</>;
 };
