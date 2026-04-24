@@ -76,7 +76,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
   const plotH = chartH - chartPad.top - chartPad.bottom;
   const maxLoss = Math.max(...lossHistory, 1);
   const points = lossHistory.map((l, i) => ({
-    x: chartPad.left + (lossHistory.length > 1 ? (i / (lossHistory.length - 1)) * plotW : plotW / 2),
+    x: chartPad.left + (lossHistory.length > 1 ? (i / (lossHistory.length - 1)) : 0) * plotW,
     y: chartPad.top + plotH - (l / maxLoss) * plotH,
   }));
   const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
