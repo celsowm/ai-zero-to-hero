@@ -51,10 +51,10 @@ export interface EmbeddingSpace3DCopy {
 }
 
 export interface ContextWindowSliderCopy {
-  fullText: string;
+  fullText?: string;
   windowLabel: string;
-  forgottenLabel: string;
-  activeLabel: string;
+  forgottenLabel?: string;
+  activeLabel?: string;
 }
 
 export interface MlpTextDiagramCopy {
