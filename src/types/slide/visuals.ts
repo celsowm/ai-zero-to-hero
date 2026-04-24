@@ -68,366 +68,107 @@ import type {
 } from './neural-networks';
 import type { PythonExerciseVisualCopy } from './exercise';
 
-export interface BiologicalVsComputationalNeuronVisual {
-  id: 'biological-vs-computational-neuron';
-  copy: Record<Language, BiologicalVsComputationalNeuronCopy>;
+// ── Visual registry: maps each visual id to its copy type ──────────────────
+
+interface VisualCopyMap {
+  // inference / learning
+  'inference-diagram': InferenceDiagramCopy;
+  'learning-loop-diagram': LearningLoopDiagramCopy;
+  // localized image
+  'localized-image': LocalizedImageCopy;
+  // machine learning pipeline
+  'machine-learning-pipeline': MachineLearningPipelineCopy;
+  // nonlinear regression
+  'nonlinear-regression-boundary': NonlinearRegressionBoundaryVisualCopy;
+  'nonlinear-solution-ring': NonlinearSolutionRingVisualCopy;
+  // api latency
+  'api-latency-growth': ApiLatencyGrowthVisualCopy;
+  // linear regression
+  'linear-regression-tabs': LinearRegressionTabsCopy;
+  'python-prereq-tabs': PythonPrereqTabsVisualCopy;
+  'linear-regression-simple-line': LinearRegressionSimpleLineCopy;
+  'gradient-descent-3d': GradientDescentVisualCopy;
+  'linear-regression-notation': LinearRegressionNotationVisualCopy;
+  'linear-regression-3d-chart': LinearRegression3DChartVisualCopy;
+  // stepper
+  'progress-stepper': ProgressStepperVisualCopy;
+  // language models
+  'language-modeling-diagram': LanguageModelingDiagramCopy;
+  'next-token-interactive': NextTokenInteractiveCopy;
+  'token-size-comparison': TokenSizeComparisonCopy;
+  'tokenization-visualizer': TokenizationVisualizerCopy;
+  'bigram-counter': BigramCounterCopy;
+  'softmax-visualizer': SoftmaxVisualizerCopy;
+  'sampling-roulette': SamplingRouletteCopy;
+  'cross-entropy-chart': CrossEntropyChartCopy;
+  'embedding-space-3d': EmbeddingSpace3DCopy;
+  'context-window-slider': ContextWindowSliderCopy;
+  'mlp-text-diagram': MlpTextDiagramCopy;
+  'training-loop-stepper': TrainingLoopStepperCopy;
+  'training-loop-animation': TrainingLoopAnimationCopy;
+  'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
+  // transformers
+  'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
+  'transformer-overview-teaser': TransformerOverviewTeaserCopy;
+  'parallel-prediction-diagram': ParallelPredictionDiagramCopy;
+  'positional-embedding-adder': PositionalEmbeddingAdderCopy;
+  'transformer-block-diagram': TransformerBlockDiagramCopy;
+  'causal-mask-matrix': CausalMaskMatrixCopy;
+  'qkv-cocktail-party': QkvCocktailPartyCopy;
+  'attention-lines-diagram': AttentionLinesDiagramCopy;
+  'multihead-diagram': MultiheadDiagramCopy;
+  'residual-stream-highway': ResidualStreamHighwayCopy;
+  'attention-vs-mlp': AttentionVsMlpCopy;
+  'hidden-states-to-logits': HiddenStatesToLogitsCopy;
+  'sampling-controls': SamplingControlsCopy;
+  'gpt2-layer-by-layer-xray': Gpt2LayerXrayCopy;
+  'prediction-evolution-we-the-people': PredictionEvolutionCopy;
+  'why-transformers-work-so-well': WhyTransformersWorkCopy;
+  'road-to-mini-transformer': RoadToMiniTransformerCopy;
+  // neural networks
+  'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
+  'activation-functions-comparator': ActivationFunctionsComparatorCopy;
+  'sigmoid-deep-dive-explorer': SigmoidDeepDiveExplorerCopy;
+  'sigmoid-derivative-explorer': SigmoidDerivativeExplorerCopy;
+  'feedforward-flow-visual': FeedforwardFlowVisualCopy;
+  'backprop-signal-flow': BackpropSignalFlowVisualCopy;
+  'biological-vs-computational-neuron': BiologicalVsComputationalNeuronCopy;
+  'neural-network-step-debugger': NeuralNetworkStepDebuggerVisualCopy;
+  'neural-network-tabs-stepper': NeuralNetworkTabsStepperCopy;
+  'architecture-comparator': ArchitectureComparatorCopy;
+  'tensor-3d-explorer': Tensor3DExplorerCopy;
+  'derivative-ramp-explorer': DerivativeRampExplorerCopy;
+  // python exercise
+  'python-exercise': PythonExerciseVisualCopy;
+  // welcome
+  'welcome-synthwave': WelcomeSynthwaveCopy;
+  // placeholder / future visuals (temporary — replace with proper copy types when implemented)
+  'unembedding-diagram': WelcomeSynthwaveCopy;
+  'temperature-slider-interactive': WelcomeSynthwaveCopy;
+  'gpt2-full-architecture-diagram': WelcomeSynthwaveCopy;
+  'layer-evolution-chart': WelcomeSynthwaveCopy;
+  'transformer-scaling-chart': WelcomeSynthwaveCopy;
 }
 
-export interface NeuronArchitectureAnimatedVisual {
-  id: 'neuron-architecture-animated';
-  copy: Record<Language, NeuronArchitectureAnimatedCopy>;
-}
+// ── Generated SlideVisual union from the registry ──────────────────────────
 
-export interface ActivationFunctionsComparatorVisual {
-  id: 'activation-functions-comparator';
-  copy: Record<Language, ActivationFunctionsComparatorCopy>;
-}
+/**
+ * SlideVisual is derived from VisualCopyMap — one union member per visual id.
+ * Adding a new visual requires only adding an entry to VisualCopyMap above.
+ */
+export type SlideVisual = {
+  [K in keyof VisualCopyMap]: {
+    id: K;
+    copy: Record<Language, VisualCopyMap[K]>;
+  };
+}[keyof VisualCopyMap];
 
-export interface SigmoidDeepDiveExplorerVisual {
-  id: 'sigmoid-deep-dive-explorer';
-  copy: Record<Language, SigmoidDeepDiveExplorerCopy>;
-}
+// ── Convenience: extract copy type for a given visual id ───────────────────
 
-export interface SigmoidDerivativeExplorerVisual {
-  id: 'sigmoid-derivative-explorer';
-  copy: Record<Language, SigmoidDerivativeExplorerCopy>;
-}
+/** Usage: `type MyCopy = VisualCopyForId<'my-visual-id'>` */
+export type VisualCopyForId<T extends keyof VisualCopyMap> = VisualCopyMap[T];
 
-export interface FeedforwardFlowVisual {
-  id: 'feedforward-flow-visual';
-  copy: Record<Language, FeedforwardFlowVisualCopy>;
-}
-
-export interface BackpropSignalFlowVisual {
-  id: 'backprop-signal-flow';
-  copy: Record<Language, BackpropSignalFlowVisualCopy>;
-}
-
-export interface NeuralNetworkStepDebuggerVisual {
-  id: 'neural-network-step-debugger';
-  copy: Record<Language, NeuralNetworkStepDebuggerVisualCopy>;
-}
-
-export interface NeuralNetworkTabsStepperVisual {
-  id: 'neural-network-tabs-stepper';
-  copy: Record<Language, NeuralNetworkTabsStepperCopy>;
-}
-
-export interface ArchitectureComparatorVisual {
-  id: 'architecture-comparator';
-  copy: Record<Language, ArchitectureComparatorCopy>;
-}
-
-export interface Tensor3DExplorerVisual {
-  id: 'tensor-3d-explorer';
-  copy: Record<Language, Tensor3DExplorerCopy>;
-}
-
-export interface DerivativeRampExplorerVisual {
-  id: 'derivative-ramp-explorer';
-  copy: Record<Language, DerivativeRampExplorerCopy>;
-}
-
-export interface PythonExerciseVisual {
-  id: 'python-exercise';
-  copy: Record<Language, PythonExerciseVisualCopy>;
-}
-
-export interface InferenceDiagramVisual {
-  id: 'inference-diagram';
-  copy: Record<Language, InferenceDiagramCopy>;
-}
-
-export interface LearningLoopDiagramVisual {
-  id: 'learning-loop-diagram';
-  copy: Record<Language, LearningLoopDiagramCopy>;
-}
-
-export interface LocalizedImageVisual {
-  id: 'localized-image';
-  copy: Record<Language, LocalizedImageCopy>;
-}
-
-export interface MachineLearningPipelineVisual {
-  id: 'machine-learning-pipeline';
-  copy: Record<Language, MachineLearningPipelineCopy>;
-}
-
-export interface NonlinearRegressionBoundaryVisual {
-  id: 'nonlinear-regression-boundary';
-  copy: Record<Language, NonlinearRegressionBoundaryVisualCopy>;
-}
-
-export interface NonlinearSolutionRingVisual {
-  id: 'nonlinear-solution-ring';
-  copy: Record<Language, NonlinearSolutionRingVisualCopy>;
-}
-
-export interface ApiLatencyGrowthVisual {
-  id: 'api-latency-growth';
-  copy: Record<Language, ApiLatencyGrowthVisualCopy>;
-}
-
-export interface LinearRegressionTabsVisual {
-  id: 'linear-regression-tabs';
-  copy: Record<Language, LinearRegressionTabsCopy>;
-}
-
-export interface PythonPrereqTabsVisual {
-  id: 'python-prereq-tabs';
-  copy: Record<Language, PythonPrereqTabsVisualCopy>;
-}
-
-export interface GradientDescentVisual {
-  id: 'gradient-descent-3d';
-  copy: Record<Language, GradientDescentVisualCopy>;
-}
-
-export interface LinearRegressionNotationVisual {
-  id: 'linear-regression-notation';
-  copy: Record<Language, LinearRegressionNotationVisualCopy>;
-}
-
-export interface LinearRegression3DChartVisual {
-  id: 'linear-regression-3d-chart';
-  copy: Record<Language, LinearRegression3DChartVisualCopy>;
-}
-
-export interface ProgressStepperVisual {
-  id: 'progress-stepper';
-  copy: Record<Language, ProgressStepperVisualCopy>;
-}
-
-export interface LanguageModelingDiagramVisual {
-  id: 'language-modeling-diagram';
-  copy: Record<Language, LanguageModelingDiagramCopy>;
-}
-
-export interface NextTokenInteractiveVisual {
-  id: 'next-token-interactive';
-  copy: Record<Language, NextTokenInteractiveCopy>;
-}
-
-export interface TokenSizeComparisonVisual {
-  id: 'token-size-comparison';
-  copy: Record<Language, TokenSizeComparisonCopy>;
-}
-
-export interface TokenizationVisualizerVisual {
-  id: 'tokenization-visualizer';
-  copy: Record<Language, TokenizationVisualizerCopy>;
-}
-
-export interface BigramCounterVisual {
-  id: 'bigram-counter';
-  copy: Record<Language, BigramCounterCopy>;
-}
-
-export interface SoftmaxVisualizerVisual {
-  id: 'softmax-visualizer';
-  copy: Record<Language, SoftmaxVisualizerCopy>;
-}
-
-export interface SamplingRouletteVisual {
-  id: 'sampling-roulette';
-  copy: Record<Language, SamplingRouletteCopy>;
-}
-
-export interface CrossEntropyChartVisual {
-  id: 'cross-entropy-chart';
-  copy: Record<Language, CrossEntropyChartCopy>;
-}
-
-export interface EmbeddingSpace3DVisual {
-  id: 'embedding-space-3d';
-  copy: Record<Language, EmbeddingSpace3DCopy>;
-}
-
-export interface ContextWindowSliderVisual {
-  id: 'context-window-slider';
-  copy: Record<Language, ContextWindowSliderCopy>;
-}
-
-export interface MlpTextDiagramVisual {
-  id: 'mlp-text-diagram';
-  copy: Record<Language, MlpTextDiagramCopy>;
-}
-
-export interface TrainingLoopStepperVisual {
-  id: 'training-loop-stepper';
-  copy: Record<Language, TrainingLoopStepperCopy>;
-}
-
-export interface TrainingLoopAnimationVisual {
-  id: 'training-loop-animation';
-  copy: Record<Language, TrainingLoopAnimationCopy>;
-}
-
-export interface NeuralNetworkToLanguageModelingComparatorVisual {
-  id: 'neural-network-to-language-modeling-comparator';
-  copy: Record<Language, NeuralNetworkToLanguageModelingComparatorCopy>;
-}
-
-export interface Gpt2BlackboxDiagramVisual {
-  id: 'gpt2-blackbox-diagram';
-  copy: Record<Language, Gpt2BlackboxDiagramCopy>;
-}
-
-export interface TransformerOverviewTeaserVisual {
-  id: 'transformer-overview-teaser';
-  copy: Record<Language, TransformerOverviewTeaserCopy>;
-}
-
-export interface ParallelPredictionDiagramVisual {
-  id: 'parallel-prediction-diagram';
-  copy: Record<Language, ParallelPredictionDiagramCopy>;
-}
-
-export interface PositionalEmbeddingAdderVisual {
-  id: 'positional-embedding-adder';
-  copy: Record<Language, PositionalEmbeddingAdderCopy>;
-}
-
-export interface TransformerBlockDiagramVisual {
-  id: 'transformer-block-diagram';
-  copy: Record<Language, TransformerBlockDiagramCopy>;
-}
-
-export interface CausalMaskMatrixVisual {
-  id: 'causal-mask-matrix';
-  copy: Record<Language, CausalMaskMatrixCopy>;
-}
-
-export interface QkvCocktailPartyVisual {
-  id: 'qkv-cocktail-party';
-  copy: Record<Language, QkvCocktailPartyCopy>;
-}
-
-export interface AttentionLinesDiagramVisual {
-  id: 'attention-lines-diagram';
-  copy: Record<Language, AttentionLinesDiagramCopy>;
-}
-
-export interface MultiheadDiagramVisual {
-  id: 'multihead-diagram';
-  copy: Record<Language, MultiheadDiagramCopy>;
-}
-
-export interface ResidualStreamHighwayVisual {
-  id: 'residual-stream-highway';
-  copy: Record<Language, ResidualStreamHighwayCopy>;
-}
-
-export interface AttentionVsMlpVisual {
-  id: 'attention-vs-mlp';
-  copy: Record<Language, AttentionVsMlpCopy>;
-}
-
-export interface HiddenStatesToLogitsVisual {
-  id: 'hidden-states-to-logits';
-  copy: Record<Language, HiddenStatesToLogitsCopy>;
-}
-
-export interface SamplingControlsVisual {
-  id: 'sampling-controls';
-  copy: Record<Language, SamplingControlsCopy>;
-}
-
-export interface Gpt2LayerXrayVisual {
-  id: 'gpt2-layer-by-layer-xray';
-  copy: Record<Language, Gpt2LayerXrayCopy>;
-}
-
-export interface PredictionEvolutionVisual {
-  id: 'prediction-evolution-we-the-people';
-  copy: Record<Language, PredictionEvolutionCopy>;
-}
-
-export interface WhyTransformersWorkVisual {
-  id: 'why-transformers-work-so-well';
-  copy: Record<Language, WhyTransformersWorkCopy>;
-}
-
-export interface RoadToMiniTransformerVisual {
-  id: 'road-to-mini-transformer';
-  copy: Record<Language, RoadToMiniTransformerCopy>;
-}
-
-export interface WelcomeSynthwaveVisual {
-  id: 'welcome-synthwave';
-  copy: Record<Language, WelcomeSynthwaveCopy>;
-}
-
-export interface LinearRegressionSimpleLineVisual {
-  id: 'linear-regression-simple-line';
-  copy: Record<Language, LinearRegressionSimpleLineCopy>;
-}
-
-export type SlideVisual =
-  | InferenceDiagramVisual
-  | LearningLoopDiagramVisual
-  | LocalizedImageVisual
-  | MachineLearningPipelineVisual
-  | NonlinearRegressionBoundaryVisual
-  | NonlinearSolutionRingVisual
-  | ApiLatencyGrowthVisual
-  | LinearRegressionTabsVisual
-  | PythonPrereqTabsVisual
-  | LinearRegressionSimpleLineVisual
-  | GradientDescentVisual
-  | LinearRegressionNotationVisual
-  | LinearRegression3DChartVisual
-  | ProgressStepperVisual
-  | LanguageModelingDiagramVisual
-  | NextTokenInteractiveVisual
-  | TokenSizeComparisonVisual
-  | TokenizationVisualizerVisual
-  | BigramCounterVisual
-  | SoftmaxVisualizerVisual
-  | SamplingRouletteVisual
-  | CrossEntropyChartVisual
-  | EmbeddingSpace3DVisual
-  | ContextWindowSliderVisual
-  | MlpTextDiagramVisual
-  | TrainingLoopStepperVisual
-  | TrainingLoopAnimationVisual
-  | NeuralNetworkToLanguageModelingComparatorVisual
-  | Gpt2BlackboxDiagramVisual
-  | TransformerOverviewTeaserVisual
-  | ParallelPredictionDiagramVisual
-  | PositionalEmbeddingAdderVisual
-  | TransformerBlockDiagramVisual
-  | CausalMaskMatrixVisual
-  | QkvCocktailPartyVisual
-  | AttentionLinesDiagramVisual
-  | MultiheadDiagramVisual
-  | ResidualStreamHighwayVisual
-  | AttentionVsMlpVisual
-  | HiddenStatesToLogitsVisual
-  | SamplingControlsVisual
-  | Gpt2LayerXrayVisual
-  | PredictionEvolutionVisual
-  | WhyTransformersWorkVisual
-  | RoadToMiniTransformerVisual
-  | WelcomeSynthwaveVisual
-  | NeuronArchitectureAnimatedVisual
-  | ActivationFunctionsComparatorVisual
-  | SigmoidDeepDiveExplorerVisual
-  | SigmoidDerivativeExplorerVisual
-  | FeedforwardFlowVisual
-  | BackpropSignalFlowVisual
-  | BiologicalVsComputationalNeuronVisual
-  | NeuralNetworkStepDebuggerVisual
-  | NeuralNetworkTabsStepperVisual
-  | ArchitectureComparatorVisual
-  | Tensor3DExplorerVisual
-  | DerivativeRampExplorerVisual
-  | PythonExerciseVisual
-  | { id: 'unembedding-diagram'; copy: WelcomeSynthwaveCopy }
-  | { id: 'temperature-slider-interactive'; copy: WelcomeSynthwaveCopy }
-  | { id: 'gpt2-full-architecture-diagram'; copy: WelcomeSynthwaveCopy }
-  | { id: 'layer-evolution-chart'; copy: WelcomeSynthwaveCopy }
-  | { id: 'transformer-scaling-chart'; copy: WelcomeSynthwaveCopy };
+// ── Slide options and ISlide ───────────────────────────────────────────────
 
 export interface SlideOptions {
   columns?: number;
