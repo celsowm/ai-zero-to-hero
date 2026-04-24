@@ -2,7 +2,7 @@ import React from 'react';
 import type { Language } from '../types/slide';
 
 export interface VisualRenderProps {
-  visual: { id: string; copy: Record<Language, unknown> };
+  visual: { id: string; copy: unknown };
   language: Language;
 }
 

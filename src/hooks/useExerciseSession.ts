@@ -21,7 +21,7 @@ interface UseExerciseSessionReturn {
 
 export function useExerciseSession(
   exercise: ExerciseItem,
-  language: Language,
+  _language: Language,
 ): UseExerciseSessionReturn {
   const [code, setCode] = useState(exercise.starterCode);
   const [output, setOutput] = useState('');

@@ -122,7 +122,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
           someFailed={someFailed}
           successMessage={successMessage}
           errorMessage={errorMessage}
-          language={language}
         />
       )}
     </div>

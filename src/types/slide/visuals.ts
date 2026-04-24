@@ -401,7 +401,12 @@ export type SlideVisual =
   | NeuralNetworkStepDebuggerVisual
   | NeuralNetworkTabsStepperVisual
   | ArchitectureComparatorVisual
-  | PythonExerciseVisual;
+  | PythonExerciseVisual
+  | { id: 'unembedding-diagram'; copy: WelcomeSynthwaveCopy }
+  | { id: 'temperature-slider-interactive'; copy: WelcomeSynthwaveCopy }
+  | { id: 'gpt2-full-architecture-diagram'; copy: WelcomeSynthwaveCopy }
+  | { id: 'layer-evolution-chart'; copy: WelcomeSynthwaveCopy }
+  | { id: 'transformer-scaling-chart'; copy: WelcomeSynthwaveCopy };
 
 export interface SlideOptions {
   columns?: number;

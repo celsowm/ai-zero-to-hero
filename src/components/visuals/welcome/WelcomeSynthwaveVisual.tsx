@@ -54,7 +54,8 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
     mount.appendChild(renderer.domElement);
 
     /* ── Post-processing ── */
-    let composer: THREE.EffectComposer | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let composer: any = null;
     // Dynamic imports for post-processing (tree-shakeable in Vite)
     Promise.all([
       import('three/addons/postprocessing/EffectComposer.js'),
@@ -400,10 +401,11 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
     createStars();
 
     /* ── Grid & Mirror (with post-processing) ── */
-    let groundMirror: THREE.Reflector | null = null;
+    let groundMirror: any = null;
     let gridHelper: THREE.GridHelper | null = null;
 
-    function createFloorAndGrid(Reflector: typeof import('three/addons/objects/Reflector.js').Reflector) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function createFloorAndGrid(Reflector: any) {
       const mirrorGeo = new THREE.PlaneGeometry(1000, 2000);
       groundMirror = new Reflector(mirrorGeo, {
         clipBias: 0.003,

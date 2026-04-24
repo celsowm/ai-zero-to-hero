@@ -1,8 +1,6 @@
 import React from 'react';
 import { CheckCircle2, XCircle } from 'lucide-react';
 import type { ValidationResult } from '../../services/exerciseValidators';
-import type { Language } from '../../types/slide';
-import { getExerciseMessages } from '../../i18n/messages';
 
 interface ValidationFeedbackProps {
   results: ValidationResult[];
@@ -10,7 +8,6 @@ interface ValidationFeedbackProps {
   someFailed: boolean;
   successMessage: string;
   errorMessage: string;
-  language: Language;
 }
 
 export const ValidationFeedback: React.FC<ValidationFeedbackProps> = ({
@@ -19,10 +16,7 @@ export const ValidationFeedback: React.FC<ValidationFeedbackProps> = ({
   someFailed,
   successMessage,
   errorMessage,
-  language,
 }) => {
-  const msg = getExerciseMessages(language);
-
   return (
     <div
       style={{

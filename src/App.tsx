@@ -18,7 +18,7 @@ const CourseContent: React.FC = () => {
         {/* Content */}
         <div className="flex-1 flex items-stretch justify-center px-12 py-8 min-h-0 overflow-hidden">
           <div className="w-full h-full min-h-0 flex justify-center overflow-hidden">
-            <SlideFactory slide={currentSlide} language={language} />
+            {currentSlide && <SlideFactory slide={currentSlide} language={language} />}
           </div>
         </div>
 

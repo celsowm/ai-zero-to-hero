@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
-import type { Language } from '../types/slide';
-import type { ExerciseValidator, ValidationResult } from '../services/exerciseValidators';
+import type { Language, ExerciseValidator } from '../types/slide';
 import { runPython } from '../services/pyodideRunner';
 import { validateExercise } from '../services/exerciseValidators';
+import type { ValidationResult } from '../services/exerciseValidators';
+import type { ValidationContext } from '../services/exerciseValidators';
 import { usePyodideLoader } from './usePyodideLoader';
 
 interface ExerciseRunResult {
@@ -23,7 +24,7 @@ interface UseExerciseRunnerReturn {
 }
 
 export function useExerciseRunner(): UseExerciseRunnerReturn {
-  const { status, loadPyodide } = usePyodideLoader();
+  const { status, pyodide, loadPyodide } = usePyodideLoader();
   const [error, setError] = useState<string | null>(null);
 
   const run = useCallback(
@@ -46,8 +47,17 @@ export function useExerciseRunner(): UseExerciseRunnerReturn {
       await loadPyodide();
       try {
         const result = await runPython(code);
-        const validationResults = validateExercise(validators, language, result.stdout);
-        return { runResult: { stdout: result.stdout, stderr: result.stderr }, results: validationResults };
+        if (!pyodide) {
+          throw new Error('Pyodide not loaded');
+        }
+        const context: ValidationContext = {
+          pyodide,
+          stdout: result.stdout,
+          stderr: result.stderr,
+          language,
+        };
+        const validation = await validateExercise(context, validators);
+        return { runResult: { stdout: result.stdout, stderr: result.stderr }, results: validation.results };
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         setError(message);
@@ -57,7 +67,7 @@ export function useExerciseRunner(): UseExerciseRunnerReturn {
         };
       }
     },
-    [loadPyodide],
+    [loadPyodide, pyodide],
   );
 
   return { run, check, status, error };
