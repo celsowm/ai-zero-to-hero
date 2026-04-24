@@ -5,9 +5,6 @@ import { useNavigation } from './NavigationContext';
 import { useLocale } from './LocaleContext';
 import { findSlideById } from '../data/course-content';
 
-// Re-export LocaleContext for convenience during migration
-export { useLocale } from './LocaleContext';
-
 export interface CourseContextValue {
   currentSlide: ISlide | null;
   language: Language;
@@ -40,7 +37,3 @@ export const useCourse = () => {
   }
   return context;
 };
-
-// Re-export navigation and UI hooks
-export { useNavigation } from './NavigationContext';
-export { useUI } from './UIContext';
