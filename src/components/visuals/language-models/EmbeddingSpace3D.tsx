@@ -1,5 +1,6 @@
 import React from 'react';
 import type { EmbeddingSpace3DCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface EmbeddingSpace3DProps {
   copy: EmbeddingSpace3DCopy;
@@ -19,9 +20,9 @@ export const EmbeddingSpace3D = React.memo(({ copy }: EmbeddingSpace3DProps) => 
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#0f172a',
+      background: sw.void,
       borderRadius: '24px',
-      border: '1px solid #1e293b',
+      border: `1px solid ${sw.surface}`,
       boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
       display: 'flex',
       flexDirection: 'column',
@@ -33,7 +34,7 @@ export const EmbeddingSpace3D = React.memo(({ copy }: EmbeddingSpace3DProps) => 
         {copy.distanceLabel}
       </div>
       
-      <div style={{ position: 'relative', width: '100%', height: '300px', background: '#1e293b', borderRadius: '16px', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', width: '100%', height: '300px', background: sw.surface, borderRadius: '16px', overflow: 'hidden' }}>
         {/* Grid lines */}
         {[20, 40, 60, 80].map(p => (
           <React.Fragment key={p}>

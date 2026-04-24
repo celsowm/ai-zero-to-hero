@@ -10,6 +10,7 @@ import { CodeBlock } from '../../CodeBlock';
 import { PanelCard } from '../PanelCard';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { TabsBar } from '../TabsBar';
+import { sw } from '../../../theme/tokens';
 
 interface PythonPrereqTabsVisualProps {
   copy: PythonPrereqTabsVisualCopy;
@@ -18,8 +19,8 @@ interface PythonPrereqTabsVisualProps {
 const chartCardStyle: React.CSSProperties = {
   padding: 12,
   borderRadius: 14,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
 };
 
 const controlsStyle: React.CSSProperties = {
@@ -27,8 +28,8 @@ const controlsStyle: React.CSSProperties = {
   gap: 10,
   padding: 12,
   borderRadius: 14,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
 };
 
 const metricRowStyle: React.CSSProperties = {
@@ -40,8 +41,8 @@ const metricRowStyle: React.CSSProperties = {
 const metricCardStyle: React.CSSProperties = {
   padding: '10px 12px',
   borderRadius: 12,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
   minWidth: 0,
 };
 
@@ -114,10 +115,10 @@ const DataGraphPanel: React.FC<{ graph: PythonPrereqDataGraphCopy; footer: strin
       <div style={chartCardStyle}>
         <svg viewBox="0 0 560 260" width="100%" height="auto" role="img" aria-label={graph.title} style={{ display: 'block' }}>
           {[32, 64, 96, 128, 160, 192, 224].map(y => (
-            <line key={`grid-y-${y}`} x1="70" y1={y} x2="490" y2={y} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <line key={`grid-y-${y}`} x1="70" y1={y} x2="490" y2={y} stroke={sw.borderSubtle} strokeWidth="1" />
           ))}
           {[90, 140, 190, 240, 290, 340, 390, 440].map(x => (
-            <line key={`grid-x-${x}`} x1={x} y1="32" x2={x} y2="220" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <line key={`grid-x-${x}`} x1={x} y1="32" x2={x} y2="220" stroke={sw.borderSubtle} strokeWidth="1" />
           ))}
 
           <line x1="70" y1="220" x2="490" y2="220" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
@@ -126,7 +127,7 @@ const DataGraphPanel: React.FC<{ graph: PythonPrereqDataGraphCopy; footer: strin
           <polyline
             points={polylinePoints}
             fill="none"
-            stroke="rgba(0,229,255,0.45)"
+            stroke={`${sw.cyan}45`}
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -142,7 +143,7 @@ const DataGraphPanel: React.FC<{ graph: PythonPrereqDataGraphCopy; footer: strin
                   cy={mapY(point.weight)}
                   r={selectedPoint ? 6.5 : 4.5}
                   fill={point.accent}
-                  stroke={selectedPoint ? '#ffffff' : 'rgba(255,255,255,0.2)'}
+                  stroke={selectedPoint ? sw.tint : sw.borderMedium}
                   strokeWidth={selectedPoint ? 1.8 : 1}
                 />
                 <text
@@ -150,7 +151,7 @@ const DataGraphPanel: React.FC<{ graph: PythonPrereqDataGraphCopy; footer: strin
                   y={mapY(point.weight) - 12}
                   textAnchor="middle"
                   fontSize="11"
-                  fill={selectedPoint ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.72)'}
+                  fill={selectedPoint ? sw.tint : sw.textDim}
                 >
                   {point.label}
                 </text>
@@ -158,10 +159,10 @@ const DataGraphPanel: React.FC<{ graph: PythonPrereqDataGraphCopy; footer: strin
             );
           })}
 
-          <text x="280" y="248" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.76)">
+          <text x="280" y="248" textAnchor="middle" fontSize="12" fill={sw.textDim}>
             {graph.xLabel}
           </text>
-          <text x="22" y="126" transform="rotate(-90 22 126)" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.76)">
+          <text x="22" y="126" transform="rotate(-90 22 126)" textAnchor="middle" fontSize="12" fill={sw.textDim}>
             {graph.yLabel}
           </text>
         </svg>
@@ -246,10 +247,10 @@ const FunctionsGraphPanel: React.FC<{ graph: PythonPrereqFunctionGraphCopy; foot
       <div style={chartCardStyle}>
         <svg viewBox="0 0 560 260" width="100%" height="auto" role="img" aria-label={graph.title} style={{ display: 'block' }}>
           {[32, 64, 96, 128, 160, 192, 224].map(y => (
-            <line key={`grid-y-${y}`} x1="70" y1={y} x2="490" y2={y} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <line key={`grid-y-${y}`} x1="70" y1={y} x2="490" y2={y} stroke={sw.borderSubtle} strokeWidth="1" />
           ))}
           {[90, 140, 190, 240, 290, 340, 390, 440].map(x => (
-            <line key={`grid-x-${x}`} x1={x} y1="32" x2={x} y2="220" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <line key={`grid-x-${x}`} x1={x} y1="32" x2={x} y2="220" stroke={sw.borderSubtle} strokeWidth="1" />
           ))}
 
           <line x1="70" y1="220" x2="490" y2="220" stroke="rgba(255,255,255,0.35)" strokeWidth="2" />
@@ -266,22 +267,22 @@ const FunctionsGraphPanel: React.FC<{ graph: PythonPrereqFunctionGraphCopy; foot
 
           <defs>
             <linearGradient id="python-function-line" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#00e5ff" />
-              <stop offset="100%" stopColor="#ff2e97" />
+              <stop offset="0%" stopColor={sw.cyan} />
+              <stop offset="100%" stopColor={sw.pink} />
             </linearGradient>
           </defs>
 
-          <circle cx={mapX(height)} cy={mapY(prediction)} r={8.5} fill="rgba(255,255,255,0.2)" />
-          <circle cx={mapX(height)} cy={mapY(prediction)} r={6} fill="#ff2e97" stroke="white" strokeWidth="1.4" />
+          <circle cx={mapX(height)} cy={mapY(prediction)} r={8.5} fill={sw.tintState} />
+          <circle cx={mapX(height)} cy={mapY(prediction)} r={6} fill={sw.pink} stroke={sw.tint} strokeWidth="1.4" />
 
-          <text x={mapX(height)} y={mapY(prediction) - 14} textAnchor="middle" fontSize="11" fill="rgba(255,255,255,0.94)">
+          <text x={mapX(height)} y={mapY(prediction) - 14} textAnchor="middle" fontSize="11" fill={sw.text}>
             {prediction.toFixed(2)}
           </text>
 
-          <text x="280" y="248" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.76)">
+          <text x="280" y="248" textAnchor="middle" fontSize="12" fill={sw.textDim}>
             {graph.xLabel}
           </text>
-          <text x="22" y="126" transform="rotate(-90 22 126)" textAnchor="middle" fontSize="12" fill="rgba(255,255,255,0.76)">
+          <text x="22" y="126" transform="rotate(-90 22 126)" textAnchor="middle" fontSize="12" fill={sw.textDim}>
             {graph.yLabel}
           </text>
         </svg>
@@ -336,14 +337,14 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
   ];
 
   const step = steps[activeStep];
-  const branchColor = step.branch === 'negative' ? '#22d3ee' : step.branch === 'zero' ? '#facc15' : '#ff2e97';
+  const branchColor = step.branch === 'negative' ? sw.cyan : step.branch === 'zero' ? sw.yellow : sw.pink;
   const isPositive = activeStep === 0;
   const isZero = activeStep === 1;
   const isNegative = activeStep === 2;
 
-  const nodeFill = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.05)');
-  const nodeStroke = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.16)');
-  const lineStroke = (active: boolean, color: string) => (active ? color : 'rgba(255,255,255,0.3)');
+  const nodeFill = (active: boolean, color: string) => (active ? color : sw.tintOverlay);
+  const nodeStrokeFn = (active: boolean, color: string) => (active ? color : sw.borderMedium);
+  const lineStrokeFn = (active: boolean, color: string) => (active ? color : sw.borderMediumStrong);
   const lineOpacity = (active: boolean) => (active ? 1 : 0.5);
 
   return (
@@ -430,7 +431,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
           <path
             d="M 280 68 L 334 96 L 280 124 L 226 96 Z"
             fill={nodeFill(isPositive, 'rgba(255,46,151,0.14)')}
-            stroke={nodeStroke(isPositive, branchColor)}
+            stroke={nodeStrokeFn(isPositive, branchColor)}
             strokeWidth="2.5"
             filter={isPositive ? 'url(#conditionals-glow)' : undefined}
           />
@@ -446,7 +447,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             y1="96"
             x2="398"
             y2="96"
-            stroke={lineStroke(isPositive, branchColor)}
+            stroke={lineStrokeFn(isPositive, branchColor)}
             strokeWidth="2.5"
             markerEnd={isPositive ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
             opacity={lineOpacity(isPositive)}
@@ -461,7 +462,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             height="40"
             rx="12"
             fill={nodeFill(isPositive, 'rgba(255,46,151,0.14)')}
-            stroke={nodeStroke(isPositive, branchColor)}
+            stroke={nodeStrokeFn(isPositive, branchColor)}
             strokeWidth="2"
             filter={isPositive ? 'url(#conditionals-glow)' : undefined}
           />
@@ -477,7 +478,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             y1="124"
             x2="280"
             y2="144"
-            stroke={lineStroke(!isPositive, 'rgba(255,255,255,0.32)')}
+            stroke={lineStrokeFn(!isPositive, 'rgba(255,255,255,0.32)')}
             strokeWidth="2.5"
             markerEnd="url(#conditionals-arrow)"
             opacity={lineOpacity(!isPositive)}
@@ -489,7 +490,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
           <path
             d="M 280 144 L 334 172 L 280 200 L 226 172 Z"
             fill={nodeFill(isZero, 'rgba(250,204,21,0.14)')}
-            stroke={nodeStroke(isZero, '#facc15')}
+            stroke={nodeStrokeFn(isZero, '#facc15')}
             strokeWidth="2.5"
             filter={isZero ? 'url(#conditionals-glow)' : undefined}
           />
@@ -505,7 +506,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             y1="172"
             x2="398"
             y2="172"
-            stroke={lineStroke(isZero, '#facc15')}
+            stroke={lineStrokeFn(isZero, '#facc15')}
             strokeWidth="2.5"
             markerEnd={isZero ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
             opacity={lineOpacity(isZero)}
@@ -520,7 +521,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             height="40"
             rx="12"
             fill={nodeFill(isZero, 'rgba(250,204,21,0.14)')}
-            stroke={nodeStroke(isZero, '#facc15')}
+            stroke={nodeStrokeFn(isZero, '#facc15')}
             strokeWidth="2"
             filter={isZero ? 'url(#conditionals-glow)' : undefined}
           />
@@ -536,7 +537,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             y1="200"
             x2="280"
             y2="220"
-            stroke={lineStroke(isNegative, branchColor)}
+            stroke={lineStrokeFn(isNegative, branchColor)}
             strokeWidth="2.5"
             markerEnd={isNegative ? 'url(#conditionals-arrow-active)' : 'url(#conditionals-arrow)'}
             opacity={lineOpacity(isNegative)}
@@ -552,7 +553,7 @@ const ConditionalsGraphPanel: React.FC<{ graph: PythonPrereqConditionalsGraphCop
             height="44"
             rx="14"
             fill={nodeFill(isNegative, 'rgba(34,211,238,0.14)')}
-            stroke={nodeStroke(isNegative, branchColor)}
+            stroke={nodeStrokeFn(isNegative, branchColor)}
             strokeWidth="2.5"
             filter={isNegative ? 'url(#conditionals-glow)' : undefined}
           />

@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import type { TransformerOverviewTeaserCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface TransformerOverviewTeaserProps {
   copy: TransformerOverviewTeaserCopy;
 }
 
 const panelBackground = 'linear-gradient(180deg, rgba(14,16,28,0.96), rgba(10,12,20,0.98))';
-const labelFont = "'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace";
+const labelFont = sw.fontMono;
 
 const TokenRow: React.FC<{
   tokens: string[];
@@ -83,9 +84,9 @@ const Frame: React.FC<{
   <section
     style={{
       borderRadius: 16,
-      border: active ? `1px solid ${accent}55` : '1px solid rgba(255,255,255,0.08)',
+      border: active ? `1px solid ${accent}55` : `1px solid ${sw.borderMedium}`,
       background: panelBackground,
-      boxShadow: active ? `inset 3px 0 0 ${accent}` : 'inset 3px 0 0 rgba(255,255,255,0.04)',
+      boxShadow: active ? `inset 3px 0 0 ${accent}` : `inset 3px 0 0 ${sw.tintStronger}`,
       padding: 16,
       display: 'flex',
       flexDirection: 'column',
@@ -111,8 +112,8 @@ const MatrixBlock: React.FC<{
   <div
     style={{
       borderRadius: 14,
-      border: `1px solid ${active ? `${color}52` : 'rgba(255,255,255,0.08)'}`,
-      background: active ? `${color}10` : 'rgba(255,255,255,0.02)',
+      border: `1px solid ${active ? `${color}52` : sw.borderMedium}`,
+      background: active ? `${color}10` : sw.tint,
       padding: '12px 13px',
       display: 'grid',
       gap: 10,
@@ -189,10 +190,10 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
         padding: 20,
         borderRadius: 28,
         background: 'linear-gradient(180deg, rgba(20,18,31,0.97), rgba(10,10,16,0.99))',
-        border: '1px solid rgba(255,255,255,0.08)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 28px 56px rgba(0,0,0,0.34)',
+        border: `1px solid ${sw.borderMedium}`,
+        boxShadow: `${sw.insetHighlight}, 0 28px 56px rgba(0,0,0,0.34)`,
         color: 'var(--sw-text)',
-        fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+        fontFamily: sw.fontSans,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -240,8 +241,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
                   width: 30,
                   height: 30,
                   borderRadius: '50%',
-                  border: active ? '2px solid var(--sw-pink)' : '1px solid rgba(255,255,255,0.18)',
-                  background: active ? 'rgba(255,46,151,0.14)' : 'transparent',
+                  border: active ? '2px solid var(--sw-pink)' : `1px solid ${sw.borderMediumStrong}`,
+                  background: active ? `${sw.pink}14` : 'transparent',
                   color: 'var(--sw-text)',
                   fontSize: 12,
                   fontWeight: 800,
@@ -271,8 +272,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
             linear-gradient(180deg, rgba(11,13,22,0.98), rgba(8,10,16,1)),
             repeating-linear-gradient(
               0deg,
-              rgba(255,255,255,0.02) 0,
-              rgba(255,255,255,0.02) 1px,
+              ${sw.tint} 0,
+              ${sw.tint} 1px,
               transparent 1px,
               transparent 22px
             )
@@ -338,8 +339,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
             <div
               style={{
                 borderRadius: 14,
-                border: '1px solid rgba(255,255,255,0.08)',
-                background: 'rgba(255,255,255,0.02)',
+                border: `1px solid ${sw.borderMedium}`,
+                background: sw.tint,
                 padding: 14,
                 display: 'grid',
                 gap: 14,
@@ -392,8 +393,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
                 alignSelf: 'flex-start',
                 padding: '8px 14px',
                 borderRadius: 999,
-                border: '1px solid rgba(255,255,255,0.14)',
-                background: 'rgba(255,255,255,0.04)',
+                border: `1px solid ${sw.borderMediumStrong}`,
+                background: sw.tintStronger,
                 fontSize: 13,
                 fontWeight: 800,
                 color: 'var(--sw-text)',
@@ -422,8 +423,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
                 style={{
                   minHeight: 58,
                   borderRadius: 14,
-                  border: outputActive ? '1px solid rgba(255,46,151,0.22)' : '1px solid rgba(255,255,255,0.08)',
-                  background: outputActive ? 'rgba(255,46,151,0.07)' : 'rgba(255,255,255,0.02)',
+                  border: outputActive ? `1px solid ${sw.pink}22` : `1px solid ${sw.borderMedium}`,
+                  background: outputActive ? `${sw.pink}07` : sw.tint,
                   padding: '12px 14px',
                   display: 'flex',
                   alignItems: 'center',
@@ -448,7 +449,7 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
       <div
         style={{
           borderRadius: 16,
-          border: '1px solid rgba(255,255,255,0.08)',
+          border: `1px solid ${sw.borderMedium}`,
           background: 'linear-gradient(180deg, rgba(24,22,38,0.88), rgba(14,14,22,0.96))',
           padding: 16,
           display: 'grid',

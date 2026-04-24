@@ -11,6 +11,7 @@ import { useLocale } from '../../../context/LocaleContext';
 import { resolveSnippetSource } from '../../../content/registry';
 import { PanelCard } from '../PanelCard';
 import { CodeBlock } from '../../CodeBlock';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: NeuralNetworkStepDebuggerVisualCopy;
@@ -26,9 +27,9 @@ const SPEED_SETTINGS: Record<Speed, { delayMs: number; batchSize: number }> = {
 };
 
 const fmt = (value: number, digits = 4) => value.toFixed(digits);
-const POSITIVE_VALUE_COLOR = '#a5f3fc';
-const NEGATIVE_VALUE_COLOR = '#fda4af';
-const BIAS_ACCENT_COLOR = '#fbbf24';
+const POSITIVE_VALUE_COLOR = sw.sky;
+const NEGATIVE_VALUE_COLOR = sw.rose;
+const BIAS_ACCENT_COLOR = sw.yellow;
 const BIAS_TEXT_COLOR = '#fde68a';
 const PLACEHOLDER_VALUE = '—';
 
@@ -93,17 +94,17 @@ const NetworkGraph: React.FC<{
   const hiddenYs = getNodeYs(copy.architecture.hiddenSize, 82, 210);
   const outputY = 144;
   const weights = snap.weightsAfter;
-  const edgeColorInput = isBackprop ? '#ff2e97' : '#38bdf8';
-  const edgeColorOutput = isBackprop ? '#ff2e97' : '#66b84a';
+  const edgeColorInput = isBackprop ? sw.pink : sw.sky;
+  const edgeColorOutput = isBackprop ? sw.pink : '#66b84a';
 
   return (
     <svg viewBox="0 0 400 320" width="100%" height="100%" style={{ display: 'block' }}>
       <defs>
         <marker id="nn-ah-fwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+          <path d="M 0 0 L 10 5 L 0 10 z" fill={sw.sky} />
         </marker>
         <marker id="nn-ah-bwd" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto">
-          <path d="M 10 0 L 0 5 L 10 10 z" fill="#ff2e97" />
+          <path d="M 10 0 L 0 5 L 10 10 z" fill={sw.pink} />
         </marker>
         <style>{`
           @keyframes nn-flow-forward { from { stroke-dashoffset: 20 } to { stroke-dashoffset: 0 } }
@@ -113,10 +114,10 @@ const NetworkGraph: React.FC<{
         `}</style>
       </defs>
 
-      <text x={inputX} y="34" textAnchor="middle" fontSize="7" fontWeight="900" fill={isForward ? '#00e5ff' : 'var(--sw-text-dim)'}>
+      <text x={inputX} y="34" textAnchor="middle" fontSize="7" fontWeight="900" fill={isForward ? sw.cyan : 'var(--sw-text-dim)'}>
         {copy.labels.inputLayer}
       </text>
-      <text x={hiddenX} y="34" textAnchor="middle" fontSize="7" fontWeight="900" fill={isForward || isBackprop ? '#38bdf8' : 'var(--sw-text-dim)'}>
+      <text x={hiddenX} y="34" textAnchor="middle" fontSize="7" fontWeight="900" fill={isForward || isBackprop ? sw.sky : 'var(--sw-text-dim)'}>
         {copy.labels.hiddenLayer}
       </text>
       <text x={outputX} y="34" textAnchor="middle" fontSize="7" fontWeight="900" fill={isForward || isBackprop ? '#66b84a' : 'var(--sw-text-dim)'}>
@@ -230,8 +231,8 @@ const NetworkGraph: React.FC<{
           onMouseEnter={() => onHover(copy.tooltips.input)}
           onMouseLeave={() => onHover(null)}
         >
-          <circle cx={inputX} cy={inputY} r={inputRadius} fill="rgba(0,229,255,0.08)" stroke="#00e5ff" strokeWidth={isForward ? 1.5 : 0.8} />
-          <text x={inputX} y={inputY + 1} textAnchor="middle" fontSize="8.8" fontWeight="900" fill="#00e5ff">
+          <circle cx={inputX} cy={inputY} r={inputRadius} fill="rgba(0,229,255,0.08)" stroke={sw.cyan} strokeWidth={isForward ? 1.5 : 0.8} />
+          <text x={inputX} y={inputY + 1} textAnchor="middle" fontSize="8.8" fontWeight="900" fill={sw.cyan}>
             x{inputIndex + 1}
           </text>
           <text x={inputX} y={inputY + 12} textAnchor="middle" fontSize="6.2" fill="var(--sw-text-dim)">
@@ -256,10 +257,10 @@ const NetworkGraph: React.FC<{
             cy={hiddenY}
             r={hiddenRadius}
             fill="rgba(56,189,248,0.08)"
-            stroke={isBackprop ? '#ff2e97' : '#38bdf8'}
+            stroke={isBackprop ? sw.pink : sw.sky}
             strokeWidth={isForward || isBackprop ? 1.5 : 0.8}
           />
-          <text x={hiddenX} y={hiddenY - 8} textAnchor="middle" fontSize="11" fontWeight="900" fill={isBackprop ? '#ff2e97' : '#38bdf8'}>
+          <text x={hiddenX} y={hiddenY - 8} textAnchor="middle" fontSize="11" fontWeight="900" fill={isBackprop ? sw.pink : sw.sky}>
             h{hiddenIndex + 1}
           </text>
           <text x={hiddenX} y={hiddenY + 4} textAnchor="middle" fontSize="8.3" fontWeight="700" fill="var(--sw-text)">
@@ -277,10 +278,10 @@ const NetworkGraph: React.FC<{
           cy={outputY}
           r={outputRadius}
           fill="rgba(102,184,74,0.08)"
-          stroke={isBackprop ? '#ff2e97' : '#66b84a'}
+          stroke={isBackprop ? sw.pink : '#66b84a'}
           strokeWidth={isForward || isBackprop ? 2 : 1}
         />
-        <text x={outputX} y={outputY - 10} textAnchor="middle" fontSize="11.5" fontWeight="900" fill={isBackprop ? '#ff2e97' : '#66b84a'}>
+        <text x={outputX} y={outputY - 10} textAnchor="middle" fontSize="11.5" fontWeight="900" fill={isBackprop ? sw.pink : '#66b84a'}>
           y_hat
         </text>
         <text x={outputX} y={outputY + 4} textAnchor="middle" fontSize="9" fontWeight="700" fill={snap.forward.outputActivation >= 0.5 ? '#22c55e' : '#f97316'}>
@@ -296,15 +297,15 @@ const NetworkGraph: React.FC<{
 
       <g transform="translate(10, 284)">
         <rect width="108" height="12" rx="4" fill="rgba(0,0,0,0.3)" />
-        <text x="5" y="9" fontSize="7" fontWeight="900" letterSpacing=".05em" fill={isForward ? '#00e5ff' : isBackprop ? '#ff2e97' : '#a78bfa'}>
+        <text x="5" y="9" fontSize="7" fontWeight="900" letterSpacing=".05em" fill={isForward ? sw.cyan : isBackprop ? sw.pink : '#a78bfa'}>
           {activePhase.toUpperCase()} {isForward ? 'PASS' : isBackprop ? 'PROP' : 'WEIGHTS'}
         </text>
       </g>
 
       <g transform="translate(110, 240)">
         <rect width="176" height="68" rx="10" fill="rgba(7,10,18,0.80)" stroke="rgba(56,189,248,0.22)" strokeWidth="0.9" />
-        <line x1="44" y1="16" x2="164" y2="16" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
-        <line x1="44" y1="16" x2="44" y2="60" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+        <line x1="44" y1="16" x2="164" y2="16" stroke={sw.borderMedium} strokeWidth="0.8" />
+        <line x1="44" y1="16" x2="44" y2="60" stroke={sw.borderMedium} strokeWidth="0.8" />
         <text x="12" y="12" fontSize="7.2" fontWeight="900" fill="#7dd3fc">w1</text>
         <text x="28" y="12" fontSize="6.6" fontWeight="800" fill="var(--sw-text-muted)">/</text>
         <text x="34" y="12" fontSize="7.2" fontWeight="900" fill={BIAS_ACCENT_COLOR}>b1</text>
@@ -340,7 +341,7 @@ const NetworkGraph: React.FC<{
           </g>
         ))}
 
-        <line x1="10" y1="60" x2="164" y2="60" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+        <line x1="10" y1="60" x2="164" y2="60" stroke={sw.borderMedium} strokeWidth="0.8" />
         <text x="14" y="57.5" fontSize="6.1" fontWeight="900" fill={BIAS_ACCENT_COLOR}>b1</text>
         {weights.hiddenBiases.map((bias, index) => (
           <text
@@ -359,7 +360,7 @@ const NetworkGraph: React.FC<{
 
       <g transform="translate(296, 240)">
         <rect width="78" height="68" rx="10" fill="rgba(7,10,18,0.80)" stroke="rgba(102,184,74,0.22)" strokeWidth="0.9" />
-        <line x1="10" y1="16" x2="68" y2="16" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+        <line x1="10" y1="16" x2="68" y2="16" stroke={sw.borderMedium} strokeWidth="0.8" />
         <text x="12" y="12" fontSize="7.2" fontWeight="900" fill="#86efac">w2</text>
         <text x="28" y="12" fontSize="6.6" fontWeight="800" fill="var(--sw-text-muted)">/</text>
         <text x="34" y="12" fontSize="7.2" fontWeight="900" fill={BIAS_ACCENT_COLOR}>b2</text>
@@ -390,7 +391,7 @@ const NetworkGraph: React.FC<{
           </g>
         ))}
 
-        <line x1="10" y1="60" x2="68" y2="60" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+        <line x1="10" y1="60" x2="68" y2="60" stroke={sw.borderMedium} strokeWidth="0.8" />
         <text x="14" y="57.5" fontSize="6.1" fontWeight="900" fill={BIAS_ACCENT_COLOR}>b2</text>
         <text x="48" y="57.5" textAnchor="middle" fontSize="6.1" fontWeight="900" fill={weights.outputBias >= 0 ? BIAS_TEXT_COLOR : NEGATIVE_VALUE_COLOR}>
           {fmt(weights.outputBias, 2)}
@@ -440,8 +441,8 @@ const MiniLossChart: React.FC<{
           opacity={0.4}
         />
       ) : null}
-      <path d={path} fill="none" stroke="#00e5ff" strokeWidth={1.2} strokeLinejoin="round" />
-      <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r={2} fill="#00e5ff" />
+      <path d={path} fill="none" stroke={sw.cyan} strokeWidth={1.2} strokeLinejoin="round" />
+      <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r={2} fill={sw.cyan} />
     </svg>
   );
 };
@@ -457,8 +458,8 @@ const SectionCard: React.FC<{
     style={{
       padding: '8px 10px',
       borderRadius: 12,
-      background: active ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)',
-      border: `1px solid ${active ? color : 'rgba(255,255,255,0.06)'}`,
+      background: active ? sw.tintOverlay : sw.tint,
+      border: `1px solid ${active ? color : sw.borderSubtle}`,
       boxShadow: active ? `0 0 0 1px ${color}, 0 0 15px ${color}22` : 'none',
       display: 'flex',
       flexDirection: 'column',
@@ -498,8 +499,8 @@ const SectionCard: React.FC<{
             gap: 10,
             padding: '4px 6px',
             borderRadius: 9,
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.04)',
+            background: sw.tint,
+            border: `1px solid ${sw.gridLine}`,
             minWidth: 0,
           }}
         >
@@ -518,7 +519,7 @@ const SectionCard: React.FC<{
           </span>
           <span
             style={{
-              color: '#e8e4f0',
+              color: sw.text,
               fontWeight: 800,
               fontSize: 12.5,
               lineHeight: 1.1,
@@ -570,7 +571,7 @@ const ComputationPanel: React.FC<{
     >
       <SectionCard title="Forward" color="#38bdf8" active={activePhase === 'forward'} columns={2} rows={forwardRows} />
       <SectionCard title="Loss" color="#f97316" active={activePhase === 'forward'} columns={2} rows={lossRows} />
-      <SectionCard title="Backprop" color="#ff2e97" active={activePhase === 'backprop'} columns={2} rows={backpropRows} />
+      <SectionCard title="Backprop" color={sw.pink} active={activePhase === 'backprop'} columns={2} rows={backpropRows} />
     </div>
   );
 };
@@ -780,8 +781,8 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
       ) : null}
 
       <PanelCard minHeight={0} gap={10} style={{ height: '100%', padding: 12 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '.04em', color: '#00e5ff', textTransform: 'uppercase' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${sw.borderSubtle}`, paddingBottom: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '.04em', color: sw.cyan, textTransform: 'uppercase' }}>
             {copy.trainingLabels.archLabel}: {copy.architecture.label}
           </div>
           <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--sw-text-dim)' }}>
@@ -789,7 +790,7 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
           </div>
         </div>
 
-        <div style={{ flex: 1, minHeight: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}>
+        <div style={{ flex: 1, minHeight: 0, borderRadius: 12, overflow: 'hidden', border: `1px solid ${sw.borderSubtle}`, background: 'rgba(0,0,0,0.2)' }}>
           <NetworkGraph snap={snap} copy={copy} activePhase={phase} onHover={setActiveTooltip} />
         </div>
 
@@ -797,7 +798,7 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
           <button type="button" onClick={handleStep} disabled={isPlaying || engineState.done} style={buttonStyle()}>
             {copy.labels.stepButton}
           </button>
-          <button type="button" onClick={handlePlayPause} disabled={engineState.done} style={buttonStyle('#00e5ff66', isPlaying ? '#00e5ff33' : '#00e5ff15', '#00e5ff')}>
+          <button type="button" onClick={handlePlayPause} disabled={engineState.done} style={buttonStyle(`${sw.cyan}66`, isPlaying ? `${sw.cyan}33` : `${sw.cyan}15`, sw.cyan)}>
             {isPlaying ? copy.labels.pauseButton : copy.labels.playButton}
           </button>
           <button type="button" onClick={handleReset} style={buttonStyle()}>
@@ -817,9 +818,9 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
                 style={{
                   padding: '4px 8px',
                   borderRadius: 6,
-                  border: `1px solid ${speed === speedKey ? '#00e5ff66' : 'rgba(255,255,255,0.06)'}`,
-                  background: speed === speedKey ? '#00e5ff20' : 'transparent',
-                  color: speed === speedKey ? '#00e5ff' : 'var(--sw-text-dim)',
+                  border: `1px solid ${speed === speedKey ? `${sw.cyan}66` : sw.borderSubtle}`,
+                  background: speed === speedKey ? `${sw.cyan}20` : 'transparent',
+                  color: speed === speedKey ? sw.cyan : 'var(--sw-text-dim)',
                   fontSize: 9,
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -835,7 +836,7 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
       <PanelCard minHeight={0} gap={12} style={{ height: '100%', padding: 14 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 10px', borderRadius: 10, background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)' }}>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <span style={{ fontSize: 11, fontWeight: 900, color: '#00e5ff' }}>
+            <span style={{ fontSize: 11, fontWeight: 900, color: sw.cyan }}>
               {copy.labels.sampleLabel} {snap.sampleIndex + 1}/{copy.dataset.length}
             </span>
             <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(0,229,255,0.3)' }} />
@@ -869,24 +870,24 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
             <span>{copy.trainingLabels.epochLabel}</span>
             <span style={{ color: 'var(--sw-text)' }}>{engineState.epoch}/{copy.totalEpochs}</span>
           </div>
-          <div style={{ height: 4, borderRadius: 999, overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
+          <div style={{ height: 4, borderRadius: 999, overflow: 'hidden', background: sw.borderMedium }}>
             <div
               style={{
                 height: '100%',
                 width: `${(engineState.epoch / copy.totalEpochs) * 100}%`,
                 borderRadius: 999,
-                background: engineState.converged ? '#22c55e' : 'linear-gradient(90deg, #00e5ff, #38bdf8)',
+                background: engineState.converged ? sw.green : `linear-gradient(90deg, ${sw.cyan}, ${sw.sky})`,
               }}
             />
           </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-          <MetricCard label={copy.trainingLabels.mseLabel} value={mse !== null ? (mse < 0.001 ? mse.toFixed(5) : mse.toFixed(4)) : '—'} accent={engineState.converged ? '#22c55e' : '#00e5ff'} />
+          <MetricCard label={copy.trainingLabels.mseLabel} value={mse !== null ? (mse < 0.001 ? mse.toFixed(5) : mse.toFixed(4)) : '—'} accent={engineState.converged ? sw.green : sw.cyan} />
           <MetricCard label={copy.trainingLabels.accuracyLabel} value={`${(accuracy * 100).toFixed(0)}%`} accent={accuracy === 1 ? '#22c55e' : 'var(--sw-text)'} />
         </div>
 
-        <div style={{ borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.15)', padding: '6px 4px', minHeight: 70 }}>
+        <div style={{ borderRadius: 12, border: `1px solid ${sw.borderSubtle}`, background: 'rgba(0,0,0,0.15)', padding: '6px 4px', minHeight: 70 }}>
           <div style={{ fontSize: 7, fontWeight: 800, color: 'var(--sw-text-muted)', textAlign: 'center', marginBottom: 4, textTransform: 'uppercase' }}>
             {copy.labels.lossHistoryTitle}
           </div>
@@ -916,8 +917,8 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
             marginTop: 6,
             padding: '12px 14px',
             borderRadius: 14,
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: sw.tintStrong,
+            border: `1px solid ${sw.borderSubtle}`,
             display: 'flex',
             flexDirection: 'column',
             gap: 8,
@@ -928,7 +929,7 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'init' ? '#94a3b8' : phase === 'forward' ? '#38bdf8' : phase === 'backprop' ? '#ff2e97' : phase === 'update' ? '#a78bfa' : '#22c55e' }} />
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: phase === 'init' ? '#94a3b8' : phase === 'forward' ? sw.sky : phase === 'backprop' ? sw.pink : phase === 'update' ? sw.purple : sw.green }} />
             <div style={{ fontSize: 9, fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--sw-text-dim)' }}>
               {copy.labels.phaseTitle}
             </div>
@@ -947,7 +948,7 @@ export const NeuralNetworkStepDebugger = React.memo(({ copy }: Props) => {
           </div>
         </div>
 
-        <div style={{ padding: '8px 10px', borderRadius: 12, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+        <div style={{ padding: '8px 10px', borderRadius: 12, background: sw.tint, border: `1px solid ${sw.gridLine}` }}>
           <div style={{ fontSize: 8, fontWeight: 800, letterSpacing: '.04em', textTransform: 'uppercase', color: '#66b84a', marginBottom: 4 }}>
             {copy.labels.predictionLabel}
           </div>
@@ -975,13 +976,13 @@ const MetricCard: React.FC<{
   value: string;
   accent: string;
 }> = ({ label, value, accent }) => (
-  <div style={{ padding: '8px 6px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', textAlign: 'center' }}>
+  <div style={{ padding: '8px 6px', borderRadius: 12, background: sw.tintStrong, border: `1px solid ${sw.borderSubtle}`, textAlign: 'center' }}>
     <div style={{ fontSize: 8, color: 'var(--sw-text-dim)', fontWeight: 700, textTransform: 'uppercase', marginBottom: 2 }}>{label}</div>
     <div style={{ fontSize: 14, fontWeight: 900, fontFamily: 'monospace', color: accent }}>{value}</div>
   </div>
 );
 
-function buttonStyle(border = 'rgba(255,255,255,0.1)', background = 'rgba(255,255,255,0.05)', color = 'var(--sw-text)') {
+function buttonStyle(border: string = sw.borderMediumStrong, background: string = sw.tintOverlay, color: string = sw.text) {
   return {
     padding: '6px 12px',
     borderRadius: 8,

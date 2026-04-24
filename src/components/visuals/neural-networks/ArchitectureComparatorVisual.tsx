@@ -4,6 +4,7 @@ import { CodeBlock } from '../../CodeBlock';
 import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: ArchitectureComparatorCopy;
@@ -25,7 +26,7 @@ const MLPDiagram = () => (
       const nextNodes = i === 0 ? [40, 70, 100] : [70];
       return currentNodes.map(y1 => 
         nextNodes.map(y2 => (
-          <line key={`${x}-${y1}-${y2}`} x1={x} y1={y1} x2={nextX} y2={y2} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+          <line key={`${x}-${y1}-${y2}`} x1={x} y1={y1} x2={nextX} y2={y2} stroke={sw.tintAccent} strokeWidth="0.5" />
         ))
       );
     })}
@@ -67,7 +68,7 @@ const CNNDiagram = () => (
 
     {/* Pooling/Output */}
     <rect x="170" y="50" width="15" height="15" rx="2" fill="var(--sw-purple)" opacity="0.8" />
-    <path d="M 150 57 L 170 57" stroke="rgba(255,255,255,0.2)" strokeWidth="1" markerEnd="url(#arrow)" />
+    <path d="M 150 57 L 170 57" stroke={sw.tintState} strokeWidth="1" markerEnd="url(#arrow)" />
   </svg>
 );
 
@@ -102,7 +103,7 @@ const TransformerDiagram = () => (
 
     <defs>
       <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-        <path d="M 0 0 L 6 3 L 0 6 Z" fill="rgba(255,255,255,0.5)" />
+        <path d="M 0 0 L 6 3 L 0 6 Z" fill={sw.tintActive} />
       </marker>
     </defs>
   </svg>
@@ -166,9 +167,9 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: 'rgba(255,255,255,0.02)',
+                  background: sw.tint,
                   borderRadius: 12,
-                  border: '1px solid rgba(255,255,255,0.05)',
+                  border: `1px solid ${sw.tintOverlay}`,
                 }}
               >
                 {activeTab === 0 && <MLPDiagram />}
@@ -229,7 +230,7 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
               fontSize: 13,
               fontWeight: 500,
               color: 'var(--sw-text-muted)',
-              borderTop: '1px solid rgba(255,255,255,0.1)',
+              borderTop: `1px solid ${sw.tintAccent}`,
               paddingTop: 16,
               flexShrink: 0,
               display: 'flex',

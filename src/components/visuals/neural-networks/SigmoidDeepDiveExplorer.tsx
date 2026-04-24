@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import type { SigmoidDeepDiveExplorerCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: SigmoidDeepDiveExplorerCopy;
@@ -98,8 +99,8 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
             alignItems: 'center',
             padding: '12px 16px',
             borderRadius: 16,
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: sw.tintStrong,
+            border: `1px solid ${sw.borderSubtle}`,
           }}
         >
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', minWidth: 0 }}>
@@ -132,7 +133,7 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
             style={{
               overflow: 'hidden',
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), radial-gradient(circle at 50% 16%, rgba(22,224,255,0.10), rgba(10,12,19,0.96) 56%)',
+                `linear-gradient(180deg, ${sw.tintStronger}, ${sw.tint}), radial-gradient(circle at 50% 16%, rgba(22,224,255,0.10), rgba(10,12,19,0.96) 56%)`,
             }}
           >
             <div style={{ padding: '14px 16px 0' }}>
@@ -163,7 +164,7 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
 
                 {[-6, -3, 0, 3, 6].map((tick) => (
                   <g key={`x-${tick}`}>
-                    <line x1={xC(tick)} x2={xC(tick)} y1={PAD.top} y2={H - PAD.bottom} stroke="rgba(255,255,255,0.06)" strokeDasharray="4 6" />
+                    <line x1={xC(tick)} x2={xC(tick)} y1={PAD.top} y2={H - PAD.bottom} stroke={sw.borderSubtle} strokeDasharray="4 6" />
                     <text x={xC(tick)} y={H - 14} fill="rgba(255,255,255,0.45)" fontSize="10" textAnchor="middle">
                       {tick}
                     </text>
@@ -177,7 +178,7 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
                       x2={W - PAD.right}
                       y1={yC(tick)}
                       y2={yC(tick)}
-                      stroke={tick === 0.5 ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)'}
+                      stroke={tick === 0.5 ? sw.tintActive : sw.borderMedium}
                       strokeDasharray={tick === 0.5 ? '7 7' : '4 6'}
                     />
                     <text x={14} y={yC(tick) + 4} fill="rgba(255,255,255,0.45)" fontSize="10">
@@ -186,7 +187,7 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
                   </g>
                 ))}
 
-                <line x1={xC(0)} x2={xC(0)} y1={PAD.top} y2={H - PAD.bottom} stroke="rgba(255,255,255,0.18)" />
+                <line x1={xC(0)} x2={xC(0)} y1={PAD.top} y2={H - PAD.bottom} stroke={sw.tintActive} />
 
                 <path d={curvePath} fill="none" stroke="#ff5da2" strokeWidth="4" strokeLinecap="round" filter="url(#sigmoid-deep-glow)" />
 
@@ -248,8 +249,8 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
                   style={{
                     padding: '10px 12px',
                     borderRadius: 12,
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.06)',
+                    background: sw.tintStrong,
+                    border: `1px solid ${sw.borderSubtle}`,
                     fontSize: 12,
                     color: 'var(--sw-text-dim)',
                     lineHeight: 1.55,
@@ -284,8 +285,8 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
                       alignItems: 'center',
                       padding: '8px 10px',
                       borderRadius: 10,
-                      background: 'rgba(255,255,255,0.03)',
-                      border: '1px solid rgba(255,255,255,0.05)',
+                      background: sw.tintStrong,
+                      border: `1px solid ${sw.tintOverlay}`,
                     }}
                   >
                     <span style={{ fontSize: 11, color: '#66b84a', fontWeight: 800 }}>{row.label}</span>
@@ -385,8 +386,8 @@ export const SigmoidDeepDiveExplorer = React.memo(({ copy }: Props) => {
                     textAlign: 'left',
                     padding: '12px 12px 10px',
                     borderRadius: 14,
-                    border: `1px solid ${active ? STEP_COLORS[stepKey] : 'rgba(255,255,255,0.06)'}`,
-                    background: active ? `${STEP_COLORS[stepKey]}14` : 'rgba(255,255,255,0.02)',
+                    border: `1px solid ${active ? STEP_COLORS[stepKey] : sw.borderSubtle}`,
+                    background: active ? `${STEP_COLORS[stepKey]}14` : sw.tint,
                     boxShadow: active ? `0 0 0 1px ${STEP_COLORS[stepKey]}33, 0 0 14px ${STEP_COLORS[stepKey]}14` : 'none',
                     cursor: 'pointer',
                     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',

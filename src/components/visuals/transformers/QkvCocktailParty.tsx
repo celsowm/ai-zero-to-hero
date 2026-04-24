@@ -1,5 +1,6 @@
 import React from 'react';
 import type { QkvCocktailPartyCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface QkvCocktailPartyProps {
   copy: QkvCocktailPartyCopy;
@@ -17,7 +18,7 @@ export const QkvCocktailParty = React.memo(({ copy }: QkvCocktailPartyProps) => 
       display: 'flex',
       flexDirection: 'column',
       gap: '40px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff'
     }}>
       

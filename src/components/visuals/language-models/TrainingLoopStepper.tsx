@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { TrainingLoopStepperCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface TrainingLoopStepperProps {
   copy: TrainingLoopStepperCopy;
@@ -9,9 +10,9 @@ export const TrainingLoopStepper = React.memo(({ copy }: TrainingLoopStepperProp
   const [step, setStep] = useState(1);
 
   const steps = [
-    { title: copy.step1Title, desc: copy.step1Desc, color: '#3b82f6' },
-    { title: copy.step2Title, desc: copy.step2Desc, color: '#ef4444' },
-    { title: copy.step3Title, desc: copy.step3Desc, color: '#10b981' },
+    { title: copy.step1Title, desc: copy.step1Desc, color: sw.indigo },
+    { title: copy.step2Title, desc: copy.step2Desc, color: sw.red },
+    { title: copy.step3Title, desc: copy.step3Desc, color: sw.green },
   ];
 
   return (
@@ -78,7 +79,7 @@ export const TrainingLoopStepper = React.memo(({ copy }: TrainingLoopStepperProp
           onClick={() => setStep(s => s === 3 ? 1 : s + 1)}
           style={{
             padding: '12px 32px',
-            background: '#38bdf8',
+            background: sw.sky,
             color: '#0f172a',
             border: 'none',
             borderRadius: '100px',

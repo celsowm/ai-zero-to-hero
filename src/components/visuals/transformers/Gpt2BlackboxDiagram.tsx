@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Gpt2BlackboxDiagramCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface Gpt2BlackboxDiagramProps {
   copy: Gpt2BlackboxDiagramCopy;
@@ -16,7 +17,7 @@ export const Gpt2BlackboxDiagram = React.memo(({ copy }: Gpt2BlackboxDiagramProp
       display: 'flex',
       flexDirection: 'column',
       gap: '32px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff',
       alignItems: 'center'
     }}>

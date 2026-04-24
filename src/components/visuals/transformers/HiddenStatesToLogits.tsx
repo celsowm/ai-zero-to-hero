@@ -1,5 +1,6 @@
 import React from 'react';
 import type { HiddenStatesToLogitsCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface HiddenStatesToLogitsProps {
   copy: HiddenStatesToLogitsCopy;
@@ -17,7 +18,7 @@ export const HiddenStatesToLogits = React.memo(({ copy }: HiddenStatesToLogitsPr
       alignItems: 'center',
       justifyContent: 'space-between',
       gap: '20px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff'
     }}>
       
@@ -26,7 +27,7 @@ export const HiddenStatesToLogits = React.memo(({ copy }: HiddenStatesToLogitsPr
         <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--sw-text-dim)', textTransform: 'uppercase' }}>{copy.hiddenStateLabel}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[0.8, -0.2, 0.5, 0.1].map((v, i) => (
-            <div key={i} style={{ width: '80px', height: '40px', background: v > 0 ? `rgba(0, 229, 255, ${Math.max(0.18, v * 0.55)})` : `rgba(255, 46, 151, ${Math.max(0.18, Math.abs(v) * 0.55)})`, border: '1px solid rgba(255,255,255,0.08)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '700' }}>
+            <div key={i} style={{ width: '80px', height: '40px', background: v > 0 ? `rgba(0, 229, 255, ${Math.max(0.18, v * 0.55)})` : `rgba(255, 46, 151, ${Math.max(0.18, Math.abs(v) * 0.55)})`, border: `1px solid ${sw.borderMedium}`, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '700' }}>
               {v}
             </div>
           ))}
@@ -64,7 +65,7 @@ export const HiddenStatesToLogits = React.memo(({ copy }: HiddenStatesToLogitsPr
             { word: 'it', score: -0.5 },
             { word: '...', score: '...' }
           ].map((item, i) => (
-            <div key={i} style={{ width: '120px', height: '40px', background: 'rgba(26,22,40,0.9)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', fontSize: '14px' }}>
+            <div key={i} style={{ width: '120px', height: '40px', background: 'rgba(26,22,40,0.9)', border: `1px solid ${sw.borderMedium}`, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', fontSize: '14px' }}>
               <span style={{ fontWeight: '600', color: 'var(--sw-text)' }}>{item.word}</span>
               <span style={{ fontWeight: '700', color: typeof item.score === 'number' ? (item.score > 0 ? 'var(--sw-cyan)' : 'var(--sw-pink)') : 'var(--sw-text-muted)' }}>{item.score}</span>
             </div>

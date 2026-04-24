@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { BigramCounterCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface BigramCounterProps {
   copy: BigramCounterCopy;
@@ -102,7 +103,7 @@ export const BigramCounter = React.memo(({ copy }: BigramCounterProps) => {
               background: '#fff',
               padding: '12px 24px',
               borderRadius: '12px',
-              border: '2px solid #38bdf8',
+              border: `2px solid ${sw.sky}`,
               display: 'flex',
               alignItems: 'center',
               gap: '12px',

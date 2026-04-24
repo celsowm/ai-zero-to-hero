@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { Gpt2LayerXrayCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface Gpt2LayerXrayProps {
   copy: Gpt2LayerXrayCopy;
@@ -26,13 +27,13 @@ export const Gpt2LayerXray = React.memo(({ copy }: Gpt2LayerXrayProps) => {
       flexDirection: 'column',
       alignItems: 'center',
       gap: '20px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff'
     }}>
       
       {/* Output */}
       <div style={{ padding: '8px 24px', background: 'linear-gradient(135deg, var(--sw-cyan), var(--sw-purple))', borderRadius: '100px', fontWeight: '700', boxShadow: '0 0 18px rgba(0,229,255,0.2)' }}>{copy.outputLabel}</div>
-      <div style={{ width: '4px', height: '20px', background: 'rgba(255,255,255,0.12)' }} />
+      <div style={{ width: '4px', height: '20px', background: sw.tintStrong }} />
 
       {/* Layers */}
       {[3, 2, 1].map(l => (
@@ -41,7 +42,7 @@ export const Gpt2LayerXray = React.memo(({ copy }: Gpt2LayerXrayProps) => {
             width: '280px',
             padding: '20px',
             background: activeLayer === l ? 'linear-gradient(135deg, rgba(255,46,151,0.9), rgba(168,85,247,0.9))' : 'rgba(26,22,40,0.92)',
-            border: activeLayer === l ? '2px solid rgba(0,229,255,0.7)' : '2px solid rgba(255,255,255,0.08)',
+            border: activeLayer === l ? '2px solid rgba(0,229,255,0.7)' : `2px solid ${sw.borderMedium}`,
             borderRadius: '16px',
             textAlign: 'center',
             fontWeight: '700',
@@ -52,8 +53,8 @@ export const Gpt2LayerXray = React.memo(({ copy }: Gpt2LayerXrayProps) => {
           }}>
             {copy.layerLabel} {l}
           </div>
-          <div style={{ width: '4px', height: '20px', background: 'rgba(255,255,255,0.12)', position: 'relative' }}>
-             <div style={{ position: 'absolute', top: '-4px', left: '-3px', width: '10px', height: '10px', borderTop: '2px solid rgba(255,255,255,0.12)', borderLeft: '2px solid rgba(255,255,255,0.12)', transform: 'rotate(45deg)' }} />
+          <div style={{ width: '4px', height: '20px', background: sw.tintStrong, position: 'relative' }}>
+             <div style={{ position: 'absolute', top: '-4px', left: '-3px', width: '10px', height: '10px', borderTop: `2px solid ${sw.tintStrong}`, borderLeft: `2px solid ${sw.tintStrong}`, transform: 'rotate(45deg)' }} />
           </div>
         </React.Fragment>
       ))}

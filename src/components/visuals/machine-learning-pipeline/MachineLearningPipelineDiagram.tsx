@@ -2,12 +2,13 @@ import React from 'react';
 import { Beaker, Brain, Database, Rocket, SlidersHorizontal, Split } from 'lucide-react';
 import type { MachineLearningPipelineCopy } from '../../../types/slide';
 import { ClippedAccentMarker } from '../primitives';
+import { sw } from '../../../theme/tokens';
 
 interface MachineLearningPipelineDiagramProps {
   copy: MachineLearningPipelineCopy;
 }
 
-const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
+const fontFamily = sw.fontSans;
 
 const wrapText = (text: string, maxWidth: number, fontSize: number) => {
   const approxCharWidth = fontSize * 0.57;
@@ -152,16 +153,16 @@ export const MachineLearningPipelineDiagram = React.memo(({ copy }: MachineLearn
       <desc id="ml-pipeline-desc">{copy.diagramDescription}</desc>
       <defs>
         <linearGradient id="pipeline-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#0f172a" />
-          <stop offset="100%" stopColor="#1e293b" />
+          <stop offset="0%" stopColor={sw.tintStrong} />
+          <stop offset="100%" stopColor={sw.tint} />
         </linearGradient>
         <radialGradient id="pipeline-glow-pink" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#f472b6" stopOpacity="0" />
+          <stop offset="0%" stopColor={sw.pink} stopOpacity="0.15" />
+          <stop offset="100%" stopColor={sw.pink} stopOpacity="0" />
         </radialGradient>
         <radialGradient id="pipeline-glow-cyan" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+          <stop offset="0%" stopColor={sw.sky} stopOpacity="0.15" />
+          <stop offset="100%" stopColor={sw.sky} stopOpacity="0" />
         </radialGradient>
         <marker id="pipeline-arrow-head" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
           <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8" />

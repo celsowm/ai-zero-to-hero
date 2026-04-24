@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { MlpTextDiagramCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface MlpTextDiagramProps {
   copy: MlpTextDiagramCopy;
@@ -69,7 +70,7 @@ export const MlpTextDiagram = React.memo(({ copy }: MlpTextDiagramProps) => {
               width: '120px',
               height: '60px',
               background: '#fee2e2',
-              border: '2px solid #ef4444',
+              border: `2px solid ${sw.red}`,
               borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
@@ -103,7 +104,7 @@ export const MlpTextDiagram = React.memo(({ copy }: MlpTextDiagramProps) => {
         </div>
 
         {active === 1 && (
-          <div style={{ background: '#ef4444', color: '#fff', padding: '12px 24px', borderRadius: '100px', fontWeight: '700', fontSize: '16px', animation: 'pop 0.3s' }}>
+          <div style={{ background: sw.red, color: '#fff', padding: '12px 24px', borderRadius: '100px', fontWeight: '700', fontSize: '16px', animation: 'pop 0.3s' }}>
             {copy.errorLabel}
           </div>
         )}

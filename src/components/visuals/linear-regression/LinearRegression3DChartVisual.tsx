@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import type { LinearRegression2DChartCopy, LinearRegression3DChartVisualCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 
@@ -9,7 +10,7 @@ interface LinearRegression3DChartVisualProps {
   copy: LinearRegression3DChartVisualCopy;
 }
 
-const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
+const fontFamily = sw.fontSans;
 
 const cardStyle: React.CSSProperties = {
   width: '100%',
@@ -41,10 +42,10 @@ const viewportShellStyle: React.CSSProperties = {
   minHeight: 450,
   borderRadius: 18,
   overflow: 'hidden',
-  border: '1px solid rgba(255,255,255,0.06)',
+  border: `1px solid ${sw.borderSubtle}`,
   background:
     'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.16), transparent 28%), radial-gradient(circle at 84% 12%, rgba(255, 46, 151, 0.14), transparent 26%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+  boxShadow: `${sw.insetHighlight}, ${sw.shadowDeep}`,
 };
 
 const overlayCardStyle: React.CSSProperties = {
@@ -59,7 +60,7 @@ const overlayCardStyle: React.CSSProperties = {
   padding: '7px 10px',
   borderRadius: 12,
   background: 'rgba(8, 12, 24, 0.62)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  border: `1px solid ${sw.borderMediumStrong}`,
   backdropFilter: 'blur(12px)',
 };
 
@@ -112,7 +113,7 @@ const controlsHintStyle: React.CSSProperties = {
   padding: '8px 10px',
   borderRadius: 12,
   background: 'rgba(8, 12, 24, 0.58)',
-  border: '1px solid rgba(255,255,255,0.08)',
+  border: `1px solid ${sw.borderMedium}`,
   fontSize: 11.5,
   fontWeight: 700,
   letterSpacing: '0.03em',
@@ -129,8 +130,8 @@ const guideGridStyle: React.CSSProperties = {
 const guideCardStyle: React.CSSProperties = {
   padding: '12px 12px 11px',
   borderRadius: 14,
-  background: 'rgba(255, 255, 255, 0.03)',
-  border: '1px solid rgba(255, 255, 255, 0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
 };
 
 type Bounds = {
@@ -291,7 +292,7 @@ const Static2DComparison: React.FC<{ copy: LinearRegression2DChartCopy }> = ({ c
           <div style={titleStyle}>{copy.title}</div>
         </div>
 
-        <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.lineLabel}</div>
+        <div style={{ ...badgeStyle(sw.yellow), flexShrink: 0 }}>{copy.lineLabel}</div>
       </div>
 
       <p style={descriptionStyle}>{copy.description}</p>
@@ -300,7 +301,7 @@ const Static2DComparison: React.FC<{ copy: LinearRegression2DChartCopy }> = ({ c
         style={{
           borderRadius: 18,
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.06)',
+          border: `1px solid ${sw.borderSubtle}`,
           background:
             'radial-gradient(circle at 20% 18%, rgba(0, 229, 255, 0.10), transparent 30%), radial-gradient(circle at 86% 10%, rgba(255, 46, 151, 0.10), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))',
         }}
@@ -308,22 +309,22 @@ const Static2DComparison: React.FC<{ copy: LinearRegression2DChartCopy }> = ({ c
         <svg viewBox="0 0 520 320" width="100%" height="auto" role="img" aria-label={copy.title} style={{ display: 'block' }}>
           <defs>
             <linearGradient id="lr2d-line-gradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#00e5ff" />
-              <stop offset="100%" stopColor="#ff2e97" />
+              <stop offset="0%" stopColor={sw.cyan} />
+              <stop offset="100%" stopColor={sw.pink} />
             </linearGradient>
           </defs>
 
-          <rect x="0" y="0" width="520" height="320" fill="rgba(255,255,255,0.015)" />
+          <rect x="0" y="0" width="520" height="320" fill={sw.tint} />
 
           {[92, 152, 212, 272, 332, 392, 452].map(x => (
-            <line key={x} x1={x} y1="52" x2={x} y2="258" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+            <line key={x} x1={x} y1="52" x2={x} y2="258" stroke={sw.gridLineAlt} strokeWidth="1" />
           ))}
           {[72, 112, 152, 192, 232].map(y => (
-            <line key={y} x1="92" y1={y} x2="452" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+            <line key={y} x1="92" y1={y} x2="452" y2={y} stroke={sw.gridLineAlt} strokeWidth="1" />
           ))}
 
-          <line x1="92" y1="258" x2="452" y2="258" stroke="rgba(255,255,255,0.34)" strokeWidth="2.2" />
-          <line x1="92" y1="258" x2="92" y2="52" stroke="rgba(255,255,255,0.34)" strokeWidth="2.2" />
+          <line x1="92" y1="258" x2="452" y2="258" stroke={sw.axisLineStrong} strokeWidth="2.2" />
+          <line x1="92" y1="258" x2="92" y2="52" stroke={sw.axisLineStrong} strokeWidth="2.2" />
 
           <line x1={lineStart.x} y1={lineStart.y} x2={lineEnd.x} y2={lineEnd.y} stroke="url(#lr2d-line-gradient)" strokeWidth="4" strokeLinecap="round" />
 
@@ -333,20 +334,20 @@ const Static2DComparison: React.FC<{ copy: LinearRegression2DChartCopy }> = ({ c
               <g key={point.label}>
                 <circle cx={projected.x} cy={projected.y} r="6.5" fill="rgba(0,0,0,0.2)" />
                 <circle cx={projected.x} cy={projected.y} r="5" fill={point.accent} />
-                <text x={projected.x} y={projected.y + 20} textAnchor="middle" fontSize="11.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.86)">
+                <text x={projected.x} y={projected.y + 20} textAnchor="middle" fontSize="11.5" fontFamily={sw.fontSans} fill={sw.textDim}>
                   {point.label}
                 </text>
               </g>
             );
           })}
 
-          <text x="470" y="86" textAnchor="end" fontSize="12" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+          <text x="470" y="86" textAnchor="end" fontSize="12" fontFamily={sw.fontSans} fill={sw.textDim}>
             {copy.lineLabel}
           </text>
-          <text x="272" y="304" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+          <text x="272" y="304" textAnchor="middle" fontSize="12.5" fontFamily={sw.fontSans} fill={sw.textDim}>
             {copy.xLabel}
           </text>
-          <text x="22" y="162" transform="rotate(-90 22 162)" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.78)">
+          <text x="22" y="162" transform="rotate(-90 22 162)" textAnchor="middle" fontSize="12.5" fontFamily={sw.fontSans} fill={sw.textDim}>
             {copy.yLabel}
           </text>
         </svg>
@@ -415,8 +416,8 @@ const StaticFallback: React.FC<{ copy: LinearRegression3DChartVisualCopy }> = ({
           <stop offset="100%" stopColor="#090d18" />
         </linearGradient>
         <linearGradient id="lr3d-plane" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.34" />
-          <stop offset="100%" stopColor="#ff2e97" stopOpacity="0.24" />
+          <stop offset="0%" stopColor={sw.cyan} stopOpacity="0.34" />
+          <stop offset="100%" stopColor={sw.pink} stopOpacity="0.24" />
         </linearGradient>
       </defs>
 
@@ -425,21 +426,21 @@ const StaticFallback: React.FC<{ copy: LinearRegression3DChartVisualCopy }> = ({
       <polygon
         points={planeCorners.map(point => `${point.x},${point.y}`).join(' ')}
         fill="url(#lr3d-plane)"
-        stroke="rgba(255,255,255,0.16)"
+        stroke={sw.borderMediumStrong}
         strokeWidth="2"
       />
 
-      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={xAxisEnd.x} y2={xAxisEnd.y} stroke="#00e5ff" strokeWidth="3" />
-      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={yAxisEnd.x} y2={yAxisEnd.y} stroke="#fbbf24" strokeWidth="3" />
-      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={zAxisEnd.x} y2={zAxisEnd.y} stroke="#ff2e97" strokeWidth="3" />
+      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={xAxisEnd.x} y2={xAxisEnd.y} stroke={sw.cyan} strokeWidth="3" />
+      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={yAxisEnd.x} y2={yAxisEnd.y} stroke={sw.yellow} strokeWidth="3" />
+      <line x1={axisOrigin.x} y1={axisOrigin.y} x2={zAxisEnd.x} y2={zAxisEnd.y} stroke={sw.pink} strokeWidth="3" />
 
-      <text x={xAxisEnd.x + 10} y={xAxisEnd.y + 4} fill="#00e5ff" fontFamily={fontFamily} fontSize="12" fontWeight="700">
+      <text x={xAxisEnd.x + 10} y={xAxisEnd.y + 4} fill={sw.cyan} fontFamily={fontFamily} fontSize="12" fontWeight="700">
         {copy.axisLabels.x}
       </text>
-      <text x={yAxisEnd.x - 8} y={yAxisEnd.y - 8} fill="#fbbf24" fontFamily={fontFamily} fontSize="12" fontWeight="700">
+      <text x={yAxisEnd.x - 8} y={yAxisEnd.y - 8} fill={sw.yellow} fontFamily={fontFamily} fontSize="12" fontWeight="700">
         {copy.axisLabels.y}
       </text>
-      <text x={zAxisEnd.x - 8} y={zAxisEnd.y + 18} fill="#ff2e97" fontFamily={fontFamily} fontSize="12" fontWeight="700">
+      <text x={zAxisEnd.x - 8} y={zAxisEnd.y + 18} fill={sw.pink} fontFamily={fontFamily} fontSize="12" fontWeight="700">
         {copy.axisLabels.z}
       </text>
 
@@ -462,7 +463,7 @@ const StaticFallback: React.FC<{ copy: LinearRegression3DChartVisualCopy }> = ({
             />
             <circle cx={predictedPoint.x} cy={predictedPoint.y} r="4.5" fill="#111827" stroke="#f8fafc" strokeWidth="1.6" />
             <circle cx={realPoint.x} cy={realPoint.y} r="6" fill={point.accent} />
-            <text x={realPoint.x + 10} y={realPoint.y - 8} fill="rgba(232,228,240,0.86)" fontFamily={fontFamily} fontSize="10.5">
+            <text x={realPoint.x + 10} y={realPoint.y - 8} fill={sw.textDim} fontFamily={fontFamily} fontSize="10.5">
               {point.label}
             </text>
           </g>
@@ -618,9 +619,9 @@ const LinearRegression3DScene: React.FC<{ copy: LinearRegression3DChartVisualCop
     scene.add(zAxis);
 
     const axisSprites = [
-      { text: copy.axisLabels.x, accent: '#00e5ff', position: new THREE.Vector3(2.95, bounds.floorY + 0.16, -2.15) },
-      { text: copy.axisLabels.y, accent: '#fbbf24', position: new THREE.Vector3(-2.55, 4.0, -2.15) },
-      { text: copy.axisLabels.z, accent: '#ff2e97', position: new THREE.Vector3(-2.55, bounds.floorY + 0.16, 2.55) },
+      { text: copy.axisLabels.x, accent: sw.cyan, position: new THREE.Vector3(2.95, bounds.floorY + 0.16, -2.15) },
+      { text: copy.axisLabels.y, accent: sw.yellow, position: new THREE.Vector3(-2.55, 4.0, -2.15) },
+      { text: copy.axisLabels.z, accent: sw.pink, position: new THREE.Vector3(-2.55, bounds.floorY + 0.16, 2.55) },
     ];
     const createdSprites: THREE.Sprite[] = [];
     axisSprites.forEach(item => {
@@ -800,7 +801,7 @@ export const LinearRegression3DChartVisual = React.memo(({ copy }: LinearRegress
           <div style={titleStyle}>{copy.title}</div>
         </div>
 
-        <div style={{ ...badgeStyle('#fbbf24'), flexShrink: 0 }}>{copy.coefficients.formula}</div>
+        <div style={{ ...badgeStyle(sw.yellow), flexShrink: 0 }}>{copy.coefficients.formula}</div>
       </div>
 
       <p style={descriptionStyle}>{copy.description}</p>
@@ -812,12 +813,12 @@ export const LinearRegression3DChartVisual = React.memo(({ copy }: LinearRegress
 
             <div style={overlayCardStyle}>
               <div style={overlayGroupStyle}>
-                <span style={badgeStyle('#00e5ff')}>
-                  <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+                <span style={badgeStyle(sw.cyan)}>
+                  <span style={{ width: 8, height: 8, borderRadius: 999, background: sw.cyan, boxShadow: sw.glowCyan }} />
                   {copy.planeLabel}
                 </span>
-                <span style={badgeStyle('#34d399')}>
-                  <span style={{ width: 8, height: 8, borderRadius: 999, background: '#34d399', boxShadow: '0 0 18px rgba(52,211,153,0.55)' }} />
+                <span style={badgeStyle(sw.green)}>
+                  <span style={{ width: 8, height: 8, borderRadius: 999, background: sw.green, boxShadow: sw.glowGreen }} />
                   {copy.realLabel}
                 </span>
                 <span style={badgeStyle('#f8fafc')}>
@@ -868,8 +869,8 @@ export const LinearRegression3DChartVisual = React.memo(({ copy }: LinearRegress
               ))}
               <div style={guideCardStyle}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                   <span style={badgeStyle('#a855f7')}>y</span>
-                   <span style={badgeStyle('#34d399')}>ŷ</span>
+                   <span style={badgeStyle(sw.purple)}>y</span>
+                   <span style={badgeStyle(sw.green)}>ŷ</span>
                 </div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sw-text)', lineHeight: 1.35, marginBottom: 5 }}>
                   {copy.realLabel} vs {copy.predictedLabel}
@@ -881,7 +882,7 @@ export const LinearRegression3DChartVisual = React.memo(({ copy }: LinearRegress
             </div>
           </div>
 
-          <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 12 }}>
+          <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)', borderTop: `1px solid ${sw.borderSubtle}`, paddingTop: 12 }}>
             {copy.footer}
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import type { ActivationFunctionsComparatorCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: ActivationFunctionsComparatorCopy;
@@ -86,7 +87,7 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
     <TabbedPanelSurface minHeight={0}>
       {/* ── TOP BAR: Tabs + Slider + Live Values ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 16, alignItems: 'center' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, auto)', gap: 6, padding: 6, borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, auto)', gap: 6, padding: 6, borderRadius: 14, background: sw.tintStrong, border: `1px solid ${sw.tintOverlay}` }}>
           {FUNCTION_KEYS.map((kind, index) => {
             const active = activeIndex === index;
             return (
@@ -124,8 +125,8 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
             justifyContent: 'flex-end',
             padding: '8px 16px',
             borderRadius: 999,
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: sw.tintStronger,
+            border: `1px solid ${sw.borderMediumStrong}`,
           }}
         >
           <span style={{ fontSize: 10, color: 'var(--sw-text-dim)', textTransform: 'uppercase', letterSpacing: '.12em' }}>
@@ -157,9 +158,9 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
               flex: 1,
               overflow: 'hidden',
               borderRadius: 18,
-              border: '1px solid rgba(255,255,255,0.06)',
+              border: `1px solid ${sw.borderSubtle}`,
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), radial-gradient(circle at 50% 18%, rgba(22,224,255,0.11), rgba(10,12,19,0.94) 52%)',
+                `linear-gradient(180deg, ${sw.tintStronger}, ${sw.tint}), radial-gradient(circle at 50% 18%, rgba(22,224,255,0.11), rgba(10,12,19,0.94) 52%)`,
             }}
           >
             <svg viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`} width="100%" height="100%" aria-label={copy.ariaLabel}>
@@ -186,7 +187,7 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
                     x2={xCoord(tick)}
                     y1={PADDING.top}
                     y2={CHART_HEIGHT - PADDING.bottom}
-                    stroke="rgba(255,255,255,0.07)"
+                    stroke={sw.borderMediumStrong}
                     strokeDasharray="5 7"
                   />
                   <text x={xCoord(tick)} y={CHART_HEIGHT - 14} fill="rgba(255,255,255,0.45)" fontSize="11" textAnchor="middle">
@@ -202,7 +203,7 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
                     x2={CHART_WIDTH - PADDING.right}
                     y1={yCoord(tick)}
                     y2={yCoord(tick)}
-                    stroke={tick === 0 ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.06)'}
+                    stroke={tick === 0 ? sw.tintActive : sw.borderSubtle}
                     strokeDasharray={tick === 0 ? 'none' : '5 7'}
                   />
                   <text x={18} y={yCoord(tick) + 4} fill="rgba(255,255,255,0.42)" fontSize="11">
@@ -211,7 +212,7 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
                 </g>
               ))}
 
-              <line x1={xCoord(0)} x2={xCoord(0)} y1={PADDING.top} y2={CHART_HEIGHT - PADDING.bottom} stroke="rgba(255,255,255,0.24)" />
+              <line x1={xCoord(0)} x2={xCoord(0)} y1={PADDING.top} y2={CHART_HEIGHT - PADDING.bottom} stroke={sw.tintState} />
 
               {FUNCTION_KEYS.map((kind) => (
                 <path
@@ -269,8 +270,8 @@ export const ActivationFunctionsComparator = React.memo(({ copy }: Props) => {
                   style={{
                     padding: '14px 16px',
                     borderRadius: 14,
-                    border: `1px solid ${isActive ? COLORS[kind] : 'rgba(255,255,255,0.06)'}`,
-                    background: isActive ? `${COLORS[kind]}14` : 'rgba(255,255,255,0.02)',
+                    border: `1px solid ${isActive ? COLORS[kind] : sw.borderSubtle}`,
+                    background: isActive ? `${COLORS[kind]}14` : sw.tint,
                     boxShadow: isActive ? `0 0 0 1px ${COLORS[kind]}44, 0 0 20px ${COLORS[kind]}18` : 'none',
                   }}
                 >
@@ -354,7 +355,7 @@ const ValueBadge: React.FC<{ label: string; value: string; color: string }> = ({
 );
 
 const InfoRow: React.FC<{ label: string; value: string; accent: string }> = ({ label, value, accent }) => (
-  <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: `1px solid ${accent}20` }}>
+  <div style={{ padding: '12px 14px', borderRadius: 12, background: sw.tintStrong, border: `1px solid ${accent}20` }}>
     <div style={{ fontSize: 12, color: 'var(--sw-text)', fontWeight: 700, marginBottom: 4 }}>{label}</div>
     <div style={{ fontSize: 12, color: 'var(--sw-text-dim)', lineHeight: 1.6 }}>{value}</div>
   </div>

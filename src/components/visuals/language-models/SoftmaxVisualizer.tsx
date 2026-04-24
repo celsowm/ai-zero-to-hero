@@ -1,5 +1,6 @@
 import React from 'react';
 import type { SoftmaxVisualizerCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface SoftmaxVisualizerProps {
   copy: SoftmaxVisualizerCopy;
@@ -16,7 +17,7 @@ export const SoftmaxVisualizer = React.memo(({ copy }: SoftmaxVisualizerProps) =
     <div style={{
       width: '100%',
       padding: '40px',
-      background: '#0f172a',
+      background: sw.void,
       borderRadius: '24px',
       boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
       display: 'flex',
@@ -32,7 +33,7 @@ export const SoftmaxVisualizer = React.memo(({ copy }: SoftmaxVisualizerProps) =
           <div style={{ fontSize: '14px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', textAlign: 'center' }}>
             {copy.countsLabel} (Logits)
           </div>
-          <div style={{ background: '#1e293b', borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ background: sw.surface, borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {data.map((item, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', background: '#334155', borderRadius: '8px' }}>
                 <span style={{ fontWeight: '600' }}>{item.word}</span>
@@ -81,7 +82,7 @@ export const SoftmaxVisualizer = React.memo(({ copy }: SoftmaxVisualizerProps) =
           <div style={{ fontSize: '14px', color: '#a855f7', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', textAlign: 'center' }}>
             {copy.softmaxLabel} (0 - 100%)
           </div>
-          <div style={{ background: '#1e293b', borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ background: sw.surface, borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {data.map((item, i) => (
               <div key={i} style={{ 
                 display: 'flex', 

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import type { DerivativeRampExplorerCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface DerivativeRampExplorerProps {
   copy: DerivativeRampExplorerCopy;
@@ -76,26 +77,26 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
       display: 'flex',
       flexDirection: 'column',
       gap: '14px',
-      background: 'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.08), transparent 32%), radial-gradient(circle at 82% 14%, rgba(168, 85, 247, 0.08), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))',
-      borderRadius: '18px',
-      border: '1px solid rgba(255,255,255,0.06)',
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+      background: sw.shellBackground,
+      borderRadius: sw.shellBorderRadius,
+      border: sw.shellBorder,
+      boxShadow: sw.shellShadow,
       padding: '16px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
-      color: '#e8e4f0',
+      fontFamily: sw.fontSans,
+      color: sw.text,
       overflow: 'hidden',
     }}>
 
       {/* Header */}
-      <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#00e5ff' }}>
+      <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: sw.cyan }}>
         {copy.eyebrow}
       </div>
 
       {/* SVG Chart */}
       <div style={{
-        background: 'rgba(255,255,255,0.02)',
-        borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.06)',
+        background: sw.cardBg,
+        borderRadius: sw.cardBorderRadius,
+        border: sw.borderSubtle,
         padding: '8px',
         display: 'flex',
         flexDirection: 'column',
@@ -109,7 +110,7 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
               key={`gx-${x}`}
               x1={toSvgX(x)} y1={pad.top}
               x2={toSvgX(x)} y2={pad.top + plotH}
-              stroke="rgba(255,255,255,0.04)"
+              stroke={sw.gridLine}
               strokeWidth="1"
             />
           ))}
@@ -118,7 +119,7 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
               key={`gy-${y}`}
               x1={pad.left} y1={toSvgY(y)}
               x2={pad.left + plotW} y2={toSvgY(y)}
-              stroke="rgba(255,255,255,0.04)"
+              stroke={sw.gridLine}
               strokeWidth="1"
             />
           ))}
@@ -127,12 +128,12 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
           <line
             x1={pad.left} y1={toSvgY(0)}
             x2={pad.left + plotW} y2={toSvgY(0)}
-            stroke="rgba(255,255,255,0.15)"
+            stroke={sw.axisLine}
             strokeWidth="1"
           />
 
           {/* Curve */}
-          <path d={curvePath} fill="none" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+          <path d={curvePath} fill="none" stroke={sw.purple} strokeWidth="2.5" strokeLinecap="round" />
 
           {/* Tangent line */}
           <line
@@ -155,9 +156,9 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
               x={toSvgX(x)}
               y={svgH - 4}
               textAnchor="middle"
-              fill="#6b6280"
+              fill={sw.textMuted}
               fontSize="10"
-              fontFamily="'JetBrains Mono', 'Fira Code', monospace"
+              fontFamily={sw.fontMono}
             >
               {x}
             </text>
@@ -170,9 +171,9 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
               x={pad.left - 4}
               y={toSvgY(y) + 3}
               textAnchor="end"
-              fill="#6b6280"
+              fill={sw.textMuted}
               fontSize="10"
-              fontFamily="'JetBrains Mono', 'Fira Code', monospace"
+              fontFamily={sw.fontMono}
             >
               {y}
             </text>
@@ -182,8 +183,8 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
         {/* Legend */}
         <div style={{ display: 'flex', gap: '14px', fontSize: '11px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <div style={{ width: '16px', height: '3px', background: '#a855f7', borderRadius: '2px' }} />
-            <span style={{ color: '#b0a8c4' }}>{copy.functionLabel} = {copy.functionName}</span>
+            <div style={{ width: '16px', height: '3px', background: sw.purple, borderRadius: '2px' }} />
+            <span style={{ color: sw.textDim }}>{copy.functionLabel} = {copy.functionName}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <div style={{ width: '16px', height: '3px', background: tanColor, borderRadius: '2px', borderStyle: Math.abs(fpx) >= 0.15 ? 'dashed' : 'solid' }} />
@@ -195,14 +196,14 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
       {/* Slider */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280' }}>
+          <span style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted }}>
             {copy.sliderLabel}
           </span>
           <span style={{
             fontSize: '13px',
             fontWeight: 700,
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-            color: '#00e5ff',
+            fontFamily: sw.fontMono,
+            color: sw.cyan,
           }}>
             x = {xVal.toFixed(3)}
           </span>
@@ -214,15 +215,15 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
           step="0.01"
           value={xVal}
           onChange={handleSlider}
-          style={{ width: '100%', accentColor: '#00e5ff', height: '4px' }}
+          style={{ width: '100%', accentColor: sw.cyan, height: '4px' }}
         />
       </div>
 
       {/* Live math cards */}
       <div style={{
-        background: 'rgba(255,255,255,0.02)',
-        borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.06)',
+        background: sw.cardBg,
+        borderRadius: sw.cardBorderRadius,
+        border: sw.borderSubtle,
         padding: '10px 12px',
         display: 'flex',
         flexDirection: 'column',
@@ -241,12 +242,12 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
           ].map(item => (
             <div key={item.label} style={{
               flex: 1,
-              background: 'rgba(255,255,255,0.03)',
+              background: sw.tintStrong,
               borderRadius: '8px',
               padding: '6px 8px',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6b6280', marginBottom: '2px' }}>
+              <div style={{ fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: sw.textMuted, marginBottom: '2px' }}>
                 {item.label}
               </div>
               <div style={{
@@ -263,23 +264,23 @@ export const DerivativeRampExplorer = React.memo(({ copy }: DerivativeRampExplor
 
         {/* Numerical approximation */}
         <div style={{
-          background: 'rgba(255,255,255,0.02)',
+          background: sw.tint,
           borderRadius: '8px',
           padding: '8px 10px',
           display: 'flex',
           flexDirection: 'column',
           gap: '3px',
           fontSize: '11.5px',
-          fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-          color: '#b0a8c4',
+          fontFamily: sw.fontMono,
+          color: sw.textDim,
         }}>
-          <div><span style={{ color: '#6b6280' }}>{copy.nudgedLabel}</span> = {(xVal + NUDGE).toFixed(4)}</div>
-          <div><span style={{ color: '#6b6280' }}>{copy.fxnudgedLabel}</span> = {fxNudged.toFixed(6)}</div>
-          <div><span style={{ color: '#6b6280' }}>{copy.deltaOutput}</span> = {deltaOut.toFixed(6)}</div>
-          <div><span style={{ color: '#6b6280' }}>{copy.deltaInput}</span> = {NUDGE}</div>
+          <div><span style={{ color: sw.textMuted }}>{copy.nudgedLabel}</span> = {(xVal + NUDGE).toFixed(4)}</div>
+          <div><span style={{ color: sw.textMuted }}>{copy.fxnudgedLabel}</span> = {fxNudged.toFixed(6)}</div>
+          <div><span style={{ color: sw.textMuted }}>{copy.deltaOutput}</span> = {deltaOut.toFixed(6)}</div>
+          <div><span style={{ color: sw.textMuted }}>{copy.deltaInput}</span> = {NUDGE}</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-            <span style={{ color: '#6b6280' }}>{copy.approxLabel}</span>
-            <span style={{ color: '#10b981', fontWeight: 700, fontSize: '13px' }}>{approx.toFixed(4)}</span>
+            <span style={{ color: sw.textMuted }}>{copy.approxLabel}</span>
+            <span style={{ color: sw.green, fontWeight: 700, fontSize: '13px' }}>{approx.toFixed(4)}</span>
             <span style={{
               fontSize: '9px',
               fontWeight: 700,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { TokenizationVisualizerCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface TokenizationVisualizerProps {
   copy: TokenizationVisualizerCopy;
@@ -27,7 +28,7 @@ export const TokenizationVisualizer = React.memo(({ copy }: TokenizationVisualiz
       display: 'flex',
       flexDirection: 'column',
       gap: '32px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff'
     }}>
       
@@ -67,7 +68,7 @@ export const TokenizationVisualizer = React.memo(({ copy }: TokenizationVisualiz
             <div style={{
               width: '2px',
               height: '30px',
-              background: '#38bdf8',
+              background: sw.sky,
               position: 'relative',
               opacity: 0.7
             }}>
@@ -77,8 +78,8 @@ export const TokenizationVisualizer = React.memo(({ copy }: TokenizationVisualiz
                 left: '-4px',
                 width: '10px',
                 height: '10px',
-                borderBottom: '2px solid #38bdf8',
-                borderRight: '2px solid #38bdf8',
+                borderBottom: `2px solid ${sw.sky}`,
+                borderRight: `2px solid ${sw.sky}`,
                 transform: 'rotate(45deg)'
               }} />
             </div>
@@ -107,7 +108,7 @@ export const TokenizationVisualizer = React.memo(({ copy }: TokenizationVisualiz
         <div style={{ fontSize: '14px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600' }}>
           {copy.tokenLabel}
         </div>
-        <div style={{ fontSize: '14px', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600' }}>
+        <div style={{ fontSize: '14px', color: sw.sky, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600' }}>
           {copy.idLabel}
         </div>
       </div>

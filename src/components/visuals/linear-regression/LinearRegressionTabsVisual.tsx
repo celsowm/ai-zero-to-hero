@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Activity, ArrowRight, FunctionSquare, Pause, Play, Scale, SkipBack, SkipForward, UserRound } from 'lucide-react';
 import type { LinearRegressionTabsCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
@@ -31,8 +32,8 @@ const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }>
         gap: 10,
         padding: '16px 18px',
         borderRadius: 16,
-        background: 'rgba(255, 255, 255, 0.03)',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: sw.tintStrong,
+        border: `1px solid ${sw.borderSubtle}`,
         marginBottom: 16,
       }}
     >
@@ -72,8 +73,8 @@ const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }>
             gap: 10,
             padding: '11px 12px',
             borderRadius: 12,
-            background: 'rgba(255, 255, 255, 0.025)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
+            background: sw.tint,
+            border: `1px solid ${sw.gridLineAlt}`,
           }}
         >
           <span
@@ -95,7 +96,7 @@ const FormulaPanel: React.FC<{ copy: LinearRegressionTabsCopy['formulaPanel'] }>
       style={{
         marginTop: 18,
         paddingTop: 14,
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+        borderTop: `1px solid ${sw.borderSubtle}`,
         fontSize: 12.5,
         color: 'var(--sw-text-muted)',
       }}
@@ -169,8 +170,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
           padding: 16,
           borderRadius: 16,
           background:
-            'radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.08), transparent 35%), radial-gradient(circle at 80% 0%, rgba(255, 46, 151, 0.10), transparent 35%), rgba(255,255,255,0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+            `radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.08), transparent 35%), radial-gradient(circle at 80% 0%, rgba(255, 46, 151, 0.10), transparent 35%), ${sw.tint}`,
+          border: `1px solid ${sw.borderSubtle}`,
         }}
       >
         {copy.chart ? (
@@ -178,8 +179,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
             style={{
               width: '100%',
               borderRadius: 14,
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.05)',
+              background: sw.tintStrong,
+              border: `1px solid ${sw.gridLineAlt}`,
               padding: 12,
             }}
           >
@@ -192,26 +193,26 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
             >
               <defs>
                 <linearGradient id="lr-line-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#00e5ff" />
-                  <stop offset="100%" stopColor="#ff2e97" />
+                  <stop offset="0%" stopColor={sw.cyan} />
+                  <stop offset="100%" stopColor={sw.pink} />
                 </linearGradient>
                 <linearGradient id="lr-chart-bg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="rgba(255,255,255,0.05)" />
-                  <stop offset="100%" stopColor="rgba(255,255,255,0.015)" />
+                  <stop offset="0%" stopColor={sw.gridLineAlt} />
+                  <stop offset="100%" stopColor={sw.tint} />
                 </linearGradient>
               </defs>
 
               <rect x="0" y="0" width="520" height="300" rx="12" fill="url(#lr-chart-bg)" />
 
               {[70, 120, 170, 220, 270, 320, 370, 420, 470].map(x => (
-                <line key={x} x1={x} y1="32" x2={x} y2="236" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+                <line key={x} x1={x} y1="32" x2={x} y2="236" stroke={sw.gridLineAlt} strokeWidth="1" />
               ))}
               {[40, 80, 120, 160, 200].map(y => (
-                <line key={y} x1="70" y1={y} x2="470" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+                <line key={y} x1="70" y1={y} x2="470" y2={y} stroke={sw.gridLineAlt} strokeWidth="1" />
               ))}
 
-              <line x1="70" y1="236" x2="470" y2="236" stroke="rgba(255,255,255,0.35)" strokeWidth="2.2" />
-              <line x1="70" y1="236" x2="70" y2="32" stroke="rgba(255,255,255,0.35)" strokeWidth="2.2" />
+              <line x1="70" y1="236" x2="470" y2="236" stroke={sw.axisLineStrong} strokeWidth="2.2" />
+              <line x1="70" y1="236" x2="70" y2="32" stroke={sw.axisLineStrong} strokeWidth="2.2" />
 
               <line
                 x1={copy.chart.lineStart.x}
@@ -248,8 +249,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                       x={residual.x + 12}
                       y={topY + height / 2 + 4}
                       fontSize={isActive ? '13' : '12'}
-                      fontFamily="Space Grotesk, Inter, sans-serif"
-                      fill={isActive ? 'rgba(255,255,255,0.98)' : 'rgba(232,228,240,0.85)'}
+                      fontFamily={sw.fontSans}
+                      fill={isActive ? sw.text : sw.textDim}
                       fontWeight={isActive ? 700 : 500}
                     >
                       {residual.label}
@@ -267,21 +268,21 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                     y={point.y + 22}
                     textAnchor="middle"
                     fontSize="12"
-                    fontFamily="Space Grotesk, Inter, sans-serif"
-                    fill="rgba(232,228,240,0.86)"
+                    fontFamily={sw.fontSans}
+                    fill={sw.textDim}
                   >
                     {point.label}
                   </text>
                 </g>
               ))}
 
-              <text x="500" y="58" textAnchor="end" fontSize="12" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.75)">
+              <text x="500" y="58" textAnchor="end" fontSize="12" fontFamily={sw.fontSans} fill={sw.textDim}>
                 {copy.chart.lineLabel}
               </text>
-              <text x="270" y="284" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.75)">
+              <text x="270" y="284" textAnchor="middle" fontSize="12.5" fontFamily={sw.fontSans} fill={sw.textDim}>
                 {copy.chart.xLabel}
               </text>
-              <text x="22" y="140" transform="rotate(-90 22 140)" textAnchor="middle" fontSize="12.5" fontFamily="Space Grotesk, Inter, sans-serif" fill="rgba(232,228,240,0.75)">
+              <text x="22" y="140" transform="rotate(-90 22 140)" textAnchor="middle" fontSize="12.5" fontFamily={sw.fontSans} fill={sw.textDim}>
                 {copy.chart.yLabel}
               </text>
             </svg>
@@ -297,7 +298,7 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                   padding: '8px 10px',
                   borderRadius: 10,
                   background: 'rgba(8,12,24,0.45)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: `1px solid ${sw.borderMedium}`,
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -308,8 +309,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                       width: 28,
                       height: 28,
                       borderRadius: 8,
-                      border: '1px solid rgba(255,255,255,0.14)',
-                      background: 'rgba(255,255,255,0.04)',
+                      border: `1px solid ${sw.tintAccentStrong}`,
+                      background: sw.tintStronger,
                       color: 'var(--sw-text)',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -327,8 +328,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                       width: 28,
                       height: 28,
                       borderRadius: 8,
-                      border: '1px solid rgba(255,255,255,0.14)',
-                      background: 'rgba(255,255,255,0.04)',
+                      border: `1px solid ${sw.tintAccentStrong}`,
+                      background: sw.tintStronger,
                       color: 'var(--sw-text)',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -346,8 +347,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                       width: 28,
                       height: 28,
                       borderRadius: 8,
-                      border: '1px solid rgba(255,255,255,0.14)',
-                      background: 'rgba(255,255,255,0.04)',
+                      border: `1px solid ${sw.tintAccentStrong}`,
+                      background: sw.tintStronger,
                       color: 'var(--sw-text)',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -389,8 +390,8 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                         minWidth: 0,
                         padding: '12px 14px',
                         borderRadius: 14,
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        background: sw.tintStrong,
+                        border: `1px solid ${sw.borderSubtle}`,
                       }}
                     >
                       <span
@@ -425,7 +426,7 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
                 padding: '14px 16px',
                 borderRadius: 14,
                 background: 'linear-gradient(135deg, rgba(255, 46, 151, 0.12), rgba(168, 85, 247, 0.12))',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                border: `1px solid ${sw.borderMedium}`,
               }}
             >
               <span
@@ -458,7 +459,7 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
         style={{
           marginTop: 18,
           paddingTop: 14,
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          borderTop: `1px solid ${sw.borderSubtle}`,
           fontSize: 12.5,
           color: 'var(--sw-text-muted)',
         }}

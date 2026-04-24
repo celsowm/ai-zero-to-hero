@@ -1,5 +1,6 @@
 import React from 'react';
 import type { CrossEntropyChartCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface CrossEntropyChartProps {
   copy: CrossEntropyChartCopy;
@@ -21,9 +22,9 @@ export const CrossEntropyChart = React.memo(({ copy }: CrossEntropyChartProps) =
       <svg viewBox="0 0 500 300" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
         <defs>
           <linearGradient id="loss-gradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#ef4444" />
-            <stop offset="50%" stopColor="#f59e0b" />
-            <stop offset="100%" stopColor="#10b981" />
+            <stop offset="0%" stopColor={sw.red} />
+            <stop offset="50%" stopColor={sw.amber} />
+            <stop offset="100%" stopColor={sw.green} />
           </linearGradient>
         </defs>
 
@@ -47,12 +48,12 @@ export const CrossEntropyChart = React.memo(({ copy }: CrossEntropyChartProps) =
         {/* Annotations */}
         <g transform="translate(100, 100)">
           <rect x="-60" y="-15" width="120" height="30" rx="15" fill="#fee2e2" />
-          <text x="0" y="5" textAnchor="middle" fill="#ef4444" fontSize="12" fontWeight="700">{copy.highSurprise}</text>
+          <text x="0" y="5" textAnchor="middle" fill={sw.red} fontSize="12" fontWeight="700">{copy.highSurprise}</text>
         </g>
-        
+
         <g transform="translate(380, 200)">
           <rect x="-60" y="-15" width="120" height="30" rx="15" fill="#d1fae5" />
-          <text x="0" y="5" textAnchor="middle" fill="#10b981" fontSize="12" fontWeight="700">{copy.lowSurprise}</text>
+          <text x="0" y="5" textAnchor="middle" fill={sw.green} fontSize="12" fontWeight="700">{copy.lowSurprise}</text>
         </g>
       </svg>
     </div>

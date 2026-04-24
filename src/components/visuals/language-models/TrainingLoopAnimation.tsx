@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { TrainingLoopAnimationCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface TrainingLoopAnimationProps {
   copy: TrainingLoopAnimationCopy;
@@ -90,19 +91,19 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
       display: 'flex',
       flexDirection: 'column',
       gap: '14px',
-      background: 'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.08), transparent 32%), radial-gradient(circle at 82% 14%, rgba(168, 85, 247, 0.08), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))',
-      borderRadius: '18px',
-      border: '1px solid rgba(255,255,255,0.06)',
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+      background: sw.shellBackground,
+      borderRadius: sw.shellBorderRadius,
+      border: sw.shellBorder,
+      boxShadow: sw.shellShadow,
       padding: '16px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
-      color: '#e8e4f0',
+      fontFamily: sw.fontSans,
+      color: sw.text,
       overflow: 'hidden',
     }}>
 
       {/* Header: eyebrow + step pills + epoch HUD */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#00e5ff', whiteSpace: 'nowrap' }}>
+        <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: sw.cyan, whiteSpace: 'nowrap' }}>
           training loop
         </div>
 
@@ -116,9 +117,9 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                 maxWidth: '52px',
                 height: '28px',
                 borderRadius: '12px',
-                border: `1px solid ${step === i ? `${STEP_COLORS[i]}88` : 'rgba(255,255,255,0.06)'}`,
-                background: step === i ? `${STEP_COLORS[i]}22` : 'rgba(255,255,255,0.02)',
-                color: step === i ? STEP_COLORS[i] : '#6b6280',
+                border: `1px solid ${step === i ? `${STEP_COLORS[i]}88` : sw.borderSubtle}`,
+                background: step === i ? `${STEP_COLORS[i]}22` : sw.tint,
+                color: step === i ? STEP_COLORS[i] : sw.textMuted,
                 fontWeight: 700,
                 fontSize: '11px',
                 cursor: 'pointer',
@@ -142,10 +143,10 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           gap: '2px',
           whiteSpace: 'nowrap',
         }}>
-          <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280' }}>
+          <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted }}>
             {copy.epochLabel}
           </div>
-          <div style={{ fontSize: '15px', fontWeight: 700, fontFamily: "'JetBrains Mono', 'Fira Code', monospace", color: '#00e5ff' }}>
+          <div style={{ fontSize: '15px', fontWeight: 700, fontFamily: sw.fontMono, color: sw.cyan }}>
             {epoch}
           </div>
         </div>
@@ -179,7 +180,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           </div>
           {stepLabels[step]}
         </div>
-        <div style={{ fontSize: '13.5px', lineHeight: 1.65, color: '#b0a8c4' }}>
+        <div style={{ fontSize: '13.5px', lineHeight: 1.65, color: sw.textDim }}>
           {stepDescs[step]}
         </div>
       </div>
@@ -207,18 +208,18 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
               {inputTokens.map((t, i) => (
                 <div key={i} style={{
                   padding: '8px 16px',
-                  background: 'rgba(255,255,255,0.04)',
+                  background: sw.tint,
                   borderRadius: '10px',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: `1px solid ${sw.borderMedium}`,
                   fontWeight: 600,
                   fontSize: '15px',
-                  color: '#e8e4f0',
+                  color: sw.text,
                 }}>
                   {t}
                 </div>
               ))}
             </div>
-            <div style={{ color: '#6b6280', fontSize: '18px' }}>↓</div>
+            <div style={{ color: sw.textMuted, fontSize: '18px' }}>↓</div>
             <div style={{
               padding: '12px 28px',
               background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(168, 85, 247, 0.12))',
@@ -232,25 +233,25 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
             }}>
               Attention + MLP
             </div>
-            <div style={{ color: '#6b6280', fontSize: '18px' }}>↓</div>
+            <div style={{ color: sw.textMuted, fontSize: '18px' }}>↓</div>
             <div style={{ display: 'flex', gap: '8px' }}>
               {vocabOptions.map((v, i) => {
                 const logit = (Math.random() * 4 - 2).toFixed(2);
                 return (
                   <div key={i} style={{
                     padding: '8px 12px',
-                    background: 'rgba(255,255,255,0.03)',
+                    background: sw.tint,
                     borderRadius: '10px',
-                    border: '1px solid rgba(255,255,255,0.06)',
+                    border: sw.borderSubtle,
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontWeight: 600, color: '#b0a8c4', fontSize: '12px' }}>{v}</div>
-                    <div style={{ color: '#00e5ff', fontWeight: 700, fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: '14px' }}>{logit}</div>
+                    <div style={{ fontWeight: 600, color: sw.textDim, fontSize: '12px' }}>{v}</div>
+                    <div style={{ color: sw.cyan, fontWeight: 700, fontFamily: sw.fontMono, fontSize: '14px' }}>{logit}</div>
                   </div>
                 );
               })}
             </div>
-            <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280' }}>
+            <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted }}>
               ← {copy.logitsText}
             </div>
           </div>
@@ -276,23 +277,23 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                     <div style={{
                       width: '48px',
                       height: `${barH}px`,
-                      background: isCorrect ? 'linear-gradient(180deg, #10b981, rgba(16, 185, 129, 0.3))' : 'rgba(255,255,255,0.06)',
+                      background: isCorrect ? 'linear-gradient(180deg, #10b981, rgba(16, 185, 129, 0.3))' : sw.borderSubtle,
                       borderRadius: '6px 6px 0 0',
-                      border: `1px solid ${isCorrect ? '#10b98155' : 'rgba(255,255,255,0.08)'}`,
+                      border: `1px solid ${isCorrect ? '#10b98155' : sw.borderMedium}`,
                       borderBottom: 'none',
                       transition: 'height 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                     }} />
-                    <div style={{ fontWeight: 600, color: '#b0a8c4', fontSize: '11px' }}>{v}</div>
+                    <div style={{ fontWeight: 600, color: sw.textDim, fontSize: '11px' }}>{v}</div>
                     <div style={{
-                      color: isCorrect ? '#10b981' : '#6b6280',
+                      color: isCorrect ? sw.green : sw.textMuted,
                       fontWeight: 700,
-                      fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                      fontFamily: sw.fontMono,
                       fontSize: '12px',
                     }}>
                       {probs.toFixed(2)}
                     </div>
                     {isCorrect && (
-                      <div style={{ fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#10b981', fontWeight: 700 }}>
+                      <div style={{ fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: sw.green, fontWeight: 700 }}>
                         ✓ alvo
                       </div>
                     )}
@@ -300,7 +301,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                 );
               })}
             </div>
-            <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280' }}>
+            <div style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted }}>
               ← {copy.probsText} (Σ = 1.0)
             </div>
           </div>
@@ -317,29 +318,29 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
             gap: '14px',
           }}>
             <div style={{
-              background: 'rgba(239, 68, 68, 0.08)',
-              borderRadius: '14px',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
+              background: `${sw.red}14`,
+              borderRadius: sw.cardBorderRadiusLg,
+              border: `1px solid ${sw.red}4d`,
               padding: '16px 32px',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280', marginBottom: '6px' }}>
+              <div style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted, marginBottom: '6px' }}>
                 Cross-Entropy Loss
               </div>
               <div style={{
                 fontSize: '44px',
                 fontWeight: 800,
-                fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-                color: '#ef4444',
-                textShadow: '0 0 24px rgba(239, 68, 68, 0.35)',
+                fontFamily: sw.fontMono,
+                color: sw.red,
+                textShadow: sw.glowRed,
               }}>
                 {currentLoss.toFixed(2)}
               </div>
             </div>
-            <div style={{ fontSize: '13px', color: '#b0a8c4', textAlign: 'center', lineHeight: 1.7 }}>
-              Previsto: <span style={{ color: '#ef4444', fontWeight: 700, fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>0.35</span>
+            <div style={{ fontSize: '13px', color: sw.textDim, textAlign: 'center', lineHeight: 1.7 }}>
+              Previsto: <span style={{ color: sw.red, fontWeight: 700, fontFamily: sw.fontMono }}>0.35</span>
               {' '}·{' '}
-              Ideal: <span style={{ color: '#10b981', fontWeight: 700, fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>1.00</span>
+              Ideal: <span style={{ color: sw.green, fontWeight: 700, fontFamily: sw.fontMono }}>1.00</span>
               <br />
               → Surpresa alta → Loss alta!
             </div>
@@ -364,8 +365,8 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                     width: '44px',
                     textAlign: 'right',
                     fontWeight: 600,
-                    color: '#b0a8c4',
-                    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                    color: sw.textDim,
+                    fontFamily: sw.fontMono,
                     fontSize: '11px',
                   }}>
                     {name}
@@ -373,7 +374,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                   <div style={{
                     flex: 1,
                     height: '16px',
-                    background: 'rgba(255,255,255,0.03)',
+                    background: sw.tintStrong,
                     borderRadius: '4px',
                     overflow: 'hidden',
                   }}>
@@ -386,9 +387,9 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                     }} />
                   </div>
                   <div style={{
-                    color: isPos ? '#f59e0b' : '#ef4444',
+                    color: isPos ? sw.amber : sw.red,
                     fontWeight: 700,
-                    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                    fontFamily: sw.fontMono,
                     fontSize: '11px',
                     width: '50px',
                   }}>
@@ -440,9 +441,9 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
             </div>
             {/* Weight matrix */}
             <div style={{
-              background: 'rgba(255,255,255,0.02)',
+              background: sw.tint,
               borderRadius: '10px',
-              border: '1px solid rgba(255,255,255,0.06)',
+              border: sw.borderSubtle,
               padding: '10px 14px',
             }}>
               {weights.current.map((row, ri) => (
@@ -450,12 +451,12 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
                   {row.map((w, wi) => (
                     <div key={wi} style={{
                       padding: '4px 10px',
-                      background: 'rgba(255,255,255,0.03)',
+                      background: sw.tintStrong,
                       borderRadius: '6px',
                       fontWeight: 700,
-                      fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                      fontFamily: sw.fontMono,
                       fontSize: '12px',
-                      color: '#b0a8c4',
+                      color: sw.textDim,
                     }}>
                       {w.toFixed(3)}
                     </div>
@@ -560,9 +561,9 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           style={{
             padding: '8px 14px',
             borderRadius: '12px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            background: 'rgba(255,255,255,0.03)',
-            color: '#b0a8c4',
+            border: sw.borderSubtle,
+            background: sw.tintStrong,
+            color: sw.textDim,
             fontWeight: 700,
             fontSize: '12px',
             cursor: 'pointer',
@@ -581,14 +582,14 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
           gap: '2px',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b6280' }}>
+            <span style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.textMuted }}>
               {copy.lrLabel}
             </span>
             <span style={{
               fontSize: '11px',
               fontWeight: 700,
-              fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-              color: '#a855f7',
+              fontFamily: sw.fontMono,
+              color: sw.purple,
             }}>
               {lr.toFixed(4)}
             </span>

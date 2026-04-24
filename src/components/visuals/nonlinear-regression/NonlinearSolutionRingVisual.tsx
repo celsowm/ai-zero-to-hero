@@ -5,6 +5,7 @@ import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { CodeBlock } from '../../CodeBlock';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: NonlinearSolutionRingVisualCopy;
@@ -152,17 +153,17 @@ const pillStyle = (accent: string): React.CSSProperties => ({
   display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 11px',
   borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: '0.01em',
   color: 'rgba(243,244,246,0.96)', background: 'rgba(9,12,20,0.72)',
-  border: `1px solid ${accent}66`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
+  border: `1px solid ${accent}66`, boxShadow: sw.insetHighlightStrong,
 });
 const neutralPill: React.CSSProperties = {
   display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 11px',
   borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: '0.01em',
   whiteSpace: 'nowrap', color: 'rgba(243,244,246,0.96)', background: 'rgba(9,12,20,0.72)',
-  border: '1px solid rgba(255,255,255,0.10)',
+  border: `1px solid ${sw.borderMediumStrong}`,
 };
 const metricCard: React.CSSProperties = {
-  padding: '8px 12px', borderRadius: 12, background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)', minWidth: 0, display: 'flex', flexDirection: 'column',
+  padding: '8px 12px', borderRadius: 12, background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`, minWidth: 0, display: 'flex', flexDirection: 'column',
 };
 const metricLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--sw-text-muted)' };
 const metricValue: React.CSSProperties = { marginTop: 4, fontSize: 24, lineHeight: 1, fontWeight: 800, letterSpacing: '-0.04em', color: 'var(--sw-text)' };
@@ -174,7 +175,7 @@ const btnBase: React.CSSProperties = {
 };
 const codeBodyStyle: React.CSSProperties = {
   flex: 1, minHeight: 0, margin: 0, padding: '16px 16px 16px 8px', borderRadius: 16,
-  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong, border: `1px solid ${sw.borderSubtle}`,
   display: 'flex', flexDirection: 'column',
 };
 const boundaryColor = '#c084fc';
@@ -286,7 +287,7 @@ export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
                 </button>
                 <button type="button" onClick={handleRestart} aria-label={copy.restartLabel}
                   style={{ ...btnBase, width: 44, justifyContent: 'center', color: 'var(--sw-text)',
-                    background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}>
+                    background: sw.tintStronger, borderColor: sw.borderMedium }}>
                   <RotateCcw size={16} />
                 </button>
               </div>
@@ -310,9 +311,9 @@ export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
             <div style={{
               position: 'relative', width: '100%', borderRadius: 18, overflow: 'hidden',
               aspectRatio: '1 / 1', maxHeight: 460,
-              border: '1px solid rgba(255,255,255,0.06)',
+              border: `1px solid ${sw.borderSubtle}`,
               background: 'linear-gradient(135deg, #0d1117 0%, #161b22 100%)',
-              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 42px rgba(0,0,0,0.30)',
+              boxShadow: `${sw.insetHighlight}, 0 24px 42px rgba(0,0,0,0.30)`,
             }}>
               <svg viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`} width="100%" height="100%"
                 style={{ display: 'block' }}
@@ -350,8 +351,8 @@ export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
                   const sy = toSY(v);
                   return (
                     <g key={`grid-${v}`}>
-                      <line x1={sx} y1={CHART_MIN} x2={sx} y2={CHART_MAX} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-                      <line x1={CHART_MIN} y1={sy} x2={CHART_MAX} y2={sy} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                      <line x1={sx} y1={CHART_MIN} x2={sx} y2={CHART_MAX} stroke={sw.borderSubtle} strokeWidth="1" />
+                      <line x1={CHART_MIN} y1={sy} x2={CHART_MAX} y2={sy} stroke={sw.borderSubtle} strokeWidth="1" />
                     </g>
                   );
                 })}

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { LanguageModelingDiagramCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface LanguageModelingDiagramProps {
   copy: LanguageModelingDiagramCopy;
@@ -27,12 +28,12 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
         borderRadius: '24px',
         overflow: 'hidden',
         background: `
-          radial-gradient(circle at 18% 14%, rgba(255, 46, 151, 0.18) 0%, transparent 26%),
-          radial-gradient(circle at 82% 18%, rgba(0, 229, 255, 0.16) 0%, transparent 24%),
+          radial-gradient(circle at 18% 14%, ${sw.tintActive}4d 0%, transparent 26%),
+          radial-gradient(circle at 82% 18%, ${sw.cyan}40 0%, transparent 24%),
           linear-gradient(180deg, #050111 0%, #0a0520 45%, #12071f 100%)
         `,
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: '0 18px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+        border: `1px solid ${sw.borderMedium}`,
+        boxShadow: `0 18px 60px rgba(0, 0, 0, 0.45), ${sw.insetHighlight}`,
         color: 'var(--sw-text)',
         fontFamily: "'Space Grotesk', system-ui, sans-serif",
       }}
@@ -43,7 +44,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
           position: 'absolute',
           inset: 0,
           backgroundImage:
-            'linear-gradient(rgba(255, 46, 151, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px)',
+            `linear-gradient(${sw.pink}14 1px, transparent 1px), linear-gradient(90deg, ${sw.cyan}0f 1px, transparent 1px)`,
           backgroundSize: '64px 64px',
           opacity: 0.18,
           maskImage: 'radial-gradient(ellipse at center, black 24%, transparent 72%)',
@@ -59,7 +60,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
           inset: 'auto 0 0 0',
           height: '34%',
           background:
-            'linear-gradient(180deg, transparent 0%, rgba(255, 46, 151, 0.09) 42%, rgba(0, 229, 255, 0.12) 100%)',
+            `linear-gradient(180deg, transparent 0%, ${sw.pink}17 42%, ${sw.cyan}1f 100%)`,
           opacity: 0.55,
           transform: 'translateY(10%)',
           filter: 'blur(18px)',
@@ -91,7 +92,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
               letterSpacing: '0.24em',
               textTransform: 'uppercase',
               color: 'var(--sw-cyan)',
-              textShadow: '0 0 12px rgba(0, 229, 255, 0.45)',
+              textShadow: `0 0 12px ${sw.cyan}73`,
             }}
           >
             Next token forecast
@@ -114,10 +115,10 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
             padding: '22px 22px 20px',
             borderRadius: '20px',
             background:
-              'linear-gradient(180deg, rgba(26, 22, 40, 0.96) 0%, rgba(11, 11, 18, 0.98) 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
+              `linear-gradient(180deg, ${sw.surface}f5 0%, rgba(11, 11, 18, 0.98) 100%)`,
+            border: `1px solid ${sw.borderMediumStrong}`,
             boxShadow:
-              'inset 0 0 0 1px rgba(255, 46, 151, 0.08), 0 0 0 1px rgba(0, 229, 255, 0.08), 0 14px 34px rgba(0, 0, 0, 0.35)',
+              `inset 0 0 0 1px ${sw.pink}14, 0 0 0 1px ${sw.cyan}14, 0 14px 34px rgba(0, 0, 0, 0.35)`,
             overflow: 'hidden',
           }}
         >
@@ -127,7 +128,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
               position: 'absolute',
               inset: 0,
               background:
-                'linear-gradient(90deg, rgba(255, 46, 151, 0.08), rgba(0, 229, 255, 0.02) 36%, transparent 72%)',
+                `linear-gradient(90deg, ${sw.pink}14, ${sw.cyan}05 36%, transparent 72%)`,
               opacity: 0.65,
             }}
           />
@@ -156,9 +157,9 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                 padding: '18px 18px 16px',
                 borderRadius: '16px',
                 background: 'rgba(5, 1, 17, 0.86)',
-                border: '1px solid rgba(0, 229, 255, 0.18)',
+                border: `1px solid ${sw.tintActive}`,
                 boxShadow:
-                  'inset 0 0 0 1px rgba(255, 46, 151, 0.08), 0 0 24px rgba(0, 229, 255, 0.08)',
+                  `inset 0 0 0 1px ${sw.pink}14, 0 0 24px ${sw.cyan}14`,
                 textAlign: 'center',
                 fontSize: 'clamp(18px, 2vw, 24px)',
                 fontWeight: 700,
@@ -181,7 +182,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                         paddingBottom: '2px',
                         borderBottom: '3px solid var(--sw-cyan)',
                         color: 'var(--sw-pink)',
-                        textShadow: '0 0 18px rgba(255, 46, 151, 0.6)',
+                        textShadow: `0 0 18px ${sw.pink}99`,
                         animation: 'lm-pulse-line 2.6s ease-in-out infinite',
                         transform: 'translateY(-2px)',
                       }}
@@ -211,10 +212,10 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                   padding: '1px',
                   borderRadius: '16px',
                   background: isTop
-                    ? 'linear-gradient(90deg, rgba(255, 46, 151, 0.95), rgba(0, 229, 255, 0.95))'
-                    : 'linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
+                    ? `linear-gradient(90deg, ${sw.pink}, ${sw.cyan})`
+                    : `linear-gradient(90deg, ${sw.borderSubtle}, ${sw.tintStrong})`,
                   boxShadow: isTop
-                    ? '0 0 24px rgba(0, 229, 255, 0.16), 0 0 24px rgba(255, 46, 151, 0.12)'
+                    ? `0 0 24px ${sw.cyan}29, 0 0 24px ${sw.pink}1f`
                     : '0 10px 24px rgba(0, 0, 0, 0.2)',
                   opacity: 1,
                   animation: `lm-slide-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.12}s both`,
@@ -240,8 +241,8 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                     width: `${opt.prob}%`,
                     borderRadius: '15px',
                     background: isTop
-                      ? 'linear-gradient(90deg, rgba(255, 46, 151, 0.18) 0%, rgba(0, 229, 255, 0.24) 100%)'
-                      : 'linear-gradient(90deg, rgba(168, 85, 247, 0.12) 0%, rgba(0, 229, 255, 0.12) 100%)',
+                      ? `linear-gradient(90deg, ${sw.tintActive}2e 0%, rgba(0, 229, 255, 0.24) 100%)`
+                      : `linear-gradient(90deg, ${sw.purple}1f 0%, ${sw.cyan}1f 100%)`,
                     animation: `lm-grow-width 1s cubic-bezier(0.16, 1, 0.3, 1) ${0.45 + i * 0.08}s both`,
                   }}
                 />
@@ -272,17 +273,17 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                         height: '10px',
                         borderRadius: '999px',
                         flex: '0 0 auto',
-                        background: isTop ? 'var(--sw-cyan)' : 'rgba(176, 168, 196, 0.5)',
+                        background: isTop ? 'var(--sw-cyan)' : `${sw.textDim}80`,
                         boxShadow: isTop
-                          ? '0 0 16px rgba(0, 229, 255, 0.75)'
-                          : '0 0 10px rgba(176, 168, 196, 0.2)',
+                          ? `0 0 16px ${sw.cyan}bf`
+                          : `0 0 10px ${sw.textDim}33`,
                       }}
                     />
                     <span
                       style={{
                         fontSize: '18px',
                         fontWeight: isTop ? 700 : 600,
-                        color: isTop ? 'var(--sw-text)' : 'rgba(232, 228, 240, 0.8)',
+                        color: isTop ? 'var(--sw-text)' : `${sw.text}cc`,
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -296,7 +297,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                       fontSize: '16px',
                       fontWeight: 700,
                       color: isTop ? 'var(--sw-pink)' : 'var(--sw-text-dim)',
-                      textShadow: isTop ? '0 0 14px rgba(255, 46, 151, 0.45)' : 'none',
+                      textShadow: isTop ? `0 0 14px ${sw.pink}73` : 'none',
                       flex: '0 0 auto',
                     }}
                   >
@@ -319,9 +320,9 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
               padding: '14px 16px',
               borderRadius: '14px',
               background:
-                'linear-gradient(90deg, rgba(255, 46, 151, 0.08) 0%, rgba(0, 229, 255, 0.08) 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              boxShadow: 'inset 0 0 0 1px rgba(0, 229, 255, 0.05)',
+                `linear-gradient(90deg, ${sw.pink}14 0%, ${sw.cyan}14 100%)`,
+              border: `1px solid ${sw.borderMedium}`,
+              boxShadow: `inset 0 0 0 1px ${sw.cyan}0d`,
             }}
           >
             <span
@@ -339,7 +340,7 @@ export const LanguageModelingDiagram = React.memo(({ copy }: LanguageModelingDia
                 fontSize: '13px',
                 fontWeight: 700,
                 color: 'var(--sw-cyan)',
-                textShadow: '0 0 12px rgba(0, 229, 255, 0.4)',
+                textShadow: `0 0 12px ${sw.cyan}66`,
               }}
             >
               {topChoice.word} · {topChoice.prob}%

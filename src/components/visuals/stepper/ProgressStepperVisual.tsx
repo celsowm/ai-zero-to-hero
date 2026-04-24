@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, ChevronLeft, ChevronRight, Sigma } from 'lucide-react';
 import type { ProgressStepperVisualCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface ProgressStepperVisualProps {
   copy: ProgressStepperVisualCopy;
@@ -11,8 +12,8 @@ const cardStyle: React.CSSProperties = {
   borderRadius: 20,
   padding: 20,
   background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(14, 13, 24, 0.98))',
-  border: '1px solid rgba(255, 255, 255, 0.06)',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 40px rgba(0,0,0,0.24)',
+  border: `1px solid ${sw.borderSubtle}`,
+  boxShadow: `${sw.insetHighlightStrong}, 0 20px 40px rgba(0,0,0,0.24)`,
 };
 
 const eyebrowStyle: React.CSSProperties = {
@@ -32,7 +33,7 @@ const buttonBaseStyle: React.CSSProperties = {
   minWidth: 132,
   padding: '11px 14px',
   borderRadius: 12,
-  border: '1px solid rgba(255,255,255,0.08)',
+  border: `1px solid ${sw.borderMedium}`,
   fontSize: 13,
   fontWeight: 700,
   letterSpacing: '0.01em',
@@ -145,12 +146,12 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                     minWidth: 0,
                     padding: '10px 10px 9px',
                     borderRadius: 14,
-                    border: `1px solid ${active ? `${step.accent}80` : 'rgba(255,255,255,0.06)'}`,
+                    border: `1px solid ${active ? `${step.accent}80` : sw.borderSubtle}`,
                     background: active
-                      ? `linear-gradient(180deg, ${step.accent}20, rgba(255,255,255,0.03))`
+                      ? `linear-gradient(180deg, ${step.accent}20, ${sw.tintStrong})`
                       : completed
                         ? 'rgba(255,255,255,0.035)'
-                        : 'rgba(255,255,255,0.02)',
+                        : sw.tint,
                     opacity: completed || active ? 1 : 0.78,
                     boxShadow: active ? `0 0 0 1px ${step.accent}22 inset` : 'none',
                   }}
@@ -179,7 +180,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                           ? step.accent
                           : completed
                             ? `${step.accent}55`
-                            : 'rgba(255,255,255,0.06)',
+                            : sw.borderSubtle,
                       }}
                     >
                       {index + 1}
@@ -273,8 +274,8 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                 alignSelf: 'flex-start',
                 padding: '10px 14px',
                 borderRadius: 14,
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: sw.tintStronger,
+                border: `1px solid ${sw.borderMedium}`,
                 color: 'var(--sw-text)',
                 fontSize: 14,
                 fontWeight: 700,
@@ -292,7 +293,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                   padding: 14,
                   borderRadius: 16,
                   background: 'rgba(8, 10, 18, 0.28)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: `1px solid ${sw.borderMedium}`,
                 }}
               >
                 <div
@@ -342,7 +343,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                                 letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
                                 color: 'var(--sw-text-muted)',
-                                borderBottom: '1px solid rgba(255,255,255,0.08)',
+                                borderBottom: `1px solid ${sw.borderMedium}`,
                                 whiteSpace: 'nowrap',
                               }}
                             >
@@ -413,7 +414,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                                     key={`${key}-${cellIndex}`}
                                     style={{
                                       padding: '10px',
-                                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                      borderBottom: `1px solid ${sw.tintOverlay}`,
                                       color: isHighlighted ? 'var(--sw-text)' : 'var(--sw-text-dim)',
                                       fontWeight: isHighlighted ? 700 : 500,
                                       whiteSpace: 'nowrap',
@@ -455,7 +456,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                   padding: '14px 16px',
                   borderRadius: 16,
                   background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: `1px solid ${sw.borderMedium}`,
                 }}
               >
                 <CheckCircle2 size={18} color={currentStep.accent} style={{ flexShrink: 0, marginTop: 2 }} />
@@ -498,7 +499,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
               ...buttonBaseStyle,
               justifySelf: 'start',
               color: isFirst ? 'rgba(232, 228, 240, 0.42)' : 'var(--sw-text)',
-              background: isFirst ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.05)',
+              background: isFirst ? sw.tint : sw.tintOverlay,
               cursor: isFirst ? 'not-allowed' : 'pointer',
               opacity: isFirst ? 0.55 : 1,
             }}
@@ -512,8 +513,8 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
               justifySelf: 'center',
               padding: '10px 14px',
               borderRadius: 999,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.07)',
+              background: sw.tintStronger,
+              border: `1px solid ${sw.borderMediumStrong}`,
               color: 'var(--sw-text-muted)',
               fontSize: 12,
               fontWeight: 700,

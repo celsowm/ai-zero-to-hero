@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NeuralNetworkToLanguageModelingComparatorCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: NeuralNetworkToLanguageModelingComparatorCopy;
@@ -16,7 +17,7 @@ function Pill({ children, accent }: { children: React.ReactNode; accent: string 
         padding: '8px 10px',
         borderRadius: 12,
         border: `1px solid ${accent}33`,
-        background: `linear-gradient(180deg, ${accent}16, rgba(255,255,255,0.03))`,
+        background: `linear-gradient(180deg, ${accent}16, ${sw.tintStrong})`,
         color: 'var(--sw-text)',
         fontSize: 11.8,
         fontWeight: 700,
@@ -41,7 +42,7 @@ export const NeuralNetworkToLanguageModelingComparator = React.memo(({ copy }: P
         overflow: 'hidden',
         background:
           'linear-gradient(180deg, rgba(20,18,31,0.98), rgba(12,13,22,0.98)), radial-gradient(circle at top, rgba(0,229,255,0.08), transparent 42%)',
-        border: '1px solid rgba(255,255,255,0.06)',
+        border: `1px solid ${sw.borderSubtle}`,
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '2px 2px 0' }}>
@@ -78,8 +79,8 @@ export const NeuralNetworkToLanguageModelingComparator = React.memo(({ copy }: P
           gap: 10,
           padding: 14,
           borderRadius: 18,
-          border: '1px solid rgba(255,255,255,0.07)',
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015))',
+          border: `1px solid ${sw.borderMediumStrong}`,
+          background: `linear-gradient(180deg, ${sw.tintStronger}, ${sw.tintStrong})`,
         }}
       >
         <div style={{ display: 'grid', gridTemplateColumns: '120px minmax(0, 1fr) minmax(0, 1fr)', gap: 10, alignItems: 'end' }}>
@@ -111,8 +112,8 @@ export const NeuralNetworkToLanguageModelingComparator = React.memo(({ copy }: P
                 alignItems: 'center',
                 padding: '8px 10px',
                 borderRadius: 14,
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.05)',
+                background: sw.tint,
+                border: `1px solid ${sw.tintOverlay}`,
               }}
             >
               <div style={{ fontSize: 10.2, color: 'var(--sw-text-dim)', textTransform: 'uppercase', letterSpacing: '.1em', fontWeight: 800 }}>
@@ -129,8 +130,8 @@ export const NeuralNetworkToLanguageModelingComparator = React.memo(({ copy }: P
         style={{
           padding: '12px 14px',
           borderRadius: 16,
-          border: '1px solid rgba(255,255,255,0.07)',
-          background: 'rgba(255,255,255,0.03)',
+          border: `1px solid ${sw.borderMediumStrong}`,
+          background: sw.tintStrong,
           display: 'flex',
           flexDirection: 'column',
           gap: 10,

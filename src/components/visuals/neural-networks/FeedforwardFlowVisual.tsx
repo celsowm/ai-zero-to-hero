@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import type { FeedforwardFlowVisualCopy, NeuralNetworkSampleCopy } from '../../../types/slide';
 import { forwardPass } from '../../../utils/neuralTrainingEngine';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: FeedforwardFlowVisualCopy;
@@ -19,7 +20,7 @@ export const FeedforwardFlowVisual = React.memo(({ copy }: Props) => {
       {/* ── TOP: Sample selector + live readouts ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 14, alignItems: 'center' }}>
         {/* Sample buttons */}
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${copy.samples.length}, auto)`, gap: 6, padding: 6, borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${copy.samples.length}, auto)`, gap: 6, padding: 6, borderRadius: 14, background: sw.tintStrong, border: `1px solid ${sw.tintOverlay}` }}>
           {copy.samples.map((s, i) => {
             const active = i === sampleIdx;
             return (
@@ -58,8 +59,8 @@ export const FeedforwardFlowVisual = React.memo(({ copy }: Props) => {
             justifyContent: 'flex-end',
             padding: '8px 16px',
             borderRadius: 999,
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: sw.tintStronger,
+            border: `1px solid ${sw.borderMediumStrong}`,
           }}
         >
           <Readout label={copy.sampleLabel} value={sample.label} color="#94a3b8" />
@@ -100,7 +101,7 @@ export const FeedforwardFlowVisual = React.memo(({ copy }: Props) => {
           </div>
 
           {copy.sequenceSteps.map((step, i) => (
-            <div key={step.label} style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div key={step.label} style={{ padding: '12px 14px', borderRadius: 12, background: sw.tintStrong, border: `1px solid ${sw.borderSubtle}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'baseline', marginBottom: 5 }}>
                 <div style={{ fontSize: 12, color: 'var(--sw-text)', fontWeight: 800 }}>{i + 1}. {step.label}</div>
                 <div style={{ fontSize: 11, color: '#00e5ff', fontFamily: 'monospace' }}>{step.formula}</div>
@@ -109,7 +110,7 @@ export const FeedforwardFlowVisual = React.memo(({ copy }: Props) => {
             </div>
           ))}
 
-          <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(102,184,74,0.25)', marginTop: 'auto' }}>
+          <div style={{ padding: '12px 14px', borderRadius: 12, background: sw.tintStrong, border: `1px solid rgba(102,184,74,0.25)`, marginTop: 'auto' }}>
             <div style={{ fontSize: 10, color: '#66b84a', fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 4 }}>
               {copy.outputInterpretation}
             </div>
@@ -143,7 +144,7 @@ const Readout: React.FC<{ label: string; value: string; color: string }> = ({ la
 );
 
 const ValueChip: React.FC<{ label: string; value: string; color: string }> = ({ label, value, color }) => (
-  <div style={{ padding: '8px 12px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: `1px solid ${color}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  <div style={{ padding: '8px 12px', borderRadius: 10, background: sw.tintStrong, border: `1px solid ${color}30`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
     <span style={{ fontSize: 10, color: 'var(--sw-text-dim)', textTransform: 'uppercase', letterSpacing: '.06em' }}>{label}</span>
     <span style={{ fontSize: 13, fontWeight: 900, color, fontFamily: 'monospace' }}>{value}</span>
   </div>
@@ -238,7 +239,7 @@ const FeedforwardNetworkSvg: React.FC<{
       <text x="354" y={outputY + 18} fill="#ff5da2" fontSize="7.5" textAnchor="middle">z={fmt(outputZ, 2)}</text>
 
       {/* Flow label */}
-      <rect x="18" y="262" width="384" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
+      <rect x="18" y="262" width="384" height="20" rx="10" fill={sw.tintStronger} stroke={sw.borderSubtle} />
       <text x="210" y="275" fill="#00e5ff" fontSize="9" fontWeight="700" textAnchor="middle">x → z → sigmoid(z) → y_hat</text>
     </svg>
   );

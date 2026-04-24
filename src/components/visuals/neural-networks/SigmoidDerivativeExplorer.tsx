@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import type { SigmoidDerivativeExplorerCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: SigmoidDerivativeExplorerCopy;
@@ -66,8 +67,8 @@ export const SigmoidDerivativeExplorer = React.memo(({ copy }: Props) => {
           alignItems: 'center',
           padding: '12px 18px',
           borderRadius: 16,
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.06)',
+          background: sw.tintStrong,
+          border: `1px solid ${sw.borderSubtle}`,
         }}
       >
         <div style={{ display: 'flex', gap: 14, alignItems: 'center', minWidth: 0 }}>
@@ -179,7 +180,7 @@ const ChartPanel: React.FC<{
         flex: 1,
         overflow: 'hidden',
         background:
-          'linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), radial-gradient(circle at 50% 20%, rgba(22,224,255,0.08), rgba(10,12,19,0.96) 55%)',
+          `linear-gradient(180deg, ${sw.tintStronger}, ${sw.tint}), radial-gradient(circle at 50% 20%, rgba(22,224,255,0.08), rgba(10,12,19,0.96) 55%)`,
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -187,7 +188,7 @@ const ChartPanel: React.FC<{
         <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace' }}>{fmt(pointValue)}</span>
       </div>
 
-      <div style={{ flex: 1, minHeight: 0, borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ flex: 1, minHeight: 0, borderRadius: 14, overflow: 'hidden', border: `1px solid ${sw.tintOverlay}` }}>
         <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" aria-label={ariaLabel} style={{ display: 'block' }}>
           <defs>
             <filter id={`glow-${title}`}>
@@ -202,13 +203,13 @@ const ChartPanel: React.FC<{
           {/* grid */}
           {[-6, -3, 0, 3, 6].map((t) => (
             <g key={`x${t}`}>
-              <line x1={xC(t)} x2={xC(t)} y1={PAD.top} y2={H - PAD.bottom} stroke="rgba(255,255,255,0.06)" strokeDasharray="4 6" />
+              <line x1={xC(t)} x2={xC(t)} y1={PAD.top} y2={H - PAD.bottom} stroke={sw.borderSubtle} strokeDasharray="4 6" />
               <text x={xC(t)} y={H - 12} fill="rgba(255,255,255,0.4)" fontSize="10" textAnchor="middle">{t}</text>
             </g>
           ))}
           {yTicks.map((t) => (
             <g key={`y${t}`}>
-              <line x1={PAD.left} x2={W - PAD.right} y1={yC(t, maxY)} y2={yC(t, maxY)} stroke={t === 0 ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.06)'} strokeDasharray={t === 0 ? 'none' : '4 6'} />
+              <line x1={PAD.left} x2={W - PAD.right} y1={yC(t, maxY)} y2={yC(t, maxY)} stroke={t === 0 ? sw.tintActive : sw.borderSubtle} strokeDasharray={t === 0 ? 'none' : '4 6'} />
               <text x={8} y={yC(t, maxY) + 4} fill="rgba(255,255,255,0.4)" fontSize="10">{fmt(t)}</text>
             </g>
           ))}
@@ -223,7 +224,7 @@ const ChartPanel: React.FC<{
           ) : null}
 
           {/* zero axis */}
-          <line x1={xC(0)} x2={xC(0)} y1={PAD.top} y2={H - PAD.bottom} stroke="rgba(255,255,255,0.18)" />
+          <line x1={xC(0)} x2={xC(0)} y1={PAD.top} y2={H - PAD.bottom} stroke={sw.tintActive} />
 
           {/* curve */}
           <path d={curvePath} fill="none" stroke={accent} strokeWidth="3.5" strokeLinecap="round" filter={`url(#glow-${title})`} />
@@ -244,7 +245,7 @@ const InsightCard: React.FC<{ eyebrow: string; body: string; accent: string }> =
     padding={16}
     gap={6}
     style={{
-      background: `linear-gradient(180deg, ${accent}0d, rgba(255,255,255,0.02))`,
+      background: `linear-gradient(180deg, ${accent}0d, ${sw.tint})`,
       border: `1px solid ${accent}30`,
     }}
   >

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { WhyTransformersWorkCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface WhyTransformersWorkProps {
   copy: WhyTransformersWorkCopy;
@@ -13,7 +14,7 @@ export const WhyTransformersWork = React.memo(({ copy }: WhyTransformersWorkProp
       background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
       borderRadius: '24px',
       border: '1px solid rgba(255, 255, 255, 0.07)',
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 44px rgba(0,0,0,0.28)',
+      boxShadow: `${sw.insetHighlightStrong}, ${sw.shadowDeeper}`,
       display: 'flex',
       justifyContent: 'space-between',
       gap: '24px',

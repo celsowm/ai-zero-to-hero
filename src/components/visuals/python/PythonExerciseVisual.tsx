@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { Language, PythonExerciseVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { ExerciseCard } from '../../exercise/ExerciseCard';
+import { sw } from '../../../theme/tokens';
 
 interface PythonExerciseVisualProps {
   copy: PythonExerciseVisualCopy;
@@ -46,7 +47,7 @@ export const PythonExerciseVisual = React.memo(({ copy, language }: PythonExerci
                   flexShrink: 0,
                   padding: '8px 16px',
                   borderRadius: 10,
-                  border: active ? '1px solid rgba(0, 229, 255, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
+                  border: active ? `1px solid ${sw.cyan}35` : `1px solid ${sw.borderSubtle}`,
                   fontSize: 12.5,
                   fontWeight: 700,
                   letterSpacing: '0.01em',
@@ -54,9 +55,9 @@ export const PythonExerciseVisual = React.memo(({ copy, language }: PythonExerci
                   whiteSpace: 'nowrap',
                   color: active ? '#091018' : 'var(--sw-text-dim)',
                   background: active
-                    ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(102, 184, 74, 0.92))'
-                    : 'rgba(255, 255, 255, 0.04)',
-                  boxShadow: active ? '0 8px 20px rgba(0, 229, 255, 0.12)' : 'none',
+                    ? `linear-gradient(135deg, ${sw.cyan}95, ${sw.green}92)`
+                    : sw.tintStronger,
+                  boxShadow: active ? `0 8px 20px ${sw.cyan}12` : 'none',
                   cursor: 'pointer',
                   transition: 'all 180ms ease',
                 }}

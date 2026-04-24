@@ -1,5 +1,6 @@
 import React from 'react';
 import type { NeuronArchitectureAnimatedCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: NeuronArchitectureAnimatedCopy;
@@ -168,7 +169,7 @@ export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
             </marker>
           </defs>
 
-          <rect x="16" y="16" width="868" height="528" rx="34" fill="rgba(10,14,26,0.56)" stroke="rgba(255,255,255,0.08)" />
+          <rect x="16" y="16" width="868" height="528" rx="34" fill="rgba(10,14,26,0.56)" stroke={sw.borderMedium} />
 
           <text x="450" y={TITLE_Y} textAnchor="middle" className="nad-title" fill="#ffffff" fontSize="30">
             {titleHead}
@@ -291,7 +292,7 @@ export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
         style={{
           padding: '10px 12px',
           borderRadius: 12,
-          border: '1px solid rgba(255,255,255,0.08)',
+          border: `1px solid ${sw.borderMedium}`,
           background: 'rgba(12,16,29,0.72)',
         }}
       >
@@ -324,8 +325,8 @@ export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
                 gap: 10,
                 padding: '8px 10px',
                 borderRadius: 10,
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: sw.tintStrong,
+                border: `1px solid ${sw.borderMedium}`,
                 minWidth: 0,
                 minHeight: 46,
               }}
@@ -338,7 +339,7 @@ export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: '999px',
-                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  backgroundColor: sw.tintStronger,
                   color: item.color,
                   fontFamily: '"Cambria Math", "STIX Two Math", "Times New Roman", serif',
                   fontWeight: 700,

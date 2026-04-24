@@ -1,5 +1,6 @@
 import React from 'react';
 import type { RoadToMiniTransformerCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface RoadToMiniTransformerProps {
   copy: RoadToMiniTransformerCopy;
@@ -16,14 +17,14 @@ export const RoadToMiniTransformer = React.memo(({ copy }: RoadToMiniTransformer
       display: 'flex',
       flexDirection: 'column',
       gap: '40px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+      fontFamily: sw.fontSans,
       color: '#fff',
       position: 'relative',
       overflow: 'hidden'
     }}>
       
       {/* Road background */}
-      <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '40px', background: 'rgba(255,255,255,0.08)', transform: 'translateY(-50%)', zIndex: 0, boxShadow: '0 0 30px rgba(168,85,247,0.1)' }}>
+      <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '40px', background: sw.borderMedium, transform: 'translateY(-50%)', zIndex: 0, boxShadow: `0 0 30px ${sw.purple}10` }}>
         <div style={{ width: '100%', height: '4px', background: 'linear-gradient(90deg, var(--sw-cyan), var(--sw-pink))', marginTop: '18px', opacity: 0.9 }} />
       </div>
 

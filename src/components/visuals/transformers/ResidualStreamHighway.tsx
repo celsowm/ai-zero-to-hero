@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ResidualStreamHighwayCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface ResidualStreamHighwayProps {
   copy: ResidualStreamHighwayCopy;
@@ -21,10 +22,10 @@ export const ResidualStreamHighway = React.memo(({ copy }: ResidualStreamHighway
       
       <svg viewBox="0 0 400 300" style={{ width: '100%', maxWidth: '400px', height: 'auto', overflow: 'visible' }}>
         {/* Highway */}
-        <rect x="180" y="0" width="40" height="300" fill="rgba(255,255,255,0.08)" />
+        <rect x="180" y="0" width="40" height="300" fill={sw.borderMedium} />
         <line x1="200" y1="0" x2="200" y2="300" stroke="rgba(0,229,255,0.6)" strokeWidth="4" strokeDasharray="10 10" />
 
-        <text x="170" y="30" textAnchor="end" fill="#b0a8c4" fontSize="14" fontWeight="600">{copy.highwayLabel}</text>
+        <text x="170" y="30" textAnchor="end" fill={sw.textDim} fontSize="14" fontWeight="600">{copy.highwayLabel}</text>
 
         {/* Divert path */}
         <path d="M 220 60 Q 300 60 300 100" fill="none" stroke="var(--sw-cyan)" strokeWidth="4" />

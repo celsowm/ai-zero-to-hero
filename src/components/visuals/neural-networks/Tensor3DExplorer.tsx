@@ -6,6 +6,7 @@ import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { CodeBlock } from '../../CodeBlock';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: Tensor3DExplorerCopy;
@@ -217,19 +218,18 @@ const viewportShellStyle: React.CSSProperties = {
   position: 'relative',
   flex: 1,
   minHeight: 350,
-  borderRadius: 18,
+  borderRadius: '18px',
   overflow: 'hidden',
-  border: '1px solid rgba(255,255,255,0.06)',
-  background:
-    'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.16), transparent 28%), radial-gradient(circle at 84% 12%, rgba(255, 46, 151, 0.14), transparent 26%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+  border: sw.borderSubtle,
+  background: 'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.16), transparent 28%), radial-gradient(circle at 84% 12%, rgba(255, 46, 151, 0.14), transparent 26%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
+  boxShadow: `${sw.insetHighlight}, ${sw.shadowDeep}`,
 };
 
 const infoCardStyle: React.CSSProperties = {
   padding: '10px 14px',
-  borderRadius: 12,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  borderRadius: sw.cardBorderRadius,
+  background: sw.tintStrong,
+  border: sw.borderSubtle,
 };
 
 const infoLabelStyle: React.CSSProperties = {
@@ -299,16 +299,16 @@ export const Tensor3DExplorer = React.memo(({ copy }: Props) => {
                     onClick={() => setActiveRank(r)}
                     style={{
                       padding: '8px 14px',
-                      borderRadius: 12,
-                      border: active ? '1px solid #00e5ff88' : '1px solid rgba(255,255,255,0.06)',
+                      borderRadius: sw.cardBorderRadius,
+                      border: active ? '1px solid #00e5ff88' : sw.borderSubtle,
                       background: active
                         ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.22), rgba(255,255,255,0.04))'
-                        : 'rgba(255,255,255,0.03)',
+                        : sw.tintStrong,
                       color: active ? 'var(--sw-text)' : 'var(--sw-text-dim)',
                       fontSize: 12,
                       fontWeight: 700,
                       cursor: 'pointer',
-                      transition: 'all 180ms ease',
+                      transition: sw.transitionFast,
                     }}
                   >
                     {getRankLabel(r, copy.interactivePanel)}

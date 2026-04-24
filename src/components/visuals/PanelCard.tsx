@@ -1,4 +1,5 @@
 import React from 'react';
+import { sw } from '../../theme/tokens';
 
 interface PanelCardProps {
   children: React.ReactNode;
@@ -16,10 +17,10 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
   flexDirection: 'column',
   gap,
   padding,
-  borderRadius: 18,
-  background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.92), rgba(14, 13, 24, 0.94))',
-  border: '1px solid rgba(255, 255, 255, 0.06)',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 40px rgba(0,0,0,0.24)',
+  borderRadius: '16px',
+  background: sw.panelBackground,
+  border: sw.panelBorder,
+  boxShadow: `${sw.insetHighlightStrong}, ${sw.shadowSoft}`,
   boxSizing: 'border-box',
   overflow: 'hidden',
 });
@@ -27,4 +28,3 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
 export const PanelCard = React.memo(({ children, minHeight = 0, padding = 20, gap = 14, style, className }: PanelCardProps) => (
   <div className={className} style={{ ...baseStyle(minHeight, padding, gap), ...style }}>{children}</div>
 ));
-

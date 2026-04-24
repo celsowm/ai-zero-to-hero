@@ -1,5 +1,6 @@
 import React from 'react';
 import type { LinearRegressionNotationVisualCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface LinearRegressionNotationVisualProps {
   copy: LinearRegressionNotationVisualCopy;
@@ -18,8 +19,8 @@ const cardStyle: React.CSSProperties = {
   borderRadius: 18,
   padding: 20,
   background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.94), rgba(14, 13, 24, 0.96))',
-  border: '1px solid rgba(255,255,255,0.06)',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 40px rgba(0,0,0,0.24)',
+  border: `1px solid ${sw.borderSubtle}`,
+  boxShadow: `${sw.insetHighlightStrong}, ${sw.shadowSoft}`,
 };
 
 const eyebrowStyle: React.CSSProperties = {
@@ -63,14 +64,14 @@ export const LinearRegressionNotationVisual = React.memo(({ copy }: LinearRegres
           textAlign: 'center',
         }}
       >
-        <span style={{ color: '#34d399' }}>ŷ</span>
+        <span style={{ color: sw.green }}>ŷ</span>
         <span>=</span>
-        <span style={{ color: '#fbbf24' }}>β₀</span>
+        <span style={{ color: sw.yellow }}>β₀</span>
         <span>+</span>
-        <span style={{ color: '#00e5ff' }}>β₁</span>
+        <span style={{ color: sw.cyan }}>β₁</span>
         <span>* altura</span>
         <span>+</span>
-        <span style={{ color: '#ff2e97' }}>β₂</span>
+        <span style={{ color: sw.pink }}>β₂</span>
         <span>* idade</span>
       </div>
       <div style={{ marginTop: 14, textAlign: 'center', fontSize: 13.5, color: 'var(--sw-text-muted)' }}>{copy.formula}</div>
@@ -91,8 +92,8 @@ export const LinearRegressionNotationVisual = React.memo(({ copy }: LinearRegres
               alignItems: 'start',
               padding: '12px 14px',
               borderRadius: 14,
-              background: 'rgba(255,255,255,0.025)',
-              border: '1px solid rgba(255,255,255,0.05)',
+              background: sw.tint,
+              border: `1px solid ${sw.gridLineAlt}`,
             }}
           >
             <div
@@ -125,7 +126,7 @@ export const LinearRegressionNotationVisual = React.memo(({ copy }: LinearRegres
       </div>
       <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--sw-text)', marginBottom: 6 }}>{copy.comparisonFormula}</div>
       <div style={{ fontSize: 13.5, lineHeight: 1.65, color: 'var(--sw-text-dim)', marginBottom: 10 }}>{copy.comparisonDescription}</div>
-      <div style={{ paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: 12.5, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
+      <div style={{ paddingTop: 10, borderTop: `1px solid ${sw.borderSubtle}`, fontSize: 12.5, color: 'var(--sw-text-muted)' }}>{copy.footer}</div>
     </div>
   </div>
 ));

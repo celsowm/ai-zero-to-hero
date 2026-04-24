@@ -1,11 +1,12 @@
 import React from 'react';
 import type { LearningLoopDiagramCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface LearningLoopDiagramProps {
   copy: LearningLoopDiagramCopy;
 }
 
-const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
+const fontFamily = sw.fontSans;
 
 const wrapText = (text: string, maxWidth: number, fontSize: number) => {
   const approxCharWidth = fontSize * 0.56;
@@ -95,9 +96,9 @@ const Node: React.FC<{
   children?: React.ReactNode;
 }> = ({ x, y, step, title, accent, children }) => (
   <g transform={`translate(${x} ${y})`}>
-    <rect x="0" y="0" width={CARD_WIDTH} height={CARD_HEIGHT} rx="18" fill="rgba(11, 20, 37, 0.98)" stroke="rgba(129, 150, 182, 0.22)" />
-    <rect x="1" y="1" width={CARD_WIDTH - 2} height={CARD_HEIGHT - 2} rx="17" fill="none" stroke="rgba(255,255,255,0.05)" />
-    <line x1="18" y1="48" x2={CARD_WIDTH - 18} y2="48" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+    <rect x="0" y="0" width={CARD_WIDTH} height={CARD_HEIGHT} rx="18" fill="rgba(11, 20, 37, 0.98)" stroke={sw.borderMediumStrong} />
+    <rect x="1" y="1" width={CARD_WIDTH - 2} height={CARD_HEIGHT - 2} rx="17" fill="none" stroke={sw.tintOverlay} />
+    <line x1="18" y1="48" x2={CARD_WIDTH - 18} y2="48" stroke={sw.borderMedium} strokeWidth="1" />
     <circle cx="18" cy="18" r="12" fill="rgba(13, 24, 45, 0.98)" stroke={accent} strokeWidth="2" />
     <text x="18" y="22" textAnchor="middle" fontFamily={fontFamily} fontSize="11.5" fontWeight="700" fill={accent}>
       {step}
@@ -161,7 +162,7 @@ export const LearningLoopDiagram = React.memo(({ copy }: LearningLoopDiagramProp
       <rect x="44" y="246" width="472" height="1.5" rx="1" fill="url(#loop-track)" />
       {separatorDots.map((x, index) => (
         <g key={`flow-dot-${x}`}>
-          <circle cx={x} cy="246.5" r="6.5" fill="#0f1a30" stroke="rgba(160,180,210,0.22)" strokeWidth="1.2" />
+          <circle cx={x} cy="246.5" r="6.5" fill="#0f1a30" stroke={sw.borderMediumStrong} strokeWidth="1.2" />
           <circle cx={x} cy="246.5" r="2.4" fill={index % 2 === 0 ? '#38bdf8' : '#fbbf24'} />
         </g>
       ))}

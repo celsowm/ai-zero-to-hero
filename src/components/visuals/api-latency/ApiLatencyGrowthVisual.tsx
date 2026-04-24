@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ApiLatencyGrowthVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface ApiLatencyGrowthVisualProps {
   copy: ApiLatencyGrowthVisualCopy;
@@ -11,7 +12,7 @@ type ChartPoint = {
   y: number;
 };
 
-const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
+const fontFamily = sw.fontSans;
 
 const shellStyle: React.CSSProperties = {
   width: '100%',
@@ -67,9 +68,9 @@ const metricsGridStyle: React.CSSProperties = {
 const metricCardStyle = (accent: string): React.CSSProperties => ({
   padding: '8px 10px',
   borderRadius: 11,
-  background: 'rgba(255,255,255,0.03)',
+  background: sw.tintStrong,
   border: `1px solid ${accent}33`,
-  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), 0 12px 28px rgba(0,0,0,0.12)`,
+  boxShadow: `${sw.insetHighlight}, 0 12px 28px rgba(0,0,0,0.12)`,
   minWidth: 0,
 });
 
@@ -110,10 +111,10 @@ const chartShellStyle: React.CSSProperties = {
   minHeight: 0,
   borderRadius: 18,
   overflow: 'hidden',
-  border: '1px solid rgba(255,255,255,0.06)',
+  border: `1px solid ${sw.borderSubtle}`,
   background:
-    'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.12), transparent 26%), radial-gradient(circle at 82% 14%, rgba(255, 46, 151, 0.12), transparent 24%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+    `radial-gradient(circle at 18% 18%, ${sw.cyan}12, transparent 26%), radial-gradient(circle at 82% 14%, ${sw.pink}12, transparent 24%), linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(7, 10, 20, 0.98))`,
+  boxShadow: sw.shadowDeep,
 };
 
 const footerStyle: React.CSSProperties = {
@@ -269,13 +270,13 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
           <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} width="100%" height="100%" role="img" aria-label={copy.title} style={{ display: 'block' }}>
             <defs>
               <linearGradient id="api-latency-curve" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#00e5ff" />
-                <stop offset="55%" stopColor="#ff2e97" />
-                <stop offset="100%" stopColor="#fbbf24" />
+                <stop offset="0%" stopColor={sw.cyan} />
+                <stop offset="55%" stopColor={sw.pink} />
+                <stop offset="100%" stopColor={sw.yellow} />
               </linearGradient>
               <linearGradient id="api-latency-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.24" />
-                <stop offset="100%" stopColor="#ff2e97" stopOpacity="0.04" />
+                <stop offset="0%" stopColor={sw.cyan} stopOpacity="0.24" />
+                <stop offset="100%" stopColor={sw.pink} stopOpacity="0.04" />
               </linearGradient>
               <filter id="api-latency-glow" x="-30%" y="-30%" width="160%" height="160%">
                 <feGaussianBlur stdDeviation="2.5" result="blur" />
@@ -289,10 +290,10 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
             <rect x="0" y="0" width={chartWidth} height={chartHeight} fill="rgba(255,255,255,0.015)" />
 
             {[120, 220, 320, 420, 520, 620].map(x => (
-              <line key={`grid-v-${x}`} x1={x} y1={chartPadding.top} x2={x} y2={chartHeight - chartPadding.bottom} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+              <line key={`grid-v-${x}`} x1={x} y1={chartPadding.top} x2={x} y2={chartHeight - chartPadding.bottom} stroke={sw.tintOverlay} strokeWidth="1" />
             ))}
             {[96, 156, 216, 276, 336].map(y => (
-              <line key={`grid-h-${y}`} x1={chartPadding.left} y1={y} x2={chartWidth - chartPadding.right} y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+              <line key={`grid-h-${y}`} x1={chartPadding.left} y1={y} x2={chartWidth - chartPadding.right} y2={y} stroke={sw.tintOverlay} strokeWidth="1" />
             ))}
 
             <line x1={chartPadding.left} y1={chartHeight - chartPadding.bottom} x2={chartWidth - chartPadding.right} y2={chartHeight - chartPadding.bottom} stroke="rgba(255,255,255,0.36)" strokeWidth="2.2" />
@@ -311,7 +312,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               return (
                 <g key={point.label}>
                   <circle cx={screenPoint.x} cy={screenPoint.y} r={outerRadius} fill={point.accent} opacity="0.14" />
-                  <circle cx={screenPoint.x} cy={screenPoint.y} r={pointRadius} fill={point.accent} stroke="rgba(255,255,255,0.92)" strokeWidth={1.5} />
+                  <circle cx={screenPoint.x} cy={screenPoint.y} r={pointRadius} fill={point.accent} stroke={sw.tint} strokeWidth={1.5} />
                   <text
                     x={screenPoint.x}
                     y={screenPoint.y - 15}
@@ -341,7 +342,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                     height="42"
                     rx="12"
                     fill="rgba(8, 12, 24, 0.84)"
-                    stroke="rgba(255,255,255,0.08)"
+                    stroke={sw.borderMedium}
                   />
                   <text
                     x={point.x + layout.xOffset + 12}
@@ -391,12 +392,12 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
           <div style={{ display: 'grid', gap: 5 }}>
             <div style={eyebrowStyle}>{copy.legendTitle}</div>
             <div style={legendRowStyle}>
-              <span style={badgeStyle('#00e5ff')}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00e5ff', boxShadow: '0 0 18px rgba(0,229,255,0.55)' }} />
+              <span style={badgeStyle(sw.cyan)}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: sw.cyan, boxShadow: `0 0 18px ${sw.cyan}55` }} />
                 {copy.curveLabel}
               </span>
-              <span style={badgeStyle('#f8fafc')}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: 'rgba(248,250,252,0.88)', boxShadow: '0 0 18px rgba(248,250,252,0.35)' }} />
+              <span style={badgeStyle(sw.text)}>
+                <span style={{ width: 8, height: 8, borderRadius: 999, background: sw.text, boxShadow: `0 0 18px ${sw.text}35` }} />
                 {copy.referenceLabel}
               </span>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PanelCard } from '../PanelCard';
 import { Calendar } from 'lucide-react';
+import { sw } from '../../../theme/tokens';
 
 interface LinearRegressionSimpleLineVisualProps {
   copy: {
@@ -105,8 +106,8 @@ export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegr
             style={{
               padding: 20,
               borderRadius: 18,
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              background: sw.tintStrong,
+              border: `1px solid ${sw.borderSubtle}`,
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -114,7 +115,7 @@ export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegr
                 <Calendar size={16} color="var(--sw-pink)" />
                 <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--sw-text)' }}>{copy.ageLabel}: {age} anos</span>
               </div>
-              <div style={badgeStyle('#fbbf24')}>
+              <div style={badgeStyle(sw.yellow)}>
                 ŷ = {beta0} + {beta1}h + {beta2}({age})
               </div>
             </div>
@@ -144,8 +145,8 @@ export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegr
             style={{
               width: '100%',
               borderRadius: 18,
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.05)',
+              background: sw.tint,
+              border: `1px solid ${sw.gridLineAlt}`,
               padding: 16,
               position: 'relative',
               overflow: 'hidden'
@@ -154,22 +155,22 @@ export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegr
             <svg viewBox="0 0 520 300" style={{ display: 'block', width: '100%', height: 'auto' }}>
               <defs>
                 <linearGradient id="line-grad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#00e5ff" />
-                  <stop offset="100%" stopColor="#ff2e97" />
+                  <stop offset="0%" stopColor={sw.cyan} />
+                  <stop offset="100%" stopColor={sw.pink} />
                 </linearGradient>
               </defs>
 
               {/* Grid Lines */}
               {[70, 133, 196, 259, 322, 385, 448].map(x => (
-                <line key={x} x1={x} y1="32" x2={x} y2="236" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                <line key={x} x1={x} y1="32" x2={x} y2="236" stroke={sw.tintStrong} strokeWidth="1" />
               ))}
               {[40, 89, 138, 187, 236].map(y => (
-                <line key={y} x1="70" y1={y} x2="470" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                <line key={y} x1="70" y1={y} x2="470" y2={y} stroke={sw.tintStrong} strokeWidth="1" />
               ))}
 
               {/* Axes */}
-              <line x1="70" y1="236" x2="470" y2="236" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
-              <line x1="70" y1="236" x2="70" y2="32" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+              <line x1="70" y1="236" x2="470" y2="236" stroke={sw.axisLine} strokeWidth="2" />
+              <line x1="70" y1="236" x2="70" y2="32" stroke={sw.axisLine} strokeWidth="2" />
 
               {/* Regression Line */}
               <line
@@ -225,7 +226,7 @@ export const LinearRegressionSimpleLineVisual = React.memo(({ copy }: LinearRegr
           style={{
             marginTop: 20,
             paddingTop: 16,
-            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+            borderTop: `1px solid ${sw.borderSubtle}`,
             fontSize: 12.5,
             lineHeight: 1.6,
             color: 'var(--sw-text-muted)',

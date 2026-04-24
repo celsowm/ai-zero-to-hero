@@ -1,5 +1,6 @@
 import React from 'react';
 import type { InferenceDiagramCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface InferenceDiagramProps {
   copy: InferenceDiagramCopy;
@@ -41,7 +42,7 @@ interface ArrowProps {
   headWidth?: number;
 }
 
-const fontFamily = "'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif";
+const fontFamily = sw.fontSans;
 
 const MultiLineText: React.FC<MultiLineTextProps> = ({
   x,
@@ -98,7 +99,7 @@ const Panel: React.FC<PanelProps> = ({
   height,
   rx = 18,
   fill = 'url(#inference-card-fill)',
-  stroke = 'rgba(148, 163, 184, 0.2)',
+  stroke = sw.borderMediumStrong,
   strokeWidth = 1,
   filter,
 }) => (
@@ -227,12 +228,12 @@ export const InferenceDiagram = React.memo(({ copy }: InferenceDiagramProps) => 
           <stop offset="100%" stopColor="#e24545" />
         </linearGradient>
         <radialGradient id="inference-glow-pink" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#ff2e97" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#ff2e97" stopOpacity="0" />
+          <stop offset="0%" stopColor={sw.pink} stopOpacity="0.18" />
+          <stop offset="100%" stopColor={sw.pink} stopOpacity="0" />
         </radialGradient>
         <radialGradient id="inference-glow-cyan" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.10" />
-          <stop offset="100%" stopColor="#00e5ff" stopOpacity="0" />
+          <stop offset="0%" stopColor={sw.cyan} stopOpacity="0.10" />
+          <stop offset="100%" stopColor={sw.cyan} stopOpacity="0" />
         </radialGradient>
         <filter id="inference-shadow" x="-20%" y="-20%" width="140%" height="160%">
           <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#000000" floodOpacity="0.5" />
@@ -256,7 +257,7 @@ export const InferenceDiagram = React.memo(({ copy }: InferenceDiagramProps) => 
         <path d="M539 0 V405" stroke="#334155" strokeWidth="1" opacity="0.4" />
         <ellipse cx="458" cy="60" rx="120" ry="78" fill="url(#inference-glow-pink)" />
         <ellipse cx="112" cy="338" rx="140" ry="92" fill="url(#inference-glow-cyan)" />
-        <ellipse cx="402" cy="330" rx="118" ry="88" fill="rgba(255,255,255,0.20)" />
+        <ellipse cx="402" cy="330" rx="118" ry="88" fill={sw.tintState} />
 
         <Panel x={12} y={76} width={160} height={129} filter="url(#inference-shadow)" />
         <Panel x={190} y={76} width={152} height={129} filter="url(#inference-shadow)" />
@@ -315,19 +316,19 @@ export const InferenceDiagram = React.memo(({ copy }: InferenceDiagramProps) => 
           {modelNodes.input.map((node, index) => (
             <g key={`input-${index}`}>
               <circle cx={node.x} cy={node.y} r="9.4" fill={node.fill} stroke={node.stroke} strokeWidth="2" />
-              <circle cx={node.x - 2} cy={node.y - 2} r="2.8" fill="rgba(255,255,255,0.7)" />
+              <circle cx={node.x - 2} cy={node.y - 2} r="2.8" fill={sw.tint} />
             </g>
           ))}
           {modelNodes.hidden.map((node, index) => (
             <g key={`hidden-${index}`}>
               <circle cx={node.x} cy={node.y} r="9.8" fill={node.fill} stroke={node.stroke} strokeWidth="2" />
-              <circle cx={node.x - 2} cy={node.y - 2} r="3" fill="rgba(255,255,255,0.72)" />
+              <circle cx={node.x - 2} cy={node.y - 2} r="3" fill={sw.textDim} />
             </g>
           ))}
           {modelNodes.output.map((node, index) => (
             <g key={`output-${index}`}>
               <circle cx={node.x} cy={node.y} r="9.4" fill={node.fill} stroke={node.stroke} strokeWidth="2" />
-              <circle cx={node.x - 2} cy={node.y - 2} r="2.8" fill="rgba(255,255,255,0.7)" />
+              <circle cx={node.x - 2} cy={node.y - 2} r="2.8" fill={sw.tint} />
             </g>
           ))}
         </g>

@@ -5,6 +5,7 @@ import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { CodeBlock } from '../../CodeBlock';
+import { sw } from '../../../theme/tokens';
 
 interface NonlinearRegressionBoundaryVisualProps {
   copy: NonlinearRegressionBoundaryVisualCopy;
@@ -203,7 +204,7 @@ const pillStyle = (accent: string): React.CSSProperties => ({
   color: 'rgba(243, 244, 246, 0.96)',
   background: 'rgba(9, 12, 20, 0.72)',
   border: `1px solid ${accent}66`,
-  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 18px rgba(0,0,0,0.15)`,
+  boxShadow: `${sw.insetHighlightStrong}, 0 8px 18px rgba(0,0,0,0.15)`,
 });
 
 const neutralPillStyle: React.CSSProperties = {
@@ -219,8 +220,8 @@ const neutralPillStyle: React.CSSProperties = {
   minWidth: 0,
   color: 'rgba(243, 244, 246, 0.96)',
   background: 'rgba(9, 12, 20, 0.72)',
-  border: '1px solid rgba(255,255,255,0.10)',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 18px rgba(0,0,0,0.15)',
+  border: `1px solid ${sw.borderMediumStrong}`,
+  boxShadow: `${sw.insetHighlightStrong}, 0 8px 18px rgba(0,0,0,0.15)`,
 };
 
 const metricsStripStyle: React.CSSProperties = {
@@ -232,8 +233,8 @@ const metricsStripStyle: React.CSSProperties = {
 const metricCardStyle: React.CSSProperties = {
   padding: '8px 12px',
   borderRadius: 12,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
   minWidth: 0,
   display: 'flex',
   flexDirection: 'column',
@@ -275,8 +276,8 @@ const codeBodyStyle: React.CSSProperties = {
   margin: 0,
   padding: '16px 16px 16px 8px',
   borderRadius: 16,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
   display: 'flex',
   flexDirection: 'column',
 };
@@ -319,10 +320,10 @@ const viewportShellStyle: React.CSSProperties = {
   minHeight: 340,
   borderRadius: 18,
   overflow: 'hidden',
-  border: '1px solid rgba(255,255,255,0.06)',
+  border: `1px solid ${sw.borderSubtle}`,
   background:
     'radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.10), transparent 28%), radial-gradient(circle at 80% 12%, rgba(255, 46, 151, 0.10), transparent 28%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 42px rgba(0,0,0,0.24)',
+  boxShadow: sw.shadowDeep,
 };
 
 const formatAccuracy = (value: number) => `${value.toFixed(1)}%`;
@@ -512,8 +513,8 @@ export const NonlinearRegressionBoundaryVisual = React.memo(({ copy }: Nonlinear
                     width: 44,
                     justifyContent: 'center',
                     color: 'var(--sw-text)',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    borderColor: 'rgba(255,255,255,0.08)',
+                    background: sw.tintStronger,
+                    borderColor: sw.borderMedium,
                   }}
                 >
                   <RotateCcw size={16} />
@@ -551,7 +552,7 @@ export const NonlinearRegressionBoundaryVisual = React.memo(({ copy }: Nonlinear
               >
               <defs>
                 <linearGradient id="nrb-linear-line" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ff6b6b" />
+                  <stop offset="0%" stopColor={sw.red} />
                   <stop offset="100%" stopColor="#e64545" />
                 </linearGradient>
                 <radialGradient id="nrb-surface-bg" cx="18%" cy="16%" r="85%">
@@ -571,10 +572,10 @@ export const NonlinearRegressionBoundaryVisual = React.memo(({ copy }: Nonlinear
               <rect x="0" y="0" width="640" height="420" fill="url(#nrb-surface-bg)" />
 
               {[64, 124, 184, 244, 304, 364, 424, 484, 544, 604].map(x => (
-                <line key={`grid-v-${x}`} x1={x} y1="36" x2={x} y2="384" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                <line key={`grid-v-${x}`} x1={x} y1="36" x2={x} y2="384" stroke={sw.borderMedium} strokeWidth="1" />
               ))}
               {[54, 108, 162, 216, 270, 324, 378].map(y => (
-                <line key={`grid-h-${y}`} x1="40" y1={y} x2="600" y2={y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                <line key={`grid-h-${y}`} x1="40" y1={y} x2="600" y2={y} stroke={sw.borderMedium} strokeWidth="1" />
               ))}
 
               <line x1="40" y1={210} x2="600" y2={210} stroke="rgba(255,255,255,0.25)" strokeWidth="2.2" />

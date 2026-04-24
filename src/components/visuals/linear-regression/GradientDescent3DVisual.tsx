@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import type { GradientDescentVisualCopy } from '../../../types/slide';
+import { sw } from '../../../theme/tokens';
 
 interface GradientDescent3DVisualProps {
   copy: GradientDescentVisualCopy;
@@ -116,12 +117,11 @@ const viewportShellStyle: React.CSSProperties = {
   position: 'relative',
   flex: 1,
   minHeight: 300,
-  borderRadius: 18,
+  borderRadius: '18px',
   overflow: 'hidden',
-  border: '1px solid rgba(255,255,255,0.06)',
-  background:
-    'radial-gradient(circle at 20% 15%, rgba(0, 229, 255, 0.16), transparent 30%), radial-gradient(circle at 85% 18%, rgba(255, 46, 151, 0.12), transparent 26%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03), 0 24px 42px rgba(0,0,0,0.24)',
+  border: sw.borderSubtle,
+  background: 'radial-gradient(circle at 20% 15%, rgba(0, 229, 255, 0.16), transparent 30%), radial-gradient(circle at 85% 18%, rgba(255, 46, 151, 0.12), transparent 26%), linear-gradient(180deg, rgba(8, 12, 24, 0.95), rgba(7, 10, 20, 0.98))',
+  boxShadow: `${sw.insetHighlight}, ${sw.shadowDeep}`,
 };
 
 const floatingNoteStyle: React.CSSProperties = {
@@ -134,7 +134,7 @@ const floatingNoteStyle: React.CSSProperties = {
   justifyContent: 'space-between',
   gap: 10,
   padding: '10px 12px',
-  borderRadius: 14,
+  borderRadius: '14px',
   background: 'rgba(8, 12, 24, 0.72)',
   border: '1px solid rgba(255,255,255,0.07)',
   backdropFilter: 'blur(12px)',

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import type { BackpropSignalFlowVisualCopy } from '../../../types/slide';
 import { backwardPass, forwardPass, updateWeights } from '../../../utils/neuralTrainingEngine';
 import { PanelCard } from '../PanelCard';
+import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: BackpropSignalFlowVisualCopy;
@@ -63,8 +64,8 @@ export const BackpropSignalFlow = React.memo(({ copy }: Props) => {
               style={{
                 padding: '10px 14px',
                 borderRadius: 12,
-                border: `1px solid ${active ? a : 'rgba(255,255,255,0.06)'}`,
-                background: active ? `${a}1a` : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${active ? a : sw.borderSubtle}`,
+                background: active ? `${a}1a` : sw.tintStrong,
                 boxShadow: active ? `0 0 20px ${a}22` : 'none',
                 cursor: 'pointer',
                 textAlign: 'left',
@@ -128,7 +129,7 @@ export const BackpropSignalFlow = React.memo(({ copy }: Props) => {
 
           <div style={{ display: 'grid', gridTemplateColumns: `repeat(${metrics.length}, 1fr)`, gap: 8 }}>
             {metrics.map((m) => (
-              <div key={m.label} style={{ padding: '10px 12px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: `1px solid ${m.color}30` }}>
+              <div key={m.label} style={{ padding: '10px 12px', borderRadius: 10, background: sw.tintStrong, border: `1px solid ${m.color}30` }}>
                 <div style={{ fontSize: 10, color: 'var(--sw-text-dim)', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 4 }}>{m.label}</div>
                 <div style={{ fontSize: 13, fontWeight: 900, color: m.color, fontFamily: 'monospace' }}>{m.value}</div>
               </div>
@@ -246,7 +247,7 @@ const BackpropSvg: React.FC<{
       <text x="385" y="155" fill="#ffffff" fontSize="8" textAnchor="middle">(ŷ−y)²</text>
 
       {/* Bottom status bar */}
-      <rect x="18" y="262" width="384" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
+      <rect x="18" y="262" width="384" height="20" rx="10" fill={sw.tintStronger} stroke={sw.borderSubtle} />
       <text x="210" y="275" fill={STEP_ACCENT[activeKey]} fontSize="9" fontWeight="700" textAnchor="middle">
         {activeKey === 'loss' ? 'forward → loss' : activeKey === 'output' ? '← output delta backward' : activeKey === 'hidden' ? '← hidden deltas spread error' : '↻ weights receive updates'}
       </text>
