@@ -21,6 +21,13 @@
         },
         {
           "lineRange": [
+            7,
+            7
+          ],
+          "content": "O acumulador é zerado antes do loop para receber a soma parcial dos erros."
+        },
+        {
+          "lineRange": [
             8,
             11
           ],
@@ -52,6 +59,13 @@
             6
           ],
           "content": "This block prepares the dataset and fixed coefficients used in the simulation."
+        },
+        {
+          "lineRange": [
+            7,
+            7
+          ],
+          "content": "The accumulator is zeroed before the loop to collect the partial sum of errors."
         },
         {
           "lineRange": [
@@ -103,6 +117,13 @@
                 6
               ],
               "content": "Este bloco prepara o dataset e os coeficientes fixos usados na simulação."
+            },
+            {
+              "lineRange": [
+                7,
+                7
+              ],
+              "content": "O acumulador é zerado antes do loop para receber a soma parcial dos erros."
             },
             {
               "lineRange": [
@@ -188,6 +209,13 @@
                 6
               ],
               "content": "This block prepares the dataset and fixed coefficients used in the simulation."
+            },
+            {
+              "lineRange": [
+                7,
+                7
+              ],
+              "content": "The accumulator is zeroed before the loop to collect the partial sum of errors."
             },
             {
               "lineRange": [
