@@ -42,11 +42,37 @@ const buttonBaseStyle: React.CSSProperties = {
 
 export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisualProps) => {
   const [activeStep, setActiveStep] = useState(0);
-  const lastStepIndex = copy.steps.length - 1;
-  const currentStep = copy.steps[activeStep];
-  const progress = ((activeStep + 1) / copy.steps.length) * 100;
+  const steps = copy.steps ?? [];
+  const lastStepIndex = steps.length - 1;
+  const currentStep = steps[activeStep];
+  const progress = ((activeStep + 1) / steps.length) * 100;
   const isFirst = activeStep === 0;
   const isLast = activeStep === lastStepIndex;
+
+  // Fallback for JSONs that don't have steps (e.g. road-to-mini-transformer)
+  if (!steps.length) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '24px 16px' }}>
+        <div style={{
+          fontSize: 11,
+          fontWeight: 900,
+          letterSpacing: '.12em',
+          textTransform: 'uppercase',
+          color: sw.cyan,
+          fontFamily: sw.fontMono,
+        }}>
+          {copy.currentModule || ''}
+        </div>
+        <div style={{
+          fontSize: 13,
+          color: sw.textDim,
+          fontFamily: sw.fontSans,
+        }}>
+          {copy.nextModule || ''}
+        </div>
+      </div>
+    );
+  }
 
   const goToPreviousStep = () => {
     setActiveStep(previous => Math.max(0, previous - 1));
@@ -131,11 +157,11 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(${copy.steps.length}, minmax(0, 1fr))`,
+              gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`,
               gap: 8,
             }}
           >
-            {copy.steps.map((step, index) => {
+            {steps.map((step, index) => {
               const completed = index < activeStep;
               const active = index === activeStep;
 
@@ -239,7 +265,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                   color: currentStep.accent,
                 }}
               >
-                {copy.progressLabel} {activeStep + 1}/{copy.steps.length}
+                {copy.progressLabel} {activeStep + 1}/{steps.length}
               </div>
               <div
                 style={{
@@ -363,7 +389,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
                           if (inputKeys.includes(key)) return true;
 
                           // 2. Check if this row was already highlighted in the current or previous steps
-                          const hasBeenHighlighted = copy.steps
+                          const hasBeenHighlighted = steps
                             .slice(0, activeStep + 1)
                             .some(step => step.highlightedRowIndexes?.includes(index));
 
@@ -377,7 +403,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
 
                           // 4. For squaredError, show only from the "summary" steps onwards (where the math is aggregated)
                           if (key === 'squaredError') {
-                            const reachedSummary = copy.steps
+                            const reachedSummary = steps
                               .slice(0, activeStep + 1)
                               .some(step => (step.highlightedRowIndexes?.length ?? 0) > 1);
                             return reachedSummary;
@@ -522,7 +548,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
               textTransform: 'uppercase',
             }}
           >
-            {activeStep + 1} / {copy.steps.length}
+            {activeStep + 1} / {steps.length}
           </div>
 
           <button

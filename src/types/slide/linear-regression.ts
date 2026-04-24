@@ -182,17 +182,19 @@ export interface ProgressStepperTableCopy {
 }
 
 export interface ProgressStepperVisualCopy {
-  eyebrow: string;
-  title: string;
-  description: string;
-  progressLabel: string;
-  previousLabel: string;
-  nextLabel: string;
-  completionLabel: string;
-  completionDescription: string;
-  footer: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  progressLabel?: string;
+  previousLabel?: string;
+  nextLabel?: string;
+  completionLabel?: string;
+  completionDescription?: string;
+  footer?: string;
   table?: ProgressStepperTableCopy;
-  steps: ProgressStepperStepCopy[];
+  steps?: ProgressStepperStepCopy[];
+  currentModule?: string;
+  nextModule?: string;
 }
 
 export interface LinearRegressionSimpleLineDataPointCopy {
