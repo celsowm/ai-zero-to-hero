@@ -356,7 +356,7 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
     }
 
     function createPalmsPool() {
-      const pairCount = 11;
+      const pairCount = 5;
       const spacing = TERRAIN_LENGTH / pairCount;
       const palmLaneX = PALM_LANE_X;
       for (let pairIndex = 0; pairIndex < pairCount; pairIndex++) {
