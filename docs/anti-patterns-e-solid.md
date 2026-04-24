@@ -6,21 +6,23 @@ Análise completa do codebase **ai-zero-to-hero**.
 
 ## Sumário
 
-| #  | Categoria | Severidade | Arquivo(s) Principal(is) |
-|----|-----------|------------|--------------------------|
-| 1  | OCP — SlideFactory switch/case | 🔴 Alta | `components/SlideFactory.tsx` |
-| 2  | OCP — Visual Registry boilerplate explosivo | 🔴 Alta | `services/visualRegistry.tsx` |
-| 3  | DRY — Union type duplicada (RawSlide vs SlideVisual) | 🟡 Média | `data/course-content.ts`, `types/slide/visuals.ts` |
-| 4  | SRP — CourseContext como fachada de re-exports | 🟡 Média | `context/CourseContext.tsx` |
-| 5  | God Object — Tipo `SlideVisual` com 50+ membros | 🟡 Média | `types/slide/visuals.ts` |
-| 6  | SRP — SearchModal com lógica + UI + portal | 🟡 Média | `components/SearchModal.tsx` |
-| 7  | Anti-pattern — `any` explícito em VisualCopy | 🟡 Média | `services/visualRegistry.tsx` |
-| 8  | DIP — `usePyodideLoader` acoplado a singleton | 🟢 Baixa | `hooks/usePyodideLoader.ts`, `services/pyodideRunner.ts` |
-| 9  | ISP — `useExerciseSession` retorna 13 campos | 🟢 Baixa | `hooks/useExerciseSession.ts` |
-| 10 | Anti-pattern — Hardcoded strings i18n inline | 🟢 Baixa | `components/Sidebar.tsx`, `SearchModal.tsx` |
-| 11 | Anti-pattern — Legacy façade sem data de remoção | 🟢 Baixa | `hooks/usePyodide.ts` |
-| 12 | Anti-pattern — `derivedValueRegistry` hardcoded | 🟢 Baixa | `services/exerciseValidators.ts` |
-| 13 | Anti-pattern — Inline styles massivos | 🟢 Baixa | Vários componentes |
+| #  | Categoria | Severidade | Status | Resolução |
+|----|-----------|------------|--------|-----------|
+| 1  | OCP — SlideFactory switch/case | 🔴 Alta | ✅ Resolvido | Registry pattern `slideRenderers` |
+| 2  | OCP — Visual Registry boilerplate explosivo | 🔴 Alta | ✅ Resolvido | `visualMap` declarativo + `createVisualAdapter()` |
+| 3  | DRY — Union type duplicada (RawSlide vs SlideVisual) | 🟡 Média | ✅ Resolvido | `RawVisual` derivado via mapped type |
+| 4  | SRP — CourseContext como fachada de re-exports | 🟡 Média | ✅ Resolvido | Re-exports mortos removidos |
+| 5  | God Object — Tipo `SlideVisual` com 50+ membros | 🟡 Média | ✅ Resolvido | `VisualCopyMap` + mapped type |
+| 6  | SRP — SearchModal com lógica + UI + portal | 🟡 Média | ✅ Resolvido | `useSearchResults` + `useKeyboardNavigation` |
+| 7  | Anti-pattern — `any` explícito em VisualCopy | 🟡 Média | ✅ Resolvido | `Record<string, unknown>` + typed lookup |
+| 8  | DIP — `usePyodideLoader` acoplado a singleton | 🟢 Baixa | ⏳ Pendente | Refatorar para injeção via Context |
+| 9  | ISP — `useExerciseSession` retorna 13 campos | 🟢 Baixa | ⏳ Pendente | Dividir em hooks compostos |
+| 10 | Anti-pattern — Hardcoded strings i18n inline | 🟢 Baixa | ✅ Resolvido | `i18n/uiMessages.ts` centralizado |
+| 11 | Anti-pattern — Legacy façade sem data de remoção | 🟢 Baixa | ✅ Resolvido | `usePyodide.ts` deletado |
+| 12 | Anti-pattern — `derivedValueRegistry` hardcoded | 🟢 Baixa | ⏳ Pendente | Mover fórmulas para dados do exercício |
+| 13 | Anti-pattern — Inline styles massivos | 🟢 Baixa | ✅ Parcial | ~50 arquivos migrados para `sw` tokens |
+
+**10 de 13 resolvidos.** Restam #8 (DIP pyodide), #9 (ISP exercise session) e #12 (derivedValueRegistry).
 
 ---
 
@@ -311,10 +313,25 @@ style={{
 
 ---
 
-## Priorização Recomendada
+## Histórico de Resolução
 
-1. **visualRegistry.tsx** — maior impacto, 440 linhas que podem ser reduzidas a ~50
-2. **SlideVisual union + RawSlide duplicação** — shotgun surgery em 4 arquivos a cada novo visual
-3. **SlideFactory switch/case** — refactor simples para registry pattern
-4. **CourseContext re-exports** — remoção dos re-exports (breaking change controlável)
-5. **SearchModal** — extração de hooks (refactor de conforto)
+| Commit | Anti-pattern | Linhas | Redução |
+|--------|-------------|--------|---------|
+| `e65c26a` | Theme tokens + 51 componentes | — | 280+ rgba, 120+ hex → `sw` tokens |
+| `10dff32` | visualRegistry boilerplate (OCP #2) | 440 → 127 | **-71%** |
+| `74789a0` | RawSlide duplicated union (DRY #3) | 74 → 9 | **-87%** |
+| `ec5039d` | SlideFactory switch/case (OCP #1) | 37 → 46 | Registry pattern |
+| `53719a5` | CourseContext re-exports (SRP #4) | 46 → 40 | Dead code removido |
+| `2ac1e70` | SlideVisual God type (#5) | 439 → 101 | **-82%** |
+| `cab724d` | SearchMonolith hooks (SRP #6) | 187 → 169 | 2 hooks extraídos |
+| `f6afaef` | i18n inline + legacy façade (#10, #11) | 6 → 1 | `usePyodide.ts` deletado |
+
+**Total: 8 commits, 8 deploys ✅, ~800 linhas removidas.**
+
+### Pendentes
+
+| # | Anti-pattern | Por que não tocar |
+|---|-------------|------------------|
+| 8 | pyodide singleton (DIP) | Funcional; refatorar só se houver testes |
+| 9 | useExerciseSession 13 campos (ISP) | Hook composto; split seria breaking change |
+| 12 | derivedValueRegistry hardcoded | Fórmulas de exercício; mover para dados quando houver editor de exercícios |
