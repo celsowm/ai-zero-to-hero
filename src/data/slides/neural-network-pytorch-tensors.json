@@ -1,0 +1,138 @@
+{
+  "id": "neural-network-pytorch-tensors",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.52, 0.48]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Tensores: a estrutura de dados do PyTorch",
+      "body": "Antes de treinar qualquer rede, precisamos entender o que o PyTorch manipula por baixo dos panos: **tensores**.\n\n### O que é um tensor?\nUm tensor é uma generalização de arrays N-dimensionais. Pense assim:\n- **Escalar (0D):** um único número, ex: `3.14`\n- **Vetor (1D):** uma lista, ex: `[1, 2, 3]`\n- **Matriz (2D):** uma tabela, ex: `[[1, 2], [3, 4]]`\n- **Tensor (3D+):** cubo, hipercubo, etc.\n\n### Por que tensores e não listas Python?\n1. **Velocidade:** operações vetorizadas rodam em C/CUDA, não em Python puro.\n2. **GPU:** tensores podem ser movidos para a GPU com `.to(device)`.\n3. **Autograd:** tensores com `requires_grad=True` rastreiam operações para backprop automático.\n\n> **Regra prática:** no PyTorch, *tudo* é tensor — dados de entrada, pesos da rede, gradientes e saídas.\n\n---\n\n### Criação, operações e reshaping\n```python\nsnippet:neural-networks/tensor-basics\n```",
+      "codeExplanations": [
+        {
+          "lineRange": [1, 2],
+          "content": "Importamos o módulo principal do PyTorch."
+        },
+        {
+          "lineRange": [4, 5],
+          "content": "`torch.tensor()` cria um tensor a partir de dados Python. O tipo é inferido (float32 aqui)."
+        },
+        {
+          "lineRange": [7, 9],
+          "content": "Funções utilitárias criam tensores com formas e inicializações comuns."
+        },
+        {
+          "lineRange": [11, 13],
+          "content": "Operações são vetorizadas: `x * 2` aplica a todos os elementos sem loops explícitos."
+        },
+        {
+          "lineRange": [17, 18],
+          "content": "Tensores têm forma (shape). Aqui: batch de 32 imagens RGB de 28x28 pixels."
+        },
+        {
+          "lineRange": [20, 22],
+          "content": "`.view(-1)` achata dimensões automaticamente. Essencial antes de camadas fully-connected."
+        }
+      ]
+    },
+    "en-us": {
+      "title": "Tensors: PyTorch's data structure",
+      "body": "Before training any network, we need to understand what PyTorch manipulates under the hood: **tensors**.\n\n### What is a tensor?\nA tensor is a generalization of N-dimensional arrays. Think of it this way:\n- **Scalar (0D):** a single number, e.g., `3.14`\n- **Vector (1D):** a list, e.g., `[1, 2, 3]`\n- **Matrix (2D):** a table, e.g., `[[1, 2], [3, 4]]`\n- **Tensor (3D+):** cube, hypercube, etc.\n\n### Why tensors instead of Python lists?\n1. **Speed:** vectorized operations run in C/CUDA, not pure Python.\n2. **GPU:** tensors can be moved to GPU with `.to(device)`.\n3. **Autograd:** tensors with `requires_grad=True` track operations for automatic backprop.\n\n> **Practical rule:** in PyTorch, *everything* is a tensor — input data, network weights, gradients, and outputs.\n\n---\n\n### Creation, operations, and reshaping\n```python\nsnippet:neural-networks/tensor-basics\n```",
+      "codeExplanations": [
+        {
+          "lineRange": [1, 2],
+          "content": "We import PyTorch's main module."
+        },
+        {
+          "lineRange": [4, 5],
+          "content": "`torch.tensor()` creates a tensor from Python data. Type is inferred (float32 here)."
+        },
+        {
+          "lineRange": [7, 9],
+          "content": "Utility functions create tensors with common shapes and initializations."
+        },
+        {
+          "lineRange": [11, 13],
+          "content": "Operations are vectorized: `x * 2` applies to all elements without explicit loops."
+        },
+        {
+          "lineRange": [17, 18],
+          "content": "Tensors have a shape. Here: batch of 32 RGB images of 28x28 pixels."
+        },
+        {
+          "lineRange": [20, 22],
+          "content": "`.view(-1)` flattens dimensions automatically. Essential before fully-connected layers."
+        }
+      ]
+    }
+  },
+  "visual": {
+    "id": "tensor-3d-explorer",
+    "copy": {
+      "pt-br": {
+        "tabs": [
+          { "label": "Código" },
+          { "label": "3D Interativo" }
+        ],
+        "codePanel": {
+          "title": "Criando e manipulando tensores",
+          "description": "Veja como criar tensores de diferentes dimensões e realizar operações básicas.",
+          "code": "import torch\n\n# Escalar (0D)\nscalar = torch.tensor(3.14)\n\n# Vetor (1D)\nvector = torch.tensor([1.0, 2.0, 3.0, 4.0])\n\n# Matriz (2D)\nmatrix = torch.zeros(3, 4)\n\n# Tensor 3D\ntensor3d = torch.randn(2, 3, 4)\n\n# Operações vetorizadas\ny = vector * 2 + 1  # broadcast automático\nz = torch.matmul(matrix, matrix.T)\n\n# Reshaping\nbatch = torch.randn(32, 3, 28, 28)  # 32 imagens RGB 28x28\nflat = batch.view(32, -1)  # achat: 32 x 2352",
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "Importamos o módulo principal do PyTorch." },
+            { "lineRange": [4, 5], "content": "Um escalar é um tensor 0D — um único número." },
+            { "lineRange": [7, 8], "content": "Um vetor 1D com 4 elementos." },
+            { "lineRange": [10, 11], "content": "Uma matriz 3x4 de zeros — tensor 2D." },
+            { "lineRange": [13, 14], "content": "Tensor 3D com distribuição normal (aleatório)." },
+            { "lineRange": [16, 18], "content": "Operações vetorizadas: sem loops explícitos, tudo roda em C." },
+            { "lineRange": [20, 22], "content": "`.view(-1)` achata dimensões. Essencial antes de camadas fully-connected." }
+          ]
+        },
+        "interactivePanel": {
+          "eyebrow": "Visualização 3D",
+          "title": "Explore tensores de forma interativa",
+          "description": "Selecione o tipo de tensor abaixo e arraste a cena 3D para rotacionar. Cada elemento representa um valor no tensor.",
+          "shapeLabel": "Shape",
+          "rankLabel": "Rank",
+          "scalarLabel": "Escalar ()",
+          "vectorLabel": "Vetor (4,)",
+          "matrixLabel": "Matriz (3, 4)",
+          "tensor3dLabel": "Tensor 3D (2, 3, 4)",
+          "footer": "Arraste para rotacionar. Use scroll para zoom. Cada bloco/esfera é um elemento do tensor."
+        }
+      },
+      "en-us": {
+        "tabs": [
+          { "label": "Code" },
+          { "label": "Interactive 3D" }
+        ],
+        "codePanel": {
+          "title": "Creating and manipulating tensors",
+          "description": "See how to create tensors of different dimensions and perform basic operations.",
+          "code": "import torch\n\n# Scalar (0D)\nscalar = torch.tensor(3.14)\n\n# Vector (1D)\nvector = torch.tensor([1.0, 2.0, 3.0, 4.0])\n\n# Matrix (2D)\nmatrix = torch.zeros(3, 4)\n\n# 3D Tensor\ntensor3d = torch.randn(2, 3, 4)\n\n# Vectorized operations\ny = vector * 2 + 1  # automatic broadcast\nz = torch.matmul(matrix, matrix.T)\n\n# Reshaping\nbatch = torch.randn(32, 3, 28, 28)  # 32 RGB images 28x28\nflat = batch.view(32, -1)  # flatten: 32 x 2352",
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "We import PyTorch's main module." },
+            { "lineRange": [4, 5], "content": "A scalar is a 0D tensor — a single number." },
+            { "lineRange": [7, 8], "content": "A 1D vector with 4 elements." },
+            { "lineRange": [10, 11], "content": "A 3x4 matrix of zeros — 2D tensor." },
+            { "lineRange": [13, 14], "content": "3D tensor with normal distribution (random)." },
+            { "lineRange": [16, 18], "content": "Vectorized operations: no explicit loops, everything runs in C." },
+            { "lineRange": [20, 22], "content": "`.view(-1)` flattens dimensions. Essential before fully-connected layers." }
+          ]
+        },
+        "interactivePanel": {
+          "eyebrow": "3D Visualization",
+          "title": "Explore tensors interactively",
+          "description": "Select the tensor type below and drag the 3D scene to rotate. Each element represents a value in the tensor.",
+          "shapeLabel": "Shape",
+          "rankLabel": "Rank",
+          "scalarLabel": "Scalar ()",
+          "vectorLabel": "Vector (4,)",
+          "matrixLabel": "Matrix (3, 4)",
+          "tensor3dLabel": "3D Tensor (2, 3, 4)",
+          "footer": "Drag to rotate. Scroll to zoom. Each box/sphere is a tensor element."
+        }
+      }
+    }
+  }
+}

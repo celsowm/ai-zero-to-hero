@@ -42,6 +42,7 @@ export const courseSlideOrder = [
   'neural-network-pytorch-intro',
   'neural-network-pytorch-install',
   'neural-network-pytorch-hardware',
+  'neural-network-pytorch-tensors',
   'neural-network-pytorch-training',
   'neural-network-pytorch-prediction',
   'neural-network-to-language-modeling',

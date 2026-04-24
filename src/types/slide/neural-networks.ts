@@ -1,5 +1,30 @@
 import type { CodeExplanation, CodeSourceRef } from './base';
 
+export interface Tensor3DExplorerCodePanelCopy {
+  title: string;
+  description: string;
+  code?: string;
+  source?: CodeSourceRef;
+  codeExplanations?: CodeExplanation[];
+}
+
+export interface Tensor3DExplorerCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: Tensor3DExplorerCodePanelCopy;
+  interactivePanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    shapeLabel: string;
+    rankLabel: string;
+    scalarLabel: string;
+    vectorLabel: string;
+    matrixLabel: string;
+    tensor3dLabel: string;
+    footer: string;
+  };
+}
+
 export interface BiologicalVsComputationalNeuronCopy {
   eyebrow: string;
   title: string;

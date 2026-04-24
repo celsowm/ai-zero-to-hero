@@ -396,6 +396,13 @@ registerVisual('architecture-comparator', () => import('../components/visuals').
   },
 })));
 
+registerVisual('tensor-3d-explorer', () => import('../components/visuals').then(m => ({
+  default: (props: VisualRenderProps) => {
+    const { Tensor3DExplorer } = m;
+    return <Tensor3DExplorer copy={(props.visual.copy as VisualCopy)[props.language]} />;
+  },
+})));
+
 registerVisual('biological-vs-computational-neuron', () => import('../components/visuals').then(m => ({
   default: (props: VisualRenderProps) => {
     const { BiologicalVsComputationalNeuron } = m;
