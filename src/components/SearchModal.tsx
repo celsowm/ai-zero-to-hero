@@ -7,6 +7,7 @@ import { Search, Command, CornerDownLeft, Hash } from 'lucide-react';
 import { sw } from '../theme/tokens';
 import { useSearchResults } from '../hooks/useSearchResults';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { getUiMessages } from '../i18n/uiMessages';
 
 export const SearchModal: React.FC = () => {
   const { isSearchOpen, setSearchOpen } = useUI();
@@ -43,14 +44,7 @@ export const SearchModal: React.FC = () => {
 
   if (!isSearchOpen) return null;
 
-  const t = {
-    emptyTitle: language === 'pt-br' ? 'BUSCA RÁPIDA' : 'QUICK SEARCH',
-    emptyDesc: language === 'pt-br'
-      ? 'Digite o título de um tópico para pular diretamente para o conteúdo.'
-      : 'Type a topic title to jump directly to the content.',
-    select: language === 'pt-br' ? 'Selecionar' : 'Select',
-    navigate: language === 'pt-br' ? 'Navegar' : 'Navigate',
-  };
+  const t = getUiMessages(language);
 
   const modalContent = (
     <div style={{
@@ -81,7 +75,7 @@ export const SearchModal: React.FC = () => {
           <Search size={24} color={sw.pink} style={{ filter: `drop-shadow(0 0 8px rgba(255,46,151,0.5))` }} />
           <input
             ref={inputRef}
-            placeholder={language === 'pt-br' ? 'O que você quer aprender?' : 'What do you want to learn?'}
+            placeholder={t.searchPlaceholder}
             value={query}
             onChange={e => setQuery(e.target.value)}
             style={{
@@ -139,15 +133,15 @@ export const SearchModal: React.FC = () => {
           ) : query.trim() ? (
             <div style={{ padding: '80px 0', textAlign: 'center', color: 'rgba(255,255,255,0.2)' }}>
               <Search size={48} style={{ marginBottom: '16px', opacity: 0.2 }} />
-              <p style={{ fontWeight: '600' }}>{language === 'pt-br' ? 'Nenhum slide encontrado' : 'No slides found'}</p>
+              <p style={{ fontWeight: '600' }}>{t.searchNoResults}</p>
             </div>
           ) : (
             <div style={{ padding: '60px 40px', textAlign: 'center' }}>
-              <div style={{ width: '80px', height: '80px', borderRadius: '30px', background: 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', margin: '0 auto 24px', boxShadow: '0 15px 35px rgba(255,46,151,0.3)' }}>
+              <div style={{ width: '80px', height: '80px', borderRadius: '30px', background: `linear-gradient(135deg, ${sw.pink}, ${sw.purple})`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', margin: '0 auto 24px', boxShadow: '0 15px 35px rgba(255,46,151,0.3)' }}>
                 <Search size={32} strokeWidth={3} />
               </div>
-              <h3 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.03em' }}>{t.emptyTitle}</h3>
-              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1.5 }}>{t.emptyDesc}</p>
+              <h3 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.03em' }}>{t.searchEmptyTitle}</h3>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1.5 }}>{t.searchEmptyDesc}</p>
             </div>
           )}
         </div>
@@ -156,10 +150,10 @@ export const SearchModal: React.FC = () => {
         <div style={{ padding: '16px 24px', background: 'rgba(0,0,0,0.3)', borderTop: `1px solid ${sw.tintOverlay}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '20px' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', fontWeight: '800', color: sw.textMuted, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              <span style={{ padding: '2px 6px', background: sw.tintOverlay, borderRadius: '4px', border: `1px solid ${sw.borderSubtle}`, color: sw.textDim }}>ENTER</span> {t.select}
+              <span style={{ padding: '2px 6px', background: sw.tintOverlay, borderRadius: '4px', border: `1px solid ${sw.borderSubtle}`, color: sw.textDim }}>ENTER</span> {t.searchSelect}
             </span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '10px', fontWeight: '800', color: sw.textMuted, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              <span style={{ padding: '2px 6px', background: sw.tintOverlay, borderRadius: '4px', border: `1px solid ${sw.borderSubtle}`, color: sw.textDim }}>↑↓</span> {t.navigate}
+              <span style={{ padding: '2px 6px', background: sw.tintOverlay, borderRadius: '4px', border: `1px solid ${sw.borderSubtle}`, color: sw.textDim }}>↑↓</span> {t.searchNavigate}
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255, 46, 151, 0.4)', fontSize: '10px', fontWeight: '900', letterSpacing: '0.2em' }}>

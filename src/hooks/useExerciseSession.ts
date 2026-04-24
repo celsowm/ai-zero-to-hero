@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { ExerciseItem, Language } from '../types/slide';
-import { usePyodide } from './usePyodide';
+import { useExerciseRunner } from './useExerciseRunner';
 import type { ValidationResult } from '../services/exerciseValidators';
 
 interface UseExerciseSessionReturn {
@@ -28,7 +28,7 @@ export function useExerciseSession(
   const [stderr, setStderr] = useState('');
   const [results, setResults] = useState<ValidationResult[] | null>(null);
   const [showHints, setShowHints] = useState(false);
-  const { run, check, status, error: pyodideError } = usePyodide();
+  const { run, check, status, error: pyodideError } = useExerciseRunner();
 
   const isRunning = status === 'loading';
 

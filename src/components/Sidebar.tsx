@@ -3,12 +3,14 @@ import { useNavigation } from '../context/NavigationContext';
 import { useUI } from '../context/UIContext';
 import { useLocale } from '../context/LocaleContext';
 import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
+import { getUiMessages } from '../i18n/uiMessages';
 
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { slides, goToSlide, currentSlideIndex } = useNavigation();
   const { setSearchOpen } = useUI();
   const { language, switchLanguage } = useLocale();
+  const ui = getUiMessages(language);
 
   return (
     <aside
@@ -61,7 +63,7 @@ export const Sidebar: React.FC = () => {
           {!isCollapsed && (
             <div className="flex-1 flex items-center justify-between min-w-0">
               <span className="text-sm text-sw-text-muted group-hover:text-white transition-colors truncate">
-                {language === 'pt-br' ? 'Buscar...' : 'Search...'}
+                {ui.searchButton}
               </span>
               <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white/5 text-[10px] text-white/30 font-medium">
                 <Command size={10} />
@@ -128,7 +130,7 @@ export const Sidebar: React.FC = () => {
           <Globe size={15} />
           {!isCollapsed && (
             <span className="font-medium">
-              {language === 'pt-br' ? 'Português (BR)' : 'English (US)'}
+              {ui.languageLabel}
             </span>
           )}
         </button>

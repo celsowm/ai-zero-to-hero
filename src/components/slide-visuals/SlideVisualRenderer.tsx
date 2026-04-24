@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import type { Language, SlideVisual } from '../../types/slide';
 import { getVisualComponent } from '../../services/visualRegistry';
+import { getUiMessages } from '../../i18n/uiMessages';
 
 interface SlideVisualRendererProps {
   visual: SlideVisual;
@@ -14,8 +15,10 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
     return null;
   }
 
+  const { loadingVisual } = getUiMessages(language);
+
   return (
-    <Suspense fallback={<div style={{ color: 'var(--sw-text-muted)', fontSize: 14 }}>Carregando visual...</div>}>
+    <Suspense fallback={<div style={{ color: 'var(--sw-text-muted)', fontSize: 14 }}>{loadingVisual}</div>}>
       <LazyComponent visual={visual} language={language} />
     </Suspense>
   );
