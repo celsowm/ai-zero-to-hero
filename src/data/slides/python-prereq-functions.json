@@ -62,15 +62,15 @@
         },
         {
           "lineRange": [
-            7,
-            7
+            5,
+            5
           ],
           "content": "This call passes inputs and coefficients, producing the predicted weight."
         },
         {
           "lineRange": [
-            8,
-            8
+            6,
+            6
           ],
           "content": "This line prints the result for quick inspection."
         }
