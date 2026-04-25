@@ -25,9 +25,9 @@
         "outputLabel": "Saída do Console",
         "exercises": [
           {
-            "id": "1. Derivada da Sigmoid",
-            "instructions": "Para treinar a rede, precisamos da derivada da função de ativação. \n\nSe `s = sigmoid(x)`, a derivada é `s * (1 - s)`. \nImplemente a função `sigmoid_derivative(s)` sabendo que a entrada `s` já é o valor ativado.",
-            "starterCode": "def sigmoid_derivative(s):\n    # complete: retorne a derivada da sigmoid\n    return \n\n# teste: se sigmoid(0) = 0.5, a derivada em 0 deve ser 0.25\nprint(f\"Derivada em sigmoid=0.5: {sigmoid_derivative(0.5)}\")",
+            "id": "1. Fix the Bug: Derivada da Sigmoid invertida?",
+            "instructions": "Alguém implementou a derivada da sigmoid — mas o resultado está **negativo** para alguns valores!\n\nA derivada correta é `s * (1 - s)`, que para s ∈ (0,1) é sempre positiva.\n\nRode o código, observe o comportamento estranho, encontre e corrija o bug.",
+            "starterCode": "def sigmoid_derivative(s):\n    # BUG: esta função retorna valores negativos!\n    # Encontre o sinal errado e corrija.\n    return s * (1 + s)\n\n# Teste: sigmoid(0) = 0.5, derivada deveria ser 0.25\nprint(f\"Bug: sigmoid_derivative(0.5) = {sigmoid_derivative(0.5)}\")\nprint(f\"Bug: sigmoid_derivative(0.8) = {sigmoid_derivative(0.8)}\")\n\n# Corrija a função e rode de novo:\nprint(f\"\\nCorrigido: sigmoid_derivative(0.5) = {sigmoid_derivative(0.5)}\")\nprint(f\"Corrigido: sigmoid_derivative(0.8) = {sigmoid_derivative(0.8)}\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -45,7 +45,8 @@
               }
             ],
             "hints": [
-              "A fórmula é simples: s multiplicado por (1 menos s)."
+              "Troque `(1 + s)` por `(1 - s)`",
+              "A derivada da sigmoid é sempre positiva para s entre 0 e 1, porque s*(1-s) forma uma parábola com máximo em 0.25."
             ]
           },
           {
@@ -84,9 +85,9 @@
             ]
           },
           {
-            "id": "4. Função ReLU",
-            "instructions": "Implemente a função de ativação ReLU: `relu(z) = max(0, z)`.\n\nReLU é a função mais simples: se z é negativo, a saída é 0; se z é positivo, a saída é o próprio z.\n\nCompare com sigmoid no mesmo teste.",
-            "starterCode": "def relu(z):\n    # complete: retorne max(0, z)\n    return \n\n# teste com vários valores\nvalores = [-2.0, -0.5, 0.0, 0.5, 2.0]\nfor v in valores:\n    print(f\"relu({v}) = {relu(v)}\")",
+            "id": "4. Compare: Sigmoid vs ReLU",
+            "instructions": "Duas funções de ativação populares se comportam de forma **muito diferente**.\n\n**Antes de rodar:** para cada valor abaixo, pense mentalmente:\n- `sigmoid(-2)` é próximo de 0 ou de 1?\n- `relu(-2)` é 0 ou negativo?\n- Qual função 'mata' sinais negativos?\n\nDepois rode e compare!",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef relu(z):\n    return max(0, z)\n\nvalores = [-5.0, -2.0, -0.5, 0.0, 0.5, 2.0, 5.0]\n\nprint(f\"{'x':>6} | {'sigmoid(x)':>10} | {'relu(x)':>8}\")\nprint(\"-\" * 30)\nfor x in valores:\n    print(f\"{x:>6.1f} | {sigmoid(x):>10.4f} | {relu(x):>8.4f}\")\n\nprint(\"\\nObserve:\")\nprint(\"- sigmoid: sempre entre 0 e 1 (suave)\")\nprint(\"- relu: 0 para negativos, identidade para positivos\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -108,10 +109,15 @@
                 "args": [2.0],
                 "expectedReturn": 2.0,
                 "tolerance": 0.001
+              },
+              {
+                "type": "assertOutput",
+                "expected": "     x | sigmoid(x) | relu(x)\n------------------------------\n  -5.0 |     0.0067 |   0.0000\n  -2.0 |     0.1192 |   0.0000\n  -0.5 |     0.3775 |   0.0000\n   0.0 |     0.5000 |   0.0000\n   0.5 |     0.6225 |   0.5000\n   2.0 |     0.8808 |   2.0000\n   5.0 |     0.9933 |   5.0000\n\nObserve:\n- sigmoid: sempre entre 0 e 1 (suave)\n- relu: 0 para negativos, identidade para positivos"
               }
             ],
             "hints": [
-              "Use max(0, z) ou um if simples"
+              "sigmoid(-5) ≈ 0.007 (quase zero), relu(-5) = 0",
+              "relu 'mata' negativos e passa positivos direto. Sigmoid comprime tudo para (0,1)."
             ]
           },
           {
@@ -145,9 +151,9 @@
         "outputLabel": "Console Output",
         "exercises": [
           {
-            "id": "1. Sigmoid Derivative",
-            "instructions": "To train a network, we need the derivative of the activation function. \n\nIf `s = sigmoid(x)`, the derivative is `s * (1 - s)`. \nImplement the `sigmoid_derivative(s)` function knowing that the input `s` is already the activated value.",
-            "starterCode": "def sigmoid_derivative(s):\n    # complete: return the sigmoid derivative\n    return \n\n# test: if sigmoid(0) = 0.5, the derivative at 0 should be 0.25\nprint(f\"Derivative at sigmoid=0.5: {sigmoid_derivative(0.5)}\")",
+            "id": "1. Fix the Bug: Sigmoid Derivative inverted?",
+            "instructions": "Someone implemented the sigmoid derivative — but the result is **negative** for some values!\n\nThe correct derivative is `s * (1 - s)`, which for s ∈ (0,1) is always positive.\n\nRun the code, observe the strange behavior, find and fix the bug.",
+            "starterCode": "def sigmoid_derivative(s):\n    # BUG: this function returns negative values!\n    # Find and fix the wrong sign.\n    return s * (1 + s)\n\n# Test: sigmoid(0) = 0.5, derivative should be 0.25\nprint(f\"Bug: sigmoid_derivative(0.5) = {sigmoid_derivative(0.5)}\")\nprint(f\"Bug: sigmoid_derivative(0.8) = {sigmoid_derivative(0.8)}\")\n\n# Fix the function and run again:\nprint(f\"\\nFixed: sigmoid_derivative(0.5) = {sigmoid_derivative(0.5)}\")\nprint(f\"Fixed: sigmoid_derivative(0.8) = {sigmoid_derivative(0.8)}\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -165,7 +171,8 @@
               }
             ],
             "hints": [
-              "The formula is simple: s multiplied by (1 minus s)."
+              "Change `(1 + s)` to `(1 - s)`",
+              "The sigmoid derivative is always positive for s between 0 and 1, because s*(1-s) forms a parabola with max at 0.25."
             ]
           },
           {
@@ -204,9 +211,9 @@
             ]
           },
           {
-            "id": "4. ReLU Function",
-            "instructions": "Implement the ReLU activation function: `relu(z) = max(0, z)`.\n\nReLU is the simplest function: if z is negative, output is 0; if z is positive, output is z itself.\n\nCompare with sigmoid in the same test.",
-            "starterCode": "def relu(z):\n    # complete: return max(0, z)\n    return \n\n# test with several values\nvalues = [-2.0, -0.5, 0.0, 0.5, 2.0]\nfor v in values:\n    print(f\"relu({v}) = {relu(v)}\")",
+            "id": "4. Compare: Sigmoid vs ReLU",
+            "instructions": "Two popular activation functions behave **very differently**.\n\n**Before running:** for each value below, think mentally:\n- `sigmoid(-2)` is close to 0 or 1?\n- `relu(-2)` is 0 or negative?\n- Which function 'kills' negative signals?\n\nThen run and compare!",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef relu(z):\n    return max(0, z)\n\nvalues = [-5.0, -2.0, -0.5, 0.0, 0.5, 2.0, 5.0]\n\nprint(f\"{'x':>6} | {'sigmoid(x)':>10} | {'relu(x)':>8}\")\nprint(\"-\" * 30)\nfor x in values:\n    print(f\"{x:>6.1f} | {sigmoid(x):>10.4f} | {relu(x):>8.4f}\")\n\nprint(\"\\nObserve:\")\nprint(\"- sigmoid: always between 0 and 1 (smooth)\")\nprint(\"- relu: 0 for negatives, identity for positives\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -228,10 +235,15 @@
                 "args": [2.0],
                 "expectedReturn": 2.0,
                 "tolerance": 0.001
+              },
+              {
+                "type": "assertOutput",
+                "expected": "     x | sigmoid(x) | relu(x)\n------------------------------\n  -5.0 |     0.0067 |   0.0000\n  -2.0 |     0.1192 |   0.0000\n  -0.5 |     0.3775 |   0.0000\n   0.0 |     0.5000 |   0.0000\n   0.5 |     0.6225 |   0.5000\n   2.0 |     0.8808 |   2.0000\n   5.0 |     0.9933 |   5.0000\n\nObserve:\n- sigmoid: always between 0 and 1 (smooth)\n- relu: 0 for negatives, identity for positives"
               }
             ],
             "hints": [
-              "Use max(0, z) or a simple if statement"
+              "sigmoid(-5) ≈ 0.007 (almost zero), relu(-5) = 0",
+              "relu kills negatives and passes positives through. Sigmoid compresses everything to (0,1)."
             ]
           },
           {

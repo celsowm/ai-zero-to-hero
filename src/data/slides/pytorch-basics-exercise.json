@@ -25,21 +25,18 @@
         "outputLabel": "Saída do Console",
         "exercises": [
           {
-            "id": "1. Criando Tensores",
-            "instructions": "Crie um 'tensor' (array NumPy) de zeros com shape (3, 2).",
-            "starterCode": "import numpy as np\n\ndef create_tensor():\n    # complete: crie um array de zeros com 3 linhas e 2 colunas\n    tensor = \n    return tensor\n\n# teste\nt = create_tensor()\nprint(f\"Shape: {t.shape}\")\nprint(t)",
+            "id": "1. Reverse Engineering: Qual o shape?",
+            "instructions": "Você vê a **saída** de um tensor, mas não sabe como foi criado.\n\nDado o output abaixo, descubra qual chamada `np.zeros()` ou `np.ones()` o produziu.\n\n**Dica:** conte os colchetes — cada nível é uma dimensão.",
+            "starterCode": "import numpy as np\n\n# OUTPUT 1: o que você vê\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Pergunta: qual np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: outro mistério\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Pergunta: qual np.ones(...)?\n# shape = (?, ?, ?)\n\n# Crie os tensores e verifique:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (deveria produzir {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (deveria produzir {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nIguais? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
             "validators": [
               {
-                "type": "assertFunctionReturn",
-                "functionName": "create_tensor",
-                "args": [],
-                "expectedReturn": [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]],
-                "tolerance": 0.001
+                "type": "assertOutput",
+                "expected": "Output 1: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]\n\nOutput 2: [[[1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]]\n\nt1.shape = (2, 3)  (deveria produzir 2x3)\nt2.shape = (1, 3, 2)  (deveria produzir 1x3x2)\n\nIguais? t1: True, t2: True"
               }
             ],
             "hints": [
-              "Use np.zeros((3, 2))",
-              "Lembre-se que o shape é uma tupla: (linhas, colunas)"
+              "Output 1: 2 linhas, 3 colunas → np.zeros((2, 3))",
+              "Output 2: 1 bloco, 3 linhas, 2 colunas → np.ones((1, 3, 2))"
             ]
           },
           {
@@ -61,21 +58,21 @@
             ]
           },
           {
-            "id": "3. Broadcasting e Operações",
-            "instructions": "Crie um tensor (3, 3) com valores de 1 a 9. Depois, adicione 100 a todos os elementos usando broadcasting.\n\nO broadcasting permite operações entre shapes diferentes.",
-            "starterCode": "import numpy as np\n\ndef broadcast_demo():\n    # crie tensor 3x3 com valores 1-9\n    data = \n    # adicione 100 usando broadcasting\n    result = \n    return result\n\n# teste\nprint(broadcast_demo())",
+            "id": "3. Fix the Bug: Broadcasting que falha",
+            "instructions": "Alguém quer somar um vetor de bias `(3,)` a cada linha de uma matriz `(3, 3)`. Mas o código quebra!\n\nRode e veja o erro. O problema é que o bias tem shape `(3,)` mas deveria ser `(3, 1)` para o broadcasting funcionar corretamente.\n\n**Desafio:** corrija o shape do bias para que o broadcasting funcione.",
+            "starterCode": "import numpy as np\n\ndef add_bias():\n    # Matriz de dados (3 amostras, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias com shape errado\n    bias = np.array([100, 200, 300], dtype=float)\n    # O broadcasting tenta somar bias a cada elemento...\n    # Para somar por coluna, bias precisa ser reshape!\n    \n    # CORRIGIDO: bias como coluna (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResultado com broadcasting corrigido:\")\nprint(add_bias())",
             "validators": [
               {
                 "type": "assertFunctionReturn",
-                "functionName": "broadcast_demo",
+                "functionName": "add_bias",
                 "args": [],
-                "expectedReturn": [[101, 102, 103], [104, 105, 106], [107, 108, 109]],
+                "expectedReturn": [[101, 102, 103], [204, 205, 206], [307, 308, 309]],
                 "tolerance": 0.001
               }
             ],
             "hints": [
-              "np.arange(1, 10).reshape(3, 3) cria o tensor 1-9",
-              "result = data + 100 aplica broadcasting"
+              "bias.reshape(3, 1) transforma (3,) em (3,1) — uma coluna",
+              "Assim, broadcasting soma 100 na coluna 0, 200 na coluna 1, 300 na coluna 2."
             ]
           },
           {
@@ -109,21 +106,18 @@
         "outputLabel": "Console Output",
         "exercises": [
           {
-            "id": "1. Creating Tensors",
-            "instructions": "Create a 'tensor' (NumPy array) of zeros with shape (3, 2).",
-            "starterCode": "import numpy as np\n\ndef create_tensor():\n    # complete: create a zeros array with 3 rows and 2 columns\n    tensor = \n    return tensor\n\n# test\nt = create_tensor()\nprint(f\"Shape: {t.shape}\")\nprint(t)",
+            "id": "1. Reverse Engineering: What's the shape?",
+            "instructions": "You see the **output** of a tensor, but don't know how it was created.\n\nGiven the output below, figure out which `np.zeros()` or `np.ones()` call produced it.\n\n**Hint:** count the brackets — each nesting level is a dimension.",
+            "starterCode": "import numpy as np\n\n# OUTPUT 1: what you see\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Question: which np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: another mystery\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Question: which np.ones(...)?\n# shape = (?, ?, ?)\n\n# Create the tensors and verify:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (should produce {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (should produce {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nMatch? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
             "validators": [
               {
-                "type": "assertFunctionReturn",
-                "functionName": "create_tensor",
-                "args": [],
-                "expectedReturn": [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]],
-                "tolerance": 0.001
+                "type": "assertOutput",
+                "expected": "Output 1: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]\n\nOutput 2: [[[1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]]\n\nt1.shape = (2, 3)  (should produce 2x3)\nt2.shape = (1, 3, 2)  (should produce 1x3x2)\n\nMatch? t1: True, t2: True"
               }
             ],
             "hints": [
-              "Use np.zeros((3, 2))",
-              "Remember that the shape is a tuple: (rows, cols)"
+              "Output 1: 2 rows, 3 cols → np.zeros((2, 3))",
+              "Output 2: 1 block, 3 rows, 2 cols → np.ones((1, 3, 2))"
             ]
           },
           {
@@ -145,21 +139,21 @@
             ]
           },
           {
-            "id": "3. Broadcasting and Operations",
-            "instructions": "Create a (3, 3) tensor with values from 1 to 9. Then add 100 to all elements using broadcasting.\n\nBroadcasting allows operations between different shapes.",
-            "starterCode": "import numpy as np\n\ndef broadcast_demo():\n    # create 3x3 tensor with values 1-9\n    data = \n    # add 100 using broadcasting\n    result = \n    return result\n\n# test\nprint(broadcast_demo())",
+            "id": "3. Fix the Bug: Broadcasting gone wrong",
+            "instructions": "Someone wants to add a bias vector `(3,)` to each row of a `(3, 3)` matrix. But the code fails!\n\nRun and see the error. The bias has shape `(3,)` but needs to be `(3, 1)` for broadcasting to work correctly.\n\n**Challenge:** fix the bias shape so broadcasting works.",
+            "starterCode": "import numpy as np\n\ndef add_bias():\n    # Data matrix (3 samples, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias with wrong shape\n    bias = np.array([100, 200, 300], dtype=float)\n    # Broadcasting tries to add bias to each element...\n    # To add per column, bias needs a reshape!\n    \n    # FIXED: bias as a column (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResult with fixed broadcasting:\")\nprint(add_bias())",
             "validators": [
               {
                 "type": "assertFunctionReturn",
-                "functionName": "broadcast_demo",
+                "functionName": "add_bias",
                 "args": [],
-                "expectedReturn": [[101, 102, 103], [104, 105, 106], [107, 108, 109]],
+                "expectedReturn": [[101, 102, 103], [204, 205, 206], [307, 308, 309]],
                 "tolerance": 0.001
               }
             ],
             "hints": [
-              "np.arange(1, 10).reshape(3, 3) creates the 1-9 tensor",
-              "result = data + 100 applies broadcasting"
+              "bias.reshape(3, 1) turns (3,) into (3,1) — a column",
+              "Now broadcasting adds 100 to col 0, 200 to col 1, 300 to col 2."
             ]
           },
           {

@@ -25,9 +25,9 @@
         "outputLabel": "Saída do Console",
         "exercises": [
           {
-            "id": "1. Cálculo de Score (Dot Product)",
-            "instructions": "Calcule o score de atenção entre um vetor `q` (query) e um vetor `k` (key).\n\nFórmula: `score = sum(q * k) / sqrt(dimensão_de_k)`\n\nDica: Use `math.sqrt()`.",
-            "starterCode": "import math\n\ndef attention_score(q, k):\n    # q e k são listas de números com o mesmo tamanho (dk)\n    dk = len(k)\n    \n    # 1. Calcule o produto escalar (dot product)\n    dot_product = sum(qi * ki for qi, ki in zip(q, k))\n    \n    # 2. Divida pela raiz quadrada de dk e retorne\n    return \n\n# teste\nq = [1, 0, 1]\nk = [1, 2, 0]\nprint(f\"Score: {attention_score(q, k)}\")",
+            "id": "1. Fix the Bug: Esqueceram o sqrt!",
+            "instructions": "O attention score usa **scaled** dot product — o 'S' em 'Scaled Dot-Product Attention'.\n\nMas alguém esqueceu a escala! O código divide por `dk` em vez de `sqrt(dk)`.\n\nCom vetores grandes, scores sem sqrt ficam **minúsculos**, o que achata o softmax e destrói a atenção.\n\nCorrija a fórmula e veja a diferença.",
+            "starterCode": "import math\n\ndef attention_score(q, k):\n    dk = len(k)\n    dot_product = sum(qi * ki for qi, ki in zip(q, k))\n    \n    # BUG: dividindo por dk em vez de sqrt(dk)!\n    return dot_product / dk\n\n# Compare as duas versões:\nq = [1, 0, 1]\nk = [1, 2, 0]\n\nbuggy = attention_score(q, k)\ncorrect = sum(qi * ki for qi, ki in zip(q, k)) / math.sqrt(len(k))\n\nprint(f\"Bug (divide por dk={len(k)}): score = {buggy:.4f}\")\nprint(f\"Correto (divide por sqrt(dk)): score = {correct:.4f}\")\nprint(f\"\\nDiferença: {abs(buggy - correct):.4f}\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -38,7 +38,8 @@
               }
             ],
             "hints": [
-              "Retorne dot_product / math.sqrt(dk)"
+              "Troque `dot_product / dk` por `dot_product / math.sqrt(dk)`",
+              "Para dk=3: sqrt(3) ≈ 1.732, então o score correto é maior que o buggy (1/3 ≈ 0.333 vs 1/1.732 ≈ 0.577)."
             ]
           },
           {
@@ -96,9 +97,9 @@
         "outputLabel": "Console Output",
         "exercises": [
           {
-            "id": "1. Score Calculation (Dot Product)",
-            "instructions": "Calculate the attention score between a vector `q` (query) and a vector `k` (key).\n\nFormula: `score = sum(q * k) / sqrt(dimension_of_k)`\n\nHint: Use `math.sqrt()`.",
-            "starterCode": "import math\n\ndef attention_score(q, k):\n    # q and k are lists of numbers with the same size (dk)\n    dk = len(k)\n    \n    # 1. Calculate dot product\n    dot_product = sum(qi * ki for qi, ki in zip(q, k))\n    \n    # 2. Divide by the square root of dk and return\n    return \n\n# test\nq = [1, 0, 1]\nk = [1, 2, 0]\nprint(f\"Score: {attention_score(q, k)}\")",
+            "id": "1. Fix the Bug: They forgot the sqrt!",
+            "instructions": "The attention score uses **scaled** dot product — the 'S' in 'Scaled Dot-Product Attention'.\n\nBut someone forgot the scaling! The code divides by `dk` instead of `sqrt(dk)`.\n\nWith large vectors, unscaled scores become **tiny**, which flattens the softmax and destroys attention.\n\nFix the formula and see the difference.",
+            "starterCode": "import math\n\ndef attention_score(q, k):\n    dk = len(k)\n    dot_product = sum(qi * ki for qi, ki in zip(q, k))\n    \n    # BUG: dividing by dk instead of sqrt(dk)!\n    return dot_product / dk\n\n# Compare both versions:\nq = [1, 0, 1]\nk = [1, 2, 0]\n\nbuggy = attention_score(q, k)\ncorrect = sum(qi * ki for qi, ki in zip(q, k)) / math.sqrt(len(k))\n\nprint(f\"Bug (divides by dk={len(k)}): score = {buggy:.4f}\")\nprint(f\"Correct (divides by sqrt(dk)): score = {correct:.4f}\")\nprint(f\"\\nDifference: {abs(buggy - correct):.4f}\")",
             "validators": [
               {
                 "type": "assertFunctionReturn",
@@ -109,7 +110,8 @@
               }
             ],
             "hints": [
-              "Return dot_product / math.sqrt(dk)"
+              "Change `dot_product / dk` to `dot_product / math.sqrt(dk)`",
+              "For dk=3: sqrt(3) ≈ 1.732, so the correct score is larger than buggy (1/3 ≈ 0.333 vs 1/1.732 ≈ 0.577)."
             ]
           },
           {
