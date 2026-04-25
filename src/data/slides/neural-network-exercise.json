@@ -1,0 +1,259 @@
+{
+  "id": "neural-network-exercise",
+  "type": "exercise",
+  "content": {
+    "pt-br": {
+      "title": "Exercício: Anatomia de uma Rede Neural",
+      "body": "Vamos subir o nível. Agora você vai implementar a lógica completa de uma camada e o motor do Backpropagation."
+    },
+    "en-us": {
+      "title": "Exercise: Neural Network Anatomy",
+      "body": "Let's level up. Now you will implement the full logic of a layer and the Backpropagation engine."
+    }
+  },
+  "visual": {
+    "id": "python-exercise",
+    "copy": {
+      "pt-br": {
+        "title": "Exercício: Redes Neurais Pro",
+        "description": "Implemente Forward, Derivada da Ativação e o Gradiente de Saída.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Incrível! Você implementou os componentes críticos do treinamento de IAs!",
+        "errorMessage": "A matemática não fechou. Revise a derivada ou o cálculo do delta.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída do Console",
+        "exercises": [
+          {
+            "id": "1. Derivada da Sigmoid",
+            "instructions": "Para treinar a rede, precisamos da derivada da função de ativação. \n\nSe `s = sigmoid(x)`, a derivada é `s * (1 - s)`. \nImplemente a função `sigmoid_derivative(s)` sabendo que a entrada `s` já é o valor ativado.",
+            "starterCode": "def sigmoid_derivative(s):\n    # complete: retorne a derivada da sigmoid\n    return \n\n# teste: se sigmoid(0) = 0.5, a derivada em 0 deve ser 0.25\nprint(f\"Derivada em sigmoid=0.5: {sigmoid_derivative(0.5)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "sigmoid_derivative",
+                "args": [0.5],
+                "expectedReturn": 0.25,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "sigmoid_derivative",
+                "args": [0.8],
+                "expectedReturn": 0.16,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "A fórmula é simples: s multiplicado por (1 menos s)."
+            ]
+          },
+          {
+            "id": "2. Forward Pass de uma Camada",
+            "instructions": "Em vez de um único neurônio, vamos calcular uma camada inteira. \n\nImplemente `layer_forward(inputs, weight_matrix, biases)` onde:\n- `inputs` é uma lista de entradas.\n- `weight_matrix` é uma lista de listas (pesos de cada neurônio).\n- `biases` é uma lista de vieses.\n\nRetorne as ativações finais.",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef layer_forward(inputs, weight_matrix, biases):\n    activations = []\n    for i in range(len(weight_matrix)):\n        # complete: calcule z para o neurônio i\n        z = sum(x * w for x, w in zip(inputs, weight_matrix[i])) + biases[i]\n        # adicione a ativação à lista\n        \n    return activations\n\n# teste\nx = [1.0, 0.5]\nw_matrix = [[0.2, 0.8], [-0.5, 0.1]]\nb = [0.0, 0.0]\nprint(f\"Ativações da camada: {layer_forward(x, w_matrix, b)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "layer_forward",
+                "args": [[1.0, 0.5], [[0.2, 0.8], [-0.5, 0.1]], [0.0, 0.0]],
+                "expectedReturn": [0.645656, 0.38936],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Para cada neurônio, aplique sigmoid(z) e use activations.append()."
+            ]
+          },
+          {
+            "id": "3. Erro e Delta de Saída",
+            "instructions": "No backpropagation, o 'delta' do neurônio de saída é: \n`delta = (predição - alvo) * derivada_da_ativacao(predição)`.\n\nImplemente a função `calculate_output_delta(pred, target)`.",
+            "starterCode": "def calculate_output_delta(pred, target):\n    # complete: use a sigmoid_derivative que você criou antes\n    error = \n    d_activation = sigmoid_derivative(pred)\n    return \n\n# teste\ny_hat = 0.6\ny_true = 0.0\nprint(f\"Delta de saída: {calculate_output_delta(y_hat, y_true)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calculate_output_delta",
+                "args": [0.6, 0.0],
+                "expectedReturn": 0.144,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "O delta é o erro multiplicado pela derivada.",
+              "error = pred - target"
+            ]
+          },
+          {
+            "id": "4. Função ReLU",
+            "instructions": "Implemente a função de ativação ReLU: `relu(z) = max(0, z)`.\n\nReLU é a função mais simples: se z é negativo, a saída é 0; se z é positivo, a saída é o próprio z.\n\nCompare com sigmoid no mesmo teste.",
+            "starterCode": "def relu(z):\n    # complete: retorne max(0, z)\n    return \n\n# teste com vários valores\nvalores = [-2.0, -0.5, 0.0, 0.5, 2.0]\nfor v in valores:\n    print(f\"relu({v}) = {relu(v)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [-2.0],
+                "expectedReturn": 0,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [0.5],
+                "expectedReturn": 0.5,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [2.0],
+                "expectedReturn": 2.0,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Use max(0, z) ou um if simples"
+            ]
+          },
+          {
+            "id": "5. Forward Pass de 2 Camadas",
+            "instructions": "Combine tudo! Implemente uma rede com 2 camadas:\n- Camada oculta: 2 entradas → 2 neurônios (sigmoid)\n- Camada de saída: 2 entradas → 1 neurônio (sigmoid)\n\nUse `layer_forward` que você já criou como base.",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef neuron(inputs, weights, bias):\n    z = sum(x * w for x, w in zip(inputs, weights)) + bias\n    return sigmoid(z)\n\ndef forward_2layer(x, w_hidden, b_hidden, w_out, b_out):\n    # camada oculta\n    hidden = []\n    for i in range(len(w_hidden)):\n        h = neuron(x, w_hidden[i], b_hidden[i])\n        hidden.append(h)\n    \n    # camada de saída\n    output = \n    \n    return hidden, output\n\n# teste\nx = [1.0, 0.5]\nw_h = [[0.2, 0.8], [-0.5, 0.1]]\nb_h = [0.0, 0.0]\nw_o = [0.5, -0.3]\nb_o = 0.1\nh, o = forward_2layer(x, w_h, b_h, w_o, b_o)\nprint(f\"Oculta: {[round(v,4) for v in h]}\")\nprint(f\"Saída: {round(o, 4)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "forward_2layer",
+                "args": [[1.0, 0.5], [[0.2, 0.8], [-0.5, 0.1]], [0.0, 0.0], [0.5, -0.3], 0.1],
+                "expectedReturn": [[0.645656, 0.38936], 0.56075],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "output = neuron(hidden, w_out, b_out)",
+              "Retorne hidden, output como tupla"
+            ]
+          }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: Neural Network Pro",
+        "description": "Implement Forward Pass, Activation Derivative, and Output Gradient.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Amazing! You've implemented the critical components of AI training!",
+        "errorMessage": "The math doesn't add up. Review the derivative or the delta calculation.",
+        "hintLabel": "Hint",
+        "outputLabel": "Console Output",
+        "exercises": [
+          {
+            "id": "1. Sigmoid Derivative",
+            "instructions": "To train a network, we need the derivative of the activation function. \n\nIf `s = sigmoid(x)`, the derivative is `s * (1 - s)`. \nImplement the `sigmoid_derivative(s)` function knowing that the input `s` is already the activated value.",
+            "starterCode": "def sigmoid_derivative(s):\n    # complete: return the sigmoid derivative\n    return \n\n# test: if sigmoid(0) = 0.5, the derivative at 0 should be 0.25\nprint(f\"Derivative at sigmoid=0.5: {sigmoid_derivative(0.5)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "sigmoid_derivative",
+                "args": [0.5],
+                "expectedReturn": 0.25,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "sigmoid_derivative",
+                "args": [0.8],
+                "expectedReturn": 0.16,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "The formula is simple: s multiplied by (1 minus s)."
+            ]
+          },
+          {
+            "id": "2. Layer Forward Pass",
+            "instructions": "Instead of a single neuron, let's calculate an entire layer. \n\nImplement `layer_forward(inputs, weight_matrix, biases)` where:\n- `inputs` is a list of inputs.\n- `weight_matrix` is a list of lists (weights for each neuron).\n- `biases` is a list of biases.\n\nReturn the final activations.",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef layer_forward(inputs, weight_matrix, biases):\n    activations = []\n    for i in range(len(weight_matrix)):\n        # complete: calculate z for neuron i\n        z = sum(x * w for x, w in zip(inputs, weight_matrix[i])) + biases[i]\n        # add activation to list\n        \n    return activations\n\n# test\nx = [1.0, 0.5]\nw_matrix = [[0.2, 0.8], [-0.5, 0.1]]\nb = [0.0, 0.0]\nprint(f\"Layer activations: {layer_forward(x, w_matrix, b)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "layer_forward",
+                "args": [[1.0, 0.5], [[0.2, 0.8], [-0.5, 0.1]], [0.0, 0.0]],
+                "expectedReturn": [0.645656, 0.38936],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "For each neuron, apply sigmoid(z) and use activations.append()."
+            ]
+          },
+          {
+            "id": "3. Error and Output Delta",
+            "instructions": "In backpropagation, the output neuron's 'delta' is: \n`delta = (prediction - target) * activation_derivative(prediction)`.\n\nImplement the `calculate_output_delta(pred, target)` function.",
+            "starterCode": "def calculate_output_delta(pred, target):\n    # complete: use the sigmoid_derivative you created earlier\n    error = \n    d_activation = sigmoid_derivative(pred)\n    return \n\n# test\ny_hat = 0.6\ny_true = 0.0\nprint(f\"Output delta: {calculate_output_delta(y_hat, y_true)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calculate_output_delta",
+                "args": [0.6, 0.0],
+                "expectedReturn": 0.144,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Delta is the error multiplied by the derivative.",
+              "error = pred - target"
+            ]
+          },
+          {
+            "id": "4. ReLU Function",
+            "instructions": "Implement the ReLU activation function: `relu(z) = max(0, z)`.\n\nReLU is the simplest function: if z is negative, output is 0; if z is positive, output is z itself.\n\nCompare with sigmoid in the same test.",
+            "starterCode": "def relu(z):\n    # complete: return max(0, z)\n    return \n\n# test with several values\nvalues = [-2.0, -0.5, 0.0, 0.5, 2.0]\nfor v in values:\n    print(f\"relu({v}) = {relu(v)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [-2.0],
+                "expectedReturn": 0,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [0.5],
+                "expectedReturn": 0.5,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "relu",
+                "args": [2.0],
+                "expectedReturn": 2.0,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Use max(0, z) or a simple if statement"
+            ]
+          },
+          {
+            "id": "5. 2-Layer Forward Pass",
+            "instructions": "Put it all together! Implement a 2-layer network:\n- Hidden layer: 2 inputs → 2 neurons (sigmoid)\n- Output layer: 2 inputs → 1 neuron (sigmoid)\n\nUse the `neuron` function as your building block.",
+            "starterCode": "import math\n\ndef sigmoid(x):\n    return 1 / (1 + math.exp(-x))\n\ndef neuron(inputs, weights, bias):\n    z = sum(x * w for x, w in zip(inputs, weights)) + bias\n    return sigmoid(z)\n\ndef forward_2layer(x, w_hidden, b_hidden, w_out, b_out):\n    # hidden layer\n    hidden = []\n    for i in range(len(w_hidden)):\n        h = neuron(x, w_hidden[i], b_hidden[i])\n        hidden.append(h)\n    \n    # output layer\n    output = \n    \n    return hidden, output\n\n# test\nx = [1.0, 0.5]\nw_h = [[0.2, 0.8], [-0.5, 0.1]]\nb_h = [0.0, 0.0]\nw_o = [0.5, -0.3]\nb_o = 0.1\nh, o = forward_2layer(x, w_h, b_h, w_o, b_o)\nprint(f\"Hidden: {[round(v,4) for v in h]}\")\nprint(f\"Output: {round(o, 4)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "forward_2layer",
+                "args": [[1.0, 0.5], [[0.2, 0.8], [-0.5, 0.1]], [0.0, 0.0], [0.5, -0.3], 0.1],
+                "expectedReturn": [[0.645656, 0.38936], 0.56075],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "output = neuron(hidden, w_out, b_out)",
+              "Return hidden, output as a tuple"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

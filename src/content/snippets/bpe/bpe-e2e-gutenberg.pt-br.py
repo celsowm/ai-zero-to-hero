@@ -1,3 +1,4 @@
+# @region bpe-funcs
 # BPE E2E: Tokenizando um livro real em português
 # Corpus: Dom Casmurro (Machado de Assis) + Os Lusíadas (Camões)
 
@@ -28,8 +29,9 @@ def merge_pair(pair, corpus):
                 i += 1
         merged.append(tuple(new_word))
     return merged
+# @endregion
 
-
+# @region bpe-load
 # --- Carregar corpus real ---
 
 # Texto de exemplo: trechos de Dom Casmurro + Os Lusíadas
@@ -66,8 +68,9 @@ print(f"Corpus carregado:")
 print(f"  Palavras: {len(words)}")
 print(f"  Caracteres: {len(' '.join(words))}")
 print(f"  Vocabulário inicial (caracteres únicos): {len(set(''.join(words)))}")
-print()
+# @endregion
 
+# @region bpe-run
 # --- Executar BPE ---
 
 num_merges = 30
@@ -92,7 +95,9 @@ for i in range(num_merges):
     if best_freq >= 3:
         merged_token = ''.join(best_pair)
         print(f"  Merge {i+1}: {best_pair[0]}+{best_pair[1]} → '{merged_token}' (freq: {best_freq})")
+# @endregion
 
+# @region bpe-results
 print()
 print(f"Vocabulário final:")
 print(f"  Símbolos base (caracteres): {len(set(''.join(words)))}")
@@ -112,3 +117,4 @@ print("Agora tokenize uma palavra nova:")
 test_word = "navegavam"
 test_chars = tuple(test_word)
 print(f"  '{test_word}' → {list(test_chars)}")
+# @endregion

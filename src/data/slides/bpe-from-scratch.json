@@ -1,14 +1,72 @@
 {
   "id": "bpe-from-scratch",
-  "type": "code",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [
+      0.8,
+      1.2
+    ]
+  },
   "content": {
     "pt-br": {
       "title": "BPE na mão: implementação completa",
-      "body": "Aqui está uma implementação completa de BPE em Python. O código é executado no navegador via Pyodide.\n\n### Implementação de BPE\n```python\nsnippet:bpe/bpe-implementation\n```\n\n- `get_stats()`: conta frequência de pares adjacentes no corpus\n- `merge_pair()`: funde um par específico em um novo símbolo\n- `get_vocab()`: constrói o vocabulário final a partir dos merges\n\n> Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.\n\nNo próximo slide, você vai exercitar este código com seu próprio texto."
+      "body": "Aqui está uma implementação completa de BPE em Python. O código é executado no navegador via Pyodide.\n\n### O Algoritmo em 4 Passos\n\n1. **Contar:** Identificar pares de caracteres que aparecem juntos com mais frequência.\n2. **Fundir:** Criar um novo símbolo unindo esse par em todo o texto.\n3. **Repetir:** Voltar ao passo 1 até atingir o número desejado de fusões.\n4. **Vocabulário:** O resultado é um conjunto de tokens que representam bem o seu texto.\n\n> Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.\n\n---\n\n```python\nsnippet:bpe/bpe-implementation\n```",
+      "codeExplanations": [
+        {
+          "lineRange": [5, 13],
+          "content": "Esta função é o sensor do BPE. Ela percorre o texto usando uma janela deslizante para contar cada par de símbolos adjacentes. O corpus começa como caracteres individuais, mas conforme fundimos, os símbolos ficam maiores."
+        },
+        {
+          "lineRange": [16, 31],
+          "content": "A função de fusão aplica a decisão tomada: ela substitui todas as ocorrências de um par de símbolos (ex: 'e', 'r') por um novo símbolo único (ex: 'er'). O uso do loop while permite pular o índice corretamente após cada fusão."
+        },
+        {
+          "lineRange": [34, 41],
+          "content": "O vocabulário é reconstruído unindo os símbolos de cada palavra. Isso nos permite ver quais 'pedaços' de palavras o modelo aprendeu (como sufixos 'ing' ou prefixos 'un')."
+        },
+        {
+          "lineRange": [46, 48],
+          "content": "Preparamos os dados de exemplo. Cada palavra é convertida em uma tupla de caracteres, que é a unidade atômica inicial do nosso tokenizador."
+        },
+        {
+          "lineRange": [51, 66],
+          "content": "O loop principal executa o aprendizado: a cada passo, ele recalcula estatísticas, escolhe o par mais frequente (estratégia gananciosa) e atualiza o corpus e o vocabulário."
+        },
+        {
+          "lineRange": [69, 72],
+          "content": "Finalmente, exibimos o vocabulário resultante. Note como o número total de símbolos aumentou em relação ao conjunto de caracteres original."
+        }
+      ]
     },
     "en-us": {
       "title": "BPE from scratch: full implementation",
-      "body": "Here is a complete BPE implementation in Python. The code runs in the browser via Pyodide.\n\n### BPE Implementation\n```python\nsnippet:bpe/bpe-implementation\n```\n\n- `get_stats()`: counts adjacent pair frequency in the corpus\n- `merge_pair()`: fuses a specific pair into a new symbol\n- `get_vocab()`: builds the final vocabulary from merges\n\n> This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.\n\nIn the next slide, you'll exercise this code with your own text."
+      "body": "Here is a complete BPE implementation in Python. The code runs in the browser via Pyodide.\n\n### The Algorithm in 4 Steps\n\n1. **Count:** Identify character pairs that appear together most frequently.\n2. **Merge:** Create a new symbol by joining this pair across the entire text.\n3. **Repeat:** Go back to step 1 until reaching the desired number of merges.\n4. **Vocabulary:** The result is a set of tokens that efficiently represent your text.\n\n> This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.\n\n---\n\n```python\nsnippet:bpe/bpe-implementation\n```",
+      "codeExplanations": [
+        {
+          "lineRange": [5, 13],
+          "content": "This function is the BPE sensor. It traverses the text using a sliding window to count each adjacent symbol pair. The corpus starts as individual characters, but as we merge, the symbols grow larger."
+        },
+        {
+          "lineRange": [16, 31],
+          "content": "The merge function applies the decision: it replaces all occurrences of a symbol pair (e.g., 'e', 'r') with a new unique symbol (e.g., 'er'). Using a while loop allows correctly skipping the index after each merge."
+        },
+        {
+          "lineRange": [34, 41],
+          "content": "The vocabulary is reconstructed by joining the symbols of each word. This lets us see which 'chunks' of words the model has learned (like 'ing' suffixes or 'un' prefixes)."
+        },
+        {
+          "lineRange": [46, 48],
+          "content": "We prepare example data. Each word is converted into a tuple of characters, which is the initial atomic unit of our tokenizer."
+        },
+        {
+          "lineRange": [51, 66],
+          "content": "The main loop runs the learning: at each step, it recalculates stats, picks the most frequent pair (greedy strategy), and updates the corpus and vocabulary."
+        },
+        {
+          "lineRange": [69, 72],
+          "content": "Finally, we display the resulting vocabulary. Notice how the total number of symbols has increased compared to the original character set."
+        }
+      ]
     }
   }
 }

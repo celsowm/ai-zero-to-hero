@@ -1,16 +1,20 @@
 # Byte Pair Encoding (BPE) - Implementação completa
 # Este algoritmo é o mesmo usado internamente pelo GPT-2
 
+# @region stats-full
 def get_stats(corpus):
     """Conta frequência de pares adjacentes no corpus."""
     stats = {}
     for word in corpus:
         for i in range(len(word) - 1):
+            # Janela deslizante: pegamos o caractere atual e o próximo
             pair = (word[i], word[i+1])
+            # Incrementamos a contagem do par no dicionário
             stats[pair] = stats.get(pair, 0) + 1
     return stats
+# @endregion
 
-
+# @region merge-full
 def merge_pair(pair, corpus):
     """Funde um par específico em um novo símbolo."""
     merged = []
@@ -18,17 +22,19 @@ def merge_pair(pair, corpus):
         new_word = []
         i = 0
         while i < len(word):
-            # Se o par corresponde, funde os dois símbolos
+            # Se o par atual no texto corresponde ao par que queremos fundir
             if i < len(word) - 1 and word[i] == pair[0] and word[i+1] == pair[1]:
+                # Fundimos os dois símbolos em um só
                 new_word.append(word[i] + word[i+1])
-                i += 2  # Avança 2 posições
+                i += 2  # Pulamos dois símbolos, pois foram fundidos
             else:
                 new_word.append(word[i])
                 i += 1
         merged.append(tuple(new_word))
     return merged
+# @endregion
 
-
+# @region vocab-full
 def get_vocab(corpus):
     """Constrói o vocabulário final a partir do corpus."""
     vocab = {}
@@ -36,51 +42,35 @@ def get_vocab(corpus):
         token = ''.join(word)
         vocab[token] = vocab.get(token, 0) + 1
     return vocab
+# @endregion
 
-
+# @region usage-setup
 # --- Exemplo de uso ---
-
-# Corpus inicial (cada palavra é uma tupla de caracteres)
 corpus_text = 'low lower newer newest'.split()
 corpus = [tuple(w) for w in corpus_text]
+# @endregion
 
-print(f"Corpus inicial: {corpus_text}")
-print(f"Vocabulário inicial: {set(corpus_text)}")
-print()
-
-# Executa 10 merges BPE
+# @region main-loop
+# Executa o loop iterativo do BPE
 num_merges = 10
-vocab = {tuple(w): 0 for w in corpus_text}  # vocabulário base (caracteres)
+vocab = {tuple(w): 0 for w in corpus_text}
 
 for i in range(num_merges):
-    # 1. Conta frequência de pares
+    # 1. Analisamos o corpus para achar o par mais comum no momento
     stats = get_stats(corpus)
+    if not stats: break
     
-    if not stats:
-        print("Sem mais pares para fundir.")
-        break
-    
-    # 2. Encontra o par mais frequente
+    # 2. Escolha gananciosa (Greedy): pegamos o par de maior frequência
     best_pair = max(stats, key=stats.get)
-    best_freq = stats[best_pair]
     
-    print(f"Merge {i+1}: fundir {best_pair} (frequência: {best_freq})")
-    
-    # 3. Funde o par no corpus
+    # 3. Aplicamos a fusão em todo o corpus
     corpus = merge_pair(best_pair, corpus)
-    
-    # 4. Adiciona ao vocabulário
+    # 4. Registramos o novo token no nosso vocabulário
     vocab[best_pair] = i + 1
+# @endregion
 
-print()
+# @region final-output
 print(f"Vocabulário final ({len(vocab)} símbolos):")
 for symbol, merge_idx in sorted(vocab.items(), key=lambda x: x[1]):
-    if merge_idx == 0:
-        print(f"  Base: {''.join(symbol)}")
-    else:
-        print(f"  Merge {merge_idx}: {''.join(symbol)}")
-
-print()
-print(f"Corpus após {num_merges} merges:")
-for word in corpus:
-    print(f"  {' '.join(word)}")
+    print(f"  {merge_idx}: {''.join(symbol)}")
+# @endregion

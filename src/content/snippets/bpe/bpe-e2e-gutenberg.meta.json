@@ -1,0 +1,47 @@
+{
+  "id": "bpe/bpe-e2e-gutenberg",
+  "regions": [
+    "bpe-funcs",
+    "bpe-load",
+    "bpe-run",
+    "bpe-results"
+  ],
+  "explanations": {
+    "pt-br": [
+      {
+        "region": "bpe-funcs",
+        "content": "Reutilizamos as mesmas funções de contagem e fusão do slide anterior para mostrar que o algoritmo é idêntico em qualquer escala."
+      },
+      {
+        "region": "bpe-load",
+        "content": "Carregamos textos clássicos da literatura em português. Note que limpamos o texto para focar na estrutura das palavras."
+      },
+      {
+        "region": "bpe-run",
+        "content": "Executamos o loop BPE por 30 iterações. Aqui você verá o algoritmo 'descobrindo' prefixos e sufixos comuns no português."
+      },
+      {
+        "region": "bpe-results",
+        "content": "O resultado final mostra tokens como 'naveg' ou 'assinal', provando que o BPE entende a morfologia da língua sem saber gramática."
+      }
+    ],
+    "en-us": [
+      {
+        "region": "bpe-funcs",
+        "content": "We reuse the same count and merge functions from the previous slide to show that the algorithm is identical at any scale."
+      },
+      {
+        "region": "bpe-load",
+        "content": "We load classic Portuguese literature texts. Note that we clean the text to focus on word structure."
+      },
+      {
+        "region": "bpe-run",
+        "content": "We run the BPE loop for 30 iterations. Here you'll see the algorithm 'discovering' common Portuguese prefixes and suffixes."
+      },
+      {
+        "region": "bpe-results",
+        "content": "The final result shows tokens like 'naveg' or 'assinal', proving BPE understands language morphology without knowing grammar."
+      }
+    ]
+  }
+}

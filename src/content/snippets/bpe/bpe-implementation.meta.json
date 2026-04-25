@@ -1,0 +1,65 @@
+{
+  "id": "bpe/bpe-implementation",
+  "regions": [
+    "stats-full",
+    "merge-full",
+    "vocab-full",
+    "usage-setup",
+    "main-loop",
+    "final-output"
+  ],
+  "explanations": {
+    "pt-br": [
+      {
+        "region": "stats-full",
+        "content": "Esta função é o sensor do BPE. Ela percorre o texto usando uma janela deslizante para contar cada par de símbolos adjacentes. O corpus começa como caracteres individuais, mas conforme fundimos, os símbolos ficam maiores."
+      },
+      {
+        "region": "merge-full",
+        "content": "A função de fusão aplica a decisão tomada: ela substitui todas as ocorrências de um par de símbolos (ex: 'e', 'r') por um novo símbolo único (ex: 'er'). O uso do loop `while` permite pular o índice corretamente após cada fusão."
+      },
+      {
+        "region": "vocab-full",
+        "content": "O vocabulário é reconstruído unindo os símbolos de cada palavra. Isso nos permite ver quais 'pedaços' de palavras o modelo aprendeu (como sufixos 'ing' ou prefixos 'un')."
+      },
+      {
+        "region": "usage-setup",
+        "content": "Preparamos os dados de exemplo. Cada palavra é convertida em uma tupla de caracteres, que é a unidade atômica inicial do nosso tokenizador."
+      },
+      {
+        "region": "main-loop",
+        "content": "O loop principal executa o aprendizado: a cada passo, ele recalcula estatísticas, escolhe o par mais frequente (estratégia gananciosa) e atualiza o corpus e o vocabulário."
+      },
+      {
+        "region": "final-output",
+        "content": "Finalmente, exibimos o vocabulário resultante. Note como o número total de símbolos aumentou em relação ao conjunto de caracteres original."
+      }
+    ],
+    "en-us": [
+      {
+        "region": "stats-full",
+        "content": "This function is the BPE sensor. It traverses the text using a sliding window to count each adjacent symbol pair. The corpus starts as individual characters, but as we merge, the symbols grow larger."
+      },
+      {
+        "region": "merge-full",
+        "content": "The merge function applies the decision: it replaces all occurrences of a symbol pair (e.g., 'e', 'r') with a new unique symbol (e.g., 'er'). Using a `while` loop allows correctly skipping the index after each merge."
+      },
+      {
+        "region": "vocab-full",
+        "content": "The vocabulary is reconstructed by joining the symbols of each word. This lets us see which 'chunks' of words the model has learned (like 'ing' suffixes or 'un' prefixes)."
+      },
+      {
+        "region": "usage-setup",
+        "content": "We prepare example data. Each word is converted into a tuple of characters, which is the initial atomic unit of our tokenizer."
+      },
+      {
+        "region": "main-loop",
+        "content": "The main loop runs the learning: at each step, it recalculates stats, picks the most frequent pair (greedy strategy), and updates the corpus and vocabulary."
+      },
+      {
+        "region": "final-output",
+        "content": "Finally, we display the resulting vocabulary. Notice how the total number of symbols has increased compared to the original character set."
+      }
+    ]
+  }
+}

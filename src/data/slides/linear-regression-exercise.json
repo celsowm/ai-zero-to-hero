@@ -1,0 +1,239 @@
+{
+  "id": "linear-regression-exercise",
+  "type": "exercise",
+  "content": {
+    "pt-br": {
+      "title": "Exercício: Mãos na massa com Regressão Linear",
+      "body": "Agora é sua vez de implementar os cálculos fundamentais que fazem a Regressão Linear funcionar."
+    },
+    "en-us": {
+      "title": "Exercise: Hands-on with Linear Regression",
+      "body": "Now it's your turn to implement the fundamental calculations that make Linear Regression work."
+    }
+  },
+  "visual": {
+    "id": "python-exercise",
+    "copy": {
+      "pt-br": {
+        "title": "Exercício: Regressão Linear",
+        "description": "Complete as funções para calcular o erro e atualizar os parâmetros.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Excelente! Você dominou a base da Regressão Linear!",
+        "errorMessage": "Ops, os cálculos não bateram. Verifique as fórmulas.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída do Console",
+        "exercises": [
+          {
+            "id": "1. Cálculo do MSE",
+            "instructions": "Complete a função `calculate_mse(y_true, y_pred)` que calcula o Erro Quadrático Médio.\n\nA fórmula é: `média((y_true - y_pred) ** 2)`",
+            "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true e y_pred são listas de números de mesmo tamanho\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calcule o erro ao quadrado e some ao total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# teste\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calculate_mse",
+                "args": [[10, 20, 30], [12, 18, 33]],
+                "expectedReturn": 5.666666666666667,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "diff = y_true[i] - y_pred[i]",
+              "total_error += diff ** 2"
+            ]
+          },
+          {
+            "id": "2. Atualização de Parâmetro",
+            "instructions": "Complete a função `update_w(w, gradient, lr)` que realiza um passo do Gradient Descent.\n\nA regra é: `novo_w = w - lr * gradiente`",
+            "starterCode": "def update_w(w, gradient, lr):\n    # complete: retorne o novo valor de w\n    return \n\n# teste\nw_atual = 0.5\ngrad = 0.1\nlearning_rate = 0.01\nprint(f\"Novo w: {update_w(w_atual, grad, learning_rate)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "update_w",
+                "args": [0.5, 0.1, 0.01],
+                "expectedReturn": 0.499,
+                "tolerance": 0.0001
+              }
+            ],
+            "hints": [
+              "Subtraia o produto da taxa de aprendizado pelo gradiente do valor atual de w."
+            ]
+          },
+          {
+            "id": "3. Predição com Regressão Linear",
+            "instructions": "Complete a função `predict(x1, x2, beta0, beta1, beta2)` que faz uma predição usando a fórmula completa da Regressão Linear.\n\n`y_hat = beta0 + beta1 * x1 + beta2 * x2`",
+            "starterCode": "def predict(x1, x2, beta0, beta1, beta2):\n    # complete: calcule y_hat\n    y_hat = \n    return y_hat\n\n# teste: altura=170, idade=30\nbeta0, beta1, beta2 = -21, 0.4, 0.6\nprint(f\"Predição: {predict(170, 30, beta0, beta1, beta2)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "predict",
+                "args": [170, 30, -21, 0.4, 0.6],
+                "expectedReturn": 65,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "predict",
+                "args": [160, 20, -21, 0.4, 0.6],
+                "expectedReturn": 55,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "y_hat = beta0 + beta1 * x1 + beta2 * x2"
+            ]
+          },
+          {
+            "id": "4. Erro Individual",
+            "instructions": "Complete a função `calc_error(y_true, y_pred)` que calcula o erro de uma única predição.\n\n`erro = y_true - y_pred`\n\nO sinal importa: erro positivo significa que a predição foi menor que o real.",
+            "starterCode": "def calc_error(y_true, y_pred):\n    # complete: calcule o erro\n    erro = \n    return erro\n\n# teste\nreal = 70\npredito = 65\nprint(f\"Erro: {calc_error(real, predito)}\")\nprint(f\"Sinal: {'predição menor que o real' if calc_error(real, predito) > 0 else 'predição maior que o real'}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calc_error",
+                "args": [70, 65],
+                "expectedReturn": 5,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calc_error",
+                "args": [50, 60],
+                "expectedReturn": -10,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "erro = y_true - y_pred (nesta ordem!)"
+            ]
+          },
+          {
+            "id": "5. Gradient Descent 1D",
+            "instructions": "Simule 5 passos de Gradient Descent para encontrar o mínimo de `f(w) = w²`.\n\nO gradiente é `df/dw = 2*w`. A cada passo: `w = w - lr * 2*w`.\n\nComece com `w = 5.0` e `lr = 0.1`.",
+            "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calcule o gradiente de f(w) = w²\n    gradiente = \n    # atualize w\n    w = \n    print(f\"Passo {i+1}: w = {w:.4f}\")",
+            "validators": [
+              {
+                "type": "assertOutput",
+                "expected": "Passo 1: w = 4.0000\nPasso 2: w = 3.2000\nPasso 3: w = 2.5600\nPasso 4: w = 2.0480\nPasso 5: w = 1.6384"
+              }
+            ],
+            "hints": [
+              "gradiente = 2 * w",
+              "w = w - lr * gradiente"
+            ]
+          }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: Linear Regression",
+        "description": "Complete the functions to calculate the error and update parameters.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Excellent! You've mastered the basics of Linear Regression!",
+        "errorMessage": "Oops, the calculations don't match. Check the formulas.",
+        "hintLabel": "Hint",
+        "outputLabel": "Console Output",
+        "exercises": [
+          {
+            "id": "1. MSE Calculation",
+            "instructions": "Complete the `calculate_mse(y_true, y_pred)` function that calculates the Mean Squared Error.\n\nThe formula is: `mean((y_true - y_pred) ** 2)`",
+            "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true and y_pred are lists of numbers of the same length\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calculate squared error and add to total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# test\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calculate_mse",
+                "args": [[10, 20, 30], [12, 18, 33]],
+                "expectedReturn": 5.666666666666667,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "diff = y_true[i] - y_pred[i]",
+              "total_error += diff ** 2"
+            ]
+          },
+          {
+            "id": "2. Parameter Update",
+            "instructions": "Complete the `update_w(w, gradient, lr)` function that performs one step of Gradient Descent.\n\nThe rule is: `new_w = w - lr * gradient`",
+            "starterCode": "def update_w(w, gradient, lr):\n    # complete: return the new value of w\n    return \n\n# test\nw_atual = 0.5\ngrad = 0.1\nlearning_rate = 0.01\nprint(f\"New w: {update_w(w_atual, grad, learning_rate)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "update_w",
+                "args": [0.5, 0.1, 0.01],
+                "expectedReturn": 0.499,
+                "tolerance": 0.0001
+              }
+            ],
+            "hints": [
+              "Subtract the product of the learning rate and the gradient from the current value of w."
+            ]
+          },
+          {
+            "id": "3. Full Linear Prediction",
+            "instructions": "Complete the `predict(x1, x2, beta0, beta1, beta2)` function that makes a prediction using the full Linear Regression formula.\n\n`y_hat = beta0 + beta1 * x1 + beta2 * x2`",
+            "starterCode": "def predict(x1, x2, beta0, beta1, beta2):\n    # complete: calculate y_hat\n    y_hat = \n    return y_hat\n\n# test: height=170, age=30\nbeta0, beta1, beta2 = -21, 0.4, 0.6\nprint(f\"Prediction: {predict(170, 30, beta0, beta1, beta2)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "predict",
+                "args": [170, 30, -21, 0.4, 0.6],
+                "expectedReturn": 65,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "predict",
+                "args": [160, 20, -21, 0.4, 0.6],
+                "expectedReturn": 55,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "y_hat = beta0 + beta1 * x1 + beta2 * x2"
+            ]
+          },
+          {
+            "id": "4. Individual Error",
+            "instructions": "Complete the `calc_error(y_true, y_pred)` function that calculates the error of a single prediction.\n\n`error = y_true - y_pred`\n\nThe sign matters: positive error means the prediction was lower than the actual value.",
+            "starterCode": "def calc_error(y_true, y_pred):\n    # complete: calculate error\n    erro = \n    return erro\n\n# test\nreal = 70\npredicted = 65\nprint(f\"Error: {calc_error(real, predicted)}\")\nprint(f\"Sign: {'prediction below actual' if calc_error(real, predicted) > 0 else 'prediction above actual'}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calc_error",
+                "args": [70, 65],
+                "expectedReturn": 5,
+                "tolerance": 0.001
+              },
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "calc_error",
+                "args": [50, 60],
+                "expectedReturn": -10,
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "error = y_true - y_pred (in this order!)"
+            ]
+          },
+          {
+            "id": "5. 1D Gradient Descent",
+            "instructions": "Simulate 5 steps of Gradient Descent to find the minimum of `f(w) = w²`.\n\nThe gradient is `df/dw = 2*w`. Each step: `w = w - lr * 2*w`.\n\nStart with `w = 5.0` and `lr = 0.1`.",
+            "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calculate gradient of f(w) = w²\n    gradient = \n    # update w\n    w = \n    print(f\"Step {i+1}: w = {w:.4f}\")",
+            "validators": [
+              {
+                "type": "assertOutput",
+                "expected": "Step 1: w = 4.0000\nStep 2: w = 3.2000\nStep 3: w = 2.5600\nStep 4: w = 2.0480\nStep 5: w = 1.6384"
+              }
+            ],
+            "hints": [
+              "gradient = 2 * w",
+              "w = w - lr * gradient"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

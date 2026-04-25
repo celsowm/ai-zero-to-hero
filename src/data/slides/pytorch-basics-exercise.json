@@ -1,0 +1,187 @@
+{
+  "id": "pytorch-basics-exercise",
+  "type": "exercise",
+  "content": {
+    "pt-br": {
+      "title": "Exercício: Manipulando Tensores",
+      "body": "Tensores são a alma do PyTorch e de qualquer framework de IA. Vamos praticar as operações básicas que você usará todo dia."
+    },
+    "en-us": {
+      "title": "Exercise: Manipulating Tensors",
+      "body": "Tensors are the soul of PyTorch and any AI framework. Let's practice the basic operations you'll use every day."
+    }
+  },
+  "visual": {
+    "id": "python-exercise",
+    "copy": {
+      "pt-br": {
+        "title": "Exercício: PyTorch & Tensores",
+        "description": "Utilize NumPy (o motor por trás dos tensores) para praticar as transformações de dados.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Excelente! Você está pronto para manipular dados em redes neurais!",
+        "errorMessage": "O formato ou os valores do tensor estão incorretos.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída do Console",
+        "exercises": [
+          {
+            "id": "1. Criando Tensores",
+            "instructions": "Crie um 'tensor' (array NumPy) de zeros com shape (3, 2).",
+            "starterCode": "import numpy as np\n\ndef create_tensor():\n    # complete: crie um array de zeros com 3 linhas e 2 colunas\n    tensor = \n    return tensor\n\n# teste\nt = create_tensor()\nprint(f\"Shape: {t.shape}\")\nprint(t)",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "create_tensor",
+                "args": [],
+                "expectedReturn": [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Use np.zeros((3, 2))",
+              "Lembre-se que o shape é uma tupla: (linhas, colunas)"
+            ]
+          },
+          {
+            "id": "2. Operações e Reshape",
+            "instructions": "Dada uma matriz 2x2, multiplique todos os elementos por 10 e depois mude o shape para (4, 1).",
+            "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiplique data por 10\n    tensor = \n    # 2. mude o shape para (4, 1)\n    reshaped = \n    return reshaped\n\n# teste\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "process_tensor",
+                "args": [[[1, 2], [3, 4]]],
+                "expectedReturn": [[10], [20], [30], [40]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Multiplicação: tensor = data * 10",
+              "Reshape: tensor.reshape(4, 1)"
+            ]
+          },
+          {
+            "id": "3. Broadcasting e Operações",
+            "instructions": "Crie um tensor (3, 3) com valores de 1 a 9. Depois, adicione 100 a todos os elementos usando broadcasting.\n\nO broadcasting permite operações entre shapes diferentes.",
+            "starterCode": "import numpy as np\n\ndef broadcast_demo():\n    # crie tensor 3x3 com valores 1-9\n    data = \n    # adicione 100 usando broadcasting\n    result = \n    return result\n\n# teste\nprint(broadcast_demo())",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "broadcast_demo",
+                "args": [],
+                "expectedReturn": [[101, 102, 103], [104, 105, 106], [107, 108, 109]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "np.arange(1, 10).reshape(3, 3) cria o tensor 1-9",
+              "result = data + 100 aplica broadcasting"
+            ]
+          },
+          {
+            "id": "4. Simulação de Mini-Batch",
+            "instructions": "Simule um mini-batch de treino: crie 4 amostras com 3 features cada.\n\nCalcule a média de cada feature ao longo do batch (eixo 0).\n\nIsso simula o cálculo de estatísticas de batch usado em BatchNorm.",
+            "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch é um array (4, 3) - 4 amostras, 3 features\n    # calcule a média de cada feature\n    means = \n    # calcule o desvio padrão de cada feature\n    stds = \n    return means, stds\n\n# teste\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Médias: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "batch_stats",
+                "args": [[[0.4967141530112327, -0.13826430117118466, 0.6476885381006925], [1.5230298564080254, -0.23415337472333597, -0.23413695694918064], [1.5792128155073915, 0.7674347291529088, -0.4694743859349521], [0.5425600435852064, -0.46341769281246226, -0.46572975357025687]]],
+                "expectedReturn": [[1.035379, 0.232899, -0.130413], [0.467107, 0.503349, 0.475829]],
+                "tolerance": 0.01
+              }
+            ],
+            "hints": [
+              "means = batch.mean(axis=0)",
+              "stds = batch.std(axis=0)"
+            ]
+          }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: PyTorch & Tensors",
+        "description": "Use NumPy (the engine behind tensors) to practice data transformations.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Excellent! You're ready to manipulate data in neural networks!",
+        "errorMessage": "The tensor format or values are incorrect.",
+        "hintLabel": "Hint",
+        "outputLabel": "Console Output",
+        "exercises": [
+          {
+            "id": "1. Creating Tensors",
+            "instructions": "Create a 'tensor' (NumPy array) of zeros with shape (3, 2).",
+            "starterCode": "import numpy as np\n\ndef create_tensor():\n    # complete: create a zeros array with 3 rows and 2 columns\n    tensor = \n    return tensor\n\n# test\nt = create_tensor()\nprint(f\"Shape: {t.shape}\")\nprint(t)",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "create_tensor",
+                "args": [],
+                "expectedReturn": [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Use np.zeros((3, 2))",
+              "Remember that the shape is a tuple: (rows, cols)"
+            ]
+          },
+          {
+            "id": "2. Operations and Reshape",
+            "instructions": "Given a 2x2 matrix, multiply all elements by 10 and then change the shape to (4, 1).",
+            "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiply data by 10\n    tensor = \n    # 2. change shape to (4, 1)\n    reshaped = \n    return reshaped\n\n# test\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "process_tensor",
+                "args": [[[1, 2], [3, 4]]],
+                "expectedReturn": [[10], [20], [30], [40]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "Multiplication: tensor = data * 10",
+              "Reshape: tensor.reshape(4, 1)"
+            ]
+          },
+          {
+            "id": "3. Broadcasting and Operations",
+            "instructions": "Create a (3, 3) tensor with values from 1 to 9. Then add 100 to all elements using broadcasting.\n\nBroadcasting allows operations between different shapes.",
+            "starterCode": "import numpy as np\n\ndef broadcast_demo():\n    # create 3x3 tensor with values 1-9\n    data = \n    # add 100 using broadcasting\n    result = \n    return result\n\n# test\nprint(broadcast_demo())",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "broadcast_demo",
+                "args": [],
+                "expectedReturn": [[101, 102, 103], [104, 105, 106], [107, 108, 109]],
+                "tolerance": 0.001
+              }
+            ],
+            "hints": [
+              "np.arange(1, 10).reshape(3, 3) creates the 1-9 tensor",
+              "result = data + 100 applies broadcasting"
+            ]
+          },
+          {
+            "id": "4. Mini-Batch Simulation",
+            "instructions": "Simulate a training mini-batch: create 4 samples with 3 features each.\n\nCalculate the mean of each feature across the batch (axis 0).\n\nThis simulates the batch statistics calculation used in BatchNorm.",
+            "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch is a (4, 3) array - 4 samples, 3 features\n    # calculate the mean of each feature\n    means = \n    # calculate the std of each feature\n    stds = \n    return means, stds\n\n# test\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Means: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+            "validators": [
+              {
+                "type": "assertFunctionReturn",
+                "functionName": "batch_stats",
+                "args": [[[0.4967141530112327, -0.13826430117118466, 0.6476885381006925], [1.5230298564080254, -0.23415337472333597, -0.23413695694918064], [1.5792128155073915, 0.7674347291529088, -0.4694743859349521], [0.5425600435852064, -0.46341769281246226, -0.46572975357025687]]],
+                "expectedReturn": [[1.035379, 0.232899, -0.130413], [0.467107, 0.503349, 0.475829]],
+                "tolerance": 0.01
+              }
+            ],
+            "hints": [
+              "means = batch.mean(axis=0)",
+              "stds = batch.std(axis=0)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
