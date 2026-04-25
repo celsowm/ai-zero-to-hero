@@ -3,6 +3,5 @@
     "allow": [
       "Bash(grep *)"
     ]
-  },
-  "$version": 3
+  }
 }

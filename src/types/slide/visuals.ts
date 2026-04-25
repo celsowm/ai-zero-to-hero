@@ -34,6 +34,13 @@ import type {
   TrainingLoopAnimationCopy,
 } from './language-models';
 import type {
+  BPEFrequencyTableCopy,
+  BPEMergeStackCopy,
+  BPETrainingCurveCopy,
+  TokenGranularitySliderCopy,
+  TokenLevelComparisonCopy,
+} from './bpe-tokenization';
+import type {
   AttentionLinesDiagramCopy,
   AttentionVsMlpCopy,
   CausalMaskMatrixCopy,
@@ -142,6 +149,12 @@ interface VisualCopyMap {
   'python-exercise': PythonExerciseVisualCopy;
   // welcome
   'welcome-synthwave': WelcomeSynthwaveCopy;
+  // bpe tokenization
+  'token-level-comparison': TokenLevelComparisonCopy;
+  'token-granularity-slider': TokenGranularitySliderCopy;
+  'bpe-frequency-table': BPEFrequencyTableCopy;
+  'bpe-merge-stack': BPEMergeStackCopy;
+  'bpe-training-curve': BPETrainingCurveCopy;
   // placeholder / future visuals (temporary — replace with proper copy types when implemented)
   'unembedding-diagram': WelcomeSynthwaveCopy;
   'temperature-slider-interactive': WelcomeSynthwaveCopy;

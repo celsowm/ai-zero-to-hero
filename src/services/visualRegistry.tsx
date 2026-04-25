@@ -100,6 +100,13 @@ const visualMap: Record<string, string> = {
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',
 
+  // bpe tokenization
+  'token-level-comparison': 'TokenLevelComparison',
+  'token-granularity-slider': 'TokenGranularitySlider',
+  'bpe-frequency-table': 'BPEFrequencyTable',
+  'bpe-merge-stack': 'BPEMergeStack',
+  'bpe-training-curve': 'BPETrainingCurve',
+
   // welcome
   'welcome-synthwave': 'WelcomeSynthwaveVisual',
 };

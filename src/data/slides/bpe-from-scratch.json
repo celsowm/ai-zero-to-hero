@@ -1,0 +1,14 @@
+{
+  "id": "bpe-from-scratch",
+  "type": "code",
+  "content": {
+    "pt-br": {
+      "title": "BPE na mão: implementação completa",
+      "body": "Aqui está uma implementação completa de BPE em Python. O código é executado no navegador via Pyodide.\n\n### Implementação de BPE\n```python\nsnippet:bpe/bpe-implementation\n```\n\n- `get_stats()`: conta frequência de pares adjacentes no corpus\n- `merge_pair()`: funde um par específico em um novo símbolo\n- `get_vocab()`: constrói o vocabulário final a partir dos merges\n\n> Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.\n\nNo próximo slide, você vai exercitar este código com seu próprio texto."
+    },
+    "en-us": {
+      "title": "BPE from scratch: full implementation",
+      "body": "Here is a complete BPE implementation in Python. The code runs in the browser via Pyodide.\n\n### BPE Implementation\n```python\nsnippet:bpe/bpe-implementation\n```\n\n- `get_stats()`: counts adjacent pair frequency in the corpus\n- `merge_pair()`: fuses a specific pair into a new symbol\n- `get_vocab()`: builds the final vocabulary from merges\n\n> This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.\n\nIn the next slide, you'll exercise this code with your own text."
+    }
+  }
+}

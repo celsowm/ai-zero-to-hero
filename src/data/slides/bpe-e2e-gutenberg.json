@@ -1,0 +1,14 @@
+{
+  "id": "bpe-e2e-gutenberg",
+  "type": "code",
+  "content": {
+    "pt-br": {
+      "title": "E2E: BPE em livro real",
+      "body": "Agora vamos rodar BPE de verdade em texto de livros brasileiros e portugueses.\n\n### Corpus: Dom Casmurro + Os Lusíadas\n```python\nsnippet:bpe/bpe-e2e-gutenberg\n```\n\n- **Dom Casmurro** (Machado de Assis): prosa brasileira do século XIX\n- **Os Lusíadas** (Camões): épico português do século XVI\n\n> O BPE aprendeu tokens como `naveg`, `assinal`, `Lusitan` — pedaços que aparecem frequentemente no corpus literário.\n\nCompare com o corpus \"low lower newer\" do slide anterior: agora os merges refletem a **morfologia real da língua portuguesa**, não exemplos inventados.\n\n### Quer baixar os livros completos?\nRode o script no terminal:\n```bash\npython scripts/fetch-gutenberg-books.py\n```\nIsso baixa os textos completos do Project Gutenberg e gera o corpus combinado."
+    },
+    "en-us": {
+      "title": "E2E: BPE on a real book",
+      "body": "Now let's run BPE for real on Brazilian and Portuguese book texts.\n\n### Corpus: Dom Casmurro + Os Lusíadas\n```python\nsnippet:bpe/bpe-e2e-gutenberg\n```\n\n- **Dom Casmurro** (Machado de Assis): 19th century Brazilian prose\n- **Os Lusíadas** (Camões): 16th century Portuguese epic\n\n> BPE learned tokens like `naveg`, `assinal`, `Lusitan` — pieces that appear frequently in the literary corpus.\n\nCompare with the \"low lower newer\" corpus from the previous slide: now the merges reflect the **real morphology of Portuguese**, not made-up examples.\n\n### Want to download the full books?\nRun the script in your terminal:\n```bash\npython scripts/fetch-gutenberg-books.py\n```\nThis downloads full texts from Project Gutenberg and generates the combined corpus."
+    }
+  }
+}

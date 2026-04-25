@@ -8,3 +8,4 @@ export * from './transformers';
 export * from './neural-networks';
 export * from './exercise';
 export * from './visuals';
+export * from './bpe-tokenization';

@@ -79,4 +79,13 @@ export const courseSlideOrder = [
   'prediction-evolution-we-the-people',
   'why-transformers-work-so-well',
   'road-to-mini-transformer',
+  'tokenization-why',
+  'tokenization-deep-dive',
+  'bpe-algorithm',
+  'bpe-merge-stack',
+  'bpe-training',
+  'bpe-from-scratch',
+  'bpe-exercise',
+  'wordpiece-sentencepiece',
+  'bpe-e2e-gutenberg',
 ] as const;

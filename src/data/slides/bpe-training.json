@@ -1,0 +1,44 @@
+{
+  "id": "bpe-training",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.55, 0.45]
+  },
+  "content": {
+    "pt-br": {
+      "title": "Treinando um tokenizador",
+      "body": "Treinar um tokenizador BPE é escolher **quantos merges** fazer. Mais merges = vocabulário maior = tokens mais longos em média.\n\n### O trade-off fundamental\n\n1. **Poucos merges:** vocabulário pequeno, coberto por caracteres e pedaços curtos. Sequências ficam longas — o modelo processa mais tokens.\n\n2. **Muitos merges:** vocabulário grande, muitas palavras inteiras. Sequências ficam curtas, mas o modelo precisa de mais memória para embeddings.\n\n3. **Ponto ideal:** geralmente entre 30k-50k merges para modelos de linguagem modernos.\n\n> O GPT-2 usa 50.257 tokens após ~50k merges no corpus de treino.\n\n---\n\n### Métricas importantes\n- **Coverage:** % do texto coberto por tokens do vocabulário\n- **OOV rate:** % de palavras desconhecidas (Out-Of-Vocabulary)\n- **Tokens por palavra:** média de tokens necessários por palavra\n\nO gráfico ao lado mostra como coverage e OOV mudam com o número de merges."
+    },
+    "en-us": {
+      "title": "Training a tokenizer",
+      "body": "Training a BPE tokenizer is choosing **how many merges** to make. More merges = larger vocabulary = longer tokens on average.\n\n### The fundamental trade-off\n\n1. **Few merges:** small vocabulary, covered by characters and short pieces. Sequences become long — the model processes more tokens.\n\n2. **Many merges:** large vocabulary, many whole words. Sequences become shorter, but the model needs more memory for embeddings.\n\n3. **Sweet spot:** usually between 30k-50k merges for modern language models.\n\n> GPT-2 uses 50,257 tokens after ~50k merges on the training corpus.\n\n---\n\n### Key metrics\n- **Coverage:** % of text covered by vocabulary tokens\n- **OOV rate:** % of unknown words (Out-Of-Vocabulary)\n- **Tokens per word:** average tokens needed per word\n\nThe chart shows how coverage and OOV change with merge count."
+    }
+  },
+  "visual": {
+    "id": "bpe-training-curve",
+    "copy": {
+      "pt-br": {
+        "title": "Training Curve: Vocab Size vs Coverage",
+        "vocabAxis": "Tamanho do Vocabulário",
+        "coverageAxis": "Coverage (%)",
+        "oovLabel": "OOV Rate",
+        "mergesLabel": "Número de Merges",
+        "smallVocab": "Vocab pequeno",
+        "largeVocab": "Vocab grande",
+        "optimalLabel": "Zona ideal",
+        "tradeoffDesc": "Mais merges → melhor coverage, mas mais memória"
+      },
+      "en-us": {
+        "title": "Training Curve: Vocab Size vs Coverage",
+        "vocabAxis": "Vocabulary Size",
+        "coverageAxis": "Coverage (%)",
+        "oovLabel": "OOV Rate",
+        "mergesLabel": "Number of Merges",
+        "smallVocab": "Small vocab",
+        "largeVocab": "Large vocab",
+        "optimalLabel": "Sweet spot",
+        "tradeoffDesc": "More merges → better coverage, but more memory"
+      }
+    }
+  }
+}

@@ -66,3 +66,8 @@ export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';
+export { TokenLevelComparison } from './bpe-tokenization/TokenLevelComparison';
+export { TokenGranularitySlider } from './bpe-tokenization/TokenGranularitySlider';
+export { BPEFrequencyTable } from './bpe-tokenization/BPEFrequencyTable';
+export { BPEMergeStack } from './bpe-tokenization/BPEMergeStack';
+export { BPETrainingCurve } from './bpe-tokenization/BPETrainingCurve';
