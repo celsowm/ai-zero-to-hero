@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { ISlide } from '../types/slide';
 import { courseContent } from '../data/course-content';
+import { createSafeContext } from './createSafeContext';
 
 function getSlideIndexFromHash(slides: ISlide[]): number {
   const hash = window.location.hash.replace(/^#\/?/, '');
@@ -14,7 +15,7 @@ function setHash(slideId: string) {
   window.history.pushState(null, '', `#/${slideId}`);
 }
 
-interface NavigationContextType {
+export interface NavigationContextType {
   currentSlideIndex: number;
   goToNextSlide: () => void;
   goToPrevSlide: () => void;
@@ -22,7 +23,8 @@ interface NavigationContextType {
   slides: ISlide[];
 }
 
-const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
+const [NavigationProviderInternal, useNavigationInternal, NavigationContext] =
+  createSafeContext<NavigationContextType>('Navigation');
 
 export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const slides = courseContent;
@@ -72,16 +74,11 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
   }), [currentSlideIndex, goToNextSlide, goToPrevSlide, goToSlide, slides]);
 
   return (
-    <NavigationContext.Provider value={value}>
+    <NavigationProviderInternal value={value}>
       {children}
-    </NavigationContext.Provider>
+    </NavigationProviderInternal>
   );
 };
 
-export const useNavigation = () => {
-  const context = useContext(NavigationContext);
-  if (context === undefined) {
-    throw new Error('useNavigation must be used within a NavigationProvider');
-  }
-  return context;
-};
+export const useNavigation = useNavigationInternal;
+export { NavigationContext };

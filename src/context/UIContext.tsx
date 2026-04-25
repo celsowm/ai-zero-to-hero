@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
+import { createSafeContext } from './createSafeContext';
 
-interface UIContextType {
+export interface UIContextType {
   fontScale: number;
   increaseFontScale: () => void;
   decreaseFontScale: () => void;
@@ -9,7 +10,8 @@ interface UIContextType {
   setSearchOpen: (open: boolean) => void;
 }
 
-const UIContext = createContext<UIContextType | undefined>(undefined);
+const [UIProviderInternal, useUIInternal, UIContext] =
+  createSafeContext<UIContextType>('UI');
 
 export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [fontScale, setFontScale] = useState(1);
@@ -32,16 +34,11 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }), [fontScale, increaseFontScale, decreaseFontScale, isSearchOpen, setSearchOpen]);
 
   return (
-    <UIContext.Provider value={value}>
+    <UIProviderInternal value={value}>
       {children}
-    </UIContext.Provider>
+    </UIProviderInternal>
   );
 };
 
-export const useUI = () => {
-  const context = useContext(UIContext);
-  if (context === undefined) {
-    throw new Error('useUI must be used within a UIProvider');
-  }
-  return context;
-};
+export const useUI = useUIInternal;
+export { UIContext };

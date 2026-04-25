@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useKeydown } from './useKeydown';
 
 interface SearchResult {
   index: number;
@@ -35,9 +36,9 @@ export function useKeyboardNavigation({
     [onSelect],
   );
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
+  const handler = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isOpen) return;
       if (e.key === 'Escape') onClose();
       else if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -48,8 +49,9 @@ export function useKeyboardNavigation({
       } else if (e.key === 'Enter' && results[selectedIndex]) {
         handleSelect(results[selectedIndex]);
       }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, results, selectedIndex, onClose, setSelectedIndex, handleSelect]);
+    },
+    [isOpen, results, selectedIndex, onClose, setSelectedIndex, handleSelect],
+  );
+
+  useKeydown(handler, [isOpen, results, selectedIndex, onClose, setSelectedIndex, handleSelect]);
 }

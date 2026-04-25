@@ -1,16 +1,18 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Language, ISlide } from '../types/slide';
 import { useNavigation } from './NavigationContext';
 import { useLocale } from './LocaleContext';
 import { findSlideById } from '../data/course-content';
+import { createSafeContext } from './createSafeContext';
 
 export interface CourseContextValue {
   currentSlide: ISlide | null;
   language: Language;
 }
 
-const CourseContext = createContext<CourseContextValue | null>(null);
+const [CourseProviderInternal, useCourseInternal, CourseContext] =
+  createSafeContext<CourseContextValue>('Course');
 
 interface CourseProviderProps {
   children: ReactNode;
@@ -27,13 +29,12 @@ export const CourseProvider: React.FC<CourseProviderProps> = ({ children }) => {
     return findSlideById(currentSlideId);
   }, [currentSlideIndex, slides]);
 
-  return <CourseContext.Provider value={{ currentSlide, language }}>{children}</CourseContext.Provider>;
+  return (
+    <CourseProviderInternal value={{ currentSlide, language }}>
+      {children}
+    </CourseProviderInternal>
+  );
 };
 
-export const useCourse = () => {
-  const context = useContext(CourseContext);
-  if (!context) {
-    throw new Error('useCourse must be used within a CourseProvider');
-  }
-  return context;
-};
+export const useCourse = useCourseInternal;
+export { CourseContext };

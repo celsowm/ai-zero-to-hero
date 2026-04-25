@@ -81,6 +81,136 @@ interface ClippedAccentMarkerProps {
   bubbleInnerRadius?: number;
 }
 
+/** Arrow marker definitions for SVG <defs>. */
+export const ArrowMarkerDefs: React.FC = () => (
+  <defs>
+    <marker id="diagram-arrow-head" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#6d7b91" />
+    </marker>
+    <marker id="diagram-arrow-head-dark" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#24324a" />
+    </marker>
+  </defs>
+);
+
+/** Rounded-rect block box commonly used in transformer diagrams. */
+export interface BlockBoxProps {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  label: string;
+  fill?: string;
+  stroke?: string;
+  labelFill?: string;
+  rx?: number;
+}
+
+export const BlockBox: React.FC<BlockBoxProps> = ({
+  x,
+  y,
+  width,
+  height,
+  label,
+  fill = 'url(#diagram-panel)',
+  stroke = '#bcc7d7',
+  labelFill = '#24324a',
+  rx = 8,
+}) => (
+  <g>
+    <rect x={x} y={y} width={width} height={height} rx={rx} fill={fill} stroke={stroke} />
+    <text
+      x={x + width / 2}
+      y={y + height / 2 + 5}
+      textAnchor="middle"
+      fontFamily="Arial, Helvetica, sans-serif"
+      fontSize={12}
+      fontWeight={700}
+      fill={labelFill}
+    >
+      {label}
+    </text>
+  </g>
+);
+
+/** Simple DAG flow renderer that takes nodes and edges. */
+export interface FlowNode {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  label: string;
+  fill?: string;
+}
+
+export interface FlowEdge {
+  from: string;
+  to: string;
+  label?: string;
+  stroke?: string;
+}
+
+export interface FlowDiagramProps {
+  nodes: FlowNode[];
+  edges: FlowEdge[];
+}
+
+export const FlowDiagram: React.FC<FlowDiagramProps> = ({ nodes, edges }) => {
+  const nodeMap = new Map(nodes.map(n => [n.id, n]));
+
+  return (
+    <g>
+      <ArrowMarkerDefs />
+      {edges.map((edge, i) => {
+        const from = nodeMap.get(edge.from);
+        const to = nodeMap.get(edge.to);
+        if (!from || !to) return null;
+        const x1 = from.x + from.width;
+        const y1 = from.y + from.height / 2;
+        const x2 = to.x;
+        const y2 = to.y + to.height / 2;
+        return (
+          <g key={`edge-${i}`}>
+            <line
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke={edge.stroke ?? '#6d7b91'}
+              strokeWidth={2}
+              markerEnd="url(#diagram-arrow-head)"
+            />
+            {edge.label && (
+              <text
+                x={(x1 + x2) / 2}
+                y={(y1 + y2) / 2 - 6}
+                textAnchor="middle"
+                fontFamily="Arial, Helvetica, sans-serif"
+                fontSize={10}
+                fill="#6d7b91"
+              >
+                {edge.label}
+              </text>
+            )}
+          </g>
+        );
+      })}
+      {nodes.map(node => (
+        <BlockBox
+          key={node.id}
+          x={node.x}
+          y={node.y}
+          width={node.width}
+          height={node.height}
+          label={node.label}
+          fill={node.fill}
+        />
+      ))}
+    </g>
+  );
+};
+
 export const DiagramFrame: React.FC<DiagramFrameProps> = ({ width, height }) => (
   <>
     <rect width={width} height={height} fill="url(#diagram-bg)" />

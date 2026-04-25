@@ -1,14 +1,16 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Language } from '../types/slide';
+import { createSafeContext } from './createSafeContext';
 
-interface LocaleContextValue {
+export interface LocaleContextValue {
   language: Language;
   setLanguage: (lang: Language) => void;
   switchLanguage: () => void;
 }
 
-const LocaleContext = createContext<LocaleContextValue | null>(null);
+const [LocaleProviderInternal, useLocaleInternal, LocaleContext] =
+  createSafeContext<LocaleContextValue>('Locale');
 
 function isLanguage(value: string): value is Language {
   return value === 'pt-br' || value === 'en-us';
@@ -50,16 +52,11 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({ children }) => {
   );
 
   return (
-    <LocaleContext.Provider value={{ language, setLanguage, switchLanguage }}>
+    <LocaleProviderInternal value={{ language, setLanguage, switchLanguage }}>
       {children}
-    </LocaleContext.Provider>
+    </LocaleProviderInternal>
   );
 };
 
-export const useLocale = () => {
-  const context = useContext(LocaleContext);
-  if (!context) {
-    throw new Error('useLocale must be used within a LocaleProvider');
-  }
-  return context;
-};
+export const useLocale = useLocaleInternal;
+export { LocaleContext };

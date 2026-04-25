@@ -26,3 +26,14 @@ export interface IContent {
   body: string;
   codeExplanations?: CodeExplanation[];
 }
+
+/**
+ * Base copy interface that all visual copy types should extend.
+ * Eliminates duplicated title/description/ariaLabel/caption fields across visual types.
+ */
+export interface BaseVisualCopy {
+  title: string;
+  description?: string;
+  ariaLabel?: string;
+  caption?: string;
+}
