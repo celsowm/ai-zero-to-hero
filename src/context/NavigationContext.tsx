@@ -51,6 +51,19 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
     }
   }, [slides]);
 
+  // Keyboard navigation: ArrowLeft/ArrowRight
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
+      } else if (e.key === 'ArrowLeft') {
+        setCurrentSlideIndex(prev => (prev > 0 ? prev - 1 : prev));
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [slides.length]);
+
   const goToNextSlide = useCallback(() => {
     setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
   }, [slides.length]);

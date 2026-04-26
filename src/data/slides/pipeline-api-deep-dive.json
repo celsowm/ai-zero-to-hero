@@ -1,0 +1,42 @@
+{
+  "id": "pipeline-api-deep-dive",
+  "type": "two-column",
+  "options": {
+    "columnRatios": [0.55, 0.45]
+  },
+  "content": {
+    "pt-br": {
+      "title": "O que `pipeline()` faz por baixo",
+      "body": "A função `pipeline()` é a API de mais alto nível da biblioteca `transformers`. Ela esconde toda a mecânica em uma única chamada.\n\n### O fluxo interno em 4 etapas\n\n1. **Tokenize:** o texto de entrada vira token IDs (`tokenizer(text, return_tensors=\"pt\")`).\n\n2. **Forward pass:** os IDs passam pelo modelo (`model(**inputs)`), que devolve **logits** — scores brutos para cada token do vocabulário.\n\n3. **Sampling:** os logits são convertidos em probabilidades (softmax) e um token é escolhido de acordo com a estratégia (greedy, sample, top-k, top-p).\n\n4. **Decode:** o token ID escolhido é convertido de volta para texto (`tokenizer.decode([token_id])`). O loop repete até `max_new_tokens`.\n\n> `pipeline(\"text-generation\")` é um atalho para: tokenize → model → sample → decode, repetido N vezes.\n\n### Quando usar `pipeline` vs `generate`\n\n- **`pipeline()`:** prototipagem rápida, demos, experimentos. Não precisa lidar com tensores.\n- **`model.generate()`:** controle fino (temperature, top-k, top-p, repetition_penalty). Uso em produção.\n- **`model(**inputs)` manual:** quando você quer acesso aos logits brutos, hidden states ou atenção.\n\n> Comece com `pipeline`. Quando precisar de controle, desça um nível."
+    },
+    "en-us": {
+      "title": "What `pipeline()` does under the hood",
+      "body": "The `pipeline()` function is the highest-level API in the `transformers` library. It hides all the mechanics in a single call.\n\n### The internal flow in 4 stages\n\n1. **Tokenize:** input text becomes token IDs (`tokenizer(text, return_tensors=\"pt\")`).\n\n2. **Forward pass:** IDs go through the model (`model(**inputs)`), which returns **logits** — raw scores for each vocabulary token.\n\n3. **Sampling:** logits are converted to probabilities (softmax) and a token is chosen according to the strategy (greedy, sample, top-k, top-p).\n\n4. **Decode:** the chosen token ID is converted back to text (`tokenizer.decode([token_id])`). The loop repeats until `max_new_tokens`.\n\n> `pipeline(\"text-generation\")` is a shortcut for: tokenize → model → sample → decode, repeated N times.\n\n### When to use `pipeline` vs `generate`\n\n- **`pipeline()`:** rapid prototyping, demos, experiments. No need to handle tensors.\n- **`model.generate()`:** fine control (temperature, top-k, top-p, repetition_penalty). Production use.\n- **`model(**inputs)` manual:** when you want access to raw logits, hidden states, or attention.\n\n> Start with `pipeline`. When you need control, go one level down."
+    }
+  },
+  "visual": {
+    "id": "pipeline-flow-diagram",
+    "copy": {
+      "pt-br": {
+        "step1Label": "Tokenize",
+        "step1Desc": "Texto → IDs",
+        "step2Label": "Forward",
+        "step2Desc": "IDs → Logits",
+        "step3Label": "Sample",
+        "step3Desc": "Logits → Token",
+        "step4Label": "Decode",
+        "step4Desc": "Token → Texto"
+      },
+      "en-us": {
+        "step1Label": "Tokenize",
+        "step1Desc": "Text → IDs",
+        "step2Label": "Forward",
+        "step2Desc": "IDs → Logits",
+        "step3Label": "Sample",
+        "step3Desc": "Logits → Token",
+        "step4Label": "Decode",
+        "step4Desc": "Token → Text"
+      }
+    }
+  }
+}

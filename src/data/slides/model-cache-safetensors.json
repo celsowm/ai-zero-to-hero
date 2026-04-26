@@ -1,0 +1,27 @@
+{
+  "id": "model-cache-safetensors",
+  "type": "two-column",
+  "options": { "columnRatios": [0.55, 0.45] },
+  "content": {
+    "pt-br": {
+      "title": "Onde o modelo vive? Cache, SafeTensors e download customizado",
+      "body": "Quando você chama `from_pretrained(\"gpt2\")` pela primeira vez, acontece muita coisa nos bastidores.\n\n1. **Download do Hub:** a biblioteca baixa os pesos do modelo, a configuração e o tokenizer do Hugging Face Hub.\n\n2. **Cache local:** por padrão, tudo vai para `~/.cache/huggingface/hub/`. Cada modelo ganha uma pasta com hash único.\n\n3. **SafeTensors:** desde 2023, o Hub usa `.safetensors` no lugar de `pytorch_model.bin`. Carregamento mais rápido (mmap direto) e mais seguro (sem execução de código arbitrário).\n\n4. **Path customizado:** use `cache_dir=\"./meus-modelos\"` para controlar onde os arquivos ficam.\n\n> O `from_pretrained` parece mágica, mas é só um download inteligente com cache.\n\n---\n\n```python\nsnippet:transformers/model-cache-safetensors\n```",
+      "codeExplanations": [
+        { "lineRange": [1, 10], "content": "Importamos os módulos e exploramos o cache padrão do Hugging Face. O caminho varia por SO: Linux/Mac em ~/.cache, Windows em %USERPROFILE%\\.cache." },
+        { "lineRange": [13, 21], "content": "Listamos os modelos em cache. Cada repositório começa com 'models--' e usa '--' como separador no nome." },
+        { "lineRange": [34, 37], "content": "O parâmetro cache_dir permite direcionar downloads para qualquer pasta. Útil para CI/CD e ambientes corporativos." },
+        { "lineRange": [44, 49], "content": "SafeTensors: formato moderno que substitui o .bin. mmap direto na memória (mais rápido) e sem deserialização de código arbitrário (mais seguro)." }
+      ]
+    },
+    "en-us": {
+      "title": "Where does the model live? Cache, SafeTensors and custom download",
+      "body": "When you call `from_pretrained(\"gpt2\")` for the first time, a lot happens behind the scenes.\n\n1. **Hub download:** the library downloads model weights, config, and tokenizer from the Hugging Face Hub.\n\n2. **Local cache:** by default, everything goes to `~/.cache/huggingface/hub/`. Each model gets a uniquely hashed folder.\n\n3. **SafeTensors:** since 2023, the Hub uses `.safetensors` instead of `pytorch_model.bin`. Faster loading (direct mmap) and safer (no arbitrary code execution).\n\n4. **Custom path:** use `cache_dir=\"./my-models\"` to control where files land.\n\n> `from_pretrained` looks like magic, but it's just a smart download with caching.\n\n---\n\n```python\nsnippet:transformers/model-cache-safetensors\n```",
+      "codeExplanations": [
+        { "lineRange": [1, 10], "content": "We import modules and explore the default Hugging Face cache. The path varies by OS: Linux/Mac in ~/.cache, Windows in %USERPROFILE%\\.cache." },
+        { "lineRange": [13, 21], "content": "We list cached models. Each repository starts with 'models--' and uses '--' as the model name separator." },
+        { "lineRange": [34, 37], "content": "The cache_dir parameter lets you direct downloads to any folder. Useful for CI/CD and corporate environments." },
+        { "lineRange": [44, 49], "content": "SafeTensors: modern format that replaces .bin. Direct mmap into memory (faster) and no arbitrary code deserialization (safer)." }
+      ]
+    }
+  }
+}

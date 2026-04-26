@@ -2,19 +2,16 @@
   "id": "gpt2-teaser",
   "type": "two-column",
   "options": {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
+    "columnRatios": [0.55, 0.45]
   },
   "content": {
     "pt-br": {
-      "title": "GPT-2: um Transformer famoso",
-      "body": "Se o paper de 2017 mostrou a arquitetura, o **GPT-2** mostrou para o mundo o que acontece quando você usa essa arquitetura para **modelagem de linguagem auto-regressiva**.\n\n1. **Família GPT:** ele é um Transformer do tipo **decoder-only**, treinado para prever o próximo token repetidamente.\n\n2. **Substituindo a geração recorrente:** em vez de depender de uma cadeia RNN/LSTM carregando estado passo a passo, o GPT-2 usa a atenção sobre a janela de contexto para decidir a continuação.\n\n3. **O papel dele aqui:** por enquanto, veja o GPT-2 como o primeiro exemplo concreto de \"Transformer fazendo next-token prediction em escala\". Depois abrimos a anatomia.\n\n> O GPT-2 é menos uma exceção e mais o protótipo da família de modelos que dominou depois."
+      "title": "GPT-2: o avô dos modelos modernos",
+      "body": "### O que é GPT-2?\n\n**GPT-2** é o segundo modelo da família **GPT** (**G**enerative **P**re-**T**rained Transformer), lançada pela **OpenAI** em fevereiro de 2019.\n\n- **Quem criou:** OpenAI (mesmo laboratório do ChatGPT, GPT-4 e GPT-5).\n- **Tamanho:** 1,5 bilhão de parâmetros na versão maior (4 versões: 124M, 355M, 774M, 1.5B).\n- **Tarefa:** prever o próximo token — a mesma do bigram e do MLP dos slides anteriores, só que em escala de web inteira.\n- **Dados:** 8 milhões de páginas da internet (WebText), ~40 GB de texto filtrado.\n- **Contexto:** 1024 tokens de janela.\n\n### Por que estudar GPT-2 em 2026?\n\nHoje usamos GPT-5 com trilhões de parâmetros e contexto de milhões de tokens. Mas a **arquitetura base é a mesma** do GPT-2:\n\n1. **Decoder-only:** só o decoder do Transformer original. Perfeito para gerar texto, onde você só precisa do passado.\n\n2. **Pré-treinamento auto-regressivo:** prever o próximo token repetidamente. É a mesma ideia dos slides de bigram — só que com atenção em vez de contagem.\n\n3. **O salto que mudou tudo:** provou que atenção pura, sem RNN/LSTM, consegue gerar texto coerente. GPT-3 (2020), GPT-4 (2023) e GPT-5 (2026) são a mesma receita — só que maiores, com mais dados e mais engenharia.\n\n> Entender o GPT-2 é entender o DNA de toda a família. O que mudou de 2019 para cá foi escala, engenharia e truques de treino — não a arquitetura fundamental."
     },
     "en-us": {
-      "title": "GPT-2: a famous Transformer",
-      "body": "If the 2017 paper introduced the architecture, **GPT-2** showed the world what happens when you use that architecture for **autoregressive language modeling**.\n\n1. **GPT family:** it is a **decoder-only** Transformer trained to predict the next token over and over again.\n\n2. **Replacing recurrent generation:** instead of relying on an RNN/LSTM chain carrying state step by step, GPT-2 uses attention over the context window to decide the continuation.\n\n3. **Its role here:** for now, treat GPT-2 as the first concrete example of \"a Transformer doing next-token prediction at scale.\" Later we will open the anatomy.\n\n> GPT-2 is less an exception and more the prototype of the model family that took over afterwards."
+      "title": "GPT-2: the grandfather of modern models",
+      "body": "### What is GPT-2?\n\n**GPT-2** is the second model in the **GPT** (**G**enerative **P**re-**T**rained Transformer) family, released by **OpenAI** in February 2019.\n\n- **Who created it:** OpenAI (the same lab behind ChatGPT, GPT-4, and GPT-5).\n- **Size:** 1.5 billion parameters in the largest version (4 versions: 124M, 355M, 774M, 1.5B).\n- **Task:** predict the next token — the same task as the bigram and MLP from previous slides, just at web scale.\n- **Data:** 8 million web pages (WebText), ~40 GB of filtered text.\n- **Context:** 1024 tokens window.\n\n### Why study GPT-2 in 2026?\n\nToday we use GPT-5 with trillions of parameters and million-token context. But the **base architecture is the same** as GPT-2:\n\n1. **Decoder-only:** only the decoder from the original Transformer. Perfect for generating text where you only need the past.\n\n2. **Autoregressive pre-training:** predict the next token repeatedly. Same idea as the bigram slides — just with attention instead of counting.\n\n3. **The leap that changed everything:** it proved that pure attention, without RNN/LSTM, can generate coherent text. GPT-3 (2020), GPT-4 (2023), and GPT-5 (2026) are the same recipe — just bigger, with more data and more engineering.\n\n> Understanding GPT-2 means understanding the DNA of the entire family. What changed from 2019 to now was scale, engineering, and training tricks — not the fundamental architecture."
     }
   },
   "visual": {
