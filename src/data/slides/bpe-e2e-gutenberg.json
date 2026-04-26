@@ -25,7 +25,7 @@
           "content": "Executamos o loop BPE por 30 iterações. Aqui você verá o algoritmo 'descobrindo' prefixos e sufixos comuns no português."
         },
         {
-          "lineRange": [101, 122],
+          "lineRange": [101, 121],
           "content": "O resultado final mostra tokens como 'naveg' ou 'assinal', provando que o BPE entende a morfologia da língua sem saber gramática."
         }
       ]
@@ -47,7 +47,7 @@
           "content": "We run the BPE loop for 30 iterations. Here you'll see the algorithm 'discovering' common Portuguese prefixes and suffixes."
         },
         {
-          "lineRange": [101, 122],
+          "lineRange": [101, 121],
           "content": "The final result shows tokens like 'naveg' or 'assinal', proving BPE understands language morphology without knowing grammar."
         }
       ]

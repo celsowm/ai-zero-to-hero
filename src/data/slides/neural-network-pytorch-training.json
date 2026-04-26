@@ -22,9 +22,9 @@
         {
           "lineRange": [
             4,
-            13
+            14
           ],
-          "content": "Este bloco recria o mesmo dataset do paciente fumante, agora como tensores PyTorch em vez de listas Python."
+          "content": "Este bloco recria o mesmo dataset do paciente fumante, agora como tensores PyTorch em vez de listas Python. O `manual_seed` garante que os pesos iniciais serão sempre os mesmos para fins didáticos."
         },
         {
           "lineRange": [
@@ -70,9 +70,9 @@
         {
           "lineRange": [
             4,
-            13
+            14
           ],
-          "content": "This block recreates the same smoker-patient dataset, now as PyTorch tensors instead of Python lists."
+          "content": "This block recreates the same smoker-patient dataset, now as PyTorch tensors instead of Python lists. The `manual_seed` ensures initial weights stay the same for didactic purposes."
         },
         {
           "lineRange": [

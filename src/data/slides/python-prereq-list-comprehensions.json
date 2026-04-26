@@ -22,21 +22,21 @@
         {
           "lineRange": [
             3,
-            5
+            6
           ],
           "content": "A forma longa cria uma lista vazia, percorre cada tupla e adiciona a altura com `append`."
         },
         {
           "lineRange": [
             7,
-            8
+            9
           ],
           "content": "Aqui a list comprehension faz a mesma transformação em uma única expressão."
         },
         {
           "lineRange": [
             10,
-            11
+            12
           ],
           "content": "As duas impressões servem para mostrar que os resultados são idênticos."
         }
@@ -56,21 +56,21 @@
         {
           "lineRange": [
             3,
-            5
+            6
           ],
           "content": "The long form creates an empty list, walks through each tuple, and appends the height."
         },
         {
           "lineRange": [
             7,
-            8
+            9
           ],
           "content": "The list comprehension performs the same transformation in a single expression."
         },
         {
           "lineRange": [
             10,
-            11
+            12
           ],
           "content": "The two prints confirm that both approaches produce the same result."
         }
