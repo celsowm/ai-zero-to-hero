@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import type { Language, SlideVisual } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 
 interface PipelineStepCopy {
@@ -13,7 +14,8 @@ interface PipelineStepCopy {
 }
 
 interface PipelineFlowDiagramProps {
-  copy: PipelineStepCopy;
+  visual: SlideVisual;
+  language: Language;
 }
 
 const STEPS = [
@@ -31,8 +33,10 @@ const PIPELINE_DATA = [
   { input: '[1462, 2181, 318]', output: '"The future of"' },
 ];
 
-export const PipelineFlowDiagram = React.memo(({ copy }: PipelineFlowDiagramProps) => {
+export const PipelineFlowDiagram = React.memo(({ visual, language }: PipelineFlowDiagramProps) => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
+
+  const copy = visual.copy[language] as PipelineStepCopy;
 
   const boxW = 90;
   const boxH = 140;
