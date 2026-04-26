@@ -45,9 +45,6 @@ export const ClassificationProblemVisual = React.memo(({ copy }: ClassificationP
     label: r.label,
   }));
 
-  // DEBUG: log rows data
-  console.log('[ClassificationProblem] rows:', rows.length, rows);
-
   const xMin = Math.min(...numericRows.map((r) => r.x)) - 0.05;
   const xMax = Math.max(...numericRows.map((r) => r.x)) + 0.05;
   const yMin = Math.min(...numericRows.map((r) => r.y)) - 0.05;
