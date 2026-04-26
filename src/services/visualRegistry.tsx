@@ -107,6 +107,9 @@ const visualMap: Record<string, string> = {
   'bpe-merge-stack': 'BPEMergeStack',
   'bpe-training-curve': 'BPETrainingCurve',
 
+  // classification problem
+  'classification-problem': 'ClassificationProblemVisual',
+
   // welcome
   'welcome-synthwave': 'WelcomeSynthwaveVisual',
 };

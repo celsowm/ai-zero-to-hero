@@ -74,6 +74,7 @@ import type {
   Tensor3DExplorerCopy,
 } from './neural-networks';
 import type { PythonExerciseVisualCopy } from './exercise';
+import type { ClassificationProblemCopy } from './classification-problem';
 
 // ── Visual registry: maps each visual id to its copy type ──────────────────
 
@@ -145,6 +146,8 @@ interface VisualCopyMap {
   'architecture-comparator': ArchitectureComparatorCopy;
   'tensor-3d-explorer': Tensor3DExplorerCopy;
   'derivative-ramp-explorer': DerivativeRampExplorerCopy;
+  // classification problem
+  'classification-problem': ClassificationProblemCopy;
   // python exercise
   'python-exercise': PythonExerciseVisualCopy;
   // welcome

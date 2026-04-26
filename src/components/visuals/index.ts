@@ -71,3 +71,4 @@ export { TokenGranularitySlider } from './bpe-tokenization/TokenGranularitySlide
 export { BPEFrequencyTable } from './bpe-tokenization/BPEFrequencyTable';
 export { BPEMergeStack } from './bpe-tokenization/BPEMergeStack';
 export { BPETrainingCurve } from './bpe-tokenization/BPETrainingCurve';
+export { ClassificationProblemVisual } from './classification-problem/ClassificationProblemVisual';
