@@ -1,0 +1,10 @@
+{
+  "id": "build_gpt2/build-gpt2-dataset-txt",
+  "regions": [
+    "dataset-imports",
+    "dataset-prepare-classic",
+    "dataset-class",
+    "dataset-loader"
+  ],
+  "explanations": {}
+}
