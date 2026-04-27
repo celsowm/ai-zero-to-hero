@@ -1,0 +1,21 @@
+{
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 5],
+      "description": "Carregamos o modelo base de Text Completion."
+    },
+    {
+      "lineRange": [7, 9],
+      "description": "Redimensionamos a camada de embeddings para suportar os novos tokens `<|im_start|>` e `<|im_end|>` que criamos no passo anterior."
+    },
+    {
+      "lineRange": [11, 20],
+      "description": "Definimos os hiperparâmetros de treinamento. Usamos 30 épocas para que o modelo memorize perfeitamente o formato neste exemplo em miniatura."
+    },
+    {
+      "lineRange": [22, 29],
+      "description": "Inicializamos e rodamos o Trainer, que processa os cálculos de perda (loss) de forma automática usando Cross-Entropy."
+    }
+  ]
+}

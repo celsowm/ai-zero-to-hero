@@ -1,0 +1,12 @@
+{
+  "title": "Testando o Assistente",
+  "content": [
+    "Após o treinamento, o modelo não apenas prevê texto aleatório, ele continua a conversa a partir do padrão que aprendeu.",
+    "Nós enviamos o `system` e o `user` formatados, e adicionamos `add_generation_prompt=True` para o tokenizador inserir o início do assistente (`<|im_start|>assistant\\n`).",
+    "O modelo então gera a resposta desejada, finalizando a nossa criação de um assistente de IA!"
+  ],
+  "visualType": "code",
+  "visualProps": {
+    "snippetId": "sft-generate"
+  }
+}
