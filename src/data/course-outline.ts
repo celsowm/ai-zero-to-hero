@@ -96,4 +96,10 @@ export const courseSlideOrder = [
   'bpe-exercise',
   'wordpiece-sentencepiece',
   'bpe-e2e-gutenberg',
+  'build-gpt2-intro',
+  'build-gpt2-dataset-txt',
+  'build-gpt2-dataset-fineweb',
+  'build-gpt2-model',
+  'build-gpt2-train',
+  'build-gpt2-generate',
 ] as const;

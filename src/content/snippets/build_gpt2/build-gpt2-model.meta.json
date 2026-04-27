@@ -1,0 +1,10 @@
+{
+  "id": "build_gpt2/build-gpt2-model",
+  "regions": [
+    "model-imports",
+    "model-attention",
+    "model-block",
+    "model-gpt"
+  ],
+  "explanations": {}
+}

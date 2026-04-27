@@ -1,0 +1,9 @@
+{
+  "id": "build_gpt2/build-gpt2-generate",
+  "regions": [
+    "generate-imports",
+    "generate-setup",
+    "generate-loop"
+  ],
+  "explanations": {}
+}
