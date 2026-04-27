@@ -102,4 +102,8 @@ export const courseSlideOrder = [
   'build-gpt2-model',
   'build-gpt2-train',
   'build-gpt2-generate',
+  'sft-intro',
+  'sft-dataset',
+  'sft-train',
+  'sft-generate',
 ] as const;

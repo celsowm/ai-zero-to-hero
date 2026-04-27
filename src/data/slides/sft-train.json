@@ -1,0 +1,12 @@
+{
+  "title": "Treinamento Supervisionado (SFT)",
+  "content": [
+    "Agora que temos os dados formatados, usamos a classe `Trainer` da Hugging Face para o ajuste fino (fine-tuning).",
+    "Durante o SFT, o modelo tenta prever a próxima palavra, mas agora o texto tem a estrutura exata de uma conversa (pergunta e resposta).",
+    "Neste exemplo simples, treinamos um modelo pequeno (`gpt2`) por várias épocas (epochs) para ele decorar o formato e a resposta."
+  ],
+  "visualType": "code",
+  "visualProps": {
+    "snippetId": "sft-train"
+  }
+}

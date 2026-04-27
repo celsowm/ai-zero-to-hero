@@ -1,0 +1,21 @@
+{
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 5],
+      "description": "Carregamos o tokenizador base."
+    },
+    {
+      "lineRange": [7, 18],
+      "description": "Definimos o template ChatML. Modelos como Llama-3 ou Qwen já vêm com isso por padrão."
+    },
+    {
+      "lineRange": [20, 31],
+      "description": "Nosso conjunto de dados contendo o papel de cada mensagem."
+    },
+    {
+      "lineRange": [33, 41],
+      "description": "Usamos a biblioteca `datasets` para iterar, injetar o ChatML e tokenizar."
+    }
+  ]
+}

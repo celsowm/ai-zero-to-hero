@@ -1,0 +1,21 @@
+{
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "description": "Nossa nova entrada para o modelo, já no formato de lista de dicionários padrão de APIs."
+    },
+    {
+      "lineRange": [7, 13],
+      "description": "Crucial: `add_generation_prompt=True` garante que o modelo começará a gerar texto logo após receber o marcador `<|im_start|>assistant\\n`."
+    },
+    {
+      "lineRange": [15, 15],
+      "description": "Transformamos o texto ChatML final em tensores."
+    },
+    {
+      "lineRange": [17, 25],
+      "description": "Geramos a resposta e a decodificamos."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Preparando o Dataset de Diálogo",
+  "content": [
+    "Para ensinar o modelo a conversar, precisamos de um conjunto de dados de diálogos organizados. Na indústria, usamos a biblioteca `datasets` da Hugging Face.",
+    "Criaremos um dataset com exemplos em Português, contendo papéis de `system`, `user` e `assistant`.",
+    "O `tokenizer.apply_chat_template` se encarrega de injetar os tokens ChatML corretos automaticamente no nosso texto."
+  ],
+  "visualType": "code",
+  "visualProps": {
+    "snippetId": "sft-dataset"
+  }
+}
