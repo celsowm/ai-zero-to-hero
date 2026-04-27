@@ -1,0 +1,8 @@
+{
+  "name": "validate-slides",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-slides.mjs"
+  }
+}

@@ -41,7 +41,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     someFailed,
     handleRun,
     handleCheck,
-  } = useExerciseSession(exercise, language);
+  } = useExerciseSession(exercise);
 
   const msg = getExerciseMessages(language);
 

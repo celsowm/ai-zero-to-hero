@@ -1,7 +1,9 @@
 import React from 'react';
-import { CourseProvider, useCourse } from './context/CourseContext';
+import { CourseProvider } from './context/CourseContext';
+import { useCourse } from './hooks/useCourse';
 import { NavigationProvider } from './context/NavigationContext';
 import { UIProvider } from './context/UIContext';
+import { useUI } from './hooks/useUI';
 import { LocaleProvider } from './context/LocaleContext';
 import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar, SearchModal } from './components';
 
@@ -35,12 +37,17 @@ function App() {
         <LocaleProvider>
           <CourseProvider>
             <CourseContent />
-            <SearchModal />
+            <SearchModalWithReset />
           </CourseProvider>
         </LocaleProvider>
       </UIProvider>
     </NavigationProvider>
   );
+}
+
+function SearchModalWithReset() {
+  const { isSearchOpen } = useUI();
+  return <SearchModal key={String(isSearchOpen)} />;
 }
 
 export default App;

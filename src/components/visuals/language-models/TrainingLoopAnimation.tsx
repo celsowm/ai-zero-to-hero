@@ -35,7 +35,7 @@ export const TrainingLoopAnimation = React.memo(({ copy }: TrainingLoopAnimation
       setLossHistory(prev => [...prev, parseFloat(newLoss.toFixed(3))]);
       setEpoch(e => e + 1);
     }
-  }, [step]);
+  }, [step, currentLoss]);
 
   // Auto-play
   useEffect(() => {

@@ -6,7 +6,7 @@ import {
   type SampleSnapshot,
   type TrainingDebuggerState,
 } from '../../../utils/neuralTrainingEngine';
-import { useLocale } from '../../../context/LocaleContext';
+import { useLocale } from '../../../hooks/useLocale';
 import { resolveSnippetSource } from '../../../content/registry';
 import { SPEED_SETTINGS } from './constants';
 

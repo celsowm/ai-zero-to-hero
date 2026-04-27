@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { useLocale } from '../context/LocaleContext';
-import { useNavigation } from '../context/NavigationContext';
-import { useUI } from '../context/UIContext';
+import { useLocale } from '../hooks/useLocale';
+import { useNavigation } from '../hooks/useNavigation';
+import { useUI } from '../hooks/useUI';
 import { Search, Command, CornerDownLeft, Hash } from 'lucide-react';
 import { sw } from '../theme/tokens';
 import { useSearchResults } from '../hooks/useSearchResults';
@@ -19,12 +19,11 @@ export const SearchModal: React.FC = () => {
 
   const results = useSearchResults(slides, query, language);
 
-  useEffect(() => { setSelectedIndex(0); }, [results]);
-
+  // Focus input after modal opens (DOM side-effect — valid use of useEffect)
   useEffect(() => {
-    if (isSearchOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-      setQuery('');
+    if (isSearchOpen && inputRef.current) {
+      const timer = setTimeout(() => inputRef.current?.focus(), 100);
+      return () => clearTimeout(timer);
     }
   }, [isSearchOpen]);
 

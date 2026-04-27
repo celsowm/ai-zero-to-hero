@@ -136,8 +136,7 @@ describe('codeExplanations coverage', () => {
 
       if (significantLines.length === 0) continue;
 
-      // Determine language from filename
-      const lang: 'pt-br' | 'en-us' = snippetFile.includes('.en-us.') ? 'en-us' : 'pt-br';
+      // Determine language from filename (used to match against perLang keys)
       const baseName = snippetFile
         .replace('.pt-br.py', '')
         .replace('.en-us.py', '');

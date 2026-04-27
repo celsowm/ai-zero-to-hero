@@ -1,6 +1,6 @@
 import React from 'react';
 import type { SampleSnapshot } from '../../../utils/neuralTrainingEngine';
-import { useLocale } from '../../../context/LocaleContext';
+import { useLocale } from '../../../hooks/useLocale';
 import { SectionCard } from './SectionCard';
 import { PLACEHOLDER_VALUE } from './constants';
 import { fmt } from './utils';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUI } from '../context/UIContext';
+import { useUI } from '../hooks/useUI';
 import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 
 interface SlideFrameProps {

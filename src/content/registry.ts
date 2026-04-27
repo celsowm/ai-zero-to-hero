@@ -113,7 +113,7 @@ function registerCode(path: string, moduleValue: unknown) {
   const parsed = parseSnippetSource(rawCode);
   const meta = metaIndex.get(snippetId);
 
-  if (meta) {
+  if (meta && meta.regions) {
     const parsedRegionNames = Object.keys(parsed.regions).sort();
     const declaredRegionNames = [...meta.regions].sort();
     const sameLength = parsedRegionNames.length === declaredRegionNames.length;

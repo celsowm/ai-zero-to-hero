@@ -10,7 +10,11 @@ export function useKeydown(
   target: EventTarget = window,
 ) {
   const handlerRef = useRef(handler);
-  handlerRef.current = handler;
+
+  // Update ref in effect, not during render
+  useEffect(() => {
+    handlerRef.current = handler;
+  }, [handler]);
 
   const stableHandler = useCallback((e: Event) => {
     handlerRef.current(e as KeyboardEvent);

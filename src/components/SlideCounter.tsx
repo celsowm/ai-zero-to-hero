@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation } from '../hooks/useNavigation';
 
 export const SlideCounter: React.FC = () => {
   const { currentSlideIndex, slides } = useNavigation();

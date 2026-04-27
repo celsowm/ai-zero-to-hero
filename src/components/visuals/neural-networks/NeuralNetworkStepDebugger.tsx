@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import type { NeuralNetworkStepDebuggerVisualCopy } from '../../../types/slide';
-import { useLocale } from '../../../context/LocaleContext';
+import { useLocale } from '../../../hooks/useLocale';
 import { resolveSnippetSource } from '../../../content/registry';
 import { PanelCard } from '../PanelCard';
 import { CodeBlock } from '../../CodeBlock';

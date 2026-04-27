@@ -1,3 +1,34 @@
-npx tsc -b
+#!/bin/sh
+
+echo "🔍 Running pre-commit checks..."
+
+echo "  → Type-checking..."
+npx tsc -b --noEmit
+if [ $? -ne 0 ]; then
+  echo "❌ Type-check failed. Fix TypeScript errors before committing."
+  exit 1
+fi
+
+echo "  → Validating slides..."
+node scripts/validate-slides.mjs
+if [ $? -ne 0 ]; then
+  echo "❌ Slide validation failed. Fix slide errors before committing."
+  exit 1
+fi
+
+echo "  → Running tests..."
 npx vitest run
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Fix failing tests before committing."
+  exit 1
+fi
+
+echo "  → Linting..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ Lint failed. Fix ESLint errors before committing."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
 

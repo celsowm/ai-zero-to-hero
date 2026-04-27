@@ -5,7 +5,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import 'highlight.js/styles/github-dark.css';
-import { useUI } from '../context/UIContext';
+import { useUI } from '../hooks/useUI';
 import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { CodeBlock } from './CodeBlock';
 import type { CodeExplanation } from '../types/slide';

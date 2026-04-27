@@ -19,7 +19,7 @@ export const SlideVisualRenderer: React.FC<SlideVisualRendererProps> = ({ visual
 
   return (
     <Suspense fallback={<div style={{ color: 'var(--sw-text-muted)', fontSize: 14 }}>{loadingVisual}</div>}>
-      <LazyComponent visual={visual} language={language} />
+      {React.createElement(LazyComponent, { visual, language })}
     </Suspense>
   );
 };

@@ -1,62 +1,18 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Language } from '../types/slide';
-import { createSafeContext } from './createSafeContext';
+import { LocaleContext } from '../hooks/useLocale';
 
-export interface LocaleContextValue {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  switchLanguage: () => void;
-}
+export const LocaleProvider: React.FC<{ children: ReactNode; defaultLanguage?: Language }> = ({ children, defaultLanguage = 'pt-br' }) => {
+  const [language, setLanguage] = useState<Language>(defaultLanguage);
 
-const [LocaleProviderInternal, useLocaleInternal, LocaleContext] =
-  createSafeContext<LocaleContextValue>('Locale');
-
-function isLanguage(value: string): value is Language {
-  return value === 'pt-br' || value === 'en-us';
-}
-
-function normalizeBrowserLanguage(): Language {
-  const raw = navigator.languages?.find((l) => {
-    const low = l.toLowerCase();
-    return low.startsWith('pt') || low.startsWith('en');
-  });
-  if (!raw) return 'pt-br';
-  const low = raw.toLowerCase();
-  if (low.startsWith('pt')) return 'pt-br';
-  if (low.startsWith('en')) return 'en-us';
-  return 'pt-br';
-}
-
-function getInitialLanguage(): Language {
-  const stored = localStorage.getItem('lang');
-  if (stored && isLanguage(stored)) return stored;
-  return normalizeBrowserLanguage();
-}
-
-interface LocaleProviderProps {
-  children: ReactNode;
-}
-
-export const LocaleProvider: React.FC<LocaleProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage);
-
-  useEffect(() => {
-    localStorage.setItem('lang', language);
-    document.documentElement.lang = language;
-  }, [language]);
-
-  const switchLanguage = useMemo(
-    () => () => setLanguage((prev) => (prev === 'pt-br' ? 'en-us' : 'pt-br')),
-    [],
-  );
+  const switchLanguage = (lang: Language) => {
+    setLanguage(lang);
+  };
 
   return (
-    <LocaleProviderInternal value={{ language, setLanguage, switchLanguage }}>
+    <LocaleContext.Provider value={{ language, setLanguage, switchLanguage }}>
       {children}
-    </LocaleProviderInternal>
+    </LocaleContext.Provider>
   );
 };
-
-export const useLocale = useLocaleInternal;
-export { LocaleContext };

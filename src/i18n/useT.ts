@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useLocale } from '../context/LocaleContext';
+import { useLocale } from '../hooks/useLocale';
 import type { Language } from '../types/slide';
 import { getExerciseMessages, type ExerciseMessages } from '../i18n/messages';
 import { getUiMessages, type UiMessages } from '../i18n/uiMessages';

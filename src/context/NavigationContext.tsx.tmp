@@ -1,8 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */  
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { ISlide } from '../types/slide';
 import { courseContent } from '../data/course-content';
-import { NavigationProviderInternal } from '../hooks/useNavigation';
+import { createSafeContext } from './createSafeContext';
 
 function getSlideIndexFromHash(slides: ISlide[]): number {
   const hash = window.location.hash.replace(/^#\/?/, '');
@@ -14,6 +15,17 @@ function getSlideIndexFromHash(slides: ISlide[]): number {
 function setHash(slideId: string) {
   window.history.pushState(null, '', `#/${slideId}`);
 }
+
+export interface NavigationContextType {
+  currentSlideIndex: number;
+  goToNextSlide: () => void;
+  goToPrevSlide: () => void;
+  goToSlide: (index: number) => void;
+  slides: ISlide[];
+}
+
+const [NavigationProviderInternal, useNavigationInternal, NavigationContext] =
+  createSafeContext<NavigationContextType>('Navigation');
 
 export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const slides = courseContent;
@@ -40,6 +52,7 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
     }
   }, [slides]);
 
+  // Keyboard navigation: ArrowLeft/ArrowRight
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
@@ -80,3 +93,6 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
     </NavigationProviderInternal>
   );
 };
+
+export const useNavigation = useNavigationInternal;
+export { NavigationContext };

@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
 import { Copy, Check, Info } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
-import { useUI } from '../context/UIContext';
-import { useLocale } from '../context/LocaleContext';
+import { useUI } from '../hooks/useUI';
+import { useLocale } from '../hooks/useLocale';
 import { resolveSnippetCode } from '../content/registry';
 import 'highlight.js/styles/github-dark.css';
 

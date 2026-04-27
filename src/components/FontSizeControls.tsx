@@ -1,6 +1,6 @@
 import React from 'react';
-import { useUI } from '../context/UIContext';
-import { useLocale } from '../context/LocaleContext';
+import { useUI } from '../hooks/useUI';
+import { useLocale } from '../hooks/useLocale';
 
 const LABELS = {
   'pt-br': { decrease: 'Diminuir fonte', increase: 'Aumentar fonte' },

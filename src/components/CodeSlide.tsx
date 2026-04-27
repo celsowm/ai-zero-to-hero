@@ -1,6 +1,6 @@
 import React from 'react';
 import type { IContent } from '../types/slide';
-import { useUI } from '../context/UIContext';
+import { useUI } from '../hooks/useUI';
 import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { SlideFrame } from './SlideFrame';

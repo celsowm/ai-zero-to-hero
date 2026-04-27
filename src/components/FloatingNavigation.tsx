@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation } from '../hooks/useNavigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const FloatingNavigation: React.FC = () => {

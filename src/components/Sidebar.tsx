@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigation } from '../context/NavigationContext';
-import { useUI } from '../context/UIContext';
-import { useLocale } from '../context/LocaleContext';
+import { useNavigation } from '../hooks/useNavigation';
+import { useUI } from '../hooks/useUI';
+import { useLocale } from '../hooks/useLocale';
 import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
 import { getUiMessages } from '../i18n/uiMessages';
 
@@ -121,7 +121,7 @@ export const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className="px-2.5 py-4" style={{ borderTop: '1px solid rgba(168, 85, 247, 0.06)' }}>
         <button
-          onClick={switchLanguage}
+          onClick={() => switchLanguage(language === 'pt-br' ? 'en-us' : 'pt-br')}
           className={`flex items-center gap-2 rounded-lg text-xs transition-all w-full ${
             isCollapsed ? 'px-2.5 py-2 justify-center' : 'px-3 py-2'
           }`}

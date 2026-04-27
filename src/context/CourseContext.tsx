@@ -1,24 +1,11 @@
 import React, { useMemo } from 'react';
 import type { ReactNode } from 'react';
-import type { Language, ISlide } from '../types/slide';
-import { useNavigation } from './NavigationContext';
-import { useLocale } from './LocaleContext';
+import { CourseProviderInternal } from '../hooks/useCourse';
+import { useNavigation } from '../hooks/useNavigation';
+import { useLocale } from '../hooks/useLocale';
 import { findSlideById } from '../data/course-content';
-import { createSafeContext } from './createSafeContext';
 
-export interface CourseContextValue {
-  currentSlide: ISlide | null;
-  language: Language;
-}
-
-const [CourseProviderInternal, useCourseInternal, CourseContext] =
-  createSafeContext<CourseContextValue>('Course');
-
-interface CourseProviderProps {
-  children: ReactNode;
-}
-
-export const CourseProvider: React.FC<CourseProviderProps> = ({ children }) => {
+export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { slides, currentSlideIndex } = useNavigation();
   const { language } = useLocale();
 
@@ -35,6 +22,3 @@ export const CourseProvider: React.FC<CourseProviderProps> = ({ children }) => {
     </CourseProviderInternal>
   );
 };
-
-export const useCourse = useCourseInternal;
-export { CourseContext };

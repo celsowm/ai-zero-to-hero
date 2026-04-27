@@ -401,11 +401,10 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
     createStars();
 
     /* ── Grid & Mirror (with post-processing) ── */
-    let groundMirror: any = null;
+    let groundMirror: THREE.Mesh | null = null;
     let gridHelper: THREE.GridHelper | null = null;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function createFloorAndGrid(Reflector: any) {
+    function createFloorAndGrid(Reflector: typeof import('three/examples/jsm/objects/Reflector.js').Reflector) {
       const mirrorGeo = new THREE.PlaneGeometry(1000, 2000);
       groundMirror = new Reflector(mirrorGeo, {
         clipBias: 0.003,
@@ -494,8 +493,7 @@ export const WelcomeSynthwaveVisual = React.memo(({ copy }: WelcomeSynthwaveVisu
         else if (d instanceof THREE.Material) d.dispose();
         else if (d instanceof THREE.Texture) d.dispose();
         else if (d instanceof THREE.Object3D) {
-          // For Reflector and complex objects
-          const obj = d as any;
+          const obj = d as THREE.Object3D & { dispose?: () => void };
           if (obj.dispose && typeof obj.dispose === 'function') {
             obj.dispose();
           }

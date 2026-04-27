@@ -25,7 +25,7 @@ export function usePyodideLoader(): UsePyodideLoaderReturn {
       setPyodide(instance);
       setStatus('ready');
       return instance;
-    } catch (error) {
+    } catch {
       setStatus('error');
       return null;
     } finally {

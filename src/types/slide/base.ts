@@ -10,7 +10,7 @@ export interface CodeSourceRef {
 export interface CodeSnippetMeta {
   id: string;
   language: SnippetLanguage;
-  regions: CodeRegionId[];
+  regions?: CodeRegionId[];
   explanations?: Partial<Record<CodeRegionId, string>>;
 }
 

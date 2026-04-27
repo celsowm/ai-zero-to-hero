@@ -33,8 +33,10 @@ export function useTrainingLoop({
   const onStepRef = useRef(onStep);
   const onCompleteRef = useRef(onComplete);
 
-  onStepRef.current = onStep;
-  onCompleteRef.current = onComplete;
+  useEffect(() => {
+    onStepRef.current = onStep;
+    onCompleteRef.current = onComplete;
+  }, [onStep, onComplete]);
 
   const clearTimer = useCallback(() => {
     if (intervalRef.current !== null) {

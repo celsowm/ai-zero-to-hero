@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ISlide, Language } from '../types/slide';
-import { useUI } from '../context/UIContext';
+import { useUI } from '../hooks/useUI';
 import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
 import { SlideVisualRenderer } from './slide-visuals';
 import { MarkdownRenderer } from './MarkdownRenderer';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { ExerciseItem, Language } from '../types/slide';
 import { useExerciseRunner } from './useExerciseRunner';
 import type { ValidationResult } from '../services/exerciseValidators';
@@ -21,7 +21,6 @@ interface UseExerciseSessionReturn {
 
 export function useExerciseSession(
   exercise: ExerciseItem,
-  _language: Language,
 ): UseExerciseSessionReturn {
   const [code, setCode] = useState(exercise.starterCode);
   const [output, setOutput] = useState('');
@@ -31,15 +30,6 @@ export function useExerciseSession(
   const { run, check, status, error: pyodideError } = useExerciseRunner();
 
   const isRunning = status === 'loading';
-
-  // Reset session when exercise changes
-  useEffect(() => {
-    setCode(exercise.starterCode);
-    setOutput('');
-    setStderr('');
-    setResults(null);
-    setShowHints(false);
-  }, [exercise.id, exercise.starterCode]);
 
   const handleRun = async () => {
     setResults(null);

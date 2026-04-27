@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { ExerciseItem, Language } from '../types/slide';
 import { usePyodideLoader } from './usePyodideLoader';
 import { runPython } from '../services/pyodideRunner';
@@ -46,16 +46,6 @@ export function useExercise(exercise: ExerciseItem, _language: Language): UseExe
   const [error, setError] = useState<string | null>(null);
 
   const isRunning = status === 'loading';
-
-  // Reset session when exercise changes
-  useEffect(() => {
-    setCode(exercise.starterCode);
-    setOutput('');
-    setStderr('');
-    setResults(null);
-    setShowHints(false);
-    setError(null);
-  }, [exercise.id, exercise.starterCode]);
 
   const run = useCallback(async () => {
     setResults(null);

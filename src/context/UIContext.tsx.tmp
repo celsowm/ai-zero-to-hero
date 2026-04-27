@@ -1,6 +1,18 @@
+/* eslint-disable react-refresh/only-export-components */  
 import React, { useState, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
-import { UIProviderInternal } from '../hooks/useUI';
+import { createSafeContext } from './createSafeContext';
+
+export interface UIContextType {
+  fontScale: number;
+  increaseFontScale: () => void;
+  decreaseFontScale: () => void;
+  isSearchOpen: boolean;
+  setSearchOpen: (open: boolean) => void;
+}
+
+const [UIProviderInternal, useUIInternal, UIContext] =
+  createSafeContext<UIContextType>('UI');
 
 export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [fontScale, setFontScale] = useState(1);
@@ -28,3 +40,6 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     </UIProviderInternal>
   );
 };
+
+export const useUI = useUIInternal;
+export { UIContext };
