@@ -132,7 +132,7 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 20, flex: 1, minHeight: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 20, flex: 1, minHeight: 0 }}>
             <div
               style={{
                 background: 'rgba(13, 11, 21, 0.4)',
