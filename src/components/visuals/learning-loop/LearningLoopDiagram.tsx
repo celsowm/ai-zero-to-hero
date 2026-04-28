@@ -11,7 +11,7 @@ const fontFamily = sw.fontSans;
 const wrapText = (text: string, maxWidth: number, fontSize: number) => {
   const approxCharWidth = fontSize * 0.56;
   const maxCharsPerLine = Math.max(8, Math.floor(maxWidth / approxCharWidth));
-  const words = text.split(/\s+/).filter(Boolean);
+  const words = (text ?? '').split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let currentLine = '';
 

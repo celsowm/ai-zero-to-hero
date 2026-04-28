@@ -11,7 +11,7 @@ export const ContextWindowSlider = React.memo(({ copy }: ContextWindowSliderProp
 
   const fullText = copy.fullText ?? 'The quick brown fox jumps over the lazy dog and keeps running through the open field until sunset arrives';
   const windowSize = 5;
-  const tokens = fullText.split(' ').map(t => t.trim()).filter(Boolean);
+  const tokens = (fullText ?? '').split(' ').map(t => t.trim()).filter(Boolean);
   const forgottenLabel = copy.forgottenLabel ?? 'Forgotten';
   const activeLabel = copy.activeLabel ?? 'Active Window';
 

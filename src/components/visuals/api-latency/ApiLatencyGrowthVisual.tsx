@@ -216,12 +216,12 @@ const guideCalloutLayouts: GuideCallout[] = [
 ];
 
 const splitGuideLabel = (label: string) => {
-  const parts = label.split(':').map(part => part.trim()).filter(Boolean);
+  const parts = (label ?? '').split(':').map(part => part.trim()).filter(Boolean);
   if (parts.length >= 2) {
     return [parts[0], parts.slice(1).join(': ')] as const;
   }
 
-  const words = label.trim().split(/\s+/);
+  const words = (label ?? '').trim().split(/\s+/);
   if (words.length <= 2) {
     return [label, ''] as const;
   }

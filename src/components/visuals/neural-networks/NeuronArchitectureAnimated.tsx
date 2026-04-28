@@ -94,7 +94,7 @@ const styles = `
 `;
 
 export const NeuronArchitectureAnimated = React.memo(({ copy }: Props) => {
-  const [titleHead, ...titleTailParts] = copy.title.split(' ');
+  const [titleHead, ...titleTailParts] = (copy.title ?? '').split(' ');
   const titleTail = titleTailParts.join(' ');
 
   const INPUT_X = 120;

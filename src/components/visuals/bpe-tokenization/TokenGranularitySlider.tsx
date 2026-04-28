@@ -21,11 +21,12 @@ const levelColors: Record<GranularityLevel, string> = {
 };
 
 function tokenize(sentence: string, level: GranularityLevel): string[] {
+  const safe = sentence ?? '';
   switch (level) {
     case 0: // character level
-      return sentence.split('');
+      return safe.split('');
     case 1: // subword level (simple heuristic: split on common subword boundaries)
-      return sentence
+      return safe
         .split(/\s+/)
         .flatMap((word) => {
           if (word.length <= 2) return [word];
@@ -37,7 +38,7 @@ function tokenize(sentence: string, level: GranularityLevel): string[] {
         })
         .filter(Boolean);
     case 2: // word level
-      return sentence.split(/\s+/).filter(Boolean);
+      return safe.split(/\s+/).filter(Boolean);
   }
 }
 

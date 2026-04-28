@@ -141,8 +141,8 @@ const Arrow: React.FC<ArrowProps> = ({
 );
 
 export const InferenceDiagram = React.memo(({ copy }: InferenceDiagramProps) => {
-  const trainingLines = copy.trainingTitle.split('\n');
-  const footerLines = copy.footerLabel.split('\n');
+  const trainingLines = (copy.trainingTitle ?? '').split('\n');
+  const footerLines = (copy.footerLabel ?? '').split('\n');
   const modelNodes = {
     input: [
       { x: 18, y: 28, fill: '#facc15', stroke: '#ca8a04' },

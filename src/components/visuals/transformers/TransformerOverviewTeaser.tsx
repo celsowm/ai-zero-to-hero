@@ -144,8 +144,8 @@ export const TransformerOverviewTeaser = React.memo(({ copy }: TransformerOvervi
   const maxStep = 6;
   const eosToken = '<eos>';
 
-  const sourceTokens = useMemo(() => copy.sourceSentence.split(' '), [copy.sourceSentence]);
-  const targetTokens = useMemo(() => copy.targetSentence.split(' '), [copy.targetSentence]);
+  const sourceTokens = useMemo(() => (copy.sourceSentence ?? '').split(' '), [copy.sourceSentence]);
+  const targetTokens = useMemo(() => (copy.targetSentence ?? '').split(' '), [copy.targetSentence]);
   const generatedCount = Math.min(Math.max(step - 1, 0), targetTokens.length);
   const completedOutputTokens = generatedCount >= targetTokens.length ? [...targetTokens, eosToken] : targetTokens;
   const completedOutputActiveCount = generatedCount >= targetTokens.length ? targetTokens.length + 1 : generatedCount;

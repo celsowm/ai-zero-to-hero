@@ -13,7 +13,7 @@ export const BigramCounter = React.memo(({ copy }: BigramCounterProps) => {
   // And we want to count what comes after "We"
   
   const targetToken = copy.currentToken.trim(); // "We"
-  const tokens = copy.text.split(' ').map(t => t.trim());
+  const tokens = (copy.text ?? '').split(' ').map(t => t.trim());
   
   // Find all indices of the target token
   const targetIndices = tokens.reduce<number[]>((acc, token, idx) => {

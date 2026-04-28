@@ -9,8 +9,8 @@ interface MlpTextDiagramProps {
 export const MlpTextDiagram = React.memo(({ copy }: MlpTextDiagramProps) => {
   const [active, setActive] = useState<0 | 1>(0);
 
-  const tokens1 = copy.sentence1.split(' ');
-  const tokens2 = copy.sentence2.split(' ');
+  const tokens1 = (copy.sentence1 ?? '').split(' ');
+  const tokens2 = (copy.sentence2 ?? '').split(' ');
 
   return (
     <div style={{

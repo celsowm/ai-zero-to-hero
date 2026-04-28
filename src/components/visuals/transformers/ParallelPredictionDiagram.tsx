@@ -14,7 +14,7 @@ export const ParallelPredictionDiagram = React.memo(({ copy }: ParallelPredictio
     return () => clearTimeout(t);
   }, []);
 
-  const tokens = copy.text.split(' ');
+  const tokens = (copy.text ?? '').split(' ');
   const predictions = [copy.prediction1, copy.prediction2, copy.prediction3];
 
   return (
