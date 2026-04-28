@@ -1222,7 +1222,7 @@ snippet:transformers/gpt2-we-the-people-e2e
 
 3. **Extreme efficiency:** predicting all previous steps simultaneously during training is what allows the Transformer to train much faster than older models (RNNs).
 
-> A Transformer does not read words like a human; it swallows the whole page at once.`}},visual:{id:`parallel-prediction-diagram`,copy:{"pt-br":{step1:`'We' -> prever 'the'`,step2:`'We the' -> prever 'people'`,step3:`'We the people' -> prever '?'`},"en-us":{step1:`'We' -> predict 'the'`,step2:`'We the' -> predict 'people'`,step3:`'We the people' -> predict '?'`}}}}),w({id:`hf-datasets-deep-dive`,type:`two-column`,options:{columnRatios:[.5,.5]},content:{"pt-br":{title:`Datasets: carregando e pré-processando`,body:`O treinamento depende de dados. A biblioteca **\`datasets\`** torna o acesso e processamento eficiente — mesmo para corpora de TBs.
+> A Transformer does not read words like a human; it swallows the whole page at once.`}},visual:{id:`parallel-prediction-diagram`,copy:{"pt-br":{text:`We the people`,parallelLabel:`Paralelo`,prediction1:`'the'`,prediction2:`'people'`,prediction3:`'?'`},"en-us":{text:`We the people`,parallelLabel:`Parallel`,prediction1:`'the'`,prediction2:`'people'`,prediction3:`'?'`}}}}),w({id:`hf-datasets-deep-dive`,type:`two-column`,options:{columnRatios:[.5,.5]},content:{"pt-br":{title:`Datasets: carregando e pré-processando`,body:`O treinamento depende de dados. A biblioteca **\`datasets\`** torna o acesso e processamento eficiente — mesmo para corpora de TBs.
 
 1. **\`load_dataset()\`:** carrega qualquer dataset do Hub com uma linha. Suporta splits, subconjuntos e versões.
 
