@@ -1135,7 +1135,7 @@ for epoch in range(epochs):\r
 print("Treinamento concluído!")\r
 # Salvando o "cérebro" treinado\r
 torch.save(model.state_dict(), "meu_gpt2_tiny.pt")\r
-# @endregion`,Fr=`# region: chromadb-index-documents
+# @endregion`,Fr=`# @region chromadb-index-documents
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -1162,8 +1162,8 @@ collection.add(ids=ids, embeddings=embeddings, documents=documents)
 print(f"✅ {len(documents)} documents indexed.")
 
 # Now we can search by semantic similarity, not keywords.
-# endregion
-`,Ir=`# region: chromadb-index-documents
+# @endregion
+`,Ir=`# @region chromadb-index-documents
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -1190,8 +1190,8 @@ collection.add(ids=ids, embeddings=embeddings, documents=documents)
 print(f"✅ {len(documents)} documentos indexados.")
 
 # Agora podemos buscar por similaridade semântica, não por palavras-chave.
-# endregion
-`,Lr=`# region: chromadb-rag-e2e
+# @endregion
+`,Lr=`# @region chromadb-rag-e2e
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -1236,8 +1236,8 @@ print(answer("What are Transformers?"))
 # → Context: Transformers use multi-head attention to process sequences.
 #   Question: What are Transformers?
 #   Answer: Transformers are deep learning models...
-# endregion
-`,Rr=`# region: chromadb-rag-e2e
+# @endregion
+`,Rr=`# @region chromadb-rag-e2e
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -1282,8 +1282,8 @@ print(answer("O que são Transformers?"))
 # → Contexto: Transformers usam atenção multi-head para processar sequências.
 #   Pergunta: O que são Transformers?
 #   Resposta: Transformers são modelos de deep learning...
-# endregion
-`,zr=`# region: chromadb-search-query
+# @endregion
+`,zr=`# @region chromadb-search-query
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -1310,8 +1310,8 @@ for doc, dist in zip(results["documents"][0], results["distances"][0]):
 #   [0.45] Transformers are attention-based models.
 #   [0.62] PyTorch is the most used deep learning framework.
 # (lower distances = more similar)
-# endregion
-`,Br=`# region: chromadb-search-query
+# @endregion
+`,Br=`# @region chromadb-search-query
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -1338,7 +1338,7 @@ for doc, dist in zip(results["documents"][0], results["distances"][0]):
 #   [0.45] Transformers são modelos baseados em atenção.
 #   [0.62] PyTorch é o framework mais usado para deep learning.
 # (distâncias menores = mais similares)
-# endregion
+# @endregion
 `,Vr=`height = 172\r
 age = 29\r
 predicted_weight = predict(height, age, beta_0, beta_1, beta_2)\r
@@ -1985,7 +1985,7 @@ soma_idades_2 = sum(idade for altura, idade, peso in dados)\r
 \r
 print(soma_idades)\r
 print(soma_idades_2)\r
-`,pi=`# region: rag-architecture
+`,pi=`# @region rag-architecture
 from typing import TypedDict
 import chromadb
 from sentence_transformers import SentenceTransformer
@@ -2026,8 +2026,8 @@ class RAGPipeline:
             sources=results["documents"][0],
             relevance_score=sum(results["distances"][0]) / len(results["distances"][0]),
         )
-# endregion
-`,mi=`# region: rag-architecture
+# @endregion
+`,mi=`# @region rag-architecture
 from typing import TypedDict
 import chromadb
 from sentence_transformers import SentenceTransformer
@@ -2068,8 +2068,8 @@ class RAGPipeline:
             sources=results["documents"][0],
             relevance_score=sum(results["distances"][0]) / len(results["distances"][0]),
         )
-# endregion
-`,hi=`# region: rag-context-injection
+# @endregion
+`,hi=`# @region rag-context-injection
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -2095,8 +2095,8 @@ inputs = tokenizer(prompt, return_tensors="pt")
 outputs = model.generate(**inputs, max_new_tokens=50, do_sample=False)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # The model now has access to sources. The answer is grounded, not invented.
-# endregion
-`,gi=`# region: rag-context-injection
+# @endregion
+`,gi=`# @region rag-context-injection
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -2122,8 +2122,8 @@ inputs = tokenizer(prompt, return_tensors="pt")
 outputs = model.generate(**inputs, max_new_tokens=50, do_sample=False)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # O modelo agora tem acesso às fontes. A resposta é fundamentada, não inventada.
-# endregion
-`,_i=`# region: rag-embedding-model
+# @endregion
+`,_i=`# @region rag-embedding-model
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -2143,8 +2143,8 @@ print(f"Shape: {vectors.shape}")  # (4, 384)
 
 # Each document is now a point in 384-dimensional space.
 # Semantically similar documents are close in this space.
-# endregion
-`,vi=`# region: rag-embedding-model
+# @endregion
+`,vi=`# @region rag-embedding-model
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -2164,8 +2164,8 @@ print(f"Shape: {vetores.shape}")  # (4, 384)
 
 # Cada documento agora é um ponto no espaço 384-dimensional.
 # Documentos semanticamente similares ficam próximos neste espaço.
-# endregion
-`,yi=`# region: rag-from-scratch
+# @endregion
+`,yi=`# @region rag-from-scratch
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -2216,8 +2216,8 @@ class RAGFromScratch:
 # rag = RAGFromScratch()
 # rag.ingest(["The 2022 World Cup was in Qatar.", "Argentina won on penalties."])
 # print(rag.query("Where was the 2022 World Cup?"))
-# endregion
-`,bi=`# region: rag-from-scratch
+# @endregion
+`,bi=`# @region rag-from-scratch
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -2268,8 +2268,8 @@ class RAGFromScratch:
 # rag = RAGFromScratch()
 # rag.ingest(["A Copa de 2022 foi no Catar.", "Argentina venceu nos pênaltis."])
 # print(rag.query("Onde foi a Copa de 2022?"))
-# endregion
-`,xi=`# region: rag-hallucination
+# @endregion
+`,xi=`# @region rag-hallucination
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -2284,8 +2284,8 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # Unobtainium does NOT exist. But the model will invent a formula.
 # This is "hallucination": generating plausible but factually wrong text.
 # Without external verification, there's no way for the model to know it's making things up.
-# endregion
-`,Si=`# region: rag-hallucination
+# @endregion
+`,Si=`# @region rag-hallucination
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -2300,8 +2300,8 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # Unobtainium NÃO existe. Mas o modelo vai inventar uma fórmula.
 # Isso é "hallucinação": gerar texto plausível mas factualmente errado.
 # Sem verificação externa, não há como o modelo saber que está inventando.
-# endregion
-`,Ci=`# region: rag-intro
+# @endregion
+`,Ci=`# @region rag-intro
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -2321,8 +2321,8 @@ def augment(question: str, context: list[str]) -> str:
 
 # 3. GENERATE: generate response with context
 # (use the augmented prompt with an LLM)
-# endregion
-`,wi=`# region: rag-intro
+# @endregion
+`,wi=`# @region rag-intro
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -2342,8 +2342,8 @@ def augment(question: str, context: list[str]) -> str:
 
 # 3. GENERATE: gerar resposta com contexto
 # (usar o prompt augmented com um LLM)
-# endregion
-`,Ti=`# region: rag-memory-limit
+# @endregion
+`,Ti=`# @region rag-memory-limit
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "gpt2"
@@ -2360,8 +2360,8 @@ print(answer)
 # The model answers based on frozen training weights.
 # It does NOT know about the 2022 World Cup — knowledge is "frozen"
 # at the last training data date. Without external access, it "guesses".
-# endregion
-`,Ei=`# region: rag-memory-limit
+# @endregion
+`,Ei=`# @region rag-memory-limit
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "gpt2"
@@ -2378,8 +2378,8 @@ print(answer)
 # O modelo responde com base nos pesos congelados do treino.
 # Ele NÃO sabe sobre a Copa de 2022 — o conhecimento está "congelado"
 # na data do último dado de treino. Sem acesso externo, ele "chuta".
-# endregion
-`,Di=`# region: rag-vector-search
+# @endregion
+`,Di=`# @region rag-vector-search
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -2406,8 +2406,8 @@ similarities = cosine_similarity(query_embedding, doc_embeddings)[0]
 for doc, score in sorted(zip(documents, similarities), key=lambda x: -x[1]):
     print(f"  {score:.3f} → {doc}")
 # Documents about the World Cup rise to the top — semantically closest to the query.
-# endregion
-`,Oi=`# region: rag-vector-search
+# @endregion
+`,Oi=`# @region rag-vector-search
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -2434,7 +2434,7 @@ similarities = cosine_similarity(query_embedding, doc_embeddings)[0]
 for doc, score in sorted(zip(documentos, similarities), key=lambda x: -x[1]):
     print(f"  {score:.3f} → {doc}")
 # Os documentos sobre Copa ficam no topo — semanticamente mais próximos da query.
-# endregion
+# @endregion
 `,ki=`from transformers import AutoTokenizer\r
 from datasets import Dataset\r
 \r
