@@ -65,6 +65,7 @@ import type {
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
   SamplingControlsCopy,
+  BuildGpt2ModelCopy,
   SftIntroCopy,
   TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
@@ -148,6 +149,7 @@ interface VisualCopyMap {
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   'sft-intro': SftIntroCopy;
+  'build-gpt2-model': BuildGpt2ModelCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

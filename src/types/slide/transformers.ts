@@ -290,3 +290,20 @@ export interface SftIntroCopy {
   assistantContent: string;
   structureNote: string;
 }
+
+// ── Build GPT-2 Model ──────────────────────────────────────────────────────
+
+export interface BuildGpt2ModelCopy {
+  tabCode: string;
+  tabDiagram: string;
+  snippetId: string;
+  attentionLabel: string;
+  mlpLabel: string;
+  residualLabel: string;
+  blockLabel: string;
+  inputLabel: string;
+  outputLabel: string;
+  blocksLabel: string;
+  embedLabel: string;
+  normLabel: string;
+}

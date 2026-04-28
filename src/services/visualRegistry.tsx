@@ -90,6 +90,7 @@ const visualMap: Record<string, string> = {
   'road-to-mini-transformer': 'RoadToMiniTransformer',
   'pipeline-flow-diagram': 'PipelineFlowDiagram',
   'sft-intro': 'SftIntro',
+  'build-gpt2-model': 'BuildGpt2Model',
 
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',

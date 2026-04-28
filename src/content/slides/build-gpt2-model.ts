@@ -4,10 +4,7 @@ export const buildGpt2Model = defineSlide({
   id: 'build-gpt2-model',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.45,
-      0.55
-    ]
+    "columnRatios": [0.45, 0.55]
   },
   content: {
     'pt-br': {
@@ -22,36 +19,7 @@ Nossa implementação pura precisa de:
 3. **MLP**: A rede neural tradicional que memoriza fatos.
 4. **Embeddings**: Onde cada token ganha seu significado inicial mais a sua posição (índice).
 
-Quando essas peças empilham, temos uma miniatura da exata mesma arquitetura rodando nos servidores da OpenAI.
-
----
-
-\`\`\`python
-snippet:build_gpt2/build-gpt2-model
-\`\`\``,
-      codeExplanations: [
-    {
-    "lineRange": [
-      2,
-      33
-    ],
-    "content": "A Atenção. Note a separação entre Query, Key e Value. O truque `is_causal=True` no PyTorch mascara automaticamente a matriz superior, evitando que um token espreite o que vem a seguir."
-  },
-    {
-    "lineRange": [
-      37,
-      55
-    ],
-    "content": "O Bloco. É aqui que entra a rodovia residual `x = x + ...`. Sem essa soma boba, arquiteturas profundas sofreriam de 'Desaparecimento do Gradiente'."
-  },
-    {
-    "lineRange": [
-      59,
-      85
-    ],
-    "content": "O chassi principal. Juntamos Posicionamento (`wpe`) + Identidade (`wte`), passamos pelo funil de blocos e finalmente transformamos num vetor do tamanho do nosso Vocabulário (`lm_head`)."
-  }
-  ],
+Quando essas peças empilham, temos uma miniatura da exata mesma arquitetura rodando nos servidores da OpenAI.`,
     },
     'en-us': {
       title: `Step 2: Assembling the Machine`,
@@ -65,36 +33,40 @@ Our pure implementation needs:
 3. **MLP**: The traditional neural network that memorizes facts.
 4. **Embeddings**: Where each token gets its initial meaning plus its position (index).
 
-When these pieces stack up, we have a miniature of the exact same architecture running on OpenAI's servers.
-
----
-
-\`\`\`python
-snippet:build_gpt2/build-gpt2-model
-\`\`\``,
-      codeExplanations: [
-    {
-    "lineRange": [
-      2,
-      33
-    ],
-    "content": "Attention. Note the split between Query, Key, and Value. The `is_causal=True` trick in PyTorch automatically masks the upper matrix, preventing a token from peeking at what comes next."
+When these pieces stack up, we have a miniature of the exact same architecture running on OpenAI's servers.`,
+    },
   },
-    {
-    "lineRange": [
-      37,
-      55
-    ],
-    "content": "The Block. This is where the residual highway `x = x + ...` comes in. Without this silly sum, deep architectures would suffer from 'Vanishing Gradients'."
-  },
-    {
-    "lineRange": [
-      59,
-      85
-    ],
-    "content": "The main chassis. We join Positioning (`wpe`) + Identity (`wte`), pass through the funnel of blocks, and finally transform into a vector the size of our Vocabulary (`lm_head`)."
-  }
-  ],
+  visual: {
+    id: 'build-gpt2-model',
+    copy: {
+      "pt-br": {
+        "tabCode": "Código",
+        "tabDiagram": "Arquitetura",
+        "snippetId": "build_gpt2/build-gpt2-model",
+        "attentionLabel": "Atenção Multi-Head",
+        "mlpLabel": "MLP (Feed-Forward)",
+        "residualLabel": "Residual Stream",
+        "blockLabel": "Bloco do Transformer",
+        "inputLabel": "Input Tokens",
+        "outputLabel": "Output Logits",
+        "blocksLabel": "× N blocos",
+        "embedLabel": "Embeddings",
+        "normLabel": "LayerNorm"
+      },
+      "en-us": {
+        "tabCode": "Code",
+        "tabDiagram": "Architecture",
+        "snippetId": "build_gpt2/build-gpt2-model",
+        "attentionLabel": "Multi-Head Attention",
+        "mlpLabel": "MLP (Feed-Forward)",
+        "residualLabel": "Residual Stream",
+        "blockLabel": "Transformer Block",
+        "inputLabel": "Input Tokens",
+        "outputLabel": "Output Logits",
+        "blocksLabel": "× N blocks",
+        "embedLabel": "Embeddings",
+        "normLabel": "LayerNorm"
+      }
     },
   },
 });

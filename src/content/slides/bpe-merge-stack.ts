@@ -4,55 +4,48 @@ export const bpeMergeStack = defineSlide({
   id: 'bpe-merge-stack',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.55,
-      0.45
-    ]
+    "columnRatios": [0.55, 0.45]
   },
   content: {
     'pt-br': {
-      title: `Algoritmo de Merge Stack`,
-      body: `O algoritmo de pilha reduz o token **exactamente como a aplicação repetida das fusões, da maior para a menor prioridade**. É a mesma semântica da BPE canônica e produz os mesmos pieces.
+      title: `O Algoritmo de Merge`,
+      body: `BPE não "adivinha" subpalavras — ele **aplica regras determinísticas** sobre os caracteres. Cada regra diz: "sempre que você ver X seguido de Y, funda-os em XY".
 
-### Como funciona
+### A mecânica exata
 
-1. **Lista de merges ordenada:** os merges são aplicados do mais antigo (maior prioridade) para o mais recente.
+1. **Comece com caracteres individuais:** cada letra é uma peça separada.
 
-2. **Scan left-to-right:** para cada posição no token, verifica se o par atual corresponde ao merge ativo.
+2. **Varra da esquerda para a direita:** encontre todas as ocorrências do par mais frequente e funda-as.
 
-3. **Fusão imediata:** quando há match, os dois símbolos são fundidos e o scan continua.
+3. **Repita com o próximo par:** agora com peças maiores, novos pares emergem.
 
-> O resultado é determinístico: mesmo input + mesmas regras = mesmo output.
+> Cada merge cria **novas adjacências** — "b"+"le" vira "ble", que agora pode ser fundido com outro merge.
 
 ---
 
-### Exemplo passo a passo
-Token: "unbelievable"
-Regras (prioridade): 1. (un,) 2. (bel,iev) 3. (able,)
+### Exemplo real: "unbelievable"
 
-Clique "Próximo Merge" ao lado para ver cada fusão acontecer.`,
+Começa como 12 caracteres. O merge **(l,e)** funde os dois "le". Depois **(b,le)** funde "ble". Clique "Próximo Merge" para ver a cadeia de fusões.`,
     },
     'en-us': {
-      title: `Merge Stack Algorithm`,
-      body: `The stack algorithm reduces a token **exactly as the repeated application of merges, from highest to lowest priority**. It's the same semantics as canonical BPE and produces the same pieces.
+      title: `The Merge Algorithm`,
+      body: `BPE doesn't "guess" subwords — it **applies deterministic rules** over characters. Each rule says: "whenever you see X followed by Y, fuse them into XY".
 
-### How it works
+### The exact mechanics
 
-1. **Ordered merge list:** merges are applied from oldest (highest priority) to newest.
+1. **Start with individual characters:** each letter is a separate piece.
 
-2. **Left-to-right scan:** for each position in the token, check if the current pair matches the active merge.
+2. **Scan left-to-right:** find all occurrences of the most frequent pair and fuse them.
 
-3. **Immediate fusion:** when there's a match, the two symbols are fused and the scan continues.
+3. **Repeat with next pair:** now with larger pieces, new pairs emerge.
 
-> The result is deterministic: same input + same rules = same output.
+> Each merge creates **new adjacencies** — "b"+"le" becomes "ble", which can now be fused by another merge.
 
 ---
 
-### Step-by-step example
-Token: "unbelievable"
-Rules (priority): 1. (un,) 2. (bel,iev) 3. (able,)
+### Real example: "unbelievable"
 
-Click "Next Merge" to see each fusion happen.`,
+Starts as 12 characters. Merge **(l,e)** fuses both "le". Then **(b,le)** fuses "ble". Click "Next Merge" to see the fusion chain.`,
     },
   },
   visual: {
@@ -60,32 +53,32 @@ Click "Next Merge" to see each fusion happen.`,
     copy: {
       "pt-br": {
         "title": "Merge Stack: Redução de Token",
-        "originalToken": "Token Original",
-        "stackLabel": "Pilha de Merges",
-        "priorityLabel": "Prioridade",
+        "originalToken": "unbelievable",
+        "stackLabel": "Regras de Merge (por prioridade)",
         "resultLabel": "Resultado",
         "nextMergeLabel": "Próximo Merge",
         "resetLabel": "Reset",
-        "completedLabel": "Completo!",
+        "completedLabel": "Tokenização completa!",
         "mergeRules": [
-          "(un, )",
-          "(bel, iev)",
-          "(able, )"
+          "(l, e)",
+          "(b, le)",
+          "(ble, iev)",
+          "(n, believable)"
         ]
       },
       "en-us": {
         "title": "Merge Stack: Token Reduction",
-        "originalToken": "Original Token",
-        "stackLabel": "Merge Stack",
-        "priorityLabel": "Priority",
+        "originalToken": "unbelievable",
+        "stackLabel": "Merge Rules (by priority)",
         "resultLabel": "Result",
         "nextMergeLabel": "Next Merge",
         "resetLabel": "Reset",
-        "completedLabel": "Complete!",
+        "completedLabel": "Tokenization complete!",
         "mergeRules": [
-          "(un, )",
-          "(bel, iev)",
-          "(able, )"
+          "(l, e)",
+          "(b, le)",
+          "(ble, iev)",
+          "(n, believable)"
         ]
       }
     },
