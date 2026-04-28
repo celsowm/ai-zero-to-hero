@@ -1,0 +1,26 @@
+{
+  "id": "rag/rag-from-scratch",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [8, 18],
+      "pt-br": "Classe completa: vector store (ChromaDB), embedder, tokenizer e LLM generator.",
+      "en-us": "Complete class: vector store (ChromaDB), embedder, tokenizer, and LLM generator."
+    },
+    {
+      "lineRange": [21, 26],
+      "pt-br": "INGEST: documentos embeddados e salvos no vector store com IDs automáticos.",
+      "en-us": "INGEST: documents embedded and saved to vector store with automatic IDs."
+    },
+    {
+      "lineRange": [29, 43],
+      "pt-br": "QUERY: retrieve (busca vetorial), augment (monta prompt com contexto), generate (LLM responde).",
+      "en-us": "QUERY: retrieve (vector search), augment (builds prompt with context), generate (LLM answers)."
+    },
+    {
+      "lineRange": [46, 48],
+      "pt-br": "Uso: indexar documentos e fazer perguntas. Respostas fundamentadas nos documentos indexados.",
+      "en-us": "Usage: index documents and ask questions. Answers grounded in indexed documents."
+    }
+  ]
+}

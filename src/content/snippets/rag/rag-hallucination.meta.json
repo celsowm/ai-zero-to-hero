@@ -1,0 +1,21 @@
+{
+  "id": "rag/rag-hallucination",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "GPT-2 padrão — sem fonte de verdade externa.",
+      "en-us": "Standard GPT-2 — no external source of truth."
+    },
+    {
+      "lineRange": [8, 12],
+      "pt-br": "Pergunta sobre substância inexistente. Modelo não tem como verificar.",
+      "en-us": "Question about non-existent substance. Model has no way to verify."
+    },
+    {
+      "lineRange": [13, 17],
+      "pt-br": "Resultado: modelo inventa uma fórmula plausível. Isso é hallucinação — texto convincente mas falso.",
+      "en-us": "Result: model invents a plausible formula. This is hallucination — convincing but false text."
+    }
+  ]
+}

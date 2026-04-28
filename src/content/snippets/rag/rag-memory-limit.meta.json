@@ -1,0 +1,21 @@
+{
+  "id": "rag/rag-memory-limit",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Carregamos GPT-2 padrão — conhecimento congelado em 2021.",
+      "en-us": "Loading standard GPT-2 — knowledge frozen in 2021."
+    },
+    {
+      "lineRange": [9, 14],
+      "pt-br": "Pergunta sobre evento pós-2021. O modelo não tem como saber.",
+      "en-us": "Question about a post-2021 event. The model has no way to know."
+    },
+    {
+      "lineRange": [16, 20],
+      "pt-br": "Resultado: modelo inventa ou responde com dados desatualizados. Sem fonte externa = hallucinação.",
+      "en-us": "Result: model invents or answers with outdated data. No external source = hallucination."
+    }
+  ]
+}

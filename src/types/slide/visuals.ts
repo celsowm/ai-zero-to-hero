@@ -67,6 +67,14 @@ import type {
   SamplingControlsCopy,
   BuildGpt2ModelCopy,
   SftIntroCopy,
+  RagMemoryLimitVisualCopy,
+  RagHallucinationVisualCopy,
+  RagIntroVisualCopy,
+  RagArchitectureVisualCopy,
+  RagEmbeddingVisualCopy,
+  RagVectorSearchVisualCopy,
+  RagContextInjectionVisualCopy,
+  RagFromScratchVisualCopy,
   TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
@@ -150,6 +158,15 @@ interface VisualCopyMap {
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   'sft-intro': SftIntroCopy;
   'build-gpt2-model': BuildGpt2ModelCopy;
+  // rag
+  'rag-memory-limit-visual': RagMemoryLimitVisualCopy;
+  'rag-hallucination-visual': RagHallucinationVisualCopy;
+  'rag-intro-visual': RagIntroVisualCopy;
+  'rag-architecture-visual': RagArchitectureVisualCopy;
+  'rag-embedding-visual': RagEmbeddingVisualCopy;
+  'rag-vector-search-visual': RagVectorSearchVisualCopy;
+  'rag-context-injection-visual': RagContextInjectionVisualCopy;
+  'rag-from-scratch-visual': RagFromScratchVisualCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

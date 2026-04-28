@@ -1,0 +1,21 @@
+{
+  "id": "rag/rag-context-injection",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [8, 12],
+      "pt-br": "Contexto retrieved pela busca vetorial — fatos reais sobre a Copa de 2022.",
+      "en-us": "Context retrieved by vector search — real facts about the 2022 World Cup."
+    },
+    {
+      "lineRange": [16, 21],
+      "pt-br": "Prompt template: instrução + fontes numeradas + pergunta. O modelo recebe tudo junto.",
+      "en-us": "Prompt template: instruction + numbered sources + question. Model receives everything together."
+    },
+    {
+      "lineRange": [24, 27],
+      "pt-br": "Resultado: resposta fundamentada nas fontes. Sem hallucinação pois o contexto contém a verdade.",
+      "en-us": "Result: answer grounded in sources. No hallucination because context contains the truth."
+    }
+  ]
+}

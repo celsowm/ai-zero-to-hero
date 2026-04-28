@@ -92,6 +92,16 @@ const visualMap: Record<string, string> = {
   'sft-intro': 'SftIntro',
   'build-gpt2-model': 'BuildGpt2Model',
 
+  // rag
+  'rag-memory-limit-visual': 'RagMemoryLimitVisual',
+  'rag-hallucination-visual': 'RagHallucinationVisual',
+  'rag-intro-visual': 'RagIntroVisual',
+  'rag-architecture-visual': 'RagArchitectureVisual',
+  'rag-embedding-visual': 'RagEmbeddingVisual',
+  'rag-vector-search-visual': 'RagVectorSearchVisual',
+  'rag-context-injection-visual': 'RagContextInjectionVisual',
+  'rag-from-scratch-visual': 'RagFromScratchVisual',
+
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',
   'activation-functions-comparator': 'ActivationFunctionsComparator',

@@ -104,6 +104,14 @@ import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
 import { quantizationNf4DeepDive } from './quantization-nf4-deep-dive';
 import { quantizationPractice } from './quantization-practice';
+import { ragArchitecture } from './rag-architecture';
+import { ragContextInjection } from './rag-context-injection';
+import { ragEmbeddingModel } from './rag-embedding-model';
+import { ragFromScratch } from './rag-from-scratch';
+import { ragHallucination } from './rag-hallucination';
+import { ragIntro } from './rag-intro';
+import { ragMemoryLimit } from './rag-memory-limit';
+import { ragVectorSearch } from './rag-vector-search';
 import { residualStream } from './residual-stream';
 import { roadToMiniTransformer } from './road-to-mini-transformer';
 import { samplingControls } from './sampling-controls';
@@ -229,6 +237,14 @@ export const allSlides: ISlide[] = [
   quantizationInt8,
   quantizationNf4DeepDive,
   quantizationPractice,
+  ragArchitecture,
+  ragContextInjection,
+  ragEmbeddingModel,
+  ragFromScratch,
+  ragHallucination,
+  ragIntro,
+  ragMemoryLimit,
+  ragVectorSearch,
   residualStream,
   roadToMiniTransformer,
   samplingControls,

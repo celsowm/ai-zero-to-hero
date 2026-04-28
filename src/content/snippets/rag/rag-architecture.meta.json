@@ -1,0 +1,21 @@
+{
+  "id": "rag/rag-architecture",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [11, 18],
+      "pt-br": "Três componentes: vector store (ChromaDB), embedder (SentenceTransformer), generator (LLM).",
+      "en-us": "Three components: vector store (ChromaDB), embedder (SentenceTransformer), generator (LLM)."
+    },
+    {
+      "lineRange": [21, 24],
+      "pt-br": "INGEST: documentos são embeddados e indexados no vector store com IDs únicos.",
+      "en-us": "INGEST: documents are embedded and indexed in the vector store with unique IDs."
+    },
+    {
+      "lineRange": [27, 40],
+      "pt-br": "RETRIEVE: query é embeddada, busca por similaridade, contexto montado, LLM gera resposta fundamentada.",
+      "en-us": "RETRIEVE: query is embedded, similarity search, context assembled, LLM generates grounded answer."
+    }
+  ]
+}

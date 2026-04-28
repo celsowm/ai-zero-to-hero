@@ -122,4 +122,13 @@ export const courseSlideOrder = [
   'quantization-nf4-deep-dive',
   'quantization-practice',
   'hf-pipeline-custom',
+  // RAG section
+  'rag-memory-limit',
+  'rag-hallucination',
+  'rag-intro',
+  'rag-architecture',
+  'rag-embedding-model',
+  'rag-vector-search',
+  'rag-context-injection',
+  'rag-from-scratch',
 ] as const;

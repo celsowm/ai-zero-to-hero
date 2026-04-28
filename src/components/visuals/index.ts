@@ -86,3 +86,11 @@ export { TemperatureSliderInteractive } from './transformers/TemperatureSliderIn
 export { UnembeddingDiagram } from './transformers/UnembeddingDiagram';
 export { Gpt2FullArchitectureDiagram } from './transformers/Gpt2FullArchitectureDiagram';
 export { LayerEvolutionChart } from './transformers/LayerEvolutionChart';
+export { RagMemoryLimitVisual } from './rag/RagMemoryLimitVisual';
+export { RagHallucinationVisual } from './rag/RagHallucinationVisual';
+export { RagIntroVisual } from './rag/RagIntroVisual';
+export { RagArchitectureVisual } from './rag/RagArchitectureVisual';
+export { RagEmbeddingVisual } from './rag/RagEmbeddingVisual';
+export { RagVectorSearchVisual } from './rag/RagVectorSearchVisual';
+export { RagContextInjectionVisual } from './rag/RagContextInjectionVisual';
+export { RagFromScratchVisual } from './rag/RagFromScratchVisual';

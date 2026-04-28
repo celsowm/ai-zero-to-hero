@@ -307,3 +307,101 @@ export interface BuildGpt2ModelCopy {
   embedLabel: string;
   normLabel: string;
 }
+
+// ── RAG (Retrieval-Augmented Generation) ────────────────────────────────────
+
+export interface RagMemoryLimitVisualCopy {
+  title: string;
+  trainingDateLabel: string;
+  currentDateLabel: string;
+  knowledgeGapLabel: string;
+  beforeLabel: string;
+  afterLabel: string;
+  unknownLabel: string;
+  frozenLabel: string;
+}
+
+export interface RagHallucinationVisualCopy {
+  title: string;
+  truthLabel: string;
+  hallucinationLabel: string;
+  plausibleLabel: string;
+  groundedLabel: string;
+  questionLabel: string;
+  answerLabel: string;
+}
+
+export interface RagIntroVisualCopy {
+  title: string;
+  retrieveLabel: string;
+  augmentLabel: string;
+  generateLabel: string;
+  queryLabel: string;
+  vectorDbLabel: string;
+  contextLabel: string;
+  llmLabel: string;
+  answerLabel: string;
+}
+
+export interface RagArchitectureVisualCopy {
+  title: string;
+  ingestPhase: string;
+  queryPhase: string;
+  documentsLabel: string;
+  embedLabel: string;
+  vectorStoreLabel: string;
+  queryLabel: string;
+  retrieveLabel: string;
+  contextLabel: string;
+  promptLabel: string;
+  llmLabel: string;
+  answerLabel: string;
+}
+
+export interface RagEmbeddingVisualCopy {
+  title: string;
+  doc1Label: string;
+  doc2Label: string;
+  doc3Label: string;
+  doc4Label: string;
+  queryLabel: string;
+  similarLabel: string;
+  dissimilarLabel: string;
+  embeddingDim: string;
+}
+
+export interface RagVectorSearchVisualCopy {
+  title: string;
+  queryLabel: string;
+  doc1Label: string;
+  doc2Label: string;
+  doc3Label: string;
+  doc4Label: string;
+  scoreLabel: string;
+  rankLabel: string;
+}
+
+export interface RagContextInjectionVisualCopy {
+  title: string;
+  instructionLabel: string;
+  sourceLabel: string;
+  questionLabel: string;
+  answerLabel: string;
+  contextBox: string;
+  promptBox: string;
+}
+
+export interface RagFromScratchVisualCopy {
+  title: string;
+  ingestPhase: string;
+  queryPhase: string;
+  documentsLabel: string;
+  embedLabel: string;
+  vectorStoreLabel: string;
+  questionLabel: string;
+  searchLabel: string;
+  topKLabel: string;
+  promptLabel: string;
+  generateLabel: string;
+  answerLabel: string;
+}
