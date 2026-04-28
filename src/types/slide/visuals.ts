@@ -48,9 +48,11 @@ import type {
   DataCollatorVisualizerCopy,
   Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
+  Gpt2FullArchitectureDiagramCopy,
   Gpt2LayerXrayCopy,
   HiddenStatesToLogitsCopy,
   Int8OutlierDetectorCopy,
+  LayerEvolutionChartCopy,
   LoraDiagramCopy,
   MultiheadDiagramCopy,
   Nf4QuantileVisualizerCopy,
@@ -62,8 +64,10 @@ import type {
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
   SamplingControlsCopy,
+  TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
+  UnembeddingDiagramCopy,
   WhyTransformersWorkCopy,
 } from './transformers';
 import type {
@@ -175,10 +179,10 @@ interface VisualCopyMap {
   'bpe-merge-stack': BPEMergeStackCopy;
   'bpe-training-curve': BPETrainingCurveCopy;
   // placeholder / future visuals (temporary — replace with proper copy types when implemented)
-  'unembedding-diagram': WelcomeSynthwaveCopy;
-  'temperature-slider-interactive': WelcomeSynthwaveCopy;
-  'gpt2-full-architecture-diagram': WelcomeSynthwaveCopy;
-  'layer-evolution-chart': WelcomeSynthwaveCopy;
+  'unembedding-diagram': UnembeddingDiagramCopy;
+  'temperature-slider-interactive': TemperatureSliderInteractiveCopy;
+  'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
+  'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;
 }
 

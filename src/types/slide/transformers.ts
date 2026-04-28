@@ -224,3 +224,33 @@ export interface Nf4QuantileVisualizerCopy {
   weightsLabel: string;
   precisionLabel: string;
 }
+
+// ── Sampling Controls Interactive ──────────────────────────────────────────
+
+export interface TemperatureSliderInteractiveCopy {
+  lowTemp: string;
+  highTemp: string;
+}
+
+// ── Hidden States to Logits Visual ─────────────────────────────────────────
+
+export interface UnembeddingDiagramCopy {
+  vectorLabel: string;
+  vocabLabel: string;
+  logitsLabel: string;
+}
+
+// ── GPT-2 Full Architecture Diagram ────────────────────────────────────────
+
+export interface Gpt2FullArchitectureDiagramCopy {
+  inputStage: string;
+  blocksStage: string;
+  outputStage: string;
+}
+
+// ── Layer Evolution Chart ──────────────────────────────────────────────────
+
+export interface LayerEvolutionChartCopy {
+  layerLabel: string;
+  predictionLabel: string;
+}

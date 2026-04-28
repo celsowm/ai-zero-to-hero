@@ -65,6 +65,12 @@ const visualMap: Record<string, string> = {
   'neural-network-to-language-modeling-comparator': 'NeuralNetworkToLanguageModelingComparator',
 
   // transformers
+  'auto-class-resolver': 'AutoClassResolver',
+  'data-collator-visualizer': 'DataCollatorVisualizer',
+  'gpt2-full-architecture-diagram': 'Gpt2FullArchitectureDiagram',
+  'layer-evolution-chart': 'LayerEvolutionChart',
+  'unembedding-diagram': 'UnembeddingDiagram',
+  'temperature-slider-interactive': 'TemperatureSliderInteractive',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',
@@ -110,6 +116,15 @@ const visualMap: Record<string, string> = {
 
   // classification problem
   'classification-problem': 'ClassificationProblemVisual',
+
+  // quantization
+  'quantization-comparator': 'QuantizationComparator',
+  'fp16-overflow-explorer': 'Fp16OverflowExplorer',
+  'int8-outlier-detector': 'Int8OutlierDetector',
+  'nf4-quantile-visualizer': 'Nf4QuantileVisualizer',
+
+  // peft / lora
+  'lora-diagram': 'LoraDiagram',
 
   // welcome
   'welcome-synthwave': 'WelcomeSynthwaveVisual',
