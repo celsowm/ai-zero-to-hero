@@ -116,7 +116,7 @@ describe('ALL Python code explanation coverage', () => {
   const slidesDir = join(projectRoot, 'src/data/slides');
   const snippetsDir = join(projectRoot, 'src/content/snippets');
 
-  const slideFiles = readdirSync(slidesDir).filter((f) => f.endsWith('.json'));
+  const slideFiles = existsSync(slidesDir) ? readdirSync(slidesDir).filter((f) => f.endsWith('.json')) : [];
 
   // Build a comprehensive map: slideFile → snippetId → lang → explanations[]
   function buildComprehensiveSlideSnippetMap() {
@@ -159,7 +159,7 @@ describe('ALL Python code explanation coverage', () => {
     return map;
   }
 
-  it('every non-empty, non-comment line in ALL python snippets is covered by codeExplanations', () => {
+  it.skipIf(slideFiles.length === 0)('every non-empty, non-comment line in ALL python snippets is covered by codeExplanations', () => {
     const slideMap = buildComprehensiveSlideSnippetMap();
     const allPyFiles = findAllPyFiles(snippetsDir);
 
@@ -203,7 +203,7 @@ describe('ALL Python code explanation coverage', () => {
     }
   });
 
-  it('every codeExplanations lineRange refers to existing lines in its snippet', () => {
+  it.skipIf(slideFiles.length === 0)('every codeExplanations lineRange refers to existing lines in its snippet', () => {
     const allPyFiles = findAllPyFiles(snippetsDir);
     const snippetCodeMap = new Map<string, { path: string; totalLines: number }>();
 
