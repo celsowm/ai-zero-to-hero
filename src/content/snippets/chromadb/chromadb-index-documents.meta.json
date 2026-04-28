@@ -1,0 +1,26 @@
+{
+  "id": "chromadb/chromadb-index-documents",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 6],
+      "pt-br": "ChromaDB: vector database open-source. Cria coleção para armazenar documentos + embeddings.",
+      "en-us": "ChromaDB: open-source vector database. Creates collection to store documents + embeddings."
+    },
+    {
+      "lineRange": [9, 10],
+      "pt-br": "Modelo de embedding: transforma texto em vetores de 384 dimensões.",
+      "en-us": "Embedding model: transforms text into 384-dimensional vectors."
+    },
+    {
+      "lineRange": [22, 26],
+      "pt-br": "Embeddings gerados em batch e salvos no ChromaDB com IDs únicos.",
+      "en-us": "Embeddings generated in batch and saved to ChromaDB with unique IDs."
+    },
+    {
+      "lineRange": [29, 30],
+      "pt-br": "Cada documento agora é buscável por similaridade semântica, não por palavras-chave.",
+      "en-us": "Each document is now searchable by semantic similarity, not keywords."
+    }
+  ]
+}

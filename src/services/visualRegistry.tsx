@@ -102,6 +102,11 @@ const visualMap: Record<string, string> = {
   'rag-context-injection-visual': 'RagContextInjectionVisual',
   'rag-from-scratch-visual': 'RagFromScratchVisual',
 
+  // chromadb (vectorDB + transformers)
+  'chromadb-index-visual': 'ChromadbIndexVisual',
+  'chromadb-search-visual': 'ChromadbSearchVisual',
+  'chromadb-rag-e2e-visual': 'ChromadbRagE2eVisual',
+
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',
   'activation-functions-comparator': 'ActivationFunctionsComparator',

@@ -22,6 +22,9 @@ import { buildGpt2Intro } from './build-gpt2-intro';
 import { buildGpt2Model } from './build-gpt2-model';
 import { buildGpt2Train } from './build-gpt2-train';
 import { causalMask } from './causal-mask';
+import { chromadbIndexDocuments } from './chromadb-index-documents';
+import { chromadbRagE2e } from './chromadb-rag-e2e';
+import { chromadbSearchQuery } from './chromadb-search-query';
 import { contextWindow } from './context-window';
 import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling';
 import { dataCollatorExplorer } from './data-collator-explorer';
@@ -155,6 +158,9 @@ export const allSlides: ISlide[] = [
   buildGpt2Model,
   buildGpt2Train,
   causalMask,
+  chromadbIndexDocuments,
+  chromadbRagE2e,
+  chromadbSearchQuery,
   contextWindow,
   crossEntropyLanguageModeling,
   dataCollatorExplorer,

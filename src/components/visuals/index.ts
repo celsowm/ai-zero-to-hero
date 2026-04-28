@@ -94,3 +94,6 @@ export { RagEmbeddingVisual } from './rag/RagEmbeddingVisual';
 export { RagVectorSearchVisual } from './rag/RagVectorSearchVisual';
 export { RagContextInjectionVisual } from './rag/RagContextInjectionVisual';
 export { RagFromScratchVisual } from './rag/RagFromScratchVisual';
+export { ChromadbIndexVisual } from './chromadb/ChromadbIndexVisual';
+export { ChromadbSearchVisual } from './chromadb/ChromadbSearchVisual';
+export { ChromadbRagE2eVisual } from './chromadb/ChromadbRagE2eVisual';

@@ -1,0 +1,26 @@
+{
+  "id": "chromadb/chromadb-rag-e2e",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [5, 19],
+      "pt-br": "Fase 1: ChromaDB + SentenceTransformer para indexar documentos como vetores.",
+      "en-us": "Phase 1: ChromaDB + SentenceTransformer to index documents as vectors."
+    },
+    {
+      "lineRange": [22, 27],
+      "pt-br": "Fase 2 (Retrieve): busca semântica no ChromaDB por similaridade vetorial.",
+      "en-us": "Phase 2 (Retrieve): semantic search in ChromaDB by vector similarity."
+    },
+    {
+      "lineRange": [30, 32],
+      "pt-br": "Fase 3 (Generate): modelo GPT-2 do Transformers HuggingFace para gerar texto.",
+      "en-us": "Phase 3 (Generate): GPT-2 model from HuggingFace Transformers to generate text."
+    },
+    {
+      "lineRange": [34, 40],
+      "pt-br": "Pipeline RAG completo: retrieve documentos relevantes → gera resposta fundamentada no contexto.",
+      "en-us": "Complete RAG pipeline: retrieve relevant documents → generate answer grounded in context."
+    }
+  ]
+}

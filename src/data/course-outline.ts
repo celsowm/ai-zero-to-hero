@@ -131,4 +131,8 @@ export const courseSlideOrder = [
   'rag-vector-search',
   'rag-context-injection',
   'rag-from-scratch',
+  // ChromaDB + Transformers (VectorDB RAG)
+  'chromadb-index-documents',
+  'chromadb-search-query',
+  'chromadb-rag-e2e',
 ] as const;

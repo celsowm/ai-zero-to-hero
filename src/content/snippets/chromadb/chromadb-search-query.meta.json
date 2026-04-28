@@ -1,0 +1,26 @@
+{
+  "id": "chromadb/chromadb-search-query",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 7],
+      "pt-br": "Reconecta ao ChromaDB e carrega o mesmo embedder usado na indexação.",
+      "en-us": "Reconnects to ChromaDB and loads the same embedder used during indexing."
+    },
+    {
+      "lineRange": [10, 11],
+      "pt-br": "Query embeddada — o mesmo modelo que indexou os documentos.",
+      "en-us": "Query embedded — the same model that indexed the documents."
+    },
+    {
+      "lineRange": [14, 19],
+      "pt-br": "Busca por similaridade: retorna top-2 documentos com menores distâncias.",
+      "en-us": "Similarity search: returns top-2 documents with lowest distances."
+    },
+    {
+      "lineRange": [22, 25],
+      "pt-br": "Resultado: documentos semanticamente relevantes, mesmo sem palavras-chave exatas.",
+      "en-us": "Result: semantically relevant documents, even without exact keyword matches."
+    }
+  ]
+}

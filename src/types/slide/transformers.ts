@@ -405,3 +405,51 @@ export interface RagFromScratchVisualCopy {
   generateLabel: string;
   answerLabel: string;
 }
+
+// ── ChromaDB (VectorDB + Transformers) ──────────────────────────────────────
+
+export interface ChromadbIndexVisualCopy {
+  title: string;
+  docLabel: string;
+  embedLabel: string;
+  dbLabel: string;
+  dimLabel: string;
+  doc1: string;
+  doc2: string;
+  doc3: string;
+  doc4: string;
+  addLabel: string;
+  embedderLabel: string;
+}
+
+export interface ChromadbSearchVisualCopy {
+  title: string;
+  queryLabel: string;
+  queryText: string;
+  dbLabel: string;
+  searchLabel: string;
+  rankLabel: string;
+  result1: string;
+  result2: string;
+  result3: string;
+  score1: string;
+  score2: string;
+  score3: string;
+  topKLabel: string;
+}
+
+export interface ChromadbRagE2eVisualCopy {
+  title: string;
+  indexPhase: string;
+  retrievePhase: string;
+  generatePhase: string;
+  documentsLabel: string;
+  embedderLabel: string;
+  chromaLabel: string;
+  queryLabel: string;
+  searchLabel: string;
+  contextLabel: string;
+  promptLabel: string;
+  modelLabel: string;
+  answerLabel: string;
+}

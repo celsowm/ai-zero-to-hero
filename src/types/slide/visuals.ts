@@ -75,6 +75,9 @@ import type {
   RagVectorSearchVisualCopy,
   RagContextInjectionVisualCopy,
   RagFromScratchVisualCopy,
+  ChromadbIndexVisualCopy,
+  ChromadbSearchVisualCopy,
+  ChromadbRagE2eVisualCopy,
   TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
@@ -167,6 +170,10 @@ interface VisualCopyMap {
   'rag-vector-search-visual': RagVectorSearchVisualCopy;
   'rag-context-injection-visual': RagContextInjectionVisualCopy;
   'rag-from-scratch-visual': RagFromScratchVisualCopy;
+  // chromadb (vectorDB + transformers)
+  'chromadb-index-visual': ChromadbIndexVisualCopy;
+  'chromadb-search-visual': ChromadbSearchVisualCopy;
+  'chromadb-rag-e2e-visual': ChromadbRagE2eVisualCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;
