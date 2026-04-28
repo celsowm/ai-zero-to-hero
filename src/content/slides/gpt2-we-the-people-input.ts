@@ -39,14 +39,18 @@ export const gpt2WeThePeopleInput = defineSlide({
     id: 'parallel-prediction-diagram',
     copy: {
       "pt-br": {
-        "step1": "'We' -> prever 'the'",
-        "step2": "'We the' -> prever 'people'",
-        "step3": "'We the people' -> prever '?'"
+        "text": "We the people",
+        "parallelLabel": "Paralelo",
+        "prediction1": "'the'",
+        "prediction2": "'people'",
+        "prediction3": "'?'"
       },
       "en-us": {
-        "step1": "'We' -> predict 'the'",
-        "step2": "'We the' -> predict 'people'",
-        "step3": "'We the people' -> predict '?'"
+        "text": "We the people",
+        "parallelLabel": "Parallel",
+        "prediction1": "'the'",
+        "prediction2": "'people'",
+        "prediction3": "'?'"
       }
     },
   },
