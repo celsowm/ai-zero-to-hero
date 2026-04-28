@@ -128,10 +128,6 @@ import { tokenizerTrainingHf } from './tokenizer-training-hf';
 import { trainerDemystified } from './trainer-demystified';
 import { trainingLanguageModels } from './training-language-models';
 import { transformerBlockOverview } from './transformer-block-overview';
-import { transformersjsEmbeddings } from './transformersjs-embeddings';
-import { transformersjsIntro } from './transformersjs-intro';
-import { transformersjsRagE2e } from './transformersjs-rag-e2e';
-import { transformersjsVectorSearch } from './transformersjs-vector-search';
 import { welcome } from './welcome';
 import { whyTransformersWorkSoWell } from './why-transformers-work-so-well';
 import { wordpieceSentencepiece } from './wordpiece-sentencepiece';
@@ -265,10 +261,6 @@ export const allSlides: ISlide[] = [
   trainerDemystified,
   trainingLanguageModels,
   transformerBlockOverview,
-  transformersjsEmbeddings,
-  transformersjsIntro,
-  transformersjsRagE2e,
-  transformersjsVectorSearch,
   welcome,
   whyTransformersWorkSoWell,
   wordpieceSentencepiece,

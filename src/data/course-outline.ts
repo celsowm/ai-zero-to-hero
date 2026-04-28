@@ -131,9 +131,4 @@ export const courseSlideOrder = [
   'rag-vector-search',
   'rag-context-injection',
   'rag-from-scratch',
-  // Transformers.js (Browser AI)
-  'transformersjs-intro',
-  'transformersjs-embeddings',
-  'transformersjs-vector-search',
-  'transformersjs-rag-e2e',
 ] as const;
