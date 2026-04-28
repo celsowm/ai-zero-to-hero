@@ -8,56 +8,102 @@ export const quantizationNf4DeepDive = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `NF4: o algoritmo por trás da mágica`,
-      body: `Como caber um modelo de 7B em 4GB? A resposta está no **NormalFloat 4-bit**.
+      title: `NF4: NormalFloat — o state of the art`,
+      body: `NF4 é o formato **mais eficiente** disponível hoje. 4 bits, distribuição inteligente.
 
-1. **O problema do uniform quantization:** dividir [-1, 1] em 16 níveis iguais é ineficiente. Os pesos de um LLM seguem distribuição normal — a maioria集中在 zero, poucos nos extremos.
+1. **O problema do uniforme:** dividir [-1, 1] em 16 níveis iguais é ineficiente. Pesos de LLM seguem normal — a maioria集中在 zero, poucos nos extremos.
 
-2. **NF4 (NormalFloat):** em vez de níveis uniformes, usa 16 níveis baseados nos **quantiles** de uma distribuição normal. Mais resolução onde os pesos realmente estão.
+2. **NormalFloat:** os 16 níveis são baseados nos **quantiles** de uma N(0,1). Níveis mais densos perto de zero (onde estão 68% dos pesos), mais espaçados nas caudas.
 
-3. **Double quantization:** os parâmetros de quantização (scale, zero-point) também são quantizados. Cada peso de 4-bit ganha ~0.4 bits de overhead — double quant reduz isso.
+3. **Double quantization:** os parâmetros de quantização (scale e zero-point) também são quantizados. Cada peso ganha ~0.4 bits de overhead — double quant reduz isso a ~0.1 bits.
 
-4. **llm.int8() com outliers:** detecta automaticamente features com valores extremos (outliers) e as mantém em FP16. O resto fica em INT8.
+4. **O resultado:** 7B em ~4GB VRAM. Cabe em uma RTX 3060 (12GB) com espaço para KV cache e ativações. Qualidade ~95% do FP16.
 
-> NF4 não é "menos precisão" — é "precisão inteligente": mais bits onde importa, menos onde não precisa.
+> NF4 = "precisão inteligente": 16 níveis onde importam, não 16 níveis iguais.
 
 ---
 
 \`\`\`python
-# NF4 config no bitsandbytes
+from transformers import AutoModelForCausalLM, BitsAndBytesConfig
+import torch
+
+# NF4 — o mais eficiente
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
-    bnb_4bit_use_double_quant=True,   # ← quantiza os quantization params
-    bnb_4bit_quant_type="nf4",        # ← NormalFloat, não uniform
-    bnb_4bit_compute_dtype=torch.float16,  # compute em FP16
+    bnb_4bit_use_double_quant=True,   # ← quantiza os params de quantização
+    bnb_4bit_quant_type="nf4",        # ← NormalFloat (não uniforme)
+    bnb_4bit_compute_dtype=torch.float16,  # ← computação em FP16
+)
+
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-2-7b-hf",
+    quantization_config=bnb_config,
+    device_map="auto",
 )
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 3],
+          content: 'Importamos transformers, torch e BitsAndBytesConfig.',
+        },
+        {
+          lineRange: [6, 11],
+          content: 'Config NF4: double quant + NormalFloat + compute em FP16.',
+        },
+        {
+          lineRange: [13, 17],
+          content: 'Carregamos o modelo já quantizado — ~4GB para 7B.',
+        },
+      ],
     },
     'en-us': {
-      title: `NF4: the algorithm behind the magic`,
-      body: `How to fit a 7B model in 4GB? The answer is **NormalFloat 4-bit**.
+      title: `NF4: NormalFloat — the state of the art`,
+      body: `NF4 is the **most efficient** format available today. 4 bits, intelligent distribution.
 
-1. **The problem with uniform quantization:** dividing [-1, 1] into 16 equal levels is inefficient. LLM weights follow a normal distribution — most cluster near zero, few at the extremes.
+1. **The uniform problem:** dividing [-1, 1] into 16 equal levels is inefficient. LLM weights follow normal — most cluster near zero, few at extremes.
 
-2. **NF4 (NormalFloat):** instead of uniform levels, uses 16 levels based on **quantiles** of a normal distribution. More resolution where weights actually are.
+2. **NormalFloat:** the 16 levels are based on **quantiles** of N(0,1). Denser levels near zero (where 68% of weights live), more spaced at the tails.
 
-3. **Double quantization:** the quantization parameters (scale, zero-point) are also quantized. Each 4-bit weight gains ~0.4 bits of overhead — double quant reduces this.
+3. **Double quantization:** the quantization parameters (scale and zero-point) are also quantized. Each weight gains ~0.4 bits overhead — double quant reduces this to ~0.1 bits.
 
-4. **llm.int8() with outliers:** automatically detects features with extreme values (outliers) and keeps them in FP16. The rest stays in INT8.
+4. **The result:** 7B in ~4GB VRAM. Fits on an RTX 3060 (12GB) with room for KV cache and activations. ~95% quality of FP16.
 
-> NF4 isn't "less precision" — it's "smart precision": more bits where it matters, less where it doesn't.
+> NF4 = "smart precision": 16 levels where they matter, not 16 equal levels.
 
 ---
 
 \`\`\`python
-# NF4 config in bitsandbytes
+from transformers import AutoModelForCausalLM, BitsAndBytesConfig
+import torch
+
+# NF4 — the most efficient
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_use_double_quant=True,   # ← quantize the quantization params
-    bnb_4bit_quant_type="nf4",        # ← NormalFloat, not uniform
-    bnb_4bit_compute_dtype=torch.float16,  # compute in FP16
+    bnb_4bit_quant_type="nf4",        # ← NormalFloat (not uniform)
+    bnb_4bit_compute_dtype=torch.float16,  # ← computation in FP16
+)
+
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-2-7b-hf",
+    quantization_config=bnb_config,
+    device_map="auto",
 )
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 3],
+          content: 'We import transformers, torch and BitsAndBytesConfig.',
+        },
+        {
+          lineRange: [6, 11],
+          content: 'NF4 config: double quant + NormalFloat + FP16 compute.',
+        },
+        {
+          lineRange: [13, 17],
+          content: 'We load the model already quantized — ~4GB for 7B.',
+        },
+      ],
     },
   },
 });

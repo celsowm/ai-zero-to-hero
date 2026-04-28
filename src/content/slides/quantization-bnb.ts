@@ -8,78 +8,88 @@ export const quantizationBnb = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Quantização: o que é e por que funciona`,
-      body: `Modelos de 7B+ parâmetros exigem GPUs enormes. **Quantização** reduz a precisão dos pesos para caber em hardware consumer.
+      title: `Por que quantização funciona?`,
+      body: `Um modelo de 7B parâmetros ocupa **28GB** em FP32. Isso cabe em **~4GB** com NF4. Como?
 
-1. **FP32 (32-bit):** cada peso usa 4 bytes. Um modelo de 7B ocupa **28GB** de VRAM. Precisão absurda — mais do que o cérebro precisa.
+1. **O que é quantizar:** reduzir a precisão dos pesos. Em vez de guardar 3.14159265358979, guardamos 3.14. O modelo continua funcionando.
 
-2. **FP16 (16-bit):** metade dos bytes, metade da VRAM (**14GB**). Perde muito pouco — GPUs modernas nativamente suportam.
+2. **Por que funciona:** os pesos de um LLM após treino seguem uma distribuição normal — a maioria concentrada perto de zero. Não precisamos de precisão absurda para distinguir 0.00123 de 0.00124.
 
-3. **INT8 (8-bit):** pesos em inteiros. 7B em **~7GB**. Usa \`llm.int8()\` do bitsandbytes — detecta outliers e os mantém em FP16.
+3. **A matemática:** cada peso de FP32 (32 bits) tem ~4 bilhões de valores possíveis. NF4 (4 bits) tem apenas 16. Mas os 16 níveis do NF4 estão **onde os pesos realmente estão**.
 
-4. **A intuição:** a maioria dos pesos de um LLM vive perto de zero. Não precisamos de 3.14159265 — 3.14 já funciona.
+4. **O trade-off:** perde-se ~2-5% de qualidade na geração, mas ganha-se **85% de memória**. Um Llama-3-8B que exigia A100 (80GB) roda em uma RTX 4060 (8GB).
 
-> Quantização = arredondar pesos. -85% de memória por ~5% de qualidade.
+> Quantização não é "perder informação" — é "descartar o ruído". O sinal útil vive em poucos bits.
 
 ---
 
 \`\`\`python
-snippet:transformers/quantization-bnb
+# Comparação rápida de VRAM para um modelo 7B:
+# FP32: 28 GB  |  FP16: 14 GB  |  INT8: 7 GB  |  NF4: ~4 GB
+
+from transformers import AutoModelForCausalLM
+model = AutoModelForCausalLM.from_pretrained("gpt2")  # 124M → ~250MB FP32
+print(f"Model size: {model.get_memory_footprint() / 1e6:.0f} MB")
 \`\`\``,
       codeExplanations: [
         {
           lineRange: [1, 2],
-          content: 'Importamos `BitsAndBytesConfig` — a peça central da quantização.',
+          content: 'Comentário com a comparação de VRAM por formato de quantização.',
         },
         {
-          lineRange: [6, 11],
-          content: 'Config NF4: 4-bit com double quantization e compute em float16.',
+          lineRange: [4, 4],
+          content: 'Importamos o modelo causal — o mesmo para qualquer formato.',
         },
         {
-          lineRange: [14, 19],
-          content: 'O modelo é carregado já quantizado — sem FP32 intermediário.',
+          lineRange: [5, 5],
+          content: 'GPT-2 (124M) em FP32 ocupa ~250MB. Um 7B ocuparia ~14GB em FP16.',
         },
         {
-          lineRange: [27, 29],
-          content: 'Geração normal — o modelo quantizado funciona como o original.',
+          lineRange: [6, 6],
+          content: '`get_memory_footprint()` retorna o uso real em bytes.',
         },
       ],
     },
     'en-us': {
-      title: `Quantization: what is it and why it works`,
-      body: `Models with 7B+ parameters require massive GPUs. **Quantization** reduces weight precision to fit consumer hardware.
+      title: `Why quantization works?`,
+      body: `A 7B parameter model takes **28GB** in FP32. It fits in **~4GB** with NF4. How?
 
-1. **FP32 (32-bit):** each weight uses 4 bytes. A 7B model takes **28GB** of VRAM. Absurd precision — more than the brain needs.
+1. **What is quantizing:** reducing weight precision. Instead of storing 3.14159265358979, we store 3.14. The model keeps working.
 
-2. **FP16 (16-bit):** half the bytes, half the VRAM (**14GB**). Little loss — modern GPUs support it natively.
+2. **Why it works:** LLM weights after training follow a normal distribution — most cluster near zero. We don't need absurd precision to distinguish 0.00123 from 0.00124.
 
-3. **INT8 (8-bit):** weights as integers. 7B in **~7GB**. Uses bitsandbytes' \`llm.int8()\` — detects outliers and keeps them in FP16.
+3. **The math:** each FP32 weight (32 bits) has ~4 billion possible values. NF4 (4 bits) has only 16. But NF4's 16 levels are **where the weights actually are**.
 
-4. **The intuition:** most weights in an LLM live near zero. We don't need 3.14159265 — 3.14 already works.
+4. **The trade-off:** you lose ~2-5% generation quality, but gain **85% memory back**. A Llama-3-8B that required an A100 (80GB) runs on an RTX 4060 (8GB).
 
-> Quantization = rounding weights. -85% memory for ~5% quality.
+> E quantization isn't "losing information" — it's "discarding noise". The useful signal lives in few bits.
 
 ---
 
 \`\`\`python
-snippet:transformers/quantization-bnb
+# Quick VRAM comparison for a 7B model:
+# FP32: 28 GB  |  FP16: 14 GB  |  INT8: 7 GB  |  NF4: ~4 GB
+
+from transformers import AutoModelForCausalLM
+model = AutoModelForCausalLM.from_pretrained("gpt2")  # 124M → ~250MB FP32
+print(f"Model size: {model.get_memory_footprint() / 1e6:.0f} MB")
 \`\`\``,
       codeExplanations: [
         {
           lineRange: [1, 2],
-          content: 'We import `BitsAndBytesConfig` — the centerpiece of quantization.',
+          content: 'Comment with VRAM comparison by quantization format.',
         },
         {
-          lineRange: [6, 11],
-          content: 'NF4 config: 4-bit with double quantization and float16 compute.',
+          lineRange: [4, 4],
+          content: 'We import the causal model — the same for any format.',
         },
         {
-          lineRange: [14, 19],
-          content: 'The model is loaded already quantized — no intermediate FP32.',
+          lineRange: [5, 5],
+          content: 'GPT-2 (124M) in FP32 takes ~250MB. A 7B would take ~14GB in FP16.',
         },
         {
-          lineRange: [27, 29],
-          content: 'Normal generation — the quantized model works like the original.',
+          lineRange: [6, 6],
+          content: '`get_memory_footprint()` returns actual memory usage in bytes.',
         },
       ],
     },

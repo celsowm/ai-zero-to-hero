@@ -100,7 +100,10 @@ import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
 import { pytorchBasicsExercise } from './pytorch-basics-exercise';
 import { qkvIntuition } from './qkv-intuition';
 import { quantizationBnb } from './quantization-bnb';
+import { quantizationFp16 } from './quantization-fp16';
+import { quantizationInt8 } from './quantization-int8';
 import { quantizationNf4DeepDive } from './quantization-nf4-deep-dive';
+import { quantizationPractice } from './quantization-practice';
 import { residualStream } from './residual-stream';
 import { roadToMiniTransformer } from './road-to-mini-transformer';
 import { samplingControls } from './sampling-controls';
@@ -218,7 +221,10 @@ export { pythonPrereqSumGenerator };
 export { pytorchBasicsExercise };
 export { qkvIntuition };
 export { quantizationBnb };
+export { quantizationFp16 };
+export { quantizationInt8 };
 export { quantizationNf4DeepDive };
+export { quantizationPractice };
 export { residualStream };
 export { roadToMiniTransformer };
 export { samplingControls };
@@ -338,7 +344,10 @@ export const allSlides: ISlide[] = [
   pytorchBasicsExercise,
   qkvIntuition,
   quantizationBnb,
+  quantizationFp16,
+  quantizationInt8,
   quantizationNf4DeepDive,
+  quantizationPractice,
   residualStream,
   roadToMiniTransformer,
   samplingControls,

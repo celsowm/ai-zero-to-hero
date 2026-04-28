@@ -117,6 +117,9 @@ export const courseSlideOrder = [
   'model-evaluation-hf',
   'model-sharing-hub',
   'quantization-bnb',
+  'quantization-fp16',
+  'quantization-int8',
   'quantization-nf4-deep-dive',
+  'quantization-practice',
   'hf-pipeline-custom',
 ] as const;
