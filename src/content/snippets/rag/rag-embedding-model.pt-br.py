@@ -1,4 +1,4 @@
-# region: rag-embedding-model
+# @region rag-embedding-model
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -18,4 +18,4 @@ print(f"Shape: {vetores.shape}")  # (4, 384)
 
 # Cada documento agora é um ponto no espaço 384-dimensional.
 # Documentos semanticamente similares ficam próximos neste espaço.
-# endregion
+# @endregion

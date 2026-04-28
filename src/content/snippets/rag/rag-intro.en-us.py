@@ -1,4 +1,4 @@
-# region: rag-intro
+# @region rag-intro
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -18,4 +18,4 @@ def augment(question: str, context: list[str]) -> str:
 
 # 3. GENERATE: generate response with context
 # (use the augmented prompt with an LLM)
-# endregion
+# @endregion

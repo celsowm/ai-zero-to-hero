@@ -1,4 +1,4 @@
-# region: rag-context-injection
+# @region rag-context-injection
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -24,4 +24,4 @@ inputs = tokenizer(prompt, return_tensors="pt")
 outputs = model.generate(**inputs, max_new_tokens=50, do_sample=False)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # O modelo agora tem acesso às fontes. A resposta é fundamentada, não inventada.
-# endregion
+# @endregion

@@ -1,4 +1,4 @@
-# region: rag-from-scratch
+# @region rag-from-scratch
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -49,4 +49,4 @@ class RAGFromScratch:
 # rag = RAGFromScratch()
 # rag.ingest(["The 2022 World Cup was in Qatar.", "Argentina won on penalties."])
 # print(rag.query("Where was the 2022 World Cup?"))
-# endregion
+# @endregion

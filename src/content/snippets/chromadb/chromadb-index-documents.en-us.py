@@ -1,4 +1,4 @@
-# region: chromadb-index-documents
+# @region chromadb-index-documents
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -25,4 +25,4 @@ collection.add(ids=ids, embeddings=embeddings, documents=documents)
 print(f"✅ {len(documents)} documents indexed.")
 
 # Now we can search by semantic similarity, not keywords.
-# endregion
+# @endregion

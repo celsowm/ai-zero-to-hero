@@ -1,4 +1,4 @@
-# region: rag-memory-limit
+# @region rag-memory-limit
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "gpt2"
@@ -15,4 +15,4 @@ print(answer)
 # O modelo responde com base nos pesos congelados do treino.
 # Ele NÃO sabe sobre a Copa de 2022 — o conhecimento está "congelado"
 # na data do último dado de treino. Sem acesso externo, ele "chuta".
-# endregion
+# @endregion

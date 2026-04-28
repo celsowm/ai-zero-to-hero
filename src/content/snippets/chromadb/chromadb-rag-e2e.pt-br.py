@@ -1,4 +1,4 @@
-# region: chromadb-rag-e2e
+# @region chromadb-rag-e2e
 import chromadb
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -43,4 +43,4 @@ print(answer("O que são Transformers?"))
 # → Contexto: Transformers usam atenção multi-head para processar sequências.
 #   Pergunta: O que são Transformers?
 #   Resposta: Transformers são modelos de deep learning...
-# endregion
+# @endregion

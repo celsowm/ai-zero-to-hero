@@ -1,4 +1,4 @@
-# region: chromadb-search-query
+# @region chromadb-search-query
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -25,4 +25,4 @@ for doc, dist in zip(results["documents"][0], results["distances"][0]):
 #   [0.45] Transformers are attention-based models.
 #   [0.62] PyTorch is the most used deep learning framework.
 # (lower distances = more similar)
-# endregion
+# @endregion

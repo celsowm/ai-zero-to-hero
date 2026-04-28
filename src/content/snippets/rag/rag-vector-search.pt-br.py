@@ -1,4 +1,4 @@
-# region: rag-vector-search
+# @region rag-vector-search
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -25,4 +25,4 @@ similarities = cosine_similarity(query_embedding, doc_embeddings)[0]
 for doc, score in sorted(zip(documentos, similarities), key=lambda x: -x[1]):
     print(f"  {score:.3f} → {doc}")
 # Os documentos sobre Copa ficam no topo — semanticamente mais próximos da query.
-# endregion
+# @endregion

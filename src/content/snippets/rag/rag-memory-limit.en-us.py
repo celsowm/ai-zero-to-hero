@@ -1,4 +1,4 @@
-# region: rag-memory-limit
+# @region rag-memory-limit
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "gpt2"
@@ -15,4 +15,4 @@ print(answer)
 # The model answers based on frozen training weights.
 # It does NOT know about the 2022 World Cup — knowledge is "frozen"
 # at the last training data date. Without external access, it "guesses".
-# endregion
+# @endregion

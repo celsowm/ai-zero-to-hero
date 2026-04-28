@@ -1,4 +1,4 @@
-# region: rag-architecture
+# @region rag-architecture
 from typing import TypedDict
 import chromadb
 from sentence_transformers import SentenceTransformer
@@ -39,4 +39,4 @@ class RAGPipeline:
             sources=results["documents"][0],
             relevance_score=sum(results["distances"][0]) / len(results["distances"][0]),
         )
-# endregion
+# @endregion

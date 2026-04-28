@@ -1,4 +1,4 @@
-# region: rag-hallucination
+# @region rag-hallucination
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -13,4 +13,4 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 # Unobtainium NÃO existe. Mas o modelo vai inventar uma fórmula.
 # Isso é "hallucinação": gerar texto plausível mas factualmente errado.
 # Sem verificação externa, não há como o modelo saber que está inventando.
-# endregion
+# @endregion
