@@ -3,6 +3,9 @@ import { defineSlide } from './_factory';
 export const sftIntro = defineSlide({
   id: 'sft-intro',
   type: 'two-column',
+  options: {
+    "columnRatios": [0.6, 0.4]
+  },
   content: {
     'pt-br': {
       title: `A Evolução para SFT e ChatML`,
@@ -29,6 +32,45 @@ For this, we need a consistent data format. **ChatML** is a standard format for 
 - **ChatML (Dialogue Format):** with tokens separating each role in the conversation
 
 > ChatML gives structure to conversation, and SFT teaches the model to follow that structure.`,
+    },
+  },
+  visual: {
+    id: 'sft-intro',
+    copy: {
+      "pt-br": {
+        "beforeLabel": "Antes: Text Completion",
+        "arrowLabel": "SFT + ChatML",
+        "afterLabel": "Depois: ChatML Structured",
+        "exampleText": "Qual é a capital do Brasil? A capital",
+        "specialSystem": "<|im_start|>system",
+        "specialUser": "<|im_start|>user",
+        "specialAssistant": "<|im_start|>assistant",
+        "specialEos": "<|im_end|>",
+        "systemRole": "sistema",
+        "systemContent": "Você é um assistente útil.",
+        "userRole": "usuário",
+        "userContent": "Qual é a capital do Brasil?",
+        "assistantRole": "assistente",
+        "assistantContent": "A capital do Brasil é Brasília.",
+        "structureNote": "Tokens especiais marcam início/fim de cada papel — modelo aprende a gerar dentro do formato"
+      },
+      "en-us": {
+        "beforeLabel": "Before: Text Completion",
+        "arrowLabel": "SFT + ChatML",
+        "afterLabel": "After: ChatML Structured",
+        "exampleText": "What is the capital of Brazil? The capital",
+        "specialSystem": "<|im_start|>system",
+        "specialUser": "<|im_start|>user",
+        "specialAssistant": "<|im_start|>assistant",
+        "specialEos": "<|im_end|>",
+        "systemRole": "system",
+        "systemContent": "You are a helpful assistant.",
+        "userRole": "user",
+        "userContent": "What is the capital of Brazil?",
+        "assistantRole": "assistant",
+        "assistantContent": "The capital of Brazil is Brasília.",
+        "structureNote": "Special tokens mark start/end of each role — model learns to generate within the format"
+      }
     },
   },
 });

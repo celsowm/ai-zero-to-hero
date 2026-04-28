@@ -65,6 +65,7 @@ import type {
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
   SamplingControlsCopy,
+  SftIntroCopy,
   TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
@@ -146,6 +147,7 @@ interface VisualCopyMap {
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
+  'sft-intro': SftIntroCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

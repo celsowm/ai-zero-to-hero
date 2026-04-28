@@ -270,3 +270,23 @@ export interface PipelineFlowDiagramCopy {
   step4Label: string;
   step4Desc: string;
 }
+
+// ── SFT Intro ──────────────────────────────────────────────────────────────
+
+export interface SftIntroCopy {
+  beforeLabel: string;
+  arrowLabel: string;
+  afterLabel: string;
+  exampleText: string;
+  specialSystem: string;
+  specialUser: string;
+  specialAssistant: string;
+  specialEos: string;
+  systemRole: string;
+  systemContent: string;
+  userRole: string;
+  userContent: string;
+  assistantRole: string;
+  assistantContent: string;
+  structureNote: string;
+}

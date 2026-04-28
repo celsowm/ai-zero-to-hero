@@ -50,6 +50,7 @@ export { PredictionEvolution } from './transformers/PredictionEvolution';
 export { WhyTransformersWork } from './transformers/WhyTransformersWork';
 export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';
 export { PipelineFlowDiagram } from './transformers/PipelineFlowDiagram';
+export { SftIntro } from './transformers/SftIntro';
 export { BiologicalVsComputationalNeuron } from './neural-networks/BiologicalVsComputationalNeuron';
 export { NeuronArchitectureAnimated } from './neural-networks/NeuronArchitectureAnimated';
 export { ActivationFunctionsComparator } from './neural-networks/ActivationFunctionsComparator';

@@ -89,6 +89,7 @@ const visualMap: Record<string, string> = {
   'why-transformers-work-so-well': 'WhyTransformersWork',
   'road-to-mini-transformer': 'RoadToMiniTransformer',
   'pipeline-flow-diagram': 'PipelineFlowDiagram',
+  'sft-intro': 'SftIntro',
 
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',
