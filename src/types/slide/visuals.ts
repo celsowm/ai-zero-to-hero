@@ -43,20 +43,24 @@ import type {
 import type {
   AttentionLinesDiagramCopy,
   AttentionVsMlpCopy,
+  AutoClassResolverCopy,
   CausalMaskMatrixCopy,
+  DataCollatorVisualizerCopy,
   Gpt2BlackboxDiagramCopy,
   Gpt2LayerXrayCopy,
   HiddenStatesToLogitsCopy,
+  LoraDiagramCopy,
   MultiheadDiagramCopy,
   ParallelPredictionDiagramCopy,
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
   QkvCocktailPartyCopy,
+  QuantizationComparatorCopy,
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
   SamplingControlsCopy,
-  TransformerOverviewTeaserCopy,
   TransformerBlockDiagramCopy,
+  TransformerOverviewTeaserCopy,
   WhyTransformersWorkCopy,
 } from './transformers';
 import type {
@@ -133,6 +137,11 @@ interface VisualCopyMap {
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
+  // hf transformers advanced
+  'auto-class-resolver': AutoClassResolverCopy;
+  'data-collator-visualizer': DataCollatorVisualizerCopy;
+  'lora-diagram': LoraDiagramCopy;
+  'quantization-comparator': QuantizationComparatorCopy;
   // neural networks
   'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
   'activation-functions-comparator': ActivationFunctionsComparatorCopy;

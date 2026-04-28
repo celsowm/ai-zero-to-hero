@@ -137,3 +137,51 @@ export interface RoadToMiniTransformerCopy {
   startLabel: string;
   endLabel: string;
 }
+
+// ── HuggingFace Transformers Advanced Section ──────────────────────────────
+
+export interface AutoClassResolverCopy {
+  title: string;
+  checkpointLabel: string;
+  resolverLabel: string;
+  modelResolved: string;
+  tokenizerResolved: string;
+  configResolved: string;
+  hubLabel: string;
+  hubTooltip: string;
+}
+
+export interface DataCollatorVisualizerCopy {
+  title: string;
+  batchLabel: string;
+  sequenceLabel: string;
+  paddedLabel: string;
+  maxLenLabel: string;
+  dynamicPadding: string;
+  staticPadding: string;
+  padToken: string;
+}
+
+export interface LoraDiagramCopy {
+  title: string;
+  fullRankLabel: string;
+  lowRankLabel: string;
+  matrixALabel: string;
+  matrixBLabel: string;
+  originalFrozen: string;
+  trainableParams: string;
+  savedMemory: string;
+  rankLabel: string;
+}
+
+export interface QuantizationComparatorCopy {
+  title: string;
+  fp32Label: string;
+  int8Label: string;
+  nf4Label: string;
+  precisionLabel: string;
+  memoryLabel: string;
+  qualityLabel: string;
+  bitsLabel: string;
+  gpuVramLabel: string;
+}

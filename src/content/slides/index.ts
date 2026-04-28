@@ -33,6 +33,9 @@ import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2Teaser } from './gpt2-teaser';
 import { gpt2WeThePeopleE2e } from './gpt2-we-the-people-e2e';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
+import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
+import { hfPipelineCustom } from './hf-pipeline-custom';
+import { hfV5Ecosystem } from './hf-v5-ecosystem';
 import { hiddenStatesToLogits } from './hidden-states-to-logits';
 import { huggingfaceTransformersIntro } from './huggingface-transformers-intro';
 import { iaDefinition } from './ia-definition';
@@ -50,10 +53,13 @@ import { linearRegressionNotation } from './linear-regression-notation';
 import { linearRegressionPrediction } from './linear-regression-prediction';
 import { linearRegressionPython1d } from './linear-regression-python-1d';
 import { linearRegressionSimpleLine } from './linear-regression-simple-line';
+import { loraExercise } from './lora-exercise';
 import { mlPipeline } from './ml-pipeline';
 import { mlpInsideTransformer } from './mlp-inside-transformer';
 import { mlpLanguageModel } from './mlp-language-model';
 import { modelCacheSafetensors } from './model-cache-safetensors';
+import { modelEvaluationHf } from './model-evaluation-hf';
+import { modelSharingHub } from './model-sharing-hub';
 import { multiheadAttention } from './multihead-attention';
 import { neuralNetworkActivationFunctions } from './neural-network-activation-functions';
 import { neuralNetworkArchitecturesDeepDive } from './neural-network-architectures-deep-dive';
@@ -80,6 +86,7 @@ import { nnProblem } from './nn-problem';
 import { nonlinearRegressionBoundary } from './nonlinear-regression-boundary';
 import { nonlinearSolutionRing } from './nonlinear-solution-ring';
 import { pipelineApiDeepDive } from './pipeline-api-deep-dive';
+import { peftLoraIntro } from './peft-lora-intro';
 import { predictionEvolutionWeThePeople } from './prediction-evolution-we-the-people';
 import { professor } from './professor';
 import { pythonIntro } from './python-intro';
@@ -104,6 +111,7 @@ import { tokenizationIntro } from './tokenization-intro';
 import { tokenizationWeThePeople } from './tokenization-we-the-people';
 import { tokenizationWhy } from './tokenization-why';
 import { tokenizerInternalsHf } from './tokenizer-internals-hf';
+import { trainerDemystified } from './trainer-demystified';
 import { trainingLanguageModels } from './training-language-models';
 import { transformerBlockOverview } from './transformer-block-overview';
 import { welcome } from './welcome';
@@ -141,6 +149,9 @@ export { gpt2LayerByLayerXray };
 export { gpt2Teaser };
 export { gpt2WeThePeopleE2e };
 export { gpt2WeThePeopleInput };
+export { hfDatasetsDeepDive };
+export { hfPipelineCustom };
+export { hfV5Ecosystem };
 export { hiddenStatesToLogits };
 export { huggingfaceTransformersIntro };
 export { iaDefinition };
@@ -158,10 +169,13 @@ export { linearRegressionNotation };
 export { linearRegressionPrediction };
 export { linearRegressionPython1d };
 export { linearRegressionSimpleLine };
+export { loraExercise };
 export { mlPipeline };
 export { mlpInsideTransformer };
 export { mlpLanguageModel };
 export { modelCacheSafetensors };
+export { modelEvaluationHf };
+export { modelSharingHub };
 export { multiheadAttention };
 export { neuralNetworkActivationFunctions };
 export { neuralNetworkArchitecturesDeepDive };
@@ -188,6 +202,7 @@ export { nnProblem };
 export { nonlinearRegressionBoundary };
 export { nonlinearSolutionRing };
 export { pipelineApiDeepDive };
+export { peftLoraIntro };
 export { predictionEvolutionWeThePeople };
 export { professor };
 export { pythonIntro };
@@ -212,6 +227,7 @@ export { tokenizationIntro };
 export { tokenizationWeThePeople };
 export { tokenizationWhy };
 export { tokenizerInternalsHf };
+export { trainerDemystified };
 export { trainingLanguageModels };
 export { transformerBlockOverview };
 export { welcome };
@@ -251,6 +267,9 @@ export const allSlides: ISlide[] = [
   gpt2Teaser,
   gpt2WeThePeopleE2e,
   gpt2WeThePeopleInput,
+  hfDatasetsDeepDive,
+  hfPipelineCustom,
+  hfV5Ecosystem,
   hiddenStatesToLogits,
   huggingfaceTransformersIntro,
   iaDefinition,
@@ -268,10 +287,13 @@ export const allSlides: ISlide[] = [
   linearRegressionPrediction,
   linearRegressionPython1d,
   linearRegressionSimpleLine,
+  loraExercise,
   mlPipeline,
   mlpInsideTransformer,
   mlpLanguageModel,
   modelCacheSafetensors,
+  modelEvaluationHf,
+  modelSharingHub,
   multiheadAttention,
   neuralNetworkActivationFunctions,
   neuralNetworkArchitecturesDeepDive,
@@ -298,6 +320,7 @@ export const allSlides: ISlide[] = [
   nonlinearRegressionBoundary,
   nonlinearSolutionRing,
   pipelineApiDeepDive,
+  peftLoraIntro,
   predictionEvolutionWeThePeople,
   professor,
   pythonIntro,
@@ -322,6 +345,7 @@ export const allSlides: ISlide[] = [
   tokenizationWeThePeople,
   tokenizationWhy,
   tokenizerInternalsHf,
+  trainerDemystified,
   trainingLanguageModels,
   transformerBlockOverview,
   welcome,
