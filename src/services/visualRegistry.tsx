@@ -107,6 +107,42 @@ const visualMap: Record<string, string> = {
   'chromadb-search-visual': 'ChromadbSearchVisual',
   'chromadb-rag-e2e-visual': 'ChromadbRagE2eVisual',
 
+  // llamaindex
+  'llamaindex-why-visual': 'LlamaIndexWhyVisual',
+  'llamaindex-core-concepts-visual': 'LlamaIndexCoreConceptsVisual',
+  'llamaindex-data-loaders-visual': 'LlamaIndexDataLoadersVisual',
+  'llamaindex-pipeline-visual': 'LlamaIndexPipelineVisual',
+  'llamaindex-retrievers-visual': 'LlamaIndexRetrieversVisual',
+  'llamaindex-query-engines-visual': 'LlamaIndexQueryEnginesVisual',
+  'llamaindex-chat-engine-visual': 'LlamaIndexChatEngineVisual',
+  'llamaindex-agents-visual': 'LlamaIndexAgentsVisual',
+  'llamaindex-e2e-visual': 'LlamaIndexE2eVisual',
+
+  // langchain
+  'langchain-why-visual': 'LangchainWhyVisual',
+  'langchain-core-concepts-visual': 'LangchainCoreConceptsVisual',
+  'langchain-prompt-templates-visual': 'LangchainPromptTemplatesVisual',
+  'langchain-chains-visual': 'LangchainChainsVisual',
+  'langchain-tools-visual': 'LangchainToolsVisual',
+  'langchain-agents-deep-dive-visual': 'LangchainAgentsDeepDiveVisual',
+  'langchain-rag-langchain-visual': 'LangchainRagLangchainVisual',
+  'langchain-memory-visual': 'LangchainMemoryVisual',
+  'langchain-e2e-visual': 'LangchainE2eVisual',
+
+  // inference-engines
+  'inference-engines-why-visual': 'InferenceEnginesWhyVisual',
+  'transformers-pipeline-visual': 'TransformersPipelineVisual',
+  'transformers-server-visual': 'TransformersServerVisual',
+  'openai-api-standard-visual': 'OpenaiApiStandardVisual',
+  'streaming-mode-visual': 'StreamingModeVisual',
+  'onnx-optimization-visual': 'OnnxOptimizationVisual',
+  'vllm-intro-visual': 'VllmIntroVisual',
+  'vllm-deep-dive-visual': 'VllmDeepDiveVisual',
+  'sglang-intro-visual': 'SglangIntroVisual',
+  'sglang-deep-dive-visual': 'SglangDeepDiveVisual',
+  'inference-comparison-visual': 'InferenceComparisonVisual',
+  'inference-e2e-visual': 'InferenceE2eVisual',
+
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',
   'activation-functions-comparator': 'ActivationFunctionsComparator',

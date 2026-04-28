@@ -100,6 +100,42 @@ import type {
 } from './neural-networks';
 import type { PythonExerciseVisualCopy } from './exercise';
 import type { ClassificationProblemCopy } from './classification-problem';
+import type {
+  LlamaIndexWhyCopy,
+  LlamaIndexCoreConceptsCopy,
+  LlamaIndexDataLoadersCopy,
+  LlamaIndexPipelineVisualCopy,
+  LlamaIndexRetrieversCopy,
+  LlamaIndexQueryEnginesCopy,
+  LlamaIndexChatEngineCopy,
+  LlamaIndexAgentsCopy,
+  LlamaIndexE2eCopy,
+} from './llamaindex';
+import type {
+  LangchainWhyCopy,
+  LangchainCoreConceptsCopy,
+  LangchainPromptTemplatesCopy,
+  LangchainChainsCopy,
+  LangchainToolsCopy,
+  LangchainAgentsDeepDiveCopy,
+  LangchainRagLangchainCopy,
+  LangchainMemoryCopy,
+  LangchainE2eCopy,
+} from './langchain';
+import type {
+  InferenceEnginesWhyCopy,
+  TransformersPipelineCopy,
+  TransformersServerCopy,
+  OpenaiApiStandardCopy,
+  StreamingModeCopy,
+  OnnxOptimizationCopy,
+  VllmIntroCopy,
+  VllmDeepDiveCopy,
+  SglangIntroCopy,
+  SglangDeepDiveCopy,
+  InferenceComparisonCopy,
+  InferenceE2eCopy,
+} from './inference-engines';
 
 // ── Visual registry: maps each visual id to its copy type ──────────────────
 
@@ -174,6 +210,39 @@ interface VisualCopyMap {
   'chromadb-index-visual': ChromadbIndexVisualCopy;
   'chromadb-search-visual': ChromadbSearchVisualCopy;
   'chromadb-rag-e2e-visual': ChromadbRagE2eVisualCopy;
+  // llamaindex
+  'llamaindex-why-visual': LlamaIndexWhyCopy;
+  'llamaindex-core-concepts-visual': LlamaIndexCoreConceptsCopy;
+  'llamaindex-data-loaders-visual': LlamaIndexDataLoadersCopy;
+  'llamaindex-pipeline-visual': LlamaIndexPipelineVisualCopy;
+  'llamaindex-retrievers-visual': LlamaIndexRetrieversCopy;
+  'llamaindex-query-engines-visual': LlamaIndexQueryEnginesCopy;
+  'llamaindex-chat-engine-visual': LlamaIndexChatEngineCopy;
+  'llamaindex-agents-visual': LlamaIndexAgentsCopy;
+  'llamaindex-e2e-visual': LlamaIndexE2eCopy;
+  // langchain
+  'langchain-why-visual': LangchainWhyCopy;
+  'langchain-core-concepts-visual': LangchainCoreConceptsCopy;
+  'langchain-prompt-templates-visual': LangchainPromptTemplatesCopy;
+  'langchain-chains-visual': LangchainChainsCopy;
+  'langchain-tools-visual': LangchainToolsCopy;
+  'langchain-agents-deep-dive-visual': LangchainAgentsDeepDiveCopy;
+  'langchain-rag-langchain-visual': LangchainRagLangchainCopy;
+  'langchain-memory-visual': LangchainMemoryCopy;
+  'langchain-e2e-visual': LangchainE2eCopy;
+  // inference-engines
+  'inference-engines-why-visual': InferenceEnginesWhyCopy;
+  'transformers-pipeline-visual': TransformersPipelineCopy;
+  'transformers-server-visual': TransformersServerCopy;
+  'openai-api-standard-visual': OpenaiApiStandardCopy;
+  'streaming-mode-visual': StreamingModeCopy;
+  'onnx-optimization-visual': OnnxOptimizationCopy;
+  'vllm-intro-visual': VllmIntroCopy;
+  'vllm-deep-dive-visual': VllmDeepDiveCopy;
+  'sglang-intro-visual': SglangIntroCopy;
+  'sglang-deep-dive-visual': SglangDeepDiveCopy;
+  'inference-comparison-visual': InferenceComparisonCopy;
+  'inference-e2e-visual': InferenceE2eCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

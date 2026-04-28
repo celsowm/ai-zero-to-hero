@@ -56,6 +56,39 @@ import { linearRegressionNotation } from './linear-regression-notation';
 import { linearRegressionPrediction } from './linear-regression-prediction';
 import { linearRegressionPython1d } from './linear-regression-python-1d';
 import { linearRegressionSimpleLine } from './linear-regression-simple-line';
+import { llamaindexAgents } from './llamaindex-agents';
+import { llamaindexChatEngine } from './llamaindex-chat-engine';
+import { llamaindexCoreConcepts } from './llamaindex-core-concepts';
+import { llamaindexDataLoaders } from './llamaindex-data-loaders';
+import { llamaindexE2e } from './llamaindex-e2e';
+import { llamaindexExercise } from './llamaindex-exercise';
+import { llamaindexIndexingPipeline } from './llamaindex-indexing-pipeline';
+import { llamaindexQueryEngines } from './llamaindex-query-engines';
+import { llamaindexRetrieversDeepDive } from './llamaindex-retrievers-deep-dive';
+import { llamaindexWhy } from './llamaindex-why';
+import { langchainAgentsDeepDive } from './langchain-agents-deep-dive';
+import { langchainChains } from './langchain-chains';
+import { langchainCoreConcepts } from './langchain-core-concepts';
+import { langchainE2e } from './langchain-e2e';
+import { langchainExercise } from './langchain-exercise';
+import { langchainMemory } from './langchain-memory';
+import { langchainPromptTemplates } from './langchain-prompt-templates';
+import { langchainRagLangchain } from './langchain-rag-langchain';
+import { langchainTools } from './langchain-tools';
+import { langchainWhy } from './langchain-why';
+import { inferenceE2e } from './inference-e2e';
+import { inferenceComparison } from './inference-comparison';
+import { inferenceEnginesWhy } from './inference-engines-why';
+import { inferenceExercise } from './inference-exercise';
+import { onnxOptimization } from './onnx-optimization';
+import { openaiApiStandard } from './openai-api-standard';
+import { sglangDeepDive } from './sglang-deep-dive';
+import { sglangIntro } from './sglang-intro';
+import { streamingMode } from './streaming-mode';
+import { transformersPipeline } from './transformers-pipeline';
+import { transformersServer } from './transformers-server';
+import { vllmDeepDive } from './vllm-deep-dive';
+import { vllmIntro } from './vllm-intro';
 import { loraExercise } from './lora-exercise';
 import { mlPipeline } from './ml-pipeline';
 import { mlpInsideTransformer } from './mlp-inside-transformer';
@@ -192,6 +225,39 @@ export const allSlides: ISlide[] = [
   linearRegressionPrediction,
   linearRegressionPython1d,
   linearRegressionSimpleLine,
+  llamaindexAgents,
+  llamaindexChatEngine,
+  llamaindexCoreConcepts,
+  llamaindexDataLoaders,
+  llamaindexE2e,
+  llamaindexExercise,
+  llamaindexIndexingPipeline,
+  llamaindexQueryEngines,
+  llamaindexRetrieversDeepDive,
+  llamaindexWhy,
+  langchainAgentsDeepDive,
+  langchainChains,
+  langchainCoreConcepts,
+  langchainE2e,
+  langchainExercise,
+  langchainMemory,
+  langchainPromptTemplates,
+  langchainRagLangchain,
+  langchainTools,
+  langchainWhy,
+  inferenceE2e,
+  inferenceComparison,
+  inferenceEnginesWhy,
+  inferenceExercise,
+  onnxOptimization,
+  openaiApiStandard,
+  sglangDeepDive,
+  sglangIntro,
+  streamingMode,
+  transformersPipeline,
+  transformersServer,
+  vllmDeepDive,
+  vllmIntro,
   loraExercise,
   mlPipeline,
   mlpInsideTransformer,
