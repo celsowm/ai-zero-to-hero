@@ -22,7 +22,8 @@ const baseStyle = (minHeight: number, padding: number, gap: number): React.CSSPr
   border: sw.panelBorder,
   boxShadow: `${sw.insetHighlightStrong}, ${sw.shadowSoft}`,
   boxSizing: 'border-box',
-  overflow: 'hidden',
+  overflowY: 'auto',
+  overflowX: 'hidden',
 });
 
 export const PanelCard = React.memo(({ children, minHeight = 0, padding = 20, gap = 14, style, className }: PanelCardProps) => (

@@ -54,6 +54,7 @@ export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language 
             background: 'rgba(26, 22, 40, 0.32)',
             border: '1px solid rgba(0, 229, 255, 0.08)',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'stretch',
             justifyContent: 'stretch',
             minHeight: 0,
