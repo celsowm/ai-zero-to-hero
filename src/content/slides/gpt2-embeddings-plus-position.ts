@@ -39,14 +39,24 @@ export const gpt2EmbeddingsPlusPosition = defineSlide({
     id: 'positional-embedding-adder',
     copy: {
       "pt-br": {
-        "tokenVector": "Vetor do Token",
-        "posVector": "Vetor de Posição",
-        "resultVector": "Vetor Combinado"
+        "tokenLabel": "Token Embedding",
+        "positionLabel": "Positional Encoding",
+        "sumLabel": "Combined",
+        "plusSign": "+",
+        "equalsSign": "=",
+        "tokenVector": "Significado",
+        "posVector": "Posição (sen/cos)",
+        "resultVector": "Significado + Posição"
       },
       "en-us": {
-        "tokenVector": "Token Vector",
-        "posVector": "Position Vector",
-        "resultVector": "Combined Vector"
+        "tokenLabel": "Token Embedding",
+        "positionLabel": "Positional Encoding",
+        "sumLabel": "Combined",
+        "plusSign": "+",
+        "equalsSign": "=",
+        "tokenVector": "Meaning",
+        "posVector": "Position (sin/cos)",
+        "resultVector": "Meaning + Position"
       }
     },
   },

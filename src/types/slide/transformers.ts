@@ -54,6 +54,9 @@ export interface PositionalEmbeddingAdderCopy {
   sumLabel: string;
   plusSign: string;
   equalsSign: string;
+  tokenVector: string;
+  posVector: string;
+  resultVector: string;
 }
 
 export interface TransformerBlockDiagramCopy {
