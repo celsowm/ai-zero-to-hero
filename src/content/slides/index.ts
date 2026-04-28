@@ -1,11 +1,10 @@
-/** Auto-generated barrel export — do not edit manually */
-
 import type { ISlide } from '../../types/slide/visuals';
 
 import { apiLatencyGrowthBridge } from './api-latency-growth-bridge';
 import { attentionExercise } from './attention-exercise';
 import { attentionIsAllYouNeedTeaser } from './attention-is-all-you-need-teaser';
 import { attentionOnWeThePeople } from './attention-on-we-the-people';
+import { autoclassesDeepDive } from './autoclasses-deep-dive';
 import { bigramIntuition } from './bigram-intuition';
 import { bigramMatrixSoftmax } from './bigram-matrix-softmax';
 import { bigramSampling } from './bigram-sampling';
@@ -25,6 +24,7 @@ import { buildGpt2Train } from './build-gpt2-train';
 import { causalMask } from './causal-mask';
 import { contextWindow } from './context-window';
 import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling';
+import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
 import { generateParameters } from './generate-parameters';
 import { gpt2BlackBox } from './gpt2-black-box';
@@ -85,8 +85,8 @@ import { nextTokenPrediction } from './next-token-prediction';
 import { nnProblem } from './nn-problem';
 import { nonlinearRegressionBoundary } from './nonlinear-regression-boundary';
 import { nonlinearSolutionRing } from './nonlinear-solution-ring';
-import { pipelineApiDeepDive } from './pipeline-api-deep-dive';
 import { peftLoraIntro } from './peft-lora-intro';
+import { pipelineApiDeepDive } from './pipeline-api-deep-dive';
 import { predictionEvolutionWeThePeople } from './prediction-evolution-we-the-people';
 import { professor } from './professor';
 import { pythonIntro } from './python-intro';
@@ -116,6 +116,7 @@ import { tokenizationIntro } from './tokenization-intro';
 import { tokenizationWeThePeople } from './tokenization-we-the-people';
 import { tokenizationWhy } from './tokenization-why';
 import { tokenizerInternalsHf } from './tokenizer-internals-hf';
+import { tokenizerTrainingHf } from './tokenizer-training-hf';
 import { trainerDemystified } from './trainer-demystified';
 import { trainingLanguageModels } from './training-language-models';
 import { transformerBlockOverview } from './transformer-block-overview';
@@ -123,133 +124,12 @@ import { welcome } from './welcome';
 import { whyTransformersWorkSoWell } from './why-transformers-work-so-well';
 import { wordpieceSentencepiece } from './wordpiece-sentencepiece';
 
-export { apiLatencyGrowthBridge };
-export { attentionExercise };
-export { attentionIsAllYouNeedTeaser };
-export { attentionOnWeThePeople };
-export { bigramIntuition };
-export { bigramMatrixSoftmax };
-export { bigramSampling };
-export { biologicalVsComputationalNeuron };
-export { bpeAlgorithm };
-export { bpeE2eGutenberg };
-export { bpeExercise };
-export { bpeFromScratch };
-export { bpeMergeStack };
-export { bpeTraining };
-export { buildGpt2DatasetFineweb };
-export { buildGpt2DatasetTxt };
-export { buildGpt2Generate };
-export { buildGpt2Intro };
-export { buildGpt2Model };
-export { buildGpt2Train };
-export { causalMask };
-export { contextWindow };
-export { crossEntropyLanguageModeling };
-export { embeddingsIntro };
-export { generateParameters };
-export { gpt2BlackBox };
-export { gpt2EmbeddingsPlusPosition };
-export { gpt2LayerByLayerXray };
-export { gpt2Teaser };
-export { gpt2WeThePeopleE2e };
-export { gpt2WeThePeopleInput };
-export { hfDatasetsDeepDive };
-export { hfPipelineCustom };
-export { hfV5Ecosystem };
-export { hiddenStatesToLogits };
-export { huggingfaceTransformersIntro };
-export { iaDefinition };
-export { iaLearningLoop };
-export { iaVsTradicionais };
-export { languageModelingIntro };
-export { linearRegressionAdjustment };
-export { linearRegressionError };
-export { linearRegressionExercise };
-export { linearRegressionGradientDescent };
-export { linearRegressionIntro };
-export { linearRegressionMseStepper };
-export { linearRegressionMse };
-export { linearRegressionNotation };
-export { linearRegressionPrediction };
-export { linearRegressionPython1d };
-export { linearRegressionSimpleLine };
-export { loraExercise };
-export { mlPipeline };
-export { mlpInsideTransformer };
-export { mlpLanguageModel };
-export { modelCacheSafetensors };
-export { modelEvaluationHf };
-export { modelSharingHub };
-export { multiheadAttention };
-export { neuralNetworkActivationFunctions };
-export { neuralNetworkArchitecturesDeepDive };
-export { neuralNetworkBackpropagation };
-export { neuralNetworkDerivativeIntuition };
-export { neuralNetworkExercise };
-export { neuralNetworkFeedforward };
-export { neuralNetworkMinimalExample };
-export { neuralNetworkNeuronRelu };
-export { neuralNetworkPrediction };
-export { neuralNetworkPytorchHardware };
-export { neuralNetworkPytorchInstall };
-export { neuralNetworkPytorchIntro };
-export { neuralNetworkPytorchPrediction };
-export { neuralNetworkPytorchTensors };
-export { neuralNetworkPytorchTraining };
-export { neuralNetworkSigmoidDeepDive };
-export { neuralNetworkSigmoidDerivative };
-export { neuralNetworkToLanguageModeling };
-export { neuralNetworkTypesOverview };
-export { neuralNetworkWeightsAndBiases };
-export { nextTokenPrediction };
-export { nnProblem };
-export { nonlinearRegressionBoundary };
-export { nonlinearSolutionRing };
-export { pipelineApiDeepDive };
-export { peftLoraIntro };
-export { predictionEvolutionWeThePeople };
-export { professor };
-export { pythonIntro };
-export { pythonPrereqConditionals };
-export { pythonPrereqData };
-export { pythonPrereqExercises };
-export { pythonPrereqFunctions };
-export { pythonPrereqListComprehensions };
-export { pythonPrereqLoops };
-export { pythonPrereqSumGenerator };
-export { pytorchBasicsExercise };
-export { qkvIntuition };
-export { quantizationBnb };
-export { quantizationFp16 };
-export { quantizationInt8 };
-export { quantizationNf4DeepDive };
-export { quantizationPractice };
-export { residualStream };
-export { roadToMiniTransformer };
-export { samplingControls };
-export { sftDataset };
-export { sftGenerate };
-export { sftIntro };
-export { sftTrain };
-export { tokenizationDeepDive };
-export { tokenizationIntro };
-export { tokenizationWeThePeople };
-export { tokenizationWhy };
-export { tokenizerInternalsHf };
-export { trainerDemystified };
-export { trainingLanguageModels };
-export { transformerBlockOverview };
-export { welcome };
-export { whyTransformersWorkSoWell };
-export { wordpieceSentencepiece };
-
-/** All slides in a single array */
 export const allSlides: ISlide[] = [
   apiLatencyGrowthBridge,
   attentionExercise,
   attentionIsAllYouNeedTeaser,
   attentionOnWeThePeople,
+  autoclassesDeepDive,
   bigramIntuition,
   bigramMatrixSoftmax,
   bigramSampling,
@@ -269,6 +149,7 @@ export const allSlides: ISlide[] = [
   causalMask,
   contextWindow,
   crossEntropyLanguageModeling,
+  dataCollatorExplorer,
   embeddingsIntro,
   generateParameters,
   gpt2BlackBox,
@@ -329,8 +210,8 @@ export const allSlides: ISlide[] = [
   nnProblem,
   nonlinearRegressionBoundary,
   nonlinearSolutionRing,
-  pipelineApiDeepDive,
   peftLoraIntro,
+  pipelineApiDeepDive,
   predictionEvolutionWeThePeople,
   professor,
   pythonIntro,
@@ -360,10 +241,11 @@ export const allSlides: ISlide[] = [
   tokenizationWeThePeople,
   tokenizationWhy,
   tokenizerInternalsHf,
+  tokenizerTrainingHf,
   trainerDemystified,
   trainingLanguageModels,
   transformerBlockOverview,
   welcome,
   whyTransformersWorkSoWell,
-  wordpieceSentencepiece
+  wordpieceSentencepiece,
 ];
