@@ -1,0 +1,21 @@
+{
+  "id": "transformersjs/transformersjs-intro",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [1, 4],
+      "pt-br": "Transformers.js roda modelos ONNX diretamente no browser via JavaScript.",
+      "en-us": "Transformers.js runs ONNX models directly in the browser via JavaScript."
+    },
+    {
+      "lineRange": [7, 12],
+      "pt-br": "API pipeline: carrega modelo, faz inferência, retorna resultado — tudo client-side.",
+      "en-us": "Pipeline API: load model, run inference, return results — all client-side."
+    },
+    {
+      "lineRange": [14, 16],
+      "pt-br": "Modelo baixa uma vez e fica em cache. Inferência roda na CPU/GPU local.",
+      "en-us": "Model downloads once and gets cached. Inference runs on local CPU/GPU."
+    }
+  ]
+}

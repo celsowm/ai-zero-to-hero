@@ -94,3 +94,7 @@ export { RagEmbeddingVisual } from './rag/RagEmbeddingVisual';
 export { RagVectorSearchVisual } from './rag/RagVectorSearchVisual';
 export { RagContextInjectionVisual } from './rag/RagContextInjectionVisual';
 export { RagFromScratchVisual } from './rag/RagFromScratchVisual';
+export { TransformersJsIntroVisual } from './transformersjs/TransformersJsIntroVisual';
+export { TransformersJsEmbeddingsVisual } from './transformersjs/TransformersJsEmbeddingsVisual';
+export { TransformersJsVectorSearchVisual } from './transformersjs/TransformersJsVectorSearchVisual';
+export { TransformersJsRagE2eVisual } from './transformersjs/TransformersJsRagE2eVisual';

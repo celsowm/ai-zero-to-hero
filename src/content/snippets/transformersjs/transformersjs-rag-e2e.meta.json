@@ -1,0 +1,31 @@
+{
+  "id": "transformersjs/transformersjs-rag-e2e",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [6, 9],
+      "pt-br": "Dois modelos no browser: embedder (busca) + generator (LLM). Zero servidor.",
+      "en-us": "Two models in the browser: embedder (search) + generator (LLM). Zero server."
+    },
+    {
+      "lineRange": [12, 18],
+      "pt-br": "INGEST: documentos embeddados e armazenados em array simples — vector DB in-memory.",
+      "en-us": "INGEST: documents embedded and stored in a simple array — in-memory vector DB."
+    },
+    {
+      "lineRange": [22, 33],
+      "pt-br": "RETRIEVE + AUGMENT: busca vetorial + monta prompt com contexto.",
+      "en-us": "RETRIEVE + AUGMENT: vector search + builds prompt with context."
+    },
+    {
+      "lineRange": [36, 39],
+      "pt-br": "GENERATE: LLM-3.2-1B roda no browser via ONNX Runtime Web. Resposta fundamentada.",
+      "en-us": "GENERATE: Llama-3.2-1B runs in browser via ONNX Runtime Web. Grounded answer."
+    },
+    {
+      "lineRange": [44, 52],
+      "pt-br": "Pipeline completo: indexar → perguntar → resposta com fontes. Tudo no browser.",
+      "en-us": "Complete pipeline: index → ask → answer with sources. Everything in the browser."
+    }
+  ]
+}

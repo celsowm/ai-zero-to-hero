@@ -75,6 +75,10 @@ import type {
   RagVectorSearchVisualCopy,
   RagContextInjectionVisualCopy,
   RagFromScratchVisualCopy,
+  TransformersJsIntroVisualCopy,
+  TransformersJsEmbeddingsVisualCopy,
+  TransformersJsVectorSearchVisualCopy,
+  TransformersJsRagE2eVisualCopy,
   TemperatureSliderInteractiveCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
@@ -167,6 +171,11 @@ interface VisualCopyMap {
   'rag-vector-search-visual': RagVectorSearchVisualCopy;
   'rag-context-injection-visual': RagContextInjectionVisualCopy;
   'rag-from-scratch-visual': RagFromScratchVisualCopy;
+  // transformers.js (browser AI)
+  'transformersjs-intro-visual': TransformersJsIntroVisualCopy;
+  'transformersjs-embeddings-visual': TransformersJsEmbeddingsVisualCopy;
+  'transformersjs-vector-search-visual': TransformersJsVectorSearchVisualCopy;
+  'transformersjs-rag-e2e-visual': TransformersJsRagE2eVisualCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

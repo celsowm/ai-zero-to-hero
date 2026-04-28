@@ -405,3 +405,60 @@ export interface RagFromScratchVisualCopy {
   generateLabel: string;
   answerLabel: string;
 }
+
+// ── Transformers.js (Browser AI) ────────────────────────────────────────────
+
+export interface TransformersJsIntroVisualCopy {
+  title: string;
+  serverLabel: string;
+  browserLabel: string;
+  userLabel: string;
+  serverBox: string;
+  apiLabel: string;
+  browserBox: string;
+  localLabel: string;
+  costLabel: string;
+  privacyLabel: string;
+}
+
+export interface TransformersJsEmbeddingsVisualCopy {
+  title: string;
+  doc1Label: string;
+  doc2Label: string;
+  doc3Label: string;
+  inputLabel: string;
+  modelLabel: string;
+  outputLabel: string;
+  downloadLabel: string;
+  cacheLabel: string;
+  inferLabel: string;
+}
+
+export interface TransformersJsVectorSearchVisualCopy {
+  title: string;
+  queryLabel: string;
+  doc1Label: string;
+  doc2Label: string;
+  doc3Label: string;
+  score1: string;
+  score2: string;
+  score3: string;
+  rankLabel: string;
+  searchLabel: string;
+  noServerLabel: string;
+}
+
+export interface TransformersJsRagE2eVisualCopy {
+  title: string;
+  ingestPhase: string;
+  queryPhase: string;
+  documentsLabel: string;
+  embedLabel: string;
+  vectorStoreLabel: string;
+  questionLabel: string;
+  searchLabel: string;
+  topKLabel: string;
+  promptLabel: string;
+  generateLabel: string;
+  answerLabel: string;
+}

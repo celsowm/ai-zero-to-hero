@@ -102,6 +102,12 @@ const visualMap: Record<string, string> = {
   'rag-context-injection-visual': 'RagContextInjectionVisual',
   'rag-from-scratch-visual': 'RagFromScratchVisual',
 
+  // transformers.js (browser AI)
+  'transformersjs-intro-visual': 'TransformersJsIntroVisual',
+  'transformersjs-embeddings-visual': 'TransformersJsEmbeddingsVisual',
+  'transformersjs-vector-search-visual': 'TransformersJsVectorSearchVisual',
+  'transformersjs-rag-e2e-visual': 'TransformersJsRagE2eVisual',
+
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',
   'activation-functions-comparator': 'ActivationFunctionsComparator',
