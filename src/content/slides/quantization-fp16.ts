@@ -100,4 +100,31 @@ print(f"VRAM: {model.get_memory_footprint() / 1e9:.1f} GB")  # ~14 GB
       ],
     },
   },
+  visual: {
+    id: 'fp16-overflow-explorer',
+    copy: {
+      'pt-br': {
+        title: 'FP16 Overflow Explorer',
+        inputLabel: 'Valor de entrada',
+        fp32Label: 'FP32',
+        fp16Label: 'FP16',
+        safeLabel: '✓ Seguro',
+        overflowLabel: '⚠ OVERFLOW → inf',
+        thresholdLabel: 'Threshold FP16',
+        rangeLabel: 'Range válido',
+        valueLabel: 'Teste valores rápidos',
+      },
+      'en-us': {
+        title: 'FP16 Overflow Explorer',
+        inputLabel: 'Input value',
+        fp32Label: 'FP32',
+        fp16Label: 'FP16',
+        safeLabel: '✓ Safe',
+        overflowLabel: '⚠ OVERFLOW → inf',
+        thresholdLabel: 'FP16 Threshold',
+        rangeLabel: 'Valid range',
+        valueLabel: 'Quick test values',
+      },
+    },
+  },
 });

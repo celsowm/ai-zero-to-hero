@@ -185,3 +185,42 @@ export interface QuantizationComparatorCopy {
   bitsLabel: string;
   gpuVramLabel: string;
 }
+
+// ── Quantization Interactive Visuals ───────────────────────────────────────
+
+export interface Fp16OverflowExplorerCopy {
+  title: string;
+  inputLabel: string;
+  fp32Label: string;
+  fp16Label: string;
+  safeLabel: string;
+  overflowLabel: string;
+  thresholdLabel: string;
+  rangeLabel: string;
+  valueLabel: string;
+}
+
+export interface Int8OutlierDetectorCopy {
+  title: string;
+  weightDistLabel: string;
+  outlierLabel: string;
+  normalLabel: string;
+  thresholdLabel: string;
+  int8Label: string;
+  fp16Label: string;
+  keepInFp16: string;
+  quantizeToInt8: string;
+}
+
+export interface Nf4QuantileVisualizerCopy {
+  title: string;
+  uniformLabel: string;
+  normalFloatLabel: string;
+  bellCurveLabel: string;
+  quantileLabel: string;
+  level16Label: string;
+  denseNearZero: string;
+  spacedAtTails: string;
+  weightsLabel: string;
+  precisionLabel: string;
+}

@@ -106,4 +106,33 @@ model = AutoModelForCausalLM.from_pretrained(
       ],
     },
   },
+  visual: {
+    id: 'nf4-quantile-visualizer',
+    copy: {
+      'pt-br': {
+        title: 'NF4: Quantiles vs Uniforme',
+        uniformLabel: 'Uniforme',
+        normalFloatLabel: 'NormalFloat',
+        bellCurveLabel: 'Curva de Gauss',
+        quantileLabel: 'Níveis NF4 (quantiles)',
+        level16Label: '16 níveis',
+        denseNearZero: 'Denso perto de zero (68% dos pesos)',
+        spacedAtTails: 'Espaçado nas caudas',
+        weightsLabel: 'Pesos',
+        precisionLabel: 'Precisão',
+      },
+      'en-us': {
+        title: 'NF4: Quantiles vs Uniform',
+        uniformLabel: 'Uniform',
+        normalFloatLabel: 'NormalFloat',
+        bellCurveLabel: 'Bell curve',
+        quantileLabel: 'NF4 levels (quantiles)',
+        level16Label: '16 levels',
+        denseNearZero: 'Dense near zero (68% of weights)',
+        spacedAtTails: 'Spaced at the tails',
+        weightsLabel: 'Weights',
+        precisionLabel: 'Precision',
+      },
+    },
+  },
 });

@@ -110,4 +110,31 @@ print(f"VRAM: ~7 GB for 7B model")
       ],
     },
   },
+  visual: {
+    id: 'int8-outlier-detector',
+    copy: {
+      'pt-br': {
+        title: 'INT8: Detector de Outliers',
+        weightDistLabel: 'Distribuição de pesos',
+        outlierLabel: 'Outliers',
+        normalLabel: 'Pesos normais',
+        thresholdLabel: 'Threshold (σ)',
+        int8Label: 'Quantizados para INT8',
+        fp16Label: 'Mantidos em FP16',
+        keepInFp16: 'Manter em FP16',
+        quantizeToInt8: 'Quantizar para INT8',
+      },
+      'en-us': {
+        title: 'INT8: Outlier Detector',
+        weightDistLabel: 'Weight distribution',
+        outlierLabel: 'Outliers',
+        normalLabel: 'Normal weights',
+        thresholdLabel: 'Threshold (σ)',
+        int8Label: 'Quantized to INT8',
+        fp16Label: 'Kept in FP16',
+        keepInFp16: 'Keep in FP16',
+        quantizeToInt8: 'Quantize to INT8',
+      },
+    },
+  },
 });

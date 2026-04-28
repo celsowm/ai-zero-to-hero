@@ -46,11 +46,14 @@ import type {
   AutoClassResolverCopy,
   CausalMaskMatrixCopy,
   DataCollatorVisualizerCopy,
+  Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
   Gpt2LayerXrayCopy,
   HiddenStatesToLogitsCopy,
+  Int8OutlierDetectorCopy,
   LoraDiagramCopy,
   MultiheadDiagramCopy,
+  Nf4QuantileVisualizerCopy,
   ParallelPredictionDiagramCopy,
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
@@ -142,6 +145,10 @@ interface VisualCopyMap {
   'data-collator-visualizer': DataCollatorVisualizerCopy;
   'lora-diagram': LoraDiagramCopy;
   'quantization-comparator': QuantizationComparatorCopy;
+  // quantization interactive visuals
+  'fp16-overflow-explorer': Fp16OverflowExplorerCopy;
+  'int8-outlier-detector': Int8OutlierDetectorCopy;
+  'nf4-quantile-visualizer': Nf4QuantileVisualizerCopy;
   // neural networks
   'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
   'activation-functions-comparator': ActivationFunctionsComparatorCopy;
