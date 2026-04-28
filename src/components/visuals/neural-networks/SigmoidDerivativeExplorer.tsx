@@ -57,12 +57,13 @@ export const SigmoidDerivativeExplorer = React.memo(({ copy }: Props) => {
   const curves = useMemo(() => ({ sig: path(sigmoid, 1), deriv: path(dsigmoid, 0.25) }), []);
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 14, minHeight: 0 }}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 14, minHeight: 0 }}>
       {/* ── TOP: Slider + live readouts ── */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
           gap: 16,
           alignItems: 'center',
           padding: '12px 18px',
@@ -85,7 +86,7 @@ export const SigmoidDerivativeExplorer = React.memo(({ copy }: Props) => {
             style={{ flex: 1, minWidth: 80, accentColor: '#16e0ff' }}
           />
         </div>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
           <Readout label="z" value={z.toFixed(2)} color="#93a4bb" />
           <Readout label={copy.sigmoidLabel} value={sig.toFixed(4)} color="#16e0ff" />
           <Readout label={copy.derivativeLabel} value={fmt(deriv)} color="#ff5da2" />
@@ -108,7 +109,7 @@ export const SigmoidDerivativeExplorer = React.memo(({ copy }: Props) => {
       </div>
 
       {/* ── MIDDLE: Two charts side by side ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, flex: 1, minHeight: 0 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, minHeight: 240 }}>
         <ChartPanel
           title={copy.sigmoidChartTitle}
           accent="#16e0ff"
@@ -189,7 +190,7 @@ const ChartPanel: React.FC<{
       </div>
 
       <div style={{ flex: 1, minHeight: 0, borderRadius: 14, overflow: 'hidden', border: `1px solid ${sw.tintOverlay}` }}>
-        <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" aria-label={ariaLabel} style={{ display: 'block' }}>
+        <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="auto" aria-label={ariaLabel} style={{ display: 'block' }}>
           <defs>
             <filter id={`glow-${title}`}>
               <feGaussianBlur stdDeviation="3" result="b" />
