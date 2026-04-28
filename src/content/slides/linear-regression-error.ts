@@ -1,0 +1,253 @@
+import { defineSlide } from './_factory';
+
+export const linearRegressionError = defineSlide({
+  id: 'linear-regression-error',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.62,
+      0.38
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Regressão Linear: medindo o erro`,
+      body: `Com **altura** e **idade** conhecidas, o modelo produz um **peso previsto**. A pergunta agora é direta: esse valor ficou perto ou longe do **peso real**? É isso que o erro mede.
+
+1. **Valor real \`y\`:** é o peso histórico daquela pessoa no dataset.
+
+2. **Valor previsto \`ŷ\`:** é o peso que a fórmula \`ŷ = β₀ + β₁ * altura + β₂ * idade\` calculou para aquela mesma entrada.
+
+3. **Erro:** é a diferença entre os dois, normalmente escrita como \`ŷ - y\`.
+
+4. **Sinal importa:** erro positivo significa que o modelo estimou um peso acima do real; erro negativo significa que estimou abaixo.
+
+> Se a fórmula é a hipótese, o erro é o feedback que mostra onde a previsão ainda falha.
+
+---`,
+    },
+    'en-us': {
+      title: `Linear Regression: measuring error`,
+      body: `With **height** and **age** known, the model produces a **predicted weight**. The next question is direct: is that value close to the **real weight** or far from it? That is what error measures.
+
+1. **Real value \`y\`:** it is that person’s historical weight in the dataset.
+
+2. **Predicted value \`ŷ\`:** it is the weight that the formula \`ŷ = β₀ + β₁ * height + β₂ * age\` computed for the same input.
+
+3. **Error:** it is the difference between the two, usually written as \`ŷ - y\`.
+
+4. **Sign matters:** a positive error means the model estimated a weight above the real one; a negative error means it estimated below.
+
+> If the formula is the hypothesis, error is the feedback that shows where the prediction still fails.
+
+---`,
+    },
+  },
+  visual: {
+    id: 'linear-regression-tabs',
+    copy: {
+      "pt-br": {
+        "tabs": [
+          {
+          "label": "Erro"
+        },
+          {
+          "label": "Gráfico"
+        }
+        ],
+        "formulaPanel": {
+          "eyebrow": "Comparação",
+          "formula": "erro = ŷ - y",
+          "description": "No nosso exemplo, o erro compara o peso previsto `ŷ` pela combinação de altura e idade com o peso real `y` registrado.",
+          "points": [
+            {
+            "label": "erro positivo: previsão acima do real",
+            "accent": "#ff2e97"
+          },
+            {
+            "label": "erro negativo: previsão abaixo do real",
+            "accent": "#00e5ff"
+          },
+            {
+            "label": "o objetivo do treino é reduzir esse erro para cada pessoa",
+            "accent": "#fbbf24"
+          }
+          ],
+          "footer": "Nos próximos passos, esse erro vai virar uma métrica de custo mais estável."
+        },
+        "graphPanel": {
+          "eyebrow": "Distância vertical",
+          "title": "O erro é a diferença entre o peso previsto e o peso real",
+          "description": "Para cada pessoa do dataset, medimos o quanto a previsão baseada em altura e idade ficou acima ou abaixo do peso observado.",
+          "inputNodes": [
+
+          ],
+          "outputLabel": "Erro observado",
+          "outputNode": {
+            "label": "Desvio vertical",
+            "accent": "#fbbf24"
+          },
+          "chart": {
+            "xLabel": "Altura (X)",
+            "yLabel": "Peso (Y)",
+            "lineLabel": "previsão do modelo",
+            "points": [
+              {
+              "x": 130,
+              "y": 196,
+              "label": "160 / 55",
+              "accent": "#00e5ff"
+            },
+              {
+              "x": 245,
+              "y": 154,
+              "label": "170 / 64",
+              "accent": "#fbbf24"
+            },
+              {
+              "x": 365,
+              "y": 108,
+              "label": "180 / 72",
+              "accent": "#ff2e97"
+            }
+            ],
+            "residuals": [
+              {
+              "x": 130,
+              "yReal": 196,
+              "yPred": 183,
+              "label": "+13",
+              "accent": "#ff2e97"
+            },
+              {
+              "x": 245,
+              "yReal": 154,
+              "yPred": 152,
+              "label": "+2",
+              "accent": "#fbbf24"
+            },
+              {
+              "x": 365,
+              "yReal": 108,
+              "yPred": 116,
+              "label": "-8",
+              "accent": "#00e5ff"
+            }
+            ],
+            "lineStart": {
+              "x": 112,
+              "y": 194
+            },
+            "lineEnd": {
+              "x": 398,
+              "y": 90
+            },
+            "footer": "Cada distância contribui para avaliar se a combinação atual de parâmetros está boa ou ruim."
+          },
+          "footer": "Medir o erro é o primeiro passo para depois ajustar `β₀`, `β₁` e `β₂` automaticamente."
+        }
+      },
+      "en-us": {
+        "tabs": [
+          {
+          "label": "Error"
+        },
+          {
+          "label": "Chart"
+        }
+        ],
+        "formulaPanel": {
+          "eyebrow": "Comparison",
+          "formula": "error = ŷ - y",
+          "description": "In our example, error compares the predicted weight `ŷ` from height and age with the recorded real weight `y`.",
+          "points": [
+            {
+            "label": "positive error: prediction too high",
+            "accent": "#ff2e97"
+          },
+            {
+            "label": "negative error: prediction too low",
+            "accent": "#00e5ff"
+          },
+            {
+            "label": "training aims to reduce this error for each person",
+            "accent": "#fbbf24"
+          }
+          ],
+          "footer": "In the next step, this error becomes a more stable cost metric."
+        },
+        "graphPanel": {
+          "eyebrow": "Vertical distance",
+          "title": "Error is the difference between predicted and real weight",
+          "description": "For each person in the dataset, we measure how far the prediction based on height and age sits above or below the observed weight.",
+          "inputNodes": [
+
+          ],
+          "outputLabel": "Observed error",
+          "outputNode": {
+            "label": "Vertical deviation",
+            "accent": "#fbbf24"
+          },
+          "chart": {
+            "xLabel": "Height (X)",
+            "yLabel": "Weight (Y)",
+            "lineLabel": "model prediction",
+            "points": [
+              {
+              "x": 130,
+              "y": 196,
+              "label": "160 / 55",
+              "accent": "#00e5ff"
+            },
+              {
+              "x": 245,
+              "y": 154,
+              "label": "170 / 64",
+              "accent": "#fbbf24"
+            },
+              {
+              "x": 365,
+              "y": 108,
+              "label": "180 / 72",
+              "accent": "#ff2e97"
+            }
+            ],
+            "residuals": [
+              {
+              "x": 130,
+              "yReal": 196,
+              "yPred": 183,
+              "label": "+13",
+              "accent": "#ff2e97"
+            },
+              {
+              "x": 245,
+              "yReal": 154,
+              "yPred": 152,
+              "label": "+2",
+              "accent": "#fbbf24"
+            },
+              {
+              "x": 365,
+              "yReal": 108,
+              "yPred": 116,
+              "label": "-8",
+              "accent": "#00e5ff"
+            }
+            ],
+            "lineStart": {
+              "x": 112,
+              "y": 194
+            },
+            "lineEnd": {
+              "x": 398,
+              "y": 90
+            },
+            "footer": "Each distance helps us judge whether the current parameter combination is a good fit."
+          },
+          "footer": "Measuring error is the first step before we can adjust `β₀`, `β₁`, and `β₂` automatically."
+        }
+      }
+    },
+  },
+});

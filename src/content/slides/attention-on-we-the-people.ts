@@ -1,0 +1,53 @@
+import { defineSlide } from './_factory';
+
+export const attentionOnWeThePeople = defineSlide({
+  id: 'attention-on-we-the-people',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Atenção na prática`,
+      body: `Vamos ver a Atenção operando em 'We the people' para prever a quarta palavra.
+
+1. **O token atual:** o token 'people' está na vez de tentar adivinhar o futuro. Ele emite sua Query (Pergunta).
+
+2. **Olhando para o passado:** a Query de 'people' bate fortemente com a Key (Resposta) do token 'We'.
+
+3. **Absorvendo contexto:** o token 'people' recebe o Value (Mensagem) de 'We'. Agora, o vetor que representa 'people' foi modificado. Ele não é mais apenas 'pessoas genéricas', é 'we, the people' (um contexto político forte, sugerindo a constituição dos EUA).
+
+> A atenção atualiza o significado de uma palavra misturando-a com as palavras relevantes do seu passado.`,
+    },
+    'en-us': {
+      title: `Attention in practice`,
+      body: `Let's see Attention operating on 'We the people' to predict the fourth word.
+
+1. **The current token:** the token 'people' is up to try and guess the future. It emits its Query.
+
+2. **Looking to the past:** the Query from 'people' strongly matches the Key from the token 'We'.
+
+3. **Absorbing context:** the token 'people' receives the Value from 'We'. Now, the vector representing 'people' has been modified. It is no longer just 'generic persons', it is 'we, the people' (a strong political context, suggesting the US Constitution).
+
+> Attention updates the meaning of a word by mixing it with relevant words from its past.`,
+    },
+  },
+  visual: {
+    id: 'attention-lines-diagram',
+    copy: {
+      "pt-br": {
+        "text": "We the people",
+        "strongLink": "Ligação Forte",
+        "weakLink": "Ligação Fraca"
+      },
+      "en-us": {
+        "text": "We the people",
+        "strongLink": "Strong Link",
+        "weakLink": "Weak Link"
+      }
+    },
+  },
+});

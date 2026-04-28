@@ -1,0 +1,202 @@
+import { defineSlide } from './_factory';
+
+export const linearRegressionPython1d = defineSlide({
+  id: 'linear-regression-python-1d',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.9,
+      1.1
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Regressão Linear em Python: treinando a primeira versão`,
+      body: `Agora sim vamos para o Python, mantendo o mesmo exemplo: prever **peso** a partir de **altura** e **idade**. Até aqui, usamos coeficientes fixados manualmente para entender a mecânica da previsão e do MSE; agora o código vai aprender seus próprios \`beta_0\`, \`beta_1\` e \`beta_2\` a partir dos dados.
+
+1. **A função da previsão:** a forma básica agora combina duas entradas com dois coeficientes e um intercepto. Aqui \`beta_0\` é o intercepto, ou seja, o valor base que aparece mesmo antes de considerar altura e idade.
+
+2. **As entradas e a saída:** altura e idade entram; peso sai. O modelo precisa aprender três números: \`beta_0\`, \`beta_1\` e \`beta_2\`.
+
+3. **O fluxo do treino:** calcular \`ŷ\`, medir o erro e ajustar os parâmetros um pouco de cada vez.
+
+4. **A leitura de programador:** \`predict\` calcula, \`mse\` mede, \`train\` corrige. É uma função, uma métrica e um loop.
+
+> Em Python, regressão linear continua simples: uma fórmula, um custo e uma rotina de ajuste.
+
+---
+
+\`\`\`python
+snippet:linear-regression/python-1d
+\`\`\`
+
+> O mesmo raciocínio dos slides anteriores aparece inteiro no código: entradas conhecidas, previsão \`ŷ\`, erro, custo e ajuste dos parâmetros.`,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      10
+    ],
+    "content": "Este bloco prepara o dataset de treino como uma lista de exemplos (entrada e saída real)."
+  },
+    {
+    "lineRange": [
+      11,
+      14
+    ],
+    "content": "Aqui a função `prever` implementa a fórmula linear com intercepto e coeficientes."
+  },
+    {
+    "lineRange": [
+      15,
+      23
+    ],
+    "content": "Este trecho calcula o MSE (Mean Squared Error), que é a média dos erros ao quadrado, ou seja, uma medida de quão errado o modelo está."
+  },
+    {
+    "lineRange": [
+      24,
+      29
+    ],
+    "content": "Aqui começa o treino: definimos hiperparâmetros (`epochs`, `lr`) e inicializamos os betas em zero."
+  },
+    {
+    "lineRange": [
+      30,
+      34
+    ],
+    "content": "Este bloco abre as épocas e zera os gradientes; gradiente é a direção e o tamanho da correção que cada parâmetro deve receber."
+  },
+    {
+    "lineRange": [
+      35,
+      41
+    ],
+    "content": "Para cada amostra, calculamos predição e erro, depois acumulamos contribuição de gradiente para cada beta."
+  },
+    {
+    "lineRange": [
+      42,
+      45
+    ],
+    "content": "Aqui tiramos a média dos gradientes dividindo por `n`, estabilizando o passo de atualização."
+  },
+    {
+    "lineRange": [
+      46,
+      49
+    ],
+    "content": "Este trecho aplica descida do gradiente: cada beta anda no sentido oposto ao erro, controlado por `lr`."
+  },
+    {
+    "lineRange": [
+      50,
+      52
+    ],
+    "content": "A função retorna os parâmetros finais já treinados."
+  },
+    {
+    "lineRange": [
+      53,
+      56
+    ],
+    "content": "Aqui chamamos o treino e exibimos o modelo final formatado para leitura humana."
+  }
+  ],
+    },
+    'en-us': {
+      title: `Linear Regression in Python: training the first version`,
+      body: `Now we move to Python while keeping the same example: predicting **weight** from **height** and **age**. Up to this point, we used manually fixed coefficients to understand the mechanics of prediction and MSE; now the code will learn its own \`beta_0\`, \`beta_1\`, and \`beta_2\` from data.
+
+1. **The prediction function:** the basic form now combines two inputs with two coefficients and one intercept. Here \`beta_0\` is the intercept, the base value added before height and age contribute.
+
+2. **Inputs and output:** height and age go in; weight comes out. The model needs to learn three numbers: \`beta_0\`, \`beta_1\`, and \`beta_2\`.
+
+3. **Training flow:** compute \`ŷ\`, measure the error, and adjust the parameters little by little.
+
+4. **Programmer reading:** \`predict\` calculates, \`mse\` measures, \`train\` corrects. It is one function, one metric, and one loop.
+
+> In Python, linear regression still stays simple: one formula, one cost, and one adjustment routine.
+
+---
+
+\`\`\`python
+snippet:linear-regression/python-1d
+\`\`\`
+
+> The same reasoning from the previous slides now appears end to end in code: known inputs, prediction \`ŷ\`, error, cost, and parameter adjustment.`,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      10
+    ],
+    "content": "This block prepares the training dataset as a list of examples (inputs plus true output)."
+  },
+    {
+    "lineRange": [
+      11,
+      14
+    ],
+    "content": "Here `predict` implements the linear formula with intercept and coefficients."
+  },
+    {
+    "lineRange": [
+      15,
+      23
+    ],
+    "content": "This part computes MSE (Mean Squared Error), the average of squared errors, which measures how wrong the model is."
+  },
+    {
+    "lineRange": [
+      24,
+      29
+    ],
+    "content": "Training starts here: we set hyperparameters (`epochs`, `lr`) and initialize betas at zero."
+  },
+    {
+    "lineRange": [
+      30,
+      34
+    ],
+    "content": "This opens epochs and resets gradients; gradient means the direction and magnitude of correction for each parameter."
+  },
+    {
+    "lineRange": [
+      35,
+      41
+    ],
+    "content": "For each sample, we compute prediction and error, then accumulate gradient contribution for each beta."
+  },
+    {
+    "lineRange": [
+      42,
+      45
+    ],
+    "content": "Here we average gradients by dividing by `n`, which stabilizes update size."
+  },
+    {
+    "lineRange": [
+      46,
+      49
+    ],
+    "content": "This is gradient descent: each beta moves opposite to error, scaled by `lr`."
+  },
+    {
+    "lineRange": [
+      50,
+      52
+    ],
+    "content": "The function returns final trained parameters."
+  },
+    {
+    "lineRange": [
+      53,
+      56
+    ],
+    "content": "Here we call training and print the final model in a readable format."
+  }
+  ],
+    },
+  },
+});

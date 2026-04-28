@@ -22,7 +22,10 @@ function getPairStats(corpus: string[][]): PairStats[] {
   const stats: Record<string, number> = {};
   for (const word of corpus) {
     for (let i = 0; i < word.length - 1; i++) {
-      const pairKey = `${word[i]}|${word[i + 1]}`;
+      const a = word[i];
+      const b = word[i + 1];
+      if (!a || !b) continue;
+      const pairKey = `${a}|${b}`;
       stats[pairKey] = (stats[pairKey] || 0) + 1;
     }
   }
@@ -39,20 +42,22 @@ function mergePair(targetPair: Pair, corpus: string[][]): string[][] {
     const newWord: string[] = [];
     let i = 0;
     while (i < word.length) {
+      const a = word[i];
+      const b = word[i + 1];
       if (
         i < word.length - 1 &&
-        word[i] === targetPair[0] &&
-        word[i + 1] === targetPair[1]
+        a === targetPair[0] &&
+        b === targetPair[1]
       ) {
-        newWord.push(word[i] + word[i + 1]);
+        newWord.push(a + b);
         i += 2;
       } else {
-        newWord.push(word[i]);
+        newWord.push(a);
         i++;
       }
     }
-    return newWord;
-  });
+    return newWord.filter(Boolean);
+  }).filter(word => word.length > 0);
 }
 
 export const BPEFrequencyTable = React.memo(({ copy }: BPEFrequencyTableProps) => {

@@ -1,0 +1,57 @@
+import { defineSlide } from './_factory';
+
+export const gpt2LayerByLayerXray = defineSlide({
+  id: 'gpt2-layer-by-layer-xray',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Raio-X: O fluxo completo`,
+      body: `Vamos olhar para o pipeline inteiro do GPT-2, do texto à previsão final.
+
+1. **Entrada:** O texto vira Tokens, que viram Embeddings, que ganham Posição.
+
+2. **A Torre (12 Blocos):** O vetor flui pela via expressa (residual). Em cada bloco, a Atenção busca contexto e o MLP deduz novas informações, somando tudo de volta na via.
+
+3. **Saída:** O vetor final do último bloco é multiplicado pelo vocabulário (Unembedding), passa pelo Softmax (ajustado por Temperatura), e o próximo token é sorteado.
+
+4. **Repetição:** O token sorteado é colado no texto inicial e tudo recomeça.
+
+> A arquitetura inteira é apenas um funil sofisticado focado em uma única pergunta: qual é a próxima palavra?`,
+    },
+    'en-us': {
+      title: `X-Ray: The complete flow`,
+      body: `Let's look at the entire GPT-2 pipeline, from text to final prediction.
+
+1. **Input:** Text becomes Tokens, which become Embeddings, which get Position.
+
+2. **The Tower (12 Blocks):** The vector flows down the highway (residual). In each block, Attention seeks context and MLP deduces new info, adding it back to the highway.
+
+3. **Output:** The final vector from the last block is multiplied by the vocabulary (Unembedding), passes through Softmax (adjusted by Temperature), and the next token is sampled.
+
+4. **Repeat:** The sampled token is glued to the initial text and everything restarts.
+
+> The entire architecture is just a sophisticated funnel focused on a single question: what is the next word?`,
+    },
+  },
+  visual: {
+    id: 'gpt2-full-architecture-diagram',
+    copy: {
+      "pt-br": {
+        "inputStage": "Tokenização & Embeddings",
+        "blocksStage": "Blocos do Transformer",
+        "outputStage": "Unembedding & Softmax"
+      },
+      "en-us": {
+        "inputStage": "Tokenization & Embeddings",
+        "blocksStage": "Transformer Blocks",
+        "outputStage": "Unembedding & Softmax"
+      }
+    },
+  },
+});

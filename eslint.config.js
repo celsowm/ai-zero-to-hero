@@ -19,5 +19,9 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      // Disable useless-escape check — backtick escaping in template literals is necessary
+      'no-useless-escape': 'off',
+    },
   },
 ])

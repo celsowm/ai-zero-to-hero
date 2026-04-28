@@ -1,0 +1,423 @@
+import { defineSlide } from './_factory';
+
+export const pythonPrereqExercises = defineSlide({
+  id: 'python-prereq-exercises',
+  type: 'exercise',
+  content: {
+    'pt-br': {
+      title: `Python Essencial: Exercícios práticos`,
+      body: `Reforce os conceitos fundamentais de Python com exercícios interativos. Complete o código e verifique sua resposta.`,
+    },
+    'en-us': {
+      title: `Python Essentials: Hands-on exercises`,
+      body: `Reinforce fundamental Python concepts with interactive exercises. Complete the code and check your answer.`,
+    },
+  },
+  visual: {
+    id: 'python-exercise',
+    copy: {
+      "pt-br": {
+        "title": "Exercícios práticos de Python",
+        "description": "Complete os trechos de código e execute para verificar se está correto.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Parabéns! Todos os testes passaram.",
+        "errorMessage": "Alguns testes falharam. Revise seu código.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída",
+        "exercises": [
+          {
+          "id": "1. Variáveis",
+          "instructions": "Crie as variáveis `altura` e `peso` com os valores que quiser e calcule o `imc` usando a fórmula: peso / (altura/100)².\n\nDepois imprima o resultado.",
+          "starterCode": "# complete as variáveis abaixo\naltura =  # em cm\npeso   =  # em kg\n\n# calcule o IMC\nimc = \n\nprint(imc)",
+          "validators": [
+            {
+            "type": "assertDerivedVariable",
+            "formulaId": "bmi",
+            "variableName": "imc",
+            "inputs": {
+              "altura": "altura",
+              "peso": "peso"
+            },
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertOutputMatchesVariable",
+            "variableName": "imc"
+          }
+          ],
+          "hints": [
+            "Você pode escolher qualquer altura e peso positivos.",
+            "A fórmula é: peso / ((altura/100) ** 2)"
+          ]
+        },
+          {
+          "id": "2. Listas",
+          "instructions": "Acesse o terceiro elemento da lista `alturas` e armazene em `terceira_altura`.\n\nUse a função `len()` para calcular `total_pessoas`.",
+          "starterCode": "alturas = [160, 165, 170, 155, 180]\n\n# acesse o terceiro elemento (índice 2)\nterceira_altura = \n\n# calcule o total de pessoas\ntotal_pessoas = \n\nprint(terceira_altura, total_pessoas)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "terceira_altura",
+            "expectedValue": 170
+          },
+            {
+            "type": "assertVariable",
+            "variableName": "total_pessoas",
+            "expectedValue": 5
+          },
+            {
+            "type": "assertOutput",
+            "expected": "170 5"
+          }
+          ],
+          "hints": [
+            "Em Python, índices começam em 0: o terceiro elemento está no índice 2",
+            "Use len(alturas) para obter o total"
+          ]
+        },
+          {
+          "id": "3. Funções",
+          "instructions": "Complete a função `predicao_peso` que recebe `altura` e `idade` e retorna a predição usando a fórmula:\n\n`beta0 + beta1 * altura + beta2 * idade`",
+          "starterCode": "beta0, beta1, beta2 = -21, 0.4, 0.6\n\ndef predicao_peso(altura, idade):\n    # complete o return\n    return \n\nprint(predicao_peso(160, 20))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predicao_peso",
+            "args": [
+              160,
+              20
+            ],
+            "expectedReturn": 55,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predicao_peso",
+            "args": [
+              170,
+              28
+            ],
+            "expectedReturn": 64.2,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertOutput",
+            "expected": "55"
+          }
+          ],
+          "hints": [
+            "A fórmula é: beta0 + beta1 * altura + beta2 * idade"
+          ]
+        },
+          {
+          "id": "4. Condicionais",
+          "instructions": "Classifique o peso como 'Leve', 'Médio' ou 'Pesado' usando condicionais.\n\n- até 55 kg → 'Leve'\n- até 65 kg → 'Médio'\n- acima de 65 kg → 'Pesado'",
+          "starterCode": "peso = 72\n\n# complete as condições\nif peso <= 55:\n    classificacao = 'Leve'\nelif peso <= 65:\n    classificacao = \nelse:\n    classificacao = \n\nprint(classificacao)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "classificacao",
+            "expectedValue": "Pesado"
+          },
+            {
+            "type": "assertOutput",
+            "expected": "Pesado"
+          }
+          ],
+          "hints": [
+            "O segundo caso (elif) deve ser 'Médio'",
+            "O else deve ser 'Pesado'"
+          ]
+        },
+          {
+          "id": "5. Loop com range",
+          "instructions": "Use um `for` com `range()` para calcular a soma dos números de 1 a 10 (inclusive).\n\nArmazene o resultado em `soma_total`.",
+          "starterCode": "soma_total = 0\n\n# use range para somar de 1 a 10\nfor i in range(    ):\n    # complete aqui\n\nprint(soma_total)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "soma_total",
+            "expectedValue": 55
+          },
+            {
+            "type": "assertOutput",
+            "expected": "55"
+          }
+          ],
+          "hints": [
+            "range(1, 11) gera números de 1 até 10",
+            "Dentro do loop: soma_total += i"
+          ]
+        },
+          {
+          "id": "6. Loop + acumulador",
+          "instructions": "Complete o loop para calcular a soma total dos pesos no dataset usando desempacotamento de tuplas.",
+          "starterCode": "dados = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\nsoma_pesos = 0\nfor altura, idade, peso in dados:\n    # complete aqui\n\nprint(soma_pesos)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "soma_pesos",
+            "expectedValue": 178
+          },
+            {
+            "type": "assertOutput",
+            "expected": "178"
+          }
+          ],
+          "hints": [
+            "Dentro do loop, adicione o peso ao acumulador: soma_pesos += peso"
+          ]
+        },
+          {
+          "id": "7. List comprehension",
+          "instructions": "Use uma **list comprehension** para criar a lista `idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `[20, 24, 28]`.",
+          "starterCode": "dados = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# crie a lista usando comprehension\nidades = \n\nprint(idades)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "idades",
+            "expectedValue": [
+              20,
+              24,
+              28
+            ]
+          },
+            {
+            "type": "assertOutput",
+            "expected": "[20, 24, 28]"
+          }
+          ],
+          "hints": [
+            "A forma geral é: [expressao for ... in colecao]",
+            "Você pode desempacotar as tuplas como `altura, idade, peso`",
+            "A expressão que entra na lista é `idade`"
+          ]
+        },
+          {
+          "id": "8. Sum com generator",
+          "instructions": "Use `sum(...)` com uma **generator expression** para calcular a variável `soma_idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `72`.",
+          "starterCode": "dados = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# some as idades com sum(...)\nsoma_idades = \n\nprint(soma_idades)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "soma_idades",
+            "expectedValue": 72
+          },
+            {
+            "type": "assertOutput",
+            "expected": "72"
+          }
+          ],
+          "hints": [
+            "A estrutura é: sum(expressao for ... in colecao)",
+            "A expressão a ser somada é `idade`",
+            "Você pode desempacotar as tuplas como `altura, idade, peso`"
+          ]
+        }
+        ]
+      },
+      "en-us": {
+        "title": "Hands-on Python exercises",
+        "description": "Complete the code snippets and run them to check if they are correct.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Congratulations! All tests passed.",
+        "errorMessage": "Some tests failed. Please review your code.",
+        "hintLabel": "Hint",
+        "outputLabel": "Output",
+        "exercises": [
+          {
+          "id": "1. Variables",
+          "instructions": "Create the variables `height` and `weight` with any values you want and calculate `bmi` using the formula: weight / (height/100)².\n\nThen print the result.",
+          "starterCode": "# complete the variables below\nheight =  # in cm\nweight =  # in kg\n\n# calculate BMI\nbmi = \n\nprint(bmi)",
+          "validators": [
+            {
+            "type": "assertDerivedVariable",
+            "formulaId": "bmi_en",
+            "variableName": "bmi",
+            "inputs": {
+              "height": "height",
+              "weight": "weight"
+            },
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertOutputMatchesVariable",
+            "variableName": "bmi"
+          }
+          ],
+          "hints": [
+            "You can choose any positive height and weight.",
+            "The formula is: weight / ((height/100) ** 2)"
+          ]
+        },
+          {
+          "id": "2. Lists",
+          "instructions": "Access the third element of the `heights` list and store it in `third_height`.\n\nUse the `len()` function to calculate `total_people`.",
+          "starterCode": "heights = [160, 165, 170, 155, 180]\n\n# access the third element (index 2)\nthird_height = \n\n# calculate the total number of people\ntotal_people = \n\nprint(third_height, total_people)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "third_height",
+            "expectedValue": 170
+          },
+            {
+            "type": "assertVariable",
+            "variableName": "total_people",
+            "expectedValue": 5
+          },
+            {
+            "type": "assertOutput",
+            "expected": "170 5"
+          }
+          ],
+          "hints": [
+            "In Python, indices start at 0: the third element is at index 2",
+            "Use len(heights) to get the total"
+          ]
+        },
+          {
+          "id": "3. Functions",
+          "instructions": "Complete the `predict_weight` function that receives `height` and `age` and returns the prediction using the formula:\n\n`beta0 + beta1 * height + beta2 * age`",
+          "starterCode": "beta0, beta1, beta2 = -21, 0.4, 0.6\n\ndef predict_weight(height, age):\n    # complete the return\n    return \n\nprint(predict_weight(160, 20))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_weight",
+            "args": [
+              160,
+              20
+            ],
+            "expectedReturn": 55,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_weight",
+            "args": [
+              170,
+              28
+            ],
+            "expectedReturn": 64.2,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertOutput",
+            "expected": "55"
+          }
+          ],
+          "hints": [
+            "The formula is: beta0 + beta1 * height + beta2 * age"
+          ]
+        },
+          {
+          "id": "4. Conditionals",
+          "instructions": "Classify the weight as 'Light', 'Medium' or 'Heavy' using conditionals.\n\n- up to 55 kg → 'Light'\n- up to 65 kg → 'Medium'\n- above 65 kg → 'Heavy'",
+          "starterCode": "weight = 72\n\n# complete the conditions\nif weight <= 55:\n    classification = 'Light'\nelif weight <= 65:\n    classification = \nelse:\n    classification = \n\nprint(classification)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "classification",
+            "expectedValue": "Heavy"
+          },
+            {
+            "type": "assertOutput",
+            "expected": "Heavy"
+          }
+          ],
+          "hints": [
+            "The second case (elif) should be 'Medium'",
+            "The else should be 'Heavy'"
+          ]
+        },
+          {
+          "id": "5. Loop with range",
+          "instructions": "Use a `for` loop with `range()` to calculate the sum of numbers from 1 to 10 (inclusive).\n\nStore the result in `total_sum`.",
+          "starterCode": "total_sum = 0\n\n# use range to sum from 1 to 10\nfor i in range(    ):\n    # complete here\n\nprint(total_sum)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "total_sum",
+            "expectedValue": 55
+          },
+            {
+            "type": "assertOutput",
+            "expected": "55"
+          }
+          ],
+          "hints": [
+            "range(1, 11) generates numbers from 1 to 10",
+            "Inside the loop: total_sum += i"
+          ]
+        },
+          {
+          "id": "6. Loop + accumulator",
+          "instructions": "Complete the loop to calculate the total sum of weights in the dataset using tuple unpacking.",
+          "starterCode": "data = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\ntotal_weight = 0\nfor height, age, weight in data:\n    # complete here\n\nprint(total_weight)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "total_weight",
+            "expectedValue": 178
+          },
+            {
+            "type": "assertOutput",
+            "expected": "178"
+          }
+          ],
+          "hints": [
+            "Inside the loop, add the weight to the accumulator: total_weight += weight"
+          ]
+        },
+          {
+          "id": "7. List comprehension",
+          "instructions": "Use a **list comprehension** to build the `ages` list from the second column of `data`.\n\nThe expected output is `[20, 24, 28]`.",
+          "starterCode": "data = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# build the list using comprehension\nages = \n\nprint(ages)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "ages",
+            "expectedValue": [
+              20,
+              24,
+              28
+            ]
+          },
+            {
+            "type": "assertOutput",
+            "expected": "[20, 24, 28]"
+          }
+          ],
+          "hints": [
+            "The general form is: [expression for ... in collection]",
+            "You can unpack tuples as `height, age, weight`",
+            "The expression that should go into the new list is `age`"
+          ]
+        },
+          {
+          "id": "8. Sum with generator",
+          "instructions": "Use `sum(...)` with a **generator expression** to compute the variable `sum_ages` from the second column of `data`.\n\nThe expected output is `72`.",
+          "starterCode": "data = [(160, 20, 55), (165, 24, 59), (170, 28, 64)]\n\n# sum the ages with sum(...)\nsum_ages = \n\nprint(sum_ages)",
+          "validators": [
+            {
+            "type": "assertVariable",
+            "variableName": "sum_ages",
+            "expectedValue": 72
+          },
+            {
+            "type": "assertOutput",
+            "expected": "72"
+          }
+          ],
+          "hints": [
+            "The structure is: sum(expression for ... in collection)",
+            "The expression to be added is `age`",
+            "You can unpack tuples as `height, age, weight`"
+          ]
+        }
+        ]
+      }
+    },
+  },
+});

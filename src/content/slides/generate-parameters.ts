@@ -1,0 +1,138 @@
+import { defineSlide } from './_factory';
+
+export const generateParameters = defineSlide({
+  id: 'generate-parameters',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.45,
+      0.55
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Controlando a geração: greedy, temperatura, top-k, top-p`,
+      body: `O \`generate()\` do GPT-2 não é uma caixa preta única. Ele tem **botões de controle** que mudam radicalmente o texto gerado.
+
+1. **Greedy:** sempre escolhe o token mais provável. Saída repetitiva e segura.
+2. **Temperatura alta (1.5):** achata a distribuição, tokens menos prováveis ganham chance.
+3. **Temperatura baixa (0.3):** concentra no topo, quase greedy.
+4. **Top-k (k=50):** filtra os 50 mais prováveis e amostra só entre eles.
+5. **Top-p (p=0.9):** filtra tokens cuja probabilidade cumulativa soma 90%.
+
+> Temperatura controla *o quanto* arriscar. Top-k/top-p controlam *quem* pode ser escolhido.
+
+---
+
+\`\`\`python
+snippet:transformers/generate-params
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      8
+    ],
+    "content": "Importamos tokenizer e modelo, preparamos o prompt e tokenizamos uma única vez para reutilizar em todas as estratégias."
+  },
+    {
+    "lineRange": [
+      11,
+      14
+    ],
+    "content": "Greedy (do_sample=False): sempre escolhe o token de maior probabilidade. Resultado determinístico e repetitivo."
+  },
+    {
+    "lineRange": [
+      17,
+      20
+    ],
+    "content": "Temperatura alta (1.5): achata a distribuição de probabilidade. Tokens improváveis ganham chance — texto mais criativo, às vezes sem sentido."
+  },
+    {
+    "lineRange": [
+      23,
+      26
+    ],
+    "content": "Temperatura baixa (0.3): concentra a probabilidade no topo. Comportamento quase idêntico ao greedy."
+  },
+    {
+    "lineRange": [
+      29,
+      32
+    ],
+    "content": "Top-k: filtra para os k tokens mais prováveis antes de amostrar. Remove a cauda longa de tokens improváveis."
+  },
+    {
+    "lineRange": [
+      35,
+      37
+    ],
+    "content": "Top-p (nucleus): seleciona tokens até somar p% da probabilidade cumulativa. Mais adaptativo que top-k."
+  }
+  ],
+    },
+    'en-us': {
+      title: `Controlling generation: greedy, temperature, top-k, top-p`,
+      body: `The \`generate()\` method of GPT-2 is not a single black box. It has **control knobs** that radically change the generated text.
+
+1. **Greedy:** always picks the most probable token. Repetitive but safe output.
+2. **High temperature (1.5):** flattens the distribution, less probable tokens get a chance.
+3. **Low temperature (0.3):** concentrates at the top, almost greedy.
+4. **Top-k (k=50):** filters to the 50 most probable tokens and samples only among them.
+5. **Top-p (p=0.9):** filters tokens whose cumulative probability sums to 90%.
+
+> Temperature controls *how much* to risk. Top-k/top-p control *who* can be chosen.
+
+---
+
+\`\`\`python
+snippet:transformers/generate-params
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      8
+    ],
+    "content": "We import tokenizer and model, prepare the prompt, and tokenize once to reuse across all strategies."
+  },
+    {
+    "lineRange": [
+      11,
+      14
+    ],
+    "content": "Greedy (do_sample=False): always chooses the highest probability token. Deterministic and repetitive result."
+  },
+    {
+    "lineRange": [
+      17,
+      20
+    ],
+    "content": "High temperature (1.5): flattens the probability distribution. Unlikely tokens get a chance — more creative text, sometimes nonsensical."
+  },
+    {
+    "lineRange": [
+      23,
+      26
+    ],
+    "content": "Low temperature (0.3): concentrates probability at the top. Behavior almost identical to greedy."
+  },
+    {
+    "lineRange": [
+      29,
+      32
+    ],
+    "content": "Top-k: filters to the k most probable tokens before sampling. Removes the long tail of unlikely tokens."
+  },
+    {
+    "lineRange": [
+      35,
+      37
+    ],
+    "content": "Top-p (nucleus): selects tokens until p% of cumulative probability is reached. More adaptive than top-k."
+  }
+  ],
+    },
+  },
+});

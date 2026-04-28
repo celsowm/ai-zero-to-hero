@@ -1,0 +1,335 @@
+import { defineSlide } from './_factory';
+
+export const pytorchBasicsExercise = defineSlide({
+  id: 'pytorch-basics-exercise',
+  type: 'exercise',
+  content: {
+    'pt-br': {
+      title: `Exercício: Manipulando Tensores`,
+      body: `Tensores são a alma do PyTorch e de qualquer framework de IA. Vamos praticar as operações básicas que você usará todo dia.`,
+    },
+    'en-us': {
+      title: `Exercise: Manipulating Tensors`,
+      body: `Tensors are the soul of PyTorch and any AI framework. Let's practice the basic operations you'll use every day.`,
+    },
+  },
+  visual: {
+    id: 'python-exercise',
+    copy: {
+      "pt-br": {
+        "title": "Exercício: PyTorch & Tensores",
+        "description": "Utilize NumPy (o motor por trás dos tensores) para praticar as transformações de dados.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Excelente! Você está pronto para manipular dados em redes neurais!",
+        "errorMessage": "O formato ou os valores do tensor estão incorretos.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída do Console",
+        "exercises": [
+          {
+          "id": "1. Reverse Engineering: Qual o shape?",
+          "instructions": "Você vê a **saída** de um tensor, mas não sabe como foi criado.\n\nDado o output abaixo, descubra qual chamada `np.zeros()` ou `np.ones()` o produziu.\n\n**Dica:** conte os colchetes — cada nível é uma dimensão.",
+          "starterCode": "import numpy as np\n\n# OUTPUT 1: o que você vê\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Pergunta: qual np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: outro mistério\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Pergunta: qual np.ones(...)?\n# shape = (?, ?, ?)\n\n# Crie os tensores e verifique:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (deveria produzir {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (deveria produzir {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nIguais? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Output 1: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]\n\nOutput 2: [[[1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]]\n\nt1.shape = (2, 3)  (deveria produzir 2x3)\nt2.shape = (1, 3, 2)  (deveria produzir 1x3x2)\n\nIguais? t1: True, t2: True"
+          }
+          ],
+          "hints": [
+            "Output 1: 2 linhas, 3 colunas → np.zeros((2, 3))",
+            "Output 2: 1 bloco, 3 linhas, 2 colunas → np.ones((1, 3, 2))"
+          ]
+        },
+          {
+          "id": "2. Operações e Reshape",
+          "instructions": "Dada uma matriz 2x2, multiplique todos os elementos por 10 e depois mude o shape para (4, 1).",
+          "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiplique data por 10\n    tensor = \n    # 2. mude o shape para (4, 1)\n    reshaped = \n    return reshaped\n\n# teste\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "process_tensor",
+            "args": [
+              [
+              [
+              1,
+              2
+            ],
+              [
+              3,
+              4
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              10
+            ],
+              [
+              20
+            ],
+              [
+              30
+            ],
+              [
+              40
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "Multiplicação: tensor = data * 10",
+            "Reshape: tensor.reshape(4, 1)"
+          ]
+        },
+          {
+          "id": "3. Fix the Bug: Broadcasting que falha",
+          "instructions": "Alguém quer somar um vetor de bias `(3,)` a cada linha de uma matriz `(3, 3)`. Mas o código quebra!\n\nRode e veja o erro. O problema é que o bias tem shape `(3,)` mas deveria ser `(3, 1)` para o broadcasting funcionar corretamente.\n\n**Desafio:** corrija o shape do bias para que o broadcasting funcione.",
+          "starterCode": "import numpy as np\n\ndef add_bias():\n    # Matriz de dados (3 amostras, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias com shape errado\n    bias = np.array([100, 200, 300], dtype=float)\n    # O broadcasting tenta somar bias a cada elemento...\n    # Para somar por coluna, bias precisa ser reshape!\n    \n    # CORRIGIDO: bias como coluna (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResultado com broadcasting corrigido:\")\nprint(add_bias())",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "add_bias",
+            "args": [
+
+            ],
+            "expectedReturn": [
+              [
+              101,
+              102,
+              103
+            ],
+              [
+              204,
+              205,
+              206
+            ],
+              [
+              307,
+              308,
+              309
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "bias.reshape(3, 1) transforma (3,) em (3,1) — uma coluna",
+            "Assim, broadcasting soma 100 na coluna 0, 200 na coluna 1, 300 na coluna 2."
+          ]
+        },
+          {
+          "id": "4. Simulação de Mini-Batch",
+          "instructions": "Simule um mini-batch de treino: crie 4 amostras com 3 features cada.\n\nCalcule a média de cada feature ao longo do batch (eixo 0).\n\nIsso simula o cálculo de estatísticas de batch usado em BatchNorm.",
+          "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch é um array (4, 3) - 4 amostras, 3 features\n    # calcule a média de cada feature\n    means = \n    # calcule o desvio padrão de cada feature\n    stds = \n    return means, stds\n\n# teste\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Médias: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "batch_stats",
+            "args": [
+              [
+              [
+              0.4967141530112327,
+              -0.13826430117118466,
+              0.6476885381006925
+            ],
+              [
+              1.5230298564080254,
+              -0.23415337472333597,
+              -0.23413695694918063
+            ],
+              [
+              1.5792128155073915,
+              0.7674347291529088,
+              -0.4694743859349521
+            ],
+              [
+              0.5425600435852064,
+              -0.46341769281246226,
+              -0.46572975357025687
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              1.035379,
+              0.232899,
+              -0.130413
+            ],
+              [
+              0.467107,
+              0.503349,
+              0.475829
+            ]
+            ],
+            "tolerance": 0.01
+          }
+          ],
+          "hints": [
+            "means = batch.mean(axis=0)",
+            "stds = batch.std(axis=0)"
+          ]
+        }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: PyTorch & Tensors",
+        "description": "Use NumPy (the engine behind tensors) to practice data transformations.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Excellent! You're ready to manipulate data in neural networks!",
+        "errorMessage": "The tensor format or values are incorrect.",
+        "hintLabel": "Hint",
+        "outputLabel": "Console Output",
+        "exercises": [
+          {
+          "id": "1. Reverse Engineering: What's the shape?",
+          "instructions": "You see the **output** of a tensor, but don't know how it was created.\n\nGiven the output below, figure out which `np.zeros()` or `np.ones()` call produced it.\n\n**Hint:** count the brackets — each nesting level is a dimension.",
+          "starterCode": "import numpy as np\n\n# OUTPUT 1: what you see\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Question: which np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: another mystery\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Question: which np.ones(...)?\n# shape = (?, ?, ?)\n\n# Create the tensors and verify:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (should produce {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (should produce {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nMatch? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Output 1: [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]\n\nOutput 2: [[[1.0, 1.0], [1.0, 1.0], [1.0, 1.0]]]\n\nt1.shape = (2, 3)  (should produce 2x3)\nt2.shape = (1, 3, 2)  (should produce 1x3x2)\n\nMatch? t1: True, t2: True"
+          }
+          ],
+          "hints": [
+            "Output 1: 2 rows, 3 cols → np.zeros((2, 3))",
+            "Output 2: 1 block, 3 rows, 2 cols → np.ones((1, 3, 2))"
+          ]
+        },
+          {
+          "id": "2. Operations and Reshape",
+          "instructions": "Given a 2x2 matrix, multiply all elements by 10 and then change the shape to (4, 1).",
+          "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiply data by 10\n    tensor = \n    # 2. change shape to (4, 1)\n    reshaped = \n    return reshaped\n\n# test\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "process_tensor",
+            "args": [
+              [
+              [
+              1,
+              2
+            ],
+              [
+              3,
+              4
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              10
+            ],
+              [
+              20
+            ],
+              [
+              30
+            ],
+              [
+              40
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "Multiplication: tensor = data * 10",
+            "Reshape: tensor.reshape(4, 1)"
+          ]
+        },
+          {
+          "id": "3. Fix the Bug: Broadcasting gone wrong",
+          "instructions": "Someone wants to add a bias vector `(3,)` to each row of a `(3, 3)` matrix. But the code fails!\n\nRun and see the error. The bias has shape `(3,)` but needs to be `(3, 1)` for broadcasting to work correctly.\n\n**Challenge:** fix the bias shape so broadcasting works.",
+          "starterCode": "import numpy as np\n\ndef add_bias():\n    # Data matrix (3 samples, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias with wrong shape\n    bias = np.array([100, 200, 300], dtype=float)\n    # Broadcasting tries to add bias to each element...\n    # To add per column, bias needs a reshape!\n    \n    # FIXED: bias as a column (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResult with fixed broadcasting:\")\nprint(add_bias())",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "add_bias",
+            "args": [
+
+            ],
+            "expectedReturn": [
+              [
+              101,
+              102,
+              103
+            ],
+              [
+              204,
+              205,
+              206
+            ],
+              [
+              307,
+              308,
+              309
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "bias.reshape(3, 1) turns (3,) into (3,1) — a column",
+            "Now broadcasting adds 100 to col 0, 200 to col 1, 300 to col 2."
+          ]
+        },
+          {
+          "id": "4. Mini-Batch Simulation",
+          "instructions": "Simulate a training mini-batch: create 4 samples with 3 features each.\n\nCalculate the mean of each feature across the batch (axis 0).\n\nThis simulates the batch statistics calculation used in BatchNorm.",
+          "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch is a (4, 3) array - 4 samples, 3 features\n    # calculate the mean of each feature\n    means = \n    # calculate the std of each feature\n    stds = \n    return means, stds\n\n# test\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Means: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "batch_stats",
+            "args": [
+              [
+              [
+              0.4967141530112327,
+              -0.13826430117118466,
+              0.6476885381006925
+            ],
+              [
+              1.5230298564080254,
+              -0.23415337472333597,
+              -0.23413695694918063
+            ],
+              [
+              1.5792128155073915,
+              0.7674347291529088,
+              -0.4694743859349521
+            ],
+              [
+              0.5425600435852064,
+              -0.46341769281246226,
+              -0.46572975357025687
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              1.035379,
+              0.232899,
+              -0.130413
+            ],
+              [
+              0.467107,
+              0.503349,
+              0.475829
+            ]
+            ],
+            "tolerance": 0.01
+          }
+          ],
+          "hints": [
+            "means = batch.mean(axis=0)",
+            "stds = batch.std(axis=0)"
+          ]
+        }
+        ]
+      }
+    },
+  },
+});

@@ -1,0 +1,55 @@
+import { defineSlide } from './_factory';
+
+export const mlpLanguageModel = defineSlide({
+  id: 'mlp-language-model',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Redes Neurais com texto (MLP)`,
+      body: `E se tentássemos prever o próximo token usando uma Rede Neural Comum (MLP), conectando todos os embeddings da janela de contexto nela?
+
+1. **A tentativa:** pegamos os vetores dos 5 tokens anteriores, colamos todos juntos num vetorzão gigante, e passamos pelo MLP para adivinhar o 6º.
+
+2. **O problema do tamanho rígido:** o MLP tem um número fixo de entradas. Ele não lida bem com frases de tamanhos variados. Se a frase tiver 3 palavras e o MLP esperar 5, temos um problema.
+
+3. **O problema da posição:** ele tem que reaprender que a palavra 'gato' significa a mesma coisa quer ela apareça na posição 1 ou na posição 5.
+
+> Redes Neurais Comuns lutam para entender a fluidez do texto.`,
+    },
+    'en-us': {
+      title: `Neural Networks with text (MLP)`,
+      body: `What if we tried predicting the next token using a standard Neural Network (MLP), connecting all context window embeddings into it?
+
+1. **The attempt:** we take the vectors of the 5 previous tokens, glue them into a giant vector, and pass them through the MLP to guess the 6th.
+
+2. **The rigid size problem:** the MLP has a fixed number of inputs. It does not handle varying sentence lengths well. If the sentence has 3 words and the MLP expects 5, we have a problem.
+
+3. **The position problem:** it has to relearn that the word 'cat' means the same thing whether it appears in position 1 or position 5.
+
+> Standard Neural Networks struggle to understand the fluidity of text.`,
+    },
+  },
+  visual: {
+    id: 'mlp-text-diagram',
+    copy: {
+      "pt-br": {
+        "inputSizeLabel": "Entradas fixas",
+        "sentence1": "o gato preto dormiu",
+        "sentence2": "o gato muito preto e elegante dormiu",
+        "errorLabel": "Erro: tamanho incompatível!"
+      },
+      "en-us": {
+        "inputSizeLabel": "Fixed inputs",
+        "sentence1": "the black cat slept",
+        "sentence2": "the very black and elegant cat slept",
+        "errorLabel": "Error: incompatible size!"
+      }
+    },
+  },
+});

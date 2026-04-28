@@ -3,33 +3,25 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const slidesDir = join(__dirname, '..', 'src', 'data', 'slides');
+const slidesDir = join(__dirname, '..', 'src', 'content', 'slides');
 
-const files = readdirSync(slidesDir).filter(f => f.endsWith('.json'));
+const files = readdirSync(slidesDir).filter(f => f.endsWith('.ts') && f !== '_factory.ts' && f !== 'index.ts');
 const ids = new Set();
 let hasError = false;
 
 for (const file of files) {
   const filePath = join(slidesDir, file);
   const raw = readFileSync(filePath, 'utf-8');
-  let json;
-  try {
-    json = JSON.parse(raw);
-  } catch {
-    console.error(`❌ ${file}: invalid JSON`);
-    hasError = true;
-    continue;
-  }
+  const idMatch = raw.match(/id:\s*['"](.+?)['"]/);
 
-  if (!json.id) {
+  if (!idMatch) {
     console.error(`❌ ${file}: missing "id" field`);
     hasError = true;
-  } else if (ids.has(json.id)) {
-    console.error(`❌ ${file}: duplicate id "${json.id}"`);
+  } else if (ids.has(idMatch[1])) {
+    console.error(`❌ ${file}: duplicate id "${idMatch[1]}"`);
     hasError = true;
   } else {
-    ids.add(json.id);
-    console.log(`✓ ${file}: id="${json.id}"`);
+    ids.add(idMatch[1]);
   }
 }
 

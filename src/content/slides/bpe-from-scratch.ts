@@ -1,0 +1,140 @@
+import { defineSlide } from './_factory';
+
+export const bpeFromScratch = defineSlide({
+  id: 'bpe-from-scratch',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.8,
+      1.2
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `BPE na mão: implementação completa`,
+      body: `Aqui está uma implementação completa de BPE em Python. O código é executado no navegador via Pyodide.
+
+### O Algoritmo em 4 Passos
+
+1. **Contar:** Identificar pares de caracteres que aparecem juntos com mais frequência.
+2. **Fundir:** Criar um novo símbolo unindo esse par em todo o texto.
+3. **Repetir:** Voltar ao passo 1 até atingir o número desejado de fusões.
+4. **Vocabulário:** O resultado é um conjunto de tokens que representam bem o seu texto.
+
+> Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.
+
+---
+
+\`\`\`python
+snippet:bpe/bpe-implementation
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      5,
+      14
+    ],
+    "content": "Esta função é o sensor do BPE. Ela percorre o texto usando uma janela deslizante para contar cada par de símbolos adjacentes. O corpus começa como caracteres individuais, mas conforme fundimos, os símbolos ficam maiores."
+  },
+    {
+    "lineRange": [
+      18,
+      34
+    ],
+    "content": "A função de fusão aplica a decisão tomada: ela substitui todas as ocorrências de um par de símbolos (ex: 'e', 'r') por um novo símbolo único (ex: 'er'). O uso do loop while permite pular o índice corretamente após cada fusão."
+  },
+    {
+    "lineRange": [
+      38,
+      44
+    ],
+    "content": "O vocabulário é reconstruído unindo os símbolos de cada palavra. Isso nos permite ver quais 'pedaços' de palavras o modelo aprendeu (como sufixos 'ing' ou prefixos 'un')."
+  },
+    {
+    "lineRange": [
+      49,
+      50
+    ],
+    "content": "Preparamos os dados de exemplo. Cada palavra é convertida em uma tupla de caracteres, que é a unidade atômica inicial do nosso tokenizador."
+  },
+    {
+    "lineRange": [
+      55,
+      69
+    ],
+    "content": "O loop principal executa o aprendizado: a cada passo, ele recalcula estatísticas, escolhe o par mais frequente (estratégia gananciosa) e atualiza o corpus e o vocabulário."
+  },
+    {
+    "lineRange": [
+      73,
+      75
+    ],
+    "content": "Finalmente, exibimos o vocabulário resultante. Note como o número total de símbolos aumentou em relação ao conjunto de caracteres original."
+  }
+  ],
+    },
+    'en-us': {
+      title: `BPE from scratch: full implementation`,
+      body: `Here is a complete BPE implementation in Python. The code runs in the browser via Pyodide.
+
+### The Algorithm in 4 Steps
+
+1. **Count:** Identify character pairs that appear together most frequently.
+2. **Merge:** Create a new symbol by joining this pair across the entire text.
+3. **Repeat:** Go back to step 1 until reaching the desired number of merges.
+4. **Vocabulary:** The result is a set of tokens that efficiently represent your text.
+
+> This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.
+
+---
+
+\`\`\`python
+snippet:bpe/bpe-implementation
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      5,
+      14
+    ],
+    "content": "This function is the BPE sensor. It traverses the text using a sliding window to count each adjacent symbol pair. The corpus starts as individual characters, but as we merge, the symbols grow larger."
+  },
+    {
+    "lineRange": [
+      18,
+      34
+    ],
+    "content": "The merge function applies the decision: it replaces all occurrences of a symbol pair (e.g., 'e', 'r') with a new unique symbol (e.g., 'er'). Using a while loop allows correctly skipping the index after each merge."
+  },
+    {
+    "lineRange": [
+      38,
+      44
+    ],
+    "content": "The vocabulary is reconstructed by joining the symbols of each word. This lets us see which 'chunks' of words the model has learned (like 'ing' suffixes or 'un' prefixes)."
+  },
+    {
+    "lineRange": [
+      49,
+      50
+    ],
+    "content": "We prepare example data. Each word is converted into a tuple of characters, which is the initial atomic unit of our tokenizer."
+  },
+    {
+    "lineRange": [
+      55,
+      69
+    ],
+    "content": "The main loop runs the learning: at each step, it recalculates stats, picks the most frequent pair (greedy strategy), and updates the corpus and vocabulary."
+  },
+    {
+    "lineRange": [
+      73,
+      75
+    ],
+    "content": "Finally, we display the resulting vocabulary. Notice how the total number of symbols has increased compared to the original character set."
+  }
+  ],
+    },
+  },
+});

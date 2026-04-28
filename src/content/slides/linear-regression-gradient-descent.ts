@@ -1,0 +1,73 @@
+import { defineSlide } from './_factory';
+
+export const linearRegressionGradientDescent = defineSlide({
+  id: 'linear-regression-gradient-descent',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.58,
+      0.42
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Regressão Linear: descendo o gradiente`,
+      body: `Agora a ideia deixa de ser apenas “ajustar um pouco” e passa a ter uma regra clara: caminhar na direção em que o custo cai mais rápido. No nosso exemplo, essa caminhada acontece sobre a superfície de custo formada pelas combinações possíveis de \`β₀\`, \`β₁\` e \`β₂\`.
+
+1. **Superfície de custo:** cada combinação de \`β₀\`, \`β₁\` e \`β₂\` vira uma altura no relevo.
+
+2. **Gradiente:** ele aponta para a subida mais íngreme; para descer, seguimos no sentido oposto.
+
+3. **Taxa de aprendizado:** controla o tamanho do passo. Passos pequenos evitam overshoot; passos grandes podem passar do ponto.
+
+4. **Menor custo:** repetindo o movimento, o modelo chega perto do vale em que a previsão de peso a partir de altura e idade erra menos.
+
+> Gradient descent é uma caminhada controlada até o ponto de menor erro.
+
+---`,
+    },
+    'en-us': {
+      title: `Linear Regression: descending the gradient`,
+      body: `Now the idea is no longer just “adjust a little” but a clear rule: move in the direction where the cost falls fastest. In our example, that walk happens over the cost surface formed by the possible combinations of \`β₀\`, \`β₁\`, and \`β₂\`.
+
+1. **Cost surface:** each combination of \`β₀\`, \`β₁\`, and \`β₂\` becomes a height on the terrain.
+
+2. **Gradient:** it points to the steepest uphill direction; to go down, we move in the opposite direction.
+
+3. **Learning rate:** controls the step size. Small steps avoid overshooting; large steps can skip past the minimum.
+
+4. **Lowest cost:** repeating the motion brings the model close to the valley where predicting weight from height and age makes the smallest error.
+
+> Gradient descent is a controlled walk toward the minimum error.
+
+---`,
+    },
+  },
+  visual: {
+    id: 'gradient-descent-3d',
+    copy: {
+      "pt-br": {
+        "diagramTitle": "Superfície de custo em 3D",
+        "diagramDescription": "O ponto inicial começa alto, o gradiente mostra a direção de maior subida e a trajetória segue o lado oposto com passos curtos até chegar perto do vale das melhores combinações de `β₀`, `β₁` e `β₂`.",
+        "surfaceLabel": "superfície de custo",
+        "gradientLabel": "gradiente",
+        "learningRateLabel": "taxa de aprendizado",
+        "minimumLabel": "menor custo",
+        "pathLabel": "trajetória da descida",
+        "startLabel": "ponto inicial",
+        "footerLabel": "Passos curtos e consistentes ajudam o modelo a ajustar `β₀`, `β₁` e `β₂` sem perder o rumo."
+      },
+      "en-us": {
+        "diagramTitle": "3D cost surface",
+        "diagramDescription": "The starting point begins high, the gradient shows the steepest uphill direction, and the path follows the opposite side with small steps until it reaches the valley of the best `β₀`, `β₁`, and `β₂` combinations.",
+        "surfaceLabel": "cost surface",
+        "gradientLabel": "gradient",
+        "learningRateLabel": "learning rate",
+        "minimumLabel": "lowest cost",
+        "pathLabel": "descent path",
+        "startLabel": "starting point",
+        "footerLabel": "Small, steady steps help the model adjust `β₀`, `β₁`, and `β₂` without losing direction."
+      }
+    },
+  },
+});

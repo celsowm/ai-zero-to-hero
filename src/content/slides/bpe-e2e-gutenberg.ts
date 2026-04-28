@@ -1,0 +1,116 @@
+import { defineSlide } from './_factory';
+
+export const bpeE2eGutenberg = defineSlide({
+  id: 'bpe-e2e-gutenberg',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.8,
+      1.2
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `E2E: BPE em livro real`,
+      body: `Agora vamos rodar BPE de verdade em texto de livros brasileiros e portugueses.
+
+### Corpus: Dom Casmurro + Os Lusíadas
+
+Neste exemplo, aplicamos o mesmo código a um conjunto de dados literário para observar como o algoritmo se comporta com a morfologia real da língua.
+
+- **Dom Casmurro** (Machado de Assis): prosa brasileira do século XIX.
+- **Os Lusíadas** (Camões): épico português do século XVI.
+
+> O BPE aprendeu tokens como \`naveg\`, \`assinal\`, \`Lusitan\` — pedaços que aparecem frequentemente no corpus literário.
+
+Compare com o exemplo anterior: agora os merges refletem a **morfologia real da língua portuguesa**, não apenas exemplos didáticos isolados.
+
+---
+
+\`\`\`python
+snippet:bpe/bpe-e2e-gutenberg
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      7,
+      32
+    ],
+    "content": "Reutilizamos as mesmas funções de contagem e fusão do slide anterior para mostrar que o algoritmo é idêntico em qualquer escala."
+  },
+    {
+    "lineRange": [
+      35,
+      70
+    ],
+    "content": "Carregamos textos clássicos da literatura em português. Note que limpamos o texto para focar na estrutura das palavras."
+  },
+    {
+    "lineRange": [
+      73,
+      98
+    ],
+    "content": "Executamos o loop BPE por 30 iterações. Aqui você verá o algoritmo 'descobrindo' prefixos e sufixos comuns no português."
+  },
+    {
+    "lineRange": [
+      101,
+      121
+    ],
+    "content": "O resultado final mostra tokens como 'naveg' ou 'assinal', provando que o BPE entende a morfologia da língua sem saber gramática."
+  }
+  ],
+    },
+    'en-us': {
+      title: `E2E: BPE on a real book`,
+      body: `Now let's run BPE for real on Brazilian and Portuguese book texts.
+
+### Corpus: Dom Casmurro + Os Lusíadas
+
+In this example, we apply the same code to a literary dataset to observe how the algorithm behaves with real language morphology.
+
+- **Dom Casmurro** (Machado de Assis): 19th century Brazilian prose.
+- **Os Lusíadas** (Camões): 16th century Portuguese epic.
+
+> BPE learned tokens like \`naveg\`, \`assinal\`, \`Lusitan\` — pieces that appear frequently in the literary corpus.
+
+Compare with the previous example: now the merges reflect the **real morphology of Portuguese**, not just isolated didactic examples.
+
+---
+
+\`\`\`python
+snippet:bpe/bpe-e2e-gutenberg
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      7,
+      32
+    ],
+    "content": "We reuse the same count and merge functions from the previous slide to show that the algorithm is identical at any scale."
+  },
+    {
+    "lineRange": [
+      35,
+      70
+    ],
+    "content": "We load classic Portuguese literature texts. Note that we clean the text to focus on word structure."
+  },
+    {
+    "lineRange": [
+      73,
+      98
+    ],
+    "content": "We run the BPE loop for 30 iterations. Here you'll see the algorithm 'discovering' common Portuguese prefixes and suffixes."
+  },
+    {
+    "lineRange": [
+      101,
+      121
+    ],
+    "content": "The final result shows tokens like 'naveg' or 'assinal', proving BPE understands language morphology without knowing grammar."
+  }
+  ],
+    },
+  },
+});

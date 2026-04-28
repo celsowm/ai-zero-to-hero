@@ -1,0 +1,279 @@
+import { defineSlide } from './_factory';
+
+export const pythonPrereqFunctions = defineSlide({
+  id: 'python-prereq-functions',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.95,
+      1.05
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Python Essencial: funções e return`,
+      body: `Com dados na mão, o próximo passo é organizar cálculo em função.
+
+1. **\`def\` cria a rotina:** nomeamos uma tarefa reutilizável.
+
+2. **Parâmetros entram como entradas:** a função recebe valores para trabalhar.
+
+3. **\`return\` devolve a saída:** o resultado sai pronto para reutilização.
+
+4. **Transição para IA:** a conta de predição já aparece como função curta.
+
+> Este padrão (entrada -> cálculo -> saída) volta em praticamente todo o curso.
+
+---
+
+### Exemplo de predição simples
+\`\`\`python
+snippet:python-prereq/functions
+\`\`\`
+
+- \`prever_peso\`: função de uma única conta
+- \`beta_*\`: coeficientes fixos neste exemplo
+- chamada da função: transforma entrada em predição`,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      1
+    ],
+    "content": "Aqui definimos a função com parâmetros para a predição de peso."
+  },
+    {
+    "lineRange": [
+      2,
+      3
+    ],
+    "content": "O corpo da função aplica a conta linear `beta0 + beta1 * altura` e devolve via `return`."
+  },
+    {
+    "lineRange": [
+      5,
+      5
+    ],
+    "content": "A chamada passa altura e coeficientes fixos, recebendo o peso previsto."
+  },
+    {
+    "lineRange": [
+      6,
+      6
+    ],
+    "content": "Imprime o resultado para conferência rápida."
+  }
+  ],
+    },
+    'en-us': {
+      title: `Python Essentials: functions and return`,
+      body: `Once data is ready, the next step is packaging calculations into functions.
+
+1. **\`def\` creates the routine:** we name a reusable task.
+
+2. **Parameters are the inputs:** the function receives values to process.
+
+3. **\`return\` sends output back:** the result is produced for reuse.
+
+4. **Bridge to AI:** prediction already appears as a short function.
+
+> This pattern (input -> computation -> output) appears across almost the entire course.
+
+---
+
+### Simple prediction example
+\`\`\`python
+snippet:python-prereq/functions
+\`\`\`
+
+- \`predict_weight\`: one-function calculation
+- \`beta_*\`: fixed coefficients in this example
+- function call: turns inputs into one prediction`,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      1
+    ],
+    "content": "This defines the function with parameters to predict weight."
+  },
+    {
+    "lineRange": [
+      2,
+      4
+    ],
+    "content": "The function body applies the linear calculation `beta0 + beta1 * height` and returns the result."
+  },
+    {
+    "lineRange": [
+      5,
+      5
+    ],
+    "content": "This call passes inputs and coefficients, producing the predicted weight."
+  },
+    {
+    "lineRange": [
+      6,
+      6
+    ],
+    "content": "This line prints the result for quick inspection."
+  }
+  ],
+    },
+  },
+  visual: {
+    id: 'python-prereq-tabs',
+    copy: {
+      "pt-br": {
+        "tabs": [
+          {
+          "label": "Código"
+        },
+          {
+          "label": "Gráfico interativo"
+        }
+        ],
+        "codePanel": {
+          "title": "Código: função de predição",
+          "description": "Função curta com parâmetros e retorno, conectando entrada a saída.",
+          "source": {
+            "snippetId": "python-prereq/functions",
+            "language": "python"
+          },
+          "codeExplanations": [
+            {
+            "lineRange": [
+              1,
+              2
+            ],
+            "content": "Aqui definimos a função com parâmetros e devolvemos a predição via `return`."
+          },
+            {
+            "lineRange": [
+              3,
+              5
+            ],
+            "content": "Estas linhas fixam coeficientes para demonstrar uso da função sem etapa de treino."
+          },
+            {
+            "lineRange": [
+              6,
+              6
+            ],
+            "content": "A chamada passa altura, idade e coeficientes, recebendo o peso previsto."
+          },
+            {
+            "lineRange": [
+              7,
+              7
+            ],
+            "content": "A linha imprime o resultado formatado para leitura rápida."
+          }
+          ]
+        },
+        "graphPanel": {
+          "type": "functions",
+          "title": "Predição ao variar entrada",
+          "description": "Ajuste altura e idade para ver como a função muda a saída prevista.",
+          "xLabel": "Altura",
+          "yLabel": "Peso previsto",
+          "heightLabel": "Altura de entrada",
+          "ageLabel": "Idade de entrada",
+          "predictionLabel": "Predição atual",
+          "formulaLabel": "Fórmula ativa",
+          "heightRange": [
+            150,
+            190
+          ],
+          "ageRange": [
+            18,
+            60
+          ],
+          "initialHeight": 172,
+          "initialAge": 29,
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "A função mantém a estrutura; o que muda são os valores de entrada e os coeficientes."
+      },
+      "en-us": {
+        "tabs": [
+          {
+          "label": "Code"
+        },
+          {
+          "label": "Interactive chart"
+        }
+        ],
+        "codePanel": {
+          "title": "Code: prediction function",
+          "description": "A short function with parameters and return, connecting inputs to outputs.",
+          "source": {
+            "snippetId": "python-prereq/functions",
+            "language": "python"
+          },
+          "codeExplanations": [
+            {
+            "lineRange": [
+              1,
+              2
+            ],
+            "content": "This defines the function with parameters and returns one prediction value."
+          },
+            {
+            "lineRange": [
+              3,
+              5
+            ],
+            "content": "These lines set fixed coefficients only to demonstrate function usage before training."
+          },
+            {
+            "lineRange": [
+              6,
+              6
+            ],
+            "content": "This call passes inputs and coefficients, producing the predicted weight."
+          },
+            {
+            "lineRange": [
+              7,
+              7
+            ],
+            "content": "This line prints the formatted result for quick inspection."
+          }
+          ]
+        },
+        "graphPanel": {
+          "type": "functions",
+          "title": "Prediction while inputs change",
+          "description": "Adjust height and age to see how the function changes predicted output.",
+          "xLabel": "Height",
+          "yLabel": "Predicted weight",
+          "heightLabel": "Input height",
+          "ageLabel": "Input age",
+          "predictionLabel": "Current prediction",
+          "formulaLabel": "Active formula",
+          "heightRange": [
+            150,
+            190
+          ],
+          "ageRange": [
+            18,
+            60
+          ],
+          "initialHeight": 172,
+          "initialAge": 29,
+          "coefficients": {
+            "beta0": -21,
+            "beta1": 0.4,
+            "beta2": 0.6
+          }
+        },
+        "footer": "The function keeps the same structure; what changes are inputs and coefficients."
+      }
+    },
+  },
+});

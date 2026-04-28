@@ -1,0 +1,55 @@
+import { defineSlide } from './_factory';
+
+export const multiheadAttention = defineSlide({
+  id: 'multihead-attention',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Várias perspectivas (Múltiplas Cabeças)`,
+      body: `Uma única busca por atenção não é suficiente. Um token pode precisar se conectar com outros por várias razões diferentes.
+
+1. **Múltiplos objetivos:** o token 'people' pode querer procurar pelo sujeito da frase (gramática), pelo tom emocional (sentimento), ou por rimas (poesia).
+
+2. **Múltiplas Cabeças (Heads):** em vez de uma só, o Transformer divide o vetor de atenção em várias 'cabeças' menores que operam em paralelo. No GPT-2 pequeno, são 12 cabeças.
+
+3. **Especialização:** uma cabeça pode se especializar em achar pronomes, outra em pontuação. Depois, os resultados de todas as cabeças são colados juntos novamente.
+
+> Múltiplas cabeças de atenção permitem que o modelo analise a mesma frase por várias lentes simultaneamente.`,
+    },
+    'en-us': {
+      title: `Multiple perspectives (Multi-head)`,
+      body: `A single attention search is not enough. A token might need to connect with others for several different reasons.
+
+1. **Multiple goals:** the token 'people' might want to look for the subject of the sentence (grammar), for the emotional tone (sentiment), or for rhymes (poetry).
+
+2. **Multiple Heads:** instead of just one, the Transformer splits the attention vector into several smaller 'heads' operating in parallel. In small GPT-2, there are 12 heads.
+
+3. **Specialization:** one head might specialize in finding pronouns, another in punctuation. Afterwards, the results of all heads are glued back together.
+
+> Multi-head attention allows the model to analyze the same sentence through multiple lenses simultaneously.`,
+    },
+  },
+  visual: {
+    id: 'multihead-diagram',
+    copy: {
+      "pt-br": {
+        "head1": "Cabeça 1: Gramática",
+        "head2": "Cabeça 2: Emoção",
+        "head3": "Cabeça 3: Entidade",
+        "combined": "Atenção Combinada"
+      },
+      "en-us": {
+        "head1": "Head 1: Grammar",
+        "head2": "Head 2: Emotion",
+        "head3": "Head 3: Entity",
+        "combined": "Combined Attention"
+      }
+    },
+  },
+});

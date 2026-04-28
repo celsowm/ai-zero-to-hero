@@ -1,0 +1,221 @@
+import { defineSlide } from './_factory';
+
+export const nnProblem = defineSlide({
+  id: 'nn-problem',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.42,
+      0.58
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `O Problema de Classificação`,
+      body: `Imagine que temos dados históricos de pacientes com 4 características:
+
+1. **Idade** (normalizada 0–1)
+2. **Pressão Arterial** (normalizada)
+3. **Nível de Colesterol** (normalizada)
+4. **Fumante** (0 = não, 1 = sim)
+
+Nosso objetivo é treinar uma Rede Neural para prever se um novo paciente pertence à classe **Baixo Risco (0)** ou **Alto Risco (1)**.
+
+### O que observar no visual à direita
+- **Tabela**: cada linha é um paciente. Passe o mouse para destacar.
+- **Gráfico**: idade × colesterol — veja como as classes se separam no espaço.
+
+> Backpropagation é o mecanismo que permite a rede aprender essa fronteira de decisão.`,
+    },
+    'en-us': {
+      title: `The Classification Problem`,
+      body: `Imagine we have historical patient data with 4 features:
+
+1. **Age** (normalized 0–1)
+2. **Blood Pressure** (normalized)
+3. **Cholesterol Level** (normalized)
+4. **Smoker** (0 = no, 1 = yes)
+
+Our goal is to train a Neural Network to predict whether a new patient belongs to class **Low Risk (0)** or **High Risk (1)**.
+
+### What to watch in the visual
+- **Table**: each row is a patient. Hover to highlight.
+- **Scatter plot**: age × cholesterol — see how classes separate in the feature space.
+
+> Backpropagation is the mechanism that allows the network to learn this decision boundary.`,
+    },
+  },
+  visual: {
+    id: 'classification-problem',
+    copy: {
+      "pt-br": {
+        "title": "Dados dos Pacientes",
+        "subtitle": "6 amostras, 4 features, 2 classes",
+        "tableTitle": "📋 Dataset — Pacientes",
+        "tableCaption": "Tabela com dados de 6 pacientes e sua classificação de risco",
+        "columns": [
+          "idade",
+          "pressão",
+          "colesterol",
+          "fumante"
+        ],
+        "rows": [
+          {
+          "label": "Paciente A",
+          "values": [
+            "0.35",
+            "0.60",
+            "0.58",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Paciente B",
+          "values": [
+            "0.42",
+            "0.65",
+            "0.62",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Paciente C",
+          "values": [
+            "0.48",
+            "0.70",
+            "0.68",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Paciente D",
+          "values": [
+            "0.58",
+            "0.78",
+            "0.82",
+            "1.0"
+          ],
+          "target": 1
+        },
+          {
+          "label": "Paciente E",
+          "values": [
+            "0.67",
+            "0.84",
+            "0.88",
+            "1.0"
+          ],
+          "target": 1
+        },
+          {
+          "label": "Paciente F",
+          "values": [
+            "0.73",
+            "0.90",
+            "0.93",
+            "1.0"
+          ],
+          "target": 1
+        }
+        ],
+        "class0Label": "Baixo Risco",
+        "class1Label": "Alto Risco",
+        "class0Color": "#22c55e",
+        "class1Color": "#ef4444",
+        "scatterTitle": "Idade × Colesterol — Espaço de Features",
+        "scatterXLabel": "Idade (normalizada)",
+        "scatterYLabel": "Colesterol (normalizada)",
+        "scatterTooltip0": "Paciente de baixo risco",
+        "scatterTooltip1": "Paciente de alto risco",
+        "footerNote": "Passe o mouse sobre uma linha ou ponto para destacar o paciente correspondente em ambas as visualizações."
+      },
+      "en-us": {
+        "title": "Patient Data",
+        "subtitle": "6 samples, 4 features, 2 classes",
+        "tableTitle": "📋 Dataset — Patients",
+        "tableCaption": "Table with data from 6 patients and their risk classification",
+        "columns": [
+          "age",
+          "pressure",
+          "cholesterol",
+          "smoker"
+        ],
+        "rows": [
+          {
+          "label": "Patient A",
+          "values": [
+            "0.35",
+            "0.60",
+            "0.58",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Patient B",
+          "values": [
+            "0.42",
+            "0.65",
+            "0.62",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Patient C",
+          "values": [
+            "0.48",
+            "0.70",
+            "0.68",
+            "0.0"
+          ],
+          "target": 0
+        },
+          {
+          "label": "Patient D",
+          "values": [
+            "0.58",
+            "0.78",
+            "0.82",
+            "1.0"
+          ],
+          "target": 1
+        },
+          {
+          "label": "Patient E",
+          "values": [
+            "0.67",
+            "0.84",
+            "0.88",
+            "1.0"
+          ],
+          "target": 1
+        },
+          {
+          "label": "Patient F",
+          "values": [
+            "0.73",
+            "0.90",
+            "0.93",
+            "1.0"
+          ],
+          "target": 1
+        }
+        ],
+        "class0Label": "Low Risk",
+        "class1Label": "High Risk",
+        "class0Color": "#22c55e",
+        "class1Color": "#ef4444",
+        "scatterTitle": "Age × Cholesterol — Feature Space",
+        "scatterXLabel": "Age (normalized)",
+        "scatterYLabel": "Cholesterol (normalized)",
+        "scatterTooltip0": "Low risk patient",
+        "scatterTooltip1": "High risk patient",
+        "footerNote": "Hover over a row or point to highlight the corresponding patient in both views."
+      }
+    },
+  },
+});

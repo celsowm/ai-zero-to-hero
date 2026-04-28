@@ -1,0 +1,114 @@
+import { defineSlide } from './_factory';
+
+export const tokenizerInternalsHf = defineSlide({
+  id: 'tokenizer-internals-hf',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.55,
+      0.45
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Por dentro do AutoTokenizer`,
+      body: `O tokenizer é a ponte entre texto humano e números que o modelo entende. Vamos abrir a caixa preta.
+
+1. **\`tokenize()\`:** quebra o texto em pedaços visuais. O GPT-2 usa BPE, então palavras raras viram sub-palavras.
+
+2. **\`encode()\`:** converte tokens em IDs numéricos. Cada ID aponta para uma posição no vocabulário de 50.257 entradas.
+
+3. **\`decode()\`:** reverte IDs de volta para texto. É a operação inversa do encode.
+
+4. **Metadados do tokenizer:** \`vocab_size\`, \`model_max_length\`, \`all_special_tokens\`.
+
+> Cada modelo tem seu próprio tokenizer. Você não pode trocar o tokenizer de um modelo com outro — os IDs não vão bater.
+
+---
+
+\`\`\`python
+snippet:transformers/tokenizer-internals
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      3
+    ],
+    "content": "Importamos e carregamos o tokenizer do GPT-2. Na primeira chamada, ele baixa vocabulário e merges do Hub."
+  },
+    {
+    "lineRange": [
+      5,
+      8
+    ],
+    "content": "Texto misto (inglês+português) para observar como o BPE lida com caracteres diferentes. Tokenize, encode e decode são as três operações fundamentais."
+  },
+    {
+    "lineRange": [
+      10,
+      14
+    ],
+    "content": "Imprimimos cada representação do mesmo texto para comparar: texto original, tokens visuais, IDs numéricos e texto decodificado."
+  },
+    {
+    "lineRange": [
+      15,
+      18
+    ],
+    "content": "Metadados essenciais: vocab_size (50257 no GPT-2), model_max_length (1024), tokens especiais como eos/unk/bos/pad."
+  }
+  ],
+    },
+    'en-us': {
+      title: `Inside the AutoTokenizer`,
+      body: `The tokenizer is the bridge between human text and the numbers the model understands. Let's open the black box.
+
+1. **\`tokenize()\`:** breaks text into visual pieces. GPT-2 uses BPE, so rare words become sub-words.
+
+2. **\`encode()\`:** converts tokens to numeric IDs. Each ID points to a position in the 50,257-entry vocabulary.
+
+3. **\`decode()\`:** reverses IDs back to text. It's the inverse operation of encode.
+
+4. **Tokenizer metadata:** \`vocab_size\`, \`model_max_length\`, \`all_special_tokens\`.
+
+> Each model has its own tokenizer. You can't swap a tokenizer from one model to another — the IDs won't match.
+
+---
+
+\`\`\`python
+snippet:transformers/tokenizer-internals
+\`\`\``,
+      codeExplanations: [
+    {
+    "lineRange": [
+      1,
+      3
+    ],
+    "content": "We import and load the GPT-2 tokenizer. On first call, it downloads vocabulary and merge files from the Hub."
+  },
+    {
+    "lineRange": [
+      5,
+      8
+    ],
+    "content": "Mixed text (English+Portuguese) to observe how BPE handles different characters. Tokenize, encode, and decode are the three fundamental operations."
+  },
+    {
+    "lineRange": [
+      10,
+      14
+    ],
+    "content": "We print each representation of the same text to compare: original text, visual tokens, numeric IDs, and decoded text."
+  },
+    {
+    "lineRange": [
+      15,
+      18
+    ],
+    "content": "Essential metadata: vocab_size (50257 in GPT-2), model_max_length (1024), special tokens like eos/unk/bos/pad."
+  }
+  ],
+    },
+  },
+});

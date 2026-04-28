@@ -1,0 +1,245 @@
+import { defineSlide } from './_factory';
+
+export const bpeExercise = defineSlide({
+  id: 'bpe-exercise',
+  type: 'exercise',
+  content: {
+    'pt-br': {
+      title: `Exercício: Seu próprio tokenizador`,
+      body: `Agora é sua vez! Complete o código BPE e veja como o tokenizador funciona na prática.`,
+    },
+    'en-us': {
+      title: `Exercise: Your own tokenizer`,
+      body: `Now it's your turn! Complete the BPE code and see how the tokenizer works in practice.`,
+    },
+  },
+  visual: {
+    id: 'python-exercise',
+    copy: {
+      "pt-br": {
+        "title": "Exercício: Tokenizador BPE",
+        "description": "Complete as funções BPE e execute para tokenizar seu próprio texto.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Parabéns! Tokenização correta!",
+        "errorMessage": "Alguns testes falharam. Revise seu código.",
+        "hintLabel": "Dica",
+        "outputLabel": "Tokens gerados",
+        "exercises": [
+          {
+          "id": "1. Contar pares",
+          "instructions": "Complete a função `get_stats(corpus)` que recebe uma lista de palavras (cada uma como tupla de símbolos) e retorna um dicionário com a contagem de todos os pares adjacentes.\n\nExemplo: `('l','o','w')` → pares `('l','o')` e `('o','w')`.",
+          "starterCode": "def get_stats(corpus):\n    stats = {}\n    for word in corpus:\n        for i in range(len(word) - 1):\n            # complete: conte o par (word[i], word[i+1])\n            pair = \n            stats[pair] = stats.get(pair, 0) + \n    return stats\n\n# teste\ncorpus = [('l','o','w'), ('l','o','w','e','r')]\nprint(get_stats(corpus))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "get_stats",
+            "args": [
+              [
+              [
+              "l",
+              "o",
+              "w"
+            ],
+              [
+              "l",
+              "o",
+              "w",
+              "e",
+              "r"
+            ]
+            ]
+            ],
+            "expectedReturn": {
+              "('l', 'o')": 2,
+              "('o', 'w')": 2,
+              "('w', 'e')": 1,
+              "('e', 'r')": 1
+            },
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "O par é: pair = (word[i], word[i+1])",
+            "Incremento: stats[pair] = stats.get(pair, 0) + 1"
+          ]
+        },
+          {
+          "id": "2. Fundir par",
+          "instructions": "Complete a função `merge_pair(pair, corpus)` que recebe um par de símbolos e um corpus, e retorna o corpus com todas as ocorrências desse par fundidas em um único símbolo.\n\nExemplo: merge `('e','r')` em `'n e w e r'` → `'n e w er'`.",
+          "starterCode": "def merge_pair(pair, corpus):\n    merged = []\n    for word in corpus:\n        new_word = []\n        i = 0\n        while i < len(word):\n            # complete: se o par corresponde, funde\n            if i < len(word) - 1 and word[i] == pair[0] and word[i+1] == pair[1]:\n                new_word.append(\n                i += \n            else:\n                new_word.append(word[i])\n                i += 1\n        merged.append(tuple(new_word))\n    return merged\n\n# teste\ncorpus = [('l','o','w'), ('l','o','w','e','r')]\nprint(merge_pair(('o','w'), corpus))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "merge_pair",
+            "args": [
+              [
+              "o",
+              "w"
+            ],
+              [
+              [
+              "l",
+              "o",
+              "w"
+            ],
+              [
+              "l",
+              "o",
+              "w",
+              "e",
+              "r"
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              "l",
+              "ow"
+            ],
+              [
+              "l",
+              "ow",
+              "e",
+              "r"
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "Fusão: new_word.append(word[i] + word[i+1])",
+            "Avance 2 posições: i += 2"
+          ]
+        },
+          {
+          "id": "3. BPE completo",
+          "instructions": "Junte tudo! Execute BPE no corpus de exemplo por 10 merges e veja o vocabulário final.\n\nO código já está completo — apenas execute para ver o resultado.",
+          "starterCode": "# BPE completo\ncorpus = 'low lower newer newest'.split()\nword_freq = {w: 1 for w in corpus}\n\n# prepara vocab inicial\nvocab = {tuple(w): 0 for w in corpus}\n\n# converte para lista de tuplas\ncorpus_tuples = [tuple(w) for w in corpus]\n\nnum_merges = 10\nfor i in range(num_merges):\n    # conta pares\n    stats = get_stats(corpus_tuples)\n    if not stats:\n        break\n    # acha par mais frequente\n    best = max(stats, key=stats.get)\n    # faz merge\n    corpus_tuples = merge_pair(best, corpus_tuples)\n    vocab[best] = i + 1\n\nprint(f'Merge {i+1}: {best}')\nprint(f'Vocabulario final: {len(vocab)} simbolos')\nfor symbol, idx in sorted(vocab.items(), key=lambda x: x[1]):\n    if idx > 0:\n        print(f'  Merge {idx}: {\"\".join(symbol)}')",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Merge 1: ('e', 'r')\nMerge 2: ('n', 'ew')\nMerge 3: ('low', 'er')\nMerge 4: ('low', 'est')\nVocabulario final: 9 simbolos\n  Merge 1: er\n  Merge 2: new\n  Merge 3: lower\n  Merge 4: lowest"
+          }
+          ],
+          "hints": [
+            "Este exercício já está completo. Execute para ver o resultado!"
+          ]
+        }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: BPE Tokenizer",
+        "description": "Complete the BPE functions and run them to tokenize your own text.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Congratulations! Correct tokenization!",
+        "errorMessage": "Some tests failed. Please review your code.",
+        "hintLabel": "Hint",
+        "outputLabel": "Generated tokens",
+        "exercises": [
+          {
+          "id": "1. Count pairs",
+          "instructions": "Complete the `get_stats(corpus)` function that receives a list of words (each as a tuple of symbols) and returns a dictionary with the count of all adjacent pairs.\n\nExample: `('l','o','w')` → pairs `('l','o')` and `('o','w')`.",
+          "starterCode": "def get_stats(corpus):\n    stats = {}\n    for word in corpus:\n        for i in range(len(word) - 1):\n            # complete: count pair (word[i], word[i+1])\n            pair = \n            stats[pair] = stats.get(pair, 0) + \n    return stats\n\n# test\ncorpus = [('l','o','w'), ('l','o','w','e','r')]\nprint(get_stats(corpus))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "get_stats",
+            "args": [
+              [
+              [
+              "l",
+              "o",
+              "w"
+            ],
+              [
+              "l",
+              "o",
+              "w",
+              "e",
+              "r"
+            ]
+            ]
+            ],
+            "expectedReturn": {
+              "('l', 'o')": 2,
+              "('o', 'w')": 2,
+              "('w', 'e')": 1,
+              "('e', 'r')": 1
+            },
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "The pair is: pair = (word[i], word[i+1])",
+            "Increment: stats[pair] = stats.get(pair, 0) + 1"
+          ]
+        },
+          {
+          "id": "2. Merge pair",
+          "instructions": "Complete the `merge_pair(pair, corpus)` function that receives a pair of symbols and a corpus, and returns the corpus with all occurrences of that pair merged into a single symbol.\n\nExample: merge `('e','r')` in `'n e w e r'` → `'n e w er'`.",
+          "starterCode": "def merge_pair(pair, corpus):\n    merged = []\n    for word in corpus:\n        new_word = []\n        i = 0\n        while i < len(word):\n            # complete: if pair matches, merge\n            if i < len(word) - 1 and word[i] == pair[0] and word[i+1] == pair[1]:\n                new_word.append(\n                i += \n            else:\n                new_word.append(word[i])\n                i += 1\n        merged.append(tuple(new_word))\n    return merged\n\n# test\ncorpus = [('l','o','w'), ('l','o','w','e','r')]\nprint(merge_pair(('o','w'), corpus))",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "merge_pair",
+            "args": [
+              [
+              "o",
+              "w"
+            ],
+              [
+              [
+              "l",
+              "o",
+              "w"
+            ],
+              [
+              "l",
+              "o",
+              "w",
+              "e",
+              "r"
+            ]
+            ]
+            ],
+            "expectedReturn": [
+              [
+              "l",
+              "ow"
+            ],
+              [
+              "l",
+              "ow",
+              "e",
+              "r"
+            ]
+            ],
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "Merge: new_word.append(word[i] + word[i+1])",
+            "Advance 2 positions: i += 2"
+          ]
+        },
+          {
+          "id": "3. Full BPE",
+          "instructions": "Put it all together! Run BPE on the example corpus for 10 merges and see the final vocabulary.\n\nThe code is already complete — just run it to see the result.",
+          "starterCode": "# Full BPE\ncorpus = 'low lower newer newest'.split()\nword_freq = {w: 1 for w in corpus}\n\n# prepare initial vocabulary\nvocab = {tuple(w): 0 for w in corpus}\n\n# convert to list of tuples\ncorpus_tuples = [tuple(w) for w in corpus]\n\nnum_merges = 10\nfor i in range(num_merges):\n    # count pairs\n    stats = get_stats(corpus_tuples)\n    if not stats:\n        break\n    # find most frequent pair\n    best = max(stats, key=stats.get)\n    # merge\n    corpus_tuples = merge_pair(best, corpus_tuples)\n    vocab[best] = i + 1\n\nprint(f'Merge {i+1}: {best}')\nprint(f'Final vocabulary: {len(vocab)} symbols')\nfor symbol, idx in sorted(vocab.items(), key=lambda x: x[1]):\n    if idx > 0:\n        print(f'  Merge {idx}: {\"\".join(symbol)}')",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Merge 1: ('e', 'r')\nMerge 2: ('n', 'ew')\nMerge 3: ('low', 'er')\nMerge 4: ('low', 'est')\nFinal vocabulary: 9 symbols\n  Merge 1: er\n  Merge 2: new\n  Merge 3: lower\n  Merge 4: lowest"
+          }
+          ],
+          "hints": [
+            "This exercise is already complete. Run it to see the result!"
+          ]
+        }
+        ]
+      }
+    },
+  },
+});

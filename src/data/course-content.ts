@@ -1,10 +1,11 @@
-import type { ISlide, Language, LocalizedImageCopy, SlideVisual } from '../types/slide';
+import type { ISlide, Language, LocalizedImageCopy } from '../types/slide';
 import huggingFaceLogoSynthwave from '../assets/hf-logo-synthwave.svg';
 import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
 import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
 import { courseSlideOrder } from './course-outline';
+import { allSlides } from '../content/slides';
 
-// Slide asset registry
+// Slide asset registry — slides that reference assets by key need resolution
 const assetRegistry = {
   huggingFaceLogoSynthwave,
   traditionalVsAiPtBr,
@@ -13,57 +14,35 @@ const assetRegistry = {
 
 type AssetKey = keyof typeof assetRegistry;
 
-type RawLocalizedImageCopy = Omit<LocalizedImageCopy, 'src'> & {
-  src: AssetKey;
-};
-
-/**
- * RawVisual is derived from SlideVisual — only `localized-image` differs
- * (uses AssetKey instead of resolved string for `src`).
- * Every other visual passes through unchanged.
- */
-type RawVisual = SlideVisual extends infer V
-  ? V extends { id: 'localized-image'; copy: Record<Language, LocalizedImageCopy> }
-    ? { id: 'localized-image'; copy: Record<Language, RawLocalizedImageCopy> }
-    : V
-  : never;
-
-type RawSlide = Omit<ISlide, 'visual'> & {
-  visual?: RawVisual;
-};
-
-const slideModules = import.meta.glob('./slides/*.json', {
-  eager: true,
-}) as Record<string, { default: RawSlide }>;
-
+/** Resolve asset key to actual import path */
 function resolveAsset(assetKey: string): string {
   const resolved = assetRegistry[assetKey as AssetKey];
   if (!resolved) {
-    throw new Error(`Unknown asset key "${assetKey}" in course content JSON`);
+    throw new Error(`Unknown asset key "${assetKey}" in course content`);
   }
   return resolved;
 }
 
-function normalizeSlide(slide: RawSlide): ISlide {
-  if (slide.visual?.id !== 'localized-image') {
-    return slide as ISlide;
-  }
+/** Check if a slide has a localized-image visual with unresolved asset keys */
+function needsAssetResolution(slide: ISlide): slide is ISlide {
+  if (slide.visual?.id !== 'localized-image') return false;
+  const copy = slide.visual!.copy as Record<string, { src: string }>;
+  const ptSrc = copy['pt-br']?.src;
+  return typeof ptSrc === 'string' && !ptSrc.startsWith('data:') && !ptSrc.startsWith('/');
+}
 
-  const copy = slide.visual.copy as Record<Language, RawLocalizedImageCopy>;
-
+/** Normalize slides that have unresolved asset keys */
+function normalizeSlide(slide: ISlide): ISlide {
+  if (!needsAssetResolution(slide)) return slide;
+  const v = slide.visual!;
+  const copy = v.copy as Record<Language, { src: AssetKey } & Omit<LocalizedImageCopy, 'src'>>;
   return {
     ...slide,
     visual: {
       id: 'localized-image',
       copy: {
-        'pt-br': {
-          ...copy['pt-br'],
-          src: resolveAsset(copy['pt-br'].src),
-        },
-        'en-us': {
-          ...copy['en-us'],
-          src: resolveAsset(copy['en-us'].src),
-        },
+        'pt-br': { ...copy['pt-br'], src: resolveAsset(copy['pt-br'].src) },
+        'en-us': { ...copy['en-us'], src: resolveAsset(copy['en-us'].src) },
       },
     },
   };
@@ -71,32 +50,30 @@ function normalizeSlide(slide: RawSlide): ISlide {
 
 const slidesById = new Map<string, ISlide>();
 
-for (const module of Object.values(slideModules)) {
-  const slide = normalizeSlide(module.default);
+for (const slide of allSlides) {
+  const normalized = normalizeSlide(slide);
 
-  if (slidesById.has(slide.id)) {
-    throw new Error(`Duplicate slide id "${slide.id}" in course content`);
+  if (slidesById.has(normalized.id)) {
+    throw new Error(`Duplicate slide id "${normalized.id}" in course content`);
   }
 
-  slidesById.set(slide.id, slide);
+  slidesById.set(normalized.id, normalized);
 }
 
 const orderedSlides = courseSlideOrder.map((slideId) => {
   const slide = slidesById.get(slideId);
-
   if (!slide) {
-    console.error(`Slide "${slideId}" is listed in course outline but was not found in slides JSON`);
+    console.error(`Slide "${slideId}" is listed in course outline but not found`);
     return null;
   }
-
   return slide;
 }).filter((slide): slide is ISlide => slide !== null);
 
 const courseSlideIds = new Set<string>(courseSlideOrder);
-const unexpectedSlides = [...slidesById.keys()].filter(slideId => !courseSlideIds.has(slideId));
+const unexpectedSlides = [...slidesById.keys()].filter(id => !courseSlideIds.has(id));
 
 if (unexpectedSlides.length > 0) {
-  console.error(`Slides are not listed in course outline: ${unexpectedSlides.join(', ')}`);
+  console.error(`Slides not listed in course outline: ${unexpectedSlides.join(', ')}`);
 }
 
 export const courseContent: ISlide[] = orderedSlides;

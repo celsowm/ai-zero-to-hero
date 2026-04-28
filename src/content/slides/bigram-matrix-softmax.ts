@@ -1,0 +1,53 @@
+import { defineSlide } from './_factory';
+
+export const bigramMatrixSoftmax = defineSlide({
+  id: 'bigram-matrix-softmax',
+  type: 'two-column',
+  options: {
+    "columnRatios": [
+      0.6,
+      0.4
+    ]
+  },
+  content: {
+    'pt-br': {
+      title: `Da contagem à probabilidade (Softmax)`,
+      body: `Contagens brutas são ruins de lidar porque variam muito em tamanho. Precisamos transformar esses números em porcentagens limpas (probabilidades).
+
+1. **A Matriz:** podemos organizar todas essas contagens em uma grade 2D, onde as linhas são o token atual e as colunas são o próximo token.
+
+2. **O problema:** algumas linhas somam 10.000, outras somam 5. Não podemos comparar maçãs com laranjas.
+
+3. **A mágica do Softmax:** usamos uma função matemática chamada Softmax para espremer qualquer conjunto de números brutos (logits) para que eles fiquem entre 0 e 1, e a soma total da linha seja exatamente 100% (ou 1.0).
+
+> Softmax é a função que transforma pontuações cruas em probabilidades elegantes.`,
+    },
+    'en-us': {
+      title: `From count to probability (Softmax)`,
+      body: `Raw counts are hard to deal with because they vary wildly in size. We need to turn these numbers into clean percentages (probabilities).
+
+1. **The Matrix:** we can organize all these counts into a 2D grid, where rows are the current token and columns are the next token.
+
+2. **The problem:** some rows sum up to 10,000, others sum to 5. We cannot compare apples to oranges.
+
+3. **The magic of Softmax:** we use a mathematical function called Softmax to squash any set of raw numbers (logits) so they land between 0 and 1, and the total sum of the row is exactly 100% (or 1.0).
+
+> Softmax is the function that turns raw scores into elegant probabilities.`,
+    },
+  },
+  visual: {
+    id: 'softmax-visualizer',
+    copy: {
+      "pt-br": {
+        "countsLabel": "Contagens",
+        "softmaxLabel": "Softmax",
+        "sumLabel": "Soma"
+      },
+      "en-us": {
+        "countsLabel": "Counts",
+        "softmaxLabel": "Softmax",
+        "sumLabel": "Sum"
+      }
+    },
+  },
+});

@@ -1,0 +1,29 @@
+import { defineSlide } from './_factory';
+
+export const welcome = defineSlide({
+  id: 'welcome',
+  type: 'custom',
+  content: {
+    'pt-br': {
+      title: `Bem-vindo ao Curso de IA`,
+      body: ``,
+    },
+    'en-us': {
+      title: `Welcome to the AI Course`,
+      body: ``,
+    },
+  },
+  visual: {
+    id: 'welcome-synthwave',
+    copy: {
+      "pt-br": {
+        "subtitle": "Zero to Hero",
+        "instructions": "Use as setas no canto inferior direito para navegar."
+      },
+      "en-us": {
+        "subtitle": "Zero to Hero",
+        "instructions": "Use the arrows in the bottom right corner to navigate."
+      }
+    },
+  },
+});

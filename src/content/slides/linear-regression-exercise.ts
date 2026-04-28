@@ -1,0 +1,277 @@
+import { defineSlide } from './_factory';
+
+export const linearRegressionExercise = defineSlide({
+  id: 'linear-regression-exercise',
+  type: 'exercise',
+  content: {
+    'pt-br': {
+      title: `Exercício: Mãos na massa com Regressão Linear`,
+      body: `Agora é sua vez de implementar os cálculos fundamentais que fazem a Regressão Linear funcionar.`,
+    },
+    'en-us': {
+      title: `Exercise: Hands-on with Linear Regression`,
+      body: `Now it's your turn to implement the fundamental calculations that make Linear Regression work.`,
+    },
+  },
+  visual: {
+    id: 'python-exercise',
+    copy: {
+      "pt-br": {
+        "title": "Exercício: Regressão Linear",
+        "description": "Complete as funções para calcular o erro e atualizar os parâmetros.",
+        "runButtonLabel": "Executar",
+        "checkButtonLabel": "Verificar",
+        "successMessage": "Excelente! Você dominou a base da Regressão Linear!",
+        "errorMessage": "Ops, os cálculos não bateram. Verifique as fórmulas.",
+        "hintLabel": "Dica",
+        "outputLabel": "Saída do Console",
+        "exercises": [
+          {
+          "id": "1. Cálculo do MSE",
+          "instructions": "Complete a função `calculate_mse(y_true, y_pred)` que calcula o Erro Quadrático Médio.\n\nA fórmula é: `média((y_true - y_pred) ** 2)`",
+          "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true e y_pred são listas de números de mesmo tamanho\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calcule o erro ao quadrado e some ao total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# teste\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "calculate_mse",
+            "args": [
+              [
+              10,
+              20,
+              30
+            ],
+              [
+              12,
+              18,
+              33
+            ]
+            ],
+            "expectedReturn": 5.666666666666667,
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "diff = y_true[i] - y_pred[i]",
+            "total_error += diff ** 2"
+          ]
+        },
+          {
+          "id": "2. Fix the Bug: Gradient Descent ao Contrário?",
+          "instructions": "Alguém escreveu a atualização do Gradient Descent — mas tem um bug sutil.\n\nRode o código e observe: os valores de `w` estão **explodindo** ao invés de convergir.\n\nEncontre o sinal errado e corrija. O Gradient Descent deve **subtrair** o gradiente, não somar.\n\n**Dica:** observe a direção em que `w` está se movendo a cada passo.",
+          "starterCode": "def update_w(w, gradient, lr):\n    # BUG: esta função está fazendo w divergir!\n    # Encontre e corrija o sinal errado.\n    return w + lr * gradient\n\nw = 5.0\nlr = 0.1\nprint(\"Com o BUG:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Passo {i+1}: w = {w:.4f}\")\n\n# Agora corrija a função e rode de novo:\nw = 5.0\nprint(\"\\nCorrigido:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Passo {i+1}: w = {w:.4f}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Com o BUG:\n  Passo 1: w = 6.0000\n  Passo 2: w = 7.2000\n  Passo 3: w = 8.6400\n  Passo 4: w = 10.3680\n  Passo 5: w = 12.4416\n\nCorrigido:\n  Passo 1: w = 4.0000\n  Passo 2: w = 3.2000\n  Passo 3: w = 2.5600\n  Passo 4: w = 2.0480\n  Passo 5: w = 1.6384"
+          }
+          ],
+          "hints": [
+            "Troque `w + lr * gradient` por `w - lr * gradient`",
+            "Com sinal positivo, w vai para +∞. Com sinal negativo, w converge para 0 (o mínimo de f(w) = w²)."
+          ]
+        },
+          {
+          "id": "3. Predict & Verify: Quanto vale o apartamento?",
+          "instructions": "Um modelo de regressão foi treinado para prever preço de apartamentos (em milhares de R$):\n\n`preco = 50 + 0.8 * area_m2 - 0.3 * distancia_km`\n\n**Desafio:** calcule mentalmente o preço para um apartamento de 60m² a 5km do centro.\n\nDepois rode o código para verificar se sua conta bateu!",
+          "starterCode": "def predict_price(area, distance):\n    beta0, beta1, beta2 = 50, 0.8, -0.3\n    return beta0 + beta1 * area + beta2 * distance\n\n# Sua conta mental:\n# preco = 50 + 0.8 * 60 - 0.3 * 5 = ?\nprint(f\"Sua conta mental: 50 + 48 - 1.5 = {50 + 48 - 1.5}\")\nprint(f\"Código: {predict_price(60, 5)}\")\n\n# Teste mais 2 casos para praticar:\nprint(f\"80m² a 2km: {predict_price(80, 2)}\")\nprint(f\"45m² a 10km: {predict_price(45, 10)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              60,
+              5
+            ],
+            "expectedReturn": 96.5,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              80,
+              2
+            ],
+            "expectedReturn": 113.4,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              45,
+              10
+            ],
+            "expectedReturn": 56,
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "60m² a 5km: 50 + 48 - 1.5 = 96.5",
+            "80m² a 2km: 50 + 64 - 0.6 = 113.4... ops, confira: 50 + 64 - 0.6 = 113.4!",
+            "45m² a 10km: 50 + 36 - 30 = 56... confira: 50 + 36 - 30 = 56!"
+          ]
+        },
+          {
+          "id": "4. Experiment: Qual predição erra mais?",
+          "instructions": "Dado um modelo `y_hat = 10 + 2*x`, temos 4 pontos reais:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Antes de rodar:** qual ponto tem o maior erro absoluto? Calcule mentalmente.\n\nDepois rode e descubra se acertou!",
+          "starterCode": "def predict(x):\n    return 10 + 2 * x\n\ndata = [(3, 18), (5, 15), (7, 30), (1, 14)]\n\nprint(\"Erros:\")\nmax_err = 0\nworst_x = None\nfor x, y_real in data:\n    y_hat = predict(x)\n    erro = abs(y_real - y_hat)\n    print(f\"  x={x}: y_hat={y_hat}, y_real={y_real}, erro={erro}\")\n    if erro > max_err:\n        max_err = erro\n        worst_x = x\n\nprint(f\"\\nMaior erro: x={worst_x} com erro={max_err}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Erros:\n  x=3: y_hat=16, y_real=18, erro=2\n  x=5: y_hat=20, y_real=15, erro=5\n  x=7: y_hat=24, y_real=30, erro=6\n  x=1: y_hat=12, y_real=14, erro=2\n\nMaior erro: x=7 com erro=6"
+          }
+          ],
+          "hints": [
+            "x=7: y_hat=24, y_real=30, |erro|=6 — o maior!",
+            "x=5 também erra bastante: |15-20|=5"
+          ]
+        },
+          {
+          "id": "5. Gradient Descent 1D",
+          "instructions": "Simule 5 passos de Gradient Descent para encontrar o mínimo de `f(w) = w²`.\n\nO gradiente é `df/dw = 2*w`. A cada passo: `w = w - lr * 2*w`.\n\nComece com `w = 5.0` e `lr = 0.1`.",
+          "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calcule o gradiente de f(w) = w²\n    gradiente = \n    # atualize w\n    w = \n    print(f\"Passo {i+1}: w = {w:.4f}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Passo 1: w = 4.0000\nPasso 2: w = 3.2000\nPasso 3: w = 2.5600\nPasso 4: w = 2.0480\nPasso 5: w = 1.6384"
+          }
+          ],
+          "hints": [
+            "gradiente = 2 * w",
+            "w = w - lr * gradiente"
+          ]
+        }
+        ]
+      },
+      "en-us": {
+        "title": "Exercise: Linear Regression",
+        "description": "Complete the functions to calculate the error and update parameters.",
+        "runButtonLabel": "Run",
+        "checkButtonLabel": "Check",
+        "successMessage": "Excellent! You've mastered the basics of Linear Regression!",
+        "errorMessage": "Oops, the calculations don't match. Check the formulas.",
+        "hintLabel": "Hint",
+        "outputLabel": "Console Output",
+        "exercises": [
+          {
+          "id": "1. MSE Calculation",
+          "instructions": "Complete the `calculate_mse(y_true, y_pred)` function that calculates the Mean Squared Error.\n\nThe formula is: `mean((y_true - y_pred) ** 2)`",
+          "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true and y_pred are lists of numbers of the same length\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calculate squared error and add to total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# test\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "calculate_mse",
+            "args": [
+              [
+              10,
+              20,
+              30
+            ],
+              [
+              12,
+              18,
+              33
+            ]
+            ],
+            "expectedReturn": 5.666666666666667,
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "diff = y_true[i] - y_pred[i]",
+            "total_error += diff ** 2"
+          ]
+        },
+          {
+          "id": "2. Fix the Bug: Gradient Descent Backwards?",
+          "instructions": "Someone wrote the Gradient Descent update — but there's a subtle bug.\n\nRun the code and observe: the `w` values are **exploding** instead of converging.\n\nFind the wrong sign and fix it. Gradient Descent should **subtract** the gradient, not add it.\n\n**Hint:** watch the direction `w` moves each step.",
+          "starterCode": "def update_w(w, gradient, lr):\n    # BUG: this function makes w diverge!\n    # Find and fix the wrong sign.\n    return w + lr * gradient\n\nw = 5.0\nlr = 0.1\nprint(\"With the BUG:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Step {i+1}: w = {w:.4f}\")\n\n# Now fix the function and run again:\nw = 5.0\nprint(\"\\nFixed:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Step {i+1}: w = {w:.4f}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "With the BUG:\n  Step 1: w = 6.0000\n  Step 2: w = 7.2000\n  Step 3: w = 8.6400\n  Step 4: w = 10.3680\n  Step 5: w = 12.4416\n\nFixed:\n  Step 1: w = 4.0000\n  Step 2: w = 3.2000\n  Step 3: w = 2.5600\n  Step 4: w = 2.0480\n  Step 5: w = 1.6384"
+          }
+          ],
+          "hints": [
+            "Change `w + lr * gradient` to `w - lr * gradient`",
+            "With a positive sign, w goes to +∞. With a negative sign, w converges to 0 (the minimum of f(w) = w²)."
+          ]
+        },
+          {
+          "id": "3. Predict & Verify: How much is the apartment worth?",
+          "instructions": "A regression model was trained to predict apartment prices (in thousands of BRL):\n\n`price = 50 + 0.8 * area_m2 - 0.3 * distance_km`\n\n**Challenge:** mentally calculate the price for a 60m² apartment 5km from the center.\n\nThen run the code to check if your math matches!",
+          "starterCode": "def predict_price(area, distance):\n    beta0, beta1, beta2 = 50, 0.8, -0.3\n    return beta0 + beta1 * area + beta2 * distance\n\n# Your mental math:\n# price = 50 + 0.8 * 60 - 0.3 * 5 = ?\nprint(f\"Mental math: 50 + 48 - 1.5 = {50 + 48 - 1.5}\")\nprint(f\"Code: {predict_price(60, 5)}\")\n\n# Test 2 more cases:\nprint(f\"80m² at 2km: {predict_price(80, 2)}\")\nprint(f\"45m² at 10km: {predict_price(45, 10)}\")",
+          "validators": [
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              60,
+              5
+            ],
+            "expectedReturn": 96.5,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              80,
+              2
+            ],
+            "expectedReturn": 113.4,
+            "tolerance": 0.001
+          },
+            {
+            "type": "assertFunctionReturn",
+            "functionName": "predict_price",
+            "args": [
+              45,
+              10
+            ],
+            "expectedReturn": 56,
+            "tolerance": 0.001
+          }
+          ],
+          "hints": [
+            "60m² at 5km: 50 + 48 - 1.5 = 96.5",
+            "80m² at 2km: 50 + 64 - 0.6 = 113.4",
+            "45m² at 10km: 50 + 36 - 30 = 56"
+          ]
+        },
+          {
+          "id": "4. Experiment: Which prediction is most wrong?",
+          "instructions": "Given a model `y_hat = 10 + 2*x`, we have 4 real data points:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Before running:** which point has the largest absolute error? Calculate mentally.\n\nThen run and see if you were right!",
+          "starterCode": "def predict(x):\n    return 10 + 2 * x\n\ndata = [(3, 18), (5, 15), (7, 30), (1, 14)]\n\nprint(\"Errors:\")\nmax_err = 0\nworst_x = None\nfor x, y_real in data:\n    y_hat = predict(x)\n    error = abs(y_real - y_hat)\n    print(f\"  x={x}: y_hat={y_hat}, y_real={y_real}, error={error}\")\n    if error > max_err:\n        max_err = error\n        worst_x = x\n\nprint(f\"\\nLargest error: x={worst_x} with error={max_err}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Errors:\n  x=3: y_hat=16, y_real=18, error=2\n  x=5: y_hat=20, y_real=15, error=5\n  x=7: y_hat=24, y_real=30, error=6\n  x=1: y_hat=12, y_real=14, error=2\n\nLargest error: x=7 with error=6"
+          }
+          ],
+          "hints": [
+            "x=7: y_hat=24, y_real=30, |error|=6 — the largest!",
+            "x=5 also misses a lot: |15-20|=5"
+          ]
+        },
+          {
+          "id": "5. 1D Gradient Descent",
+          "instructions": "Simulate 5 steps of Gradient Descent to find the minimum of `f(w) = w²`.\n\nThe gradient is `df/dw = 2*w`. Each step: `w = w - lr * 2*w`.\n\nStart with `w = 5.0` and `lr = 0.1`.",
+          "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calculate gradient of f(w) = w²\n    gradient = \n    # update w\n    w = \n    print(f\"Step {i+1}: w = {w:.4f}\")",
+          "validators": [
+            {
+            "type": "assertOutput",
+            "expected": "Step 1: w = 4.0000\nStep 2: w = 3.2000\nStep 3: w = 2.5600\nStep 4: w = 2.0480\nStep 5: w = 1.6384"
+          }
+          ],
+          "hints": [
+            "gradient = 2 * w",
+            "w = w - lr * gradient"
+          ]
+        }
+        ]
+      }
+    },
+  },
+});

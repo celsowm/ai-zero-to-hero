@@ -8,16 +8,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
 
 describe('content integrity', () => {
-  const slidesDir = join(projectRoot, 'src/data/slides');
+  // Slides are now TypeScript files, not JSON
+  const slidesDir = join(projectRoot, 'src/content/slides');
   const snippetsDir = join(projectRoot, 'src/content/snippets');
 
-  const slideFiles = readdirSync(slidesDir).filter(f => f.endsWith('.json'));
+  const slideFiles = readdirSync(slidesDir).filter(f => f.endsWith('.ts') && f !== '_factory.ts' && f !== 'index.ts');
 
-  it('every slide JSON has a non-empty "id" field', () => {
+  it('every slide TS has a non-empty "id" field', () => {
     const failures: string[] = [];
     for (const file of slideFiles) {
-      const json = JSON.parse(readFileSync(join(slidesDir, file), 'utf-8'));
-      if (!json.id || typeof json.id !== 'string' || json.id.trim() === '') {
+      const content = readFileSync(join(slidesDir, file), 'utf-8');
+      const idMatch = content.match(/id:\s*['"](.+?)['"]/);
+      if (!idMatch || !idMatch[1] || idMatch[1].trim() === '') {
         failures.push(`${file}: missing or empty "id"`);
       }
     }
@@ -29,11 +31,12 @@ describe('content integrity', () => {
   it('no duplicate slide IDs', () => {
     const ids = new Map<string, string>();
     for (const file of slideFiles) {
-      const json = JSON.parse(readFileSync(join(slidesDir, file), 'utf-8'));
-      if (json.id && ids.has(json.id)) {
-        assert.fail(`Duplicate slide ID "${json.id}" in ${file} and ${ids.get(json.id)}`);
+      const content = readFileSync(join(slidesDir, file), 'utf-8');
+      const idMatch = content.match(/id:\s*['"](.+?)['"]/);
+      if (idMatch && ids.has(idMatch[1])) {
+        assert.fail(`Duplicate slide ID "${idMatch[1]}" in ${file} and ${ids.get(idMatch[1])}`);
       }
-      if (json.id) ids.set(json.id, file);
+      if (idMatch) ids.set(idMatch[1], file);
     }
   });
 
@@ -48,7 +51,6 @@ describe('content integrity', () => {
           walkMetaFiles(fullPath);
         } else if (entry.name.endsWith('.meta.json')) {
           const json = JSON.parse(readFileSync(fullPath, 'utf-8'));
-          // Normalize to forward slashes for comparison (meta files use /)
           const expectedId = relative(snippetsDir, fullPath).replace(/\.meta\.json$/, '').replace(/\\/g, '/');
           if (!json.id || json.id !== expectedId) {
             failures.push(
@@ -85,20 +87,6 @@ describe('content integrity', () => {
     }
   });
 
-  it('every slide JSON is valid parseable JSON', () => {
-    const failures: string[] = [];
-    for (const file of slideFiles) {
-      try {
-        JSON.parse(readFileSync(join(slidesDir, file), 'utf-8'));
-      } catch (e) {
-        failures.push(`${file}: ${(e as Error).message}`);
-      }
-    }
-    if (failures.length > 0) {
-      assert.fail(`Invalid JSON files:\n${failures.join('\n')}`);
-    }
-  });
-
   it('every .meta.json has valid fields for the registry (no runtime crashes)', () => {
     const failures: string[] = [];
 
@@ -112,7 +100,6 @@ describe('content integrity', () => {
           const json = JSON.parse(readFileSync(fullPath, 'utf-8'));
           const rel = relative(projectRoot, fullPath);
 
-          // `regions` if present must be an array of strings — otherwise registry crashes with "is not iterable"
           if ('regions' in json && (json.regions === null || json.regions === undefined || !Array.isArray(json.regions))) {
             failures.push(`${rel}: "regions" must be null or an array, not ${typeof json.regions}`);
           } else if (Array.isArray(json.regions) && !json.regions.every(r => typeof r === 'string')) {
@@ -128,17 +115,16 @@ describe('content integrity', () => {
     }
   });
 
-  it('every slide listed in course-outline.ts has a corresponding slide JSON file', () => {
+  it('every slide listed in course-outline.ts has a corresponding slide TS file', () => {
     const outlinePath = join(projectRoot, 'src/data/course-outline.ts');
     const outline = readFileSync(outlinePath, 'utf-8');
 
-    // Extract all quoted slide IDs
     const slideIds = outline.match(/'([\w-]+)'/g) ?? [];
     const parsedIds = slideIds.map(s => s.replace(/'/g, ''));
 
     const missingSlides: string[] = [];
     for (const id of parsedIds) {
-      const slideFile = slideFiles.find(f => f === `${id}.json`);
+      const slideFile = slideFiles.find(f => f === `${id}.ts`);
       if (!slideFile) {
         missingSlides.push(id);
       }
