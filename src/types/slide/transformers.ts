@@ -254,3 +254,16 @@ export interface LayerEvolutionChartCopy {
   layerLabel: string;
   predictionLabel: string;
 }
+
+// ── Pipeline Flow Diagram ──────────────────────────────────────────────────
+
+export interface PipelineFlowDiagramCopy {
+  step1Label: string;
+  step1Desc: string;
+  step2Label: string;
+  step2Desc: string;
+  step3Label: string;
+  step3Desc: string;
+  step4Label: string;
+  step4Desc: string;
+}

@@ -57,6 +57,7 @@ import type {
   MultiheadDiagramCopy,
   Nf4QuantileVisualizerCopy,
   ParallelPredictionDiagramCopy,
+  PipelineFlowDiagramCopy,
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
   QkvCocktailPartyCopy,
@@ -144,6 +145,7 @@ interface VisualCopyMap {
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
+  'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
-import type { Language, SlideVisual } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
-
-interface PipelineStepCopy {
-  step1Label: string;
-  step1Desc: string;
-  step2Label: string;
-  step2Desc: string;
-  step3Label: string;
-  step3Desc: string;
-  step4Label: string;
-  step4Desc: string;
-}
+import type { PipelineFlowDiagramCopy } from '../../../types/slide';
 
 interface PipelineFlowDiagramProps {
-  visual: SlideVisual;
-  language: Language;
+  copy: PipelineFlowDiagramCopy;
 }
 
 const STEPS = [
@@ -33,10 +21,8 @@ const PIPELINE_DATA = [
   { input: '[1462, 2181, 318]', output: '"The future of"' },
 ];
 
-export const PipelineFlowDiagram = React.memo(({ visual, language }: PipelineFlowDiagramProps) => {
+export const PipelineFlowDiagram = React.memo(({ copy }: PipelineFlowDiagramProps) => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
-
-  const copy = visual.copy[language] as PipelineStepCopy;
 
   const boxW = 90;
   const boxH = 140;
