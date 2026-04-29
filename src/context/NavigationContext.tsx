@@ -15,6 +15,23 @@ function setHash(slideId: string) {
   window.history.pushState(null, '', `#/${slideId}`);
 }
 
+function isEditableKeyboardTarget(event: KeyboardEvent): boolean {
+  const path = event.composedPath();
+
+  return path.some(target => {
+    if (!(target instanceof HTMLElement)) return false;
+
+    const tagName = target.tagName.toLowerCase();
+    return (
+      tagName === 'input' ||
+      tagName === 'textarea' ||
+      tagName === 'select' ||
+      target.isContentEditable ||
+      target.getAttribute('role') === 'textbox'
+    );
+  });
+}
+
 export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const slides = courseContent;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(() => getSlideIndexFromHash(slides));
@@ -42,6 +59,8 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (isEditableKeyboardTarget(e)) return;
+
       if (e.key === 'ArrowRight') {
         setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
       } else if (e.key === 'ArrowLeft') {
