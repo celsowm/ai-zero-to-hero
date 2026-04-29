@@ -18,7 +18,7 @@ type LocalizedSnippetRecord = {
 };
 
 const START_REGION_RE = /^\s*(?:#|\/\/)\s*@?region\s+([A-Za-z0-9_-]+)\s*$/;
-const END_REGION_RE = /^\s*(?:#|\/\/)\s*@?end(?:region)?\s*$/;
+const END_REGION_RE = /^\s*(?:#|\/\/)\s*@?end(?:region)?(?:\s+[A-Za-z0-9_-]+)?\s*$/;
 const SNIPPET_ROOT_RE = /^\.\/snippets\//;
 const CODE_FILE_RE = /^(.+)\.(pt-br|en-us)\.(py|js)$/;
 const META_FILE_RE = /^(.+)\.meta\.json$/;
