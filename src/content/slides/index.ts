@@ -97,6 +97,20 @@ import { openaiApiStandard } from './openai-api-standard';
 import { sglangDeepDive } from './sglang-deep-dive';
 import { sglangIntro } from './sglang-intro';
 import { streamingMode } from './streaming-mode';
+import { toolCallingBestPractices } from './tool-calling-best-practices';
+import { toolCallingConcepts } from './tool-calling-concepts';
+import { toolCallingE2e } from './tool-calling-e2e';
+import { toolCallingErrors } from './tool-calling-errors';
+import { toolCallingExercise } from './tool-calling-exercise';
+import { toolCallingFlow } from './tool-calling-flow';
+import { toolCallingStructuredOutput } from './tool-calling-structured-output';
+import { toolCallingToAgents } from './tool-calling-to-agents';
+import { toolCallingWhy } from './tool-calling-why';
+import { toolCallingWithLangchain } from './tool-calling-with-langchain';
+import { toolCallingWithOpenaiApi } from './tool-calling-with-openai-api';
+import { toolDeclaration } from './tool-declaration';
+import { parallelToolCalls } from './parallel-tool-calls';
+import { multiToolOrchestration } from './multi-tool-orchestration';
 import { transformersPipeline } from './transformers-pipeline';
 import { transformersServer } from './transformers-server';
 import { vllmDeepDive } from './vllm-deep-dive';
@@ -278,6 +292,20 @@ export const allSlides: ISlide[] = [
   sglangDeepDive,
   sglangIntro,
   streamingMode,
+  multiToolOrchestration,
+  parallelToolCalls,
+  toolCallingBestPractices,
+  toolCallingConcepts,
+  toolCallingE2e,
+  toolCallingErrors,
+  toolCallingExercise,
+  toolCallingFlow,
+  toolCallingStructuredOutput,
+  toolCallingToAgents,
+  toolCallingWhy,
+  toolCallingWithLangchain,
+  toolCallingWithOpenaiApi,
+  toolDeclaration,
   transformersPipeline,
   transformersServer,
   vllmDeepDive,

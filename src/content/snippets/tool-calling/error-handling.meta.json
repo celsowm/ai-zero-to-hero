@@ -1,0 +1,17 @@
+{
+  "id": "tool-calling/error-handling",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [1, 4], "pt-br": "Imports: OpenAI client e time para backoff.", "en-us": "Imports: OpenAI client and time for backoff." },
+    { "lineRange": [6, 9], "pt-br": "Mapa de ferramentas disponíveis com lambdas.", "en-us": "Map of available tools with lambdas." },
+    { "lineRange": [11, 11], "pt-br": "Função de execução com retry.", "en-us": "Execution function with retry." },
+    { "lineRange": [12, 15], "pt-br": "Parse dos argumentos JSON e acesso ao nome.", "en-us": "Parse JSON arguments and access name." },
+    { "lineRange": [17, 17], "pt-br": "Loop de tentativas.", "en-us": "Retry loop." },
+    { "lineRange": [18, 18], "pt-br": "Try block.", "en-us": "Try block." },
+    { "lineRange": [19, 23], "pt-br": "Verifica se tool existe e executa.", "en-us": "Check if tool exists and execute." },
+    { "lineRange": [25, 26], "pt-br": "TypeError: parâmetros inválidos.", "en-us": "TypeError: invalid parameters." },
+    { "lineRange": [27, 32], "pt-br": "Timeout com exponential backoff.", "en-us": "Timeout with exponential backoff." },
+    { "lineRange": [34, 35], "pt-br": "Exception genérica.", "en-us": "Generic exception." },
+    { "lineRange": [37, 37], "pt-br": "Retorno de falha permanente.", "en-us": "Return permanent failure." }
+  ]
+}

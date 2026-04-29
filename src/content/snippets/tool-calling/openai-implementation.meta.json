@@ -1,0 +1,18 @@
+{
+  "id": "tool-calling/openai-implementation",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [1, 4], "pt-br": "Imports: json e OpenAI client.", "en-us": "Imports: json and OpenAI client." },
+    { "lineRange": [6, 19], "pt-br": "Setup: schema da ferramenta get_weather.", "en-us": "Setup: get_weather tool schema." },
+    { "lineRange": [21, 21], "pt-br": "Função execute_tool: dispatch pelo nome.", "en-us": "execute_tool function: dispatch by name." },
+    { "lineRange": [22, 25], "pt-br": "Implementação: retorna clima simulado ou erro.", "en-us": "Implementation: returns simulated weather or error." },
+    { "lineRange": [27, 29], "pt-br": "Função principal: inicializa histórico de mensagens.", "en-us": "Main function: initialize messages history." },
+    { "lineRange": [30, 33], "pt-br": "Request ao modelo com tools disponíveis.", "en-us": "Request to model with available tools." },
+    { "lineRange": [34, 35], "pt-br": "Acesso à primeira escolha.", "en-us": "Access to first choice." },
+    { "lineRange": [37, 39], "pt-br": "Se finish_reason não for tool_calls, retorna conteúdo direto.", "en-us": "If finish_reason is not tool_calls, return direct content." },
+    { "lineRange": [40, 49], "pt-br": "Loop: parse JSON, executa tool, adiciona mensagem role:tool com tool_call_id.", "en-us": "Loop: parse JSON, execute tool, add role:tool message with tool_call_id." },
+    { "lineRange": [51, 54], "pt-br": "Re-envio ao modelo com resultados.", "en-us": "Re-send to model with results." },
+    { "lineRange": [55, 55], "pt-br": "Retorno da resposta final.", "en-us": "Return final response." },
+    { "lineRange": [57, 59], "pt-br": "Teste: print do resultado.", "en-us": "Test: print result." }
+  ]
+}

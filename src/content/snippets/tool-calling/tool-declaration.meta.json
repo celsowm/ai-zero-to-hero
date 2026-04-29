@@ -1,0 +1,9 @@
+{
+  "id": "tool-calling/tool-declaration",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [1, 3], "pt-br": "Import e criação do cliente OpenAI.", "en-us": "Import and OpenAI client creation." },
+    { "lineRange": [5, 29], "pt-br": "Declaração da ferramenta com JSON Schema completo.", "en-us": "Tool declaration with full JSON Schema." },
+    { "lineRange": [31, 36], "pt-br": "Envio da mensagem com tools no payload.", "en-us": "Sending message with tools in payload." }
+  ]
+}

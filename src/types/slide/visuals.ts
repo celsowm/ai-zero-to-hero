@@ -136,6 +136,17 @@ import type {
   InferenceComparisonCopy,
   InferenceE2eCopy,
 } from './inference-engines';
+import type {
+  ToolCallingWhyCopy,
+  ToolCallingConceptsCopy,
+  ToolDeclarationCopy,
+  ToolCallingFlowCopy,
+  ParallelToolCallsCopy,
+  ToolCallingErrorsCopy,
+  MultiToolOrchestrationCopy,
+  ToolCallingBestPracticesCopy,
+  ToolCallingE2eCopy,
+} from './tool-calling';
 
 // ── Visual registry: maps each visual id to its copy type ──────────────────
 
@@ -243,6 +254,16 @@ interface VisualCopyMap {
   'sglang-deep-dive-visual': SglangDeepDiveCopy;
   'inference-comparison-visual': InferenceComparisonCopy;
   'inference-e2e-visual': InferenceE2eCopy;
+  // tool-calling
+  'tool-calling-why-visual': ToolCallingWhyCopy;
+  'tool-calling-concepts-visual': ToolCallingConceptsCopy;
+  'tool-declaration-visual': ToolDeclarationCopy;
+  'tool-calling-flow-visual': ToolCallingFlowCopy;
+  'parallel-tool-calls-visual': ParallelToolCallsCopy;
+  'tool-calling-errors-visual': ToolCallingErrorsCopy;
+  'multi-tool-orchestration-visual': MultiToolOrchestrationCopy;
+  'tool-calling-best-practices-visual': ToolCallingBestPracticesCopy;
+  'tool-calling-e2e-visual': ToolCallingE2eCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;
