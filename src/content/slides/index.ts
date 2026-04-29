@@ -116,6 +116,8 @@ import { transformersServer } from './transformers-server';
 import { vllmDeepDive } from './vllm-deep-dive';
 import { vllmIntro } from './vllm-intro';
 import { loraExercise } from './lora-exercise';
+import { markdownSyntax } from './markdown-syntax';
+import { markdownWhy } from './markdown-why';
 import { mlPipeline } from './ml-pipeline';
 import { mlpInsideTransformer } from './mlp-inside-transformer';
 import { mlpLanguageModel } from './mlp-language-model';
@@ -136,6 +138,7 @@ import { neuralNetworkPytorchHardware } from './neural-network-pytorch-hardware'
 import { neuralNetworkPytorchInstall } from './neural-network-pytorch-install';
 import { neuralNetworkPytorchIntro } from './neural-network-pytorch-intro';
 import { neuralNetworkPytorchPrediction } from './neural-network-pytorch-prediction';
+import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { neuralNetworkPytorchTraining } from './neural-network-pytorch-training';
 import { neuralNetworkSigmoidDeepDive } from './neural-network-sigmoid-deep-dive';
@@ -311,6 +314,8 @@ export const allSlides: ISlide[] = [
   vllmDeepDive,
   vllmIntro,
   loraExercise,
+  markdownSyntax,
+  markdownWhy,
   mlPipeline,
   mlpInsideTransformer,
   mlpLanguageModel,
@@ -331,6 +336,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchInstall,
   neuralNetworkPytorchIntro,
   neuralNetworkPytorchPrediction,
+  pytorchSaveLoad,
   neuralNetworkPytorchTensors,
   neuralNetworkPytorchTraining,
   neuralNetworkSigmoidDeepDive,

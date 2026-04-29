@@ -181,6 +181,21 @@ const visualMap: Record<string, string> = {
 
   // welcome
   'welcome-synthwave': 'WelcomeSynthwaveVisual',
+
+  // prompt engineering
+  'prompt-engineering-why-visual': 'PromptEngineeringWhyVisual',
+  'prompt-structure-anatomy-visual': 'PromptStructureAnatomyVisual',
+  'zero-shot-prompting-visual': 'ZeroShotPromptingVisual',
+  'few-shot-prompting-visual': 'FewShotPromptingVisual',
+  'many-shot-prompting-visual': 'ManyShotPromptingVisual',
+  'chain-of-thought-visual': 'ChainOfThoughtVisual',
+  'tree-of-thoughts-visual': 'TreeOfThoughtsVisual',
+  'prompt-chaining-patterns-visual': 'PromptChainingPatternsVisual',
+  'real-datasets-prompts-visual': 'RealDatasetsPromptsVisual',
+
+  // markdown
+  'markdown-output-compare': 'MarkdownOutputCompare',
+  'markdown-syntax-visual': 'MarkdownSyntaxVisual',
 };
 
 /**

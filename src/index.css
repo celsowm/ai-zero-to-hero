@@ -252,3 +252,16 @@ pre {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-64px, -64px, 0); }
 }
+
+/* SVG hover pulse — seamless loop: cresce um pouco e volta ao normal */
+@keyframes svg-hover-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+  100% { transform: scale(1); }
+}
+
+.animate-svg-hover-pulse {
+  animation: svg-hover-pulse 1.4s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}

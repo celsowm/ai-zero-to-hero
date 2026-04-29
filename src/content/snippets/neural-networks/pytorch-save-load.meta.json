@@ -1,0 +1,26 @@
+{
+  "id": "neural-networks/pytorch-save-load",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "Definimos a mesma arquitetura do modelo que será treinado, com uma camada linear e sigmoid.",
+      "en-us": "We define the same model architecture that will be trained, with a linear layer and sigmoid."
+    },
+    {
+      "lineRange": [15, 17],
+      "pt-br": "Salvamos apenas os pesos (state_dict) em arquivo .pt — nada de código ou dados.",
+      "en-us": "We save only the weights (state_dict) to a .pt file — no code or data."
+    },
+    {
+      "lineRange": [19, 23],
+      "pt-br": "Para recuperar, recriamos a arquitetura e carregamos os pesos com load_state_dict.",
+      "en-us": "To recover, we recreate the architecture and load the weights with load_state_dict."
+    },
+    {
+      "lineRange": [25, 31],
+      "pt-br": "Testamos o modelo carregado com o mesmo paciente para verificar que a predição funciona.",
+      "en-us": "We test the loaded model with the same patient to verify that prediction works."
+    }
+  ]
+}

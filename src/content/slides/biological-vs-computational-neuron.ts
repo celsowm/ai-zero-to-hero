@@ -12,25 +12,49 @@ export const biologicalVsComputationalNeuron = defineSlide({
   content: {
     'pt-br': {
       title: `A origem biológica do neurônio`,
-      body: `Antes de mergulhar nas funções matemáticas como a ReLU, é fundamental entender de onde veio a inspiração. O neurônio artificial tenta mimetizar o comportamento de um neurônio biológico: receber sinais, integrá-los e decidir se deve "disparar" uma resposta.
+      body: `O neurônio artificial não nasceu da matemática — ele foi inspirado na biologia. Para entender o que são pesos, viés e ativação, vamos primeiro olhar para o neurônio real, que existe no seu cérebro agora mesmo.
 
-### Analogias principais
+### O neurônio biológico (no seu cérebro)
 
-*   **Dendritos → Entradas ($$x_i$$):** Onde o sinal chega.
-*   **Sinapses → Pesos ($$w_i$$):** A força com que cada sinal entra.
-*   **Corpo celular (Núcleo) → Soma ($$z = \\sum w_i x_i + b$$):** Onde os sinais se misturam.
-*   **Axônio → Saída ($$a = \\sigma(z)$$):** Onde o sinal integrado é enviado adiante.`,
+Imagine uma árvore de cabeça para baixo. O neurônio é parecido:
+
+*   **Dendritos** (do grego *déndron* = "árvore") — são os "galhos" que captam sinais. São dezenas de ramificações que ficam escutando o que os neurônios vizinhos estão dizendo. Pense neles como **antenas recebendo mensagens**.
+*   **Corpo celular / Soma** (do grego *sōma* = "corpo") — é o "tronco". Ele recebe todos os sinais dos dendritos e **toma uma decisão**: vale a pena disparar ou não?
+*   **Axônio** (do grego *áxōn* = "eixo") — é o "cabo" longo que leva o sinal para frente. Se o soma decidiu disparar, o axônio é a estrada por onde o sinal viaja.
+*   **Bainha de mielina** (do grego *myelós* = "medula") — é um **revestimento isolante** que envolve o axônio, tipo a capa plástica de um fio elétrico. Ela faz o sinal viajar muito mais rápido (até 100× mais rápido!).
+*   **Sinapse** (do grego *sýnapsis* = "ação de juntar, unir") — é a **fenda microscópica** entre o final do axônio de um neurônio e o dendrito do próximo. O sinal pula essa lacuna usando químicos (neurotransmissores). É aqui que a "força" da conexão muda — e é aqui que aprendemos.
+
+### O neurônio artificial (na rede neural)
+
+Agora a tradução para matemática:
+
+*   **Dendritos → Entradas ($$x_i$$):** Cada $$x_i$$ é um número chegando — pode ser um pixel da imagem, uma palavra do texto, um valor numérico.
+*   **Sinapses → Pesos ($$w_i$$):** Cada peso diz "o quanto eu confio nessa entrada". Se $$w_i$$ é grande, aquela entrada é importante. Se é zero, o neurônio ignora.
+*   **Soma → Combinação ($$z = \\sum w_i x_i + b$$):** Multiplica cada entrada pelo seu peso, soma tudo, e adiciona o viés $$b$$ (que é um "ajuste fino" — tipo calibrar uma balança).
+*   **Função de ativação → Decisão ($$a = \\sigma(z)$$):** O neurônio olha para $$z$$ e decide: "eu disparo ou não?" A função $$\\sigma$$ transforma a soma em uma saída utilizável — como a ReLU que veremos a seguir.`,
     },
     'en-us': {
       title: `The biological origin of the neuron`,
-      body: `Before diving into mathematical functions like ReLU, it's essential to understand where the inspiration came from. The artificial neuron tries to mimic the behavior of a biological neuron: receiving signals, integrating them, and deciding whether to "fire" a response.
+      body: `The artificial neuron wasn't born from math — it was inspired by biology. To understand what weights, bias, and activation mean, let's first look at the real neuron that exists in your brain right now.
 
-### Core Analogies
+### The biological neuron (in your brain)
 
-*   **Dendrites → Inputs ($$x_i$$):** Where the signal arrives.
-*   **Synapses → Weights ($$w_i$$):** The strength with which each signal enters.
-*   **Cell Body (Soma) → Sum ($$z = \\sum w_i x_i + b$$):** Where signals are blended.
-*   **Axon → Output ($$a = \\sigma(z)$$):** Where the integrated signal is sent forward.`,
+Picture an upside-down tree. A neuron looks similar:
+
+*   **Dendrites** (Greek *déndron* = "tree") — the "branches" that catch signals. Dozens of tiny branches listening to what neighboring neurons are saying. Think of them as **antennas receiving messages**.
+*   **Cell body / Soma** (Greek *sōma* = "body") — the "trunk." It collects all signals from the dendrites and **makes a decision**: should we fire or not?
+*   **Axon** (Greek *áxōn* = "axis") — the long "cable" that carries the signal forward. If the soma decided to fire, the axon is the road the signal travels on.
+*   **Myelin sheath** (Greek *myelós* = "marrow") — an **insulating coating** around the axon, like the plastic jacket on an electrical wire. It makes the signal travel up to 100× faster.
+*   **Synapse** (Greek *sýnapsis* = "the act of joining") — the **microscopic gap** between one neuron's axon tip and the next neuron's dendrite. The signal jumps across using chemicals (neurotransmitters). This is where connection "strength" changes — and where learning happens.
+
+### The artificial neuron (in a neural network)
+
+Now the translation to math:
+
+*   **Dendrites → Inputs ($$x_i$$):** Each $$x_i$$ is a number arriving — a pixel from an image, a word from text, a numeric value.
+*   **Synapses → Weights ($$w_i$$):** Each weight says "how much do I trust this input." A large $$w_i$$ means that input matters. Zero means the neuron ignores it.
+*   **Soma → Combination ($$z = \\sum w_i x_i + b$$):** Multiply each input by its weight, sum everything, and add the bias $$b$$ (a "fine tuning" — like calibrating a scale).
+*   **Activation function → Decision ($$a = \\sigma(z)$$):** The neuron looks at $$z$$ and decides: "do I fire or not?" The function $$\\sigma$$ transforms the sum into a usable output — like the ReLU we'll see next.`,
     },
   },
   visual: {

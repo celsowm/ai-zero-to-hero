@@ -127,3 +127,18 @@ export { SglangIntroVisual } from './inference-engines/SglangIntroVisual';
 export { SglangDeepDiveVisual } from './inference-engines/SglangDeepDiveVisual';
 export { InferenceComparisonVisual } from './inference-engines/InferenceComparisonVisual';
 export { InferenceE2eVisual } from './inference-engines/InferenceE2eVisual';
+
+// prompt engineering
+export { PromptEngineeringWhyVisual } from './prompt-engineering/PromptEngineeringWhy';
+export { PromptStructureAnatomyVisual } from './prompt-engineering/PromptStructureAnatomy';
+export { ZeroShotPromptingVisual } from './prompt-engineering/ZeroShotPrompting';
+export { FewShotPromptingVisual } from './prompt-engineering/FewShotPrompting';
+export { ManyShotPromptingVisual } from './prompt-engineering/ManyShotPrompting';
+export { ChainOfThoughtVisual } from './prompt-engineering/ChainOfThought';
+export { TreeOfThoughtsVisual } from './prompt-engineering/TreeOfThoughts';
+export { PromptChainingPatternsVisual } from './prompt-engineering/PromptChainingPatterns';
+export { RealDatasetsPromptsVisual } from './prompt-engineering/RealDatasetsPrompts';
+
+// markdown
+export { MarkdownOutputCompare } from './markdown/MarkdownOutputCompare';
+export { MarkdownSyntaxVisual } from './markdown/MarkdownSyntaxVisual';

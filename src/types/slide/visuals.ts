@@ -147,6 +147,21 @@ import type {
   ToolCallingBestPracticesCopy,
   ToolCallingE2eCopy,
 } from './tool-calling';
+import type {
+  PromptEngineeringWhyCopy,
+  PromptStructureAnatomyCopy,
+  ZeroShotPromptingCopy,
+  FewShotPromptingCopy,
+  ManyShotPromptingCopy,
+  ChainOfThoughtCopy,
+  TreeOfThoughtsCopy,
+  PromptChainingPatternsCopy,
+  RealDatasetsPromptsCopy,
+} from './prompt-engineering';
+import type {
+  MarkdownOutputCompareCopy,
+  MarkdownSyntaxVisualCopy,
+} from './markdown';
 
 // ── Visual registry: maps each visual id to its copy type ──────────────────
 
@@ -264,6 +279,19 @@ interface VisualCopyMap {
   'multi-tool-orchestration-visual': MultiToolOrchestrationCopy;
   'tool-calling-best-practices-visual': ToolCallingBestPracticesCopy;
   'tool-calling-e2e-visual': ToolCallingE2eCopy;
+  // prompt engineering
+  'prompt-engineering-why-visual': PromptEngineeringWhyCopy;
+  'prompt-structure-anatomy-visual': PromptStructureAnatomyCopy;
+  'zero-shot-prompting-visual': ZeroShotPromptingCopy;
+  'few-shot-prompting-visual': FewShotPromptingCopy;
+  'many-shot-prompting-visual': ManyShotPromptingCopy;
+  'chain-of-thought-visual': ChainOfThoughtCopy;
+  'tree-of-thoughts-visual': TreeOfThoughtsCopy;
+  'prompt-chaining-patterns-visual': PromptChainingPatternsCopy;
+  'real-datasets-prompts-visual': RealDatasetsPromptsCopy;
+  // markdown
+  'markdown-output-compare': MarkdownOutputCompareCopy;
+  'markdown-syntax-visual': MarkdownSyntaxVisualCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;
