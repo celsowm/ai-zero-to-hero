@@ -1,0 +1,21 @@
+{
+  "id": "langchain/rag-ingest",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "Carregamento de documentos com TextLoader do langchain_community.",
+      "en-us": "Document loading with TextLoader from langchain_community."
+    },
+    {
+      "lineRange": [9, 10],
+      "pt-br": "Divisão dos documentos em chunks com RecursiveCharacterTextSplitter.",
+      "en-us": "Splitting documents into chunks with RecursiveCharacterTextSplitter."
+    },
+    {
+      "lineRange": [12, 15],
+      "pt-br": "Indexação no ChromaDB com embeddings OpenAI para busca semântica.",
+      "en-us": "Indexing in ChromaDB with OpenAI embeddings for semantic search."
+    }
+  ]
+}

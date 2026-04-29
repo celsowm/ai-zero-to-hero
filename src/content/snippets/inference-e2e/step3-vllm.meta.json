@@ -1,0 +1,16 @@
+{
+  "id": "inference-e2e/step3-vllm",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 8],
+      "pt-br": "Import do vLLM e carregamento do modelo com LLM() — engine de alta performance com PagedAttention.",
+      "en-us": "vLLM import and model loading with LLM() — high-performance engine with PagedAttention."
+    },
+    {
+      "lineRange": [10, 24],
+      "pt-br": "SamplingParams para configuração de geração e llm.generate() para inferência em batch.",
+      "en-us": "SamplingParams for generation configuration and llm.generate() for batch inference."
+    }
+  ]
+}

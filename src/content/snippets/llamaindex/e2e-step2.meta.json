@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/e2e-step2",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Import de VectorStoreIndex e SimpleDirectoryReader — o índice faz embed de cada chunk.",
+      "en-us": "VectorStoreIndex and SimpleDirectoryReader import — the index embeds each chunk."
+    },
+    {
+      "lineRange": [7, 12],
+      "pt-br": "from_documents() constrói o índice calculando embeddings automaticamente.",
+      "en-us": "from_documents() builds the index by computing embeddings automatically."
+    }
+  ]
+}

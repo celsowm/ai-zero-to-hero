@@ -1,0 +1,16 @@
+{
+  "id": "langchain/composed-chain",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 4],
+      "pt-br": "Duas sub-chains paralelas: sumarização e tradução com LCEL.",
+      "en-us": "Two parallel sub-chains: summarization and translation with LCEL."
+    },
+    {
+      "lineRange": [6, 12],
+      "pt-br": "RunnableParallel executa ambas as chains simultaneamente no mesmo input.",
+      "en-us": "RunnableParallel executes both chains simultaneously on the same input."
+    }
+  ]
+}

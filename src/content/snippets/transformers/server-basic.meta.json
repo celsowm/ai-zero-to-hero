@@ -1,0 +1,11 @@
+{
+  "id": "transformers/server-basic",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 16],
+      "pt-br": "Comando transformers-cli serve para iniciar servidor local compatível com OpenAI API. Inclui exemplo de curl.",
+      "en-us": "transformers-cli serve command to start a local OpenAI API-compatible server. Includes curl example."
+    }
+  ]
+}

@@ -3,17 +3,22 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [4, 11],
+      "lineRange": [1, 3],
+      "pt-br": "Imports: SentenceTransformer para embeddings e numpy para similaridade.",
+      "en-us": "Imports: SentenceTransformer for embeddings and numpy for similarity."
+    },
+    {
+      "lineRange": [4, 12],
       "pt-br": "RETRIEVE: transforma query e documentos em vetores, calcula similaridade, pega os top-k mais relevantes.",
       "en-us": "RETRIEVE: encodes query and documents as vectors, computes similarity, returns top-k most relevant."
     },
     {
-      "lineRange": [14, 17],
+      "lineRange": [13, 17],
       "pt-br": "AUGMENT: monta um prompt com o contexto retrieved + a pergunta original.",
       "en-us": "AUGMENT: builds a prompt with retrieved context + original question."
     },
     {
-      "lineRange": [20, 21],
+      "lineRange": [19, 20],
       "pt-br": "GENERATE: o LLM recebe o contexto e gera uma resposta fundamentada nos documentos.",
       "en-us": "GENERATE: the LLM receives context and generates an answer grounded in the documents."
     }

@@ -1,0 +1,16 @@
+{
+  "id": "langchain/simple-chain",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "Importações e montagem da chain com LCEL: prompt | model | parser.",
+      "en-us": "Imports and chain assembly with LCEL: prompt | model | parser."
+    },
+    {
+      "lineRange": [9, 12],
+      "pt-br": "Execução da chain com .invoke() e impressão do resultado.",
+      "en-us": "Chain execution with .invoke() and result printing."
+    }
+  ]
+}

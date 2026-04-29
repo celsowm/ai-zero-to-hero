@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/chunking-pipeline",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "SentenceSplitter com chunk_size=512 e chunk_overlap=50 para dividir documentos em chunks.",
+      "en-us": "SentenceSplitter with chunk_size=512 and chunk_overlap=50 to split documents into chunks."
+    },
+    {
+      "lineRange": [14, 22],
+      "pt-br": "get_nodes_from_documents() retorna nós — cada chunk herda metadados do documento original.",
+      "en-us": "get_nodes_from_documents() returns nodes — each chunk inherits metadata from original document."
+    }
+  ]
+}

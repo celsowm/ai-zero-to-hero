@@ -1,0 +1,21 @@
+{
+  "id": "llamaindex/react-agent",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 17],
+      "pt-br": "QueryEngineTool criado a partir do query engine com metadata para o agente.",
+      "en-us": "QueryEngineTool created from query engine with metadata for the agent."
+    },
+    {
+      "lineRange": [18, 25],
+      "pt-br": "ReActAgent com OpenAI LLM e tools — verbose=True mostra raciocínio passo a passo.",
+      "en-us": "ReActAgent with OpenAI LLM and tools — verbose=True shows step-by-step reasoning."
+    },
+    {
+      "lineRange": [27, 29],
+      "pt-br": "agent.chat() — o agente decide qual ferramenta usar para cada pergunta.",
+      "en-us": "agent.chat() — the agent decides which tool to use for each question."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "transformers/pipeline-device",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 10],
+      "pt-br": "Pipeline com device_map='auto' — detecta GPU automaticamente e faz fallback para CPU.",
+      "en-us": "Pipeline with device_map='auto' — auto-detects GPU and falls back to CPU."
+    },
+    {
+      "lineRange": [12, 19],
+      "pt-br": "Geração com temperature=0.8 para controle de criatividade do texto gerado.",
+      "en-us": "Generation with temperature=0.8 for controlling creativity of generated text."
+    }
+  ]
+}

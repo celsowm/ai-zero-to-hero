@@ -1,0 +1,16 @@
+{
+  "id": "langchain/chat-prompt",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "ChatPromptTemplate com mensagens system e human parametrizadas.",
+      "en-us": "ChatPromptTemplate with parameterized system and human messages."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "Formatação das mensagens com .format_messages() e saída esperada.",
+      "en-us": "Message formatting with .format_messages() and expected output."
+    }
+  ]
+}

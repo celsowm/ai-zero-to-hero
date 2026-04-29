@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/simple-directory-reader",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 14],
+      "pt-br": "SimpleDirectoryReader com file_extractor para loaders customizados por extensão, recursive e num_files_limit.",
+      "en-us": "SimpleDirectoryReader with file_extractor for custom loaders by extension, recursive and num_files_limit."
+    },
+    {
+      "lineRange": [16, 21],
+      "pt-br": "Acesso aos metadados dos documentos (file_name, tamanho do texto).",
+      "en-us": "Accessing document metadata (file_name, text length)."
+    }
+  ]
+}

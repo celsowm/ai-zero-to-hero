@@ -1,0 +1,16 @@
+{
+  "id": "onnx/quantization",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 12],
+      "pt-br": "quantize_dynamic converte modelo FP32 para INT8 — reduz tamanho em ~4x.",
+      "en-us": "quantize_dynamic converts FP32 model to INT8 — reduces size by ~4x."
+    },
+    {
+      "lineRange": [14, 23],
+      "pt-br": "Carregar modelo quantizado com ort.InferenceSession e executar inferência com numpy.",
+      "en-us": "Load quantized model with ort.InferenceSession and run inference with numpy."
+    }
+  ]
+}

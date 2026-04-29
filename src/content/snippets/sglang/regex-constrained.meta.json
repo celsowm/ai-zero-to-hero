@@ -1,0 +1,21 @@
+{
+  "id": "sglang/regex-constrained",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Regex pattern para formatar saída: ID numérico, nome textual, nota decimal.",
+      "en-us": "Regex pattern to format output: numeric ID, textual name, decimal grade."
+    },
+    {
+      "lineRange": [8, 17],
+      "pt-br": "POST com guided_regex — sglang força modelo a seguir padrão regex.",
+      "en-us": "POST with guided_regex — sglang forces model to follow regex pattern."
+    },
+    {
+      "lineRange": [19, 22],
+      "pt-br": "Saída sempre válida — sem necessidade de validação adicional.",
+      "en-us": "Output always valid — no additional validation needed."
+    }
+  ]
+}

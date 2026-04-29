@@ -3,7 +3,12 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [4, 6],
+      "lineRange": [1, 3],
+      "pt-br": "Imports: chromadb (vector DB) e SentenceTransformer (embeddings de texto).",
+      "en-us": "Imports: chromadb (vector DB) and SentenceTransformer (text embeddings)."
+    },
+    {
+      "lineRange": [4, 7],
       "pt-br": "ChromaDB: vector database open-source. Cria coleção para armazenar documentos + embeddings.",
       "en-us": "ChromaDB: open-source vector database. Creates collection to store documents + embeddings."
     },
@@ -13,12 +18,17 @@
       "en-us": "Embedding model: transforms text into 384-dimensional vectors."
     },
     {
-      "lineRange": [22, 26],
-      "pt-br": "Embeddings gerados em batch e salvos no ChromaDB com IDs únicos.",
-      "en-us": "Embeddings generated in batch and saved to ChromaDB with unique IDs."
+      "lineRange": [12, 19],
+      "pt-br": "Lista de documentos sobre AI + gera IDs únicos para cada um.",
+      "en-us": "List of AI documents + generates unique IDs for each one."
     },
     {
-      "lineRange": [29, 30],
+      "lineRange": [20, 24],
+      "pt-br": "Embeddings gerados em batch, salvos no ChromaDB com IDs únicos e confirmação impressa.",
+      "en-us": "Embeddings generated in batch, saved to ChromaDB with unique IDs and printed confirmation."
+    },
+    {
+      "lineRange": [25, 25],
       "pt-br": "Cada documento agora é buscável por similaridade semântica, não por palavras-chave.",
       "en-us": "Each document is now searchable by semantic similarity, not keywords."
     }

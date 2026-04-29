@@ -1,0 +1,21 @@
+{
+  "id": "llamaindex/chat-engine",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 10],
+      "pt-br": "ChatMemoryBuffer com token_limit=2000 para manter histórico de conversa.",
+      "en-us": "ChatMemoryBuffer with token_limit=2000 to maintain conversation history."
+    },
+    {
+      "lineRange": [12, 18],
+      "pt-br": "CondenseQuestionChatEngine condensa histórico a cada turno antes de buscar contexto.",
+      "en-us": "CondenseQuestionChatEngine condenses history each turn before retrieving context."
+    },
+    {
+      "lineRange": [20, 25],
+      "pt-br": "Múltiplos turns de chat — a memória mantém contexto entre perguntas.",
+      "en-us": "Multiple chat turns — memory maintains context between questions."
+    }
+  ]
+}

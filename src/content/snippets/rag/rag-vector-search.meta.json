@@ -3,17 +3,22 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [8, 13],
+      "lineRange": [1, 6],
+      "pt-br": "Imports: SentenceTransformer (embeddings), numpy e cosine_similarity do sklearn.",
+      "en-us": "Imports: SentenceTransformer (embeddings), numpy, and cosine_similarity from sklearn."
+    },
+    {
+      "lineRange": [7, 13],
       "pt-br": "Documentos misturados: alguns sobre futebol, outros sobre programação.",
       "en-us": "Mixed documents: some about football, others about programming."
     },
     {
-      "lineRange": [16, 20],
+      "lineRange": [14, 20],
       "pt-br": "Query embeddada + cosine similarity com todos os documentos.",
       "en-us": "Query embedded + cosine similarity with all documents."
     },
     {
-      "lineRange": [23, 26],
+      "lineRange": [21, 26],
       "pt-br": "Resultado: documentos sobre Copa rankeados no topo. Busca semântica, não por palavras-chave.",
       "en-us": "Result: World Cup documents ranked at top. Semantic search, not keyword search."
     }

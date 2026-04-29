@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/vector-retriever",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 12],
+      "pt-br": "VectorIndexRetriever com controle explícito de index e similarity_top_k.",
+      "en-us": "VectorIndexRetriever with explicit control of index and similarity_top_k."
+    },
+    {
+      "lineRange": [14, 20],
+      "pt-br": "retrieve() retorna NodeWithScore — cada nó com score de similaridade vetorial.",
+      "en-us": "retrieve() returns NodeWithScore — each node with vector similarity score."
+    }
+  ]
+}

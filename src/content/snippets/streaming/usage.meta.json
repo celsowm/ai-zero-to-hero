@@ -1,0 +1,21 @@
+{
+  "id": "streaming/usage",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 10],
+      "pt-br": "Streaming com coleta de resposta completa e contagem de tokens.",
+      "en-us": "Streaming with full response collection and token counting."
+    },
+    {
+      "lineRange": [12, 20],
+      "pt-br": "Acumular delta.content em full_response enquanto exibe em tempo real.",
+      "en-us": "Accumulating delta.content into full_response while displaying in real time."
+    },
+    {
+      "lineRange": [22, 25],
+      "pt-br": "Métricas finais: total de tokens e tamanho da resposta.",
+      "en-us": "Final metrics: total tokens and response length."
+    }
+  ]
+}

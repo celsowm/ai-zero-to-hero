@@ -13,7 +13,7 @@
       "en-us": "Question about a post-2021 event. The model has no way to know."
     },
     {
-      "lineRange": [16, 20],
+      "lineRange": [16, 19],
       "pt-br": "Resultado: modelo inventa ou responde com dados desatualizados. Sem fonte externa = hallucinação.",
       "en-us": "Result: model invents or answers with outdated data. No external source = hallucination."
     }

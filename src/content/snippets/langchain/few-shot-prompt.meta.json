@@ -1,0 +1,21 @@
+{
+  "id": "langchain/few-shot-prompt",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Template de exemplo para pares input/output do few-shot.",
+      "en-us": "Example template for input/output pairs in few-shot."
+    },
+    {
+      "lineRange": [8, 12],
+      "pt-br": "Lista de exemplos com pares de palavras opostas.",
+      "en-us": "List of examples with opposite word pairs."
+    },
+    {
+      "lineRange": [14, 20],
+      "pt-br": "FewShotPromptTemplate combinando prefixo, exemplos e sufixo.",
+      "en-us": "FewShotPromptTemplate combining prefix, examples, and suffix."
+    }
+  ]
+}

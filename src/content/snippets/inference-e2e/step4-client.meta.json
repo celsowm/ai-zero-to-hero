@@ -1,0 +1,16 @@
+{
+  "id": "inference-e2e/step4-client",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 8],
+      "pt-br": "Cliente OpenAI configurado com base_url apontando para servidor local compatível.",
+      "en-us": "OpenAI client configured with base_url pointing to a compatible local server."
+    },
+    {
+      "lineRange": [10, 17],
+      "pt-br": "Chat completion com messages, max_tokens e temperature — formato padrão OpenAI.",
+      "en-us": "Chat completion with messages, max_tokens, and temperature — standard OpenAI format."
+    }
+  ]
+}

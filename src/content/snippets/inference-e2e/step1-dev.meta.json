@@ -1,0 +1,16 @@
+{
+  "id": "inference-e2e/step1-dev",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "Carregamento de modelo e tokenizer com AutoModel.from_pretrained e device_map='auto'.",
+      "en-us": "Loading model and tokenizer with AutoModel.from_pretrained and device_map='auto'."
+    },
+    {
+      "lineRange": [11, 18],
+      "pt-br": "Tokenização do texto e inferência com torch.no_grad() para desabilitar gradientes.",
+      "en-us": "Text tokenization and inference with torch.no_grad() to disable gradients."
+    }
+  ]
+}

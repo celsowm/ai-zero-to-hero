@@ -1,0 +1,16 @@
+{
+  "id": "langchain/e2e-step4",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "Criação do agente OpenAI Functions com LLM, prompt e tools de busca.",
+      "en-us": "Creating OpenAI Functions agent with LLM, prompt, and search tools."
+    },
+    {
+      "lineRange": [10, 10],
+      "pt-br": "AgentExecutor encapsula o agente com tools, verbose mode e tratamento de erros.",
+      "en-us": "AgentExecutor wraps the agent with tools, verbose mode, and error handling."
+    }
+  ]
+}

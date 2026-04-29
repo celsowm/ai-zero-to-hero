@@ -1,0 +1,11 @@
+{
+  "id": "langchain/e2e-step1",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "ChatPromptTemplate com system message, chat_history e input para agente RAG conversacional.",
+      "en-us": "ChatPromptTemplate with system message, chat_history, and input for conversational RAG agent."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "openai-api/request",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 16],
+      "pt-br": "curl para /v1/chat/completions com model, messages, max_tokens, temperature e stream.",
+      "en-us": "curl to /v1/chat/completions with model, messages, max_tokens, temperature, and stream."
+    },
+    {
+      "lineRange": [18, 22],
+      "pt-br": "Explicação dos campos principais da API OpenAI.",
+      "en-us": "Explanation of key OpenAI API fields."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/e2e-step4",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 10],
+      "pt-br": "Query engine criado com as_query_engine() — combina retriever + LLM para RAG.",
+      "en-us": "Query engine created with as_query_engine() — combines retriever + LLM for RAG."
+    },
+    {
+      "lineRange": [11, 16],
+      "pt-br": "query() executa a pergunta e retorna resposta gerada pelo LLM com contexto dos documentos.",
+      "en-us": "query() executes the question and returns LLM-generated answer with document context."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "langchain/built-in-tools",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Importação de ferramentas built-in: WikipediaQueryRun e Calculator do langchain_community.",
+      "en-us": "Import built-in tools: WikipediaQueryRun and Calculator from langchain_community."
+    },
+    {
+      "lineRange": [8, 10],
+      "pt-br": "Instanciação das ferramentas e exemplos de uso com .run().",
+      "en-us": "Tool instantiation and usage examples with .run()."
+    }
+  ]
+}

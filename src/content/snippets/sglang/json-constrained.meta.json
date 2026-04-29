@@ -1,0 +1,21 @@
+{
+  "id": "sglang/json-constrained",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "JSON schema definindo estrutura esperada: name, age, skills.",
+      "en-us": "JSON schema defining expected structure: name, age, skills."
+    },
+    {
+      "lineRange": [14, 25],
+      "pt-br": "POST para sglang com guided_json no sampling_params — modelo gera JSON válido.",
+      "en-us": "POST to sglang with guided_json in sampling_params — model generates valid JSON."
+    },
+    {
+      "lineRange": [26, 30],
+      "pt-br": "Parse direto com json.loads — saída garantida como JSON válido.",
+      "en-us": "Direct parse with json.loads — output guaranteed as valid JSON."
+    }
+  ]
+}

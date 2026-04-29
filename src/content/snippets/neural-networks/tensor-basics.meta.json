@@ -1,0 +1,31 @@
+{
+  "id": "neural-networks/tensor-basics",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "Criar tensor a partir de lista com torch.tensor().",
+      "en-us": "Create tensor from list with torch.tensor()."
+    },
+    {
+      "lineRange": [9, 13],
+      "pt-br": "Tensores especiais: zeros, ones, randn com shapes definidos.",
+      "en-us": "Special tensors: zeros, ones, randn with defined shapes."
+    },
+    {
+      "lineRange": [15, 21],
+      "pt-br": "Operações: soma, multiplicação elemento a elemento e produto escalar.",
+      "en-us": "Operations: addition, element-wise multiplication, and dot product."
+    },
+    {
+      "lineRange": [23, 26],
+      "pt-br": "Reshape com .view() e conversão para numpy com .numpy().",
+      "en-us": "Reshape with .view() and conversion to numpy with .numpy()."
+    },
+    {
+      "lineRange": [28, 35],
+      "pt-br": "Transferência para GPU com .to('cuda') — condicional se disponível.",
+      "en-us": "Transfer to GPU with .to('cuda') — conditional if available."
+    }
+  ]
+}

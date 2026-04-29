@@ -3,24 +3,34 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [5, 19],
+      "lineRange": [1, 4],
+      "pt-br": "Imports: ChromaDB (vector DB), SentenceTransformer (embeddings), Transformers (LLM).",
+      "en-us": "Imports: ChromaDB (vector DB), SentenceTransformer (embeddings), Transformers (LLM)."
+    },
+    {
+      "lineRange": [5, 21],
       "pt-br": "Fase 1: ChromaDB + SentenceTransformer para indexar documentos como vetores.",
       "en-us": "Phase 1: ChromaDB + SentenceTransformer to index documents as vectors."
     },
     {
-      "lineRange": [22, 27],
+      "lineRange": [23, 27],
       "pt-br": "Fase 2 (Retrieve): busca semântica no ChromaDB por similaridade vetorial.",
       "en-us": "Phase 2 (Retrieve): semantic search in ChromaDB by vector similarity."
     },
     {
-      "lineRange": [30, 32],
+      "lineRange": [29, 32],
       "pt-br": "Fase 3 (Generate): modelo GPT-2 do Transformers HuggingFace para gerar texto.",
       "en-us": "Phase 3 (Generate): GPT-2 model from HuggingFace Transformers to generate text."
     },
     {
-      "lineRange": [34, 40],
+      "lineRange": [33, 40],
       "pt-br": "Pipeline RAG completo: retrieve documentos relevantes → gera resposta fundamentada no contexto.",
       "en-us": "Complete RAG pipeline: retrieve relevant documents → generate answer grounded in context."
+    },
+    {
+      "lineRange": [42, 42],
+      "pt-br": "Execução: responde pergunta usando contexto recuperado do ChromaDB + geração LLM.",
+      "en-us": "Execution: answers question using context retrieved from ChromaDB + LLM generation."
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "id": "langchain/simple-prompt",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Criação de PromptTemplate com variável {text} para tradução PT→EN.",
+      "en-us": "Creating PromptTemplate with {text} variable for PT→EN translation."
+    },
+    {
+      "lineRange": [7, 11],
+      "pt-br": "Formatação do prompt com .format() e saída esperada.",
+      "en-us": "Prompt formatting with .format() and expected output."
+    }
+  ]
+}

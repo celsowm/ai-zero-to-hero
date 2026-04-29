@@ -3,22 +3,32 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [4, 7],
+      "lineRange": [1, 3],
+      "pt-br": "Imports: chromadb (vector DB) e SentenceTransformer (embeddings).",
+      "en-us": "Imports: chromadb (vector DB) and SentenceTransformer (embeddings)."
+    },
+    {
+      "lineRange": [4, 8],
       "pt-br": "Reconecta ao ChromaDB e carrega o mesmo embedder usado na indexação.",
       "en-us": "Reconnects to ChromaDB and loads the same embedder used during indexing."
     },
     {
-      "lineRange": [10, 11],
+      "lineRange": [10, 12],
       "pt-br": "Query embeddada — o mesmo modelo que indexou os documentos.",
       "en-us": "Query embedded — the same model that indexed the documents."
     },
     {
-      "lineRange": [14, 19],
+      "lineRange": [14, 20],
       "pt-br": "Busca por similaridade: retorna top-2 documentos com menores distâncias.",
       "en-us": "Similarity search: returns top-2 documents with lowest distances."
     },
     {
-      "lineRange": [22, 25],
+      "lineRange": [21, 22],
+      "pt-br": "Itera sobre resultados exibindo distância e documento de cada match.",
+      "en-us": "Iterates over results showing distance and document for each match."
+    },
+    {
+      "lineRange": [23, 27],
       "pt-br": "Resultado: documentos semanticamente relevantes, mesmo sem palavras-chave exatas.",
       "en-us": "Result: semantically relevant documents, even without exact keyword matches."
     }

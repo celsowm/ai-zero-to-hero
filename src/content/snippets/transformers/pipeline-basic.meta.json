@@ -1,0 +1,16 @@
+{
+  "id": "transformers/pipeline-basic",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Import do pipeline e criação da pipeline de text-generation com GPT-2.",
+      "en-us": "Pipeline import and text-generation pipeline creation with GPT-2."
+    },
+    {
+      "lineRange": [6, 9],
+      "pt-br": "Geração de texto com max_length e do_sample para variação nas respostas.",
+      "en-us": "Text generation with max_length and do_sample for response variation."
+    }
+  ]
+}

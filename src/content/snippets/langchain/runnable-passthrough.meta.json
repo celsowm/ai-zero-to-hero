@@ -1,0 +1,16 @@
+{
+  "id": "langchain/runnable-passthrough",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "RunnablePassthrough repassa input original enquanto retriever injeta context.",
+      "en-us": "RunnablePassthrough passes original input while retriever injects context."
+    },
+    {
+      "lineRange": [10, 12],
+      "pt-br": "Execução: input 'O que é RAG?' vira 'question', retriever vira 'context'.",
+      "en-us": "Execution: input 'What is RAG?' becomes 'question', retriever becomes 'context'."
+    }
+  ]
+}

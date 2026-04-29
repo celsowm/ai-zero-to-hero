@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/retriever-query-engine",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 12],
+      "pt-br": "Pipeline manual com retriever + response_synthesizer → RetrieverQueryEngine para controle granular.",
+      "en-us": "Manual pipeline with retriever + response_synthesizer → RetrieverQueryEngine for granular control."
+    },
+    {
+      "lineRange": [14, 21],
+      "pt-br": "query_engine.query() executa RAG: recupera contexto e sintetiza resposta com LLM.",
+      "en-us": "query_engine.query() executes RAG: retrieves context and synthesizes response with LLM."
+    }
+  ]
+}

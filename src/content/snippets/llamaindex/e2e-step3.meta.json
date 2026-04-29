@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/e2e-step3",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "Retriever criado com as_retriever(similarity_top_k=3) para buscar 3 chunks mais relevantes.",
+      "en-us": "Retriever created with as_retriever(similarity_top_k=3) to find 3 most relevant chunks."
+    },
+    {
+      "lineRange": [11, 18],
+      "pt-br": "retrieve() retorna nós com score de similaridade — quanto maior, mais relevante.",
+      "en-us": "retrieve() returns nodes with similarity score — higher is more relevant."
+    }
+  ]
+}

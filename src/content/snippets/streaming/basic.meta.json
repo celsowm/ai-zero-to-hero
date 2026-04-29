@@ -1,0 +1,21 @@
+{
+  "id": "streaming/basic",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Cliente OpenAI com stream=True para habilitar Server-Sent Events.",
+      "en-us": "OpenAI client with stream=True to enable Server-Sent Events."
+    },
+    {
+      "lineRange": [7, 12],
+      "pt-br": "chat.completions.create com stream=True retorna iterável de chunks SSE.",
+      "en-us": "chat.completions.create with stream=True returns iterable of SSE chunks."
+    },
+    {
+      "lineRange": [14, 19],
+      "pt-br": "Iteração sobre chunks acessando delta.content — texto gerado token por token.",
+      "en-us": "Iterating over chunks accessing delta.content — generated text token by token."
+    }
+  ]
+}

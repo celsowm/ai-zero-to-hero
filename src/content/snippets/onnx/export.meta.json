@@ -1,0 +1,16 @@
+{
+  "id": "onnx/export",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 14],
+      "pt-br": "Modelo PyTorch simples com nn.Linear e model.eval() para modo de inferência.",
+      "en-us": "Simple PyTorch model with nn.Linear and model.eval() for inference mode."
+    },
+    {
+      "lineRange": [16, 31],
+      "pt-br": "torch.onnx.export com dummy_input, dynamic_axes e opset_version=14.",
+      "en-us": "torch.onnx.export with dummy_input, dynamic_axes, and opset_version=14."
+    }
+  ]
+}

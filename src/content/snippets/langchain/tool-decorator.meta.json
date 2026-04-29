@@ -1,0 +1,16 @@
+{
+  "id": "langchain/tool-decorator",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 11],
+      "pt-br": "Decorador @tool com nome customizado e return_direct=True para busca em vectorstore.",
+      "en-us": "@tool decorator with custom name and return_direct=True for vectorstore search."
+    },
+    {
+      "lineRange": [11, 13],
+      "pt-br": "Explicação: return_direct=True faz o agente retornar o resultado sem processar novamente.",
+      "en-us": "Explanation: return_direct=True makes the agent return the result directly without reprocessing."
+    }
+  ]
+}

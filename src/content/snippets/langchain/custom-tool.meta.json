@@ -1,0 +1,11 @@
+{
+  "id": "langchain/custom-tool",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 11],
+      "pt-br": "Criação de ferramenta customizada com @tool decorator: busca clima via API externa com type hint na docstring.",
+      "en-us": "Custom tool creation with @tool decorator: weather lookup via external API with type hints in docstring."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "openai-api/response",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 24],
+      "pt-br": "JSON response completo: id, object, model, choices (message, finish_reason) e usage (tokens).",
+      "en-us": "Complete JSON response: id, object, model, choices (message, finish_reason) and usage (tokens)."
+    },
+    {
+      "lineRange": [26, 28],
+      "pt-br": "Como acessar conteúdo e contagem de tokens da resposta.",
+      "en-us": "How to access content and token count from the response."
+    }
+  ]
+}

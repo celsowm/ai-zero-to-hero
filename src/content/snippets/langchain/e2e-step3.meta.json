@@ -1,0 +1,11 @@
+{
+  "id": "langchain/e2e-step3",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Tool customizado para busca de documentos relevantes via similarity_search no vectorstore.",
+      "en-us": "Custom tool for searching relevant documents via similarity_search on vectorstore."
+    }
+  ]
+}

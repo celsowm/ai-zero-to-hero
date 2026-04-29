@@ -3,19 +3,24 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [4, 5],
-      "pt-br": "SentenceTransformer: modelo treinado para mapear frases inteiras em vetores densos.",
-      "en-us": "SentenceTransformer: model trained to map entire sentences into dense vectors."
+      "lineRange": [1, 6],
+      "pt-br": "Imports: SentenceTransformer para embeddings e numpy para operações vetoriais.",
+      "en-us": "Imports: SentenceTransformer for embeddings and numpy for vector operations."
     },
     {
-      "lineRange": [7, 12],
+      "lineRange": [7, 13],
       "pt-br": "Documentos de domínios variados: esportes, programação, geografia, história.",
       "en-us": "Documents from varied domains: sports, programming, geography, history."
     },
     {
-      "lineRange": [15, 17],
+      "lineRange": [14, 17],
       "pt-br": "Cada documento vira um vetor de 384 dimensões — pontos no espaço semântico.",
       "en-us": "Each document becomes a 384-dimensional vector — points in semantic space."
+    },
+    {
+      "lineRange": [19, 20],
+      "pt-br": "Documentos semanticamente similares ficam próximos neste espaço vetorial.",
+      "en-us": "Semantically similar documents are close together in this vector space."
     }
   ]
 }

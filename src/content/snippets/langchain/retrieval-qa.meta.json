@@ -1,0 +1,16 @@
+{
+  "id": "langchain/retrieval-qa",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "Criação da cadeia RetrievalQA com LLM GPT-4o-mini e retriever do vectorstore.",
+      "en-us": "Creating RetrievalQA chain with GPT-4o-mini LLM and vectorstore retriever."
+    },
+    {
+      "lineRange": [10, 14],
+      "pt-br": "Execução da query e acesso ao resultado + documentos fonte.",
+      "en-us": "Query execution and access to result + source documents."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "langchain/react-agent",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 12],
+      "pt-br": "Inicialização do agente ReAct com tools, LLM e tratamento de erros.",
+      "en-us": "ReAct agent initialization with tools, LLM, and error handling."
+    },
+    {
+      "lineRange": [13, 20],
+      "pt-br": "Loop ReAct: Thought → Action → Observation → Final Answer.",
+      "en-us": "ReAct loop: Thought → Action → Observation → Final Answer."
+    },
+    {
+      "lineRange": [22, 23],
+      "pt-br": "Execução do agente com uma pergunta que requer cálculo.",
+      "en-us": "Agent execution with a question requiring calculation."
+    }
+  ]
+}

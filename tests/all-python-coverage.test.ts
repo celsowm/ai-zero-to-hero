@@ -10,52 +10,10 @@ interface CodeExplanation {
   content: string;
 }
 
-interface SlideContent {
-  codeExplanations?: CodeExplanation[];
-}
-
-interface CodePanel {
-  codeExplanations?: CodeExplanation[];
-}
-
-interface VisualCopy {
-  codePanel?: CodePanel;
-}
-
-interface SlideJson {
+interface MetaJson {
   id: string;
-  visual?: {
-    copy?: {
-      'pt-br'?: VisualCopy;
-      'en-us'?: VisualCopy;
-    };
-  };
-  content?: {
-    'pt-br'?: SlideContent;
-    'en-us'?: SlideContent;
-  };
-}
-
-/**
- * Extract all codeExplanations arrays from a slide JSON.
- */
-function extractCodeExplanations(json: SlideJson): Array<{ label: string; lang: 'pt-br' | 'en-us'; explanations: CodeExplanation[] }> {
-  const results: Array<{ label: string; lang: 'pt-br' | 'en-us'; explanations: CodeExplanation[] }> = [];
-  const content = json.content;
-  if (content?.['pt-br']?.codeExplanations?.length) {
-    results.push({ label: 'content.pt-br.codeExplanations', lang: 'pt-br', explanations: content['pt-br'].codeExplanations });
-  }
-  if (content?.['en-us']?.codeExplanations?.length) {
-    results.push({ label: 'content.en-us.codeExplanations', lang: 'en-us', explanations: content['en-us'].codeExplanations });
-  }
-  const visualCopy = json.visual?.copy;
-  if (visualCopy?.['pt-br']?.codePanel?.codeExplanations?.length) {
-    results.push({ label: 'visual.copy.pt-br.codePanel.codeExplanations', lang: 'pt-br', explanations: visualCopy['pt-br'].codePanel.codeExplanations });
-  }
-  if (visualCopy?.['en-us']?.codePanel?.codeExplanations?.length) {
-    results.push({ label: 'visual.copy.en-us.codePanel.codeExplanations', lang: 'en-us', explanations: visualCopy['en-us'].codePanel.codeExplanations });
-  }
-  return results;
+  language: string;
+  explanations: Array<{ lineRange: [number, number]; 'pt-br'?: string; 'en-us'?: string }>;
 }
 
 /**
@@ -102,160 +60,92 @@ function findAllPyFiles(dir: string): string[] {
 }
 
 /**
- * Extract all snippet references from slide body content.
- * Pattern: snippet:category/snippet-name
+ * Extract codeExplanations from a .meta.json file for a given snippet.
  */
-function extractSnippetReferences(body: string): string[] {
-  const matches = body.match(/snippet:([\w-]+\/[\w-]+)/g);
-  if (!matches) return [];
-  return matches.map((m) => m.replace('snippet:', ''));
+function getCodeExplanationsFromMeta(snippetPath: string): { 'pt-br': CodeExplanation[]; 'en-us': CodeExplanation[] } {
+  const metaPath = snippetPath.replace('.pt-br.py', '.meta.json').replace('.en-us.py', '.meta.json');
+  if (!existsSync(metaPath)) return { 'pt-br': [], 'en-us': [] };
+
+  try {
+    const meta: MetaJson = JSON.parse(readFileSync(metaPath, 'utf-8'));
+    const ptExplanations = meta.explanations
+      ?.filter((e) => e['pt-br'])
+      ?.map((e) => ({ lineRange: e.lineRange, content: e['pt-br']! })) || [];
+    const enExplanations = meta.explanations
+      ?.filter((e) => e['en-us'])
+      ?.map((e) => ({ lineRange: e.lineRange, content: e['en-us']! })) || [];
+    return { 'pt-br': ptExplanations, 'en-us': enExplanations };
+  } catch {
+    return { 'pt-br': [], 'en-us': [] };
+  }
 }
 
 describe('ALL Python code explanation coverage', () => {
   const projectRoot = join(__dirname, '..');
-  const slidesDir = join(projectRoot, 'src/data/slides');
   const snippetsDir = join(projectRoot, 'src/content/snippets');
 
-  const slideFiles = existsSync(slidesDir) ? readdirSync(slidesDir).filter((f) => f.endsWith('.json')) : [];
-
-  // Build a comprehensive map: slideFile → snippetId → lang → explanations[]
-  function buildComprehensiveSlideSnippetMap() {
-    const map = new Map<string, Map<string, Map<string, CodeExplanation[]>>>();
-
-    for (const slideFile of slideFiles) {
-      const slidePath = join(slidesDir, slideFile);
-      const raw = readFileSync(slidePath, 'utf-8');
-      const json: SlideJson = JSON.parse(raw);
-      const allExplanations = extractCodeExplanations(json);
-
-      // Extract snippet references from both language bodies
-      const bodyPt = json.content?.['pt-br']?.body || raw;
-      const bodyEn = json.content?.['en-us']?.body || raw;
-
-      const snippetsPt = extractSnippetReferences(bodyPt);
-      const snippetsEn = extractSnippetReferences(bodyEn);
-
-      if (snippetsPt.length === 0 && snippetsEn.length === 0) continue;
-
-      const perSnippet = new Map<string, Map<string, CodeExplanation[]>>();
-
-      // Map explanations to snippet IDs - explanations apply to all snippets referenced in the slide
-      for (const { lang, explanations } of allExplanations) {
-        const snippetIds = lang === 'pt-br' ? snippetsPt : snippetsEn;
-        for (const snippetId of snippetIds) {
-          if (!perSnippet.has(snippetId)) {
-            perSnippet.set(snippetId, new Map());
-          }
-          const langMap = perSnippet.get(snippetId)!;
-          // Merge explanations for this snippet
-          langMap.set(lang, explanations);
-        }
-      }
-
-      if (perSnippet.size > 0) {
-        map.set(slideFile, perSnippet);
-      }
-    }
-    return map;
-  }
-
-  it.skipIf(slideFiles.length === 0)('every non-empty, non-comment line in ALL python snippets is covered by codeExplanations', () => {
-    const slideMap = buildComprehensiveSlideSnippetMap();
+  it('every non-empty, non-comment line in python snippets with meta.json is covered by explanations', () => {
     const allPyFiles = findAllPyFiles(snippetsDir);
-
-    const failures: string[] = [];
+    const errors: string[] = [];
 
     for (const snippetPath of allPyFiles) {
+      const relativePath = relative(snippetsDir, snippetPath).replace(/\\/g, '/');
+      const metaPath = snippetPath.replace('.pt-br.py', '.meta.json').replace('.en-us.py', '.meta.json');
+
+      // Skip snippets without meta.json (legacy snippets)
+      if (!existsSync(metaPath)) continue;
+
       const code = readFileSync(snippetPath, 'utf-8');
       const significantLines = getSignificantLines(code);
 
       if (significantLines.length === 0) continue;
 
-      // Determine language and snippet ID from path
-      const relativePath = relative(snippetsDir, snippetPath).replace(/\\/g, '/');
       const lang: 'pt-br' | 'en-us' = relativePath.includes('.en-us.') ? 'en-us' : 'pt-br';
-      const baseName = relativePath
-        .replace('.pt-br.py', '')
-        .replace('.en-us.py', '')
-        .replace('.py', '');
 
-      // Find all slides that reference this snippet for this language
-      for (const [slideFile, perSnippet] of slideMap) {
-        const perLang = perSnippet.get(baseName);
-        if (!perLang) continue;
+      const explanations = getCodeExplanationsFromMeta(snippetPath);
+      const langExplanations = explanations[lang];
 
-        const explanations = perLang.get(lang);
-        if (!explanations) continue;
+      if (langExplanations.length === 0) continue; // Skip empty explanations
 
-        const uncovered = significantLines.filter((line) => !isCovered(line, explanations));
-        if (uncovered.length > 0) {
-          failures.push(
-            `❌ ${slideFile} → ${lang}: lines ${uncovered.join(', ')} of snippet '${baseName}' (${relativePath})`,
-          );
-        }
+      const uncovered = significantLines.filter((line) => !isCovered(line, langExplanations));
+      if (uncovered.length > 0) {
+        errors.push(
+          `❌ ${lang}: lines ${uncovered.join(', ')} of '${relativePath}' not covered by explanations`,
+        );
       }
     }
 
-    if (failures.length > 0) {
+    if (errors.length > 0) {
       expect.unreachable(
-        `\n🔴 ${failures.length} Python snippet(s) with uncovered lines:\n\n${failures.join('\n')}`,
+        `\n ${errors.length} Python snippet(s) with uncovered lines:\n\n${errors.join('\n')}`,
       );
     }
   });
 
-  it.skipIf(slideFiles.length === 0)('every codeExplanations lineRange refers to existing lines in its snippet', () => {
+  it('every codeExplanations lineRange refers to existing lines in its snippet', () => {
     const allPyFiles = findAllPyFiles(snippetsDir);
-    const snippetCodeMap = new Map<string, { path: string; totalLines: number }>();
+    const failures: string[] = [];
 
     for (const snippetPath of allPyFiles) {
       const code = readFileSync(snippetPath, 'utf-8');
       const totalLines = code.split('\n').length;
       const relativePath = relative(snippetsDir, snippetPath).replace(/\\/g, '/');
-      const baseName = relativePath
-        .replace('.pt-br.py', '')
-        .replace('.en-us.py', '')
-        .replace('.py', '');
-      snippetCodeMap.set(baseName, { path: relativePath, totalLines });
-    }
 
-    const failures: string[] = [];
+      const explanations = getCodeExplanationsFromMeta(snippetPath);
+      const allExplanations = [...explanations['pt-br'], ...explanations['en-us']];
 
-    for (const slideFile of slideFiles) {
-      const slidePath = join(slidesDir, slideFile);
-      const raw = readFileSync(slidePath, 'utf-8');
-      if (!raw.includes('snippet:')) continue;
-
-      const json: SlideJson = JSON.parse(raw);
-      const allExplanations = extractCodeExplanations(json);
-
-      if (allExplanations.length === 0) continue;
-
-      const bodyText = json.content?.['pt-br']?.body || raw;
-      const snippetIds = extractSnippetReferences(bodyText);
-
-      for (const snippetId of snippetIds) {
-        const snippetInfo = snippetCodeMap.get(snippetId);
-        if (!snippetInfo) continue;
-
-        for (const { label, lang, explanations } of allExplanations) {
-          // Only check explanations for the language that matches the snippet
-          const snippetLang: 'pt-br' | 'en-us' = snippetInfo.path.includes('.en-us.') ? 'en-us' : 'pt-br';
-          if (lang !== snippetLang) continue;
-
-          for (const exp of explanations) {
-            if (exp.lineRange[1] > snippetInfo.totalLines) {
-              failures.push(
-                `❌ ${slideFile} → ${label}: lineRange [${exp.lineRange[0]}, ${exp.lineRange[1]}] ` +
-                `exceeds snippet total of ${snippetInfo.totalLines} lines ('${snippetId}' in ${snippetInfo.path})`,
-              );
-            }
-            if (exp.lineRange[0] < 1) {
-              failures.push(
-                `❌ ${slideFile} → ${label}: lineRange [${exp.lineRange[0]}, ${exp.lineRange[1]}] ` +
-                `starts before line 1 ('${snippetId}' in ${snippetInfo.path})`,
-              );
-            }
-          }
+      for (const exp of allExplanations) {
+        if (exp.lineRange[1] > totalLines) {
+          failures.push(
+            `❌ lineRange [${exp.lineRange[0]}, ${exp.lineRange[1]}] ` +
+            `exceeds ${relativePath} total of ${totalLines} lines`,
+          );
+        }
+        if (exp.lineRange[0] < 1) {
+          failures.push(
+            `❌ lineRange [${exp.lineRange[0]}, ${exp.lineRange[1]}] ` +
+            `starts before line 1 in ${relativePath}`,
+          );
         }
       }
     }

@@ -1,0 +1,16 @@
+{
+  "id": "inference-e2e/step2-onnx",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 12],
+      "pt-br": "Carregamento do modelo e tokenizer, e preparo de entrada dummy para export.",
+      "en-us": "Loading model and tokenizer, and preparing dummy input for export."
+    },
+    {
+      "lineRange": [14, 31],
+      "pt-br": "torch.onnx.export com dynamic_axes para suportar batch e sequence variáveis.",
+      "en-us": "torch.onnx.export with dynamic_axes to support variable batch and sequence."
+    }
+  ]
+}

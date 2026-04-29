@@ -1,0 +1,21 @@
+{
+  "id": "langchain/e2e-step5",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 10],
+      "pt-br": "Imports, tools e criação do agent com create_openai_functions_agent.",
+      "en-us": "Imports, tools, and agent creation with create_openai_functions_agent."
+    },
+    {
+      "lineRange": [12, 17],
+      "pt-br": "AgentExecutor com verbose e handle_parsing_errors para robustez.",
+      "en-us": "AgentExecutor with verbose and handle_parsing_errors for robustness."
+    },
+    {
+      "lineRange": [19, 19],
+      "pt-br": "Uso: invoke com input e chat_history vazio para nova consulta.",
+      "en-us": "Usage: invoke with input and empty chat_history for new query."
+    }
+  ]
+}

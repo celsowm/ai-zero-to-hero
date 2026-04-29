@@ -1,0 +1,21 @@
+{
+  "id": "inference-e2e/step5-streaming",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Cliente OpenAI com stream=True habilitando Server-Sent Events (SSE).",
+      "en-us": "OpenAI client with stream=True enabling Server-Sent Events (SSE)."
+    },
+    {
+      "lineRange": [7, 13],
+      "pt-br": "Criação da requisição com stream=True — o servidor envia chunks SSE em vez de resposta completa.",
+      "en-us": "Request creation with stream=True — server sends SSE chunks instead of full response."
+    },
+    {
+      "lineRange": [15, 21],
+      "pt-br": "Iteração sobre chunks, acessando delta.content de cada choice. flush=True garante saída imediata.",
+      "en-us": "Iterating over chunks, accessing delta.content of each choice. flush=True ensures immediate output."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/simple-web-page-reader",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 11],
+      "pt-br": "SimpleWebPageReader com html_to_text=True para converter HTML em texto puro de URLs.",
+      "en-us": "SimpleWebPageReader with html_to_text=True to convert HTML to plain text from URLs."
+    },
+    {
+      "lineRange": [13, 18],
+      "pt-br": "Cada documento carrega metadados com URL original e texto extraído.",
+      "en-us": "Each document carries metadata with original URL and extracted text."
+    }
+  ]
+}

@@ -3,9 +3,19 @@
   "language": "python",
   "explanations": [
     {
-      "lineRange": [8, 12],
+      "lineRange": [1, 5],
+      "pt-br": "Imports e carregamento do modelo GPT-2 + tokenizer do HuggingFace.",
+      "en-us": "Imports and loading of GPT-2 model + tokenizer from HuggingFace."
+    },
+    {
+      "lineRange": [7, 12],
       "pt-br": "Contexto retrieved pela busca vetorial — fatos reais sobre a Copa de 2022.",
       "en-us": "Context retrieved by vector search — real facts about the 2022 World Cup."
+    },
+    {
+      "lineRange": [13, 14],
+      "pt-br": "Pergunta do usuário sobre quem ganhou a Copa.",
+      "en-us": "User question about who won the World Cup."
     },
     {
       "lineRange": [16, 21],
@@ -13,7 +23,7 @@
       "en-us": "Prompt template: instruction + numbered sources + question. Model receives everything together."
     },
     {
-      "lineRange": [24, 27],
+      "lineRange": [22, 26],
       "pt-br": "Resultado: resposta fundamentada nas fontes. Sem hallucinação pois o contexto contém a verdade.",
       "en-us": "Result: answer grounded in sources. No hallucination because context contains the truth."
     }

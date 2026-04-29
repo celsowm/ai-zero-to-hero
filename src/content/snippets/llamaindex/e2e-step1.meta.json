@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/e2e-step1",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "SimpleDirectoryReader para carregar documentos de um diretório — suporte a múltiplos formatos.",
+      "en-us": "SimpleDirectoryReader to load documents from a directory — multi-format support."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "load_data() retorna lista de Document objects com texto e metadados.",
+      "en-us": "load_data() returns list of Document objects with text and metadata."
+    }
+  ]
+}

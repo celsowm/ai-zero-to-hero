@@ -1,0 +1,21 @@
+{
+  "id": "langchain/buffer-memory",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "ConversationBufferMemory para armazenar histórico e salvar contexto.",
+      "en-us": "ConversationBufferMemory to store conversation history and save context."
+    },
+    {
+      "lineRange": [8, 10],
+      "pt-br": "Carregamento da memória e início da ConversationChain com LLM.",
+      "en-us": "Loading memory and starting ConversationChain with LLM."
+    },
+    {
+      "lineRange": [11, 14],
+      "pt-br": "Configuração da chain com memória integrada e verbose ativo.",
+      "en-us": "Chain configuration with integrated memory and verbose enabled."
+    }
+  ]
+}

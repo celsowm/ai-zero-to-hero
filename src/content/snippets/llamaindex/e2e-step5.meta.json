@@ -1,0 +1,16 @@
+{
+  "id": "llamaindex/e2e-step5",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 9],
+      "pt-br": "Chat engine com chat_mode='context' — recupera contexto a cada turno da conversa.",
+      "en-us": "Chat engine with chat_mode='context' — retrieves context each conversation turn."
+    },
+    {
+      "lineRange": [11, 19],
+      "pt-br": "Loop de conversa com chat() que mantém histórico de mensagens automaticamente.",
+      "en-us": "Conversation loop with chat() that maintains message history automatically."
+    }
+  ]
+}

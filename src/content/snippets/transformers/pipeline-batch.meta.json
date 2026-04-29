@@ -1,0 +1,21 @@
+{
+  "id": "transformers/pipeline-batch",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Pipeline com batch_size=4 para processar múltiplos prompts em paralelo.",
+      "en-us": "Pipeline with batch_size=4 to process multiple prompts in parallel."
+    },
+    {
+      "lineRange": [6, 16],
+      "pt-br": "Lista de prompts e execução em batch — retorna resultados na mesma ordem de entrada.",
+      "en-us": "Prompt list and batch execution — returns results in same order as input."
+    },
+    {
+      "lineRange": [17, 21],
+      "pt-br": "Iteração sobre os resultados com zip para parear prompt e geração.",
+      "en-us": "Iterating over results with zip to pair prompt and generation."
+    }
+  ]
+}
