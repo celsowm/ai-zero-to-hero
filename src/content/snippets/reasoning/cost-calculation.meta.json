@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/cost-calculation",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 9], "pt-br": "Tabela de precos por modelo (Out 2024).", "en-us": "Price table by model (Oct 2024)." },
+    { "lineRange": [11, 19], "pt-br": "Funcao calculate_cost com breakdown input/thinking/output.", "en-us": "calculate_cost function with input/thinking/output breakdown." },
+    { "lineRange": [16, 16], "pt-br": "Thinking tokens cobrados como output tokens.", "en-us": "Thinking tokens billed as output tokens." },
+    { "lineRange": [21, 31], "pt-br": "Exemplo pratico com o3-mini e calculo de custo.", "en-us": "Practical example with o3-mini and cost calculation." }
+  ]
+}

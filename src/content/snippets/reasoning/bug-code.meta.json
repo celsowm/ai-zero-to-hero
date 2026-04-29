@@ -1,0 +1,11 @@
+{
+  "id": "reasoning/bug-code",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 7], "pt-br": "Classe ReasoningParser com regex de thinking.", "en-us": "ReasoningParser class with thinking regex." },
+    { "lineRange": [6, 6], "pt-br": "BUG: regex sem flag DOTALL nao captura multi-line.", "en-us": "BUG: regex without DOTALL flag doesn't capture multi-line." },
+    { "lineRange": [9, 24], "pt-br": "Metodo parse que extrai thinking e answer.", "en-us": "Parse method that extracts thinking and answer." },
+    { "lineRange": [28, 42], "pt-br": "Teste com response multi-line que falha.", "en-us": "Test with multi-line response that fails." },
+    { "lineRange": [46, 47], "pt-br": "Explicacao do bug: '.' nao match newline sem DOTALL.", "en-us": "Bug explanation: '.' doesn't match newline without DOTALL." }
+  ]
+}

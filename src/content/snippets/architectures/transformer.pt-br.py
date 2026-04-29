@@ -35,4 +35,4 @@ contexto_gato = scaled_dot_product_attention(
     values=embeddings
 )
 print(f"Vetor de Contexto (Gato): {contexto_gato}")
-# @end
+# @endregion e2e

@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/overthinking-example",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [6, 6], "pt-br": "Pergunta simples que nao precisa de reasoning.", "en-us": "Simple question that doesn't need reasoning." },
+    { "lineRange": [8, 12], "pt-br": "Com reasoning_effort=high, o modelo pensa demais.", "en-us": "With reasoning_effort=high, the model overthinks." },
+    { "lineRange": [14, 26], "pt-br": "Exemplo de thinking gerado: 100+ tokens para resposta de 5.", "en-us": "Example of generated thinking: 100+ tokens for 5-token answer." },
+    { "lineRange": [28, 31], "pt-br": "Comparacao: GPT-4o usaria ~10 tokens totais.", "en-us": "Comparison: GPT-4o would use ~10 total tokens." }
+  ]
+}

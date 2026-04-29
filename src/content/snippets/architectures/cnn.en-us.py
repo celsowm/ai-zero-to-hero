@@ -36,4 +36,4 @@ def convolution2d(img, ker):
 # 4. EXECUTION
 feature_map = convolution2d(image, kernel)
 print(f"Output Map: {feature_map}")
-# @end
+# @endregion e2e

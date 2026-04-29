@@ -1,0 +1,11 @@
+{
+  "id": "reasoning/payload-response",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 5], "pt-br": "Setup do client e import json.", "en-us": "Client setup and json import." },
+    { "lineRange": [7, 11], "pt-br": "Chamada com reasoning_effort.", "en-us": "Call with reasoning_effort." },
+    { "lineRange": [14, 20], "pt-br": "Iteracao sobre os blocos de content (thinking + text).", "en-us": "Iteration over content blocks (thinking + text)." },
+    { "lineRange": [22, 24], "pt-br": "Parsing via model_dump_json.", "en-us": "Parsing via model_dump_json." },
+    { "lineRange": [26, 31], "pt-br": "Usage breakdown: prompt, reasoning, completion.", "en-us": "Usage breakdown: prompt, reasoning, completion." }
+  ]
+}

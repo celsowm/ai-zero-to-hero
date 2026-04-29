@@ -1,0 +1,9 @@
+{
+  "id": "reasoning/dataset-example",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 18], "pt-br": "Data point com problema, reasoning_trace, resposta e step_labels.", "en-us": "Data point with problem, reasoning_trace, answer and step_labels." },
+    { "lineRange": [7, 14], "pt-br": "Reasoning trace detalhado passo a passo.", "en-us": "Detailed step by step reasoning trace." },
+    { "lineRange": [15, 18], "pt-br": "Step labels com avaliacao de qualidade por step (PRM).", "en-us": "Step labels with per-step quality evaluation (PRM)." }
+  ]
+}

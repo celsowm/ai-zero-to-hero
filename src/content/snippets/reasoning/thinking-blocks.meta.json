@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/thinking-blocks",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 4], "pt-br": "Setup do client OpenAI.", "en-us": "OpenAI client setup." },
+    { "lineRange": [6, 12], "pt-br": "Chamada com reasoning_effort='medium'.", "en-us": "Call with reasoning_effort='medium'." },
+    { "lineRange": [15, 27], "pt-br": "Estrutura do content com thinking blocks.", "en-us": "Content structure with thinking blocks." },
+    { "lineRange": [29, 32], "pt-br": "Usage stats: total, thinking, e output tokens.", "en-us": "Usage stats: total, thinking, and output tokens." }
+  ]
+}

@@ -2,6 +2,7 @@ import type { ISlide, Language, LocalizedImageCopy } from '../types/slide';
 import huggingFaceLogoSynthwave from '../assets/hf-logo-synthwave.svg';
 import traditionalVsAiPtBr from '../assets/traditional_vs_ai_pt-br.png';
 import traditionalVsAiEnUs from '../assets/traditional_vs_ai_en-us.png';
+import moeExpertMap from '../assets/moe_expert_map.png';
 import { courseSlideOrder } from './course-outline';
 import { allSlides } from '../content/slides';
 
@@ -10,6 +11,7 @@ const assetRegistry = {
   huggingFaceLogoSynthwave,
   traditionalVsAiPtBr,
   traditionalVsAiEnUs,
+  moeExpertMap,
 } as const;
 
 type AssetKey = keyof typeof assetRegistry;

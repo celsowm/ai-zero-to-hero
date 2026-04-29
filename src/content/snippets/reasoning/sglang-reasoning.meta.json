@@ -1,0 +1,11 @@
+{
+  "id": "reasoning/sglang-reasoning",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 6], "pt-br": "sglang function com reasoning estruturado.", "en-us": "sglang function with structured reasoning." },
+    { "lineRange": [9, 12], "pt-br": "Thinking gerado livremente com stop token.", "en-us": "Thinking generated freely with stop token." },
+    { "lineRange": [15, 20], "pt-br": "Answer constrained com regex para formato JSON.", "en-us": "Answer constrained with regex to JSON format." },
+    { "lineRange": [22, 29], "pt-br": "Runtime e execucao da function.", "en-us": "Runtime and function execution." },
+    { "lineRange": [31, 34], "pt-br": "Vantagens: regex, separation, prefix caching.", "en-us": "Advantages: regex, separation, prefix caching." }
+  ]
+}

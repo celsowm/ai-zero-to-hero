@@ -1,0 +1,18 @@
+{
+  "id": "transformers/moe-pytorch",
+  "regions": ["moe-layer"],
+  "explanations": [
+    {
+      "lineRange": [7, 21],
+      "content": "Definição do Roteador e dos Especialistas. Usamos um `ModuleList` para garantir que o PyTorch rastreie os parâmetros de todos os especialistas."
+    },
+    {
+      "lineRange": [27, 31],
+      "content": "Cálculo de scores e seleção do Top-K. Note como normalizamos os pesos para que a soma seja 1, garantindo estabilidade numérica."
+    },
+    {
+      "lineRange": [39, 48],
+      "content": "O loop de execução esparsa. Filtramos os tokens por especialista (`mask`) e processamos apenas o que é necessário. Isso é o coração da eficiência do MoE."
+    }
+  ]
+}

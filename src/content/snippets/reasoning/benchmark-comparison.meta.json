@@ -1,0 +1,9 @@
+{
+  "id": "reasoning/benchmark-comparison",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 19], "pt-br": "Dados de benchmark AIME 2024 e GPQA com accuracy, reasoning, custo.", "en-us": "AIME 2024 and GPQA benchmark data with accuracy, reasoning, cost." },
+    { "lineRange": [21, 34], "pt-br": "Funcao print_comparison: ordena por accuracy e imprime tabela.", "en-us": "print_comparison function: sorts by accuracy and prints table." },
+    { "lineRange": [36, 40], "pt-br": "Execucao dos benchmarks e insights.", "en-us": "Benchmark execution and insights." }
+  ]
+}

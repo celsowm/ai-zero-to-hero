@@ -1,0 +1,11 @@
+{
+  "id": "reasoning/cost-optimization",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [6, 10], "pt-br": "Funcao smart_reasoning: classifica antes de decidir usar reasoning.", "en-us": "smart_reasoning function: classifies before deciding to use reasoning." },
+    { "lineRange": [12, 20], "pt-br": "Classificador barato (gpt-4o-mini) para medir complexidade.", "en-us": "Cheap classifier (gpt-4o-mini) to measure complexity." },
+    { "lineRange": [22, 28], "pt-br": "Se simples: usa GPT-4o sem reasoning.", "en-us": "If simple: use GPT-4o without reasoning." },
+    { "lineRange": [30, 36], "pt-br": "Se complexa: usa o3-mini com reasoning_effort high.", "en-us": "If complex: use o3-mini with reasoning_effort high." },
+    { "lineRange": [46, 50], "pt-br": "Teste com pergunta simples e complexa.", "en-us": "Test with simple and complex question." }
+  ]
+}

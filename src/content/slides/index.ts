@@ -121,6 +121,13 @@ import { markdownWhy } from './markdown-why';
 import { mlPipeline } from './ml-pipeline';
 import { mlpInsideTransformer } from './mlp-inside-transformer';
 import { mlpLanguageModel } from './mlp-language-model';
+import { moeIntro } from './moe-intro';
+import { moeSparseVsDense } from './moe-sparse-vs-dense';
+import { moeRouting } from './moe-routing';
+import { moeExercise } from './moe-exercise';
+import { moeNamingConventions } from './moe-naming-conventions';
+import { moePytorchDeepDive } from './moe-pytorch-deep-dive';
+import { moeExpertVisualization } from './moe-expert-visualization';
 import { modelCacheSafetensors } from './model-cache-safetensors';
 import { modelEvaluationHf } from './model-evaluation-hf';
 import { modelSharingHub } from './model-sharing-hub';
@@ -196,6 +203,22 @@ import { transformerBlockOverview } from './transformer-block-overview';
 import { welcome } from './welcome';
 import { whyTransformersWorkSoWell } from './why-transformers-work-so-well';
 import { wordpieceSentencepiece } from './wordpiece-sentencepiece';
+
+// Reasoning/Thinking section
+import { reasoningWhy } from './reasoning-why';
+import { reasoningHistory } from './reasoning-history';
+import { reasoningVsCot } from './reasoning-vs-cot';
+import { reasoningHowItWorks } from './reasoning-how-it-works';
+import { reasoningPayload } from './reasoning-payload';
+import { reasoningDatasets } from './reasoning-datasets';
+import { reasoningTraining } from './reasoning-training';
+import { reasoningApi } from './reasoning-api';
+import { reasoningCost } from './reasoning-cost';
+import { reasoningComparison } from './reasoning-comparison';
+import { reasoningLimitations } from './reasoning-limitations';
+import { reasoningInference } from './reasoning-inference';
+import { reasoningExercise } from './reasoning-exercise';
+import { reasoningE2e } from './reasoning-e2e';
 
 export const allSlides: ISlide[] = [
   apiLatencyGrowthBridge,
@@ -319,6 +342,13 @@ export const allSlides: ISlide[] = [
   mlPipeline,
   mlpInsideTransformer,
   mlpLanguageModel,
+  moeIntro,
+  moeSparseVsDense,
+  moeRouting,
+  moeExercise,
+  moeNamingConventions,
+  moePytorchDeepDive,
+  moeExpertVisualization,
   modelCacheSafetensors,
   modelEvaluationHf,
   modelSharingHub,
@@ -394,4 +424,19 @@ export const allSlides: ISlide[] = [
   welcome,
   whyTransformersWorkSoWell,
   wordpieceSentencepiece,
+  // Reasoning/Thinking section
+  reasoningWhy,
+  reasoningHistory,
+  reasoningVsCot,
+  reasoningHowItWorks,
+  reasoningPayload,
+  reasoningDatasets,
+  reasoningTraining,
+  reasoningApi,
+  reasoningCost,
+  reasoningComparison,
+  reasoningLimitations,
+  reasoningInference,
+  reasoningExercise,
+  reasoningE2e,
 ];

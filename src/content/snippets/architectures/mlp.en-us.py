@@ -25,4 +25,4 @@ def layer_forward(inputs, weights, biases):
 # 4. EXECUTION
 result = layer_forward(patient, hidden_weights, hidden_biases)
 print(f"Hidden Layer Activations: {result}")
-# @end
+# @endregion e2e

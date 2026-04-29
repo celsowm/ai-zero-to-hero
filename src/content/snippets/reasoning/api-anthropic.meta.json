@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/api-anthropic",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 4], "pt-br": "Setup do client Anthropic.", "en-us": "Anthropic client setup." },
+    { "lineRange": [6, 16], "pt-br": "Request com thinking enabled e budget_tokens.", "en-us": "Request with thinking enabled and budget_tokens." },
+    { "lineRange": [18, 25], "pt-br": "Parse dos blocos thinking e text na resposta.", "en-us": "Parse thinking and text blocks in response." },
+    { "lineRange": [27, 30], "pt-br": "Explicacao do budget_tokens control.", "en-us": "Explanation of budget_tokens control." }
+  ]
+}

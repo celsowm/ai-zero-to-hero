@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/prm-inference",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 7], "pt-br": "Pipeline PRM para classificacao de steps.", "en-us": "PRM pipeline for step classification." },
+    { "lineRange": [9, 18], "pt-br": "Reasoning trace dividido em 7 steps.", "en-us": "Reasoning trace split into 7 steps." },
+    { "lineRange": [20, 26], "pt-br": "Loop avaliando cada step com label e confidence.", "en-us": "Loop evaluating each step with label and confidence." },
+    { "lineRange": [28, 28], "pt-br": "PRM usado como reward no RL.", "en-us": "PRM used as reward in RL." }
+  ]
+}

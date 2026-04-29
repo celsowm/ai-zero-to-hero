@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/e2e-setup",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [7, 15], "pt-br": "ReasoningConfig: modelo, effort, timeout, limite de custo.", "en-us": "ReasoningConfig: model, effort, timeout, cost limit." },
+    { "lineRange": [17, 28], "pt-br": "ReasoningResult: dataclass com resultado padronizado.", "en-us": "ReasoningResult: dataclass with standardized result." },
+    { "lineRange": [33, 36], "pt-br": "Tabela de precos por modelo.", "en-us": "Pricing table by model." },
+    { "lineRange": [38, 43], "pt-br": "Funcao calculate_cost: input + output tokens.", "en-us": "calculate_cost function: input + output tokens." }
+  ]
+}

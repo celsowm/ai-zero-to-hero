@@ -20,4 +20,4 @@ x = torch.tensor([1.0, 2.0, 3.0], device=device)
 
 print(f"Hardware in use: {device.upper()}")
 print(f"Calculation result: {x * 2}")
-# @end
+# @endregion validation

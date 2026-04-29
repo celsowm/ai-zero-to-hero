@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/vllm-config",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [5, 11], "pt-br": "Comando vllm serve com max_tokens e config ajustados.", "en-us": "vllm serve command with adjusted max_tokens and config." },
+    { "lineRange": [13, 25], "pt-br": "Client OpenAI-compatible com vLLM.", "en-us": "OpenAI-compatible client with vLLM." },
+    { "lineRange": [27, 32], "pt-br": "Chamada com max_tokens=8192 para reasoning.", "en-us": "Call with max_tokens=8192 for reasoning." },
+    { "lineRange": [34, 37], "pt-br": "Notas sobre PagedAttention, batching e OOM.", "en-us": "Notes on PagedAttention, batching and OOM." }
+  ]
+}

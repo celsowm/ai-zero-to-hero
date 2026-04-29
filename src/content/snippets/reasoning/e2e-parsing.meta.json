@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/e2e-parsing",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 14], "pt-br": "Parse de content como lista de blocos (OpenAI format).", "en-us": "Parse content as list of blocks (OpenAI format)." },
+    { "lineRange": [16, 22], "pt-br": "Parse de <think> com DOTALL flag.", "en-us": "Parse <think> with DOTALL flag." },
+    { "lineRange": [24, 28], "pt-br": "Parse alternativo com [\\s\\S].", "en-us": "Alternative parse with [\\s\\S]." },
+    { "lineRange": [30, 31], "pt-br": "Fallback: sem thinking, tudo e resposta.", "en-us": "Fallback: no thinking, everything is answer." }
+  ]
+}

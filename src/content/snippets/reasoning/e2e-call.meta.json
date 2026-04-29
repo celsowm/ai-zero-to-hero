@@ -1,0 +1,8 @@
+{
+  "id": "reasoning/e2e-call",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [5, 22], "pt-br": "Funcao call_reasoning: chamada ao o3-mini com effort control.", "en-us": "call_reasoning function: o3-mini call with effort control." },
+    { "lineRange": [24, 29], "pt-br": "Retorno com modelo, tokens, reasoning_tokens, latencia.", "en-us": "Return with model, tokens, reasoning_tokens, latency." }
+  ]
+}

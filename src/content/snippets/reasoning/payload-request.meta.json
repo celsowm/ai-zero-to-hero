@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/payload-request",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [3, 4], "pt-br": "Setup do client OpenAI.", "en-us": "OpenAI client setup." },
+    { "lineRange": [7, 15], "pt-br": "Request com reasoning_effort e max_completion_tokens.", "en-us": "Request with reasoning_effort and max_completion_tokens." },
+    { "lineRange": [17, 20], "pt-br": "Explicacao dos niveis de reasoning_effort.", "en-us": "Explanation of reasoning_effort levels." },
+    { "lineRange": [22, 23], "pt-br": "Print do modelo e tokens totais.", "en-us": "Print model and total tokens." }
+  ]
+}

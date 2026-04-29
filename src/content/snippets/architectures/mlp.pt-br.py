@@ -25,4 +25,4 @@ def layer_forward(inputs, weights, biases):
 # 4. EXECUÇÃO
 resultado = layer_forward(paciente, pesos_ocultos, biases_ocultos)
 print(f"Ativações da Camada Oculta: {resultado}")
-# @end
+# @endregion e2e

@@ -1,0 +1,10 @@
+{
+  "id": "reasoning/fallback-strategy",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [5, 9], "pt-br": "Funcao reasoning_with_fallback com tentativas.", "en-us": "reasoning_with_fallback function with attempts." },
+    { "lineRange": [11, 27], "pt-br": "Tentativa 1: o3-mini com reasoning e timeout de 60s.", "en-us": "Attempt 1: o3-mini with reasoning and 60s timeout." },
+    { "lineRange": [29, 44], "pt-br": "Tentativa 2: GPT-4o com CoT prompt como fallback.", "en-us": "Attempt 2: GPT-4o with CoT prompt as fallback." },
+    { "lineRange": [46, 47], "pt-br": "Retorna erro se todas as tentativas falharem.", "en-us": "Returns error if all attempts fail." }
+  ]
+}
