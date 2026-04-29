@@ -1,0 +1,10 @@
+{
+  "id": "prompt-eng/cot-zero-shot",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 2], "pt-br": "Define a pergunta/problema para o modelo resolver.", "en-us": "Defines the question/problem for the model to solve." },
+    { "lineRange": [5, 5], "pt-br": "Prompt direto sem instrução de raciocínio passo a passo.", "en-us": "Direct prompt without step-by-step reasoning instruction." },
+    { "lineRange": [8, 10], "pt-br": "Prompt com a frase mágica 'Vamos pensar passo a passo' que ativa CoT.", "en-us": "Prompt with the magic phrase 'Let's think step by step' that triggers CoT." },
+    { "lineRange": [12, 17], "pt-br": "Imprime comparação entre o prompt direto e o prompt CoT.", "en-us": "Prints comparison between the direct prompt and the CoT prompt." }
+  ]
+}

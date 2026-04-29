@@ -1,0 +1,11 @@
+{
+  "id": "prompt-eng/few-shot-langchain",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [1, 1], "pt-br": "Importa FewShotPromptTemplate e PromptTemplate do LangChain.", "en-us": "Imports FewShotPromptTemplate and PromptTemplate from LangChain." },
+    { "lineRange": [3, 7], "pt-br": "Lista de exemplos input/output para o modelo aprender o padrão.", "en-us": "List of input/output examples for the model to learn the pattern." },
+    { "lineRange": [9, 11], "pt-br": "Template individual para formatar cada exemplo.", "en-us": "Individual template to format each example." },
+    { "lineRange": [13, 18], "pt-br": "Cria o FewShotPromptTemplate combinando exemplos, template e sufixo.", "en-us": "Creates the FewShotPromptTemplate combining examples, template, and suffix." },
+    { "lineRange": [20, 21], "pt-br": "Formata o prompt com o input 'cold' e imprime o resultado.", "en-us": "Formats the prompt with input 'cold' and prints the result." }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prompt-eng/cot-few-shot-math",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 11], "pt-br": "Lista de exemplos CoT com pergunta e resposta passo a passo.", "en-us": "List of CoT examples with question and step-by-step answer." },
+    { "lineRange": [14, 14], "pt-br": "Inicia o prompt com instrução 'Resolva passo a passo'.", "en-us": "Starts the prompt with 'Solve step by step' instruction." },
+    { "lineRange": [15, 16], "pt-br": "Itera sobre os exemplos adicionando perguntas e respostas ao prompt.", "en-us": "Iterates over examples adding questions and answers to the prompt." },
+    { "lineRange": [17, 17], "pt-br": "Adiciona a pergunta final sem resposta para o modelo completar.", "en-us": "Adds the final question without answer for the model to complete." },
+    { "lineRange": [19, 20], "pt-br": "Imprime o prompt CoT few-shot completo.", "en-us": "Prints the complete CoT few-shot prompt." }
+  ]
+}

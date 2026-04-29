@@ -76,6 +76,18 @@ import { langchainPromptTemplates } from './langchain-prompt-templates';
 import { langchainRagLangchain } from './langchain-rag-langchain';
 import { langchainTools } from './langchain-tools';
 import { langchainWhy } from './langchain-why';
+import { chainOfThought } from './chain-of-thought';
+import { fewShotPrompting } from './few-shot-prompting';
+import { manyShotPrompting } from './many-shot-prompting';
+import { promptChainingPatterns } from './prompt-chaining-patterns';
+import { promptEngineeringExercise } from './prompt-engineering-exercise';
+import { promptEngineeringWhy } from './prompt-engineering-why';
+import { promptEvaluation } from './prompt-evaluation';
+import { promptSecuritySafety } from './prompt-security-safety';
+import { promptStructureAnatomy } from './prompt-structure-anatomy';
+import { realDatasetsPrompts } from './real-datasets-prompts';
+import { treeOfThoughts } from './tree-of-thoughts';
+import { zeroShotPrompting } from './zero-shot-prompting';
 import { inferenceE2e } from './inference-e2e';
 import { inferenceComparison } from './inference-comparison';
 import { inferenceEnginesWhy } from './inference-engines-why';
@@ -245,6 +257,18 @@ export const allSlides: ISlide[] = [
   langchainRagLangchain,
   langchainTools,
   langchainWhy,
+  chainOfThought,
+  fewShotPrompting,
+  manyShotPrompting,
+  promptChainingPatterns,
+  promptEngineeringExercise,
+  promptEngineeringWhy,
+  promptEvaluation,
+  promptSecuritySafety,
+  promptStructureAnatomy,
+  realDatasetsPrompts,
+  treeOfThoughts,
+  zeroShotPrompting,
   inferenceE2e,
   inferenceComparison,
   inferenceEnginesWhy,

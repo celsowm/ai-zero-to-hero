@@ -1,0 +1,9 @@
+{
+  "id": "prompt-eng/anatomy-golden",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 6], "pt-br": "Define as 5 componentes do template golden: system, context, instruction, examples e output_format.", "en-us": "Defines the 5 components of the golden template: system, context, instruction, examples, and output_format." },
+    { "lineRange": [8, 16], "pt-br": "Monta o prompt final usando f-string com todas as componentes interpoladas.", "en-us": "Assembles the final prompt using an f-string with all components interpolated." },
+    { "lineRange": [18, 18], "pt-br": "Imprime o prompt formatado no console.", "en-us": "Prints the formatted prompt to the console." }
+  ]
+}

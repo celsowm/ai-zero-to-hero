@@ -1,0 +1,11 @@
+{
+  "id": "prompt-eng/alpaca-analysis",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 2], "pt-br": "Importa json para manipulação de dados.", "en-us": "Imports json for data manipulation." },
+    { "lineRange": [5, 9], "pt-br": "Amostra de entrada do dataset Alpaca com instruction, input e output.", "en-us": "Sample entry from the Alpaca dataset with instruction, input, and output." },
+    { "lineRange": [12, 17], "pt-br": "Dicionário com os 4 padrões mais frequentes nos 52K prompts.", "en-us": "Dictionary with the 4 most frequent patterns in the 52K prompts." },
+    { "lineRange": [18, 20], "pt-br": "Itera e imprime cada padrão com sua descrição.", "en-us": "Iterates and prints each pattern with its description." },
+    { "lineRange": [21, 25], "pt-br": "Imprime o exemplo Alpaca formatado.", "en-us": "Prints the formatted Alpaca example." }
+  ]
+}

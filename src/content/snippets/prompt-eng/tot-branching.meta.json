@@ -1,0 +1,11 @@
+{
+  "id": "prompt-eng/tot-branching",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 2], "pt-br": "Importa random (para possível aleatorização).", "en-us": "Imports random (for potential randomization)." },
+    { "lineRange": [4, 4], "pt-br": "Define o problema de sequência numérica.", "en-us": "Defines the numeric sequence problem." },
+    { "lineRange": [7, 11], "pt-br": "Lista de 3 caminhos de raciocínio diferentes chegando à mesma resposta.", "en-us": "List of 3 different reasoning paths arriving at the same answer." },
+    { "lineRange": [14, 17], "pt-br": "Simula votação extraindo a resposta de cada caminho.", "en-us": "Simulates voting by extracting the answer from each path." },
+    { "lineRange": [19, 24], "pt-br": "Imprime o problema, todos os caminhos e o resultado da votação.", "en-us": "Prints the problem, all paths, and the voting result." }
+  ]
+}

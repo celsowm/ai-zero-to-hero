@@ -1,0 +1,14 @@
+{
+  "id": "prompt-eng/prompt-eval-ab",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 2], "pt-br": "Importa json para manipulação de dados.", "en-us": "Imports json for data manipulation." },
+    { "lineRange": [5, 5], "pt-br": "Prompt A: curto e genérico.", "en-us": "Prompt A: short and generic." },
+    { "lineRange": [8, 13], "pt-br": "Prompt B: estruturado com formato e requisitos claros.", "en-us": "Prompt B: structured with clear format and requirements." },
+    { "lineRange": [16, 19], "pt-br": "Dicionário com métricas simuladas de cada prompt.", "en-us": "Dictionary with simulated metrics for each prompt." },
+    { "lineRange": [21, 22], "pt-br": "Imprime o cabeçalho da tabela de comparação.", "en-us": "Prints the comparison table header." },
+    { "lineRange": [23, 23], "pt-br": "Linha separadora da tabela.", "en-us": "Table separator line." },
+    { "lineRange": [24, 25], "pt-br": "Itera sobre as métricas imprimindo os valores de cada prompt.", "en-us": "Iterates over metrics printing each prompt's values." },
+    { "lineRange": [26, 26], "pt-br": "Declara o vencedor da avaliação A/B.", "en-us": "Declares the A/B evaluation winner." }
+  ]
+}

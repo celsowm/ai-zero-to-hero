@@ -1,0 +1,13 @@
+{
+  "id": "prompt-eng/prompt-chain-validation",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 4], "pt-br": "Texto de entrada para extração de informações.", "en-us": "Input text for information extraction." },
+    { "lineRange": [6, 6], "pt-br": "Prompt de extração listando os campos desejados.", "en-us": "Extraction prompt listing the desired fields." },
+    { "lineRange": [8, 8], "pt-br": "Simula a saída do modelo com dados extraídos.", "en-us": "Simulates the model output with extracted data." },
+    { "lineRange": [11, 12], "pt-br": "Valida se todos os campos foram preenchidos corretamente.", "en-us": "Validates whether all fields were filled correctly." },
+    { "lineRange": [13, 13], "pt-br": "Imprime o resultado da validação (PASS/FAIL).", "en-us": "Prints the validation result (PASS/FAIL)." },
+    { "lineRange": [16, 18], "pt-br": "Gera resumo JSON dos dados extraídos.", "en-us": "Generates JSON summary of the extracted data." },
+    { "lineRange": [20, 23], "pt-br": "Imprime os 3 passos da cadeia de prompts.", "en-us": "Prints the 3 steps of the prompt chain." }
+  ]
+}

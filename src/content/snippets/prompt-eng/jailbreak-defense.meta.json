@@ -1,0 +1,10 @@
+{
+  "id": "prompt-eng/jailbreak-defense",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [4, 4], "pt-br": "System prompt vulnerável - sem restrições específicas.", "en-us": "Vulnerable system prompt - no specific restrictions." },
+    { "lineRange": [7, 12], "pt-br": "System prompt robusto com 5 regras ABSOLUTAS anti-jailbreak.", "en-us": "Robust system prompt with 5 ABSOLUTE anti-jailbreak rules." },
+    { "lineRange": [15, 15], "pt-br": "Exemplo de tentativa de jailbreak clássica (DAN).", "en-us": "Classic jailbreak attempt example (DAN)." },
+    { "lineRange": [17, 21], "pt-br": "Imprime comparação entre system vulnerável e robusto.", "en-us": "Prints comparison between vulnerable and robust system." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "prompt-eng/many-shot-in-context",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [2, 3], "pt-br": "Importa matplotlib e numpy para plotar o gráfico.", "en-us": "Imports matplotlib and numpy to plot the chart." },
+    { "lineRange": [6, 7], "pt-br": "Define os dados: número de exemplos e accuracy correspondente.", "en-us": "Defines the data: number of examples and corresponding accuracy." },
+    { "lineRange": [9, 10], "pt-br": "Cria a figura e plota a curva de accuracy.", "en-us": "Creates the figure and plots the accuracy curve." },
+    { "lineRange": [11, 12], "pt-br": "Adiciona linhas verticais marcando few-shot e many-shot.", "en-us": "Adds vertical lines marking few-shot and many-shot." },
+    { "lineRange": [13, 17], "pt-br": "Configura rótulos, título, legenda e grade do gráfico.", "en-us": "Configures labels, title, legend, and grid of the chart." },
+    { "lineRange": [18, 18], "pt-br": "Salva o gráfico como imagem PNG.", "en-us": "Saves the chart as a PNG image." },
+    { "lineRange": [19, 22], "pt-br": "Imprime estatísticas de accuracy e o ganho obtained.", "en-us": "Prints accuracy statistics and the gain obtained." }
+  ]
+}
