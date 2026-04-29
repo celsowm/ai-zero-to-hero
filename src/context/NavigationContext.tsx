@@ -42,10 +42,25 @@ export const NavigationProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
-      } else if (e.key === 'ArrowLeft') {
-        setCurrentSlideIndex(prev => (prev > 0 ? prev - 1 : prev));
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const target = e.target as HTMLElement;
+        const tag = target.tagName;
+        const isEditable =
+          tag === 'INPUT' ||
+          tag === 'TEXTAREA' ||
+          tag === 'SELECT' ||
+          target.isContentEditable ||
+          target.closest('[contenteditable="true"]') ||
+          target.closest('.cm-editor') ||
+          target.closest('.cm-content');
+
+        if (isEditable) return;
+
+        if (e.key === 'ArrowRight') {
+          setCurrentSlideIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
+        } else if (e.key === 'ArrowLeft') {
+          setCurrentSlideIndex(prev => (prev > 0 ? prev - 1 : prev));
+        }
       }
     };
     window.addEventListener('keydown', handler);
