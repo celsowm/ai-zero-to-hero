@@ -2,11 +2,11 @@
   "id": "reasoning/training-sft",
   "language": "python",
   "explanations": [
-    { "lineRange": [4, 5], "pt-br": "Imports de transformers e datasets.", "en-us": "Imports of transformers and datasets." },
-    { "lineRange": [7, 9], "pt-br": "Carregar modelo base Llama-3-8B.", "en-us": "Load Llama-3-8B base model." },
-    { "lineRange": [11, 12], "pt-br": "Dataset OpenThoughts-1M com reasoning traces.", "en-us": "OpenThoughts-1M dataset with reasoning traces." },
-    { "lineRange": [14, 23], "pt-br": "Formatar com tags <think> para o modelo aprender a estrutura.", "en-us": "Format with <think> tags so model learns the structure." },
-    { "lineRange": [25, 35], "pt-br": "Tokenizar textos com max_length 4096 para traces longos.", "en-us": "Tokenize texts with max_length 4096 for long traces." },
-    { "lineRange": [37, 49], "pt-br": "Treinar com Trainer: 3 epochs, batch 2, gradient accumulation.", "en-us": "Train with Trainer: 3 epochs, batch 2, gradient accumulation." }
+    { "lineRange": [3, 5], "pt-br": "Imports de transformers e datasets.", "en-us": "Imports of transformers and datasets." },
+    { "lineRange": [7, 10], "pt-br": "Carregar modelo base Llama-3-8B.", "en-us": "Load Llama-3-8B base model." },
+    { "lineRange": [12, 13], "pt-br": "Dataset OpenThoughts-1M com reasoning traces.", "en-us": "OpenThoughts-1M dataset with reasoning traces." },
+    { "lineRange": [15, 25], "pt-br": "Formatar com tags <think> para o modelo aprender a estrutura.", "en-us": "Format with <think> tags so model learns the structure." },
+    { "lineRange": [27, 30], "pt-br": "Tokenizar textos com max_length 4096 para traces longos.", "en-us": "Tokenize texts with max_length 4096 for long traces." },
+    { "lineRange": [31, 51], "pt-br": "Treinar com Trainer: 3 epochs, batch 2, gradient accumulation.", "en-us": "Train with Trainer: 3 epochs, batch 2, gradient accumulation." }
   ]
 }
