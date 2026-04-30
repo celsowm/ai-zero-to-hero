@@ -12,33 +12,27 @@ export const linearRegressionMse = defineSlide({
   content: {
     'pt-br': {
       title: `Regressão Linear: MSE, o erro médio ao quadrado`,
-      body: `Agora que já sabemos medir o erro para cada pessoa com **altura**, **idade** e **peso real**, precisamos juntar tudo em um número só. Esse número é o MSE, abreviação de **Mean Squared Error**, ou **erro médio ao quadrado**.
+      body: `Para saber se o modelo está acertando, não podemos simplesmente somar os erros. Se ele prevê 5kg a mais numa pessoa (+5) e 5kg a menos noutra (-5), a soma dá zero. O modelo pareceria perfeito, mesmo tendo errado grosseiramente nas duas vezes!
 
-1. **Cada exemplo gera um erro:** para cada linha do dataset \`(altura, idade, peso)\`, comparamos \`ŷ\` com \`y\`.
+Em vez de olhar para a "direção" do erro, o **MSE** (*Mean Squared Error*) olha para o **tamanho absoluto** dele, elevando cada erro ao quadrado:
 
-2. **Elevamos ao quadrado:** assim o erro negativo não cancela o positivo e os erros grandes pesam mais.
+1. **Fim dos cancelamentos:** Erros negativos viram positivos. Veja a aba *Regra de Sinais* ao lado: multiplicar um negativo por ele mesmo é como dar ré enquanto olha para o lado negativo — você sempre acaba avançando para o positivo. Errar é errar, não importa a direção.
+2. **Punição severa:** Um erro de 2kg tem peso 4, mas um erro de 10kg explode para 100. O quadrado ensina o modelo a "odiar" erros gigantes.
 
-3. **Tiramos a média:** o resultado resume o comportamento do modelo em todo o conjunto.
-
-4. **Objetivo do treino:** a regressão linear procura os parâmetros \`β₀\`, \`β₁\` e \`β₂\` que deixam esse número o menor possível.
-
-> Em regressão linear, o treino quer minimizar o MSE do conjunto inteiro, não apenas um erro isolado.
+O **MSE** é a **média** de todas essas punições. O objetivo matemático do treino é encontrar a reta que deixe esse número final o menor possível.
 
 ---`,
     },
     'en-us': {
       title: `Linear Regression: MSE, the mean squared error`,
-      body: `Now that we can measure the error for each person with **height**, **age**, and **real weight**, we need to combine everything into one number. That number is MSE, short for **Mean Squared Error**.
+      body: `To see if our model is doing well, we can't simply sum the errors. If it predicts 5kg too high for one person (+5) and 5kg too low for another (-5), the sum is zero. The model would look perfect, even though it made huge mistakes both times!
 
-1. **Each example produces an error:** for every row in the dataset \`(height, age, weight)\`, we compare \`ŷ\` with \`y\`.
+Instead of looking at the error's "direction", **MSE** (**Mean Squared Error**) looks at its **absolute size** by squaring each error:
 
-2. **We square the error:** this keeps negative errors from canceling positive ones and makes large mistakes matter more.
+1. **No more cancellations:** Negative errors become positive. Check the *Sign Rule* tab: multiplying a negative by a negative is like walking backwards while facing the negatives — you always end up in the positives. A mistake is a mistake, regardless of direction.
+2. **Severe punishment:** A 2kg error has a weight of 4, but a 10kg error explodes to 100. The square teaches the model to "hate" extreme errors.
 
-3. **We take the average:** the result summarizes how the model behaves across the whole dataset.
-
-4. **Training objective:** linear regression looks for the parameters \`β₀\`, \`β₁\`, and \`β₂\` that make this number as small as possible.
-
-> In linear regression, training minimizes the MSE of the whole dataset, not just one isolated error.
+The **MSE** is the **average** of all these punishments. The mathematical goal of training is to find the line that makes this final number as small as possible.
 
 ---`,
     },
@@ -49,11 +43,14 @@ export const linearRegressionMse = defineSlide({
       "pt-br": {
         "tabs": [
           {
-          "label": "MSE"
-        },
+            "label": "MSE"
+          },
           {
-          "label": "Resumo visual"
-        }
+            "label": "Resumo visual"
+          },
+          {
+            "label": "Regra de Sinais"
+          }
         ],
         "formulaPanel": {
           "eyebrow": "Erro total",
@@ -61,17 +58,17 @@ export const linearRegressionMse = defineSlide({
           "description": "MSE significa Mean Squared Error, ou erro médio ao quadrado. No nosso exemplo, ele junta em um único número todos os erros de previsão de peso calculados a partir de altura e idade.",
           "points": [
             {
-            "label": "erro ao quadrado não fica negativo",
-            "accent": "#00e5ff"
-          },
+              "label": "erro ao quadrado não fica negativo",
+              "accent": "#00e5ff"
+            },
             {
-            "label": "erros grandes contam mais",
-            "accent": "#ff2e97"
-          },
+              "label": "erros grandes contam mais",
+              "accent": "#ff2e97"
+            },
             {
-            "label": "a média resume todo o dataset `(altura, idade, peso)`",
-            "accent": "#fbbf24"
-          }
+              "label": "a média resume todo o dataset `(altura, idade, peso)`",
+              "accent": "#fbbf24"
+            }
           ],
           "footer": "Quando esse número cai, o modelo está ficando melhor."
         },
@@ -79,9 +76,7 @@ export const linearRegressionMse = defineSlide({
           "eyebrow": "Resumo do conjunto",
           "title": "Vários erros viram uma única medida",
           "description": "Cada erro de previsão de peso entra no cálculo e o conjunto todo é resumido em um valor único para orientar o treino.",
-          "inputNodes": [
-
-          ],
+          "inputNodes": [],
           "outputLabel": "Custo do modelo",
           "outputNode": {
             "label": "MSE",
@@ -93,46 +88,46 @@ export const linearRegressionMse = defineSlide({
             "lineLabel": "cada erro contribui para o custo",
             "points": [
               {
-              "x": 130,
-              "y": 186,
-              "label": "55",
-              "accent": "#00e5ff"
-            },
+                "x": 130,
+                "y": 186,
+                "label": "55",
+                "accent": "#00e5ff"
+              },
               {
-              "x": 245,
-              "y": 144,
-              "label": "64",
-              "accent": "#fbbf24"
-            },
+                "x": 245,
+                "y": 144,
+                "label": "64",
+                "accent": "#fbbf24"
+              },
               {
-              "x": 365,
-              "y": 98,
-              "label": "72",
-              "accent": "#ff2e97"
-            }
+                "x": 365,
+                "y": 98,
+                "label": "72",
+                "accent": "#ff2e97"
+              }
             ],
             "residuals": [
               {
-              "x": 130,
-              "yReal": 186,
-              "yPred": 170,
-              "label": "16²",
-              "accent": "#ff2e97"
-            },
+                "x": 130,
+                "yReal": 186,
+                "yPred": 170,
+                "label": "16²",
+                "accent": "#ff2e97"
+              },
               {
-              "x": 245,
-              "yReal": 144,
-              "yPred": 136,
-              "label": "8²",
-              "accent": "#fbbf24"
-            },
+                "x": 245,
+                "yReal": 144,
+                "yPred": 136,
+                "label": "8²",
+                "accent": "#fbbf24"
+              },
               {
-              "x": 365,
-              "yReal": 98,
-              "yPred": 105,
-              "label": "7²",
-              "accent": "#00e5ff"
-            }
+                "x": 365,
+                "yReal": 98,
+                "yPred": 105,
+                "label": "7²",
+                "accent": "#00e5ff"
+              }
             ],
             "lineStart": {
               "x": 112,
@@ -145,16 +140,34 @@ export const linearRegressionMse = defineSlide({
             "footer": "O treino observa esse custo agregado para ajustar `β₀`, `β₁` e `β₂`, não só um ponto isolado."
           },
           "footer": "O modelo não tenta “acertar um ponto”; ele tenta baixar o custo médio inteiro."
+        },
+        "numberLinePanel": {
+          "eyebrow": "A Matemática Visual",
+          "title": "Por que -4 × -4 = +16?",
+          "description": "Multiplicar por um número negativo é inverter a direção. Veja o que acontece na reta numérica ao dar 4 passos para trás, virado para os números negativos.",
+          "multiplyStart": -4,
+          "multiplyEnd": -4,
+          "steps": [
+            { "value": 0, "label": "Ponto de partida: toda multiplicação começa do 0 (vazio)." },
+            { "value": 4, "label": "Passo 1: olhando para os negativos e andando de costas, você cai no +4." },
+            { "value": 8, "label": "Passo 2: mais um passo de costas, cai no +8." },
+            { "value": 12, "label": "Passo 3: mais um passo, cai no +12." },
+            { "value": 16, "label": "Passo 4: último passo, você termina no +16." }
+          ],
+          "footer": "Resultado: inverter a direção de um número negativo resulta na área positiva! (Nota: se a conta começasse do -4, estaríamos calculando -4 + (-4 × -4) = +12)."
         }
       },
       "en-us": {
         "tabs": [
           {
-          "label": "MSE"
-        },
+            "label": "MSE"
+          },
           {
-          "label": "Visual summary"
-        }
+            "label": "Visual summary"
+          },
+          {
+            "label": "Sign Rule"
+          }
         ],
         "formulaPanel": {
           "eyebrow": "Total error",
@@ -162,17 +175,17 @@ export const linearRegressionMse = defineSlide({
           "description": "MSE means Mean Squared Error. In our example, it combines every weight prediction error generated from height and age into one number.",
           "points": [
             {
-            "label": "squared error is never negative",
-            "accent": "#00e5ff"
-          },
+              "label": "squared error is never negative",
+              "accent": "#00e5ff"
+            },
             {
-            "label": "large errors matter more",
-            "accent": "#ff2e97"
-          },
+              "label": "large errors matter more",
+              "accent": "#ff2e97"
+            },
             {
-            "label": "the mean summarizes the whole `(height, age, weight)` dataset",
-            "accent": "#fbbf24"
-          }
+              "label": "the mean summarizes the whole `(height, age, weight)` dataset",
+              "accent": "#fbbf24"
+            }
           ],
           "footer": "When this number goes down, the model is getting better."
         },
@@ -180,9 +193,7 @@ export const linearRegressionMse = defineSlide({
           "eyebrow": "Dataset summary",
           "title": "Many errors become one measure",
           "description": "Each weight prediction error enters the calculation and the full dataset is condensed into a single value that guides training.",
-          "inputNodes": [
-
-          ],
+          "inputNodes": [],
           "outputLabel": "Model cost",
           "outputNode": {
             "label": "MSE",
@@ -194,46 +205,46 @@ export const linearRegressionMse = defineSlide({
             "lineLabel": "each error contributes to cost",
             "points": [
               {
-              "x": 130,
-              "y": 186,
-              "label": "55",
-              "accent": "#00e5ff"
-            },
+                "x": 130,
+                "y": 186,
+                "label": "55",
+                "accent": "#00e5ff"
+              },
               {
-              "x": 245,
-              "y": 144,
-              "label": "64",
-              "accent": "#fbbf24"
-            },
+                "x": 245,
+                "y": 144,
+                "label": "64",
+                "accent": "#fbbf24"
+              },
               {
-              "x": 365,
-              "y": 98,
-              "label": "72",
-              "accent": "#ff2e97"
-            }
+                "x": 365,
+                "y": 98,
+                "label": "72",
+                "accent": "#ff2e97"
+              }
             ],
             "residuals": [
               {
-              "x": 130,
-              "yReal": 186,
-              "yPred": 170,
-              "label": "16²",
-              "accent": "#ff2e97"
-            },
+                "x": 130,
+                "yReal": 186,
+                "yPred": 170,
+                "label": "16²",
+                "accent": "#ff2e97"
+              },
               {
-              "x": 245,
-              "yReal": 144,
-              "yPred": 136,
-              "label": "8²",
-              "accent": "#fbbf24"
-            },
+                "x": 245,
+                "yReal": 144,
+                "yPred": 136,
+                "label": "8²",
+                "accent": "#fbbf24"
+              },
               {
-              "x": 365,
-              "yReal": 98,
-              "yPred": 105,
-              "label": "7²",
-              "accent": "#00e5ff"
-            }
+                "x": 365,
+                "yReal": 98,
+                "yPred": 105,
+                "label": "7²",
+                "accent": "#00e5ff"
+              }
             ],
             "lineStart": {
               "x": 112,
@@ -246,6 +257,21 @@ export const linearRegressionMse = defineSlide({
             "footer": "Training looks at this aggregated cost to adjust `a`, `b`, and `c`, not just one isolated point."
           },
           "footer": "The model does not try to “hit one point”; it tries to lower the overall mean cost."
+        },
+        "numberLinePanel": {
+          "eyebrow": "Visual Math",
+          "title": "Why is -4 × -4 = +16?",
+          "description": "Multiplying by a negative number means reversing direction. See what happens on the number line when you take 4 steps backward while facing the negative numbers.",
+          "multiplyStart": -4,
+          "multiplyEnd": -4,
+          "steps": [
+            { "value": 0, "label": "Starting point: all multiplication starts at 0 (empty)." },
+            { "value": 4, "label": "Step 1: facing the negatives and walking backwards, you land on +4." },
+            { "value": 8, "label": "Step 2: one more step backwards, land on +8." },
+            { "value": 12, "label": "Step 3: one more step, land on +12." },
+            { "value": 16, "label": "Step 4: last step, you end up at +16." }
+          ],
+          "footer": "Result: reversing the direction of a negative puts you in the positive area! (Note: if we started from -4, we'd be calculating -4 + (-4 × -4) = +12)."
         }
       }
     },

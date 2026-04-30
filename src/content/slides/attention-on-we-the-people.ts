@@ -2,51 +2,95 @@ import { defineSlide } from './_factory';
 
 export const attentionOnWeThePeople = defineSlide({
   id: 'attention-on-we-the-people',
-  type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  type: 'visual-only',
   content: {
     'pt-br': {
-      title: `Atenção na prática`,
-      body: `Vamos ver a Atenção operando em 'We the people' para prever a quarta palavra.
-
-1. **O token atual:** o token 'people' está na vez de tentar adivinhar o futuro. Ele emite sua Query (Pergunta).
-
-2. **Olhando para o passado:** a Query de 'people' bate fortemente com a Key (Resposta) do token 'We'.
-
-3. **Absorvendo contexto:** o token 'people' recebe o Value (Mensagem) de 'We'. Agora, o vetor que representa 'people' foi modificado. Ele não é mais apenas 'pessoas genéricas', é 'we, the people' (um contexto político forte, sugerindo a constituição dos EUA).
-
-> A atenção atualiza o significado de uma palavra misturando-a com as palavras relevantes do seu passado.`,
+      title: `Atenção Dinâmica`,
+      body: `Veja como cada palavra (Query) busca contexto nas outras (Keys).
+      
+      Clique nos tokens para ver como o 'significado' de uma palavra muda conforme ela absorve informações do contexto ao redor.`,
     },
     'en-us': {
-      title: `Attention in practice`,
-      body: `Let's see Attention operating on 'We the people' to predict the fourth word.
-
-1. **The current token:** the token 'people' is up to try and guess the future. It emits its Query.
-
-2. **Looking to the past:** the Query from 'people' strongly matches the Key from the token 'We'.
-
-3. **Absorbing context:** the token 'people' receives the Value from 'We'. Now, the vector representing 'people' has been modified. It is no longer just 'generic persons', it is 'we, the people' (a strong political context, suggesting the US Constitution).
-
-> Attention updates the meaning of a word by mixing it with relevant words from its past.`,
+      title: `Dynamic Attention`,
+      body: `See how each word (Query) searches for context in the others (Keys).
+      
+      Click on tokens to see how the 'meaning' of a word shifts as it absorbs information from the surrounding context.`,
     },
   },
   visual: {
-    id: 'attention-lines-diagram',
+    id: 'attention-weight-explorer',
     copy: {
       "pt-br": {
-        "text": "We the people",
-        "strongLink": "Ligação Forte",
-        "weakLink": "Ligação Fraca"
+        "title": "Explorador de Pesos de Atenção",
+        "subtitle": "Analisando 'We the people' para prever o próximo token",
+        "clickHint": "Clique em um token para ver sua 'Query' em ação",
+        "queryLabel": "Token que pergunta (Query)",
+        "keyLabel": "Heatmap de Atenção (Q × K)",
+        "attentionWeightLabel": "Distribuição de Atenção",
+        "contextMeaningLabel": "Evolução do Vetor de Contexto",
+        "beforeLabel": "Significado Base",
+        "afterLabel": "Significado Contextual",
+        "sentenceTokens": ["We", "the", "people", "..."],
+        "attentionMatrix": [
+          [0.9, 0.05, 0.05, 0],
+          [0.2, 0.7, 0.1, 0],
+          [0.6, 0.1, 0.3, 0],
+          [0.1, 0.1, 0.1, 0.7]
+        ],
+        "meaningBefore": [
+          "Pronome 'Nós'",
+          "Artigo definido",
+          "Pessoas genéricas",
+          "Ponto final/Pausa"
+        ],
+        "meaningAfter": [
+          "Autores da Constituição",
+          "O artigo que foca no povo",
+          "Cidadãos americanos soberanos",
+          "Fim do preâmbulo"
+        ],
+        "insightTitle": "Insights:",
+        "insights": [
+          "Softmax garante soma 100%",
+          "Atenção é focada no passado",
+          "Contexto muda o vetor final"
+        ]
       },
       "en-us": {
-        "text": "We the people",
-        "strongLink": "Strong Link",
-        "weakLink": "Weak Link"
+        "title": "Attention Weight Explorer",
+        "subtitle": "Analyzing 'We the people' to predict the next token",
+        "clickHint": "Click a token to see its 'Query' in action",
+        "queryLabel": "Asking Token (Query)",
+        "keyLabel": "Attention Heatmap (Q × K)",
+        "attentionWeightLabel": "Attention Distribution",
+        "contextMeaningLabel": "Context Vector Evolution",
+        "beforeLabel": "Base Meaning",
+        "afterLabel": "Contextual Meaning",
+        "sentenceTokens": ["We", "the", "people", "..."],
+        "attentionMatrix": [
+          [0.9, 0.05, 0.05, 0],
+          [0.2, 0.7, 0.1, 0],
+          [0.6, 0.1, 0.3, 0],
+          [0.1, 0.1, 0.1, 0.7]
+        ],
+        "meaningBefore": [
+          "Pronoun 'We'",
+          "Definite article",
+          "Generic people",
+          "End/Pause"
+        ],
+        "meaningAfter": [
+          "Constitution authors",
+          "Article focusing on people",
+          "American sovereign citizens",
+          "End of preamble"
+        ],
+        "insightTitle": "Insights:",
+        "insights": [
+          "Softmax ensures 100% sum",
+          "Attention is past-focused",
+          "Context shifts the final vector"
+        ]
       }
     },
   },

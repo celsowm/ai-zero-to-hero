@@ -79,12 +79,62 @@ export interface QkvCocktailPartyCopy {
   valueLabel: string;
 }
 
+export interface QkvIntuitionExplorerCopy {
+  title: string;
+  tabs: {
+    intuition: {
+      label: string;
+      title: string;
+      description: string;
+      analogyTitle: string;
+      analogyText: string;
+    };
+    mechanics: {
+      label: string;
+      title: string;
+      description: string;
+      dotProductLabel: string;
+      scalingLabel: string;
+    };
+    retrieval: {
+      label: string;
+      title: string;
+      description: string;
+      databaseAnalogyTitle: string;
+      databaseAnalogyText: string;
+    };
+  };
+  queryLabel: string;
+  keyLabel: string;
+  valueLabel: string;
+  matchScoreLabel: string;
+  resultLabel: string;
+}
+
 export interface AttentionLinesDiagramCopy {
   token1: string;
   token2: string;
   token3: string;
   strongConnection: string;
   weakConnection: string;
+}
+
+export interface AttentionWeightExplorerCopy {
+  title: string;
+  subtitle: string;
+  clickHint: string;
+  queryLabel: string;
+  keyLabel: string;
+  attentionWeightLabel: string;
+  contextMeaningLabel: string;
+  beforeLabel: string;
+  afterLabel: string;
+  sentenceTokens: string[];
+  attentionMatrix: number[][];
+  meaningBefore: string[];
+  meaningAfter: string[];
+  insightTitle: string;
+  insights: string[];
 }
 
 export interface MultiheadDiagramCopy {

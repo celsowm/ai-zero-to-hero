@@ -409,3 +409,36 @@ export interface ArchitectureComparatorCopy {
   tabs: ArchitectureComparatorTabCopy[];
   footer: string;
 }
+
+export interface WeightsBiasesExplorerTabCopy {
+  label: string;
+}
+
+export interface WeightsBiasesExplorerPanelCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  sliderLabel: string;
+  min: number;
+  max: number;
+  step: number;
+  initialValue: number;
+  footer?: string;
+}
+
+export interface WeightsBiasesExplorerCombinedPanelCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  footer?: string;
+}
+
+export interface WeightsBiasesExplorerCopy {
+  tabs: WeightsBiasesExplorerTabCopy[];
+  weightPanel: WeightsBiasesExplorerPanelCopy;
+  biasPanel: WeightsBiasesExplorerPanelCopy;
+  combinedPanel: WeightsBiasesExplorerCombinedPanelCopy;
+  chartTitle: string;
+  xLabel: string;
+  yLabel: string;
+}

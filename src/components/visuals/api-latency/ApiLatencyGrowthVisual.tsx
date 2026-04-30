@@ -210,9 +210,9 @@ type GuideCallout = {
 };
 
 const guideCalloutLayouts: GuideCallout[] = [
-  { xOffset: 14, yOffset: -50, width: 152 },
-  { xOffset: -12, yOffset: 18, width: 140 },
-  { xOffset: -160, yOffset: -12, width: 152 },
+  { xOffset: 10, yOffset: 18, width: 152 },   // Carga baixa: abaixo e à direita
+  { xOffset: 10, yOffset: 14, width: 148 },   // Saturação: abaixo e à direita
+  { xOffset: -168, yOffset: -58, width: 160 }, // Explosão: acima e à esquerda
 ];
 
 const splitGuideLabel = (label: string) => {
@@ -308,21 +308,26 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               const isHighlight = guideIndexes.includes(index);
               const pointRadius = isHighlight ? 7 : 5.3;
               const outerRadius = isHighlight ? 13 : 9;
+              // For highlight points, labels are rendered near the callout (skip here to avoid duplication)
+              // For non-highlight points, render label above the dot
+              const showLabel = !isHighlight;
 
               return (
                 <g key={point.label}>
                   <circle cx={screenPoint.x} cy={screenPoint.y} r={outerRadius} fill={point.accent} opacity="0.14" />
                   <circle cx={screenPoint.x} cy={screenPoint.y} r={pointRadius} fill={point.accent} stroke={sw.tint} strokeWidth={1.5} />
-                  <text
-                    x={screenPoint.x}
-                    y={screenPoint.y - 15}
-                    textAnchor="middle"
-                    fontSize="10.5"
-                    fontFamily={fontFamily}
-                    fill="rgba(248,250,252,0.86)"
-                  >
-                    {point.label}
-                  </text>
+                  {showLabel && (
+                    <text
+                      x={screenPoint.x}
+                      y={screenPoint.y - 11}
+                      textAnchor="middle"
+                      fontSize="10"
+                      fontFamily={fontFamily}
+                      fill="rgba(248,250,252,0.78)"
+                    >
+                      {point.label}
+                    </text>
+                  )}
                 </g>
               );
             })}
@@ -332,21 +337,46 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               const label = guideLabels[guideIndex];
               const layout = guideCalloutLayouts[guideIndex];
               const [primaryLine, secondaryLine] = splitGuideLabel(label);
+              const dataLabel = copy.points[index]?.label ?? '';
+              const boxHeight = dataLabel ? 56 : 42;
 
               return (
                 <g key={`${label}-${index}`}>
+                  {/* Connector line from point to callout */}
+                  <line
+                    x1={point.x}
+                    y1={point.y}
+                    x2={point.x + layout.xOffset + (layout.xOffset >= 0 ? 6 : layout.width - 6)}
+                    y2={point.y + layout.yOffset + boxHeight / 2}
+                    stroke="rgba(255,255,255,0.18)"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                  />
                   <rect
                     x={point.x + layout.xOffset}
                     y={point.y + layout.yOffset}
                     width={layout.width}
-                    height="42"
-                    rx="12"
-                    fill="rgba(8, 12, 24, 0.84)"
+                    height={boxHeight}
+                    rx="10"
+                    fill="rgba(8, 12, 24, 0.88)"
                     stroke={sw.borderMedium}
                   />
+                  {dataLabel && (
+                    <text
+                      x={point.x + layout.xOffset + 12}
+                      y={point.y + layout.yOffset + 14}
+                      fontSize="9.5"
+                      fontWeight="800"
+                      fontFamily={fontFamily}
+                      fill="rgba(248,250,252,0.5)"
+                      letterSpacing="0.04em"
+                    >
+                      {dataLabel}
+                    </text>
+                  )}
                   <text
                     x={point.x + layout.xOffset + 12}
-                    y={point.y + layout.yOffset + 16}
+                    y={point.y + layout.yOffset + (dataLabel ? 28 : 16)}
                     fontSize="10.5"
                     fontWeight="700"
                     fontFamily={fontFamily}
@@ -356,7 +386,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                   </text>
                   <text
                     x={point.x + layout.xOffset + 12}
-                    y={point.y + layout.yOffset + 30}
+                    y={point.y + layout.yOffset + (dataLabel ? 42 : 30)}
                     fontSize="10"
                     fontWeight="500"
                     fontFamily={fontFamily}
@@ -368,7 +398,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               );
             })}
 
-            <text x={chartWidth - 34} y={chartPadding.top + 16} textAnchor="end" fontSize="11.5" fontFamily={fontFamily} fill="rgba(248,250,252,0.76)">
+            <text x={chartWidth - chartPadding.right - 4} y={chartPadding.top - 8} textAnchor="end" fontSize="11" fontFamily={fontFamily} fill="rgba(248,250,252,0.55)">
               {copy.referenceLabel}
             </text>
             <text x={chartPadding.left + 10} y={chartHeight - 14} fontSize="11.5" fontFamily={fontFamily} fill="rgba(248,250,252,0.76)">

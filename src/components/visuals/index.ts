@@ -39,7 +39,9 @@ export { PositionalEmbeddingAdder } from './transformers/PositionalEmbeddingAdde
 export { TransformerBlockDiagram } from './transformers/TransformerBlockDiagram';
 export { CausalMaskMatrix } from './transformers/CausalMaskMatrix';
 export { QkvCocktailParty } from './transformers/QkvCocktailParty';
+export { QkvIntuitionExplorer } from './transformers/QkvIntuitionExplorer';
 export { AttentionLinesDiagram } from './transformers/AttentionLinesDiagram';
+export { AttentionWeightExplorer } from './transformers/AttentionWeightExplorer';
 export { MultiheadDiagram } from './transformers/MultiheadDiagram';
 export { ResidualStreamHighway } from './transformers/ResidualStreamHighway';
 export { AttentionVsMlp } from './transformers/AttentionVsMlp';
@@ -66,6 +68,7 @@ export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsSte
 export { ArchitectureComparatorVisual } from './neural-networks/ArchitectureComparatorVisual';
 export { Tensor3DExplorer } from './neural-networks/Tensor3DExplorer';
 export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer';
+export { WeightsBiasesExplorer } from './neural-networks/WeightsBiasesExplorer';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';

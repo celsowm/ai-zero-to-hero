@@ -2,51 +2,95 @@ import { defineSlide } from './_factory';
 
 export const qkvIntuition = defineSlide({
   id: 'qkv-intuition',
-  type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  type: 'visual-only',
   content: {
     'pt-br': {
-      title: `A festa dos Tokens (Query, Key, Value)`,
-      body: `Como os tokens decidem quem deve 'prestar atenção' em quem? Pense nisso como uma festa cheia de pessoas procurando quem tem as informações que elas precisam.
-
-1. **A Pergunta (Query):** cada token emite um sinal dizendo o que ele está procurando. Ex: 'Sou um adjetivo procurando meu substantivo'.
-
-2. **A Resposta (Key):** ao mesmo tempo, cada token carrega uma etiqueta dizendo o que ele é. Ex: 'Sou um substantivo'.
-
-3. **A Mensagem (Value):** se a Pergunta de um token bater com a Resposta de outro, eles se conectam. O token que respondeu então envia sua mensagem (Value) para o que perguntou.
-
-> Atenção é um sistema de busca: perguntas encontram respostas, e o significado flui entre as palavras.`,
+      title: `A Anatomia da Atenção: Q, K, V`,
+      body: `O mecanismo de Atenção não é mágica; é um sistema de recuperação de informação extremamente eficiente.
+      
+      Cada palavra na sua frase é transformada em três vetores distintos:
+      - **Query (Consulta):** O que esta palavra está procurando no contexto?
+      - **Key (Chave):** O que esta palavra oferece para as outras?
+      - **Value (Valor):** Qual a informação real que esta palavra carrega?
+      
+      A relação entre esses três vetores define como o conhecimento flui dentro do modelo.`,
     },
     'en-us': {
-      title: `The Token Party (Query, Key, Value)`,
-      body: `How do tokens decide who should 'pay attention' to whom? Think of it as a crowded party where people are looking for those who have the information they need.
-
-1. **The Question (Query):** each token emits a signal saying what it is looking for. Ex: 'I am an adjective looking for my noun'.
-
-2. **The Answer (Key):** at the same time, each token wears a name tag saying what it is. Ex: 'I am a noun'.
-
-3. **The Message (Value):** if one token's Question matches another token's Answer, they connect. The answering token then sends its message (Value) to the asking one.
-
-> Attention is a search system: queries find keys, and meaning flows between words.`,
+      title: `The Anatomy of Attention: Q, K, V`,
+      body: `The Attention mechanism isn't magic; it's an extremely efficient information retrieval system.
+      
+      Each word in your sentence is transformed into three distinct vectors:
+      - **Query:** What is this word looking for in the context?
+      - **Key:** What does this word offer to others?
+      - **Value:** What is the actual information this word carries?
+      
+      The relationship between these three vectors defines how knowledge flows within the model.`,
     },
   },
   visual: {
-    id: 'qkv-cocktail-party',
+    id: 'qkv-intuition-explorer',
     copy: {
       "pt-br": {
-        "queryLabel": "Query (O que eu procuro)",
-        "keyLabel": "Key (O que eu sou)",
-        "valueLabel": "Value (O que eu digo)"
+        "title": "Explorador de Intuição QKV",
+        "queryLabel": "Query (Busca)",
+        "keyLabel": "Key (Chave)",
+        "valueLabel": "Value (Valor)",
+        "matchScoreLabel": "Score de Match",
+        "resultLabel": "Resultado",
+        "tabs": {
+          "intuition": {
+            "label": "Intuição",
+            "title": "A Analogia da Festa",
+            "description": "A Query é o que eu procuro. A Key é o que eu sou. O Value é o que eu tenho a dizer.",
+            "analogyTitle": "Como funciona?",
+            "analogyText": "Imagine que você está em uma festa e quer conversar sobre 'Física'. Sua Query é 'Alguém sabe Física?'. As pessoas na festa têm 'Keys' (etiquetas) dizendo seus interesses. Você bate sua Query com todas as Keys. Quando encontra um match (ex: uma pessoa com Key 'Físico'), você dá atenção a ela e absorve o seu 'Value' (o que ela sabe sobre o assunto)."
+          },
+          "mechanics": {
+            "label": "Matemática",
+            "title": "A Mecânica do Cálculo",
+            "description": "Como os vetores realmente interagem para gerar os pesos de atenção.",
+            "dotProductLabel": "Produto Escalar (Dot Product)",
+            "scalingLabel": "Escalonamento (Scaling)"
+          },
+          "retrieval": {
+            "label": "Recuperação",
+            "title": "Sistemas de Busca",
+            "description": "QKV funciona exatamente como um banco de dados ou um mecanismo de busca.",
+            "databaseAnalogyTitle": "Banco de Dados Vetorial",
+            "databaseAnalogyText": "No SQL, você faz uma busca exata. No Transformer, a busca é 'Soft'. A Query compara-se com todas as Keys simultaneamente via Similaridade de Cosseno. O resultado é uma média ponderada de todos os Values. Se o match é forte, o Value daquela Key domina o resultado final."
+          }
+        }
       },
       "en-us": {
-        "queryLabel": "Query (What I look for)",
-        "keyLabel": "Key (What I am)",
-        "valueLabel": "Value (What I say)"
+        "title": "QKV Intuition Explorer",
+        "queryLabel": "Query (Search)",
+        "keyLabel": "Key (Index)",
+        "valueLabel": "Value (Content)",
+        "matchScoreLabel": "Match Score",
+        "resultLabel": "Result",
+        "tabs": {
+          "intuition": {
+            "label": "Intuition",
+            "title": "The Party Analogy",
+            "description": "Query is what I seek. Key is what I am. Value is what I have to say.",
+            "analogyTitle": "How it works?",
+            "analogyText": "Imagine you're at a party and want to talk about 'Physics'. Your Query is 'Does anyone know Physics?'. People at the party have 'Keys' (tags) showing their interests. You match your Query against all Keys. When you find a match (e.g., someone with Key 'Physicist'), you pay attention to them and absorb their 'Value' (what they know about the subject)."
+          },
+          "mechanics": {
+            "label": "Mechanics",
+            "title": "The Calculation",
+            "description": "How vectors actually interact to generate attention weights.",
+            "dotProductLabel": "Dot Product",
+            "scalingLabel": "Scaling"
+          },
+          "retrieval": {
+            "label": "Retrieval",
+            "title": "Search Engines",
+            "description": "QKV works exactly like a database or a search engine.",
+            "databaseAnalogyTitle": "Vector Database",
+            "databaseAnalogyText": "In SQL, you do an exact search. In a Transformer, the search is 'Soft'. The Query is compared with all Keys simultaneously via Cosine Similarity. The result is a weighted average of all Values. If the match is strong, that Key's Value dominates the final result."
+          }
+        }
       }
     },
   },

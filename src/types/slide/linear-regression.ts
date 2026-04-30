@@ -57,10 +57,26 @@ export interface LinearRegressionGraphPanelCopy {
   footer: string;
 }
 
+export interface LinearRegressionNumberLineStepCopy {
+  value: number;
+  label: string;
+}
+
+export interface LinearRegressionNumberLinePanelCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  multiplyStart: number;
+  multiplyEnd: number;
+  steps: LinearRegressionNumberLineStepCopy[];
+  footer: string;
+}
+
 export interface LinearRegressionTabsCopy {
-  tabs: [LinearRegressionTabCopy, LinearRegressionTabCopy];
+  tabs: LinearRegressionTabCopy[];
   formulaPanel: LinearRegressionFormulaPanelCopy;
   graphPanel: LinearRegressionGraphPanelCopy;
+  numberLinePanel?: LinearRegressionNumberLinePanelCopy;
 }
 
 export interface GradientDescentVisualCopy {

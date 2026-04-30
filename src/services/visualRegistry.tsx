@@ -78,6 +78,8 @@ const visualMap: Record<string, string> = {
   'transformer-block-diagram': 'TransformerBlockDiagram',
   'causal-mask-matrix': 'CausalMaskMatrix',
   'qkv-cocktail-party': 'QkvCocktailParty',
+  'qkv-intuition-explorer': 'QkvIntuitionExplorer',
+  'attention-weight-explorer': 'AttentionWeightExplorer',
   'attention-lines-diagram': 'AttentionLinesDiagram',
   'multihead-diagram': 'MultiheadDiagram',
   'residual-stream-highway': 'ResidualStreamHighway',
@@ -156,6 +158,7 @@ const visualMap: Record<string, string> = {
   'tensor-3d-explorer': 'Tensor3DExplorer',
   'derivative-ramp-explorer': 'DerivativeRampExplorer',
   'biological-vs-computational-neuron': 'BiologicalVsComputationalNeuron',
+  'weights-biases-explorer': 'WeightsBiasesExplorer',
 
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',

@@ -470,6 +470,211 @@ const GraphPanel: React.FC<{ copy: LinearRegressionTabsCopy['graphPanel'] }> = (
   );
 };
 
+const NumberLinePanel: React.FC<{ copy: LinearRegressionTabsCopy['numberLinePanel'] }> = ({ copy }) => {
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  if (!copy) return null;
+
+  const goToPrevStep = () => {
+    setActiveStepIndex(prev => Math.max(0, prev - 1));
+  };
+
+  const goToNextStep = () => {
+    setActiveStepIndex(prev => Math.min(copy.steps.length - 1, prev + 1));
+  };
+
+  const activeStep = copy.steps[activeStepIndex];
+
+  return (
+    <PanelCard>
+      <div style={eyebrowStyle}>{copy.eyebrow}</div>
+
+      <div
+        style={{
+          fontSize: 20,
+          fontWeight: 700,
+          letterSpacing: '-0.02em',
+          color: 'var(--sw-text)',
+          marginBottom: 8,
+        }}
+      >
+        {copy.title}
+      </div>
+
+      <p
+        style={{
+          margin: '0 0 18px 0',
+          fontSize: 14,
+          lineHeight: 1.7,
+          color: 'var(--sw-text-dim)',
+        }}
+      >
+        {copy.description}
+      </p>
+
+      <div
+        style={{
+          display: 'grid',
+          gap: 14,
+          padding: 16,
+          borderRadius: 16,
+          background: `radial-gradient(circle at 50% 50%, rgba(255, 46, 151, 0.08), transparent 50%), ${sw.tint}`,
+          border: `1px solid ${sw.borderSubtle}`,
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            borderRadius: 14,
+            background: sw.tintStrong,
+            border: `1px solid ${sw.gridLineAlt}`,
+            padding: 12,
+          }}
+        >
+          <svg viewBox="0 0 520 180" width="100%" role="img" style={{ display: 'block', height: 'auto' }}>
+            <rect x="0" y="0" width="520" height="180" rx="12" fill="var(--sw-tint)" />
+            
+            <line x1="30" y1="120" x2="490" y2="120" stroke={sw.axisLineStrong} strokeWidth="2.2" />
+
+            {[-16, -12, -8, -4, 0, 4, 8, 12, 16].map((val, i) => {
+              const x = 30 + (i * 460) / 8;
+              const isZero = val === 0;
+              return (
+                <g key={val}>
+                  <line x1={x} y1="116" x2={x} y2="124" stroke={sw.axisLineStrong} strokeWidth="2" />
+                  <text
+                    x={x}
+                    y="140"
+                    textAnchor="middle"
+                    fontSize="12.5"
+                    fontFamily={sw.fontSans}
+                    fill={isZero ? sw.text : sw.textDim}
+                    fontWeight={isZero ? 700 : 500}
+                  >
+                    {val > 0 ? `+${val}` : val}
+                  </text>
+                </g>
+              );
+            })}
+
+            {copy.steps.slice(1, activeStepIndex + 1).map((step, i) => {
+              const prevStep = copy.steps[i];
+              const startVal = prevStep.value;
+              const endVal = step.value;
+              
+              const mapX = (v: number) => 30 + ((v + 16) / 32) * 460;
+              
+              const startX = mapX(startVal);
+              const endX = mapX(endVal);
+              
+              const midX = (startX + endX) / 2;
+              const arcY = 120 - 40;
+
+              return (
+                <g key={`arrow-${i}`}>
+                  <path
+                    d={`M ${startX} 110 Q ${midX} ${arcY} ${endX} 110`}
+                    fill="none"
+                    stroke={sw.pink}
+                    strokeWidth="3"
+                    strokeDasharray="4 4"
+                  />
+                  <polygon points={`${endX},110 ${endX-6},100 ${endX+6},100`} fill={sw.pink} transform={`rotate(${startX < endX ? 30 : -30} ${endX} 110)`} />
+                  <circle cx={endX} cy="120" r="5" fill={sw.pink} />
+                </g>
+              );
+            })}
+            
+            {activeStep && (
+              <g transform={`translate(${30 + ((activeStep.value + 16) / 32) * 460}, 90)`}>
+                <circle cx="0" cy="0" r="14" fill={sw.tintStrong} stroke={sw.cyan} strokeWidth="2.5" />
+                <UserRound size={16} color={sw.cyan} style={{ transform: 'translate(-8px, -8px)' }} />
+              </g>
+            )}
+          </svg>
+
+          <div
+            style={{
+              marginTop: 10,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 10,
+              padding: '8px 10px',
+              borderRadius: 10,
+              background: 'rgba(8,12,24,0.45)',
+              border: `1px solid ${sw.borderMedium}`,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <button
+                type="button"
+                onClick={goToPrevStep}
+                disabled={activeStepIndex === 0}
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  border: `1px solid ${sw.tintAccentStrong}`,
+                  background: sw.tintStronger,
+                  color: activeStepIndex === 0 ? sw.textMuted : 'var(--sw-text)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeStepIndex === 0 ? 'not-allowed' : 'pointer',
+                  opacity: activeStepIndex === 0 ? 0.5 : 1,
+                }}
+              >
+                <SkipBack size={14} />
+              </button>
+
+              <button
+                type="button"
+                onClick={goToNextStep}
+                disabled={activeStepIndex === copy.steps.length - 1}
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  border: `1px solid ${sw.tintAccentStrong}`,
+                  background: sw.tintStronger,
+                  color: activeStepIndex === copy.steps.length - 1 ? sw.textMuted : 'var(--sw-text)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeStepIndex === copy.steps.length - 1 ? 'not-allowed' : 'pointer',
+                  opacity: activeStepIndex === copy.steps.length - 1 ? 0.5 : 1,
+                }}
+              >
+                <SkipForward size={14} />
+              </button>
+            </div>
+
+            <div style={{ fontSize: 12.5, color: 'var(--sw-text)', fontWeight: 500, flex: 1, textAlign: 'center' }}>
+              {activeStep?.label}
+            </div>
+            
+            <div style={{ fontSize: 12, color: 'var(--sw-text-dim)', fontWeight: 600, width: 40, textAlign: 'right' }}>
+              {`${activeStepIndex + 1}/${copy.steps.length}`}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          marginTop: 18,
+          paddingTop: 14,
+          borderTop: `1px solid ${sw.borderSubtle}`,
+          fontSize: 12.5,
+          color: 'var(--sw-text-muted)',
+        }}
+      >
+        {copy.footer}
+      </div>
+    </PanelCard>
+  );
+};
+
 export const LinearRegressionTabsVisual = React.memo(({ copy }: LinearRegressionTabsVisualProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -483,7 +688,9 @@ export const LinearRegressionTabsVisual = React.memo(({ copy }: LinearRegression
       />
 
       <TabbedPanelSurface>
-        {activeTab === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : <GraphPanel key={copy.graphPanel.title} copy={copy.graphPanel} />}
+        {activeTab === 0 ? <FormulaPanel copy={copy.formulaPanel} /> : null}
+        {activeTab === 1 ? <GraphPanel key={copy.graphPanel.title} copy={copy.graphPanel} /> : null}
+        {activeTab === 2 && copy.numberLinePanel ? <NumberLinePanel copy={copy.numberLinePanel} /> : null}
       </TabbedPanelSurface>
     </div>
   );

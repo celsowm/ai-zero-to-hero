@@ -61,6 +61,7 @@ import type {
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
   QkvCocktailPartyCopy,
+  QkvIntuitionExplorerCopy,
   QuantizationComparatorCopy,
   ResidualStreamHighwayCopy,
   RoadToMiniTransformerCopy,
@@ -97,6 +98,7 @@ import type {
   SigmoidDeepDiveExplorerCopy,
   SigmoidDerivativeExplorerCopy,
   Tensor3DExplorerCopy,
+  WeightsBiasesExplorerCopy,
 } from './neural-networks';
 import type { PythonExerciseVisualCopy } from './exercise';
 import type { ClassificationProblemCopy } from './classification-problem';
@@ -210,6 +212,7 @@ interface VisualCopyMap {
   'transformer-block-diagram': TransformerBlockDiagramCopy;
   'causal-mask-matrix': CausalMaskMatrixCopy;
   'qkv-cocktail-party': QkvCocktailPartyCopy;
+  'qkv-intuition-explorer': QkvIntuitionExplorerCopy;
   'attention-lines-diagram': AttentionLinesDiagramCopy;
   'multihead-diagram': MultiheadDiagramCopy;
   'residual-stream-highway': ResidualStreamHighwayCopy;
@@ -314,6 +317,7 @@ interface VisualCopyMap {
   'architecture-comparator': ArchitectureComparatorCopy;
   'tensor-3d-explorer': Tensor3DExplorerCopy;
   'derivative-ramp-explorer': DerivativeRampExplorerCopy;
+  'weights-biases-explorer': WeightsBiasesExplorerCopy;
   // classification problem
   'classification-problem': ClassificationProblemCopy;
   // python exercise

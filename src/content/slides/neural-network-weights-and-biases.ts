@@ -9,6 +9,73 @@ export const neuralNetworkWeightsAndBiases = defineSlide({
       0.48
     ]
   },
+  visual: {
+    id: 'weights-biases-explorer',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'O Peso (w)' }, { label: 'O Viés (b)' }, { label: 'Juntos (w e b)' }],
+        weightPanel: {
+          eyebrow: 'O Efeito Multiplicador',
+          title: 'Pesos giram a reta',
+          description: 'O peso funciona como um acelerador ou freio. Um peso positivo amplifica a entrada. Um peso negativo inverte a lógica (entrada grande = saída pequena). Tente chegar a zero para anular a entrada.',
+          sliderLabel: 'Valor do Peso',
+          min: -3,
+          max: 3,
+          step: 0.1,
+          initialValue: 1,
+        },
+        biasPanel: {
+          eyebrow: 'O Deslocamento',
+          title: 'Vieses movem a reta',
+          description: 'O viés funciona como uma vantagem inicial. Mesmo se a entrada for zero (no centro do gráfico), o viés garante que o neurônio tenha uma base positiva ou negativa.',
+          sliderLabel: 'Valor do Viés',
+          min: -5,
+          max: 5,
+          step: 0.5,
+          initialValue: 0,
+        },
+        combinedPanel: {
+          eyebrow: 'A Combinação',
+          title: 'Criando qualquer reta',
+          description: 'Sozinho, o peso só consegue girar a reta em torno do zero. Sozinho, o viés só sobe e desce a reta sem mudar a inclinação. Juntos, eles podem posicionar a ativação do neurônio em qualquer lugar do espaço!',
+        },
+        chartTitle: 'Gráfico: y = w*x + b',
+        xLabel: 'Entrada (x)',
+        yLabel: 'Saída (y)',
+      },
+      'en-us': {
+        tabs: [{ label: 'The Weight (w)' }, { label: 'The Bias (b)' }, { label: 'Combined (w & b)' }],
+        weightPanel: {
+          eyebrow: 'The Multiplier Effect',
+          title: 'Weights rotate the line',
+          description: 'The weight acts like an accelerator or a brake. A positive weight amplifies the input. A negative weight reverses the logic (large input = small output). Try reaching zero to cancel out the input.',
+          sliderLabel: 'Weight Value',
+          min: -3,
+          max: 3,
+          step: 0.1,
+          initialValue: 1,
+        },
+        biasPanel: {
+          eyebrow: 'The Shift',
+          title: 'Biases translate the line',
+          description: 'The bias acts as a head start. Even if the input is zero (at the center of the graph), the bias ensures the neuron has a positive or negative baseline.',
+          sliderLabel: 'Bias Value',
+          min: -5,
+          max: 5,
+          step: 0.5,
+          initialValue: 0,
+        },
+        combinedPanel: {
+          eyebrow: 'The Combination',
+          title: 'Creating any line',
+          description: 'Alone, the weight can only rotate the line around zero. Alone, the bias can only shift the line without changing its slope. Together, they can position the neuron\'s activation anywhere in space!',
+        },
+        chartTitle: 'Graph: y = w*x + b',
+        xLabel: 'Input (x)',
+        yLabel: 'Output (y)',
+      },
+    }
+  },
   content: {
     'pt-br': {
       title: `Pesos e vieses: o que cada um faz`,
@@ -33,8 +100,6 @@ z = w1*x1 + w2*x2 + w3*x3 + b
 - \`w1, w2, w3\`: importância relativa de cada entrada
 - \`b\`: deslocamento da soma
 - \`z\`: valor bruto antes da ativação
-
----
 
 ### Exemplo numérico
 Suponha:
@@ -89,8 +154,6 @@ z = w1*x1 + w2*x2 + w3*x3 + b
 - \`w1, w2, w3\`: relative importance of each input
 - \`b\`: shift applied to the sum
 - \`z\`: raw value before activation
-
----
 
 ### Numerical example
 Suppose:
