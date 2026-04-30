@@ -2,7 +2,10 @@ import { defineSlide } from './_factory';
 
 export const attentionOnWeThePeople = defineSlide({
   id: 'attention-on-we-the-people',
-  type: 'visual-only',
+  type: 'two-column',
+  options: {
+    columnRatios: [0.35, 0.65],
+  },
   content: {
     'pt-br': {
       title: `Atenção Dinâmica`,

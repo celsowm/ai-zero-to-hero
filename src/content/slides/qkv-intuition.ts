@@ -2,7 +2,10 @@ import { defineSlide } from './_factory';
 
 export const qkvIntuition = defineSlide({
   id: 'qkv-intuition',
-  type: 'visual-only',
+  type: 'two-column',
+  options: {
+    columnRatios: [0.35, 0.65],
+  },
   content: {
     'pt-br': {
       title: `A Anatomia da Atenção: Q, K, V`,
