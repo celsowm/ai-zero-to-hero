@@ -92,6 +92,8 @@ import { inferenceE2e } from './inference-e2e';
 import { inferenceComparison } from './inference-comparison';
 import { llamaCppIntro } from './llama-cpp-intro';
 import { llamaCppOffload } from './llama-cpp-offload';
+import { llama2VsGpt2 } from './llama2-vs-gpt2';
+import { ropeDeepDive } from './rope-deep-dive';
 import { inferenceEnginesWhy } from './inference-engines-why';
 import { inferenceExercise } from './inference-exercise';
 import { onnxOptimization } from './onnx-optimization';
@@ -315,6 +317,8 @@ export const allSlides: ISlide[] = [
   inferenceComparison,
   llamaCppIntro,
   llamaCppOffload,
+  llama2VsGpt2,
+  ropeDeepDive,
   inferenceEnginesWhy,
   inferenceExercise,
   onnxOptimization,

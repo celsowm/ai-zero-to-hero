@@ -113,6 +113,8 @@ export const courseSlideOrder = [
   'build-gpt2-model',
   'build-gpt2-train',
   'build-gpt2-generate',
+  'llama2-vs-gpt2',
+  'rope-deep-dive',
   'sft-intro',
   'sft-dataset',
   'sft-train',

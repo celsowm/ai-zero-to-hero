@@ -467,6 +467,86 @@ export interface OffloadSimulatorCopy {
   offLabel: string;
 }
 
+// ── RoPE Explorer ────────────────────────────────────────────────────
+
+export interface RoPEExplorerCopy {
+  title: string;
+  subtitle: string;
+  embeddingLabel: string;
+  positionLabel: string;
+  dimLabel: string;
+  rotationTitle: string;
+  rotationFormula: string;
+  freqTitle: string;
+  freqSubtitle: string;
+  freqFormula: string;
+  extrapolationTitle: string;
+  extrapolationSubtitle: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  xCoordLabel: string;
+  yCoordLabel: string;
+  angleLabel: string;
+  cosLabel: string;
+  sinLabel: string;
+  ropeLabel: string;
+  sinusoidalLabel: string;
+  attentionLabel: string;
+  distanceLabel: string;
+  dimPairLabel: string;
+  thetaLabel: string;
+  freqLabel: string;
+  ropeScoreLabel: string;
+  sinusoidalScoreLabel: string;
+  ropeDegradationLabel: string;
+  usePresetLabel: string;
+  customEmbeddingLabel: string;
+  applyLabel: string;
+}
+
+// ── LLaMA Comparison Table ───────────────────────────────────────────
+
+export interface LlamaComparisonTableCopy {
+  title: string;
+  subtitle: string;
+  categoryLabel: string;
+  gpt2Label: string;
+  llama1Label: string;
+  llama2Label: string;
+  clickHint: string;
+  rowYear: string;
+  rowObjective: string;
+  rowArchitecture: string;
+  rowPositional: string;
+  rowParams: string;
+  rowTokens: string;
+  rowDataset: string;
+  rowTokenizer: string;
+  rowContext: string;
+  rowAttention: string;
+  rowOptimization: string;
+  rowAlignment: string;
+  rowInstruction: string;
+  rowCoherence: string;
+  rowCoding: string;
+  rowHallucination: string;
+  rowMultiTurn: string;
+  rowLicense: string;
+  rowLocalDeploy: string;
+  rowQuantization: string;
+  rowEcosystem: string;
+  rowRealUse: string;
+  details: Record<string, { gpt2: string; llama1: string; llama2: string }>;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

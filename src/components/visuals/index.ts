@@ -139,6 +139,10 @@ export { InferenceE2eVisual } from './inference-engines/InferenceE2eVisual';
 export { LlamaCppQuantExplorer } from './inference-engines/LlamaCppQuantExplorer';
 export { OffloadSimulator } from './inference-engines/OffloadSimulator';
 
+// llama.cpp & rope & llama comparison
+export { RoPEExplorer } from './transformers/RoPEExplorer';
+export { LlamaComparisonTable } from './transformers/LlamaComparisonTable';
+
 // prompt engineering
 export { PromptEngineeringWhyVisual } from './prompt-engineering/PromptEngineeringWhy';
 export { PromptStructureAnatomyVisual } from './prompt-engineering/PromptStructureAnatomy';

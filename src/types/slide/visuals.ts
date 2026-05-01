@@ -86,6 +86,8 @@ import type {
   MoeCapacityVisualCopy,
   LlamaCppQuantExplorerCopy,
   OffloadSimulatorCopy,
+  RoPEExplorerCopy,
+  LlamaComparisonTableCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
   UnembeddingDiagramCopy,
@@ -345,6 +347,8 @@ interface VisualCopyMap {
   'moe-capacity-visual': MoeCapacityVisualCopy;
   'llama-cpp-quant-explorer': LlamaCppQuantExplorerCopy;
   'offload-simulator': OffloadSimulatorCopy;
+  'rope-explorer': RoPEExplorerCopy;
+  'llama-comparison-table': LlamaComparisonTableCopy;
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;
