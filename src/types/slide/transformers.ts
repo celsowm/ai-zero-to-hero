@@ -547,6 +547,92 @@ export interface LlamaComparisonTableCopy {
   details: Record<string, { gpt2: string; llama1: string; llama2: string }>;
 }
 
+// ── Browser Inference ─────────────────────────────────────────────────
+
+export interface BrowserInferenceComparisonCopy {
+  title: string;
+  subtitle: string;
+  serverLabel: string;
+  browserLabel: string;
+  categoryLabel: string;
+  clickHint: string;
+  privacyLabel: string;
+  costLabel: string;
+  latencyLabel: string;
+  offlineLabel: string;
+  scaleLabel: string;
+  modelSizeLabel: string;
+  complexityLabel: string;
+  compatibilityLabel: string;
+  details: Record<string, { server: string; browser: string }>;
+}
+
+export interface WebGPUExplorerCopy {
+  title: string;
+  subtitle: string;
+  backendLabel: string;
+  wasmLabel: string;
+  webgpuLabel: string;
+  speedTitle: string;
+  speedSubtitle: string;
+  memoryTitle: string;
+  memorySubtitle: string;
+  modelSizeTitle: string;
+  modelSizeSubtitle: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  inputLabel: string;
+  gpuBufferLabel: string;
+  computeLabel: string;
+  outputLabel: string;
+  tokUnit: string;
+  speedMsLabel: string;
+  vramUsedLabel: string;
+}
+
+export interface WebLLMSimulatorCopy {
+  title: string;
+  subtitle: string;
+  modelLabel: string;
+  quantLabel: string;
+  vramLabel: string;
+  promptLabel: string;
+  generateLabel: string;
+  tokenizerTitle: string;
+  tokenizerDesc: string;
+  inferenceTitle: string;
+  inferenceDesc: string;
+  outputTitle: string;
+  outputDesc: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  loadingLabel: string;
+  tokenLabel: string;
+  tokUnit: string;
+  vramUsedLabel: string;
+  speedLabel: string;
+  fitsLabel: string;
+  noFitsLabel: string;
+  q4Label: string;
+  q8Label: string;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

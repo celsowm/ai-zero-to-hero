@@ -144,3 +144,38 @@ export interface InferenceE2eCopy extends BaseVisualCopy {
   step5Label: string;
   step5Desc: string;
 }
+
+export interface TransformersJsPlaygroundCopy extends BaseVisualCopy {
+  title: string;
+  subtitle: string;
+  taskLabel: string;
+  inputLabel: string;
+  runLabel: string;
+  tokenizerTitle: string;
+  tokenizerDesc: string;
+  tokensLabel: string;
+  modelTitle: string;
+  modelDesc: string;
+  outputTitle: string;
+  outputDesc: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  step5Label: string;
+  step5Body: string;
+  wasmLabel: string;
+  webgpuLabel: string;
+  speedLabel: string;
+  msUnit: string;
+  tokenLabel: string;
+  positiveLabel: string;
+  negativeLabel: string;
+  embeddingTitle: string;
+}

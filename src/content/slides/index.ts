@@ -94,6 +94,10 @@ import { llamaCppIntro } from './llama-cpp-intro';
 import { llamaCppOffload } from './llama-cpp-offload';
 import { llama2VsGpt2 } from './llama2-vs-gpt2';
 import { ropeDeepDive } from './rope-deep-dive';
+import { browserInferenceWhy } from './browser-inference-why';
+import { transformersJsIntro } from './transformers-js-intro';
+import { webgpuDeepDive } from './webgpu-deep-dive';
+import { webllmInBrowser } from './webllm-in-browser';
 import { inferenceEnginesWhy } from './inference-engines-why';
 import { inferenceExercise } from './inference-exercise';
 import { onnxOptimization } from './onnx-optimization';
@@ -319,6 +323,10 @@ export const allSlides: ISlide[] = [
   llamaCppOffload,
   llama2VsGpt2,
   ropeDeepDive,
+  browserInferenceWhy,
+  transformersJsIntro,
+  webgpuDeepDive,
+  webllmInBrowser,
   inferenceEnginesWhy,
   inferenceExercise,
   onnxOptimization,

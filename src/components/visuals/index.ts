@@ -143,6 +143,12 @@ export { OffloadSimulator } from './inference-engines/OffloadSimulator';
 export { RoPEExplorer } from './transformers/RoPEExplorer';
 export { LlamaComparisonTable } from './transformers/LlamaComparisonTable';
 
+// browser inference
+export { BrowserInferenceComparison } from './inference-engines/BrowserInferenceComparison';
+export { TransformersJsPlayground } from './inference-engines/TransformersJsPlayground';
+export { WebGPUExplorer } from './inference-engines/WebGPUExplorer';
+export { WebLLMSimulator } from './inference-engines/WebLLMSimulator';
+
 // prompt engineering
 export { PromptEngineeringWhyVisual } from './prompt-engineering/PromptEngineeringWhy';
 export { PromptStructureAnatomyVisual } from './prompt-engineering/PromptStructureAnatomy';

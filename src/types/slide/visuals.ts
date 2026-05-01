@@ -88,6 +88,9 @@ import type {
   OffloadSimulatorCopy,
   RoPEExplorerCopy,
   LlamaComparisonTableCopy,
+  BrowserInferenceComparisonCopy,
+  WebGPUExplorerCopy,
+  WebLLMSimulatorCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
   UnembeddingDiagramCopy,
@@ -108,6 +111,7 @@ import type {
   Tensor3DExplorerCopy,
   WeightsBiasesExplorerCopy,
 } from './neural-networks';
+import type { TransformersJsPlaygroundCopy } from './inference-engines';
 import type { PythonExerciseVisualCopy } from './exercise';
 import type { ClassificationProblemCopy } from './classification-problem';
 import type {
@@ -349,6 +353,10 @@ interface VisualCopyMap {
   'offload-simulator': OffloadSimulatorCopy;
   'rope-explorer': RoPEExplorerCopy;
   'llama-comparison-table': LlamaComparisonTableCopy;
+  'browser-inference-comparison': BrowserInferenceComparisonCopy;
+  'transformers-js-playground': TransformersJsPlaygroundCopy;
+  'webgpu-explorer': WebGPUExplorerCopy;
+  'webllm-simulator': WebLLMSimulatorCopy;
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;
