@@ -18,7 +18,7 @@ export const bigramMatrixSoftmax = defineSlide({
 
 2. **O problema:** algumas linhas somam 10.000, outras somam 5. Não podemos comparar maçãs com laranjas.
 
-3. **A mágica do Softmax:** usamos uma função matemática chamada Softmax para espremer qualquer conjunto de números brutos (logits) para que eles fiquem entre 0 e 1, e a soma total da linha seja exatamente 100% (ou 1.0).
+3. **A mágica do Softmax:** usamos uma função matemática chamada Softmax para espremer qualquer conjunto de números brutos para que eles fiquem entre 0 e 1, e a soma total da linha seja exatamente 100% (ou 1.0).
 
 > Softmax é a função que transforma pontuações cruas em probabilidades elegantes.`,
     },
@@ -30,7 +30,7 @@ export const bigramMatrixSoftmax = defineSlide({
 
 2. **The problem:** some rows sum up to 10,000, others sum to 5. We cannot compare apples to oranges.
 
-3. **The magic of Softmax:** we use a mathematical function called Softmax to squash any set of raw numbers (logits) so they land between 0 and 1, and the total sum of the row is exactly 100% (or 1.0).
+3. **The magic of Softmax:** we use a mathematical function called Softmax to squash any set of raw numbers so they land between 0 and 1, and the total sum of the row is exactly 100% (or 1.0).
 
 > Softmax is the function that turns raw scores into elegant probabilities.`,
     },

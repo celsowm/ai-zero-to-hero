@@ -11,42 +11,46 @@ export const hiddenStatesToLogits = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `A reta final: de volta às palavras`,
-      body: `Depois de passar por 12 blocos de Atenção e MLP, o que temos na mão? Um vetor complexo cheio de contexto. Mas nós precisamos de uma palavra, não de um vetor!
+      title: `Números brutos → Probabilidades: o que são Logits?`,
+      body: `No bigrama, os "números brutos" eram contagens: quantas vezes 'the' apareceu após 'We'. Mas num modelo neural, não há contagem — há **multiplicação de matrizes**.
 
-1. **A Matriz Final (Unembedding):** pegamos esse vetor final e multiplicamos por uma gigantesca matriz que contém todos os tokens do vocabulário (ex: 50.000 palavras).
+1. **Hidden State (o "pensamento"):** depois de passar pelos embeddings, atenção e MLPs, o modelo produz um vetor denso. Esse vetor carrega todo o contexto da frase — mas ainda é só uma lista de números abstratos.
 
-2. **Pontuações brutas (Logits):** o resultado dessa multiplicação é uma lista de 50.000 números. Cada número é a 'pontuação' que o modelo dá para aquele token ser o próximo.
+2. **A última multiplicação (Unembedding):** pegamos esse vetor e multiplicamos por uma matriz gigante com uma coluna por token do vocabulário (ex: 50.000). O resultado? Uma lista de 50.000 números — um por token possível.
 
-3. **De volta ao Softmax:** como vimos antes, passamos esses Logits pela função Softmax para transformá-los em probabilidades limpas (0 a 100%).
+3. **Logits:** é esse o nome técnico. Cada um desses 50.000 números é um **Logit** — a pontuação bruta que o modelo dá para aquele token ser o próximo. Quanto maior o logit, mais "candidato" aquele token é.
 
-> A última etapa traduz o 'pensamento' numérico de volta para o dicionário humano.`,
+4. **Softmax transforma logits em probabilidades:** passamos os 50.000 logits pelo Softmax para obter porcentagens que somam 100%. O token com maior logit terá maior probabilidade, mas outros ainda têm chance.
+
+> Logits são as pontuações brutas do modelo antes do softmax. O bigrama contava, o neural multiplica — mas o conceito é o mesmo.`,
     },
     'en-us': {
-      title: `The final stretch: back to words`,
-      body: `After going through 12 blocks of Attention and MLP, what do we have? A complex vector full of context. But we need a word, not a vector!
+      title: `Raw numbers → Probabilities: what are Logits?`,
+      body: `In the bigram, "raw numbers" were counts: how many times 'the' appeared after 'We'. But in a neural model, there is no counting — only **matrix multiplication**.
 
-1. **The Final Matrix (Unembedding):** we take this final vector and multiply it by a gigantic matrix containing all the tokens in the vocabulary (e.g., 50,000 words).
+1. **Hidden State (the "thought"):** after passing through embeddings, attention, and MLPs, the model produces a dense vector. This vector carries the entire sentence context — but it's still just a list of abstract numbers.
 
-2. **Raw scores (Logits):** the result of this multiplication is a list of 50,000 numbers. Each number is the 'score' the model gives to that token for being the next one.
+2. **The final multiplication (Unembedding):** we take this vector and multiply it by a giant matrix with one column per vocabulary token (e.g., 50,000). The result? A list of 50,000 numbers — one per possible token.
 
-3. **Back to Softmax:** as we saw before, we pass these Logits through the Softmax function to turn them into clean probabilities (0 to 100%).
+3. **Logits:** that's the technical name. Each of these 50,000 numbers is a **Logit** — the raw score the model gives to that token for being the next one. The higher the logit, the more of a "candidate" that token is.
 
-> The last step translates the numerical 'thought' back into the human dictionary.`,
+4. **Softmax turns logits into probabilities:** we pass the 50,000 logits through Softmax to get percentages that sum to 100%. The token with the highest logit will have the highest probability, but others still have a chance.
+
+> Logits are the model's raw scores before softmax. The bigram counted, the neural model multiplies — but the concept is the same.`,
     },
   },
   visual: {
     id: 'unembedding-diagram',
     copy: {
       "pt-br": {
-        "vectorLabel": "Vetor Final",
-        "vocabLabel": "Vocabulário",
-        "logitsLabel": "Logits (Pontuações)"
+        "vectorLabel": "Hidden State",
+        "vocabLabel": "Vocabulário (50.000 tokens)",
+        "logitsLabel": "Logits (Pontuações brutas)"
       },
       "en-us": {
-        "vectorLabel": "Final Vector",
-        "vocabLabel": "Vocabulary",
-        "logitsLabel": "Logits (Scores)"
+        "vectorLabel": "Hidden State",
+        "vocabLabel": "Vocabulary (50,000 tokens)",
+        "logitsLabel": "Logits (Raw scores)"
       }
     },
   },

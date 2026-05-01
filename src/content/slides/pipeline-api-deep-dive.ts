@@ -18,9 +18,9 @@ export const pipelineApiDeepDive = defineSlide({
 
 1. **Tokenize:** o texto de entrada vira token IDs (\`tokenizer(text, return_tensors="pt")\`).
 
-2. **Forward pass:** os IDs passam pelo modelo (\`model(**inputs)\`), que devolve **logits** — scores brutos para cada token do vocabulário.
+2. **Forward pass:** os IDs passam pelo modelo (\`model(**inputs)\`), que devolve **pontuações brutas** — scores para cada token do vocabulário.
 
-3. **Sampling:** os logits são convertidos em probabilidades (softmax) e um token é escolhido de acordo com a estratégia (greedy, sample, top-k, top-p).
+3. **Sampling:** as pontuações brutas são convertidas em probabilidades (softmax) e um token é escolhido de acordo com a estratégia (greedy, sample, top-k, top-p).
 
 4. **Decode:** o token ID escolhido é convertido de volta para texto (\`tokenizer.decode([token_id])\`). O loop repete até \`max_new_tokens\`.
 
@@ -30,7 +30,7 @@ export const pipelineApiDeepDive = defineSlide({
 
 - **\`pipeline()\`:** prototipagem rápida, demos, experimentos. Não precisa lidar com tensores.
 - **\`model.generate()\`:** controle fino (temperature, top-k, top-p, repetition_penalty). Uso em produção.
-- **\`model(**inputs)\` manual:** quando você quer acesso aos logits brutos, hidden states ou atenção.
+- **\`model(**inputs)\` manual:** quando você quer acesso às pontuações brutas, hidden states ou atenção.
 
 > Comece com \`pipeline\`. Quando precisar de controle, desça um nível.`,
     },
@@ -42,9 +42,9 @@ export const pipelineApiDeepDive = defineSlide({
 
 1. **Tokenize:** input text becomes token IDs (\`tokenizer(text, return_tensors="pt")\`).
 
-2. **Forward pass:** IDs go through the model (\`model(**inputs)\`), which returns **logits** — raw scores for each vocabulary token.
+2. **Forward pass:** IDs go through the model (\`model(**inputs)\`), which returns **raw scores** — unnormalized numbers for each vocabulary token.
 
-3. **Sampling:** logits are converted to probabilities (softmax) and a token is chosen according to the strategy (greedy, sample, top-k, top-p).
+3. **Sampling:** the raw scores are converted to probabilities (softmax) and a token is chosen according to the strategy (greedy, sample, top-k, top-p).
 
 4. **Decode:** the chosen token ID is converted back to text (\`tokenizer.decode([token_id])\`). The loop repeats until \`max_new_tokens\`.
 
@@ -54,7 +54,7 @@ export const pipelineApiDeepDive = defineSlide({
 
 - **\`pipeline()\`:** rapid prototyping, demos, experiments. No need to handle tensors.
 - **\`model.generate()\`:** fine control (temperature, top-k, top-p, repetition_penalty). Production use.
-- **\`model(**inputs)\` manual:** when you want access to raw logits, hidden states, or attention.
+- **\`model(**inputs)\` manual:** when you want access to raw scores, hidden states, or attention.
 
 > Start with \`pipeline\`. When you need control, go one level down.`,
     },
@@ -66,9 +66,9 @@ export const pipelineApiDeepDive = defineSlide({
         "step1Label": "Tokenize",
         "step1Desc": "Texto → IDs",
         "step2Label": "Forward",
-        "step2Desc": "IDs → Logits",
+        "step2Desc": "IDs → Pontuações",
         "step3Label": "Sample",
-        "step3Desc": "Logits → Token",
+        "step3Desc": "Pontuações → Token",
         "step4Label": "Decode",
         "step4Desc": "Token → Texto"
       },
@@ -76,9 +76,9 @@ export const pipelineApiDeepDive = defineSlide({
         "step1Label": "Tokenize",
         "step1Desc": "Text → IDs",
         "step2Label": "Forward",
-        "step2Desc": "IDs → Logits",
+        "step2Desc": "IDs → Scores",
         "step3Label": "Sample",
-        "step3Desc": "Logits → Token",
+        "step3Desc": "Scores → Token",
         "step4Label": "Decode",
         "step4Desc": "Token → Text"
       }

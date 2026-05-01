@@ -65,6 +65,7 @@ export const courseSlideOrder = [
   'tokenization-we-the-people',
   'bigram-intuition',
   'bigram-matrix-softmax',
+  'hidden-states-to-logits',
   'bigram-sampling',
   'cross-entropy-language-modeling',
   'embeddings-intro',
