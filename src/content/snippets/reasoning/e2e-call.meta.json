@@ -2,7 +2,8 @@
   "id": "reasoning/e2e-call",
   "language": "python",
   "explanations": [
-    { "lineRange": [5, 22], "pt-br": "Funcao call_reasoning: chamada ao o3-mini com effort control.", "en-us": "call_reasoning function: o3-mini call with effort control." },
-    { "lineRange": [24, 29], "pt-br": "Retorno com modelo, tokens, reasoning_tokens, latencia.", "en-us": "Return with model, tokens, reasoning_tokens, latency." }
+    { "lineRange": [3, 6], "pt-br": "Imports e setup do client OpenAI.", "en-us": "Imports and OpenAI client setup." },
+    { "lineRange": [5, 24], "pt-br": "Funcao call_reasoning: chamada ao o3-mini com effort control, timer e return dict.", "en-us": "call_reasoning function: o3-mini call with effort control, timer and return dict." },
+    { "lineRange": [24, 34], "pt-br": "Teste da funcao e print de modelo, tokens (com thinking) e latencia.", "en-us": "Test the function and print model, tokens (with thinking) and latency." }
   ]
 }

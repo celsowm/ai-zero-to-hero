@@ -2,9 +2,9 @@
   "id": "reasoning/e2e-fallback",
   "language": "python",
   "explanations": [
-    { "lineRange": [5, 28], "pt-br": "Tentativa 1: o3-mini com reasoning.", "en-us": "Attempt 1: o3-mini with reasoning." },
-    { "lineRange": [30, 48], "pt-br": "Tentativa 2: GPT-4o com CoT prompt.", "en-us": "Attempt 2: GPT-4o with CoT prompt." },
-    { "lineRange": [50, 67], "pt-br": "Tentativa 3: GPT-4o-mini (barato e rapido).", "en-us": "Attempt 3: GPT-4o-mini (cheap and fast)." },
-    { "lineRange": [69, 69], "pt-br": "Retorno de erro se todas falharem.", "en-us": "Error return if all fail." }
+    { "lineRange": [3, 29], "pt-br": "Imports, client setup e Attempt 1: o3-mini com reasoning, return dict com tokens.", "en-us": "Imports, client setup and Attempt 1: o3-mini with reasoning, return dict with tokens." },
+    { "lineRange": [30, 49], "pt-br": "Tentativa 2: GPT-4o com CoT prompt, return dict com content e tokens.", "en-us": "Attempt 2: GPT-4o with CoT prompt, return dict with content and tokens." },
+    { "lineRange": [50, 68], "pt-br": "Tentativa 3: GPT-4o-mini (barato e rapido). Retorno de erro se todas falharem.", "en-us": "Attempt 3: GPT-4o-mini (cheap and fast). Error return if all fail." },
+    { "lineRange": [68, 76], "pt-br": "Retorno final de erro com tentativas registradas.", "en-us": "Final error return with logged attempts." }
   ]
 }

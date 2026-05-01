@@ -2,10 +2,9 @@
   "id": "reasoning/bug-hints",
   "language": "python",
   "explanations": [
-    { "lineRange": [4, 5], "pt-br": "Explicacao do bug: '.' nao match newline sem DOTALL.", "en-us": "Bug explanation: '.' doesn't match newline without DOTALL." },
+    { "lineRange": [3, 5], "pt-br": "Import re e explicacao do bug: '.' nao match newline sem DOTALL.", "en-us": "Import re and bug explanation: '.' doesn't match newline without DOTALL." },
     { "lineRange": [7, 9], "pt-br": "Solucao 1: usar re.DOTALL flag no search.", "en-us": "Solution 1: use re.DOTALL flag in search." },
     { "lineRange": [11, 13], "pt-br": "Solucao 2: usar [\\s\\S] que match tudo incluindo newline.", "en-us": "Solution 2: use [\\s\\S] which matches everything including newline." },
-    { "lineRange": [15, 16], "pt-br": "Solucao 3: compilar regex com flags.", "en-us": "Solution 3: compile regex with flags." },
-    { "lineRange": [21, 32], "pt-br": "Teste das duas solucoes.", "en-us": "Testing both solutions." }
+    { "lineRange": [15, 36], "pt-br": "Solucao 3: compilar regex com flags. Teste das duas solucoes: DOTALL e [\\s\\S].", "en-us": "Solution 3: compile regex with flags. Testing both solutions: DOTALL and [\\s\\S]." }
   ]
 }

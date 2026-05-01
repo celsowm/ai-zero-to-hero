@@ -2,9 +2,10 @@
   "id": "reasoning/e2e-setup",
   "language": "python",
   "explanations": [
-    { "lineRange": [7, 15], "pt-br": "ReasoningConfig: modelo, effort, timeout, limite de custo.", "en-us": "ReasoningConfig: model, effort, timeout, cost limit." },
-    { "lineRange": [17, 28], "pt-br": "ReasoningResult: dataclass com resultado padronizado.", "en-us": "ReasoningResult: dataclass with standardized result." },
-    { "lineRange": [33, 36], "pt-br": "Tabela de precos por modelo.", "en-us": "Pricing table by model." },
-    { "lineRange": [38, 43], "pt-br": "Funcao calculate_cost: input + output tokens.", "en-us": "calculate_cost function: input + output tokens." }
+    { "lineRange": [3, 16], "pt-br": "Imports, dataclasses ReasoningConfig com todos os campos.", "en-us": "Imports, ReasoningConfig dataclass with all fields." },
+    { "lineRange": [17, 29], "pt-br": "ReasoningResult: dataclass com resultado padronizado, incluindo cost_usd.", "en-us": "ReasoningResult: dataclass with standardized result, including cost_usd." },
+    { "lineRange": [30, 37], "pt-br": "Client setup e tabela de precos PRICING por modelo.", "en-us": "Client setup and PRICING table by model." },
+    { "lineRange": [38, 43], "pt-br": "Funcao calculate_cost: input + output tokens.", "en-us": "calculate_cost function: input + output tokens." },
+    { "lineRange": [43, 49], "pt-br": "Print de confirmacao do setup.", "en-us": "Setup confirmation print." }
   ]
 }

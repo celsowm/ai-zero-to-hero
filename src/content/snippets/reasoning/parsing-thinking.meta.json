@@ -2,9 +2,9 @@
   "id": "reasoning/parsing-thinking",
   "language": "python",
   "explanations": [
-    { "lineRange": [3, 16], "pt-br": "Response content com thinking blocks <think>...</think>.", "en-us": "Response content with <think>...</think> thinking blocks." },
-    { "lineRange": [18, 19], "pt-br": "Regex com DOTALL flag para capturar multi-line.", "en-us": "Regex with DOTALL flag to capture multi-line." },
-    { "lineRange": [21, 28], "pt-br": "Extrair thinking e separar answer.", "en-us": "Extract thinking and separate answer." },
-    { "lineRange": [30, 33], "pt-br": "Fallback para quando nao ha thinking blocks.", "en-us": "Fallback for when there are no thinking blocks." }
+    { "lineRange": [3, 17], "pt-br": "Response content com thinking blocks e setup de teste.", "en-us": "Response content with thinking blocks and test setup." },
+    { "lineRange": [18, 20], "pt-br": "Regex com DOTALL flag para capturar multi-line.", "en-us": "Regex with DOTALL flag to capture multi-line." },
+    { "lineRange": [21, 29], "pt-br": "Extrair thinking e separar answer. Print do resultado.", "en-us": "Extract thinking and separate answer. Print result." },
+    { "lineRange": [30, 36], "pt-br": "Fallback para quando nao ha thinking blocks. Prints de aviso.", "en-us": "Fallback for when there are no thinking blocks. Warning prints." }
   ]
 }

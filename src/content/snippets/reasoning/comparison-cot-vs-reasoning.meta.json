@@ -4,6 +4,6 @@
   "explanations": [
     { "lineRange": [2, 2], "pt-br": "Comparacao entre CoT (prompt) e Reasoning Model (treinado).", "en-us": "Comparison between CoT (prompt) and Reasoning Model (trained)." },
     { "lineRange": [4, 13], "pt-br": "CoT: thinking depende de prompt engineering.", "en-us": "CoT: thinking depends on prompt engineering." },
-    { "lineRange": [19, 24], "pt-br": "Reasoning Model: thinking e habilitado via parametro, e nativo.", "en-us": "Reasoning Model: thinking is enabled via parameter, it's native." }
+    { "lineRange": [19, 31], "pt-br": "Reasoning Model: thinking e habilitado via parametro, e nativo. Comparacao final.", "en-us": "Reasoning Model: thinking is enabled via parameter, it's native. Final comparison." }
   ]
 }

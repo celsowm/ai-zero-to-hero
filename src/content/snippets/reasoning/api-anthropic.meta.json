@@ -3,8 +3,8 @@
   "language": "python",
   "explanations": [
     { "lineRange": [3, 4], "pt-br": "Setup do client Anthropic.", "en-us": "Anthropic client setup." },
-    { "lineRange": [6, 16], "pt-br": "Request com thinking enabled e budget_tokens.", "en-us": "Request with thinking enabled and budget_tokens." },
-    { "lineRange": [18, 25], "pt-br": "Parse dos blocos thinking e text na resposta.", "en-us": "Parse thinking and text blocks in response." },
-    { "lineRange": [27, 30], "pt-br": "Explicacao do budget_tokens control.", "en-us": "Explanation of budget_tokens control." }
+    { "lineRange": [6, 17], "pt-br": "Request com thinking enabled e budget_tokens.", "en-us": "Request with thinking enabled and budget_tokens." },
+    { "lineRange": [18, 26], "pt-br": "Parse dos blocos thinking e text na resposta.", "en-us": "Parse thinking and text blocks in response." },
+    { "lineRange": [27, 31], "pt-br": "Explicacao do budget_tokens control: limita thinking, nao conta no max_tokens.", "en-us": "Budget_tokens control: limits thinking, doesn't count toward max_tokens." }
   ]
 }

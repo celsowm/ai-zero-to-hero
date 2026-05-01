@@ -2,10 +2,11 @@
   "id": "reasoning/e2e-full",
   "language": "python",
   "explanations": [
-    { "lineRange": [11, 27], "pt-br": "Classe ReasoningApp com config e metodos.", "en-us": "ReasoningApp class with config and methods." },
+    { "lineRange": [3, 27], "pt-br": "Imports, tabela de precos e classe ReasoningApp com config e metodos.", "en-us": "Imports, pricing table and ReasoningApp class with config and methods." },
     { "lineRange": [18, 24], "pt-br": "Metodo _parse: suporta lista e string com DOTALL.", "en-us": "_parse method: supports list and string with DOTALL." },
-    { "lineRange": [26, 28], "pt-br": "Metodo _cost: calcula custo baseado no modelo.", "en-us": "_cost method: calculate cost based on model." },
-    { "lineRange": [30, 50], "pt-br": "Metodo ask: tenta reasoning, fallback para CoT.", "en-us": "ask method: tries reasoning, fallback to CoT." },
-    { "lineRange": [52, 72], "pt-br": "Uso do app com cost_limit e show_thinking.", "en-us": "App usage with cost_limit and show_thinking." }
+    { "lineRange": [26, 35], "pt-br": "Metodo _cost: calcula custo baseado no modelo. Metodo ask: tenta reasoning com parsing.", "en-us": "_cost method: calculate cost based on model. ask method: tries reasoning with parsing." },
+    { "lineRange": [30, 57], "pt-br": "Metodo ask: tenta reasoning, fallback para CoT com try/except.", "en-us": "ask method: tries reasoning, fallback to CoT with try/except." },
+    { "lineRange": [52, 72], "pt-br": "Uso do app com cost_limit e show_thinking.", "en-us": "App usage with cost_limit and show_thinking." },
+    { "lineRange": [72, 80], "pt-br": "Instanciacao do app e teste com print de modelo, custo e resposta.", "en-us": "App instantiation and test with model, cost and answer print." }
   ]
 }

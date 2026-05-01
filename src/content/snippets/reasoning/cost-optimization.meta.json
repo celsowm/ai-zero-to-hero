@@ -2,10 +2,11 @@
   "id": "reasoning/cost-optimization",
   "language": "python",
   "explanations": [
-    { "lineRange": [6, 10], "pt-br": "Funcao smart_reasoning: classifica antes de decidir usar reasoning.", "en-us": "smart_reasoning function: classifies before deciding to use reasoning." },
-    { "lineRange": [12, 20], "pt-br": "Classificador barato (gpt-4o-mini) para medir complexidade.", "en-us": "Cheap classifier (gpt-4o-mini) to measure complexity." },
-    { "lineRange": [22, 28], "pt-br": "Se simples: usa GPT-4o sem reasoning.", "en-us": "If simple: use GPT-4o without reasoning." },
-    { "lineRange": [30, 36], "pt-br": "Se complexa: usa o3-mini com reasoning_effort high.", "en-us": "If complex: use o3-mini with reasoning_effort high." },
-    { "lineRange": [46, 50], "pt-br": "Teste com pergunta simples e complexa.", "en-us": "Test with simple and complex question." }
+    { "lineRange": [3, 11], "pt-br": "Imports, client setup, docstring da funcao smart_reasoning.", "en-us": "Imports, client setup, smart_reasoning function docstring." },
+    { "lineRange": [12, 21], "pt-br": "Classificador barato (gpt-4o-mini) para medir complexidade. Parse do numero.", "en-us": "Cheap classifier (gpt-4o-mini) to measure complexity. Parse the number." },
+    { "lineRange": [22, 29], "pt-br": "Se simples: usa GPT-4o sem reasoning. Branch simples do router.", "en-us": "If simple: use GPT-4o without reasoning. Simple branch of the router." },
+    { "lineRange": [30, 37], "pt-br": "Se complexa: usa o3-mini com reasoning_effort high. Branch complexa do router.", "en-us": "If complex: use o3-mini with reasoning_effort high. Complex branch of the router." },
+    { "lineRange": [38, 45], "pt-br": "Return dict com complexity, model_used, tokens e answer.", "en-us": "Return dict with complexity, model_used, tokens and answer." },
+    { "lineRange": [46, 56], "pt-br": "Teste com pergunta simples e complexa, loop de impressao.", "en-us": "Test with simple and complex question, print loop." }
   ]
 }

@@ -3,8 +3,8 @@
   "language": "python",
   "explanations": [
     { "lineRange": [3, 4], "pt-br": "Setup do client OpenAI.", "en-us": "OpenAI client setup." },
-    { "lineRange": [6, 12], "pt-br": "Request com reasoning_effort e max_completion_tokens.", "en-us": "Request with reasoning_effort and max_completion_tokens." },
-    { "lineRange": [14, 24], "pt-br": "Parse dos blocos de thinking e text.", "en-us": "Parse thinking and text blocks." },
-    { "lineRange": [26, 30], "pt-br": "Print do thinking, answer e usage breakdown.", "en-us": "Print thinking, answer and usage breakdown." }
+    { "lineRange": [6, 13], "pt-br": "Request com reasoning_effort e max_completion_tokens.", "en-us": "Request with reasoning_effort and max_completion_tokens." },
+    { "lineRange": [14, 25], "pt-br": "Parse dos blocos de thinking e text.", "en-us": "Parse thinking and text blocks." },
+    { "lineRange": [26, 34], "pt-br": "Print do thinking, answer e usage breakdown com reasoning_tokens.", "en-us": "Print thinking, answer and usage breakdown with reasoning_tokens." }
   ]
 }
