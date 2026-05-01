@@ -108,7 +108,7 @@ export const MoeGatingMathVisual = React.memo(({ copy }: Props) => {
     );
 
     return { logits, probs, topIndices, renormalized, sumSelected };
-  }, [selectedToken, temperature, topK, token.embedding]);
+  }, [temperature, topK, token.embedding]);
 
   const stepFormulas = [
     copy.step1Formula,

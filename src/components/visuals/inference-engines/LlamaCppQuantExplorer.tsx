@@ -125,7 +125,7 @@ export const LlamaCppQuantExplorer = React.memo(({ copy }: Props) => {
     const fileSizeGb = paramGb * 1.02; // slight overhead
 
     return { paramGb, kvGb, totalGb, fileSizeGb };
-  }, [selectedModel, selectedFormat, seqLen, model]);
+  }, [seqLen, model, format.bpp]);
 
   // Speed estimates for different backends
   const speeds = useMemo(() => {
@@ -136,7 +136,7 @@ export const LlamaCppQuantExplorer = React.memo(({ copy }: Props) => {
       metal: SPEED_PER_BILLION.metal / paramsB,
       cuda: SPEED_PER_BILLION.cuda / paramsB,
     };
-  }, [selectedModel]);
+  }, [model.params]);
 
   // Quality vs size data for scatter plot
   const qualityPoints = useMemo(() => {
@@ -145,7 +145,7 @@ export const LlamaCppQuantExplorer = React.memo(({ copy }: Props) => {
       const sizeGb = bytesToGb(paramBytes);
       return { ...f, sizeGb };
     });
-  }, [selectedModel]);
+  }, [model.params]);
 
   const maxSpeed = Math.max(...Object.values(speeds));
   const maxQualitySize = Math.max(...qualityPoints.map((p) => p.sizeGb));

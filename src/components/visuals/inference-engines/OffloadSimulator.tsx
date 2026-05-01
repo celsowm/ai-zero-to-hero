@@ -158,7 +158,7 @@ export const OffloadSimulator = React.memo(({ copy }: Props) => {
       warning, warningColor,
       totalLayers, cpuLayers,
     };
-  }, [selectedModel, gpuVram, cpuRam, nGpuLayers, diskOffload, model, copy]);
+  }, [gpuVram, cpuRam, nGpuLayers, diskOffload, model, copy]);
 
   const handleModelSelect = useCallback((idx: number) => {
     setSelectedModel(idx);

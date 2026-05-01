@@ -6,18 +6,18 @@ interface TemperatureSliderInteractiveProps {
   copy: TemperatureSliderInteractiveCopy;
 }
 
+const BASE_LOGITS = [3.0, 2.0, 1.0, 0.5, -1.0];
+const WORDS = ['the', 'a', 'it', 'he', 'she'];
+
 export const TemperatureSliderInteractive = React.memo(({ copy }: TemperatureSliderInteractiveProps) => {
   const [temp, setTemp] = useState(0.7);
 
-  const baseLogits = [3.0, 2.0, 1.0, 0.5, -1.0];
-  const words = ['the', 'a', 'it', 'he', 'she'];
-
   const { probs } = useMemo(() => {
-    const adjustedLogits = baseLogits.map(l => l / Math.max(0.01, temp));
+    const adjustedLogits = BASE_LOGITS.map((l: number) => l / Math.max(0.01, temp));
     const maxLogit = Math.max(...adjustedLogits);
-    const exps = adjustedLogits.map(l => Math.exp(l - maxLogit));
-    const sumExp = exps.reduce((a, b) => a + b, 0);
-    const p = exps.map(e => e / sumExp);
+    const exps = adjustedLogits.map((l: number) => Math.exp(l - maxLogit));
+    const sumExp = exps.reduce((a: number, b: number) => a + b, 0);
+    const p = exps.map((e: number) => e / sumExp);
     return { probs: p };
   }, [temp]);
 
@@ -83,7 +83,7 @@ export const TemperatureSliderInteractive = React.memo(({ copy }: TemperatureSli
               boxShadow: `0 0 12px ${barColor}30`
             }} />
             <div style={{ fontWeight: '600', color: sw.text, fontSize: '13px', marginTop: '4px' }}>
-              {words[i]}
+              {WORDS[i]}
             </div>
           </div>
         ))}
