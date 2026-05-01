@@ -82,6 +82,8 @@ import type {
   TemperatureSliderInteractiveCopy,
   MoeRouterSimulatorCopy,
   MoeRouterExplorerCopy,
+  MoeGatingMathVisualCopy,
+  MoeCapacityVisualCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
   UnembeddingDiagramCopy,
@@ -337,6 +339,8 @@ interface VisualCopyMap {
   'temperature-slider-interactive': TemperatureSliderInteractiveCopy;
   'moe-router-simulator': MoeRouterSimulatorCopy;
   'moe-router-explorer': MoeRouterExplorerCopy;
+  'moe-gating-math-visual': MoeGatingMathVisualCopy;
+  'moe-capacity-visual': MoeCapacityVisualCopy;
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;

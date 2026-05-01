@@ -329,6 +329,60 @@ export interface MoeRouterExplorerCopy {
   efficiencyBody: string;
 }
 
+// ── MoE Gating Math Visual ───────────────────────────────────────────
+
+export interface MoeGatingMathVisualCopy {
+  title: string;
+  subtitle: string;
+  step1Title: string;
+  step1Formula: string;
+  step1Desc: string;
+  step2Title: string;
+  step2Formula: string;
+  step2Desc: string;
+  step3Title: string;
+  step3Formula: string;
+  step3Desc: string;
+  step4Title: string;
+  step4Formula: string;
+  step4Desc: string;
+  tokenLabel: string;
+  expertLabel: string;
+  logitLabel: string;
+  probLabel: string;
+  weightLabel: string;
+  temperatureLabel: string;
+  topkLabel: string;
+  selectedLabel: string;
+  notSelectedLabel: string;
+  sumLabel: string;
+  efficiencyLabel: string;
+}
+
+// ── MoE Capacity Visual ──────────────────────────────────────────────
+
+export interface MoeCapacityVisualCopy {
+  title: string;
+  subtitle: string;
+  batchSizeLabel: string;
+  seqLenLabel: string;
+  capacityFactorLabel: string;
+  numExpertsLabel: string;
+  tokenLabel: string;
+  expertLabel: string;
+  capacityLabel: string;
+  droppedLabel: string;
+  processedLabel: string;
+  overflowLabel: string;
+  totalTokensLabel: string;
+  droppedCountLabel: string;
+  efficiencyLabel: string;
+  warningTitle: string;
+  warningLowCapacity: string;
+  warningHighCapacity: string;
+  warningOptimal: string;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

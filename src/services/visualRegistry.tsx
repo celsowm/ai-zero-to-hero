@@ -73,6 +73,8 @@ const visualMap: Record<string, string> = {
   'temperature-slider-interactive': 'TemperatureSliderInteractive',
   'moe-router-simulator': 'MoeRouterSimulator',
   'moe-router-explorer': 'MoeRouterExplorer',
+  'moe-gating-math-visual': 'MoeGatingMathVisual',
+  'moe-capacity-visual': 'MoeCapacityVisual',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',

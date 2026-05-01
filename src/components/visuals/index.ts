@@ -88,6 +88,8 @@ export { Nf4QuantileVisualizer } from './transformers/Nf4QuantileVisualizer';
 export { TemperatureSliderInteractive } from './transformers/TemperatureSliderInteractive';
 export { MoeRouterSimulator } from './transformers/MoERouterVisual';
 export { MoeRouterExplorer } from './transformers/MoeRouterExplorer';
+export { MoeGatingMathVisual } from './transformers/MoeGatingMathVisual';
+export { MoeCapacityVisual } from './transformers/MoeCapacityVisual';
 export { UnembeddingDiagram } from './transformers/UnembeddingDiagram';
 export { Gpt2FullArchitectureDiagram } from './transformers/Gpt2FullArchitectureDiagram';
 export { LayerEvolutionChart } from './transformers/LayerEvolutionChart';
