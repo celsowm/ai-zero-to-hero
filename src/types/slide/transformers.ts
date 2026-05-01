@@ -298,6 +298,37 @@ export interface MoeRouterSimulatorCopy {
   routingStep4: string;
 }
 
+// ── MoE Router Explorer ──────────────────────────────────────────────────
+
+export interface MoeRouterExplorerCopy {
+  title: string;
+  subtitle: string;
+  tokenSelectorTitle: string;
+  gatingTitle: string;
+  gatingFormula: string;
+  expertLabel: string;
+  scoreLabel: string;
+  temperatureLabel: string;
+  topkLabel: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  utilizationTitle: string;
+  utilizationBody: string;
+  auxLossTitle: string;
+  auxLossFormula: string;
+  auxLossBody: string;
+  efficiencyTitle: string;
+  efficiencyBody: string;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

@@ -81,6 +81,7 @@ import type {
   ChromadbRagE2eVisualCopy,
   TemperatureSliderInteractiveCopy,
   MoeRouterSimulatorCopy,
+  MoeRouterExplorerCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
   UnembeddingDiagramCopy,
@@ -335,6 +336,7 @@ interface VisualCopyMap {
   'unembedding-diagram': UnembeddingDiagramCopy;
   'temperature-slider-interactive': TemperatureSliderInteractiveCopy;
   'moe-router-simulator': MoeRouterSimulatorCopy;
+  'moe-router-explorer': MoeRouterExplorerCopy;
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;

@@ -4,64 +4,128 @@ export const moeExpertVisualization = defineSlide({
   id: 'moe-expert-visualization',
   type: 'two-column',
   options: {
-    columnRatios: [0.45, 0.55],
+    columnRatios: [0.5, 0.5],
   },
   content: {
     'pt-br': {
-      title: 'Visualizando a Especialização dos Experts',
-      body: `Como sabemos que cada expert realmente se especializa em algo diferente?
+      title: 'A Matemática da Especialização',
+      body: `Por que cada expert realmente aprende algo diferente? A resposta está na **função de gating** e no **auxiliary loss**.
 
-Durante o treinamento, o roteador aprende a **direcionar tokens semanticamente similares para os mesmos experts**. O resultado é um padrão emergente de especialização:
+### Gating Function: O Cérebro do MoE
+Para cada token $x$, o roteador calcula:
 
-**O que o heatmap revela:**
-1. **Clusters gramaticais:** Verbos ativam consistentemente os Experts 1-2, enquanto substantivos preferem Experts 3-4.
-2. **Eficiência computacional:** Apenas **2 de 8 experts** são ativados por token — o modelo usa ~25% dos parâmetros por forward pass, mas mantém a capacidade de um modelo denso completo.
-3. **Roteamento esparso (sparse):** A matriz é majoritariamente zeros. Isso não é bug — é feature. A esparsidade força cada expert a ser realmente bom no seu sub-domínio.
+$$G(x)_i = \\text{softmax}(W_g \\cdot x)_i = \\frac{e^{w_i \\cdot x}}{\\sum_j e^{w_j \\cdot x}}$$
 
-**Por que isso importa?**
-Se todos os experts fizessem a mesma coisa, o MoE seria equivalente a um modelo denso gigante — mas muito mais lento. A especialização é o que justifica a complexidade do roteamento.
+Onde $w_i$ é o vetor de pesos do expert $i$. O softmax garante que:
+- Todos os scores somam 1.0
+- Experts com maior produto escalar recebem mais probabilidade
+- A **temperature** do softmax controla o quão "confiante" é a distribuição
 
-> **Interaja com a simulação →** Clique em diferentes tipos de token para ver como o roteador distribui as ativações entre os experts.`,
+### Especialização Emergente
+Durante o treinamento, o **auxiliary loss** penaliza o modelo se alguns experts são usados muito mais que outros:
+
+$$L_{aux} = \\alpha \\cdot \\sum_i f_i \\cdot P_i$$
+
+Onde $f_i = 1/N$ (distribuição uniforme desejada) e $P_i$ é a probabilidade média que o gating dá ao expert $i$. Isso **força** o roteador a diversificar.
+
+### Top-K e Renormalização
+Selecionados os top-$k$ experts, os pesos são **renormalizados**:
+
+$$w'_j = \\frac{G(x)_j}{\\sum_{m \\in \\text{top-}k} G(x)_m}$$
+
+O output final é a soma ponderada: $y = \\sum_{j \\in \\text{top-}k} w'_j \\cdot E_j(x)$
+
+> **Interaja →** Use a simulação para ver scores sendo computados em tempo real para diferentes tokens.`,
     },
     'en-us': {
-      title: 'Visualizing Expert Specialization',
-      body: `How do we know that each expert actually specializes in something different?
+      title: 'The Math Behind Specialization',
+      body: `Why does each expert actually learn something different? The answer lies in the **gating function** and **auxiliary loss**.
 
-During training, the router learns to **direct semantically similar tokens to the same experts**. The result is an emergent pattern of specialization:
+### Gating Function: The Brain of MoE
+For each token $x$, the router computes:
 
-**What the heatmap reveals:**
-1. **Grammatical clusters:** Verbs consistently activate Experts 1-2, while nouns prefer Experts 3-4.
-2. **Computational efficiency:** Only **2 of 8 experts** are activated per token — the model uses ~25% of parameters per forward pass, but retains the capacity of a full dense model.
-3. **Sparse routing:** The matrix is mostly zeros. This isn't a bug — it's a feature. Sparsity forces each expert to be genuinely good at its sub-domain.
+$$G(x)_i = \\text{softmax}(W_g \\cdot x)_i = \\frac{e^{w_i \\cdot x}}{\\sum_j e^{w_j \\cdot x}}$$
 
-**Why does this matter?**
-If all experts did the same thing, MoE would be equivalent to a giant dense model — but much slower. Specialization is what justifies the routing complexity.
+Where $w_i$ is the weight vector of expert $i$. The softmax ensures:
+- All scores sum to 1.0
+- Experts with higher dot product get more probability
+- The **temperature** of the softmax controls how "confident" the distribution is
 
-> **Interact with the simulation →** Click on different token types to see how the router distributes activations across experts.`,
+### Emergent Specialization
+During training, the **auxiliary loss** penalizes the model if some experts are used much more than others:
+
+$$L_{aux} = \\alpha \\cdot \\sum_i f_i \\cdot P_i$$
+
+Where $f_i = 1/N$ (desired uniform distribution) and $P_i$ is the average probability the gating gives to expert $i$. This **forces** the router to diversify.
+
+### Top-K and Renormalization
+After selecting the top-$k$ experts, weights are **renormalized**:
+
+$$w'_j = \\frac{G(x)_j}{\\sum_{m \\in \\text{top-}k} G(x)_m}$$
+
+The final output is the weighted sum: $y = \\sum_{j \\in \\text{top-}k} w'_j \\cdot E_j(x)$
+
+> **Interact →** Use the simulation to see scores computed in real-time for different tokens.`,
     },
   },
   visual: {
-    id: 'moe-router-simulator',
+    id: 'moe-router-explorer',
     copy: {
       'pt-br': {
-        tokenLabel: 'Tipo de Token',
+        title: 'Explorador do Roteador MoE',
+        subtitle: 'Computação real de gating scores com softmax',
+        tokenSelectorTitle: 'Tipo de Token',
+        gatingTitle: 'Gating Scores (softmax)',
+        gatingFormula: 'G(x)_i = softmax(W_g · x)_i',
         expertLabel: 'Expert',
         scoreLabel: 'Score',
-        selectToken: 'Selecione um token',
-        routingStep1: 'Token chega ao roteador',
-        routingStep2: 'Roteador calcula scores para cada expert',
-        routingStep3: 'Top-2 experts são selecionados',
-        routingStep4: 'Experts processam o token',
+        temperatureLabel: 'Temperatura do Softmax',
+        topkLabel: 'Top-K',
+        stepperTitle: 'Fluxo de Roteamento',
+        stepFocusLabel: 'Foco',
+        step1Label: 'Token Embedding',
+        step1Body: 'Token é convertido em vetor numérico (embedding).',
+        step2Label: 'Gating Scores',
+        step2Body: 'Produto escalar W_g · x gera logits, depois softmax.',
+        step3Label: 'Seleção Top-K',
+        step3Body: 'Os K experts com maiores scores são selecionados.',
+        step4Label: 'Output Combinado',
+        step4Body: 'Soma ponderada dos outputs dos experts selecionados.',
+        utilizationTitle: 'Utilização dos Experts',
+        utilizationBody: 'Média de scores por expert across todos os tipos de token. Uma distribuição uniforme indica bom load balancing.',
+        auxLossTitle: 'Auxiliary Loss',
+        auxLossFormula: 'L_aux = α · Σ(f_i · P_i)',
+        auxLossBody: 'Penaliza o modelo se a distribuição de uso dos experts não for próxima da uniforme.',
+        efficiencyTitle: 'Eficiência Computacional',
+        efficiencyBody: 'Apenas top-K experts são ativados por token.',
       },
       'en-us': {
-        tokenLabel: 'Token Type',
+        title: 'MoE Router Explorer',
+        subtitle: 'Real-time gating score computation with softmax',
+        tokenSelectorTitle: 'Token Type',
+        gatingTitle: 'Gating Scores (softmax)',
+        gatingFormula: 'G(x)_i = softmax(W_g · x)_i',
         expertLabel: 'Expert',
         scoreLabel: 'Score',
-        selectToken: 'Select a token',
-        routingStep1: 'Token arrives at router',
-        routingStep2: 'Router computes scores for each expert',
-        routingStep3: 'Top-2 experts are selected',
-        routingStep4: 'Experts process the token',
+        temperatureLabel: 'Softmax Temperature',
+        topkLabel: 'Top-K',
+        stepperTitle: 'Routing Flow',
+        stepFocusLabel: 'Focus',
+        step1Label: 'Token Embedding',
+        step1Body: 'Token is converted to a numeric vector (embedding).',
+        step2Label: 'Gating Scores',
+        step2Body: 'Dot product W_g · x produces logits, then softmax.',
+        step3Label: 'Top-K Selection',
+        step3Body: 'The K experts with highest scores are selected.',
+        step4Label: 'Combined Output',
+        step4Body: 'Weighted sum of selected expert outputs.',
+        utilizationTitle: 'Expert Utilization',
+        utilizationBody: 'Average scores per expert across all token types. A uniform distribution indicates good load balancing.',
+        auxLossTitle: 'Auxiliary Loss',
+        auxLossFormula: 'L_aux = α · Σ(f_i · P_i)',
+        auxLossBody: 'Penalizes the model if the expert usage distribution is not close to uniform.',
+        efficiencyTitle: 'Computational Efficiency',
+        efficiencyBody: 'Only top-K experts are activated per token.',
       },
     },
   },
