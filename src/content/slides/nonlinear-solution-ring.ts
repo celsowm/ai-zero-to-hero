@@ -87,6 +87,9 @@ How does this neuron work internally? Where did this idea come from?`,
           "language": "javascript"
         },
         "footer": "Com apenas quatro neurônios ocultos e sigmoid, o modelo aprende a fronteira circular que a reta nunca poderia traçar.",
+        "speedLabel": "Velocidade",
+        "speedSlowLabel": "Lento",
+        "speedFastLabel": "Rápido",
         "codeExplanations": [
           {
           "lineRange": [
@@ -168,6 +171,9 @@ How does this neuron work internally? Where did this idea come from?`,
           "language": "javascript"
         },
         "footer": "With just four hidden neurons and sigmoid, the model learns the circular boundary that a straight line could never draw.",
+        "speedLabel": "Speed",
+        "speedSlowLabel": "Slow",
+        "speedFastLabel": "Fast",
         "codeExplanations": [
           {
           "lineRange": [

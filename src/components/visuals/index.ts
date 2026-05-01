@@ -86,6 +86,7 @@ export { Fp16OverflowExplorer } from './transformers/Fp16OverflowExplorer';
 export { Int8OutlierDetector } from './transformers/Int8OutlierDetector';
 export { Nf4QuantileVisualizer } from './transformers/Nf4QuantileVisualizer';
 export { TemperatureSliderInteractive } from './transformers/TemperatureSliderInteractive';
+export { MoeRouterSimulator } from './transformers/MoERouterVisual';
 export { UnembeddingDiagram } from './transformers/UnembeddingDiagram';
 export { Gpt2FullArchitectureDiagram } from './transformers/Gpt2FullArchitectureDiagram';
 export { LayerEvolutionChart } from './transformers/LayerEvolutionChart';

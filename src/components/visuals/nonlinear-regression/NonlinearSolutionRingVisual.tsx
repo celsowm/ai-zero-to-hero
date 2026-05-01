@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Play, RotateCcw } from 'lucide-react';
+import { Play, RotateCcw, Gauge } from 'lucide-react';
 import type { NonlinearSolutionRingVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { TabsBar } from '../TabsBar';
@@ -23,7 +23,7 @@ type W = {
 };
 
 const MAX_EPOCHS = 150;
-const FRAME_DELAY = 60;
+const DEFAULT_FRAME_DELAY = 250; // ~5 epochs/sec at default speed
 const LR = 1.8;
 const GRID = 40;
 
@@ -194,25 +194,50 @@ export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
   const [epoch, setEpoch] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const [grid, setGrid] = useState<number[]>(() => buildGrid(initialW));
+  const [speed, setSpeed] = useState(75); // 0-100 slider, default ~250ms
+  const frameDelayRef = useRef<number>(DEFAULT_FRAME_DELAY);
+  const runningRef = useRef(false); // tracks if loop is active — avoids stale closures
+
+  // Map speed slider (0-100) to frame delay (3000ms → 5ms) — truly slow at min
+  useEffect(() => {
+    frameDelayRef.current = Math.round(3000 - (speed / 100) * 2995);
+  }, [speed]);
 
   useEffect(() => {
     if (phase !== 'running' || prefersReduced) return;
-    let cancelled = false;
+    runningRef.current = true;
     let cur: W = { ...wRef.current, hb: [...wRef.current.hb] as W['hb'], hx: [...wRef.current.hx] as W['hx'], hy: [...wRef.current.hy] as W['hy'], ow: [...wRef.current.ow] as W['ow'] };
     let ep = 0;
+
     const step = () => {
-      if (cancelled) return;
+      if (!runningRef.current) return;
       const r = trainEpoch(cur);
-      cur = r.next; ep++;
+      cur = r.next;
+      ep++;
+
+      // Hard stop — prevents runaway loops
+      if (ep > MAX_EPOCHS) {
+        runningRef.current = false;
+        return;
+      }
+
       wRef.current = cur;
       setWeights({ ...cur, hb: [...cur.hb] as W['hb'], hx: [...cur.hx] as W['hx'], hy: [...cur.hy] as W['hy'], ow: [...cur.ow] as W['ow'] });
-      setMse(r.mse); setAccuracy(r.accuracy); setEpoch(ep);
+      setMse(r.mse);
+      setAccuracy(r.accuracy);
+      setEpoch(ep);
       setGrid(buildGrid(cur));
-      if (ep >= MAX_EPOCHS) { setPhase('done'); return; }
-      window.setTimeout(step, FRAME_DELAY);
+
+      if (ep >= MAX_EPOCHS) {
+        runningRef.current = false;
+        setPhase('done');
+        return;
+      }
+      timeoutId = window.setTimeout(step, frameDelayRef.current);
     };
-    window.setTimeout(step, FRAME_DELAY);
-    return () => { cancelled = true; };
+
+    let timeoutId = window.setTimeout(step, frameDelayRef.current);
+    return () => { runningRef.current = false; window.clearTimeout(timeoutId); };
   }, [phase, prefersReduced]);
 
   const handleStart = useCallback(() => {
@@ -290,6 +315,19 @@ export const NonlinearSolutionRingVisual = React.memo(({ copy }: Props) => {
                     background: sw.tintStronger, borderColor: sw.borderMedium }}>
                   <RotateCcw size={16} />
                 </button>
+              </div>
+
+              {/* Speed slider */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 auto', minWidth: 180 }}>
+                <Gauge size={14} color="rgba(255,255,255,0.5)" />
+                <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.6)', whiteSpace: 'nowrap' }}>{copy.speedLabel}</span>
+                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>{copy.speedSlowLabel}</span>
+                <input type="range" min={0} max={100} value={speed}
+                  onChange={(e) => setSpeed(Number(e.target.value))}
+                  aria-label={copy.speedLabel}
+                  style={{ flex: 1, height: 4, borderRadius: 2, appearance: 'none', cursor: 'pointer',
+                    background: `linear-gradient(to right, #4f8cff ${speed}%, rgba(255,255,255,0.15) ${speed}%)` }} />
+                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>{copy.speedFastLabel}</span>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
                 <span style={pillStyle('#4f91ff')}>

@@ -285,6 +285,19 @@ export interface TemperatureSliderInteractiveCopy {
   highTemp: string;
 }
 
+// ── MoE Router Simulator ──────────────────────────────────────────────────
+
+export interface MoeRouterSimulatorCopy {
+  tokenLabel: string;
+  expertLabel: string;
+  scoreLabel: string;
+  selectToken: string;
+  routingStep1: string;
+  routingStep2: string;
+  routingStep3: string;
+  routingStep4: string;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

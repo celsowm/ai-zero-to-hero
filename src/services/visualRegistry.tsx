@@ -71,6 +71,7 @@ const visualMap: Record<string, string> = {
   'layer-evolution-chart': 'LayerEvolutionChart',
   'unembedding-diagram': 'UnembeddingDiagram',
   'temperature-slider-interactive': 'TemperatureSliderInteractive',
+  'moe-router-simulator': 'MoeRouterSimulator',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',

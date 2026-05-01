@@ -80,6 +80,7 @@ import type {
   ChromadbSearchVisualCopy,
   ChromadbRagE2eVisualCopy,
   TemperatureSliderInteractiveCopy,
+  MoeRouterSimulatorCopy,
   TransformerBlockDiagramCopy,
   TransformerOverviewTeaserCopy,
   UnembeddingDiagramCopy,
@@ -333,6 +334,7 @@ interface VisualCopyMap {
   // placeholder / future visuals (temporary — replace with proper copy types when implemented)
   'unembedding-diagram': UnembeddingDiagramCopy;
   'temperature-slider-interactive': TemperatureSliderInteractiveCopy;
+  'moe-router-simulator': MoeRouterSimulatorCopy;
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;

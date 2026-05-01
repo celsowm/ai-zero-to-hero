@@ -25,6 +25,9 @@ export interface NonlinearSolutionRingVisualCopy {
   source?: CodeSourceRef;
   codeExplanations?: CodeExplanation[];
   footer: string;
+  speedLabel: string;
+  speedSlowLabel: string;
+  speedFastLabel: string;
 }
 
 export interface NonlinearRegressionBoundaryVisualCopy {
