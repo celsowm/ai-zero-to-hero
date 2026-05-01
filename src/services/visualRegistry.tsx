@@ -75,6 +75,8 @@ const visualMap: Record<string, string> = {
   'moe-router-explorer': 'MoeRouterExplorer',
   'moe-gating-math-visual': 'MoeGatingMathVisual',
   'moe-capacity-visual': 'MoeCapacityVisual',
+  'llama-cpp-quant-explorer': 'LlamaCppQuantExplorer',
+  'offload-simulator': 'OffloadSimulator',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',

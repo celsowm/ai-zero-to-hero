@@ -190,6 +190,8 @@ export const courseSlideOrder = [
   'openai-api-standard',
   'streaming-mode',
   'onnx-optimization',
+  'llama-cpp-intro',
+  'llama-cpp-offload',
   'vllm-intro',
   'vllm-deep-dive',
   'sglang-intro',

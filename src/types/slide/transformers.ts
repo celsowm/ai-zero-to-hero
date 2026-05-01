@@ -383,6 +383,90 @@ export interface MoeCapacityVisualCopy {
   warningOptimal: string;
 }
 
+// ── llama.cpp Quant Explorer ────────────────────────────────────────
+
+export interface LlamaCppQuantExplorerCopy {
+  title: string;
+  subtitle: string;
+  modelLabel: string;
+  formatLabel: string;
+  vramTitle: string;
+  vramFormula: string;
+  qualityTitle: string;
+  qualitySubtitle: string;
+  speedTitle: string;
+  speedSubtitle: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  step4Label: string;
+  step4Body: string;
+  paramsLabel: string;
+  fileSizeLabel: string;
+  kvCacheLabel: string;
+  totalVramLabel: string;
+  bppLabel: string;
+  speedLabel: string;
+  tokUnit: string;
+  qualityLabel: string;
+  fp16Reference: string;
+  cpuSimdLabel: string;
+  metalLabel: string;
+  cudaLabel: string;
+}
+
+// ── Offload Simulator ───────────────────────────────────────────────
+
+export interface OffloadSimulatorCopy {
+  title: string;
+  subtitle: string;
+  modelLabel: string;
+  gpuVramLabel: string;
+  cpuRamLabel: string;
+  nGpuLayersLabel: string;
+  diskOffloadLabel: string;
+  gpuMemoryTitle: string;
+  cpuMemoryTitle: string;
+  weightsLabel: string;
+  kvCacheLabel: string;
+  overheadLabel: string;
+  swapLabel: string;
+  layerDistTitle: string;
+  gpuLayerLabel: string;
+  cpuLayerLabel: string;
+  diskLayerLabel: string;
+  perfTitle: string;
+  tokUnit: string;
+  slowLabel: string;
+  mediumLabel: string;
+  fastLabel: string;
+  stepperTitle: string;
+  stepFocusLabel: string;
+  step1Label: string;
+  step1Body: string;
+  step2Label: string;
+  step2Body: string;
+  step3Label: string;
+  step3Body: string;
+  totalParamsLabel: string;
+  bppLabel: string;
+  warningTitle: string;
+  warningGpuUnderutilized: string;
+  warningCpuBottleneck: string;
+  warningBalanced: string;
+  warningImpossible: string;
+  gpuSpeedLabel: string;
+  cpuSpeedLabel: string;
+  estimatedSpeedLabel: string;
+  onLabel: string;
+  offLabel: string;
+}
+
 // ── Hidden States to Logits Visual ─────────────────────────────────────────
 
 export interface UnembeddingDiagramCopy {

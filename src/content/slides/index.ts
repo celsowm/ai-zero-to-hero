@@ -90,6 +90,8 @@ import { treeOfThoughts } from './tree-of-thoughts';
 import { zeroShotPrompting } from './zero-shot-prompting';
 import { inferenceE2e } from './inference-e2e';
 import { inferenceComparison } from './inference-comparison';
+import { llamaCppIntro } from './llama-cpp-intro';
+import { llamaCppOffload } from './llama-cpp-offload';
 import { inferenceEnginesWhy } from './inference-engines-why';
 import { inferenceExercise } from './inference-exercise';
 import { onnxOptimization } from './onnx-optimization';
@@ -311,6 +313,8 @@ export const allSlides: ISlide[] = [
   zeroShotPrompting,
   inferenceE2e,
   inferenceComparison,
+  llamaCppIntro,
+  llamaCppOffload,
   inferenceEnginesWhy,
   inferenceExercise,
   onnxOptimization,

@@ -135,6 +135,10 @@ export { SglangDeepDiveVisual } from './inference-engines/SglangDeepDiveVisual';
 export { InferenceComparisonVisual } from './inference-engines/InferenceComparisonVisual';
 export { InferenceE2eVisual } from './inference-engines/InferenceE2eVisual';
 
+// llama.cpp & offload
+export { LlamaCppQuantExplorer } from './inference-engines/LlamaCppQuantExplorer';
+export { OffloadSimulator } from './inference-engines/OffloadSimulator';
+
 // prompt engineering
 export { PromptEngineeringWhyVisual } from './prompt-engineering/PromptEngineeringWhy';
 export { PromptStructureAnatomyVisual } from './prompt-engineering/PromptStructureAnatomy';
