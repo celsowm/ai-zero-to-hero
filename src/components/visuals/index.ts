@@ -48,6 +48,7 @@ export { AttentionVsMlp } from './transformers/AttentionVsMlp';
 export { HiddenStatesToLogits } from './transformers/HiddenStatesToLogits';
 export { SamplingControls } from './transformers/SamplingControls';
 export { Gpt2LayerXray } from './transformers/Gpt2LayerXray';
+export { Gpt2PytorchE2eDebugger } from './transformers/Gpt2PytorchE2eDebugger';
 export { PredictionEvolution } from './transformers/PredictionEvolution';
 export { WhyTransformersWork } from './transformers/WhyTransformersWork';
 export { RoadToMiniTransformer } from './transformers/RoadToMiniTransformer';

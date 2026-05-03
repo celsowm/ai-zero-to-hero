@@ -50,6 +50,7 @@ import type {
   Gpt2BlackboxDiagramCopy,
   Gpt2FullArchitectureDiagramCopy,
   Gpt2LayerXrayCopy,
+  Gpt2PytorchE2eDebuggerCopy,
   HiddenStatesToLogitsCopy,
   Int8OutlierDetectorCopy,
   LayerEvolutionChartCopy,
@@ -232,6 +233,7 @@ interface VisualCopyMap {
   'hidden-states-to-logits': HiddenStatesToLogitsCopy;
   'sampling-controls': SamplingControlsCopy;
   'gpt2-layer-by-layer-xray': Gpt2LayerXrayCopy;
+  'gpt2-pytorch-e2e-debugger': Gpt2PytorchE2eDebuggerCopy;
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'road-to-mini-transformer': RoadToMiniTransformerCopy;

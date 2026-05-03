@@ -99,6 +99,7 @@ const visualMap: Record<string, string> = {
   'hidden-states-to-logits': 'HiddenStatesToLogits',
   'sampling-controls': 'SamplingControls',
   'gpt2-layer-by-layer-xray': 'Gpt2LayerXray',
+  'gpt2-pytorch-e2e-debugger': 'Gpt2PytorchE2eDebugger',
   'prediction-evolution-we-the-people': 'PredictionEvolution',
   'why-transformers-work-so-well': 'WhyTransformersWork',
   'road-to-mini-transformer': 'RoadToMiniTransformer',

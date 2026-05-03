@@ -33,6 +33,12 @@ import { generateParameters } from './generate-parameters';
 import { gpt2BlackBox } from './gpt2-black-box';
 import { gpt2EmbeddingsPlusPosition } from './gpt2-embeddings-plus-position';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
+import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
+import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
+import { gpt2PytorchLmHeadGenerate } from './gpt2-pytorch-lm-head-generate';
+import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
+import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
+import { gpt2PytorchE2eDebugger } from './gpt2-pytorch-e2e-debugger';
 import { gpt2Teaser } from './gpt2-teaser';
 import { gpt2WeThePeopleE2e } from './gpt2-we-the-people-e2e';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
@@ -262,6 +268,12 @@ export const allSlides: ISlide[] = [
   gpt2BlackBox,
   gpt2EmbeddingsPlusPosition,
   gpt2LayerByLayerXray,
+  gpt2PytorchAttention,
+  gpt2PytorchConfigLoading,
+  gpt2PytorchE2eDebugger,
+  gpt2PytorchLmHeadGenerate,
+  gpt2PytorchMlpBlock,
+  gpt2PytorchModelForward,
   gpt2Teaser,
   gpt2WeThePeopleE2e,
   gpt2WeThePeopleInput,

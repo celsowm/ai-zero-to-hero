@@ -851,3 +851,70 @@ export interface ChromadbRagE2eVisualCopy {
   modelLabel: string;
   answerLabel: string;
 }
+
+export interface Gpt2PytorchE2eDebuggerCopy {
+  title: string;
+  subtitle: string;
+  promptLabel: string;
+  defaultPrompt: string;
+  stepButton: string;
+  playButton: string;
+  pauseButton: string;
+  resetButton: string;
+  speedSample: string;
+  speedFast: string;
+  stages: {
+    tokenEmbedding: string;
+    positionEmbedding: string;
+    blockPrefix: string;
+    finalNorm: string;
+    lmHead: string;
+    softmax: string;
+    nextToken: string;
+  };
+  labels: {
+    logitsLabel: string;
+    probsLabel: string;
+    tokenIdLabel: string;
+    tokenTextLabel: string;
+    attentionLabel: string;
+    hiddenStateLabel: string;
+    stageInfo: string;
+    phaseTitle: string;
+    archLabel: string;
+    codeTitle: string;
+    inputTokensLabel: string;
+    currentTensorLabel: string;
+    topTokensLabel: string;
+    tensorShapesLabel: string;
+    wteLabel: string;
+    wpeLabel: string;
+    cAttnLabel: string;
+    cFcLabel: string;
+    lmHeadLabel: string;
+    speedLabel: string;
+  };
+  architecture: {
+    nEmbd: number;
+    nHead: number;
+    nLayer: number;
+    vocabSize: number;
+    seqLen: number;
+    label: string;
+  };
+  pythonSource: {
+    snippetId: string;
+    language: string;
+  };
+  codeHighlightRanges: {
+    embedding: [number, number];
+    attention: [number, number];
+    mlp: [number, number];
+    residual: [number, number];
+    finalNorm: [number, number];
+    lmHead: [number, number];
+    generation: [number, number];
+  };
+  phaseExplanations: Record<string, string>;
+  tooltips: Record<string, string>;
+}
