@@ -85,6 +85,7 @@ const visualMap: Record<string, string> = {
   'transformers-js-playground': 'TransformersJsPlayground',
   'webgpu-explorer': 'WebGPUExplorer',
   'webllm-simulator': 'WebLLMSimulator',
+  'system-prompt-explorer': 'SystemPromptExplorer',
   'gpt2-block-anatomy': 'Gpt2BlockAnatomy',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'gpt2-family-tree': 'Gpt2FamilyTree',

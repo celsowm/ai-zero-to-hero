@@ -34,6 +34,7 @@ export { MlpTextDiagram } from './language-models/MlpTextDiagram';
 export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';
 export { TrainingLoopAnimation } from './language-models/TrainingLoopAnimation';
 export { NeuralNetworkToLanguageModelingComparator } from './language-models/NeuralNetworkToLanguageModelingComparator';
+export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';
 export { Gpt2BlockAnatomy } from './transformers/Gpt2BlockAnatomy';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
 export { Gpt2FamilyTree } from './transformers/Gpt2FamilyTree';

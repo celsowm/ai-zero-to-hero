@@ -204,6 +204,7 @@ import { ragVectorSearch } from './rag-vector-search';
 import { residualStream } from './residual-stream';
 import { roadToMiniTransformer } from './road-to-mini-transformer';
 import { samplingControls } from './sampling-controls';
+import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
 import { sftGenerate } from './sft-generate';
 import { sftIntro } from './sft-intro';
@@ -445,6 +446,7 @@ export const allSlides: ISlide[] = [
   sftDataset,
   sftGenerate,
   sftIntro,
+  systemPromptIntro,
   sftTrain,
   tokenizationDeepDive,
   tokenizationIntro,

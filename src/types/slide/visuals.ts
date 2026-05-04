@@ -52,8 +52,9 @@ import type {
   Gpt2BlackboxDiagramCopy,
   Gpt2BlockAnatomyCopy,
   Gpt2FamilyTreeCopy,
-  WeightsTreeVisualCopy,
   Gpt2FullArchitectureDiagramCopy,
+  SystemPromptExplorerCopy,
+  WeightsTreeVisualCopy,
   Gpt2LayerXrayCopy,
   Gpt2PytorchE2eDebuggerCopy,
   HiddenStatesToLogitsCopy,
@@ -249,6 +250,7 @@ interface VisualCopyMap {
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   'sft-intro': SftIntroCopy;
+  'system-prompt-explorer': SystemPromptExplorerCopy;
   'build-gpt2-model': BuildGpt2ModelCopy;
   // rag
   'rag-memory-limit-visual': RagMemoryLimitVisualCopy;

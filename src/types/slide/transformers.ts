@@ -752,6 +752,31 @@ export interface SftIntroCopy {
   structureNote: string;
 }
 
+// ── System Prompt Explorer ─────────────────────────────────────────────────
+
+export interface SystemPromptExplorerCopy {
+  title: string;
+  subtitle: string;
+  userQuestion: string;
+  systemPrompts: {
+    default: string;
+    teacher: string;
+    expert: string;
+    concise: string;
+    creative: string;
+  };
+  systemLabel: string;
+  responseLabel: string;
+  noSystemLabel: string;
+  insights: {
+    default: string;
+    teacher: string;
+    expert: string;
+    concise: string;
+    creative: string;
+  };
+}
+
 // ── Build GPT-2 Model ──────────────────────────────────────────────────────
 
 export interface BuildGpt2ModelCopy {

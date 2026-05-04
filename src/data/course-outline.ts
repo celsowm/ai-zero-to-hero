@@ -130,6 +130,7 @@ export const courseSlideOrder = [
   'llama2-vs-gpt2',
   'rope-deep-dive',
   'sft-intro',
+  'system-prompt-intro',
   'sft-dataset',
   'sft-train',
   'sft-generate',
