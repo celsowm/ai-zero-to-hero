@@ -4,6 +4,12 @@ export interface Gpt2BlackboxDiagramCopy {
   outputLabel: string;
 }
 
+export interface Gpt2FamilyTreeCopy {
+  treeTitle: string;
+  scaleTitle: string;
+  insightTitle: string;
+}
+
 export interface TransformerOverviewTeaserCopy {
   interactiveTitle: string;
   interactiveHint: string;

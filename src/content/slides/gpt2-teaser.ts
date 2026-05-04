@@ -60,17 +60,17 @@ Today we use GPT-5 with trillions of parameters and million-token context. But t
     },
   },
   visual: {
-    id: 'gpt2-blackbox-diagram',
+    id: 'gpt2-family-tree',
     copy: {
       "pt-br": {
-        "inputLabel": "Janela de Contexto",
-        "modelLabel": "GPT-2",
-        "outputLabel": "Próximo Token"
+        "treeTitle": "Árvore Genealógica GPT",
+        "scaleTitle": "Escala de Parâmetros",
+        "insightTitle": "Comparação de Escala"
       },
       "en-us": {
-        "inputLabel": "Context Window",
-        "modelLabel": "GPT-2",
-        "outputLabel": "Next Token"
+        "treeTitle": "GPT Family Tree",
+        "scaleTitle": "Parameter Scale",
+        "insightTitle": "Scale Comparison"
       }
     },
   },

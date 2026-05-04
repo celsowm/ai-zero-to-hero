@@ -86,6 +86,7 @@ const visualMap: Record<string, string> = {
   'webgpu-explorer': 'WebGPUExplorer',
   'webllm-simulator': 'WebLLMSimulator',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
+  'gpt2-family-tree': 'Gpt2FamilyTree',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',
   'positional-embedding-adder': 'PositionalEmbeddingAdder',
