@@ -40,6 +40,7 @@ import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
 import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
 import { gpt2PytorchE2eDebugger } from './gpt2-pytorch-e2e-debugger';
 import { gpt2Teaser } from './gpt2-teaser';
+import { gpt2WeightsOrigin } from './gpt2-weights-origin';
 import { gpt2WeThePeopleE2e } from './gpt2-we-the-people-e2e';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
 import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
@@ -276,6 +277,7 @@ export const allSlides: ISlide[] = [
   gpt2PytorchMlpBlock,
   gpt2PytorchModelForward,
   gpt2Teaser,
+  gpt2WeightsOrigin,
   gpt2WeThePeopleE2e,
   gpt2WeThePeopleInput,
   hfDatasetsDeepDive,

@@ -51,6 +51,7 @@ import type {
   Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
   Gpt2FamilyTreeCopy,
+  WeightsTreeVisualCopy,
   Gpt2FullArchitectureDiagramCopy,
   Gpt2LayerXrayCopy,
   Gpt2PytorchE2eDebuggerCopy,
@@ -225,6 +226,7 @@ interface VisualCopyMap {
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
   'gpt2-family-tree': Gpt2FamilyTreeCopy;
+  'weights-tree-visual': WeightsTreeVisualCopy;
   'transformer-overview-teaser': TransformerOverviewTeaserCopy;
   'parallel-prediction-diagram': ParallelPredictionDiagramCopy;
   'positional-embedding-adder': PositionalEmbeddingAdderCopy;

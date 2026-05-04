@@ -36,6 +36,7 @@ export { TrainingLoopAnimation } from './language-models/TrainingLoopAnimation';
 export { NeuralNetworkToLanguageModelingComparator } from './language-models/NeuralNetworkToLanguageModelingComparator';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
 export { Gpt2FamilyTree } from './transformers/Gpt2FamilyTree';
+export { WeightsTreeVisual } from './transformers/WeightsTreeVisual';
 export { TransformerOverviewTeaser } from './transformers/TransformerOverviewTeaser';
 export { ParallelPredictionDiagram } from './transformers/ParallelPredictionDiagram';
 export { PositionalEmbeddingAdder } from './transformers/PositionalEmbeddingAdder';

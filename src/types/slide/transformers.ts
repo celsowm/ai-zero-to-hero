@@ -10,6 +10,11 @@ export interface Gpt2FamilyTreeCopy {
   insightTitle: string;
 }
 
+export interface WeightsTreeVisualCopy {
+  treeTitle: string;
+  clickToExplore: string;
+}
+
 export interface TransformerOverviewTeaserCopy {
   interactiveTitle: string;
   interactiveHint: string;

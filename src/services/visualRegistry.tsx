@@ -87,6 +87,7 @@ const visualMap: Record<string, string> = {
   'webllm-simulator': 'WebLLMSimulator',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
   'gpt2-family-tree': 'Gpt2FamilyTree',
+  'weights-tree-visual': 'WeightsTreeVisual',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
   'parallel-prediction-diagram': 'ParallelPredictionDiagram',
   'positional-embedding-adder': 'PositionalEmbeddingAdder',
