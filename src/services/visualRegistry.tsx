@@ -58,6 +58,7 @@ const visualMap: Record<string, string> = {
   'sampling-roulette': 'SamplingRoulette',
   'cross-entropy-chart': 'CrossEntropyChart',
   'embedding-space-3d': 'EmbeddingSpace3D',
+  'embedding-space-3d-interactive': 'EmbeddingSpace3DInteractive',
   'context-window-slider': 'ContextWindowSlider',
   'mlp-text-diagram': 'MlpTextDiagram',
   'training-loop-stepper': 'TrainingLoopStepper',

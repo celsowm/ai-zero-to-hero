@@ -40,6 +40,8 @@ export const courseSlideOrder = [
   'neural-network-minimal-example',
   'neural-network-prediction',
   'neural-network-exercise',
+  // Embeddings: introdução antes de citar o termo em arquiteturas
+  'embeddings-intro',
   'neural-network-types-overview',
   'neural-network-architectures-deep-dive',
   'neural-network-pytorch-intro',
@@ -80,7 +82,6 @@ export const courseSlideOrder = [
   'hidden-states-to-logits',
   'bigram-sampling',
   'cross-entropy-language-modeling',
-  'embeddings-intro',
   'context-window',
   'mlp-language-model',
   'training-language-models',

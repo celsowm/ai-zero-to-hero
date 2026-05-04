@@ -22,6 +22,7 @@ import type {
   ContextWindowSliderCopy,
   CrossEntropyChartCopy,
   EmbeddingSpace3DCopy,
+  EmbeddingSpace3DInteractiveCopy,
   LanguageModelingDiagramCopy,
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
@@ -212,6 +213,7 @@ interface VisualCopyMap {
   'sampling-roulette': SamplingRouletteCopy;
   'cross-entropy-chart': CrossEntropyChartCopy;
   'embedding-space-3d': EmbeddingSpace3DCopy;
+  'embedding-space-3d-interactive': EmbeddingSpace3DInteractiveCopy;
   'context-window-slider': ContextWindowSliderCopy;
   'mlp-text-diagram': MlpTextDiagramCopy;
   'training-loop-stepper': TrainingLoopStepperCopy;

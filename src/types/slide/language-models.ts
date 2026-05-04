@@ -50,6 +50,11 @@ export interface EmbeddingSpace3DCopy {
   distanceLabel: string;
 }
 
+export interface EmbeddingSpace3DInteractiveCopy {
+  title: string;
+  distanceLabel: string;
+}
+
 export interface ContextWindowSliderCopy {
   fullText?: string;
   windowLabel: string;

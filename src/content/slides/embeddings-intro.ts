@@ -36,7 +36,7 @@ export const embeddingsIntro = defineSlide({
     },
   },
   visual: {
-    id: 'embedding-space-3d',
+    id: 'embedding-space-3d-interactive',
     copy: {
       "pt-br": {
         "title": "Espaço de Embeddings",
