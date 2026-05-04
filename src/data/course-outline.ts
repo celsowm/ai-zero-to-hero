@@ -48,6 +48,8 @@ export const courseSlideOrder = [
   'neural-network-pytorch-install',
   'neural-network-pytorch-hardware',
   'neural-network-pytorch-tensors',
+  // Hardware level: por que tensores são mais rápidos (GPU, CUDA, Tensor Cores)
+  'neural-network-pytorch-silicon',
   'neural-network-pytorch-training',
   'neural-network-pytorch-prediction',
   'pytorch-save-load',

@@ -161,6 +161,7 @@ import { neuralNetworkPytorchIntro } from './neural-network-pytorch-intro';
 import { neuralNetworkPytorchPrediction } from './neural-network-pytorch-prediction';
 import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
+import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { neuralNetworkPytorchTraining } from './neural-network-pytorch-training';
 import { neuralNetworkSigmoidDeepDive } from './neural-network-sigmoid-deep-dive';
 import { neuralNetworkSigmoidDerivative } from './neural-network-sigmoid-derivative';
@@ -396,6 +397,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchPrediction,
   pytorchSaveLoad,
   neuralNetworkPytorchTensors,
+  neuralNetworkPytorchSilicon,
   neuralNetworkPytorchTraining,
   neuralNetworkSigmoidDeepDive,
   neuralNetworkSigmoidDerivative,

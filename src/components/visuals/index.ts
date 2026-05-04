@@ -28,6 +28,7 @@ export { SamplingRoulette } from './language-models/SamplingRoulette';
 export { CrossEntropyChart } from './language-models/CrossEntropyChart';
 export { EmbeddingSpace3D } from './language-models/EmbeddingSpace3D';
 export { EmbeddingSpace3DInteractive } from './language-models/EmbeddingSpace3DInteractive';
+export { SiliconComputeVisual } from './language-models/SiliconComputeVisual';
 export { ContextWindowSlider } from './language-models/ContextWindowSlider';
 export { MlpTextDiagram } from './language-models/MlpTextDiagram';
 export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';

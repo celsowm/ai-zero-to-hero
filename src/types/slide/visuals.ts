@@ -23,6 +23,7 @@ import type {
   CrossEntropyChartCopy,
   EmbeddingSpace3DCopy,
   EmbeddingSpace3DInteractiveCopy,
+  SiliconComputeVisualCopy,
   LanguageModelingDiagramCopy,
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
@@ -214,6 +215,7 @@ interface VisualCopyMap {
   'cross-entropy-chart': CrossEntropyChartCopy;
   'embedding-space-3d': EmbeddingSpace3DCopy;
   'embedding-space-3d-interactive': EmbeddingSpace3DInteractiveCopy;
+  'silicon-compute': SiliconComputeVisualCopy;
   'context-window-slider': ContextWindowSliderCopy;
   'mlp-text-diagram': MlpTextDiagramCopy;
   'training-loop-stepper': TrainingLoopStepperCopy;

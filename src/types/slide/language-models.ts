@@ -55,6 +55,19 @@ export interface EmbeddingSpace3DInteractiveCopy {
   distanceLabel: string;
 }
 
+export interface SiliconComputeVisualCopy {
+  tensorSizeLabel: string;
+  compare: string;
+  running: string;
+  speedComparison: string;
+  cpuDesc: string;
+  gpuDesc: string;
+  vramLabel: string;
+  ramLabel: string;
+  pcieLabel: string;
+  insightTitle: string;
+}
+
 export interface ContextWindowSliderCopy {
   fullText?: string;
   windowLabel: string;
