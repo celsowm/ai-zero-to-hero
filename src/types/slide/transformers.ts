@@ -11,11 +11,15 @@ export interface Gpt2FamilyTreeCopy {
 }
 
 export interface WeightsTreeVisualCopy {
-  treeTitle: string;
-  clickToExplore: string;
-  tabTree: string;
-  tabDownload: string;
-  downloadLabel: string;
+  tabs: Array<{ label: string }>;
+  treePanel: {
+    title: string;
+  };
+  codePanel: {
+    title: string;
+    description: string;
+    code: string;
+  };
 }
 
 export interface TransformerOverviewTeaserCopy {

@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import type { WeightsTreeVisualCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
+import { TabsBar } from '../TabsBar';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -208,6 +209,17 @@ function StatCard({ label, value, color }: { label: string; value: string; color
   );
 }
 
+const CodePanel: React.FC<{ copy: WeightsTreeVisualCopy['codePanel']; eyebrowLabel: string }> = ({ copy, eyebrowLabel }) => (
+  <div className="flex flex-col h-full min-h-0">
+    <div className="text-[10px] font-bold tracking-wider uppercase mb-1" style={{ color: sw.textMuted }}>{eyebrowLabel}</div>
+    <div className="text-sm font-bold mb-1" style={{ color: sw.text }}>{copy.title}</div>
+    <div className="text-[11px] mb-2" style={{ color: sw.textMuted }}>{copy.description}</div>
+    <pre className="flex-1 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-3 text-[11px] leading-relaxed font-mono" style={{ color: sw.textDim }}>
+      {copy.code}
+    </pre>
+  </div>
+);
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 interface WeightsTreeVisualProps {
@@ -215,212 +227,59 @@ interface WeightsTreeVisualProps {
 }
 
 export const WeightsTreeVisual = React.memo(({ copy }: WeightsTreeVisualProps) => {
-  const [activeTab, setActiveTab] = useState<'tree' | 'download'>('tree');
+  const [activeTab, setActiveTab] = useState(0);
   const [showParams, setShowParams] = useState(true);
 
-  const paramBreakdown = useMemo(() => {
-    const breakdown = [
-      { name: 'wte', params: '38.6M', pct: '31%', color: sw.pink },
-      { name: 'wpe', params: '0.8M', pct: '0.6%', color: sw.purple },
-      { name: '12× attn', params: '44.3M', pct: '36%', color: sw.sky },
-      { name: '12× mlp', params: '35.5M', pct: '29%', color: sw.green },
-      { name: 'ln + lm_head', params: '4.3M', pct: '3.5%', color: sw.yellow },
-    ];
-    return breakdown;
-  }, []);
-
-  const downloadCode = useMemo(() => [
-    '# 1. Instalar dependências',
-    '# pip install transformers torch safetensors',
-    '',
-    'from transformers import GPT2LMHeadModel, GPT2Tokenizer',
-    'import torch',
-    'from safetensors.torch import save_file',
-    'import os',
-    '',
-    '# 2. Baixar modelo e tokenizer do HuggingFace Hub',
-    'MODEL_NAME = "gpt2"  # "gpt2" (124M), "gpt2-medium" (355M), "gpt2-large" (774M), "gpt2-xl" (1.5B)',
-    'print(f"Baiando {MODEL_NAME} do HuggingFace Hub...")',
-    'tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)',
-    'model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)',
-    'model.eval()',
-    '',
-    '# 3. Inspect — ver os shapes de cada tensor',
-    'print(f"Total de parâmetros: {model.num_parameters():,}")',
-    'print("State dict keys:")',
-    'for k, v in model.state_dict().items():',
-    '    print(f"  {k:50s} {tuple(v.shape)}")',
-    '',
-    '# 4. Salvar em formato PyTorch (.pt)',
-    'OUTPUT_PT = "gpt2_weights.pt"',
-    'torch.save(model.state_dict(), OUTPUT_PT)',
-    'print(f"Salvo {OUTPUT_PT} ({os.path.getsize(OUTPUT_PT) / 1e6:.0f}MB)")',
-    '',
-    '# 5. (Opcional) Salvar em .safetensors — mais seguro e rápido',
-    'OUTPUT_SF = "gpt2_weights.safetensors"',
-    'save_file(model.state_dict(), OUTPUT_SF)',
-    'print(f"Salvo {OUTPUT_SF} ({os.path.getsize(OUTPUT_SF) / 1e6:.0f}MB)")',
-    '',
-    '# 6. Verificar — carregar de volta',
-    'loaded = torch.load(OUTPUT_PT, weights_only=True)',
-    'assert loaded.keys() == model.state_dict().keys()',
-    'print("Verificado: pesos carregados com sucesso!")',
-  ].join('\n'), []);
+  const paramBreakdown = [
+    { name: 'wte', params: '38.6M', pct: '31%', color: sw.pink },
+    { name: 'wpe', params: '0.8M', pct: '0.6%', color: sw.purple },
+    { name: '12× attn', params: '44.3M', pct: '36%', color: sw.sky },
+    { name: '12× mlp', params: '35.5M', pct: '29%', color: sw.green },
+    { name: 'ln + lm_head', params: '4.3M', pct: '3.5%', color: sw.yellow },
+  ];
 
   return (
-    <div style={{
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px',
-    }}>
-      {/* Tab bar */}
-      <div style={{ display: 'flex', gap: '4px' }}>
-        {([
-          { id: 'tree' as const, label: copy.tabTree, icon: '🌳' },
-          { id: 'download' as const, label: copy.tabDownload, icon: '⬇️' },
-        ]).map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            style={{
-              flex: 1,
-              padding: '8px 12px',
-              borderRadius: '8px',
-              border: `1px solid ${activeTab === tab.id ? sw.cyan : sw.borderSubtle}`,
-              background: activeTab === tab.id ? `${sw.cyan}18` : sw.surface,
-              color: activeTab === tab.id ? sw.cyan : sw.textMuted,
-              cursor: 'pointer',
-              fontWeight: '700',
-              fontSize: '12px',
-              transition: 'all 0.2s',
-            }}
-          >
-            {tab.icon} {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Tab content */}
-      {activeTab === 'tree' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {/* Stats */}
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <StatCard label="Parâmetros" value="124M" color={sw.cyan} />
-            <StatCard label="Camadas" value="12" color={sw.purple} />
-            <StatCard label="Tamanho" value="500MB" color={sw.green} />
-          </div>
-
-          {/* Tree */}
-          <div style={{
-            background: sw.void,
-            borderRadius: '14px',
-            border: `1px solid ${sw.borderSubtle}`,
-            padding: '12px',
-            maxHeight: '260px',
-            overflowY: 'auto',
-          }}>
-            <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text, marginBottom: '10px' }}>
-              {copy.treeTitle}
+    <div className="flex flex-col h-full min-h-0">
+      <TabsBar ariaLabel={copy.tabs[0]?.label ?? ''} items={copy.tabs} activeIndex={activeTab} onChange={setActiveTab} />
+      <div className="flex-1 min-h-0 overflow-auto">
+        {activeTab === 0 ? (
+          <div className="flex flex-col gap-2 p-2">
+            <div className="flex gap-2">
+              <StatCard label="Parâmetros" value="124M" color={sw.cyan} />
+              <StatCard label="Camadas" value="12" color={sw.purple} />
+              <StatCard label="Tamanho" value="500MB" color={sw.green} />
             </div>
-            <TreeNode node={STATE_DICT_TREE} depth={0} isPtBr={true} />
-          </div>
-
-          {/* Param breakdown toggle */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text }}>
-              Distribuição de parâmetros
+            <div style={{ background: sw.void, borderRadius: '10px', border: `1px solid ${sw.borderSubtle}`, padding: '10px', maxHeight: '200px', overflowY: 'auto' }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: sw.text, marginBottom: '8px' }}>
+                {copy.treePanel.title}
+              </div>
+              <TreeNode node={STATE_DICT_TREE} depth={0} isPtBr={true} />
             </div>
-            <button
-              onClick={() => setShowParams(v => !v)}
-              style={{
-                fontSize: '11px',
-                padding: '3px 10px',
-                borderRadius: '6px',
-                border: `1px solid ${sw.surface}`,
-                background: showParams ? `${sw.cyan}22` : 'transparent',
-                color: sw.cyan,
-                cursor: 'pointer',
-                fontWeight: '600',
-              }}
-            >
-              {showParams ? 'Ocultar' : 'Mostrar'}
-            </button>
-          </div>
-
-          {showParams && (
-            <div style={{
-              background: sw.void,
-              borderRadius: '14px',
-              border: `1px solid ${sw.borderSubtle}`,
-              padding: '14px',
-            }}>
-              {paramBreakdown.map(item => (
-                <div key={item.name} style={{ marginBottom: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '3px' }}>
-                    <span style={{ color: item.color, fontWeight: '600', fontFamily: "'JetBrains Mono', monospace" }}>
-                      {item.name}
-                    </span>
-                    <span style={{ fontFamily: "'JetBrains Mono', monospace", color: sw.textMuted }}>
-                      {item.params} ({item.pct})
-                    </span>
+            <div className="flex items-center justify-between">
+              <span style={{ fontSize: '11px', fontWeight: '700', color: sw.text }}>Distribuição de parâmetros</span>
+              <button onClick={() => setShowParams(v => !v)} style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '6px', border: `1px solid ${sw.surface}`, background: showParams ? `${sw.cyan}22` : 'transparent', color: sw.cyan, cursor: 'pointer', fontWeight: '600' }}>
+                {showParams ? 'Ocultar' : 'Mostrar'}
+              </button>
+            </div>
+            {showParams && (
+              <div style={{ background: sw.void, borderRadius: '10px', border: `1px solid ${sw.borderSubtle}`, padding: '10px' }}>
+                {paramBreakdown.map(item => (
+                  <div key={item.name} style={{ marginBottom: '6px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', marginBottom: '2px' }}>
+                      <span style={{ color: item.color, fontWeight: '600', fontFamily: "'JetBrains Mono', monospace" }}>{item.name}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", color: sw.textMuted }}>{item.params} ({item.pct})</span>
+                    </div>
+                    <div style={{ height: '4px', background: sw.surface, borderRadius: '2px', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${parseFloat(item.pct) / 0.4}%`, background: item.color, borderRadius: '2px' }} />
+                    </div>
                   </div>
-                  <div style={{ height: '5px', background: sw.surface, borderRadius: '3px', overflow: 'hidden' }}>
-                    <div
-                      style={{
-                        height: '100%',
-                        width: `${parseFloat(item.pct) / 0.4}%`,
-                        background: item.color,
-                        borderRadius: '3px',
-                        transition: 'width 0.4s ease',
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {activeTab === 'download' && (
-        <div style={{
-          background: sw.void,
-          borderRadius: '14px',
-          border: `1px solid ${sw.borderSubtle}`,
-          padding: '12px',
-          maxHeight: '420px',
-          overflowY: 'auto',
-        }}>
-          <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text, marginBottom: '8px' }}>
-            {copy.downloadLabel}
+                ))}
+              </div>
+            )}
           </div>
-          <pre style={{
-            fontSize: '11px',
-            lineHeight: '1.6',
-            fontFamily: "'JetBrains Mono', monospace",
-            color: sw.textDim,
-            whiteSpace: 'pre-wrap',
-            margin: 0,
-          }}>
-            {downloadCode}
-          </pre>
-        </div>
-      )}
-
-      {/* Insight */}
-      <div style={{
-        background: `${sw.cyan}11`,
-        border: `1px solid ${sw.cyan}33`,
-        borderRadius: '10px',
-        padding: '10px 14px',
-        fontSize: '12px',
-        color: sw.text,
-        lineHeight: '1.5',
-      }}>
-        <strong style={{ color: sw.cyan }}>Note:</strong>{' '}
-        Cada matriz no state_dict é um <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', background: `${sw.cyan}22`, padding: '1px 4px', borderRadius: '3px' }}>torch.nn.Linear</code> ou <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', background: `${sw.cyan}22`, padding: '1px 4px', borderRadius: '3px' }}>torch.nn.Embedding</code>.
-        Os próximos slides mostram como cada um se encaixa na arquitetura.
+        ) : (
+          <CodePanel copy={copy.codePanel} eyebrowLabel={copy.tabs[1]?.label ?? 'Code'} />
+        )}
       </div>
     </div>
   );
