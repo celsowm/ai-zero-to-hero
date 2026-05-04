@@ -215,10 +215,10 @@ interface WeightsTreeVisualProps {
 }
 
 export const WeightsTreeVisual = React.memo(({ copy }: WeightsTreeVisualProps) => {
+  const [activeTab, setActiveTab] = useState<'tree' | 'download'>('tree');
   const [showParams, setShowParams] = useState(true);
 
   const paramBreakdown = useMemo(() => {
-    // GPT-2 small: 124M params
     const breakdown = [
       { name: 'wte', params: '38.6M', pct: '31%', color: sw.pink },
       { name: 'wpe', params: '0.8M', pct: '0.6%', color: sw.purple },
@@ -229,90 +229,182 @@ export const WeightsTreeVisual = React.memo(({ copy }: WeightsTreeVisualProps) =
     return breakdown;
   }, []);
 
+  const downloadCode = useMemo(() => [
+    '# 1. Instalar dependências',
+    '# pip install transformers torch safetensors',
+    '',
+    'from transformers import GPT2LMHeadModel, GPT2Tokenizer',
+    'import torch',
+    'from safetensors.torch import save_file',
+    'import os',
+    '',
+    '# 2. Baixar modelo e tokenizer do HuggingFace Hub',
+    'MODEL_NAME = "gpt2"  # "gpt2" (124M), "gpt2-medium" (355M), "gpt2-large" (774M), "gpt2-xl" (1.5B)',
+    'print(f"Baiando {MODEL_NAME} do HuggingFace Hub...")',
+    'tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)',
+    'model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)',
+    'model.eval()',
+    '',
+    '# 3. Inspect — ver os shapes de cada tensor',
+    'print(f"Total de parâmetros: {model.num_parameters():,}")',
+    'print("State dict keys:")',
+    'for k, v in model.state_dict().items():',
+    '    print(f"  {k:50s} {tuple(v.shape)}")',
+    '',
+    '# 4. Salvar em formato PyTorch (.pt)',
+    'OUTPUT_PT = "gpt2_weights.pt"',
+    'torch.save(model.state_dict(), OUTPUT_PT)',
+    'print(f"Salvo {OUTPUT_PT} ({os.path.getsize(OUTPUT_PT) / 1e6:.0f}MB)")',
+    '',
+    '# 5. (Opcional) Salvar em .safetensors — mais seguro e rápido',
+    'OUTPUT_SF = "gpt2_weights.safetensors"',
+    'save_file(model.state_dict(), OUTPUT_SF)',
+    'print(f"Salvo {OUTPUT_SF} ({os.path.getsize(OUTPUT_SF) / 1e6:.0f}MB)")',
+    '',
+    '# 6. Verificar — carregar de volta',
+    'loaded = torch.load(OUTPUT_PT, weights_only=True)',
+    'assert loaded.keys() == model.state_dict().keys()',
+    'print("Verificado: pesos carregados com sucesso!")',
+  ].join('\n'), []);
+
   return (
     <div style={{
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
-      gap: '14px',
+      gap: '12px',
     }}>
-      {/* Stats */}
-      <div style={{ display: 'flex', gap: '8px' }}>
-        <StatCard label="Parâmetros" value="124M" color={sw.cyan} />
-        <StatCard label="Camadas" value="12" color={sw.purple} />
-        <StatCard label="Tamanho" value="500MB" color={sw.green} />
+      {/* Tab bar */}
+      <div style={{ display: 'flex', gap: '4px' }}>
+        {([
+          { id: 'tree' as const, label: copy.tabTree, icon: '🌳' },
+          { id: 'download' as const, label: copy.tabDownload, icon: '⬇️' },
+        ]).map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              flex: 1,
+              padding: '8px 12px',
+              borderRadius: '8px',
+              border: `1px solid ${activeTab === tab.id ? sw.cyan : sw.borderSubtle}`,
+              background: activeTab === tab.id ? `${sw.cyan}18` : sw.surface,
+              color: activeTab === tab.id ? sw.cyan : sw.textMuted,
+              cursor: 'pointer',
+              fontWeight: '700',
+              fontSize: '12px',
+              transition: 'all 0.2s',
+            }}
+          >
+            {tab.icon} {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Tree */}
-      <div style={{
-        background: sw.void,
-        borderRadius: '14px',
-        border: `1px solid ${sw.borderSubtle}`,
-        padding: '12px',
-        maxHeight: '300px',
-        overflowY: 'auto',
-      }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text, marginBottom: '10px' }}>
-          {copy.treeTitle}
+      {/* Tab content */}
+      {activeTab === 'tree' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {/* Stats */}
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <StatCard label="Parâmetros" value="124M" color={sw.cyan} />
+            <StatCard label="Camadas" value="12" color={sw.purple} />
+            <StatCard label="Tamanho" value="500MB" color={sw.green} />
+          </div>
+
+          {/* Tree */}
+          <div style={{
+            background: sw.void,
+            borderRadius: '14px',
+            border: `1px solid ${sw.borderSubtle}`,
+            padding: '12px',
+            maxHeight: '260px',
+            overflowY: 'auto',
+          }}>
+            <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text, marginBottom: '10px' }}>
+              {copy.treeTitle}
+            </div>
+            <TreeNode node={STATE_DICT_TREE} depth={0} isPtBr={true} />
+          </div>
+
+          {/* Param breakdown toggle */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text }}>
+              Distribuição de parâmetros
+            </div>
+            <button
+              onClick={() => setShowParams(v => !v)}
+              style={{
+                fontSize: '11px',
+                padding: '3px 10px',
+                borderRadius: '6px',
+                border: `1px solid ${sw.surface}`,
+                background: showParams ? `${sw.cyan}22` : 'transparent',
+                color: sw.cyan,
+                cursor: 'pointer',
+                fontWeight: '600',
+              }}
+            >
+              {showParams ? 'Ocultar' : 'Mostrar'}
+            </button>
+          </div>
+
+          {showParams && (
+            <div style={{
+              background: sw.void,
+              borderRadius: '14px',
+              border: `1px solid ${sw.borderSubtle}`,
+              padding: '14px',
+            }}>
+              {paramBreakdown.map(item => (
+                <div key={item.name} style={{ marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '3px' }}>
+                    <span style={{ color: item.color, fontWeight: '600', fontFamily: "'JetBrains Mono', monospace" }}>
+                      {item.name}
+                    </span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", color: sw.textMuted }}>
+                      {item.params} ({item.pct})
+                    </span>
+                  </div>
+                  <div style={{ height: '5px', background: sw.surface, borderRadius: '3px', overflow: 'hidden' }}>
+                    <div
+                      style={{
+                        height: '100%',
+                        width: `${parseFloat(item.pct) / 0.4}%`,
+                        background: item.color,
+                        borderRadius: '3px',
+                        transition: 'width 0.4s ease',
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <TreeNode node={STATE_DICT_TREE} depth={0} isPtBr={true} />
-      </div>
+      )}
 
-      {/* Param breakdown toggle */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text }}>
-          Distribuição de parâmetros
-        </div>
-        <button
-          onClick={() => setShowParams(v => !v)}
-          style={{
-            fontSize: '11px',
-            padding: '3px 10px',
-            borderRadius: '6px',
-            border: `1px solid ${sw.surface}`,
-            background: showParams ? `${sw.cyan}22` : 'transparent',
-            color: sw.cyan,
-            cursor: 'pointer',
-            fontWeight: '600',
-          }}
-        >
-          {showParams ? 'Ocultar' : 'Mostrar'}
-        </button>
-      </div>
-
-      {showParams && (
+      {activeTab === 'download' && (
         <div style={{
           background: sw.void,
           borderRadius: '14px',
           border: `1px solid ${sw.borderSubtle}`,
-          padding: '14px',
+          padding: '12px',
+          maxHeight: '420px',
+          overflowY: 'auto',
         }}>
-          {paramBreakdown.map(item => (
-            <div key={item.name} style={{ marginBottom: '8px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '3px' }}>
-                <span style={{ color: item.color, fontWeight: '600', fontFamily: "'JetBrains Mono', monospace" }}>
-                  {item.name}
-                </span>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: sw.textMuted }}>
-                  {item.params} ({item.pct})
-                </span>
-              </div>
-              <div style={{ height: '5px', background: sw.surface, borderRadius: '3px', overflow: 'hidden' }}>
-                <div
-                  style={{
-                    height: '100%',
-                    width: `${parseFloat(item.pct) / 0.4}%`,
-                    background: item.color,
-                    borderRadius: '3px',
-                    transition: 'width 0.4s ease',
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-          <div style={{ fontSize: '10px', color: sw.textMuted, marginTop: '6px', textAlign: 'center' }}>
-            Total: 124,744,704 parâmetros (GPT-2 small)
+          <div style={{ fontSize: '12px', fontWeight: '700', color: sw.text, marginBottom: '8px' }}>
+            {copy.downloadLabel}
           </div>
+          <pre style={{
+            fontSize: '11px',
+            lineHeight: '1.6',
+            fontFamily: "'JetBrains Mono', monospace",
+            color: sw.textDim,
+            whiteSpace: 'pre-wrap',
+            margin: 0,
+          }}>
+            {downloadCode}
+          </pre>
         </div>
       )}
 

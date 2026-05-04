@@ -44,15 +44,17 @@ export const gpt2WeightsOrigin = defineSlide({
     copy: {
       "pt-br": {
         "treeTitle": "Estrutura do state_dict",
-        "totalParams": "124M parâmetros",
-        "totalSize": "~500MB",
         "clickToExplore": "Clique para explorar",
+        "tabTree": "Explorar Estrutura",
+        "tabDownload": "Baixar + Converter",
+        "downloadLabel": "Código completo para baixar e converter pesos do GPT-2",
       },
       "en-us": {
         "treeTitle": "state_dict structure",
-        "totalParams": "124M parameters",
-        "totalSize": "~500MB",
         "clickToExplore": "Click to explore",
+        "tabTree": "Explore Structure",
+        "tabDownload": "Download + Convert",
+        "downloadLabel": "Full code to download and convert GPT-2 weights",
       }
     },
   },

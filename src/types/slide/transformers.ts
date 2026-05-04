@@ -13,6 +13,9 @@ export interface Gpt2FamilyTreeCopy {
 export interface WeightsTreeVisualCopy {
   treeTitle: string;
   clickToExplore: string;
+  tabTree: string;
+  tabDownload: string;
+  downloadLabel: string;
 }
 
 export interface TransformerOverviewTeaserCopy {
