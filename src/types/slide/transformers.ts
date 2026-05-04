@@ -1,3 +1,5 @@
+import type { CodeExplanation, CodeSourceRef } from './base';
+
 export interface Gpt2BlackboxDiagramCopy {
   inputLabel: string;
   modelLabel: string;
@@ -18,7 +20,9 @@ export interface WeightsTreeVisualCopy {
   codePanel: {
     title: string;
     description: string;
-    code: string;
+    code?: string;
+    codeExplanations?: CodeExplanation[];
+    source?: CodeSourceRef;
   };
 }
 

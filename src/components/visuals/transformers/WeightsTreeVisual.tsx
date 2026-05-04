@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { WeightsTreeVisualCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 import { TabsBar } from '../TabsBar';
+import { CodeBlock } from '../../CodeBlock';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -210,13 +211,20 @@ function StatCard({ label, value, color }: { label: string; value: string; color
 }
 
 const CodePanel: React.FC<{ copy: WeightsTreeVisualCopy['codePanel']; eyebrowLabel: string }> = ({ copy, eyebrowLabel }) => (
-  <div className="flex flex-col h-full min-h-0">
-    <div className="text-[10px] font-bold tracking-wider uppercase mb-1" style={{ color: sw.textMuted }}>{eyebrowLabel}</div>
-    <div className="text-sm font-bold mb-1" style={{ color: sw.text }}>{copy.title}</div>
-    <div className="text-[11px] mb-2" style={{ color: sw.textMuted }}>{copy.description}</div>
-    <pre className="flex-1 overflow-x-auto rounded-lg border border-white/10 bg-white/5 p-3 text-[11px] leading-relaxed font-mono" style={{ color: sw.textDim }}>
-      {copy.code}
-    </pre>
+  <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, overflow: 'hidden' }}>
+    <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: sw.cyan, marginBottom: 10 }}>
+      {eyebrowLabel}
+    </div>
+    <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: sw.text }}>{copy.title}</div>
+    <div style={{ fontSize: 13.5, lineHeight: 1.65, color: sw.textDim, marginBottom: 10 }}>{copy.description}</div>
+    <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+      <CodeBlock
+        code={copy.code ?? ''}
+        language="python"
+        explanations={copy.codeExplanations}
+        sourceRef={copy.source}
+      />
+    </div>
   </div>
 );
 

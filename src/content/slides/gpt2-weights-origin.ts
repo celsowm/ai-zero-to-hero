@@ -62,7 +62,7 @@ from safetensors.torch import save_file
 import os
 
 # 2. Baixar modelo e tokenizer do HuggingFace Hub
-MODEL_NAME = "gpt2"  # "gpt2-medium" (355M), "gpt2-large" (774M), "gpt2-xl" (1.5B)
+MODEL_NAME = "gpt2"
 print(f"Baixando {MODEL_NAME} do HuggingFace Hub...")
 tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)
 model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)
@@ -87,7 +87,16 @@ print(f"Salvo {OUTPUT_SF} ({os.path.getsize(OUTPUT_SF) / 1e6:.0f}MB)")
 # 6. Verificar — carregar de volta
 loaded = torch.load(OUTPUT_PT, weights_only=True)
 assert loaded.keys() == model.state_dict().keys()
-print("Verificado: pesos carregados com sucesso!")`
+print("Verificado: pesos carregados com sucesso!")`,
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "Instalamos as dependências: transformers (modelo), torch (PyTorch) e safetensors (formato seguro)." },
+            { "lineRange": [4, 6], "content": "Importamos o modelo GPT-2, o tokenizer e a função para salvar em .safetensors." },
+            { "lineRange": [9, 13], "content": "Baixamos o modelo e tokenizer do HuggingFace Hub automaticamente. .eval() desativa dropout." },
+            { "lineRange": [16, 19], "content": "Inspecionamos o state_dict — cada chave é um tensor com nome que indica a camada e o módulo." },
+            { "lineRange": [22, 24], "content": "Salvamos todos os pesos em um arquivo .pt (formato nativo do PyTorch)." },
+            { "lineRange": [27, 29], "content": "Formato .safetensors é mais seguro (sem eval) e mais rápido para carregar." },
+            { "lineRange": [32, 34], "content": "Verificamos que os pesos carregados batem com o original — integridade confirmada." },
+          ],
         },
       },
       "en-us": {
@@ -110,7 +119,7 @@ from safetensors.torch import save_file
 import os
 
 # 2. Download model and tokenizer from HuggingFace Hub
-MODEL_NAME = "gpt2"  # "gpt2-medium" (355M), "gpt2-large" (774M), "gpt2-xl" (1.5B)
+MODEL_NAME = "gpt2"
 print(f"Downloading {MODEL_NAME} from HuggingFace Hub...")
 tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)
 model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)
@@ -135,7 +144,16 @@ print(f"Saved {OUTPUT_SF} ({os.path.getsize(OUTPUT_SF) / 1e6:.0f}MB)")
 # 6. Verify — load back
 loaded = torch.load(OUTPUT_PT, weights_only=True)
 assert loaded.keys() == model.state_dict().keys()
-print("Verified: weights loaded successfully!")`
+print("Verified: weights loaded successfully!")`,
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "Install dependencies: transformers (model), torch (PyTorch), and safetensors (safe format)." },
+            { "lineRange": [4, 6], "content": "Import the GPT-2 model, tokenizer, and the safetensors save function." },
+            { "lineRange": [9, 13], "content": "Download model and tokenizer from HuggingFace Hub automatically. .eval() disables dropout." },
+            { "lineRange": [16, 19], "content": "Inspect the state_dict — each key is a tensor with a name indicating layer and module." },
+            { "lineRange": [22, 24], "content": "Save all weights as a .pt file (native PyTorch format)." },
+            { "lineRange": [27, 29], "content": ".safetensors format is safer (no eval) and faster to load." },
+            { "lineRange": [32, 34], "content": "Verify loaded weights match the original — integrity confirmed." },
+          ],
         },
       },
     },
