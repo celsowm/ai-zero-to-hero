@@ -56,7 +56,16 @@ export const gpt2WeightsOrigin = defineSlide({
           "source": {
             "snippetId": "gpt2_pytorch/gpt2-weights-download",
             "language": "python"
-          }
+          },
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "Instalamos as dependências: transformers (modelo), torch (PyTorch) e safetensors (formato seguro)." },
+            { "lineRange": [4, 6], "content": "Importamos o modelo GPT-2, o tokenizer e a função para salvar em .safetensors." },
+            { "lineRange": [9, 13], "content": "Baixamos o modelo e tokenizer do HuggingFace Hub automaticamente. .eval() desativa dropout." },
+            { "lineRange": [16, 19], "content": "Inspecionamos o state_dict — cada chave é um tensor com nome que indica a camada e o módulo." },
+            { "lineRange": [22, 24], "content": "Salvamos todos os pesos em um arquivo .pt (formato nativo do PyTorch)." },
+            { "lineRange": [27, 29], "content": "Formato .safetensors é mais seguro (sem eval) e mais rápido para carregar." },
+            { "lineRange": [32, 34], "content": "Verificamos que os pesos carregados batem com o original — integridade confirmada." },
+          ]
         },
       },
       "en-us": {
@@ -73,7 +82,16 @@ export const gpt2WeightsOrigin = defineSlide({
           "source": {
             "snippetId": "gpt2_pytorch/gpt2-weights-download",
             "language": "python"
-          }
+          },
+          "codeExplanations": [
+            { "lineRange": [1, 2], "content": "Install dependencies: transformers (model), torch (PyTorch), and safetensors (safe format)." },
+            { "lineRange": [4, 6], "content": "Import the GPT-2 model, tokenizer, and the safetensors save function." },
+            { "lineRange": [9, 13], "content": "Download model and tokenizer from HuggingFace Hub automatically. .eval() disables dropout." },
+            { "lineRange": [16, 19], "content": "Inspect the state_dict — each key is a tensor with a name indicating layer and module." },
+            { "lineRange": [22, 24], "content": "Save all weights as a .pt file (native PyTorch format)." },
+            { "lineRange": [27, 29], "content": ".safetensors format is safer (no eval) and faster to load." },
+            { "lineRange": [32, 34], "content": "Verify loaded weights match the original — integrity confirmed." },
+          ]
         },
       },
     },
