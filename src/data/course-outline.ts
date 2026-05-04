@@ -65,6 +65,7 @@ export const courseSlideOrder = [
   'gpt2-we-the-people-input',
   'gpt2-embeddings-plus-position',
   'gpt2-layer-by-layer-xray',
+  'gpt2-block-anatomy',
   // De onde vêm os pesos antes de carregá-los
   'gpt2-weights-origin',
   'gpt2-pytorch-config-loading',

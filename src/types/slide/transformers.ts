@@ -88,6 +88,47 @@ export interface TransformerBlockDiagramCopy {
   outputLabel: string;
 }
 
+export interface Gpt2BlockAnatomyCopy {
+  title: string;
+  subtitle: string;
+  legendTitle: string;
+  clickHint: string;
+  operations: {
+    input: string;
+    embedding: string;
+    dropout: string;
+    layerNorm: string;
+    conv1d: string;
+    newGelu: string;
+    add: string;
+    linear: string;
+    output: string;
+  };
+  descriptions: {
+    input: string;
+    embedding: string;
+    dropout: string;
+    layerNorm: string;
+    conv1d: string;
+    newGelu: string;
+    add: string;
+    linear: string;
+    output: string;
+  };
+  sections: {
+    attention: {
+      title: string;
+      description: string;
+      layers: Array<{ op: string; detail: string }>;
+    };
+    mlp: {
+      title: string;
+      description: string;
+      layers: Array<{ op: string; detail: string }>;
+    };
+  };
+}
+
 export interface CausalMaskMatrixCopy {
   allowedLabel: string;
   maskedLabel: string;

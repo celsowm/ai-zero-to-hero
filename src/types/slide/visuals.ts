@@ -50,6 +50,7 @@ import type {
   DataCollatorVisualizerCopy,
   Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
+  Gpt2BlockAnatomyCopy,
   Gpt2FamilyTreeCopy,
   WeightsTreeVisualCopy,
   Gpt2FullArchitectureDiagramCopy,
@@ -225,6 +226,7 @@ interface VisualCopyMap {
   'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
+  'gpt2-block-anatomy': Gpt2BlockAnatomyCopy;
   'gpt2-family-tree': Gpt2FamilyTreeCopy;
   'weights-tree-visual': WeightsTreeVisualCopy;
   'transformer-overview-teaser': TransformerOverviewTeaserCopy;

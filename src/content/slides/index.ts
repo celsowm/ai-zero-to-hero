@@ -33,6 +33,7 @@ import { generateParameters } from './generate-parameters';
 import { gpt2BlackBox } from './gpt2-black-box';
 import { gpt2EmbeddingsPlusPosition } from './gpt2-embeddings-plus-position';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
+import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
 import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
 import { gpt2PytorchLmHeadGenerate } from './gpt2-pytorch-lm-head-generate';
@@ -270,6 +271,7 @@ export const allSlides: ISlide[] = [
   gpt2BlackBox,
   gpt2EmbeddingsPlusPosition,
   gpt2LayerByLayerXray,
+  gpt2BlockAnatomy,
   gpt2PytorchAttention,
   gpt2PytorchConfigLoading,
   gpt2PytorchE2eDebugger,
