@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUI } from '../hooks/useUI';
 import { DESIGN_SCALE_MULTIPLIER } from '../constants/course';
+import { FloatingNavigation } from './FloatingNavigation';
 
 interface SlideFrameProps {
   title: string;
@@ -14,7 +15,7 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
   return (
     <div
       className={`${maxWidthClassName} w-full h-full min-h-0 mx-auto animate-slide-up flex flex-col`}
-      style={{ padding: '0 24px 18px' }}
+      style={{ padding: '0 24px 12px' }}
     >
       <h1
         className="glow-pink synthwave-title"
@@ -45,6 +46,8 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
       />
 
       <div className="flex-1 min-h-0 flex flex-col overflow-hidden">{children}</div>
+
+      <FloatingNavigation />
     </div>
   );
 };

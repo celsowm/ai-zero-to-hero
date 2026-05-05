@@ -5,7 +5,7 @@ import { NavigationProvider } from './context/NavigationContext';
 import { UIProvider } from './context/UIContext';
 import { useUI } from './hooks/useUI';
 import { LocaleProvider } from './context/LocaleContext';
-import { FloatingNavigation, Sidebar, SlideFactory, SlideTopBar, SearchModal } from './components';
+import { Sidebar, SlideFactory, SlideTopBar, SearchModal, CodeToolModal } from './components';
 
 const CourseContent: React.FC = () => {
   const { currentSlide, language } = useCourse();
@@ -14,17 +14,15 @@ const CourseContent: React.FC = () => {
     <div className="flex h-screen w-full overflow-hidden" style={{ background: 'var(--sw-void)' }}>
       <Sidebar />
 
-      <main className="flex-1 relative overflow-hidden flex flex-col sw-grid-bg min-h-0">
+      <main className="flex-1 relative flex flex-col sw-grid-bg min-h-0">
         <SlideTopBar />
 
         {/* Content */}
-        <div className="flex-1 flex items-stretch justify-center px-12 py-8 min-h-0 overflow-hidden">
+        <div className="flex-1 flex items-stretch justify-center px-12 pt-4 pb-0 min-h-0 overflow-hidden">
           <div className="w-full h-full min-h-0 flex justify-center overflow-hidden">
             {currentSlide && <SlideFactory slide={currentSlide} language={language} />}
           </div>
         </div>
-
-        <FloatingNavigation />
       </main>
     </div>
   );
@@ -38,6 +36,7 @@ function App() {
           <CourseProvider>
             <CourseContent />
             <SearchModalWithReset />
+            <CodeToolModal />
           </CourseProvider>
         </LocaleProvider>
       </UIProvider>

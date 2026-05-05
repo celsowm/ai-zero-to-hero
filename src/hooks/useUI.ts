@@ -6,6 +6,10 @@ export interface UIContextType {
   decreaseFontScale: () => void;
   isSearchOpen: boolean;
   setSearchOpen: (open: boolean) => void;
+  isCodeToolOpen: boolean;
+  setIsCodeToolOpen: (open: boolean) => void;
+  codeToolCode: string;
+  setCodeToolCode: (code: string) => void;
 }
 
 export const [UIProviderInternal, useUI, UIContext] =

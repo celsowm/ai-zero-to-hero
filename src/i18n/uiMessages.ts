@@ -15,6 +15,14 @@ export interface UiMessages {
 
   // SlideVisualRenderer
   loadingVisual: string;
+
+  // CodeToolModal
+  codeToolButton: string;
+  codeToolTitle: string;
+  runButton: string;
+  clearButton: string;
+  outputTitle: string;
+  running: string;
 }
 
 const ptBr: UiMessages = {
@@ -27,6 +35,12 @@ const ptBr: UiMessages = {
   searchButton: 'Buscar...',
   languageLabel: 'Português (BR)',
   loadingVisual: 'Carregando visual...',
+  codeToolButton: 'Code Playground',
+  codeToolTitle: 'CODE PLAYGROUND',
+  runButton: '▶ RUN',
+  clearButton: 'LIMPAR',
+  outputTitle: 'OUTPUT',
+  running: 'Executando...',
 };
 
 const enUs: UiMessages = {
@@ -39,6 +53,12 @@ const enUs: UiMessages = {
   searchButton: 'Search...',
   languageLabel: 'English (US)',
   loadingVisual: 'Loading visual...',
+  codeToolButton: 'Code Playground',
+  codeToolTitle: 'CODE PLAYGROUND',
+  runButton: '▶ RUN',
+  clearButton: 'CLEAR',
+  outputTitle: 'OUTPUT',
+  running: 'Running...',
 };
 
 const uiMessages: Record<Language, UiMessages> = {

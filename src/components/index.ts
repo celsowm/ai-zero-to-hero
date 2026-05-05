@@ -8,3 +8,4 @@ export { SlideTopBar } from './SlideTopBar';
 export { TwoColumnSlide } from './TwoColumnSlide';
 export { SearchModal } from './SearchModal';
 export { CodeBlock } from './CodeBlock';
+export { CodeToolModal } from './CodeToolModal';
