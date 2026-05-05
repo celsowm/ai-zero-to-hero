@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import type { ApiLatencyGrowthVisualCopy } from '../../../types/slide';
 import { PanelCard } from '../PanelCard';
 import { sw } from '../../../theme/tokens';
@@ -152,6 +152,29 @@ const badgeStyle = (accent: string): React.CSSProperties => ({
   whiteSpace: 'nowrap',
 });
 
+const sliderContainerStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 6,
+  padding: '8px 12px',
+  borderRadius: 12,
+  background: sw.tintStrong,
+  border: `1px solid ${sw.borderSubtle}`,
+};
+
+const sliderLabelStyle: React.CSSProperties = {
+  fontSize: 11,
+  fontWeight: 600,
+  color: 'var(--sw-text-dim)',
+  textAlign: 'center' as const,
+};
+
+const sliderInputStyle: React.CSSProperties = {
+  width: '100%',
+  cursor: 'pointer',
+  accentColor: sw.cyan,
+};
+
 const chartPadding = {
   left: 70,
   right: 32,
@@ -203,6 +226,31 @@ const buildSmoothPath = (points: ChartPoint[]) => {
   return path;
 };
 
+// Interpolação linear entre dois pontos conhecidos
+const interpolateLatency = (
+  users: number,
+  points: { users: number; latency: number }[]
+): number => {
+  const sorted = [...points].sort((a, b) => a.users - b.users);
+  if (users <= sorted[0].users) return sorted[0].latency;
+  if (users >= sorted[sorted.length - 1].users) return sorted[sorted.length - 1].latency;
+
+  for (let i = 0; i < sorted.length - 1; i++) {
+    if (users >= sorted[i].users && users <= sorted[i + 1].users) {
+      const t = (users - sorted[i].users) / (sorted[i + 1].users - sorted[i].users);
+      return sorted[i].latency + t * (sorted[i + 1].latency - sorted[i].latency);
+    }
+  }
+  return sorted[sorted.length - 1].latency;
+};
+
+const getZoneColor = (users: number, minUsers: number, maxUsers: number): string => {
+  const ratio = (users - minUsers) / (maxUsers - minUsers);
+  if (ratio < 0.4) return sw.cyan;
+  if (ratio < 0.7) return sw.pink;
+  return sw.yellow;
+};
+
 type GuideCallout = {
   xOffset: number;
   yOffset: number;
@@ -210,9 +258,9 @@ type GuideCallout = {
 };
 
 const guideCalloutLayouts: GuideCallout[] = [
-  { xOffset: 10, yOffset: 18, width: 152 },   // Carga baixa: abaixo e à direita
-  { xOffset: 10, yOffset: 14, width: 148 },   // Saturação: abaixo e à direita
-  { xOffset: -168, yOffset: -58, width: 160 }, // Explosão: acima e à esquerda
+  { xOffset: 10, yOffset: 18, width: 152 },
+  { xOffset: 10, yOffset: 14, width: 148 },
+  { xOffset: -168, yOffset: -58, width: 160 },
 ];
 
 const splitGuideLabel = (label: string) => {
@@ -231,13 +279,43 @@ const splitGuideLabel = (label: string) => {
 };
 
 export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisualProps) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [sliderUsers, setSliderUsers] = useState<number>(copy.points[0].users);
+
   const minUsers = Math.min(...copy.points.map(point => point.users));
   const maxUsers = Math.max(...copy.points.map(point => point.users));
   const minLatency = Math.min(...copy.points.map(point => point.latency));
   const maxLatency = Math.max(...copy.points.map(point => point.latency));
-  const chartPoints = copy.points.map(point => toScreenPoint(point.users, point.latency, minUsers, maxUsers, minLatency, maxLatency));
-  const curvePath = buildSmoothPath(chartPoints);
-  const referencePath = `M ${chartPoints[0].x} ${chartPoints[0].y} L ${chartPoints[chartPoints.length - 1].x} ${chartPoints[chartPoints.length - 1].y}`;
+
+  const chartPoints = useMemo(
+    () => copy.points.map(point => toScreenPoint(point.users, point.latency, minUsers, maxUsers, minLatency, maxLatency)),
+    [copy.points, minUsers, maxUsers, minLatency, maxLatency]
+  );
+
+  const curvePath = useMemo(() => buildSmoothPath(chartPoints), [chartPoints]);
+  const referencePath = useMemo(
+    () => `M ${chartPoints[0].x} ${chartPoints[0].y} L ${chartPoints[chartPoints.length - 1].x} ${chartPoints[chartPoints.length - 1].y}`,
+    [chartPoints]
+  );
+
+  // Ponto do slider na curva
+  const sliderLatency = useMemo(
+    () => interpolateLatency(sliderUsers, copy.points),
+    [sliderUsers, copy.points]
+  );
+  const sliderPoint = useMemo(
+    () => toScreenPoint(sliderUsers, sliderLatency, minUsers, maxUsers, minLatency, maxLatency),
+    [sliderUsers, sliderLatency, minUsers, maxUsers, minLatency, maxLatency]
+  );
+  const sliderZoneColor = useMemo(
+    () => getZoneColor(sliderUsers, minUsers, maxUsers),
+    [sliderUsers, minUsers, maxUsers]
+  );
+
+  const handleSliderChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSliderUsers(Number(e.target.value));
+  }, []);
+
   const guideIndexes = [0, 4, chartPoints.length - 1];
   const guideLabels = [copy.lowLoadLabel, copy.saturationLabel, copy.explosionLabel];
 
@@ -285,6 +363,14 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
+              <filter id="api-latency-glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
 
             <rect x="0" y="0" width={chartWidth} height={chartHeight} fill="rgba(255,255,255,0.015)" />
@@ -303,35 +389,140 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
             <path d={`${curvePath}`} fill="none" stroke="url(#api-latency-curve)" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" filter="url(#api-latency-glow)" />
             <path d={`${curvePath} L ${chartPoints[chartPoints.length - 1].x} ${chartHeight - chartPadding.bottom} L ${chartPoints[0].x} ${chartHeight - chartPadding.bottom} Z`} fill="url(#api-latency-fill)" opacity="0.34" />
 
+            {/* Pontos com hover */}
             {copy.points.map((point, index) => {
               const screenPoint = chartPoints[index];
-              const isHighlight = guideIndexes.includes(index);
-              const pointRadius = isHighlight ? 7 : 5.3;
-              const outerRadius = isHighlight ? 13 : 9;
-              // For highlight points, labels are rendered near the callout (skip here to avoid duplication)
-              // For non-highlight points, render label above the dot
-              const showLabel = !isHighlight;
+              const isHovered = hoveredIndex === index;
+              const isGuide = guideIndexes.includes(index);
+              const showLabel = isHovered || isGuide;
 
               return (
-                <g key={point.label}>
-                  <circle cx={screenPoint.x} cy={screenPoint.y} r={outerRadius} fill={point.accent} opacity="0.14" />
-                  <circle cx={screenPoint.x} cy={screenPoint.y} r={pointRadius} fill={point.accent} stroke={sw.tint} strokeWidth={1.5} />
+                <g
+                  key={point.label}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {/* Área de hit maior para hover */}
+                  <circle cx={screenPoint.x} cy={screenPoint.y} r={16} fill="transparent" />
+                  {/* Outer glow */}
+                  <circle
+                    cx={screenPoint.x}
+                    cy={screenPoint.y}
+                    r={isHovered ? 16 : 9}
+                    fill={point.accent}
+                    opacity={isHovered ? 0.28 : 0.14}
+                    style={{ transition: 'r 0.15s ease, opacity 0.15s ease' }}
+                  />
+                  {/* Ponto principal */}
+                  <circle
+                    cx={screenPoint.x}
+                    cy={screenPoint.y}
+                    r={isHovered ? 8 : isGuide ? 7 : 5.3}
+                    fill={point.accent}
+                    stroke={sw.tint}
+                    strokeWidth={isHovered ? 2.5 : 1.5}
+                    filter={isHovered ? 'url(#api-latency-glow-strong)' : undefined}
+                    style={{ transition: 'r 0.15s ease, stroke-width 0.15s ease' }}
+                  />
+                  {/* Tooltip no hover */}
                   {showLabel && (
-                    <text
-                      x={screenPoint.x}
-                      y={screenPoint.y - 11}
-                      textAnchor="middle"
-                      fontSize="10"
-                      fontFamily={fontFamily}
-                      fill="rgba(248,250,252,0.78)"
-                    >
-                      {point.label}
-                    </text>
+                    <g>
+                      <rect
+                        x={screenPoint.x - 36}
+                        y={screenPoint.y - 30}
+                        width={72}
+                        height={22}
+                        rx={6}
+                        fill="rgba(8, 12, 24, 0.92)"
+                        stroke={point.accent}
+                        strokeWidth={1}
+                      />
+                      <text
+                        x={screenPoint.x}
+                        y={screenPoint.y - 15}
+                        textAnchor="middle"
+                        fontSize="10"
+                        fontWeight="700"
+                        fontFamily={fontFamily}
+                        fill={point.accent}
+                      >
+                        {point.label}
+                      </text>
+                    </g>
                   )}
                 </g>
               );
             })}
 
+            {/* Ponto do slider */}
+            <g>
+              {/* Linha vertical até o eixo X */}
+              <line
+                x1={sliderPoint.x}
+                y1={sliderPoint.y}
+                x2={sliderPoint.x}
+                y2={chartHeight - chartPadding.bottom}
+                stroke={sliderZoneColor}
+                strokeWidth={1}
+                strokeDasharray="4 3"
+                opacity={0.5}
+              />
+              {/* Linha horizontal até o eixo Y */}
+              <line
+                x1={chartPadding.left}
+                y1={sliderPoint.y}
+                x2={sliderPoint.x}
+                y2={sliderPoint.y}
+                stroke={sliderZoneColor}
+                strokeWidth={1}
+                strokeDasharray="4 3"
+                opacity={0.35}
+              />
+              {/* Ponto cursor */}
+              <circle
+                cx={sliderPoint.x}
+                cy={sliderPoint.y}
+                r={10}
+                fill={sliderZoneColor}
+                opacity={0.2}
+              />
+              <circle
+                cx={sliderPoint.x}
+                cy={sliderPoint.y}
+                r={7}
+                fill={sliderZoneColor}
+                stroke="#fff"
+                strokeWidth={2}
+                filter="url(#api-latency-glow-strong)"
+              />
+              {/* Badge de valor */}
+              <g>
+                <rect
+                  x={sliderPoint.x - 48}
+                  y={sliderPoint.y - 38}
+                  width={96}
+                  height={26}
+                  rx={8}
+                  fill="rgba(8, 12, 24, 0.94)"
+                  stroke={sliderZoneColor}
+                  strokeWidth={1.5}
+                />
+                <text
+                  x={sliderPoint.x}
+                  y={sliderPoint.y - 21}
+                  textAnchor="middle"
+                  fontSize="11"
+                  fontWeight="800"
+                  fontFamily={fontFamily}
+                  fill={sliderZoneColor}
+                >
+                  {sliderUsers} users → {Math.round(sliderLatency)} ms
+                </text>
+              </g>
+            </g>
+
+            {/* Callout boxes (anotações) */}
             {guideIndexes.map((index, guideIndex) => {
               const point = chartPoints[index];
               const label = guideLabels[guideIndex];
@@ -342,7 +533,6 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
 
               return (
                 <g key={`${label}-${index}`}>
-                  {/* Connector line from point to callout */}
                   <line
                     x1={point.x}
                     y1={point.y}
@@ -418,6 +608,34 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
           </svg>
         </div>
 
+        {/* Slider interativo */}
+        <div style={sliderContainerStyle}>
+          <div style={sliderLabelStyle}>
+            <span style={{ color: sliderZoneColor, fontWeight: 800 }}>
+              {sliderUsers} usuários
+            </span>
+            {' → '}
+            <span style={{ color: sliderZoneColor, fontWeight: 800 }}>
+              {Math.round(sliderLatency)} ms
+            </span>
+          </div>
+          <input
+            type="range"
+            min={minUsers}
+            max={maxUsers}
+            step={1}
+            value={sliderUsers}
+            onChange={handleSliderChange}
+            style={sliderInputStyle}
+            aria-label={copy.xLabel}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: 'var(--sw-text-muted)', fontFamily }}>
+            <span>{minUsers}</span>
+            <span>{Math.round((minUsers + maxUsers) / 2)}</span>
+            <span>{maxUsers}</span>
+          </div>
+        </div>
+
         <div style={bottomBarStyle}>
           <div style={{ display: 'grid', gap: 5 }}>
             <div style={eyebrowStyle}>{copy.legendTitle}</div>
@@ -439,4 +657,3 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
     </div>
   );
 });
-

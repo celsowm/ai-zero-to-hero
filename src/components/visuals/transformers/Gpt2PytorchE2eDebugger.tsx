@@ -18,7 +18,7 @@ export const Gpt2PytorchE2eDebugger = React.memo(({ copy }: Props) => {
   const { language } = useLocale();
   const { snap, isPlaying, speed, phase, isComplete, handlePlayPause, handleStep, handleReset, setSpeed } = useGpt2InferenceEngine(copy);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   const resolvedCode = useMemo(() => {
     try {
       const snippet = resolveSnippetSource({ snippetId: copy.pythonSource.snippetId, language: 'python' }, language);
