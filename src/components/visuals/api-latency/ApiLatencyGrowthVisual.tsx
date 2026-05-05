@@ -258,9 +258,9 @@ type GuideCallout = {
 };
 
 const guideCalloutLayouts: GuideCallout[] = [
-  { xOffset: 10, yOffset: 18, width: 152 },
-  { xOffset: 10, yOffset: 14, width: 148 },
-  { xOffset: -168, yOffset: -58, width: 160 },
+  { xOffset: 24, yOffset: -52, width: 156 },   // Carga baixa: acima e à direita do ponto (evita eixo X)
+  { xOffset: 12, yOffset: -56, width: 152 },   // Saturação: acima e à direita (evita slider)
+  { xOffset: -168, yOffset: -58, width: 160 }, // Explosão: acima e à esquerda
 ];
 
 const splitGuideLabel = (label: string) => {
@@ -394,7 +394,8 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               const screenPoint = chartPoints[index];
               const isHovered = hoveredIndex === index;
               const isGuide = guideIndexes.includes(index);
-              const showLabel = isHovered || isGuide;
+              // Guide points already have callout boxes; only show hover tooltip when actively hovered
+              const showLabel = isHovered;
 
               return (
                 <g
@@ -409,9 +410,9 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                   <circle
                     cx={screenPoint.x}
                     cy={screenPoint.y}
-                    r={isHovered ? 16 : 9}
+                    r={isHovered ? 16 : isGuide ? 11 : 9}
                     fill={point.accent}
-                    opacity={isHovered ? 0.28 : 0.14}
+                    opacity={isHovered ? 0.28 : isGuide ? 0.2 : 0.14}
                     style={{ transition: 'r 0.15s ease, opacity 0.15s ease' }}
                   />
                   {/* Ponto principal */}
@@ -425,7 +426,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                     filter={isHovered ? 'url(#api-latency-glow-strong)' : undefined}
                     style={{ transition: 'r 0.15s ease, stroke-width 0.15s ease' }}
                   />
-                  {/* Tooltip no hover */}
+                  {/* Tooltip apenas no hover (guide points já têm callout) */}
                   {showLabel && (
                     <g>
                       <rect
