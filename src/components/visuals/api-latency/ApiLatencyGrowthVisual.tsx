@@ -598,7 +598,8 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               );
             })}
 
-            <text x={chartWidth - chartPadding.right - 4} y={chartPadding.top - 8} textAnchor="end" fontSize="11" fontFamily={fontFamily} fill="rgba(248,250,252,0.55)">
+            {/* Label da reta linear de referência — canto inferior direito, longe do callout "Explosão" */}
+            <text x={chartWidth - chartPadding.right - 4} y={chartHeight - chartPadding.bottom + 16} textAnchor="end" fontSize="11" fontFamily={fontFamily} fill="rgba(248,250,252,0.55)">
               {copy.referenceLabel}
             </text>
             <text x={chartPadding.left + 10} y={chartHeight - 14} fontSize="11.5" fontFamily={fontFamily} fill="rgba(248,250,252,0.76)">
