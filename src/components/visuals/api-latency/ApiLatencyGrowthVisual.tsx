@@ -258,9 +258,9 @@ type GuideCallout = {
 };
 
 const guideCalloutLayouts: GuideCallout[] = [
-  { xOffset: 28, yOffset: -44, width: 160 },   // Carga baixa: acima e à direita (evita eixo X e slider)
+  { xOffset: 28, yOffset: -44, width: 160 },   // Carga baixa: acima e à direita
   { xOffset: 16, yOffset: -48, width: 152 },   // Saturação: acima e à direita
-  { xOffset: -168, yOffset: -72, width: 160 }, // Explosão: acima e à esquerda (mais alto para não cortar)
+  { xOffset: -168, yOffset: -10, width: 160 }, // Explosão: à direita do ponto (evita topo cortado)
 ];
 
 // Verifica se o slider está próximo de um ponto guia (tolerância em usuários)
