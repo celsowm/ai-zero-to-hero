@@ -107,7 +107,6 @@ export const courseSlideOrder = [
   'moe-exercise',
   'moe-naming-conventions',
   'moe-pytorch-deep-dive',
-  'hidden-states-to-logits',
   'sampling-controls',
   'prediction-evolution-we-the-people',
   'why-transformers-work-so-well',

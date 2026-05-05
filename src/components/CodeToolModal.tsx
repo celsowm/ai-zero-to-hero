@@ -9,7 +9,8 @@ import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
 import { useEscapeKey } from '../hooks/useKeydown';
 import { getUiMessages } from '../i18n/uiMessages';
-import { runPython } from '../services/pyodideRunner';
+import { runPython, checkPythonSyntax } from '../services/pyodideRunner';
+import { linter } from '@codemirror/lint';
 
 interface OutputState {
   stdout: string;
@@ -237,7 +238,6 @@ export const CodeToolModal: React.FC = () => {
             <CodeMirror
               value={codeToolCode}
               height="auto"
-              extensions={[python()]}
               theme={vscodeDark}
               onChange={setCodeToolCode}
               basicSetup={{
@@ -258,8 +258,32 @@ export const CodeToolModal: React.FC = () => {
                 searchKeymap: false,
                 foldKeymap: false,
                 completionKeymap: false,
-                lintKeymap: false,
+                lintKeymap: true,
               }}
+              extensions={[
+                python(),
+                linter(async (view) => {
+                  const code = view.state.doc.toString();
+                  if (!code.trim()) return [];
+
+                  const error = await checkPythonSyntax(code);
+                  if (!error) return [];
+
+                  const diagnostics: import('@codemirror/lint').Diagnostic[] = [];
+                  
+                  // CodeMirror lines are 1-indexed, but Pyodide lineno is usually accurate
+                  const line = view.state.doc.line(Math.min(error.line, view.state.doc.lines));
+                  
+                  diagnostics.push({
+                    from: Math.min(line.from + (error.column > 0 ? error.column - 1 : 0), line.to),
+                    to: line.to,
+                    severity: 'error',
+                    message: error.message,
+                  });
+
+                  return diagnostics;
+                }, { delay: 300 }), // Add a small delay to avoid excessive parsing while typing
+              ]}
               style={{
                 height: '100%',
                 fontSize: 14,

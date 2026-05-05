@@ -62,3 +62,42 @@ sys.stderr = sys.__stderr__
     error,
   };
 }
+
+export interface SyntaxErrorDetail {
+  line: number;
+  column: number;
+  message: string;
+}
+
+export async function checkPythonSyntax(code: string): Promise<SyntaxErrorDetail | null> {
+  const pyodide = await getPyodide();
+
+  try {
+    // We use Python's ast module to check syntax without executing
+    pyodide.globals.set('code_to_check', code);
+    pyodide.runPython(`
+import ast
+try:
+    ast.parse(code_to_check)
+    syntax_error = None
+except SyntaxError as e:
+    syntax_error = {'line': e.lineno, 'column': e.offset, 'message': str(e)}
+except Exception as e:
+    syntax_error = {'line': 1, 'column': 0, 'message': str(e)}
+`);
+    const error = pyodide.globals.get('syntax_error');
+
+    if (error) {
+      const errorObj = error.toJs();
+      return {
+        line: errorObj.line,
+        column: errorObj.column ?? 0,
+        message: errorObj.message,
+      };
+    }
+    return null;
+  } catch (e) {
+    console.error('Failed to check syntax:', e);
+    return null;
+  }
+}

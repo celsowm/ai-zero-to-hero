@@ -144,6 +144,8 @@ import { moeExercise } from './moe-exercise';
 import { moeNamingConventions } from './moe-naming-conventions';
 import { moePytorchDeepDive } from './moe-pytorch-deep-dive';
 import { moeExpertVisualization } from './moe-expert-visualization';
+import { moeGatingMath } from './moe-gating-math';
+import { moeCapacityDeepDive } from './moe-capacity-deep-dive';
 import { modelCacheSafetensors } from './model-cache-safetensors';
 import { modelEvaluationHf } from './model-evaluation-hf';
 import { modelSharingHub } from './model-sharing-hub';
@@ -383,6 +385,8 @@ export const allSlides: ISlide[] = [
   moeNamingConventions,
   moePytorchDeepDive,
   moeExpertVisualization,
+  moeGatingMath,
+  moeCapacityDeepDive,
   modelCacheSafetensors,
   modelEvaluationHf,
   modelSharingHub,
