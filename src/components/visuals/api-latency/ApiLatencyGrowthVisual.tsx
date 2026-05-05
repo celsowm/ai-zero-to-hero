@@ -385,9 +385,26 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
             {[120, 220, 320, 420, 520, 620].map(x => (
               <line key={`grid-v-${x}`} x1={x} y1={chartPadding.top} x2={x} y2={chartHeight - chartPadding.bottom} stroke={sw.tintOverlay} strokeWidth="1" />
             ))}
-            {[96, 156, 216, 276, 336].map(y => (
-              <line key={`grid-h-${y}`} x1={chartPadding.left} y1={y} x2={chartWidth - chartPadding.right} y2={y} stroke={sw.tintOverlay} strokeWidth="1" />
-            ))}
+            {[96, 156, 216, 276, 336].map((y, i) => {
+              // Mapeia posições Y para valores de latência (de baixo para cima: 100, 200, 300, 400, 500)
+              const latencyValues = [100, 200, 300, 400, 500];
+              const label = `${latencyValues[latencyValues.length - 1 - i]} ms`;
+              return (
+                <g key={`grid-h-${y}`}>
+                  <line x1={chartPadding.left} y1={y} x2={chartWidth - chartPadding.right} y2={y} stroke={sw.tintOverlay} strokeWidth="1" />
+                  <text
+                    x={chartPadding.left - 10}
+                    y={y + 4}
+                    textAnchor="end"
+                    fontSize="10"
+                    fontFamily={fontFamily}
+                    fill="rgba(248,250,252,0.5)"
+                  >
+                    {label}
+                  </text>
+                </g>
+              );
+            })}
 
             <line x1={chartPadding.left} y1={chartHeight - chartPadding.bottom} x2={chartWidth - chartPadding.right} y2={chartHeight - chartPadding.bottom} stroke="rgba(255,255,255,0.36)" strokeWidth="2.2" />
             <line x1={chartPadding.left} y1={chartHeight - chartPadding.bottom} x2={chartPadding.left} y2={chartPadding.top} stroke="rgba(255,255,255,0.36)" strokeWidth="2.2" />
