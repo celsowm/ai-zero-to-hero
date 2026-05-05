@@ -258,10 +258,15 @@ type GuideCallout = {
 };
 
 const guideCalloutLayouts: GuideCallout[] = [
-  { xOffset: 24, yOffset: -52, width: 156 },   // Carga baixa: acima e à direita do ponto (evita eixo X)
-  { xOffset: 12, yOffset: -56, width: 152 },   // Saturação: acima e à direita (evita slider)
+  { xOffset: 28, yOffset: -10, width: 160 },   // Carga baixa: à direita do ponto (evita slider badge acima)
+  { xOffset: 16, yOffset: -48, width: 152 },   // Saturação: acima e à direita (distante da curva)
   { xOffset: -168, yOffset: -58, width: 160 }, // Explosão: acima e à esquerda
 ];
+
+// Verifica se o slider está próximo de um ponto guia (tolerância em usuários)
+const GUIDE_PROXIMITY = 12;
+const isNearGuide = (users: number, guideUsers: number[]) =>
+  guideUsers.some(g => Math.abs(users - g) <= GUIDE_PROXIMITY);
 
 const splitGuideLabel = (label: string) => {
   const parts = (label ?? '').split(':').map(part => part.trim()).filter(Boolean);
@@ -317,7 +322,9 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
   }, []);
 
   const guideIndexes = [0, 4, chartPoints.length - 1];
+  const guideUsers = guideIndexes.map(i => copy.points[i].users);
   const guideLabels = [copy.lowLoadLabel, copy.saturationLabel, copy.explosionLabel];
+  const sliderNearGuide = isNearGuide(sliderUsers, guideUsers);
 
   return (
     <div style={shellStyle}>
@@ -497,7 +504,8 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                 strokeWidth={2}
                 filter="url(#api-latency-glow-strong)"
               />
-              {/* Badge de valor */}
+              {/* Badge de valor — escondido quando perto de ponto guia (callout já mostra o dado) */}
+              {!sliderNearGuide && (
               <g>
                 <rect
                   x={sliderPoint.x - 48}
@@ -521,6 +529,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
                   {sliderUsers} users → {Math.round(sliderLatency)} ms
                 </text>
               </g>
+              )}
             </g>
 
             {/* Callout boxes (anotações) */}
