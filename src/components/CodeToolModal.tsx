@@ -218,22 +218,25 @@ export const CodeToolModal: React.FC = () => {
         <div
           style={{
             flex: 1,
-            minHeight: '200px',
+            minHeight: 0,
             padding: '12px',
             borderBottom: `1px solid ${sw.tintOverlay}`,
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <div
             style={{
-              height: '100%',
+              flex: 1,
+              minHeight: 0,
               borderRadius: '12px',
-              overflow: 'hidden',
+              overflow: 'auto',
               border: `1px solid rgba(255,255,255,0.05)`,
             }}
           >
             <CodeMirror
               value={codeToolCode}
-              height="100%"
+              height="auto"
               extensions={[python()]}
               theme={vscodeDark}
               onChange={setCodeToolCode}

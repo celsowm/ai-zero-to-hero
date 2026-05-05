@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import hljs from 'highlight.js';
-import { Copy, Check, Info } from 'lucide-react';
+import { Copy, Check, Info, Terminal } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
@@ -94,7 +94,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   compact = false,
   sourceRef,
 }) => {
-  const { fontScale } = useUI();
+  const { fontScale, setIsCodeToolOpen, setCodeToolCode } = useUI();
   const { language: courseLanguage } = useLocale();
   const [copied, setCopied] = useState(false);
   const [hoveredRange, setHoveredRange] = useState<[number, number] | null>(null);
@@ -288,14 +288,94 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             {lang}
           </div>
 
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {lang === 'python' && (
+              <button
+                type="button"
+                onClick={() => {
+                  setCodeToolCode(resolvedCode);
+                  setIsCodeToolOpen(true);
+                }}
+                style={{
+                  padding: '6px',
+                  borderRadius: '6px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  color: 'var(--sw-cyan)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backdropFilter: 'blur(8px)',
+                }}
+                title="Open in Code Playground"
+              >
+                <Terminal size={14} strokeWidth={2.5} />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={handleCopy}
+              style={{
+                padding: '6px',
+                borderRadius: '6px',
+                background: copied ? 'rgba(52, 211, 153, 0.1)' : 'rgba(255, 255, 255, 0.04)',
+                border: `1px solid ${copied ? 'rgba(52, 211, 153, 0.2)' : 'rgba(255, 255, 255, 0.08)'}`,
+                color: copied ? '#34d399' : 'var(--sw-text-muted)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backdropFilter: 'blur(8px)',
+              }}
+              title={copied ? 'Copied' : 'Copy code'}
+            >
+              {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {compact && (
+        <div style={{ position: 'absolute', top: 6, right: 6, display: 'flex', gap: '6px', zIndex: 10 }}>
+          {lang === 'python' && (
+            <button
+              type="button"
+              onClick={() => {
+                setCodeToolCode(resolvedCode);
+                setIsCodeToolOpen(true);
+              }}
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 8,
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                color: 'var(--sw-cyan)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backdropFilter: 'blur(8px)',
+                flexShrink: 0,
+              }}
+              title="Open in Code Playground"
+            >
+              <Terminal size={14} strokeWidth={2.5} />
+            </button>
+          )}
           <button
             type="button"
             onClick={handleCopy}
             style={{
-              padding: '6px',
-              borderRadius: '6px',
-              background: copied ? 'rgba(52, 211, 153, 0.1)' : 'rgba(255, 255, 255, 0.04)',
-              border: `1px solid ${copied ? 'rgba(52, 211, 153, 0.2)' : 'rgba(255, 255, 255, 0.08)'}`,
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: copied ? 'rgba(52, 211, 153, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+              border: `1px solid ${copied ? 'rgba(52, 211, 153, 0.22)' : 'rgba(255, 255, 255, 0.08)'}`,
               color: copied ? '#34d399' : 'var(--sw-text-muted)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
@@ -303,41 +383,13 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
               alignItems: 'center',
               justifyContent: 'center',
               backdropFilter: 'blur(8px)',
+              flexShrink: 0,
             }}
             title={copied ? 'Copied' : 'Copy code'}
           >
             {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
           </button>
         </div>
-      )}
-
-      {compact && (
-        <button
-          type="button"
-          onClick={handleCopy}
-          style={{
-            position: 'absolute',
-            top: 6,
-            right: 6,
-            width: 30,
-            height: 30,
-            borderRadius: 8,
-            background: copied ? 'rgba(52, 211, 153, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-            border: `1px solid ${copied ? 'rgba(52, 211, 153, 0.22)' : 'rgba(255, 255, 255, 0.08)'}`,
-            color: copied ? '#34d399' : 'var(--sw-text-muted)',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backdropFilter: 'blur(8px)',
-            flexShrink: 0,
-            zIndex: 10,
-          }}
-          title={copied ? 'Copied' : 'Copy code'}
-        >
-          {copied ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
-        </button>
       )}
 
       <div style={shellStyle}>
