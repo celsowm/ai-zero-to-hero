@@ -11,8 +11,8 @@ export const neuralNetworkFeedforward = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Feedforward: a previsao nasce indo da esquerda para a direita`,
-      body: `Antes de corrigir qualquer peso, a rede precisa **produzir uma previsao**. Esse percurso da entrada ate a saida chama-se **feedforward**.
+      title: `Feedforward (propagação para frente): a previsão nasce indo da esquerda para a direita`,
+      body: `Antes de corrigir qualquer peso, a rede precisa **produzir uma previsão**. Esse percurso da entrada até a saída chama-se **feedforward** (alimentação direta).
 
 1. **Camada de entrada:** recebemos as features do paciente.
 
@@ -38,8 +38,8 @@ x -> z_oculto -> h -> z_saida -> y_hat
   ],
     },
     'en-us': {
-      title: `Feedforward: the prediction is born from left to right`,
-      body: `Before correcting any weight, the network must first **produce a prediction**. This path from input to output is called **feedforward**.
+      title: `Feedforward (forward propagation): the prediction is born from left to right`,
+      body: `Before correcting any weight, the network must first **produce a prediction**. This path from input to output is called **feedforward** (forward pass).
 
 1. **Input layer:** we receive the patient's features.
 
