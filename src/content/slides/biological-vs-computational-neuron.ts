@@ -31,6 +31,7 @@ Agora a tradução para matemática:
 *   **Dendritos → Entradas ($$x_i$$):** Cada $$x_i$$ é um número chegando — pode ser um pixel da imagem, uma palavra do texto, um valor numérico.
 *   **Sinapses → Pesos ($$w_i$$):** Cada peso diz "o quanto eu confio nessa entrada". Se $$w_i$$ é grande, aquela entrada é importante. Se é zero, o neurônio ignora.
 *   **Soma → Combinação ($$z = \\sum w_i x_i + b$$):** Multiplica cada entrada pelo seu peso, soma tudo, e adiciona o viés $$b$$ (que é um "ajuste fino" — tipo calibrar uma balança).
+*   **Transposto ($$w^T$$):** Escrever $$w^T x$$ é a forma compacta de $$w_1 x_1 + w_2 x_2 + \\dots + w_n x_n$$. O "T" (transposto) significa: **vire a coluna de pesos em uma linha e multiplique com a coluna de entradas**. Na prática, é só multiplicar par a par e somar — o produto escalar.
 *   **Função de ativação → Decisão ($$a = \\sigma(z)$$):** O neurônio olha para $$z$$ e decide: "eu disparo ou não?" A função $$\\sigma$$ transforma a soma em uma saída utilizável — como a ReLU que veremos a seguir.`,
     },
     'en-us': {
@@ -54,6 +55,7 @@ Now the translation to math:
 *   **Dendrites → Inputs ($$x_i$$):** Each $$x_i$$ is a number arriving — a pixel from an image, a word from text, a numeric value.
 *   **Synapses → Weights ($$w_i$$):** Each weight says "how much do I trust this input." A large $$w_i$$ means that input matters. Zero means the neuron ignores it.
 *   **Soma → Combination ($$z = \\sum w_i x_i + b$$):** Multiply each input by its weight, sum everything, and add the bias $$b$$ (a "fine tuning" — like calibrating a scale).
+*   **Transpose ($$w^T$$):** Writing $$w^T x$$ is shorthand for $$w_1 x_1 + w_2 x_2 + \\dots + w_n x_n$$. The "T" (transpose) means: **turn the column of weights into a row and multiply with the column of inputs**. In practice, it's just multiply element-wise and sum — the dot product.
 *   **Activation function → Decision ($$a = \\sigma(z)$$):** The neuron looks at $$z$$ and decides: "do I fire or not?" The function $$\\sigma$$ transforms the sum into a usable output — like the ReLU we'll see next.`,
     },
   },
