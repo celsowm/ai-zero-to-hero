@@ -92,38 +92,33 @@ export const neuralNetworkWeightsAndBiases = defineSlide({
 > Regra curta: peso decide "o quanto cada entrada conta"; viés decide "de onde a conta começa".
 
 ### Fórmula concreta
-\`\`\`txt
-z = w1*x1 + w2*x2 + w3*x3 + b
+\`\`\`python
+# Produto escalar: multiplica par a par e soma
+z = w1 * x1 + w2 * x2 + w3 * x3 + b
 \`\`\`
 
-### Leitura prática
-- \`w1, w2, w3\`: importância relativa de cada entrada
-- \`b\`: deslocamento da soma
-- \`z\`: valor bruto antes da ativação
+### Cada símbolo, o que é
+
+\`\`\`python
+x = [x1, x2, x3]      # entradas (o que chega: pixel, palavra, nota…)
+w = [w1, w2, w3]      # pesos (importância de cada entrada)
+b = 0.0               # viés (deslocamento fixo)
+z = sum(wi * xi for wi, xi in zip(w, x)) + b   # saída bruta
+\`\`\`
 
 ### Exemplo numérico
-Suponha:
 
-\`\`\`txt
-x = [0.8, 0.4, 0.1]
-w = [0.6, -0.5, 0.2]
-b = -0.1
+\`\`\`python
+x = [0.8, 0.4, 0.1]   # entradas
+w = [0.6, -0.5, 0.2]  # pesos
+b = -0.1              # viés
+
+# Passo a passo:
+t1 = 0.6 * 0.8   #  0.48  ← entrada 1 empurra z para cima
+t2 = -0.5 * 0.4  # -0.20  ← entrada 2 empurra z para baixo
+t3 = 0.2 * 0.1   #  0.02  ← entrada 3 contribui pouco
+z  = t1 + t2 + t3 + b  # 0.20
 \`\`\`
-
-Então:
-
-\`\`\`txt
-z = 0.6*0.8 + (-0.5)*0.4 + 0.2*0.1 - 0.1
-z = 0.48 - 0.20 + 0.02 - 0.10 = 0.20
-\`\`\`
-
-### O que mudou cada termo
-| Termo | Efeito |
-| --- | --- |
-| \`0.6*0.8\` | entrada 1 empurra \`z\` para cima |
-| \`-0.5*0.4\` | entrada 2 empurra \`z\` para baixo |
-| \`0.2*0.1\` | entrada 3 contribui pouco |
-| \`b = -0.1\` | desloca a soma final para baixo |
 
 ### Ideia principal
 Se dois neurônios recebem as mesmas entradas, mas têm pesos ou viés diferentes, eles podem reagir de formas completamente diferentes.`,
@@ -146,38 +141,33 @@ Se dois neurônios recebem as mesmas entradas, mas têm pesos ou viés diferente
 > Short rule: weight decides “how much each input counts”; bias decides “where the calculation starts”.
 
 ### Concrete formula
-\`\`\`txt
-z = w1*x1 + w2*x2 + w3*x3 + b
+\`\`\`python
+# Dot product: multiply element-wise and sum
+z = w1 * x1 + w2 * x2 + w3 * x3 + b
 \`\`\`
 
-### Practical reading
-- \`w1, w2, w3\`: relative importance of each input
-- \`b\`: shift applied to the sum
-- \`z\`: raw value before activation
+### What each symbol means
+
+\`\`\`python
+x = [x1, x2, x3]      # inputs (what arrives: pixel, word, grade...)
+w = [w1, w2, w3]      # weights (importance of each input)
+b = 0.0               # bias (fixed shift)
+z = sum(wi * xi for wi, xi in zip(w, x)) + b   # raw output
+\`\`\`
 
 ### Numerical example
-Suppose:
 
-\`\`\`txt
-x = [0.8, 0.4, 0.1]
-w = [0.6, -0.5, 0.2]
-b = -0.1
+\`\`\`python
+x = [0.8, 0.4, 0.1]   # inputs
+w = [0.6, -0.5, 0.2]  # weights
+b = -0.1              # bias
+
+# Step by step:
+t1 = 0.6 * 0.8   #  0.48  ← input 1 pushes z upward
+t2 = -0.5 * 0.4  # -0.20  ← input 2 pushes z downward
+t3 = 0.2 * 0.1   #  0.02  ← input 3 contributes little
+z  = t1 + t2 + t3 + b  # 0.20
 \`\`\`
-
-Then:
-
-\`\`\`txt
-z = 0.6*0.8 + (-0.5)*0.4 + 0.2*0.1 - 0.1
-z = 0.48 - 0.20 + 0.02 - 0.10 = 0.20
-\`\`\`
-
-### What each term changed
-| Term | Effect |
-| --- | --- |
-| \`0.6*0.8\` | input 1 pushes \`z\` upward |
-| \`-0.5*0.4\` | input 2 pushes \`z\` downward |
-| \`0.2*0.1\` | input 3 contributes only a little |
-| \`b = -0.1\` | shifts the final sum downward |
 
 ### Main idea
 If two neurons receive the same inputs but have different weights or bias, they can react in completely different ways.`,
