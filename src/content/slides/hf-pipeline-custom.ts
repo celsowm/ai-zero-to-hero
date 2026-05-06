@@ -31,7 +31,7 @@ snippet:transformers/pipeline-custom
       codeExplanations: [
         {
           lineRange: [1, 2],
-          content: 'Importamos `pipeline` e as classes para classificação.',
+          content: 'Importamos `pipeline`, classes para classificação e PyTorch para detecção de GPU.',
         },
         {
           lineRange: [5, 5],
@@ -42,12 +42,12 @@ snippet:transformers/pipeline-custom
           content: 'Pipeline com device detection — GPU se disponível, senão CPU.',
         },
         {
-          lineRange: [16, 25],
-          content: 'Testamos com textos de diferentes polaridades e imprimimos label + score.',
+          lineRange: [16, 28],
+          content: 'Testamos com textos de diferentes polaridades e imprimimos label + score formatados.',
         },
         {
-          lineRange: [28, 34],
-          content: 'Pós-processamento customizado com threshold para baixa confiança.',
+          lineRange: [31, 37],
+          content: 'Pós-processamento customizado com threshold para baixa confiança e exemplo final.',
         },
       ],
     },
@@ -75,7 +75,7 @@ snippet:transformers/pipeline-custom
       codeExplanations: [
         {
           lineRange: [1, 2],
-          content: 'We import `pipeline` and classification classes.',
+          content: 'We import `pipeline`, classification classes, and PyTorch for GPU detection.',
         },
         {
           lineRange: [5, 5],
@@ -86,12 +86,12 @@ snippet:transformers/pipeline-custom
           content: 'Pipeline with device detection — GPU if available, otherwise CPU.',
         },
         {
-          lineRange: [16, 25],
-          content: 'We test with texts of different polarities and print label + score.',
+          lineRange: [16, 28],
+          content: 'We test with texts of different polarities and print formatted label + score.',
         },
         {
-          lineRange: [28, 34],
-          content: 'Custom post-processing with threshold for low confidence.',
+          lineRange: [31, 37],
+          content: 'Custom post-processing with threshold for low confidence and final example.',
         },
       ],
     },

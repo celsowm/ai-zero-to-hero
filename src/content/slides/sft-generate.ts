@@ -19,6 +19,28 @@ snippet:sft-generate
 \`\`\`
 
 > A geração é simplesmente continuar a previsão do próximo token a partir de um prompt formatado.`,
+      codeExplanations: [
+        {
+          lineRange: [2, 5],
+          content: 'Definimos a conversa com os papéis de sistema e usuário.',
+        },
+        {
+          lineRange: [9, 13],
+          content: 'Aplicamos o template ChatML e adicionamos o prompt de geração para o assistente.',
+        },
+        {
+          lineRange: [15, 15],
+          content: 'Preparamos os inputs para o modelo.',
+        },
+        {
+          lineRange: [18, 23],
+          content: 'O modelo gera os novos tokens seguindo a instrução recebida.',
+        },
+        {
+          lineRange: [25, 29],
+          content: 'Decodificamos e exibimos a resposta final do assistente.',
+        },
+      ],
     },
     'en-us': {
       title: `Testing the Assistant`,
@@ -35,6 +57,28 @@ snippet:sft-generate
 \`\`\`
 
 > Generation is simply continuing next-token prediction from a formatted prompt.`,
+      codeExplanations: [
+        {
+          lineRange: [2, 5],
+          content: 'We define the conversation with system and user roles.',
+        },
+        {
+          lineRange: [9, 13],
+          content: 'Apply the ChatML template and add the generation prompt for the assistant.',
+        },
+        {
+          lineRange: [15, 15],
+          content: 'Prepare the inputs for the model.',
+        },
+        {
+          lineRange: [18, 23],
+          content: 'The model generates new tokens following the received instruction.',
+        },
+        {
+          lineRange: [25, 29],
+          content: 'Decode and display the final assistant response.',
+        },
+      ],
     },
   },
 });

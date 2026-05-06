@@ -28,23 +28,23 @@ snippet:transformers/data-collator-demo
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 2],
-          content: 'Importamos os dois collators principais + tokenizer e datasets.',
+          lineRange: [1, 5],
+          content: 'Importamos os collators e carregamos o tokenizador, definindo o token de padding.',
         },
         {
-          lineRange: [10, 13],
-          content: 'Tokenizamos o dataset com truncation para limitar o tamanho.',
+          lineRange: [8, 13],
+          content: 'Carregamos um dataset e tokenizamos as sequências para processamento.',
         },
         {
-          lineRange: [16, 18],
+          lineRange: [16, 19],
           content: 'MLM collator: `mlm=False` para GPT (causal), `True` para BERT (masked).',
         },
         {
-          lineRange: [21, 21],
+          lineRange: [22, 22],
           content: 'Padding collator: apenas adiciona padding — sem masking.',
         },
         {
-          lineRange: [24, 26],
+          lineRange: [24, 27],
           content: 'O collator produz `input_ids` e `attention_mask` com shapes consistentes.',
         },
       ],
@@ -70,23 +70,23 @@ snippet:transformers/data-collator-demo
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 2],
-          content: 'We import the two main collators + tokenizer and datasets.',
+          lineRange: [1, 5],
+          content: 'We import the collators and load the tokenizer, defining the pad token.',
         },
         {
-          lineRange: [10, 13],
-          content: 'We tokenize the dataset with truncation to limit size.',
+          lineRange: [8, 13],
+          content: 'We load a dataset and tokenize the sequences for processing.',
         },
         {
-          lineRange: [16, 18],
+          lineRange: [16, 19],
           content: 'MLM collator: `mlm=False` for GPT (causal), `True` for BERT (masked).',
         },
         {
-          lineRange: [21, 21],
+          lineRange: [22, 22],
           content: 'Padding collator: just adds padding — no masking.',
         },
         {
-          lineRange: [24, 26],
+          lineRange: [24, 27],
           content: 'The collator produces `input_ids` and `attention_mask` with consistent shapes.',
         },
       ],

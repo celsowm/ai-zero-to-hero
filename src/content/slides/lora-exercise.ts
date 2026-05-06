@@ -23,6 +23,32 @@ Execute o código, observe que a loss não converge. Corrija os bugs e rode nova
 \`\`\`python
 snippet:transformers/lora-buggy
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 4],
+          content: 'Setup inicial: importações e carregamento do modelo base.',
+        },
+        {
+          lineRange: [8, 14],
+          content: 'Configuração do LoRA com possíveis erros de rank e módulos alvo.',
+        },
+        {
+          lineRange: [16, 16],
+          content: 'Criação do modelo PEFT (com adapters).',
+        },
+        {
+          lineRange: [19, 23],
+          content: 'Argumentos de treino com taxa de aprendizado potencialmente alta demais.',
+        },
+        {
+          lineRange: [26, 29],
+          content: 'Inicialização do Trainer.',
+        },
+        {
+          lineRange: [32, 32],
+          content: 'Execução do treinamento.',
+        },
+      ],
     },
     'en-us': {
       title: `Fix the Bug: LoRA doesn't converge`,
@@ -43,6 +69,32 @@ Run the code, observe that the loss doesn't converge. Fix the bugs and run again
 \`\`\`python
 snippet:transformers/lora-buggy
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 4],
+          content: 'Initial setup: imports and base model loading.',
+        },
+        {
+          lineRange: [8, 14],
+          content: 'LoRA configuration with potential rank and target module errors.',
+        },
+        {
+          lineRange: [16, 16],
+          content: 'PEFT model creation (with adapters).',
+        },
+        {
+          lineRange: [19, 23],
+          content: 'Training arguments with potentially too high learning rate.',
+        },
+        {
+          lineRange: [26, 29],
+          content: 'Trainer initialization.',
+        },
+        {
+          lineRange: [32, 32],
+          content: 'Training execution.',
+        },
+      ],
     },
   },
 });

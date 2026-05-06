@@ -70,33 +70,25 @@ export const neuralNetworkPrediction = defineSlide({
           },
           "codeExplanations": [
             {
-            "lineRange": [
-              1,
-              4
-            ],
-            "content": "Este bloco é a ponte com o slide anterior: a inferência começa usando o snapshot final do treino, sem recriar os pesos na mão, e reutiliza a sigmoid já definida no contexto da célula anterior."
-          },
+              "lineRange": [1, 5],
+              "content": "Este bloco é a ponte com o slide anterior: a inferência começa usando o snapshot final do treino (`parametros_finais`), sem recriar os pesos manualmente."
+            },
             {
-            "lineRange": [
-              7,
-              20
-            ],
-            "content": "Aqui convertemos o paciente novo em features numéricas, passamos pelos três neurônios ocultos e calculamos a probabilidade final com pesos fixos."
-          },
+              "lineRange": [7, 22],
+              "content": "Definimos a função de predição: ela normaliza as entradas, calcula as ativações da camada oculta e gera a probabilidade final usando a função sigmoid."
+            },
             {
-            "lineRange": [
-              23,
-              24
-            ],
-            "content": "Este é o paciente de teste usado pela inferência."
-          },
+              "lineRange": [24, 26],
+              "content": "Este é o novo paciente (dados de teste) que queremos classificar usando o modelo treinado."
+            },
             {
-            "lineRange": [
-              27,
-              31
-            ],
-            "content": "No fim aplicamos o modelo ao paciente novo, imprimimos a probabilidade e mapeamos isso para a classe prevista."
-          }
+              "lineRange": [28, 29],
+              "content": "Executamos a predição e usamos o limiar de 0.5: se a probabilidade for maior ou igual a 50%, a classe prevista é 'sim' (risco), caso contrário é 'não'."
+            },
+            {
+              "lineRange": [30, 33],
+              "content": "Por fim, exibimos o resultado da probabilidade formatada e a decisão final da rede para este paciente."
+            }
           ]
         },
         "stepperPanel": {
@@ -514,33 +506,25 @@ export const neuralNetworkPrediction = defineSlide({
           },
           "codeExplanations": [
             {
-            "lineRange": [
-              1,
-              4
-            ],
-            "content": "This block is the bridge from the previous slide: inference starts by reusing the final Python snapshot instead of recreating the weights by hand, and it relies on the sigmoid already defined in the previous cell."
-          },
+              "lineRange": [1, 5],
+              "content": "This block is the bridge from the previous slide: inference starts by reusing the final Python snapshot (`final_parameters`) instead of recreating the weights by hand."
+            },
             {
-            "lineRange": [
-              7,
-              20
-            ],
-            "content": "Here we convert the new patient into numeric features, run the three hidden neurons, and compute the final probability from the fixed weights."
-          },
+              "lineRange": [7, 22],
+              "content": "We define the prediction function: it normalizes inputs, calculates hidden layer activations, and generates the final probability using the sigmoid function."
+            },
             {
-            "lineRange": [
-              23,
-              24
-            ],
-            "content": "This is the test patient used for inference."
-          },
+              "lineRange": [24, 26],
+              "content": "This is the new patient (test data) that we want to classify using the trained model."
+            },
             {
-            "lineRange": [
-              27,
-              31
-            ],
-            "content": "At the end we apply the model to a new patient, print the probability, and map it to the predicted class."
-          }
+              "lineRange": [28, 29],
+              "content": "We run the prediction and use the 0.5 threshold: if the probability is 50% or higher, the predicted class is 'yes' (risk), otherwise it's 'no'."
+            },
+            {
+              "lineRange": [30, 33],
+              "content": "Finally, we display the formatted probability result and the network's final decision for this patient."
+            }
           ]
         },
         "stepperPanel": {

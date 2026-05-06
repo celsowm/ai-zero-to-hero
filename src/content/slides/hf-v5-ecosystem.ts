@@ -32,28 +32,28 @@ snippet:transformers/hf-v5-ecosystem
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 1],
+          lineRange: [4, 5],
           content: 'Importamos o módulo central: pipelines, AutoModel e AutoTokenizer.',
         },
         {
-          lineRange: [4, 5],
+          lineRange: [7, 8],
           content: '`datasets` para carregar e manipular dados de treino/avaliação.',
         },
         {
-          lineRange: [8, 9],
+          lineRange: [10, 11],
           content: '`evaluate` oferece métricas padronizadas — sem reimplementar BLEU ou perplexity.',
         },
         {
-          lineRange: [12, 13],
+          lineRange: [14, 15],
           content: '`accelerate` abstrai DDP, FSDP e multi-GPU — o mesmo código roda em 1 ou N GPUs.',
         },
         {
-          lineRange: [16, 17],
+          lineRange: [18, 19],
           content: '`peft` permite fine-tuning com fração dos parâmetros (LoRA, adapters).',
         },
         {
-          lineRange: [20, 21],
-          content: '`huggingface_hub` para push/pull de modelos e automação do Hub.',
+          lineRange: [21, 26],
+          content: '`huggingface_hub` para push/pull e um exemplo final de pipeline unificado.',
         },
       ],
     },
@@ -82,28 +82,28 @@ snippet:transformers/hf-v5-ecosystem
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 1],
+          lineRange: [4, 5],
           content: 'We import the central module: pipelines, AutoModel and AutoTokenizer.',
         },
         {
-          lineRange: [4, 5],
+          lineRange: [7, 8],
           content: '`datasets` for loading and manipulating train/eval data.',
         },
         {
-          lineRange: [8, 9],
+          lineRange: [10, 11],
           content: '`evaluate` provides standardized metrics — no need to reimplement BLEU or perplexity.',
         },
         {
-          lineRange: [12, 13],
+          lineRange: [14, 15],
           content: '`accelerate` abstracts DDP, FSDP and multi-GPU — the same code runs on 1 or N GPUs.',
         },
         {
-          lineRange: [16, 17],
+          lineRange: [18, 19],
           content: '`peft` enables fine-tuning with a fraction of parameters (LoRA, adapters).',
         },
         {
-          lineRange: [20, 21],
-          content: '`huggingface_hub` for model push/pull and Hub automation.',
+          lineRange: [21, 26],
+          content: '`huggingface_hub` for model push/pull and a final unified pipeline example.',
         },
       ],
     },

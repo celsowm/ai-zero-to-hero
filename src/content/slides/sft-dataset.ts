@@ -19,6 +19,32 @@ snippet:sft-dataset
 \`\`\`
 
 > O fluxo é: carregar tokenizador → definir template → criar dados → tokenizar. O \`Trainer\` cuida do resto.`,
+      codeExplanations: [
+        {
+          lineRange: [1, 5],
+          content: 'Importamos as bibliotecas e carregamos o tokenizador base.',
+        },
+        {
+          lineRange: [7, 15],
+          content: 'Definimos o template ChatML que estrutura o diálogo entre sistema, usuário e assistente.',
+        },
+        {
+          lineRange: [16, 17],
+          content: 'Configuramos o template e adicionamos tokens especiais necessários.',
+        },
+        {
+          lineRange: [20, 31],
+          content: 'Criamos exemplos de diálogos estruturados com diferentes papéis.',
+        },
+        {
+          lineRange: [34, 38],
+          content: 'Uma função aplica o template ChatML e converte o texto final em IDs de tokens.',
+        },
+        {
+          lineRange: [40, 41],
+          content: 'Criamos o objeto Dataset e aplicamos a formatação em todo o conjunto.',
+        },
+      ],
     },
     'en-us': {
       title: `Preparing the Dialogue Dataset`,
@@ -35,6 +61,32 @@ snippet:sft-dataset
 \`\`\`
 
 > The flow is: load tokenizer → define template → create data → tokenize. The \`Trainer\` handles the rest.`,
+      codeExplanations: [
+        {
+          lineRange: [1, 5],
+          content: 'We import libraries and load the base tokenizer.',
+        },
+        {
+          lineRange: [7, 15],
+          content: 'We define the ChatML template that structures the dialogue between system, user, and assistant.',
+        },
+        {
+          lineRange: [16, 17],
+          content: 'Configure the template and add necessary special tokens.',
+        },
+        {
+          lineRange: [20, 31],
+          content: 'Create structured dialogue examples with different roles.',
+        },
+        {
+          lineRange: [34, 38],
+          content: 'A function applies the ChatML template and converts the final text into token IDs.',
+        },
+        {
+          lineRange: [40, 41],
+          content: 'Create the Dataset object and apply formatting across the entire set.',
+        },
+      ],
     },
   },
 });

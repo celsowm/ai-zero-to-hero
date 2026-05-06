@@ -42,12 +42,12 @@ snippet:transformers/datasets-deep-dive
           content: 'Streaming: itera sobre o dataset sem baixar — `next(iter())` pega uma amostra.',
         },
         {
-          lineRange: [11, 14],
+          lineRange: [11, 15],
           content: '`.map()` aplica uma função em batch — aqui, calculando o comprimento do texto.',
         },
         {
-          lineRange: [17, 18],
-          content: 'Split reproducível com seed fixa. 90/10 para treino/teste.',
+          lineRange: [17, 20],
+          content: 'Split reproducível com seed fixa e inspeção das colunas finais.',
         },
       ],
     },
@@ -86,12 +86,12 @@ snippet:transformers/datasets-deep-dive
           content: 'Streaming: iterates over the dataset without downloading — `next(iter())` grabs a sample.',
         },
         {
-          lineRange: [11, 14],
+          lineRange: [11, 15],
           content: '`.map()` applies a function in batch — here, computing text length.',
         },
         {
-          lineRange: [17, 18],
-          content: 'Reproducible split with fixed seed. 90/10 for train/test.',
+          lineRange: [17, 20],
+          content: 'Reproducible split with fixed seed and final columns inspection.',
         },
       ],
     },

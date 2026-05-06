@@ -12,6 +12,7 @@ interface WeightNode {
   description?: string;
   descriptionEn?: string;
   color: string;
+  params?: string;
   children?: WeightNode[];
 }
 
@@ -20,87 +21,99 @@ const STATE_DICT_TREE: WeightNode = {
   color: sw.cyan,
   children: [
     {
-      key: 'wte (word token embeddings)',
+      key: 'wte',
       shape: [50257, 768],
-      description: 'Mapeia cada token ID (0-50256) para um vetor de 768 dimensões.',
-      descriptionEn: 'Maps each token ID (0-50256) to a 768-dimensional vector.',
+      description: 'Word Token Embeddings: mapeia cada token ID para um vetor de 768 dimensões.',
+      descriptionEn: 'Word Token Embeddings: maps each token ID to a 768-dimensional vector.',
       color: sw.pink,
+      params: '38.6M (31%)',
     },
     {
-      key: 'wpe (positional embeddings)',
+      key: 'wpe',
       shape: [1024, 768],
-      description: 'Mapeia cada posição (0-1023) para um vetor de 768 dimensões.',
-      descriptionEn: 'Maps each position (0-1023) to a 768-dimensional vector.',
+      description: 'Positional Embeddings: mapeia cada posição (0-1023) para um vetor de 768 dimensões.',
+      descriptionEn: 'Positional Embeddings: maps each position (0-1023) to a 768-dimensional vector.',
       color: sw.purple,
+      params: '0.8M (0.6%)',
     },
     {
-      key: 'h.0 (e h.1...h.11 — 12 camadas)',
-      description: '12 camadas idênticas de Transformer decoder, cada uma com atenção + MLP.',
-      descriptionEn: '12 identical Transformer decoder layers, each with attention + MLP.',
+      key: 'h.0',
+      description: 'Camada Transformer #1 — atenção multi-head + MLP',
+      descriptionEn: 'Transformer Layer #1 — multi-head attention + MLP',
       color: sw.sky,
+      params: '3.7M × 12 = 44.3M',
       children: [
         {
-          key: 'ln_1 (LayerNorm pré-attn)',
+          key: 'ln_1',
           shape: [768],
-          description: 'Normaliza as ativações antes da atenção.',
-          descriptionEn: 'Normalizes activations before attention.',
+          description: 'LayerNorm pré-attn: normaliza antes da atenção',
+          descriptionEn: 'Pre-attention LayerNorm: normalizes before attention',
           color: sw.indigo,
         },
         {
-          key: 'attn.c_attn (Q, K, V combinados)',
-          shape: [2304, 768],
-          description: 'Projeção linear que gera Query, Key e Value juntos. 768×3=2304.',
-          descriptionEn: 'Linear projection that produces Q, K, V together. 768×3=2304.',
+          key: 'attn.c_attn',
+          shape: [768, 2304],
+          description: 'QKV combined: 3 projeções em 1 (Q,K,V = 768×3)',
+          descriptionEn: 'QKV combined: 3 projections in 1 (Q,K,V = 768×3)',
           color: sw.sky,
         },
         {
-          key: 'attn.c_proj (saída da atenção)',
+          key: 'attn.c_proj',
           shape: [768, 768],
-          description: 'Projeta a saída multi-head de volta para dimensão do modelo.',
-          descriptionEn: 'Projects multi-head output back to model dimension.',
+          description: 'Projeção da saída multi-head → 768',
+          descriptionEn: 'Multi-head output projection → 768',
           color: sw.sky,
         },
         {
-          key: 'ln_2 (LayerNorm pré-MLP)',
+          key: 'ln_2',
           shape: [768],
-          description: 'Normaliza as ativações antes do MLP.',
-          descriptionEn: 'Normalizes activations before MLP.',
+          description: 'LayerNorm pré-MLP: normaliza antes do feedforward',
+          descriptionEn: 'Pre-MLP LayerNorm: normalizes before feedforward',
           color: sw.indigo,
         },
         {
-          key: 'mlp.c_fc (expansão)',
-          shape: [3072, 768],
-          description: 'Expande de 768 para 3072 (4x) — a "camada feedforward".',
-          descriptionEn: 'Expands from 768 to 3072 (4x) — the "feedforward layer".',
+          key: 'mlp.c_fc',
+          shape: [768, 3072],
+          description: 'Expansão 4×: 768 → 3072 (feedforward)',
+          descriptionEn: '4× expansion: 768 → 3072 (feedforward)',
           color: sw.green,
         },
         {
-          key: 'mlp.c_proj (projeção de volta)',
-          shape: [768, 3072],
-          description: 'Projeta de volta de 3072 para 768.',
-          descriptionEn: 'Projects back from 3072 to 768.',
+          key: 'mlp.c_proj',
+          shape: [3072, 768],
+          description: 'Projeção de volta: 3072 → 768',
+          descriptionEn: 'Project back: 3072 → 768',
           color: sw.green,
         },
       ],
     },
     {
-      key: 'ln_f (normalização final)',
-      shape: [768],
-      description: 'Última LayerNorm antes do LM Head.',
-      descriptionEn: 'Final LayerNorm before the LM Head.',
-      color: sw.indigo,
+      key: 'h.1 ... h.11',
+      description: 'Mais 11 camadas idênticas (total: 12 camadas Transformer)',
+      descriptionEn: '11 more identical layers (total: 12 Transformer layers)',
+      color: sw.sky,
+      params: '11 × 3.7M = 40.6M',
     },
     {
-      key: 'lm_head (vocab projection)',
-      shape: [50257, 768],
-      description: 'Projeta hidden states de volta para logits sobre o vocabulário.',
-      descriptionEn: 'Projects hidden states back to logits over vocabulary.',
+      key: 'ln_f',
+      shape: [768],
+      description: 'LayerNorm final antes do LM Head',
+      descriptionEn: 'Final LayerNorm before LM Head',
+      color: sw.indigo,
+      params: '0.003M',
+    },
+    {
+      key: 'lm_head',
+      shape: [768, 50257],
+      description: 'Projeta hidden states → logits do vocabulário (768 → 50257)',
+      descriptionEn: 'Projects hidden states → vocabulary logits (768 → 50257)',
       color: sw.yellow,
+      params: '38.6M (31%)',
     },
   ],
 };
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// ── Sub-components ───────────────────────────────────────────────────────────
 
 function TreeNode({
   node, depth, isPtBr,
@@ -110,41 +123,41 @@ function TreeNode({
   isPtBr: boolean;
 }) {
   const [expanded, setExpanded] = useState(depth < 2);
+  const [hovered, setHovered] = useState(false);
 
   const hasChildren = node.children && node.children.length > 0;
-  const paddingLeft = depth * 20;
+  const paddingLeft = depth * 16;
 
   return (
-    <div style={{ marginLeft: `${paddingLeft}px` }}>
+    <div>
       <div
         onClick={() => hasChildren && setExpanded(!expanded)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          padding: '6px 8px',
+          gap: '6px',
+          padding: '5px 8px',
+          marginLeft: `${paddingLeft}px`,
           borderRadius: '6px',
           cursor: hasChildren ? 'pointer' : 'default',
-          background: 'rgba(255,255,255,0.03)',
+          background: hovered && hasChildren ? 'rgba(255,255,255,0.08)' : 'transparent',
           transition: 'background 0.15s',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
         }}
       >
         {hasChildren ? (
           <span style={{
-            fontSize: '10px',
+            fontSize: '8px',
             color: sw.textMuted,
             transition: 'transform 0.2s',
             transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
             display: 'inline-block',
+            width: '12px',
+            textAlign: 'center',
           }}>▶</span>
         ) : (
-          <span style={{ width: '10px' }} />
+          <span style={{ width: '12px' }} />
         )}
         <span style={{
           width: '8px',
@@ -154,38 +167,50 @@ function TreeNode({
           flexShrink: 0,
         }} />
         <span style={{
-          fontSize: '12px',
-          fontWeight: '600',
+          fontSize: '11px',
+          fontWeight: depth === 0 ? '700' : '500',
           color: sw.text,
           fontFamily: "'JetBrains Mono', monospace",
+          flex: 1,
         }}>
           {node.key}
         </span>
         {node.shape && (
           <span style={{
-            fontSize: '10px',
+            fontSize: '9px',
             color: node.color,
             fontFamily: "'JetBrains Mono', monospace",
-            marginLeft: 'auto',
+            opacity: 0.8,
           }}>
             [{node.shape.join(', ')}]
           </span>
         )}
+        {node.params && (
+          <span style={{
+            fontSize: '9px',
+            color: sw.textMuted,
+            fontFamily: "'JetBrains Mono', monospace",
+            marginLeft: '4px',
+          }}>
+            {node.params}
+          </span>
+        )}
       </div>
-      {expanded && hasChildren && node.children!.map(child => (
-        <TreeNode key={child.key} node={child} depth={depth + 1} isPtBr={isPtBr} />
-      ))}
-      {expanded && node.shape && depth >= 1 && node.description && (
+      {expanded && node.description && (
         <div style={{
-          marginLeft: '26px',
-          padding: '4px 8px',
-          fontSize: '10px',
+          marginLeft: `${paddingLeft + 26}px`,
+          padding: '3px 8px',
+          fontSize: '9px',
           color: sw.textMuted,
           lineHeight: '1.4',
+          borderLeft: `1px solid ${node.color}33`,
         }}>
           {isPtBr ? node.description : node.descriptionEn}
         </div>
       )}
+      {expanded && hasChildren && node.children!.map(child => (
+        <TreeNode key={child.key} node={child} depth={depth + 1} isPtBr={isPtBr} />
+      ))}
     </div>
   );
 }
@@ -193,19 +218,80 @@ function TreeNode({
 function StatCard({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div style={{
-      background: sw.surface,
-      borderRadius: '10px',
-      padding: '10px 14px',
+      background: 'linear-gradient(135deg, ' + sw.surface + ' 0%, ' + sw.void + ' 100%)',
+      borderRadius: '8px',
+      padding: '8px 12px',
       textAlign: 'center',
       border: `1px solid ${sw.borderSubtle}`,
       flex: '1',
     }}>
-      <div style={{ fontSize: '10px', color: sw.textMuted, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
+      <div style={{ fontSize: '9px', color: sw.textMuted, textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '2px' }}>
         {label}
       </div>
-      <div style={{ fontSize: '18px', fontWeight: '800', color, fontFamily: "'JetBrains Mono', monospace" }}>
+      <div style={{ fontSize: '16px', fontWeight: '800', color, fontFamily: "'JetBrains Mono', monospace" }}>
         {value}
       </div>
+    </div>
+  );
+}
+
+interface ParamBarProps {
+  name: string;
+  params: string;
+  pct: number;
+  maxPct: number;
+  color: string;
+  details: string;
+}
+
+function ParamBar({ name, params, pct, maxPct, color, details }: ParamBarProps) {
+  const [hovered, setHovered] = useState(false);
+  const barWidth = (pct / maxPct) * 100;
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ marginBottom: '8px', position: 'relative' }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3px' }}>
+        <span style={{ color, fontWeight: '700', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace" }}>{name}</span>
+        <span style={{ color: sw.textMuted, fontSize: '10px', fontFamily: "'JetBrains Mono', monospace" }}>{params}</span>
+      </div>
+      <div style={{
+        height: '10px',
+        background: sw.surface,
+        borderRadius: '5px',
+        overflow: 'hidden',
+        position: 'relative',
+      }}>
+        <div style={{
+          height: '100%',
+          width: `${barWidth}%`,
+          background: `linear-gradient(90deg, ${color} 0%, ${color}aa 100%)`,
+          borderRadius: '5px',
+          transition: 'width 0.5s ease-out',
+        }} />
+      </div>
+      {hovered && (
+        <div style={{
+          position: 'absolute',
+          top: '-28px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: sw.void,
+          border: `1px solid ${sw.borderSubtle}`,
+          borderRadius: '4px',
+          padding: '3px 8px',
+          fontSize: '9px',
+          color: sw.text,
+          whiteSpace: 'nowrap',
+          zIndex: 10,
+          pointerEvents: 'none',
+        }}>
+          {details}
+        </div>
+      )}
     </div>
   );
 }
@@ -228,62 +314,77 @@ const CodePanel: React.FC<{ copy: WeightsTreeVisualCopy['codePanel']; eyebrowLab
   </div>
 );
 
-// ── Main component ────────────────────────────────────────────────────────────
+// ─ Main component ────────────────────────────────────────────────────────────
 
 interface WeightsTreeVisualProps {
   copy: WeightsTreeVisualCopy;
 }
 
+const PARAM_BREAKDOWN = [
+  { name: 'wte', params: '38.6M', pct: 31, color: sw.pink, details: 'Token embeddings — cada palavra vira um vetor' },
+  { name: 'wpe', params: '0.8M', pct: 0.6, color: sw.purple, details: 'Position embeddings — posição do token na sequência' },
+  { name: '12× attn', params: '44.3M', pct: 36, color: sw.sky, details: 'Atenção multi-head: Q, K, V + projeção de saída' },
+  { name: '12× mlp', params: '35.5M', pct: 29, color: sw.green, details: 'Feedforward: expansão 4× + projeção de volta' },
+  { name: 'ln + lm_head', params: '4.3M', pct: 3.5, color: sw.yellow, details: 'LayerNorms + projeção final para vocabulário' },
+];
+
+const MAX_PCT = Math.max(...PARAM_BREAKDOWN.map(b => b.pct));
+
 export const WeightsTreeVisual = React.memo(({ copy }: WeightsTreeVisualProps) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [showParams, setShowParams] = useState(true);
-
-  const paramBreakdown = [
-    { name: 'wte', params: '38.6M', pct: '31%', color: sw.pink },
-    { name: 'wpe', params: '0.8M', pct: '0.6%', color: sw.purple },
-    { name: '12× attn', params: '44.3M', pct: '36%', color: sw.sky },
-    { name: '12× mlp', params: '35.5M', pct: '29%', color: sw.green },
-    { name: 'ln + lm_head', params: '4.3M', pct: '3.5%', color: sw.yellow },
-  ];
 
   return (
     <div className="flex flex-col h-full min-h-0">
       <TabsBar ariaLabel={copy.tabs[0]?.label ?? ''} items={copy.tabs} activeIndex={activeTab} onChange={setActiveTab} />
       <div className="flex-1 min-h-0 overflow-auto">
         {activeTab === 0 ? (
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-3 p-3">
+            {/* Stat cards */}
             <div className="flex gap-2">
               <StatCard label="Parâmetros" value="124M" color={sw.cyan} />
               <StatCard label="Camadas" value="12" color={sw.purple} />
               <StatCard label="Tamanho" value="500MB" color={sw.green} />
             </div>
-            <div style={{ background: sw.void, borderRadius: '10px', border: `1px solid ${sw.borderSubtle}`, padding: '10px', maxHeight: '200px', overflowY: 'auto' }}>
-              <div style={{ fontSize: '11px', fontWeight: '700', color: sw.text, marginBottom: '8px' }}>
+
+            {/* Parameter distribution chart */}
+            <div style={{
+              background: sw.void,
+              borderRadius: '10px',
+              border: `1px solid ${sw.borderSubtle}`,
+              padding: '12px',
+            }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: sw.text, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: sw.cyan }} />
+                Distribuição de parâmetros
+              </div>
+              {PARAM_BREAKDOWN.map(item => (
+                <ParamBar
+                  key={item.name}
+                  name={item.name}
+                  params={item.params}
+                  pct={item.pct}
+                  maxPct={MAX_PCT}
+                  color={item.color}
+                  details={item.details}
+                />
+              ))}
+            </div>
+
+            {/* Tree structure */}
+            <div style={{
+              background: sw.void,
+              borderRadius: '10px',
+              border: `1px solid ${sw.borderSubtle}`,
+              padding: '12px',
+              flex: 1,
+              overflowY: 'auto',
+            }}>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: sw.text, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: sw.sky }} />
                 {copy.treePanel.title}
               </div>
               <TreeNode node={STATE_DICT_TREE} depth={0} isPtBr={true} />
             </div>
-            <div className="flex items-center justify-between">
-              <span style={{ fontSize: '11px', fontWeight: '700', color: sw.text }}>Distribuição de parâmetros</span>
-              <button onClick={() => setShowParams(v => !v)} style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '6px', border: `1px solid ${sw.surface}`, background: showParams ? `${sw.cyan}22` : 'transparent', color: sw.cyan, cursor: 'pointer', fontWeight: '600' }}>
-                {showParams ? 'Ocultar' : 'Mostrar'}
-              </button>
-            </div>
-            {showParams && (
-              <div style={{ background: sw.void, borderRadius: '10px', border: `1px solid ${sw.borderSubtle}`, padding: '10px' }}>
-                {paramBreakdown.map(item => (
-                  <div key={item.name} style={{ marginBottom: '6px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', marginBottom: '2px' }}>
-                      <span style={{ color: item.color, fontWeight: '600', fontFamily: "'JetBrains Mono', monospace" }}>{item.name}</span>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", color: sw.textMuted }}>{item.params} ({item.pct})</span>
-                    </div>
-                    <div style={{ height: '4px', background: sw.surface, borderRadius: '2px', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${parseFloat(item.pct) / 0.4}%`, background: item.color, borderRadius: '2px' }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         ) : (
           <CodePanel copy={copy.codePanel} eyebrowLabel={copy.tabs[1]?.label ?? 'Code'} />

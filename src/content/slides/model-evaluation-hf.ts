@@ -34,19 +34,19 @@ snippet:transformers/model-evaluation
           content: 'Importamos `evaluate` para métricas e `transformers` para modelo e pipeline.',
         },
         {
-          lineRange: [6, 7],
-          content: 'Carregamos as métricas: perplexity e BLEU.',
+          lineRange: [6, 10],
+          content: 'Carregamos as métricas e configuramos o modelo e tokenizador.',
         },
         {
-          lineRange: [11, 17],
+          lineRange: [11, 20],
           content: 'Perplexity: média sobre o corpus. GPT-2 no Wikitext dá ~20.',
         },
         {
-          lineRange: [20, 23],
+          lineRange: [23, 26],
           content: 'BLEU: compara geração com referências humanas. Precisamos de listas de refs.',
         },
         {
-          lineRange: [26, 29],
+          lineRange: [29, 31],
           content: 'Pipeline de geração: gera texto com o modelo para avaliação qualitativa.',
         },
       ],
@@ -78,19 +78,19 @@ snippet:transformers/model-evaluation
           content: 'We import `evaluate` for metrics and `transformers` for model and pipeline.',
         },
         {
-          lineRange: [6, 7],
-          content: 'We load the metrics: perplexity and BLEU.',
+          lineRange: [6, 10],
+          content: 'We load the metrics and configure the model and tokenizer.',
         },
         {
-          lineRange: [11, 17],
+          lineRange: [11, 20],
           content: 'Perplexity: average over the corpus. GPT-2 on Wikitext scores ~20.',
         },
         {
-          lineRange: [20, 23],
+          lineRange: [23, 26],
           content: 'BLEU: compares generation with human references. We need lists of refs.',
         },
         {
-          lineRange: [26, 29],
+          lineRange: [29, 31],
           content: 'Generation pipeline: generates text with the model for qualitative evaluation.',
         },
       ],

@@ -32,23 +32,23 @@ snippet:transformers/trainer-demystified
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 6],
-          content: 'Importamos as classes centrais: modelo, args, trainer e callback.',
+          lineRange: [1, 8],
+          content: 'Importamos as classes centrais e carregamos o modelo base.',
         },
         {
-          lineRange: [9, 21],
+          lineRange: [11, 25],
           content: '`TrainingArguments`: cada parâmetro controla um aspecto do treino — batch, LR, precision, eval, saving.',
         },
         {
-          lineRange: [24, 27],
+          lineRange: [28, 31],
           content: 'Callback customizado: intercepta logs a cada step para monitorar loss.',
         },
         {
-          lineRange: [30, 37],
+          lineRange: [34, 41],
           content: 'O Trainer recebe modelo, args, datasets, collator e callbacks.',
         },
         {
-          lineRange: [40, 40],
+          lineRange: [44, 44],
           content: '`train()` roda o loop completo: forward, backward, step, eval, save.',
         },
       ],
@@ -78,23 +78,23 @@ snippet:transformers/trainer-demystified
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 6],
-          content: 'We import the central classes: model, args, trainer and callback.',
+          lineRange: [1, 8],
+          content: 'We import the central classes and load the base model.',
         },
         {
-          lineRange: [9, 21],
+          lineRange: [11, 25],
           content: '`TrainingArguments`: each parameter controls a training aspect — batch, LR, precision, eval, saving.',
         },
         {
-          lineRange: [24, 27],
+          lineRange: [28, 31],
           content: 'Custom callback: intercepts logs at each step to monitor loss.',
         },
         {
-          lineRange: [30, 37],
+          lineRange: [34, 41],
           content: 'The Trainer receives model, args, datasets, collator and callbacks.',
         },
         {
-          lineRange: [40, 40],
+          lineRange: [44, 44],
           content: '`train()` runs the full loop: forward, backward, step, eval, save.',
         },
       ],

@@ -28,8 +28,8 @@ snippet:transformers/autoclasses-resolve
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 1],
-          content: 'Importamos as três AutoClasses principais + pipeline.',
+          lineRange: [1, 4],
+          content: 'Importamos as AutoClasses principais e definimos o checkpoint do modelo.',
         },
         {
           lineRange: [7, 9],
@@ -40,8 +40,8 @@ snippet:transformers/autoclasses-resolve
           content: 'Podemos inspecionar a classe resolvida e o model_type do config.',
         },
         {
-          lineRange: [15, 16],
-          content: 'O pipeline usa o modelo resolvido por baixo dos panos — API de alto nível.',
+          lineRange: [15, 17],
+          content: 'O pipeline usa o modelo resolvido por baixo dos panos para gerar texto.',
         },
       ],
     },
@@ -66,8 +66,8 @@ snippet:transformers/autoclasses-resolve
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 1],
-          content: 'We import the three main AutoClasses + pipeline.',
+          lineRange: [1, 4],
+          content: 'We import the main AutoClasses and define the model checkpoint.',
         },
         {
           lineRange: [7, 9],
@@ -78,8 +78,8 @@ snippet:transformers/autoclasses-resolve
           content: 'We can inspect the resolved class and the config\'s model_type.',
         },
         {
-          lineRange: [15, 16],
-          content: 'The pipeline uses the resolved model under the hood — high-level API.',
+          lineRange: [15, 17],
+          content: 'The pipeline uses the resolved model under the hood to generate text.',
         },
       ],
     },

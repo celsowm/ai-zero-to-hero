@@ -24,35 +24,28 @@ export const quantizationNf4DeepDive = defineSlide({
 ---
 
 \`\`\`python
-from transformers import AutoModelForCausalLM, BitsAndBytesConfig
-import torch
-
-# NF4 — o mais eficiente
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_use_double_quant=True,   # ← quantiza os params de quantização
-    bnb_4bit_quant_type="nf4",        # ← NormalFloat (não uniforme)
-    bnb_4bit_compute_dtype=torch.float16,  # ← computação em FP16
-)
-
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-2-7b-hf",
-    quantization_config=bnb_config,
-    device_map="auto",
-)
+snippet:transformers/quantization-bnb
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 3],
+          lineRange: [1, 4],
           content: 'Importamos transformers, torch e BitsAndBytesConfig.',
         },
         {
-          lineRange: [6, 11],
+          lineRange: [7, 12],
           content: 'Config NF4: double quant + NormalFloat + compute em FP16.',
         },
         {
-          lineRange: [13, 17],
-          content: 'Carregamos o modelo já quantizado — ~4GB para 7B.',
+          lineRange: [14, 21],
+          content: 'Carregamos o modelo e tokenizador — ~4GB para 7B (Llama-2).',
+        },
+        {
+          lineRange: [25, 26],
+          content: 'Verificamos o dispositivo (GPU) e o footprint de memória reduzido.',
+        },
+        {
+          lineRange: [29, 31],
+          content: 'Exemplo de inferência rodando em um modelo quantizado de 4 bits.',
         },
       ],
     },
@@ -73,35 +66,28 @@ model = AutoModelForCausalLM.from_pretrained(
 ---
 
 \`\`\`python
-from transformers import AutoModelForCausalLM, BitsAndBytesConfig
-import torch
-
-# NF4 — the most efficient
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_use_double_quant=True,   # ← quantize the quantization params
-    bnb_4bit_quant_type="nf4",        # ← NormalFloat (not uniform)
-    bnb_4bit_compute_dtype=torch.float16,  # ← computation in FP16
-)
-
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-2-7b-hf",
-    quantization_config=bnb_config,
-    device_map="auto",
-)
+snippet:transformers/quantization-bnb
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [1, 3],
+          lineRange: [1, 4],
           content: 'We import transformers, torch and BitsAndBytesConfig.',
         },
         {
-          lineRange: [6, 11],
+          lineRange: [7, 12],
           content: 'NF4 config: double quant + NormalFloat + FP16 compute.',
         },
         {
-          lineRange: [13, 17],
-          content: 'We load the model already quantized — ~4GB for 7B.',
+          lineRange: [14, 21],
+          content: 'We load the model and tokenizer — ~4GB for 7B (Llama-2).',
+        },
+        {
+          lineRange: [25, 26],
+          content: 'Verify the device (GPU) and the reduced memory footprint.',
+        },
+        {
+          lineRange: [29, 31],
+          content: 'Inference example running on a 4-bit quantized model.',
         },
       ],
     },

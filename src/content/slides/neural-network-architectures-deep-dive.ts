@@ -95,23 +95,30 @@ export const neuralNetworkArchitecturesDeepDive = defineSlide({
             {
             "lineRange": [
               10,
-              14
+              15
             ],
             "content": "O Kernel: um filtro pequeno (3x3) que 'procura' padrões específicos como bordas."
           },
             {
             "lineRange": [
-              22,
-              23
+              19,
+              24
             ],
             "content": "Mecanismo Deslizante: o filtro percorre a imagem pixel por pixel."
           },
             {
             "lineRange": [
               25,
-              29
+              34
             ],
             "content": "Convolução: cálculo local onde apenas os pixels vizinhos influenciam o resultado."
+          },
+            {
+            "lineRange": [
+              37,
+              38
+            ],
+            "content": "Execução: aplicamos a função à imagem original para gerar o mapa de características."
           }
           ]
         },
@@ -139,24 +146,31 @@ export const neuralNetworkArchitecturesDeepDive = defineSlide({
           },
             {
             "lineRange": [
-              12,
-              14
+              11,
+              16
             ],
             "content": "Similaridade (Dot Product): o modelo compara as palavras para ver quais são relevantes."
           },
             {
             "lineRange": [
               17,
-              19
+              22
             ],
             "content": "Pesos de Atenção: decide a importância relativa de cada palavra vizinha."
           },
             {
             "lineRange": [
-              22,
-              25
+              25,
+              29
             ],
             "content": "Vetor de Contexto: a palavra original ganha um novo significado baseado em quem está ao redor."
+          },
+            {
+            "lineRange": [
+              32,
+              38
+            ],
+            "content": "Execução: calculamos o novo contexto para o token 'cat' considerando toda a frase."
           }
           ]
         }
@@ -242,23 +256,30 @@ export const neuralNetworkArchitecturesDeepDive = defineSlide({
             {
             "lineRange": [
               10,
-              14
+              15
             ],
             "content": "The Kernel: a small (3x3) filter that 'searches' for specific patterns like edges."
           },
             {
             "lineRange": [
-              22,
-              23
+              19,
+              24
             ],
             "content": "Sliding Mechanism: the filter traverses the image pixel by pixel."
           },
             {
             "lineRange": [
               25,
-              29
+              34
             ],
             "content": "Convolution: local computation where only neighboring pixels influence the result."
+          },
+            {
+            "lineRange": [
+              37,
+              38
+            ],
+            "content": "Execution: we apply the function to the original image to generate the feature map."
           }
           ]
         },
@@ -286,24 +307,31 @@ export const neuralNetworkArchitecturesDeepDive = defineSlide({
           },
             {
             "lineRange": [
-              12,
-              14
+              11,
+              16
             ],
             "content": "Similarity (Dot Product): the model compares words to see which are relevant."
           },
             {
             "lineRange": [
               17,
-              19
+              22
             ],
             "content": "Attention Weights: decides the relative importance of each neighboring word."
           },
             {
             "lineRange": [
-              22,
-              25
+              25,
+              29
             ],
             "content": "Context Vector: the original word gains new meaning based on its surroundings."
+          },
+            {
+            "lineRange": [
+              32,
+              38
+            ],
+            "content": "Execution: we calculate the new context for the 'cat' token by considering the whole sentence."
           }
           ]
         }

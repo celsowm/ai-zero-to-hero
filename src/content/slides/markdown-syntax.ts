@@ -60,7 +60,7 @@ export const markdownSyntax = defineSlide({
       body: PT_BODY,
       codeExplanations: [
         {
-          lineRange: [2, 12],
+          lineRange: [2, 13],
           content: 'A mesma informação em texto puro: simples, mas sem estrutura visual.',
         },
         {
@@ -68,7 +68,7 @@ export const markdownSyntax = defineSlide({
           content: 'Em Markdown: headings, negrito, tabela e code block — a resposta fica estruturada.',
         },
         {
-          lineRange: [31, 33],
+          lineRange: [31, 36],
           content: 'O pipeline: tokens → texto → Markdown → HTML renderizado.',
         },
       ],
@@ -78,7 +78,7 @@ export const markdownSyntax = defineSlide({
       body: EN_BODY,
       codeExplanations: [
         {
-          lineRange: [2, 12],
+          lineRange: [2, 13],
           content: 'The same information in plain text: simple, but without visual structure.',
         },
         {
@@ -86,7 +86,7 @@ export const markdownSyntax = defineSlide({
           content: 'In Markdown: headings, bold, table, and code block — the response becomes structured.',
         },
         {
-          lineRange: [31, 33],
+          lineRange: [31, 36],
           content: 'The pipeline: tokens → text → Markdown → rendered HTML.',
         },
       ],

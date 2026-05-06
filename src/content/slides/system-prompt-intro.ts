@@ -33,7 +33,28 @@ Durante o SFT, o modelo vê milhares de exemplos onde a resposta do \`assistant\
 \`\`\`python
 snippet:system-prompt-intro
 \`\`\``,
-      codeExplanations: [],
+      codeExplanations: [
+        {
+          lineRange: [1, 3],
+          content: 'Carregamos o tokenizador base.',
+        },
+        {
+          lineRange: [6, 8],
+          content: 'Um diálogo simples contendo apenas a mensagem do usuário.',
+        },
+        {
+          lineRange: [11, 14],
+          content: 'O mesmo diálogo, mas agora injetando uma instrução de sistema (persona) no início.',
+        },
+        {
+          lineRange: [17, 21],
+          content: 'Aplicamos o template ChatML e vemos o texto final formatado sem o system prompt.',
+        },
+        {
+          lineRange: [24, 28],
+          content: 'Com o system prompt, a estrutura do prompt muda para incluir a instrução invisível de comportamento.',
+        },
+      ],
     },
     'en-us': {
       title: `The System Prompt: The Model's "Persona"`,
@@ -61,7 +82,28 @@ During SFT, the model sees thousands of examples where the \`assistant\` respons
 \`\`\`python
 snippet:system-prompt-intro
 \`\`\``,
-      codeExplanations: [],
+      codeExplanations: [
+        {
+          lineRange: [1, 3],
+          content: 'Load the base tokenizer.',
+        },
+        {
+          lineRange: [6, 8],
+          content: 'A simple dialogue containing only the user message.',
+        },
+        {
+          lineRange: [11, 14],
+          content: 'The same dialogue, but now injecting a system instruction (persona) at the beginning.',
+        },
+        {
+          lineRange: [17, 21],
+          content: 'We apply the ChatML template and see the final formatted text without the system prompt.',
+        },
+        {
+          lineRange: [24, 28],
+          content: 'With the system prompt, the prompt structure changes to include the invisible behavioral instruction.',
+        },
+      ],
     },
   },
   visual: {

@@ -34,24 +34,24 @@ snippet:transformers/peft-lora-example
           content: 'Importamos `transformers` para o modelo e `peft` para LoRA.',
         },
         {
-          lineRange: [4, 4],
+          lineRange: [5, 5],
           content: 'Carregamos o modelo base — os pesos originais ficam congelados.',
         },
         {
-          lineRange: [7, 13],
+          lineRange: [8, 14],
           content: '`LoraConfig`: rank=8, alpha=32, target_modules define quais camadas recebem adapters.',
         },
         {
-          lineRange: [16, 17],
+          lineRange: [17, 18],
           content: '`get_peft_model()` aplica LoRA e mostra % de parâmetros treináveis.',
         },
         {
-          lineRange: [20, 30],
+          lineRange: [22, 36],
           content: 'Treinamento padrão com Trainer — o LoRA é transparente para o loop.',
         },
         {
-          lineRange: [32, 32],
-          content: 'Salvamos apenas os adapters LoRA (KB/MB), não o modelo inteiro (GBs).',
+          lineRange: [38, 39],
+          content: 'Iniciamos o treino e salvamos apenas os adapters LoRA (KB/MB), não o modelo inteiro.',
         },
       ],
     },
@@ -82,24 +82,24 @@ snippet:transformers/peft-lora-example
           content: 'We import `transformers` for the model and `peft` for LoRA.',
         },
         {
-          lineRange: [4, 4],
+          lineRange: [5, 5],
           content: 'We load the base model — original weights stay frozen.',
         },
         {
-          lineRange: [7, 13],
+          lineRange: [8, 14],
           content: '`LoraConfig`: rank=8, alpha=32, target_modules defines which layers receive adapters.',
         },
         {
-          lineRange: [16, 17],
+          lineRange: [17, 18],
           content: '`get_peft_model()` applies LoRA and shows the % of trainable parameters.',
         },
         {
-          lineRange: [20, 30],
+          lineRange: [22, 36],
           content: 'Standard training with Trainer — LoRA is transparent to the training loop.',
         },
         {
-          lineRange: [32, 32],
-          content: 'We save only LoRA adapters (KB/MB), not the full model (GBs).',
+          lineRange: [38, 39],
+          content: 'Start training and save only LoRA adapters (KB/MB), not the full model.',
         },
       ],
     },

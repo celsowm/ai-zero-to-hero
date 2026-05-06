@@ -92,26 +92,11 @@ export const neuralNetworkMinimalExample = defineSlide({
           "language": "python"
         },
         "codeHighlightRanges": {
-          "init": [
-            1,
-            29
-          ],
-          "forward": [
-            31,
-            38
-          ],
-          "backprop": [
-            40,
-            45
-          ],
-          "update": [
-            47,
-            57
-          ],
-          "finalize": [
-            59,
-            68
-          ]
+          "init": [1, 28],
+          "forward": [34, 55],
+          "backprop": [59, 65],
+          "update": [69, 81],
+          "finalize": [86, 94]
         },
         "dataset": [
           {
@@ -268,26 +253,11 @@ export const neuralNetworkMinimalExample = defineSlide({
           "language": "python"
         },
         "codeHighlightRanges": {
-          "init": [
-            1,
-            29
-          ],
-          "forward": [
-            31,
-            38
-          ],
-          "backprop": [
-            40,
-            45
-          ],
-          "update": [
-            47,
-            57
-          ],
-          "finalize": [
-            59,
-            68
-          ]
+          "init": [1, 28],
+          "forward": [34, 55],
+          "backprop": [59, 65],
+          "update": [69, 81],
+          "finalize": [86, 94]
         },
         "dataset": [
           {

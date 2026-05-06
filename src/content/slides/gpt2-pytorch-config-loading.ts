@@ -25,7 +25,7 @@ O \`torch.load\` traz os pesos treinados direto do checkpoint oficial do GPT-2. 
 snippet:gpt2_pytorch/gpt2-config-loading
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 13], "content": "As constantes do GPT-2: 50257 tokens, 12 camadas, 12 heads, 768 dimensões. Esses números são a 'anatomia' do modelo." },
+        { "lineRange": [1, 14], "content": "As constantes do GPT-2: 50257 tokens, 12 camadas, 12 heads, 768 dimensões. Esses números são a 'anatomia' do modelo." },
         { "lineRange": [15, 40], "content": "Carregamento dos pesos reais do HuggingFace. A função extrai pesos por camada e faz transpose quando necessário (Conv1D → Linear)." }
       ],
     },
@@ -47,7 +47,7 @@ GPT-2 is defined by numbers: vocabulary size, number of layers, attention heads,
 snippet:gpt2_pytorch/gpt2-config-loading
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 13], "content": "GPT-2 constants: 50257 tokens, 12 layers, 12 heads, 768 dimensions. These numbers are the 'anatomy' of the model." },
+        { "lineRange": [1, 14], "content": "GPT-2 constants: 50257 tokens, 12 layers, 12 heads, 768 dimensions. These numbers are the 'anatomy' of the model." },
         { "lineRange": [15, 40], "content": "Loading real HuggingFace weights. The function extracts weights per layer and transposes when needed (Conv1D → Linear)." }
       ],
     },

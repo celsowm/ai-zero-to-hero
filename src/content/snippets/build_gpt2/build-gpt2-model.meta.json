@@ -6,5 +6,41 @@
     "model-block",
     "model-gpt"
   ],
-  "explanations": {}
+  "explanations": [
+    {
+      "lineRange": [2, 4],
+      "pt-br": "Imports: usamos PyTorch e seu módulo funcional para operações de rede neural.",
+      "en-us": "Imports: we use PyTorch and its functional module for neural network operations."
+    },
+    {
+      "lineRange": [8, 15],
+      "pt-br": "Mecanismo de Atenção: Projeta as entradas em Query, Key e Value simultaneamente.",
+      "en-us": "Attention Mechanism: Projects inputs into Query, Key, and Value simultaneously."
+    },
+    {
+      "lineRange": [17, 33],
+      "pt-br": "Forward da Atenção: Implementa multi-head attention com máscara causal (is_causal=True).",
+      "en-us": "Attention Forward: Implements multi-head attention with causal masking (is_causal=True)."
+    },
+    {
+      "lineRange": [37, 49],
+      "pt-br": "Bloco do Transformer: Combina LayerNorm, Atenção e uma rede MLP de duas camadas.",
+      "en-us": "Transformer Block: Combines LayerNorm, Attention, and a two-layer MLP network."
+    },
+    {
+      "lineRange": [51, 55],
+      "pt-br": "Conexões Residuais: Permitem que o sinal original flua através dos blocos, facilitando o treino.",
+      "en-us": "Residual Connections: Allow the original signal to flow through blocks, easing training."
+    },
+    {
+      "lineRange": [59, 71],
+      "pt-br": "Arquitetura GPT: Gerencia os embeddings de token (wte) e posição (wpe).",
+      "en-us": "GPT Architecture: Manages token (wte) and position (wpe) embeddings."
+    },
+    {
+      "lineRange": [73, 85],
+      "pt-br": "Geração de Logits: Processa a sequência através dos blocos para prever o próximo token.",
+      "en-us": "Logit Generation: Processes the sequence through blocks to predict the next token."
+    }
+  ]
 }

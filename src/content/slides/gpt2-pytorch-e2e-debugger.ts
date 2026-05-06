@@ -61,13 +61,13 @@ export const gpt2PytorchE2eDebugger = defineSlide({
           "label": "12L×768D×12H"
         },
         "codeHighlightRanges": {
-          "embedding": [1, 36],
-          "attention": [38, 72],
-          "mlp": [74, 95],
-          "residual": [97, 122],
-          "finalNorm": [124, 151],
-          "lmHead": [153, 164],
-          "generation": [166, 180]
+          "embedding": [1, 37],
+          "attention": [38, 73],
+          "mlp": [74, 96],
+          "residual": [97, 123],
+          "finalNorm": [124, 152],
+          "lmHead": [153, 165],
+          "generation": [166, 195]
         },
         "pythonSource": {
           "snippetId": "gpt2_pytorch/gpt2-e2e-debugger",
@@ -141,13 +141,13 @@ export const gpt2PytorchE2eDebugger = defineSlide({
           "label": "12L×768D×12H"
         },
         "codeHighlightRanges": {
-          "embedding": [1, 36],
-          "attention": [38, 72],
-          "mlp": [74, 95],
-          "residual": [97, 122],
-          "finalNorm": [124, 151],
-          "lmHead": [153, 164],
-          "generation": [166, 180]
+          "embedding": [1, 37],
+          "attention": [38, 73],
+          "mlp": [74, 96],
+          "residual": [97, 123],
+          "finalNorm": [124, 152],
+          "lmHead": [153, 165],
+          "generation": [166, 195]
         },
         "pythonSource": {
           "snippetId": "gpt2_pytorch/gpt2-e2e-debugger",

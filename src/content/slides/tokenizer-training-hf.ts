@@ -32,18 +32,23 @@ snippet:transformers/tokenizer-training-hf
           content: 'Importamos a biblioteca `tokenizers` para BPE puro e `transformers` para wrapping.',
         },
         {
-          lineRange: [4, 5],
+          lineRange: [5, 6],
           content: 'Criamos um tokenizer BPE com ByteLevel pre-tokenizer — funciona para qualquer idioma.',
         },
         {
-          lineRange: [10, 14],
-          content: 'O trainer define vocab_size, frequência mínima e tokens especiais.',
+          lineRange: [9, 16],
+          content: 'O trainer define corpus, vocab_size, frequência mínima e tokens especiais.',
         },
         {
-          lineRange: [17, 20],
-          content: 'Após treino, salvamos o JSON e carregamos como `PreTrainedTokenizerFast`.',
+          lineRange: [18, 19],
+          content: 'Iniciamos o treinamento e salvamos o estado do tokenizer em um arquivo JSON.',
+        },
+        {
+          lineRange: [22, 24],
+          content: 'Carregamos como `PreTrainedTokenizerFast` para integração total com o ecossistema.',
         },
       ],
+
     },
     'en-us': {
       title: `Training your own Tokenizer`,
@@ -70,16 +75,20 @@ snippet:transformers/tokenizer-training-hf
           content: 'We import the `tokenizers` library for raw BPE and `transformers` for wrapping.',
         },
         {
-          lineRange: [4, 5],
+          lineRange: [5, 6],
           content: 'We create a BPE tokenizer with ByteLevel pre-tokenizer — works for any language.',
         },
         {
-          lineRange: [10, 14],
-          content: 'The trainer defines vocab_size, minimum frequency, and special tokens.',
+          lineRange: [9, 16],
+          content: 'The trainer defines corpus, vocab_size, minimum frequency, and special tokens.',
         },
         {
-          lineRange: [17, 20],
-          content: 'After training, we save the JSON and load it as `PreTrainedTokenizerFast`.',
+          lineRange: [18, 19],
+          content: 'Start training and save the tokenizer state to a JSON file.',
+        },
+        {
+          lineRange: [22, 24],
+          content: 'Load as `PreTrainedTokenizerFast` for full integration with the ecosystem.',
         },
       ],
     },

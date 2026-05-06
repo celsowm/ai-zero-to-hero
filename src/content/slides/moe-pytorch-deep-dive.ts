@@ -27,16 +27,28 @@ snippet:transformers/moe-pytorch
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [7, 21],
+          lineRange: [2, 6],
+          content: 'Importamos as ferramentas do PyTorch para construir o módulo MoE.',
+        },
+        {
+          lineRange: [7, 22],
           content: 'O roteador decide o destino; os especialistas (MLPs) processam os dados.',
         },
         {
-          lineRange: [30, 30],
-          content: 'A seleção Top-K garante que o modelo permaneça esparso.',
+          lineRange: [24, 27],
+          content: 'Preparamos o tensor de entrada, achatando para processamento de tokens.',
         },
         {
-          lineRange: [42, 48],
-          content: 'A aplicação da máscara garante que cada especialista só processe os tokens que lhe foram atribuídos.',
+          lineRange: [30, 35],
+          content: 'A seleção Top-K garante que o modelo permaneça esparso, escolhendo apenas os melhores especialistas.',
+        },
+        {
+          lineRange: [38, 57],
+          content: 'A aplicação da máscara garante que cada especialista processe apenas seus tokens e some os resultados ponderados.',
+        },
+        {
+          lineRange: [61, 80],
+          content: 'Script de execução para testar e debugar o roteamento dos tokens para os especialistas.',
         },
       ],
     },
@@ -60,16 +72,28 @@ snippet:transformers/moe-pytorch
 \`\`\``,
       codeExplanations: [
         {
-          lineRange: [7, 21],
+          lineRange: [2, 6],
+          content: 'We import PyTorch tools to build the MoE module.',
+        },
+        {
+          lineRange: [7, 22],
           content: 'The router decides the destination; the experts (MLPs) process the data.',
         },
         {
-          lineRange: [30, 30],
-          content: 'Top-K selection ensures the model remains sparse.',
+          lineRange: [24, 27],
+          content: 'Prepare the input tensor, flattening it for token processing.',
         },
         {
-          lineRange: [42, 48],
-          content: 'Mask application ensures each expert only processes tokens assigned to it.',
+          lineRange: [30, 35],
+          content: 'Top-K selection ensures the model remains sparse, choosing only the best experts.',
+        },
+        {
+          lineRange: [38, 57],
+          content: 'Mask application ensures each expert processes only its tokens and sums the weighted results.',
+        },
+        {
+          lineRange: [61, 80],
+          content: 'Execution script to test and debug the routing of tokens to experts.',
         },
       ],
     },

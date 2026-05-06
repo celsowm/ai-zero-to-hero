@@ -33,6 +33,7 @@ The Federal District area is **5,760 km²**.
 
 ```python
 print(5760)  # km²
+```
 """
 
 # The model generates tokens → text → formats as Markdown
