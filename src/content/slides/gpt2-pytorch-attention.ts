@@ -25,11 +25,13 @@ A atenção é um produto escalar: query pergunta, key responde. O fator \`${'`'
 snippet:gpt2_pytorch/gpt2-attention
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 21], "content": "Inicialização: c_attn projeta 768 → 2304 (Q+K+V juntos). Os pesos reais do HuggingFace são copiados com torch.no_grad()." },
-        { "lineRange": [23, 26], "content": "Projeção QKV em uma operação. O split separa em 3 vetores de 768 cada." },
-        { "lineRange": [27, 30], "content": "Reshape para (batch, 12 heads, seq_len, 64). Cada head trabalha com uma fatia diferente do embedding." },
-        { "lineRange": [31, 35], "content": "Scaled dot-product: query @ key.T * scaling. masked_fill com -inf bloqueia tokens futuros antes do softmax." },
-        { "lineRange": [36, 40], "content": "Aplica pesos @ value, reshape de volta, projeção final e dropout. Retorna output + atenção." }
+        { "lineRange": [1, 7], "content": "Inicialização: embed_dim=768, 12 heads, head_dim=64, scaling=1/√64. Define c_attn (768→2304), c_proj e dropout." },
+        { "lineRange": [8, 13], "content": "Camadas lineares: c_attn projeta Q+K+V juntos (mais eficiente), c_proj é a saída final, resid_dropout evita overfit." },
+        { "lineRange": [14, 20], "content": "Carrega pesos reais do HuggingFace com torch.no_grad() — c_attn, c_proj (weight + bias)." },
+        { "lineRange": [22, 24], "content": "forward(): projeta hidden_states em QKV de uma vez, depois split em 3 vetores de 768." },
+        { "lineRange": [26, 28], "content": "Reshape: (batch, seq, heads, head_dim) → transpose para (batch, heads, seq, head_dim)." },
+        { "lineRange": [30, 33], "content": "Scaled dot-product: query @ key.T * scaling. masked_fill com -inf bloqueia tokens futuros. Softmax normaliza." },
+        { "lineRange": [35, 40], "content": "Output: weights @ value → transpose → reshape → c_proj → dropout → retorna (output, attn_weights)." }
       ],
     },
     'en-us': {
@@ -50,11 +52,13 @@ Attention is a dot product: query asks, key answers. The \`${'`'}head_dim^{-0.5}
 snippet:gpt2_pytorch/gpt2-attention
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 21], "content": "Initialization: c_attn projects 768 → 2304 (Q+K+V together). Real HuggingFace weights are copied with torch.no_grad()." },
-        { "lineRange": [23, 26], "content": "QKV projection in one operation. Split separates into 3 vectors of 768 each." },
-        { "lineRange": [27, 30], "content": "Reshape to (batch, 12 heads, seq_len, 64). Each head works on a different slice of the embedding." },
-        { "lineRange": [31, 35], "content": "Scaled dot-product: query @ key.T * scaling. masked_fill with -inf blocks future tokens before softmax." },
-        { "lineRange": [36, 40], "content": "Apply weights @ value, reshape back, final projection and dropout. Returns output + attention." }
+        { "lineRange": [1, 7], "content": "Initialization: embed_dim=768, 12 heads, head_dim=64, scaling=1/√64. Sets up c_attn (768→2304), c_proj, and dropout." },
+        { "lineRange": [8, 13], "content": "Linear layers: c_attn projects Q+K+V together (more efficient), c_proj is the final output, resid_dropout prevents overfit." },
+        { "lineRange": [14, 20], "content": "Loads real HuggingFace weights with torch.no_grad() — c_attn, c_proj (weight + bias)." },
+        { "lineRange": [22, 24], "content": "forward(): projects hidden_states into QKV at once, then splits into 3 vectors of 768." },
+        { "lineRange": [26, 28], "content": "Reshape: (batch, seq, heads, head_dim) → transpose to (batch, heads, seq, head_dim)." },
+        { "lineRange": [30, 33], "content": "Scaled dot-product: query @ key.T * scaling. masked_fill with -inf blocks future tokens. Softmax normalizes." },
+        { "lineRange": [35, 40], "content": "Output: weights @ value → transpose → reshape → c_proj → dropout → returns (output, attn_weights)." }
       ],
     },
   },
