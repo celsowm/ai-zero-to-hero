@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { PanelCard } from '../PanelCard';
@@ -8,6 +8,8 @@ import type { WeightsBiasesExplorerCopy, WeightsBiasesExplorerPanelCopy, Weights
 interface WeightsBiasesExplorerProps {
   copy: WeightsBiasesExplorerCopy;
 }
+
+const fontFamily = sw.fontSans;
 
 const eyebrowStyle: React.CSSProperties = {
   fontSize: 11,
@@ -73,25 +75,10 @@ const ControlPanel: React.FC<{
 }> = ({ panel, currentValue, isWeightTab, onChange }) => (
   <PanelCard>
     <div style={eyebrowStyle}>{panel.eyebrow}</div>
-    <div
-      style={{
-        fontSize: 20,
-        fontWeight: 700,
-        letterSpacing: '-0.02em',
-        color: 'var(--sw-text)',
-        marginBottom: 8,
-      }}
-    >
+    <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)', marginBottom: 8 }}>
       {panel.title}
     </div>
-    <p
-      style={{
-        margin: '0 0 18px 0',
-        fontSize: 14,
-        lineHeight: 1.7,
-        color: 'var(--sw-text-dim)',
-      }}
-    >
+    <p style={{ margin: '0 0 18px 0', fontSize: 14, lineHeight: 1.7, color: 'var(--sw-text-dim)' }}>
       {panel.description}
     </p>
     <SliderControl panel={panel} currentValue={currentValue} isWeight={isWeightTab} onChange={onChange} />
@@ -109,31 +96,50 @@ const CombinedControlPanel: React.FC<{
 }> = ({ combinedPanel, weightPanel, biasPanel, currentW, currentB, onWChange, onBChange }) => (
   <PanelCard>
     <div style={eyebrowStyle}>{combinedPanel.eyebrow}</div>
-    <div
-      style={{
-        fontSize: 20,
-        fontWeight: 700,
-        letterSpacing: '-0.02em',
-        color: 'var(--sw-text)',
-        marginBottom: 8,
-      }}
-    >
+    <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)', marginBottom: 8 }}>
       {combinedPanel.title}
     </div>
-    <p
-      style={{
-        margin: '0 0 18px 0',
-        fontSize: 14,
-        lineHeight: 1.7,
-        color: 'var(--sw-text-dim)',
-      }}
-    >
+    <p style={{ margin: '0 0 18px 0', fontSize: 14, lineHeight: 1.7, color: 'var(--sw-text-dim)' }}>
       {combinedPanel.description}
     </p>
     <SliderControl panel={weightPanel} currentValue={currentW} isWeight={true} onChange={onWChange} />
     <SliderControl panel={biasPanel} currentValue={currentB} isWeight={false} onChange={onBChange} />
   </PanelCard>
 );
+
+/* ── Chart constants ─────────────────────────────────────────── */
+const CHART_W = 400;
+const CHART_H = 280;
+const PAD = { left: 52, right: 20, top: 28, bottom: 36 };
+const PLOT_W = CHART_W - PAD.left - PAD.right;
+const PLOT_H = CHART_H - PAD.top - PAD.bottom;
+
+/** Generate "nice" tick marks for a given range */
+function niceTicks(min: number, max: number, maxTicks = 6): number[] {
+  const range = max - min;
+  if (range === 0) return [min];
+  const roughStep = range / (maxTicks - 1);
+  const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
+  const residual = roughStep / magnitude;
+  let niceStep: number;
+  if (residual <= 1.5) niceStep = 1 * magnitude;
+  else if (residual <= 3) niceStep = 2 * magnitude;
+  else if (residual <= 7) niceStep = 5 * magnitude;
+  else niceStep = 10 * magnitude;
+
+  const ticks: number[] = [];
+  let t = Math.ceil(min / niceStep) * niceStep;
+  while (t <= max + niceStep * 0.01) {
+    ticks.push(parseFloat(t.toFixed(10)));
+    t += niceStep;
+  }
+  return ticks;
+}
+
+function formatTick(v: number): string {
+  if (Math.abs(v) < 1e-9) return '0';
+  return Number.isInteger(v) ? String(v) : v.toFixed(1);
+}
 
 export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorerProps) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -147,30 +153,33 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
   const currentW = isWeightTab ? weightValue : isBiasTab ? 1 : weightValue;
   const currentB = isWeightTab ? 0 : isBiasTab ? biasValue : biasValue;
 
-  const handleWChange = (val: number) => setWeightValue(val);
-  const handleBChange = (val: number) => setBiasValue(val);
+  /* ── Dynamic Y range ─────────────────────────────────────── */
+  const xDomain = [-5, 5] as const;
+  const yAtMin = currentW * xDomain[0] + currentB;
+  const yAtMax = currentW * xDomain[1] + currentB;
+  const yAbsMax = Math.max(Math.abs(yAtMin), Math.abs(yAtMax), Math.abs(currentB), 1);
+  // Add 15% padding so the line never touches the edge
+  const yMargin = yAbsMax * 0.15 + 0.5;
+  const yMin = -yAbsMax - yMargin;
+  const yMax = yAbsMax + yMargin;
 
-  // ViewBox: -5 to 5 on X and Y axes.
-  const svgMinX = -5;
-  const svgMaxX = 5;
-  const svgMinY = -5;
-  const svgMaxY = 5;
-  
-  const getY = (x: number) => currentW * x + currentB;
+  /* ── Coordinate transforms ───────────────────────────────── */
+  const toSvgX = (x: number) => PAD.left + ((x - xDomain[0]) / (xDomain[1] - xDomain[0])) * PLOT_W;
+  const toSvgY = (y: number) => PAD.top + PLOT_H - ((y - yMin) / (yMax - yMin)) * PLOT_H;
 
-  const x1 = svgMinX;
-  const y1 = getY(x1);
-  const x2 = svgMaxX;
-  const y2 = getY(x2);
+  /* ── Ticks ───────────────────────────────────────────────── */
+  const xTicks = useMemo(() => niceTicks(xDomain[0], xDomain[1], 6), []); // xDomain is a constant
+  const yTicks = useMemo(() => niceTicks(yMin, yMax, 6), [yMin, yMax]);
+
+  /* ─ Line endpoints (extended beyond plot so it always crosses) ── */
+  const lineX1 = xDomain[0];
+  const lineY1 = currentW * lineX1 + currentB;
+  const lineX2 = xDomain[1];
+  const lineY2 = currentW * lineX2 + currentB;
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <TabsBar
-        ariaLabel="Weights and biases views"
-        items={copy.tabs}
-        activeIndex={activeTab}
-        onChange={setActiveTab}
-      />
+      <TabsBar ariaLabel="Weights and biases views" items={copy.tabs} activeIndex={activeTab} onChange={setActiveTab} />
 
       <TabbedPanelSurface>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 16 }}>
@@ -181,15 +190,15 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
               biasPanel={copy.biasPanel}
               currentW={currentW}
               currentB={currentB}
-              onWChange={handleWChange}
-              onBChange={handleBChange}
+              onWChange={(v) => setWeightValue(v)}
+              onBChange={(v) => setBiasValue(v)}
             />
           ) : (
             <ControlPanel
               panel={isWeightTab ? copy.weightPanel : copy.biasPanel}
               currentValue={isWeightTab ? weightValue : biasValue}
               isWeightTab={isWeightTab}
-              onChange={isWeightTab ? handleWChange : handleBChange}
+              onChange={isWeightTab ? (v) => setWeightValue(v) : (v) => setBiasValue(v)}
             />
           )}
 
@@ -204,56 +213,78 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
               minHeight: 200,
             }}
           >
-            <div style={{ position: 'absolute', top: 16, left: 16, fontSize: 13, fontWeight: 600, color: 'var(--sw-text)' }}>
+            {/* Chart title */}
+            <div style={{ position: 'absolute', top: 8, left: PAD.left + 4, fontSize: 12, fontWeight: 600, color: 'var(--sw-text)', fontFamily }}>
               {copy.chartTitle}
             </div>
-            <div style={{ position: 'absolute', bottom: 16, right: 16, fontSize: 11, fontWeight: 500, color: 'var(--sw-text-muted)' }}>
+            {/* Axis labels */}
+            <div style={{ position: 'absolute', bottom: 6, right: PAD.right + 4, fontSize: 10, color: 'var(--sw-text-muted)', fontFamily }}>
               {copy.xLabel}
             </div>
-            <div style={{ position: 'absolute', top: 16, right: 16, fontSize: 11, fontWeight: 500, color: 'var(--sw-text-muted)' }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: 2,
+                transform: 'translateY(-50%) rotate(-90deg)',
+                fontSize: 10,
+                color: 'var(--sw-text-muted)',
+                fontFamily,
+                whiteSpace: 'nowrap',
+              }}
+            >
               {copy.yLabel}
             </div>
-            
-            <svg
-              viewBox={`${svgMinX} ${svgMinY} ${svgMaxX - svgMinX} ${svgMaxY - svgMinY}`}
-              style={{ width: '100%', height: '100%', display: 'block', transform: 'scaleY(-1)' }}
-              preserveAspectRatio="xMidYMid meet"
-            >
-              {/* Grid Lines */}
-              {Array.from({ length: 11 }).map((_, i) => {
-                const pos = -5 + i;
-                return (
-                  <React.Fragment key={`grid-${i}`}>
-                    <line x1={pos} y1={svgMinY} x2={pos} y2={svgMaxY} stroke={sw.gridLineAlt} strokeWidth="0.05" />
-                    <line x1={svgMinX} y1={pos} x2={svgMaxX} y2={pos} stroke={sw.gridLineAlt} strokeWidth="0.05" />
-                  </React.Fragment>
-                );
-              })}
+
+            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} width="100%" height="100%" style={{ display: 'block' }}>
+              {/* Grid lines */}
+              {xTicks.map((tick) => (
+                <line key={`gx-${tick}`} x1={toSvgX(tick)} y1={PAD.top} x2={toSvgX(tick)} y2={PAD.top + PLOT_H} stroke={sw.gridLineAlt} strokeWidth="0.8" />
+              ))}
+              {yTicks.map((tick) => (
+                <line key={`gy-${tick}`} x1={PAD.left} y1={toSvgY(tick)} x2={PAD.left + PLOT_W} y2={toSvgY(tick)} stroke={sw.gridLineAlt} strokeWidth="0.8" />
+              ))}
 
               {/* Axes */}
-              <line x1={svgMinX} y1={0} x2={svgMaxX} y2={0} stroke={sw.axisLineStrong} strokeWidth="0.1" />
-              <line x1={0} y1={svgMinY} x2={0} y2={svgMaxY} stroke={sw.axisLineStrong} strokeWidth="0.1" />
+              {yMin <= 0 && yMax >= 0 && (
+                <line x1={PAD.left} y1={toSvgY(0)} x2={PAD.left + PLOT_W} y2={toSvgY(0)} stroke={sw.axisLineStrong} strokeWidth="1.5" />
+              )}
+              {xDomain[0] <= 0 && xDomain[1] >= 0 && (
+                <line x1={toSvgX(0)} y1={PAD.top} x2={toSvgX(0)} y2={PAD.top + PLOT_H} stroke={sw.axisLineStrong} strokeWidth="1.5" />
+              )}
 
-              {/* Dynamic Line */}
+              {/* Plot border */}
+              <rect x={PAD.left} y={PAD.top} width={PLOT_W} height={PLOT_H} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+
+              {/* Dynamic line */}
               <line
-                x1={x1}
-                y1={y1}
-                x2={x2}
-                y2={y2}
+                x1={toSvgX(lineX1)}
+                y1={toSvgY(lineY1)}
+                x2={toSvgX(lineX2)}
+                y2={toSvgY(lineY2)}
                 stroke={sw.pink}
-                strokeWidth="0.15"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 style={{ transition: 'all 0.1s ease-out' }}
               />
 
-              {/* Pivot Point */}
-              <circle
-                cx={0}
-                cy={currentB}
-                r="0.2"
-                fill={sw.cyan}
-                style={{ transition: 'all 0.1s ease-out' }}
-              />
+              {/* Pivot point at (0, b) */}
+              <circle cx={toSvgX(0)} cy={toSvgY(currentB)} r="5" fill={sw.cyan} style={{ transition: 'all 0.1s ease-out' }} />
+              <circle cx={toSvgX(0)} cy={toSvgY(currentB)} r="3" fill={sw.tint} style={{ transition: 'all 0.1s ease-out' }} />
+
+              {/* X-axis tick labels */}
+              {xTicks.map((tick) => (
+                <text key={`xl-${tick}`} x={toSvgX(tick)} y={PAD.top + PLOT_H + 16} textAnchor="middle" fontSize="9" fontFamily={fontFamily} fill="rgba(248,250,252,0.45)">
+                  {formatTick(tick)}
+                </text>
+              ))}
+
+              {/* Y-axis tick labels */}
+              {yTicks.map((tick) => (
+                <text key={`yl-${tick}`} x={PAD.left - 6} y={toSvgY(tick) + 3.5} textAnchor="end" fontSize="9" fontFamily={fontFamily} fill="rgba(248,250,252,0.45)">
+                  {formatTick(tick)}
+                </text>
+              ))}
             </svg>
           </div>
         </div>
