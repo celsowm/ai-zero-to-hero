@@ -109,7 +109,7 @@ Now the translation to math:
             [
             "Integração dos sinais",
             "z = w^T x + b",
-            "Combina as entradas ponderadas"
+            "Combina as entradas ponderadas (w^T = w transposto: w·x = soma dos produtos)"
           ],
             [
             "Disparo / saída",
@@ -236,7 +236,7 @@ Now the translation to math:
             [
             "Signal integration",
             "z = w^T x + b",
-            "Combines the weighted inputs"
+            "Combines the weighted inputs (w^T = w transpose: w·x = sum of products)"
           ],
             [
             "Firing / output",

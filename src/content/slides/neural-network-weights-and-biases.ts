@@ -79,7 +79,7 @@ export const neuralNetworkWeightsAndBiases = defineSlide({
   content: {
     'pt-br': {
       title: `Pesos e vieses: o que cada um faz`,
-      body: `Quando escrevemos \`z = w^T x + b\` *(lê-se: "zê igual a w transposto vezes x mais bê")*, dois tipos de parâmetro aparecem. Eles não fazem a mesma coisa.
+      body: `Quando escrevemos \`z = w^T x + b\`, dois tipos de parâmetro aparecem. Eles não fazem a mesma coisa.
 
 1. **Peso (\`w\`) multiplica entrada:** ele mede o quanto cada feature empurra a resposta do neurônio.
 
@@ -133,7 +133,7 @@ Se dois neurônios recebem as mesmas entradas, mas têm pesos ou viés diferente
     },
     'en-us': {
       title: `Weights and biases: what each one does`,
-      body: `When we write \`z = w^T x + b\` *(read as: "z equals w transpose times x plus b")*, two kinds of parameters appear. They do not play the same role.
+      body: `When we write \`z = w^T x + b\`, two kinds of parameters appear. They do not play the same role.
 
 1. **Weight (\`w\`) multiplies an input:** it measures how much each feature pushes the neuron's response.
 
