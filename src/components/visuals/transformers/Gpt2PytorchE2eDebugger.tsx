@@ -40,7 +40,7 @@ export const Gpt2PytorchE2eDebugger = React.memo(({ copy }: Props) => {
       nextToken: 'generation',
     };
     return copy.codeHighlightRanges[rangeMap[phase] ?? 'embedding'] ?? null;
-  }, [copy.codeHighlightRanges, phase]);
+  }, [copy, phase]);
 
   const explanation = copy.phaseExplanations?.[phase] ?? '';
 

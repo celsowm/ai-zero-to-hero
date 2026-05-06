@@ -154,9 +154,10 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
   const currentB = isWeightTab ? 0 : isBiasTab ? biasValue : biasValue;
 
   /* ── Dynamic Y range ─────────────────────────────────────── */
-  const xDomain = [-5, 5] as const;
-  const yAtMin = currentW * xDomain[0] + currentB;
-  const yAtMax = currentW * xDomain[1] + currentB;
+  const xMin = -5;
+  const xMax = 5;
+  const yAtMin = currentW * xMin + currentB;
+  const yAtMax = currentW * xMax + currentB;
   const yAbsMax = Math.max(Math.abs(yAtMin), Math.abs(yAtMax), Math.abs(currentB), 1);
   // Add 15% padding so the line never touches the edge
   const yMargin = yAbsMax * 0.15 + 0.5;
@@ -164,17 +165,17 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
   const yMax = yAbsMax + yMargin;
 
   /* ── Coordinate transforms ───────────────────────────────── */
-  const toSvgX = (x: number) => PAD.left + ((x - xDomain[0]) / (xDomain[1] - xDomain[0])) * PLOT_W;
+  const toSvgX = (x: number) => PAD.left + ((x - xMin) / (xMax - xMin)) * PLOT_W;
   const toSvgY = (y: number) => PAD.top + PLOT_H - ((y - yMin) / (yMax - yMin)) * PLOT_H;
 
   /* ── Ticks ───────────────────────────────────────────────── */
-  const xTicks = useMemo(() => niceTicks(xDomain[0], xDomain[1], 6), []); // xDomain is a constant
+  const xTicks = useMemo(() => niceTicks(xMin, xMax, 6), [xMin, xMax]);
   const yTicks = useMemo(() => niceTicks(yMin, yMax, 6), [yMin, yMax]);
 
   /* ─ Line endpoints (extended beyond plot so it always crosses) ── */
-  const lineX1 = xDomain[0];
+  const lineX1 = xMin;
   const lineY1 = currentW * lineX1 + currentB;
-  const lineX2 = xDomain[1];
+  const lineX2 = xMax;
   const lineY2 = currentW * lineX2 + currentB;
 
   return (
@@ -249,7 +250,7 @@ export const WeightsBiasesExplorer = React.memo(({ copy }: WeightsBiasesExplorer
               {yMin <= 0 && yMax >= 0 && (
                 <line x1={PAD.left} y1={toSvgY(0)} x2={PAD.left + PLOT_W} y2={toSvgY(0)} stroke={sw.axisLineStrong} strokeWidth="1.5" />
               )}
-              {xDomain[0] <= 0 && xDomain[1] >= 0 && (
+              {xMin <= 0 && xMax >= 0 && (
                 <line x1={toSvgX(0)} y1={PAD.top} x2={toSvgX(0)} y2={PAD.top + PLOT_H} stroke={sw.axisLineStrong} strokeWidth="1.5" />
               )}
 
