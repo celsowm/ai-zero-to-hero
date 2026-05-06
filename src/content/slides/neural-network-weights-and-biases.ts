@@ -121,7 +121,15 @@ z  = t1 + t2 + t3 + b  # 0.20
 \`\`\`
 
 ### Ideia principal
-Se dois neurônios recebem as mesmas entradas, mas têm pesos ou viés diferentes, eles podem reagir de formas completamente diferentes.`,
+Se dois neurônios recebem as mesmas entradas, mas têm pesos ou viés diferentes, eles podem reagir de formas completamente diferentes.
+
+### Por que uma reta se neurônios são não-lineares?
+Boa pergunta. Este slide mostra **só a parte linear** — o cálculo de \`z\` **antes** da ativação. A função \`σ(z)\` (sigmoid, ReLU, etc.) entra no próximo slide e é ela que curva a reta.
+
+1. **Pesos + viés** → produzem uma reta (combinação linear)
+2. **Ativação** → "dobra" essa reta, criando não-linearidade
+
+Sem o passo 2, toda a rede seria equivalente a uma única regressão linear — por isso a ativação é essencial.`,
       codeExplanations: [
 
   ],
@@ -170,7 +178,15 @@ z  = t1 + t2 + t3 + b  # 0.20
 \`\`\`
 
 ### Main idea
-If two neurons receive the same inputs but have different weights or bias, they can react in completely different ways.`,
+If two neurons receive the same inputs but have different weights or bias, they can react in completely different ways.
+
+### Why a straight line if neurons are non-linear?
+Good question. This slide shows **only the linear part** — the calculation of \`z\` **before** activation. The function \`σ(z)\` (sigmoid, ReLU, etc.) comes in the next slide and is what curves the line.
+
+1. **Weights + bias** → produce a straight line (linear combination)
+2. **Activation** → "bends" that line, creating non-linearity
+
+Without step 2, the entire network would be equivalent to a single linear regression — that's why activation is essential.`,
       codeExplanations: [
 
   ],
