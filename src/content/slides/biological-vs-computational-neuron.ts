@@ -138,7 +138,7 @@ Now the translation to math:
             [
             "z = w^T x + b",
             "Soma ponderada + viés",
-            "Integra as informações de entrada"
+            "Integra as informações de entrada (w^T = w transposto: w·x = soma dos produtos)"
           ],
             [
             "a = σ(z)",
@@ -265,7 +265,7 @@ Now the translation to math:
             [
             "z = w^T x + b",
             "Weighted sum + bias",
-            "Integrates input information"
+            "Integrates input information (w^T = w transpose: w·x = sum of products)"
           ],
             [
             "a = σ(z)",
