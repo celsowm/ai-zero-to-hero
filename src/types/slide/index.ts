@@ -12,3 +12,7 @@ export * from './bpe-tokenization';
 export * from './llamaindex';
 export * from './langchain';
 export * from './inference-engines';
+export * from './synthetic-data';
+export * from './prompt-engineering';
+export * from './tool-calling';
+export * from './markdown';

@@ -170,3 +170,10 @@ export { RealDatasetsPromptsVisual } from './prompt-engineering/RealDatasetsProm
 // markdown
 export { MarkdownOutputCompare } from './markdown/MarkdownOutputCompare';
 export { MarkdownSyntaxVisual } from './markdown/MarkdownSyntaxVisual';
+
+// synthetic data
+export { SyntheticDataDemoVisual } from './synthetic-data/SyntheticDataDemoVisual';
+export { SyntheticDataIntroVisual } from './synthetic-data/SyntheticDataIntroVisual';
+export { SyntheticDataPipelineVisual } from './synthetic-data/SyntheticDataPipelineVisual';
+export { SyntheticDataTaxonomyVisual } from './synthetic-data/SyntheticDataTaxonomyVisual';
+export { SyntheticDataValdoriaVisual } from './synthetic-data/SyntheticDataValdoriaVisual';

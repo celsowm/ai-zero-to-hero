@@ -111,6 +111,11 @@ const visualMap: Record<string, string> = {
   'road-to-mini-transformer': 'RoadToMiniTransformer',
   'pipeline-flow-diagram': 'PipelineFlowDiagram',
   'sft-intro': 'SftIntro',
+  'synthetic-data-demo-visual': 'SyntheticDataDemoVisual',
+  'synthetic-data-intro-visual': 'SyntheticDataIntroVisual',
+  'synthetic-data-pipeline-visual': 'SyntheticDataPipelineVisual',
+  'synthetic-data-taxonomy-visual': 'SyntheticDataTaxonomyVisual',
+  'synthetic-data-valdoria-visual': 'SyntheticDataValdoriaVisual',
   'build-gpt2-model': 'BuildGpt2Model',
 
   // rag

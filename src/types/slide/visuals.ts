@@ -104,6 +104,13 @@ import type {
   WhyTransformersWorkCopy,
 } from './transformers';
 import type {
+  SyntheticDataIntroVisualCopy,
+  SyntheticDataNegativesVisualCopy,
+  SyntheticDataPipelineVisualCopy,
+  SyntheticDataTaxonomyVisualCopy,
+  SyntheticDataValdoriaVisualCopy,
+} from './synthetic-data';
+import type {
   ActivationFunctionsComparatorCopy,
   ArchitectureComparatorCopy,
   BackpropSignalFlowVisualCopy,
@@ -250,6 +257,11 @@ interface VisualCopyMap {
   'road-to-mini-transformer': RoadToMiniTransformerCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   'sft-intro': SftIntroCopy;
+  'synthetic-data-intro-visual': SyntheticDataIntroVisualCopy;
+  'synthetic-data-pipeline-visual': SyntheticDataPipelineVisualCopy;
+  'synthetic-data-taxonomy-visual': SyntheticDataTaxonomyVisualCopy;
+  'synthetic-data-demo-visual': SyntheticDataNegativesVisualCopy;
+  'synthetic-data-valdoria-visual': SyntheticDataValdoriaVisualCopy;
   'system-prompt-explorer': SystemPromptExplorerCopy;
   'build-gpt2-model': BuildGpt2ModelCopy;
   // rag

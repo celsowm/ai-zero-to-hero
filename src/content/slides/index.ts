@@ -211,6 +211,11 @@ import { sftDataset } from './sft-dataset';
 import { sftGenerate } from './sft-generate';
 import { sftIntro } from './sft-intro';
 import { sftTrain } from './sft-train';
+import { syntheticDataDemo } from './synthetic-data-demo';
+import { syntheticDataIntro } from './synthetic-data-intro';
+import { syntheticDataPipeline } from './synthetic-data-pipeline';
+import { syntheticDataTaxonomy } from './synthetic-data-taxonomy';
+import { syntheticDataValdoria } from './synthetic-data-valdoria';
 import { tokenizationDeepDive } from './tokenization-deep-dive';
 import { tokenizationIntro } from './tokenization-intro';
 import { tokenizationWeThePeople } from './tokenization-we-the-people';
@@ -447,11 +452,16 @@ export const allSlides: ISlide[] = [
   residualStream,
   roadToMiniTransformer,
   samplingControls,
-  sftDataset,
-  sftGenerate,
   sftIntro,
   systemPromptIntro,
+  sftDataset,
   sftTrain,
+  sftGenerate,
+  syntheticDataIntro,
+  syntheticDataPipeline,
+  syntheticDataTaxonomy,
+  syntheticDataDemo,
+  syntheticDataValdoria,
   tokenizationDeepDive,
   tokenizationIntro,
   tokenizationWeThePeople,
