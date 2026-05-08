@@ -29,7 +29,7 @@ export const moeExercise = defineSlide({
           {
           "id": "1. Seleção Top-1",
           "instructions": "O roteador calculou scores para 4 especialistas. Identifique o índice do especialista com o maior score.\n\nDica: use `scores.index(max(scores))`",
-          "starterCode": "def get_top_expert(scores):\n    # scores: lista de floats (ex: [0.1, 0.8, 0.05, 0.05])\n    # retorne o índice do maior score\n    return \n\n# Teste\nscores = [0.12, 0.05, 0.73, 0.1]\nprint(f\"Especialista escolhido: {get_top_expert(scores)}\")",
+          "snippetId": "moe-exercise-1-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -45,7 +45,7 @@ export const moeExercise = defineSlide({
           {
           "id": "2. Saída Ponderada (Gated Output)",
           "instructions": "No MoE, a saída final é a saída do especialista multiplicada pelo peso dado pelo roteador.\n\n`final_output = weight * expert_output`",
-          "starterCode": "def calculate_moe_output(weight, expert_output):\n    # multiplique cada elemento de expert_output pelo peso\n    return [val * weight for val in expert_output]\n\n# Teste\nweight = 0.8\noutput = [1.0, 2.0, -1.0]\nresult = calculate_moe_output(weight, output)\nprint(f\"Saída Gated: {result}\")",
+          "snippetId": "moe-exercise-2-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -73,7 +73,7 @@ export const moeExercise = defineSlide({
           {
           "id": "1. Top-1 Selection",
           "instructions": "The router calculated scores for 4 experts. Identify the index of the expert with the highest score.\n\nHint: use `scores.index(max(scores))`",
-          "starterCode": "def get_top_expert(scores):\n    # scores: list of floats (e.g., [0.1, 0.8, 0.05, 0.05])\n    # return the index of the highest score\n    return \n\n# Test\nscores = [0.12, 0.05, 0.73, 0.1]\nprint(f\"Chosen expert: {get_top_expert(scores)}\")",
+          "snippetId": "moe-exercise-3-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -89,7 +89,7 @@ export const moeExercise = defineSlide({
           {
           "id": "2. Gated Output",
           "instructions": "In MoE, the final output is the expert's output multiplied by the weight given by the router.\n\n`final_output = weight * expert_output`",
-          "starterCode": "def calculate_moe_output(weight, expert_output):\n    # multiply each element of expert_output by the weight\n    return [val * weight for val in expert_output]\n\n# Test\nweight = 0.8\noutput = [1.0, 2.0, -1.0]\nresult = calculate_moe_output(weight, output)\nprint(f\"Gated Output: {result}\")",
+          "snippetId": "moe-exercise-4-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",

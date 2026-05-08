@@ -30,7 +30,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "1. Cálculo do MSE",
           "instructions": "Complete a função `calculate_mse(y_true, y_pred)` que calcula o Erro Quadrático Médio.\n\nA fórmula é: `média((y_true - y_pred) ** 2)`",
-          "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true e y_pred são listas de números de mesmo tamanho\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calcule o erro ao quadrado e some ao total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# teste\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+          "snippetId": "linear-regression-exercise-1-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -59,7 +59,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "2. Fix the Bug: Gradient Descent ao Contrário?",
           "instructions": "Alguém escreveu a atualização do Gradient Descent — mas tem um bug sutil.\n\nRode o código e observe: os valores de `w` estão **explodindo** ao invés de convergir.\n\nEncontre o sinal errado e corrija. O Gradient Descent deve **subtrair** o gradiente, não somar.\n\n**Dica:** observe a direção em que `w` está se movendo a cada passo.",
-          "starterCode": "def update_w(w, gradient, lr):\n    # BUG: esta função está fazendo w divergir!\n    # Encontre e corrija o sinal errado.\n    return w + lr * gradient\n\nw = 5.0\nlr = 0.1\nprint(\"Com o BUG:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Passo {i+1}: w = {w:.4f}\")\n\n# Agora corrija a função e rode de novo:\nw = 5.0\nprint(\"\\nCorrigido:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Passo {i+1}: w = {w:.4f}\")",
+          "snippetId": "linear-regression-exercise-2-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -90,30 +90,22 @@ export const linearRegressionExercise = defineSlide({
             "tolerance": 0.001
           },
             {
-            "type": "assertFunctionReturn",
-            "functionName": "predict",
-            "args": [
-              70,
-              3,
-              30,
-              1.2,
-              -2.0
-            ],
-            "expectedReturn": 108.0,
-            "tolerance": 0.001
+            "type": "assertVariable",
+            "variableName": "b0",
+            "expectedValue": 30,
+            "tolerance": 3
           },
             {
-            "type": "assertFunctionReturn",
-            "functionName": "predict",
-            "args": [
-              45,
-              8,
-              30,
-              1.2,
-              -2.0
-            ],
-            "expectedReturn": 68.0,
-            "tolerance": 0.001
+            "type": "assertVariable",
+            "variableName": "b1",
+            "expectedValue": 1.2,
+            "tolerance": 0.2
+          },
+            {
+            "type": "assertVariable",
+            "variableName": "b2",
+            "expectedValue": -2.0,
+            "tolerance": 0.3
           }
           ],
           "hints": [
@@ -126,7 +118,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "4. Experiment: Qual predição erra mais?",
           "instructions": "Dado um modelo `y_hat = 10 + 2*x`, temos 4 pontos reais:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Antes de rodar:** qual ponto tem o maior erro absoluto? Calcule mentalmente.\n\nDepois rode e descubra se acertou!",
-          "starterCode": "def predict(x):\n    return 10 + 2 * x\n\ndata = [(3, 18), (5, 15), (7, 30), (1, 14)]\n\nprint(\"Erros:\")\nmax_err = 0\nworst_x = None\nfor x, y_real in data:\n    y_hat = predict(x)\n    erro = abs(y_real - y_hat)\n    print(f\"  x={x}: y_hat={y_hat}, y_real={y_real}, erro={erro}\")\n    if erro > max_err:\n        max_err = erro\n        worst_x = x\n\nprint(f\"\\nMaior erro: x={worst_x} com erro={max_err}\")",
+          "snippetId": "linear-regression-exercise-4-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -141,7 +133,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "5. Gradient Descent 1D",
           "instructions": "Simule 5 passos de Gradient Descent para encontrar o mínimo de `f(w) = w²`.\n\nO gradiente é `df/dw = 2*w`. A cada passo: `w = w - lr * 2*w`.\n\nComece com `w = 5.0` e `lr = 0.1`.",
-          "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calcule o gradiente de f(w) = w²\n    gradiente = \n    # atualize w\n    w = \n    print(f\"Passo {i+1}: w = {w:.4f}\")",
+          "snippetId": "linear-regression-exercise-5-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -169,7 +161,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "1. MSE Calculation",
           "instructions": "Complete the `calculate_mse(y_true, y_pred)` function that calculates the Mean Squared Error.\n\nThe formula is: `mean((y_true - y_pred) ** 2)`",
-          "starterCode": "def calculate_mse(y_true, y_pred):\n    # y_true and y_pred are lists of numbers of the same length\n    total_error = 0\n    for i in range(len(y_true)):\n        # complete: calculate squared error and add to total\n        diff = \n        total_error += \n    \n    return total_error / len(y_true)\n\n# test\ny_real = [10, 20, 30]\ny_previsto = [12, 18, 33]\nprint(f\"MSE: {calculate_mse(y_real, y_previsto)}\")",
+          "snippetId": "linear-regression-exercise-6-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -198,7 +190,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "2. Fix the Bug: Gradient Descent Backwards?",
           "instructions": "Someone wrote the Gradient Descent update — but there's a subtle bug.\n\nRun the code and observe: the `w` values are **exploding** instead of converging.\n\nFind the wrong sign and fix it. Gradient Descent should **subtract** the gradient, not add it.\n\n**Hint:** watch the direction `w` moves each step.",
-          "starterCode": "def update_w(w, gradient, lr):\n    # BUG: this function makes w diverge!\n    # Find and fix the wrong sign.\n    return w + lr * gradient\n\nw = 5.0\nlr = 0.1\nprint(\"With the BUG:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Step {i+1}: w = {w:.4f}\")\n\n# Now fix the function and run again:\nw = 5.0\nprint(\"\\nFixed:\")\nfor i in range(5):\n    grad = 2 * w\n    w = update_w(w, grad, lr)\n    print(f\"  Step {i+1}: w = {w:.4f}\")",
+          "snippetId": "linear-regression-exercise-7-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -229,30 +221,22 @@ export const linearRegressionExercise = defineSlide({
             "tolerance": 0.001
           },
             {
-            "type": "assertFunctionReturn",
-            "functionName": "predict",
-            "args": [
-              70,
-              3,
-              30,
-              1.2,
-              -2.0
-            ],
-            "expectedReturn": 108.0,
-            "tolerance": 0.001
+            "type": "assertVariable",
+            "variableName": "b0",
+            "expectedValue": 30,
+            "tolerance": 3
           },
             {
-            "type": "assertFunctionReturn",
-            "functionName": "predict",
-            "args": [
-              45,
-              8,
-              30,
-              1.2,
-              -2.0
-            ],
-            "expectedReturn": 68.0,
-            "tolerance": 0.001
+            "type": "assertVariable",
+            "variableName": "b1",
+            "expectedValue": 1.2,
+            "tolerance": 0.2
+          },
+            {
+            "type": "assertVariable",
+            "variableName": "b2",
+            "expectedValue": -2.0,
+            "tolerance": 0.3
           }
           ],
           "hints": [
@@ -264,7 +248,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "4. Experiment: Which prediction is most wrong?",
           "instructions": "Given a model `y_hat = 10 + 2*x`, we have 4 real data points:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Before running:** which point has the largest absolute error? Calculate mentally.\n\nThen run and see if you were right!",
-          "starterCode": "def predict(x):\n    return 10 + 2 * x\n\ndata = [(3, 18), (5, 15), (7, 30), (1, 14)]\n\nprint(\"Errors:\")\nmax_err = 0\nworst_x = None\nfor x, y_real in data:\n    y_hat = predict(x)\n    error = abs(y_real - y_hat)\n    print(f\"  x={x}: y_hat={y_hat}, y_real={y_real}, error={error}\")\n    if error > max_err:\n        max_err = error\n        worst_x = x\n\nprint(f\"\\nLargest error: x={worst_x} with error={max_err}\")",
+          "snippetId": "linear-regression-exercise-9-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -279,7 +263,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "5. 1D Gradient Descent",
           "instructions": "Simulate 5 steps of Gradient Descent to find the minimum of `f(w) = w²`.\n\nThe gradient is `df/dw = 2*w`. Each step: `w = w - lr * 2*w`.\n\nStart with `w = 5.0` and `lr = 0.1`.",
-          "starterCode": "w = 5.0\nlr = 0.1\n\nfor i in range(5):\n    # calculate gradient of f(w) = w²\n    gradient = \n    # update w\n    w = \n    print(f\"Step {i+1}: w = {w:.4f}\")",
+          "snippetId": "linear-regression-exercise-10-en-us",
           "validators": [
             {
             "type": "assertOutput",

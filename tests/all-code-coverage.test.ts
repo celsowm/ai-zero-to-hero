@@ -179,7 +179,7 @@ describe('ALL code explanation coverage (Python & JS)', () => {
 
       // Skip exercise starter snippets — they are meant for students to complete,
       // not for slides with line-by-line explanations.
-      if (snippetId.includes('-exercise-')) continue;
+      if (snippetId.includes('-exercise-') || snippetId.includes('-exercises-')) continue;
 
       const lang: 'pt-br' | 'en-us' = relativePath.includes('.en-us.') ? 'en-us' : 'pt-br';
 

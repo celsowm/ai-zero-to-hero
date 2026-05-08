@@ -29,7 +29,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "1. Reverse Engineering: Qual o shape?",
           "instructions": "Você vê a **saída** de um tensor, mas não sabe como foi criado.\n\nDado o output abaixo, descubra qual chamada `np.zeros()` ou `np.ones()` o produziu.\n\n**Dica:** conte os colchetes — cada nível é uma dimensão.",
-          "starterCode": "import numpy as np\n\n# OUTPUT 1: o que você vê\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Pergunta: qual np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: outro mistério\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Pergunta: qual np.ones(...)?\n# shape = (?, ?, ?)\n\n# Crie os tensores e verifique:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (deveria produzir {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (deveria produzir {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nIguais? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
+          "snippetId": "pytorch-basics-exercise-1-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -44,7 +44,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "2. Operações e Reshape",
           "instructions": "Dada uma matriz 2x2, multiplique todos os elementos por 10 e depois mude o shape para (4, 1).",
-          "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiplique data por 10\n    tensor = \n    # 2. mude o shape para (4, 1)\n    reshaped = \n    return reshaped\n\n# teste\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+          "snippetId": "pytorch-basics-exercise-2-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -86,7 +86,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "3. Fix the Bug: Broadcasting que falha",
           "instructions": "Alguém quer somar um vetor de bias `(3,)` a cada linha de uma matriz `(3, 3)`. Mas o código quebra!\n\nRode e veja o erro. O problema é que o bias tem shape `(3,)` mas deveria ser `(3, 1)` para o broadcasting funcionar corretamente.\n\n**Desafio:** corrija o shape do bias para que o broadcasting funcione.",
-          "starterCode": "import numpy as np\n\ndef add_bias():\n    # Matriz de dados (3 amostras, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias com shape errado\n    bias = np.array([100, 200, 300], dtype=float)\n    # O broadcasting tenta somar bias a cada elemento...\n    # Para somar por coluna, bias precisa ser reshape!\n    \n    # CORRIGIDO: bias como coluna (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResultado com broadcasting corrigido:\")\nprint(add_bias())",
+          "snippetId": "pytorch-basics-exercise-3-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -122,7 +122,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "4. Simulação de Mini-Batch",
           "instructions": "Simule um mini-batch de treino: crie 4 amostras com 3 features cada.\n\nCalcule a média de cada feature ao longo do batch (eixo 0).\n\nIsso simula o cálculo de estatísticas de batch usado em BatchNorm.",
-          "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch é um array (4, 3) - 4 amostras, 3 features\n    # calcule a média de cada feature\n    means = \n    # calcule o desvio padrão de cada feature\n    stds = \n    return means, stds\n\n# teste\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Médias: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+          "snippetId": "pytorch-basics-exercise-4-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -186,7 +186,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "1. Reverse Engineering: What's the shape?",
           "instructions": "You see the **output** of a tensor, but don't know how it was created.\n\nGiven the output below, figure out which `np.zeros()` or `np.ones()` call produced it.\n\n**Hint:** count the brackets — each nesting level is a dimension.",
-          "starterCode": "import numpy as np\n\n# OUTPUT 1: what you see\noutput1 = [[0., 0., 0.], [0., 0., 0.]]\nprint(\"Output 1:\", output1)\n# Question: which np.zeros(...)?\n# shape = (?, ?)\n\n# OUTPUT 2: another mystery\noutput2 = [[[1., 1.], [1., 1.], [1., 1.]]]\nprint(\"\\nOutput 2:\", output2)\n# Question: which np.ones(...)?\n# shape = (?, ?, ?)\n\n# Create the tensors and verify:\nt1 = np.zeros((2, 3))\nt2 = np.ones((1, 3, 2))\n\nprint(f\"\\nt1.shape = {t1.shape}  (should produce {len(output1)}x{len(output1[0])})\")\nprint(f\"t2.shape = {t2.shape}  (should produce {len(output2)}x{len(output2[0])}x{len(output2[0][0])})\")\nprint(f\"\\nMatch? t1: {np.allclose(t1, output1)}, t2: {np.allclose(t2, output2)}\")",
+          "snippetId": "pytorch-basics-exercise-5-en-us",
           "validators": [
             {
             "type": "assertOutput",
@@ -201,7 +201,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "2. Operations and Reshape",
           "instructions": "Given a 2x2 matrix, multiply all elements by 10 and then change the shape to (4, 1).",
-          "starterCode": "import numpy as np\n\ndef process_tensor(data):\n    # 1. multiply data by 10\n    tensor = \n    # 2. change shape to (4, 1)\n    reshaped = \n    return reshaped\n\n# test\noriginal = np.array([[1, 2], [3, 4]])\nprint(process_tensor(original))",
+          "snippetId": "pytorch-basics-exercise-6-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -243,7 +243,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "3. Fix the Bug: Broadcasting gone wrong",
           "instructions": "Someone wants to add a bias vector `(3,)` to each row of a `(3, 3)` matrix. But the code fails!\n\nRun and see the error. The bias has shape `(3,)` but needs to be `(3, 1)` for broadcasting to work correctly.\n\n**Challenge:** fix the bias shape so broadcasting works.",
-          "starterCode": "import numpy as np\n\ndef add_bias():\n    # Data matrix (3 samples, 3 features)\n    data = np.array([[1, 2, 3],\n                     [4, 5, 6],\n                     [7, 8, 9]], dtype=float)\n    \n    # BUG: bias with wrong shape\n    bias = np.array([100, 200, 300], dtype=float)\n    # Broadcasting tries to add bias to each element...\n    # To add per column, bias needs a reshape!\n    \n    # FIXED: bias as a column (3, 1)\n    bias_fixed = bias.reshape(3, 1)\n    result = data + bias_fixed\n    return result\n\nprint(\"Data:\")\nprint(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))\nprint(f\"\\nResult with fixed broadcasting:\")\nprint(add_bias())",
+          "snippetId": "pytorch-basics-exercise-7-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -279,7 +279,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "4. Mini-Batch Simulation",
           "instructions": "Simulate a training mini-batch: create 4 samples with 3 features each.\n\nCalculate the mean of each feature across the batch (axis 0).\n\nThis simulates the batch statistics calculation used in BatchNorm.",
-          "starterCode": "import numpy as np\n\ndef batch_stats(batch):\n    # batch is a (4, 3) array - 4 samples, 3 features\n    # calculate the mean of each feature\n    means = \n    # calculate the std of each feature\n    stds = \n    return means, stds\n\n# test\nnp.random.seed(42)\nbatch = np.random.randn(4, 3)\nm, s = batch_stats(batch)\nprint(f\"Means: {np.round(m, 4)}\")\nprint(f\"Stds: {np.round(s, 4)}\")",
+          "snippetId": "pytorch-basics-exercise-8-en-us",
           "validators": [
             {
             "type": "assertFunctionReturn",
