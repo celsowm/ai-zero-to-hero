@@ -12,17 +12,17 @@ export const neuralNetworkPytorchTraining = defineSlide({
   content: {
     'pt-br': {
       title: `Rede Neural com \`torch\`: treinando o mesmo caso em menos linhas`,
-      body: `Agora repetimos o problema e2e do paciente fumante, com as mesmas quatro features e o mesmo alvo binário, mas usando o backend que vai reaparecer depois com \`transformers\`.
+      body: `No slide anterior vimos o loop de treino completo — aqui repetimos o problema e2e do paciente fumante com **os dados como tensores PyTorch**, o que antes era lista Python pura.
 
-1. **Os dados continuam iguais:** \`idade\`, \`pressao\`, \`colesterol\` e \`fumante\` entram; a classe binária continua saindo no fim.
+1. **A novidade são os tensores:** \`idade\`, \`pressao\`, \`colesterol\` e \`fumante\` agora entram como \`torch.tensor\` com \`dtype=torch.float32\`. É o formato que o PyTorch espera.
 
-2. **A arquitetura ainda é uma MLP \`4 -> 3 -> 1\`:** só que agora declaramos isso com \`nn.Sequential\`, \`nn.Linear\` e \`nn.Sigmoid\`.
+2. **A arquitetura é a mesma MLP \`4 -> 3 -> 1\`:** já explicada no slide anterior — o que muda aqui é que os dados de entrada são tensores desde o início.
 
-3. **O treino ainda tem loss, gradiente e update:** a diferença é que usamos a \`BCELoss\` (que vimos no slide anterior), \`backward()\` e \`optimizer.step()\` para centralizar a parte mecânica.
+3. **BCELoss e o loop já foram apresentados:** a única diferença aqui é que os dados são reais (criados como tensores), não placeholders.
 
 4. **Mapeamento direto com o que vimos:** o \`forward\` ainda existe quando chamamos \`model(X)\`, o gradiente ainda existe em \`loss.backward()\`, e a atualização ainda existe em \`optimizer.step()\`.
 
-> A rede continua aprendendo do mesmo jeito. O que some é o trabalho braçal de escrever tudo à mão.
+> A rede continua aprendendo do mesmo jeito. O que muda é que agora os dados já nascem no formato que o PyTorch entende.
 
 ---
 
@@ -31,10 +31,10 @@ snippet:neural-networks/pytorch-training
 \`\`\`
 
 ### O que observar
-- \`X\` e \`y\`: mesmo dataset do exemplo manual
-- \`nn.Sequential(...)\`: descreve a arquitetura em poucas linhas
-- \`loss.backward()\`: PyTorch calcula os gradientes
-- \`optimizer.step()\`: PyTorch aplica a atualização dos pesos`,
+- \`X\` e \`y\`: agora como \`torch.tensor\`, não listas Python
+- \`dtype=torch.float32\`: tipo numérico que o PyTorch espera
+- \`manual_seed(7)\`: garante reprodutibilidade dos pesos iniciais
+- O resto do loop é **idêntico** ao slide anterior`,
       codeExplanations: [
     {
     "lineRange": [
@@ -82,17 +82,17 @@ snippet:neural-networks/pytorch-training
     },
     'en-us': {
       title: `Neural Network with \`torch\`: training the same case in fewer lines`,
-      body: `Now we repeat the full smoker-patient problem, with the same four features and the same binary target, but using the backend that will reappear later with \`transformers\`.
+      body: `In the previous slide we saw the full training loop — here we repeat the smoker-patient e2e problem with **the data as PyTorch tensors**, which was previously plain Python lists.
 
-1. **The data stays the same:** \`age\`, \`pressure\`, \`cholesterol\`, and \`smoker\` go in; the binary class still comes out at the end.
+1. **The novelty is the tensors:** \`age\`, \`pressure\`, \`cholesterol\`, and \`smoker\` now enter as \`torch.tensor\` with \`dtype=torch.float32\`. This is the format PyTorch expects.
 
-2. **The architecture is still a \`4 -> 3 -> 1\` MLP:** except now we declare it with \`nn.Sequential\`, \`nn.Linear\`, and \`nn.Sigmoid\`.
+2. **The architecture is the same \`4 -> 3 -> 1\` MLP:** already explained in the previous slide — what changes here is that input data are tensors from the start.
 
-3. **Training still has loss, gradients, and updates:** the difference is that we use \`BCELoss\` (which we saw in the previous slide), \`backward()\`, and \`optimizer.step()\` to centralize the mechanical part.
+3. **BCELoss and the loop were already introduced:** the only difference here is that the data are real (created as tensors), not placeholders.
 
 4. **Direct mapping to what we already saw:** \`forward\` still exists when we call \`model(X)\`, gradients still exist in \`loss.backward()\`, and updates still exist in \`optimizer.step()\`.
 
-> The network keeps learning the same way. What disappears is the manual work of writing everything by hand.
+> The network keeps learning the same way. What changes is that data now start in the format PyTorch understands.
 
 ---
 
@@ -101,10 +101,10 @@ snippet:neural-networks/pytorch-training
 \`\`\`
 
 ### What to watch
-- \`X\` and \`y\`: the same dataset from the manual example
-- \`nn.Sequential(...)\`: describes the architecture in a few lines
-- \`loss.backward()\`: PyTorch computes gradients
-- \`optimizer.step()\`: PyTorch applies the parameter update`,
+- \`X\` and \`y\`: now as \`torch.tensor\`, not Python lists
+- \`dtype=torch.float32\`: numeric type PyTorch expects
+- \`manual_seed(7)\`: ensures reproducibility of initial weights
+- The rest of the loop is **identical** to the previous slide`,
       codeExplanations: [
     {
     "lineRange": [

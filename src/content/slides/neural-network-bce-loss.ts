@@ -24,42 +24,65 @@ export const neuralNetworkBceLoss = defineSlide({
 
 ---
 
+### Qual loss function usar?
+
+O PyTorch oferece várias — cada uma para um cenário:
+
+| Função | Quando usar | Exemplo |
+|---|---|---|
+| \`MSELoss\` | Regressão (valor contínuo) | Prever preço, temperatura |
+| \`BCELoss\` | Classificação binária (com sigmoid) | Fumante? Spam? Doença? |
+| \`BCEWithLogitsLoss\` | Binária sem sigmoid manual | Mesmo que BCELoss + sigmoid embutido |
+| \`CrossEntropyLoss\` | Multi-classe (3+ categorias) | Dígitos 0-9, espécie de flor |
+| \`NLLLoss\` | Multi-classe com log softmax | Versão manual da CrossEntropy |
+
+No nosso caso — **classificação binária com sigmoid na última camada** — usamos \`BCELoss\`. No slide seguinte, veremos ela em ação no loop de treino completo.
+
+---
+
 \`\`\`python
 snippet:neural-networks/bce-loss-demo
 \`\`\`
 
 ### O que observar
-- \`p\` = probabilidade que o modelo deu para a resposta correta
-- \`loss = -log(p)\`: quando \`p → 0\`, \`loss → ∞\`
-- A curva penaliza muito mais a "confiança errada" do que o MSE faria`,
+- \`nn.BCELoss()\`: a loss function correta para classificação binária
+- \`nn.Sigmoid()\` na última camada: garante saída em [0, 1] — requisito para BCELoss
+- \`optimizer.step()\`: mesmo padrão que usaremos em todo treinamento PyTorch`,
       codeExplanations: [
     {
     "lineRange": [
       1,
-      1
+      2
     ],
-    "content": "Importamos math para calcular log."
+    "content": "Importamos o módulo nn do PyTorch, que reúne todas as loss functions e camadas de rede neural."
   },
     {
     "lineRange": [
-      3,
+      5,
       10
     ],
-    "content": "Aqui criamos seis cenários: três onde a resposta é 1 (modelo acertou ou errou) e três onde a resposta é 0."
+    "content": "Criamos a rede MLP 4→3→1 com sigmoid nas duas camadas. A última sigmoid garante que a saída é uma probabilidade entre 0 e 1 — requisito para BCELoss."
   },
     {
     "lineRange": [
-      12,
-      19
+      13,
+      14
     ],
-    "content": "A função bce_loss calcula a perda para um único exemplo. Quando a resposta é 1, usamos -log(p); quando é 0, usamos -log(1-p). Isso garante que a punição seja justa independente da classe."
+    "content": "Aqui instanciamos a BCELoss e o otimizador SGD. A BCELoss é a escolha correta porque a saída é binária (0 ou 1) e já passa por sigmoid."
   },
     {
     "lineRange": [
-      20,
-      35
+      17,
+      22
     ],
-    "content": "Iteramos sobre todos os exemplos calculando a loss individual e imprimimos a tabela. Observe como o modelo 'quase acertou' (p=0.6, resposta=1) tem loss moderada, mas 'errou com confiança' (p=0.01, resposta=1) tem loss brutal (4.6)."
+    "content": "O loop de treino: forward → calcula loss → zera gradientes → backprop → atualiza pesos. Esse é o mesmo padrão que usaremos em todo treinamento PyTorch daqui em diante."
+  },
+    {
+    "lineRange": [
+      24,
+      25
+    ],
+    "content": "Imprimimos a loss final e as predições. Uma loss baixa (~0.02) indica que a rede aprendeu a distinguir fumante de não-fumante."
   }
   ],
     },
@@ -77,42 +100,65 @@ snippet:neural-networks/bce-loss-demo
 
 ---
 
+### Which loss function to use?
+
+PyTorch offers several — each for a specific scenario:
+
+| Function | When to use | Example |
+|---|---|---|
+| \`MSELoss\` | Regression (continuous value) | Predict price, temperature |
+| \`BCELoss\` | Binary classification (with sigmoid) | Smoker? Spam? Disease? |
+| \`BCEWithLogitsLoss\` | Binary without manual sigmoid | Same as BCELoss + sigmoid built-in |
+| \`CrossEntropyLoss\` | Multi-class (3+ categories) | Digits 0-9, flower species |
+| \`NLLLoss\` | Multi-class with log softmax | Manual version of CrossEntropy |
+
+In our case — **binary classification with sigmoid on the last layer** — we use \`BCELoss\`. In the next slide, we'll see it in action in the full training loop.
+
+---
+
 \`\`\`python
 snippet:neural-networks/bce-loss-demo
 \`\`\`
 
 ### What to watch
-- \`p\` = probability the model gave to the correct answer
-- \`loss = -log(p)\`: when \`p → 0\`, \`loss → ∞\`
-- The curve penalizes "confident wrongness" much more than MSE would`,
+- \`nn.BCELoss()\`: the right loss function for binary classification
+- \`nn.Sigmoid()\` on the last layer: ensures output in [0, 1] — required for BCELoss
+- \`optimizer.step()\`: same pattern we'll use for every PyTorch training`,
       codeExplanations: [
     {
     "lineRange": [
       1,
-      1
+      2
     ],
-    "content": "We import math to compute log."
+    "content": "We import PyTorch's nn module, which groups all loss functions and neural network layers."
   },
     {
     "lineRange": [
-      3,
+      5,
       10
     ],
-    "content": "Here we create six scenarios: three where the answer is 1 (model got it right or wrong) and three where the answer is 0."
+    "content": "We create the 4→3→1 MLP with sigmoid on both layers. The final sigmoid ensures output is a probability between 0 and 1 — required for BCELoss."
   },
     {
     "lineRange": [
-      12,
-      19
+      13,
+      14
     ],
-    "content": "The bce_loss function computes the loss for a single example. When the answer is 1, we use -log(p); when it's 0, we use -log(1-p). This ensures fair punishment regardless of class."
+    "content": "Here we instantiate BCELoss and the SGD optimizer. BCELoss is the right choice because the output is binary (0 or 1) and already passes through sigmoid."
   },
     {
     "lineRange": [
-      20,
-      35
+      17,
+      22
     ],
-    "content": "We iterate over all examples computing individual loss and print the table. Notice how the model 'almost right' (p=0.6, answer=1) has moderate loss, but 'wrong with confidence' (p=0.01, answer=1) has brutal loss (4.6)."
+    "content": "The training loop: forward → compute loss → zero gradients → backprop → update weights. This is the same pattern we'll use for every PyTorch training from here on."
+  },
+    {
+    "lineRange": [
+      24,
+      25
+    ],
+    "content": "We print the final loss and predictions. A low loss (~0.02) indicates the network learned to distinguish smoker from non-smoker."
   }
   ],
     },
