@@ -50,7 +50,7 @@ export const ExerciseCardTwoColumn: React.FC<ExerciseCardTwoColumnProps> = ({
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: '35% 1fr',
         gap: 16,
         flex: 1,
         minHeight: 0,
