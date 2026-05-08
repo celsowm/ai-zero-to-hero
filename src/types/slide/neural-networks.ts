@@ -442,3 +442,19 @@ export interface WeightsBiasesExplorerCopy {
   xLabel: string;
   yLabel: string;
 }
+
+export interface BceLossCurveCopy {
+  title: string;
+  xAxis: string;
+  yAxis: string;
+  nearMiss: string;
+  confidentWrong: string;
+  almostRight: string;
+  rightAnswer: string;
+  tooltipNearMiss: string;
+  tooltipConfident: string;
+  tooltipAlmost: string;
+  tooltipRight: string;
+  insight: string;
+  insightShort: string;
+}

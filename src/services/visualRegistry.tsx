@@ -183,6 +183,7 @@ const visualMap: Record<string, string> = {
   'derivative-ramp-explorer': 'DerivativeRampExplorer',
   'biological-vs-computational-neuron': 'BiologicalVsComputationalNeuron',
   'weights-biases-explorer': 'WeightsBiasesExplorer',
+  'bce-loss-curve': 'BceLossCurve',
 
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',

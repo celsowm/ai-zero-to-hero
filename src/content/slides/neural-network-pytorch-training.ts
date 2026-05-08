@@ -18,7 +18,7 @@ export const neuralNetworkPytorchTraining = defineSlide({
 
 2. **A arquitetura ainda é uma MLP \`4 -> 3 -> 1\`:** só que agora declaramos isso com \`nn.Sequential\`, \`nn.Linear\` e \`nn.Sigmoid\`.
 
-3. **O treino ainda tem loss, gradiente e update:** a diferença é que \`BCELoss\`, \`backward()\` e \`optimizer.step()\` centralizam a parte mecânica.
+3. **O treino ainda tem loss, gradiente e update:** a diferença é que usamos a \`BCELoss\` (que vimos no slide anterior), \`backward()\` e \`optimizer.step()\` para centralizar a parte mecânica.
 
 4. **Mapeamento direto com o que vimos:** o \`forward\` ainda existe quando chamamos \`model(X)\`, o gradiente ainda existe em \`loss.backward()\`, e a atualização ainda existe em \`optimizer.step()\`.
 
@@ -88,7 +88,7 @@ snippet:neural-networks/pytorch-training
 
 2. **The architecture is still a \`4 -> 3 -> 1\` MLP:** except now we declare it with \`nn.Sequential\`, \`nn.Linear\`, and \`nn.Sigmoid\`.
 
-3. **Training still has loss, gradients, and updates:** the difference is that \`BCELoss\`, \`backward()\`, and \`optimizer.step()\` centralize the mechanical part.
+3. **Training still has loss, gradients, and updates:** the difference is that we use \`BCELoss\` (which we saw in the previous slide), \`backward()\`, and \`optimizer.step()\` to centralize the mechanical part.
 
 4. **Direct mapping to what we already saw:** \`forward\` still exists when we call \`model(X)\`, gradients still exist in \`loss.backward()\`, and updates still exist in \`optimizer.step()\`.
 

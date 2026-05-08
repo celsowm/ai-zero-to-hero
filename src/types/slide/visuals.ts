@@ -124,6 +124,7 @@ import type {
   SigmoidDerivativeExplorerCopy,
   Tensor3DExplorerCopy,
   WeightsBiasesExplorerCopy,
+  BceLossCurveCopy,
 } from './neural-networks';
 import type { TransformersJsPlaygroundCopy } from './inference-engines';
 import type { PythonExerciseVisualCopy } from './exercise';
@@ -356,6 +357,7 @@ interface VisualCopyMap {
   'tensor-3d-explorer': Tensor3DExplorerCopy;
   'derivative-ramp-explorer': DerivativeRampExplorerCopy;
   'weights-biases-explorer': WeightsBiasesExplorerCopy;
+  'bce-loss-curve': BceLossCurveCopy;
   // classification problem
   'classification-problem': ClassificationProblemCopy;
   // python exercise

@@ -76,6 +76,7 @@ export { ArchitectureComparatorVisual } from './neural-networks/ArchitectureComp
 export { Tensor3DExplorer } from './neural-networks/Tensor3DExplorer';
 export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer';
 export { WeightsBiasesExplorer } from './neural-networks/WeightsBiasesExplorer';
+export { BceLossCurve } from './neural-networks/BceLossCurve';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';
