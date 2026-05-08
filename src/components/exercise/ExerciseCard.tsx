@@ -1,14 +1,16 @@
 import React from 'react';
-import type { ExerciseItem, Language } from '../../types/slide';
+import type { ExerciseItem, ExerciseLayout, Language } from '../../types/slide';
 import { ExerciseEditor } from './ExerciseEditor';
 import { ValidationFeedback } from './ValidationFeedback';
 import { HintSection } from './HintSection';
 import { ExerciseInstructions } from './ExerciseInstructions';
+import { ExerciseCardTwoColumn } from './ExerciseCardTwoColumn';
 import { useExerciseSession } from '../../hooks/useExerciseSession';
 import { getExerciseMessages } from '../../i18n/messages';
 
 interface ExerciseCardProps {
   exercise: ExerciseItem;
+  layout?: ExerciseLayout;
   runButtonLabel: string;
   checkButtonLabel: string;
   successMessage: string;
@@ -20,6 +22,7 @@ interface ExerciseCardProps {
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
+  layout = 'stacked',
   runButtonLabel,
   checkButtonLabel,
   successMessage,
@@ -28,6 +31,27 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   outputLabel,
   language,
 }) => {
+  // Hooks must be called unconditionally (rules of hooks)
+  const session = useExerciseSession(exercise);
+  const msg = getExerciseMessages(language);
+
+  // Two-column layout: delegate to specialized component
+  if (layout === 'two-column') {
+    return (
+      <ExerciseCardTwoColumn
+        exercise={exercise}
+        runButtonLabel={runButtonLabel}
+        checkButtonLabel={checkButtonLabel}
+        successMessage={successMessage}
+        errorMessage={errorMessage}
+        hintLabel={hintLabel}
+        outputLabel={outputLabel}
+        language={language}
+      />
+    );
+  }
+
+  // Default: stacked layout (instructions above editor)
   const {
     code,
     setCode,
@@ -42,9 +66,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     someFailed,
     handleRun,
     handleCheck,
-  } = useExerciseSession(exercise);
-
-  const msg = getExerciseMessages(language);
+  } = session;
 
   return (
     <div

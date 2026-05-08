@@ -19,6 +19,7 @@ export const linearRegressionExercise = defineSlide({
       "pt-br": {
         "title": "Exercício: Regressão Linear",
         "description": "Complete as funções para calcular o erro e atualizar os parâmetros.",
+        "layout": "two-column",
         "runButtonLabel": "Executar",
         "checkButtonLabel": "Verificar",
         "successMessage": "Excelente! Você dominou a base da Regressão Linear!",
@@ -158,6 +159,7 @@ export const linearRegressionExercise = defineSlide({
       "en-us": {
         "title": "Exercise: Linear Regression",
         "description": "Complete the functions to calculate the error and update parameters.",
+        "layout": "two-column",
         "runButtonLabel": "Run",
         "checkButtonLabel": "Check",
         "successMessage": "Excellent! You've mastered the basics of Linear Regression!",

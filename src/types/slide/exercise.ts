@@ -48,6 +48,8 @@ export type ExerciseValidator =
   | AssertOutputMatchesVariableValidator
   | AssertNoErrorValidator;
 
+export type ExerciseLayout = 'stacked' | 'two-column';
+
 export interface ExerciseItem {
   id: string;
   instructions: string;
@@ -60,6 +62,7 @@ export interface PythonExerciseVisualCopy {
   title: string;
   description: string;
   exercises: ExerciseItem[];
+  layout?: ExerciseLayout;
   runButtonLabel: string;
   checkButtonLabel: string;
   successMessage: string;

@@ -73,6 +73,7 @@ export const PythonExerciseVisual = React.memo(({ copy, language }: PythonExerci
         <ExerciseCard
           key={copy.exercises[activeIndex].id}
           exercise={copy.exercises[activeIndex]}
+          layout={copy.layout}
           runButtonLabel={copy.runButtonLabel}
           checkButtonLabel={copy.checkButtonLabel}
           successMessage={copy.successMessage}
