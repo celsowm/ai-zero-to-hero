@@ -3,6 +3,7 @@ import type { ExerciseItem, Language } from '../../types/slide';
 import { ExerciseEditor } from './ExerciseEditor';
 import { ValidationFeedback } from './ValidationFeedback';
 import { HintSection } from './HintSection';
+import { ExerciseInstructions } from './ExerciseInstructions';
 import { useExerciseSession } from '../../hooks/useExerciseSession';
 import { getExerciseMessages } from '../../i18n/messages';
 
@@ -56,19 +57,16 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         overflow: 'hidden',
       }}
     >
-      {/* Header: instructions + hints */}
-      <div style={{ flexShrink: 0 }}>
-        <div
-          style={{
-            fontSize: 14,
-            fontWeight: 600,
-            lineHeight: 1.6,
-            color: 'var(--sw-text)',
-            whiteSpace: 'pre-wrap',
-          }}
-        >
-          {exercise.instructions}
-        </div>
+      {/* Header: instructions + hints — scrollable, max 45% height */}
+      <div
+        style={{
+          flexShrink: 0,
+          maxHeight: '45%',
+          overflowY: 'auto',
+          paddingRight: 4,
+        }}
+      >
+        <ExerciseInstructions>{exercise.instructions}</ExerciseInstructions>
 
         {exercise.hints && exercise.hints.length > 0 && (
           <HintSection
