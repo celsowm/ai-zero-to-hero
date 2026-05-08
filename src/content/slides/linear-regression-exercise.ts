@@ -72,44 +72,55 @@ export const linearRegressionExercise = defineSlide({
         },
           {
           "id": "3. Predict & Verify: Quanto vale o apartamento?",
-          "instructions": "Um modelo de regressão foi treinado para prever preço de apartamentos (em milhares de R$):\n\n`preco = 50 + 0.8 * area_m2 - 0.3 * distancia_km`\n\n**Desafio:** calcule mentalmente o preço para um apartamento de 60m² a 5km do centro.\n\nDepois rode o código para verificar se sua conta bateu!",
-          "starterCode": "def predict_price(area, distance):\n    beta0, beta1, beta2 = 50, 0.8, -0.3\n    return beta0 + beta1 * area + beta2 * distance\n\n# Sua conta mental:\n# preco = 50 + 0.8 * 60 - 0.3 * 5 = ?\nprint(f\"Sua conta mental: 50 + 48 - 1.5 = {50 + 48 - 1.5}\")\nprint(f\"Código: {predict_price(60, 5)}\")\n\n# Teste mais 2 casos para praticar:\nprint(f\"80m² a 2km: {predict_price(80, 2)}\")\nprint(f\"45m² a 10km: {predict_price(45, 10)}\")",
+          "instructions": "Você treinou um modelo de regressão com dados reais de apartamentos. Agora use o modelo para prever preços e verifique se sua intuição bate com a matemática.\n\n**Contexto:** os dados abaixo foram usados para treinar o modelo:\n\n| Apt | Área (m²) | Dist. (km) | Preço (R$ mil) |\n|-----|-----------|------------|----------------|\n| A   | 45        | 8          | 62             |\n| B   | 70        | 3          | 105            |\n| C   | 55        | 6          | 78             |\n| D   | 90        | 2          | 130            |\n| E   | 40        | 10         | 50             |\n\nO modelo treinado tem coeficientes: `beta0=30, beta1=1.2, beta2=-2.0`\n\n**Fase 1 — Treino:** complete a função `train` que faz Gradient Descent para aprender os coeficientes a partir dos dados.\n\n**Fase 2 — Predição:** com os coeficientes aprendidos, preveja o preço de apartamentos novos.\n\n**Fase 3 — Verificação:** calcule mentalmente o preço de um apt de 60m² a 5km e rode para conferir!",
+          "starterCode": "# Dados de treino: (area_m2, distancia_km, preco_mil)\ndataset = [\n    (45, 8, 62),\n    (70, 3, 105),\n    (55, 6, 78),\n    (90, 2, 130),\n    (40, 10, 50),\n]\n\ndef predict(area, distance, beta0, beta1, beta2):\n    return beta0 + beta1 * area + beta2 * distance\n\ndef train(dataset, epochs=100, lr=0.0001):\n    beta0, beta1, beta2 = 0.0, 0.0, 0.0\n    n = len(dataset)\n    \n    for epoch in range(epochs):\n        # calcule os gradientes (soma dos erros * derivada)\n        grad0 = 0.0\n        grad1 = 0.0\n        grad2 = 0.0\n        for area, distance, price in dataset:\n            y_hat = predict(area, distance, beta0, beta1, beta2)\n            error = y_hat - price\n            grad0 += error          # dMSE/dbeta0\n            grad1 += error * area    # dMSE/dbeta1\n            grad2 += error * distance # dMSE/dbeta2\n        \n        # complete: atualize os betas com Gradient Descent\n        beta0 = \n        beta1 = \n        beta2 = \n    \n    return beta0, beta1, beta2\n\n# Fase 1: treinar o modelo\nb0, b1, b2 = train(dataset)\nprint(f\"Coeficientes aprendidos: beta0={b0:.2f}, beta1={b1:.4f}, beta2={b2:.4f}\")\n\n# Fase 2: prever preço de um apartamento de 60m² a 5km\narea_nova, dist_nova = 60, 5\npreco_estimado = predict(area_nova, dist_nova, b0, b1, b2)\nprint(f\"\\nPrevisão para {area_nova}m² a {dist_nova}km: R$ {preco_estimado:.1f} mil\")\n\n# Fase 3: sua conta mental (usando coeficientes aproximados)\n# Dica: beta1 ≈ 1.2 significa cada m² vale ~R$1.2k\n#       beta2 ≈ -2.0 significa cada km custa ~R$2.0k\nprint(f\"\\nConta mental rápida (beta0≈30, beta1≈1.2, beta2≈-2.0):\")\nprint(f\"  30 + 1.2*60 + (-2.0)*5 = 30 + 72 - 10 = R$ {30 + 72 - 10} mil\")\n\n# Verifique nos dados originais: qual apt do dataset tem área e distância mais próximas?\nprint(f\"\\nComparação com dados originais:\")\nfor area, distance, price in dataset:\n    pred = predict(area, distance, b0, b1, b2)\n    erro = abs(price - pred)\n    print(f\"  Apt {area}m²/{distance}km: real=R${price}k, predito=R${pred:.1f}k, erro=R${erro:.1f}k\")",
           "validators": [
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
               60,
-              5
+              5,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 96.5,
+            "expectedReturn": 92.0,
             "tolerance": 0.001
           },
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
-              80,
-              2
+              70,
+              3,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 113.4,
+            "expectedReturn": 108.0,
             "tolerance": 0.001
           },
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
               45,
-              10
+              8,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 56,
+            "expectedReturn": 68.0,
             "tolerance": 0.001
           }
           ],
           "hints": [
-            "60m² a 5km: 50 + 48 - 1.5 = 96.5",
-            "80m² a 2km: 50 + 64 - 0.6 = 113.4... ops, confira: 50 + 64 - 0.6 = 113.4!",
-            "45m² a 10km: 50 + 36 - 30 = 56... confira: 50 + 36 - 30 = 56!"
+            "grad0 = grad0 - lr * grad0 / n  (ou seja, beta0 = beta0 - lr * grad0/n)",
+            "beta0 = beta0 - lr * grad0 / n",
+            "beta1 = beta1 - lr * grad1 / n",
+            "beta2 = beta2 - lr * grad2 / n",
+            "A conta mental: 30 + 1.2*60 - 2.0*5 = 30 + 72 - 10 = R$92 mil"
           ]
         },
           {
@@ -200,44 +211,54 @@ export const linearRegressionExercise = defineSlide({
         },
           {
           "id": "3. Predict & Verify: How much is the apartment worth?",
-          "instructions": "A regression model was trained to predict apartment prices (in thousands of BRL):\n\n`price = 50 + 0.8 * area_m2 - 0.3 * distance_km`\n\n**Challenge:** mentally calculate the price for a 60m² apartment 5km from the center.\n\nThen run the code to check if your math matches!",
-          "starterCode": "def predict_price(area, distance):\n    beta0, beta1, beta2 = 50, 0.8, -0.3\n    return beta0 + beta1 * area + beta2 * distance\n\n# Your mental math:\n# price = 50 + 0.8 * 60 - 0.3 * 5 = ?\nprint(f\"Mental math: 50 + 48 - 1.5 = {50 + 48 - 1.5}\")\nprint(f\"Code: {predict_price(60, 5)}\")\n\n# Test 2 more cases:\nprint(f\"80m² at 2km: {predict_price(80, 2)}\")\nprint(f\"45m² at 10km: {predict_price(45, 10)}\")",
+          "instructions": "You trained a regression model on real apartment data. Now use the model to predict prices and check if your intuition matches the math.\n\n**Context:** the data below was used to train the model:\n\n| Apt | Area (m²) | Dist. (km) | Price (BRL k) |\n|-----|-----------|------------|---------------|\n| A   | 45        | 8          | 62            |\n| B   | 70        | 3          | 105           |\n| C   | 55        | 6          | 78            |\n| D   | 90        | 2          | 130           |\n| E   | 40        | 10         | 50            |\n\nThe trained model has coefficients: `beta0=30, beta1=1.2, beta2=-2.0`\n\n**Phase 1 — Training:** complete the `train` function that does Gradient Descent to learn coefficients from the data.\n\n**Phase 2 — Prediction:** with the learned coefficients, predict prices for new apartments.\n\n**Phase 3 — Verification:** mentally calculate the price of a 60m² apartment 5km away, then run to check!",
+          "starterCode": "# Training data: (area_m2, distance_km, price_k)\ndataset = [\n    (45, 8, 62),\n    (70, 3, 105),\n    (55, 6, 78),\n    (90, 2, 130),\n    (40, 10, 50),\n]\n\ndef predict(area, distance, beta0, beta1, beta2):\n    return beta0 + beta1 * area + beta2 * distance\n\ndef train(dataset, epochs=100, lr=0.0001):\n    beta0, beta1, beta2 = 0.0, 0.0, 0.0\n    n = len(dataset)\n    \n    for epoch in range(epochs):\n        # calculate gradients (sum of errors * derivative)\n        grad0 = 0.0\n        grad1 = 0.0\n        grad2 = 0.0\n        for area, distance, price in dataset:\n            y_hat = predict(area, distance, beta0, beta1, beta2)\n            error = y_hat - price\n            grad0 += error          # dMSE/dbeta0\n            grad1 += error * area    # dMSE/dbeta1\n            grad2 += error * distance # dMSE/dbeta2\n        \n        # complete: update betas with Gradient Descent\n        beta0 = \n        beta1 = \n        beta2 = \n    \n    return beta0, beta1, beta2\n\n# Phase 1: train the model\nb0, b1, b2 = train(dataset)\nprint(f\"Learned coefficients: beta0={b0:.2f}, beta1={b1:.4f}, beta2={b2:.4f}\")\n\n# Phase 2: predict price for a 60m² apartment 5km away\narea_new, dist_new = 60, 5\nprice_estimate = predict(area_new, dist_new, b0, b1, b2)\nprint(f\"\\nPrediction for {area_new}m² at {dist_new}km: BRL {price_estimate:.1f}k\")\n\n# Phase 3: your mental math (using approximate coefficients)\n# Tip: beta1 ≈ 1.2 means each m² is worth ~BRL 1.2k\n#       beta2 ≈ -2.0 means each km costs ~BRL 2.0k\nprint(f\"\\nQuick mental math (beta0≈30, beta1≈1.2, beta2≈-2.0):\")\nprint(f\"  30 + 1.2*60 + (-2.0)*5 = 30 + 72 - 10 = BRL {30 + 72 - 10}k\")\n\n# Check against original data: which apt in the dataset has closest area and distance?\nprint(f\"\\nComparison with original data:\")\nfor area, distance, price in dataset:\n    pred = predict(area, distance, b0, b1, b2)\n    error = abs(price - pred)\n    print(f\"  Apt {area}m²/{distance}km: real=BRL{price}k, predicted=BRL{pred:.1f}k, error=BRL{error:.1f}k\")",
           "validators": [
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
               60,
-              5
+              5,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 96.5,
+            "expectedReturn": 92.0,
             "tolerance": 0.001
           },
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
-              80,
-              2
+              70,
+              3,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 113.4,
+            "expectedReturn": 108.0,
             "tolerance": 0.001
           },
             {
             "type": "assertFunctionReturn",
-            "functionName": "predict_price",
+            "functionName": "predict",
             "args": [
               45,
-              10
+              8,
+              30,
+              1.2,
+              -2.0
             ],
-            "expectedReturn": 56,
+            "expectedReturn": 68.0,
             "tolerance": 0.001
           }
           ],
           "hints": [
-            "60m² at 5km: 50 + 48 - 1.5 = 96.5",
-            "80m² at 2km: 50 + 64 - 0.6 = 113.4",
-            "45m² at 10km: 50 + 36 - 30 = 56"
+            "beta0 = beta0 - lr * grad0 / n",
+            "beta1 = beta1 - lr * grad1 / n",
+            "beta2 = beta2 - lr * grad2 / n",
+            "Mental math: 30 + 1.2*60 - 2.0*5 = 30 + 72 - 10 = BRL 92k"
           ]
         },
           {
