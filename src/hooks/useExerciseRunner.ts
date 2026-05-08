@@ -24,7 +24,7 @@ interface UseExerciseRunnerReturn {
 }
 
 export function useExerciseRunner(): UseExerciseRunnerReturn {
-  const { status, pyodide, loadPyodide } = usePyodideLoader();
+  const { status, loadPyodide } = usePyodideLoader();
   const [error, setError] = useState<string | null>(null);
 
   const run = useCallback(
@@ -44,14 +44,17 @@ export function useExerciseRunner(): UseExerciseRunnerReturn {
 
   const check = useCallback(
     async (code: string, validators: ExerciseValidator[], language: Language) => {
-      await loadPyodide();
+      const loaded = await loadPyodide();
       try {
         const result = await runPython(code);
-        if (!pyodide) {
+        // Use the loaded instance from loadPyodide() return value,
+        // NOT the stale `pyodide` from closure (which was null before load)
+        const pyodideInstance = loaded;
+        if (!pyodideInstance) {
           throw new Error('Pyodide not loaded');
         }
         const context: ValidationContext = {
-          pyodide,
+          pyodide: pyodideInstance,
           stdout: result.stdout,
           stderr: result.stderr,
           language,
@@ -67,7 +70,7 @@ export function useExerciseRunner(): UseExerciseRunnerReturn {
         };
       }
     },
-    [loadPyodide, pyodide],
+    [loadPyodide],
   );
 
   return { run, check, status, error };
