@@ -38,7 +38,7 @@ export interface UseExerciseReturn {
  */
 export function useExercise(exercise: ExerciseItem, _language: Language): UseExerciseReturn {
   const { status, pyodide, loadPyodide } = usePyodideLoader();
-  const [code, setCode] = useState(exercise.starterCode);
+  const [code, setCode] = useState(exercise.starterCode ?? '');
   const [output, setOutput] = useState('');
   const [stderr, setStderr] = useState('');
   const [results, setResults] = useState<ValidationResult[] | null>(null);
@@ -86,7 +86,7 @@ export function useExercise(exercise: ExerciseItem, _language: Language): UseExe
   }, [code, exercise.validators, _language, loadPyodide, pyodide]);
 
   const reset = useCallback(() => {
-    setCode(exercise.starterCode);
+    setCode(exercise.starterCode ?? '');
     setOutput('');
     setStderr('');
     setResults(null);

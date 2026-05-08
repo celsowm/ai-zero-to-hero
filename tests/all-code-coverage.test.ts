@@ -176,6 +176,11 @@ describe('ALL code explanation coverage (Python & JS)', () => {
     for (const snippetPath of allSnippetFiles) {
       const relativePath = relative(snippetsDir, snippetPath).replace(/\\/g, '/');
       const snippetId = relativePath.replace(/\.(pt-br|en-us)\.(py|js)$/, '');
+
+      // Skip exercise starter snippets — they are meant for students to complete,
+      // not for slides with line-by-line explanations.
+      if (snippetId.includes('-exercise-')) continue;
+
       const lang: 'pt-br' | 'en-us' = relativePath.includes('.en-us.') ? 'en-us' : 'pt-br';
 
       const code = readFileSync(snippetPath, 'utf-8');

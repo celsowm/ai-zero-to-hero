@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { ExerciseItem, ExerciseLayout, Language } from '../../types/slide';
+import { resolveSnippetCode } from '../../content/registry';
 import { ExerciseEditor } from './ExerciseEditor';
 import { ValidationFeedback } from './ValidationFeedback';
 import { HintSection } from './HintSection';
@@ -31,15 +32,33 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   outputLabel,
   language,
 }) => {
+  // Resolve starter code from snippet file if snippetId is present,
+  // otherwise fall back to inline starterCode (legacy compatibility).
+  const resolvedExercise = useMemo<ExerciseItem>(() => {
+    if (exercise.snippetId) {
+      try {
+        const starterCode = resolveSnippetCode(
+          { snippetId: exercise.snippetId, language: 'python' },
+          language,
+        );
+        return { ...exercise, starterCode };
+      } catch {
+        // Snippet not found — fall back to inline starterCode if available
+        return { ...exercise, starterCode: exercise.starterCode ?? '' };
+      }
+    }
+    return { ...exercise, starterCode: exercise.starterCode ?? '' };
+  }, [exercise, language]);
+
   // Hooks must be called unconditionally (rules of hooks)
-  const session = useExerciseSession(exercise);
+  const session = useExerciseSession(resolvedExercise);
   const msg = getExerciseMessages(language);
 
   // Two-column layout: delegate to specialized component
   if (layout === 'two-column') {
     return (
       <ExerciseCardTwoColumn
-        exercise={exercise}
+        exercise={resolvedExercise}
         runButtonLabel={runButtonLabel}
         checkButtonLabel={checkButtonLabel}
         successMessage={successMessage}
@@ -119,11 +138,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
       {/* Editor */}
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
         <ExerciseEditor
-          key={exercise.id}
+          key={resolvedExercise.id}
           code={code}
           onChange={setCode}
           onRun={handleRun}
-          onCheck={() => handleCheck(exercise, language)}
+          onCheck={() => handleCheck(resolvedExercise, language)}
           output={output}
           stderr={stderr}
           isRunning={isRunning}

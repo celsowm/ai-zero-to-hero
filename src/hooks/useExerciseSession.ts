@@ -22,7 +22,7 @@ interface UseExerciseSessionReturn {
 export function useExerciseSession(
   exercise: ExerciseItem,
 ): UseExerciseSessionReturn {
-  const [code, setCode] = useState(exercise.starterCode);
+  const [code, setCode] = useState(exercise.starterCode ?? '');
   const [output, setOutput] = useState('');
   const [stderr, setStderr] = useState('');
   const [results, setResults] = useState<ValidationResult[] | null>(null);

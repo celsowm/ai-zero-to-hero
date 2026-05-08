@@ -53,7 +53,11 @@ export type ExerciseLayout = 'stacked' | 'two-column';
 export interface ExerciseItem {
   id: string;
   instructions: string;
-  starterCode: string;
+  /** Reference to a snippet file in src/content/snippets/ (e.g. "linear-reg-exercise-3-starter").
+   *  When present, takes precedence over starterCode. */
+  snippetId?: string;
+  /** Inline starter code. Used when snippetId is not set (legacy compatibility). */
+  starterCode?: string;
   validators: ExerciseValidator[];
   hints?: string[];
 }
