@@ -192,6 +192,18 @@ import type {
   MarkdownOutputCompareCopy,
   MarkdownSyntaxVisualCopy,
 } from './markdown';
+import type {
+  AgenteInActionCopy,
+  AgentAnatomyCopy,
+  AgentLoopVisualCopy,
+  AgentMemoryVisualCopy,
+  AgentPlanningVisualCopy,
+  ReActFlowVisualCopy,
+  MultiAgentVisualCopy,
+  AgentFrameworksVisualCopy,
+  MCPVisualCopy,
+  AgentPitfallsVisualCopy,
+} from './intelligent-agents';
 
 // â”€â”€ Visual registry: maps each visual id to its copy type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -390,6 +402,17 @@ interface VisualCopyMap {
   'gpt2-full-architecture-diagram': Gpt2FullArchitectureDiagramCopy;
   'layer-evolution-chart': LayerEvolutionChartCopy;
   'transformer-scaling-chart': WelcomeSynthwaveCopy;
+  // intelligent agents
+  'agente-in-action': AgenteInActionCopy;
+  'agent-anatomy': AgentAnatomyCopy;
+  'agent-loop': AgentLoopVisualCopy;
+  'agent-memory': AgentMemoryVisualCopy;
+  'agent-planning': AgentPlanningVisualCopy;
+  'react-flow': ReActFlowVisualCopy;
+  'multi-agent': MultiAgentVisualCopy;
+  'agent-frameworks': AgentFrameworksVisualCopy;
+  'mcp': MCPVisualCopy;
+  'agent-pitfalls': AgentPitfallsVisualCopy;
 }
 
 // â”€â”€ Generated SlideVisual union from the registry â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

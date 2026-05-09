@@ -247,6 +247,22 @@ import { reasoningInference } from './reasoning-inference';
 import { reasoningExercise } from './reasoning-exercise';
 import { reasoningE2e } from './reasoning-e2e';
 
+// Intelligent Agents section
+import { agentsWhy } from './agents-why';
+import { agentsDefinition } from './agents-definition';
+import { agentLoop } from './agent-loop';
+import { agentLoopExercise } from './agent-loop-exercise';
+import { agentMemory } from './agent-memory';
+import { agentPlanning } from './agent-planning';
+import { reactPattern } from './react-pattern';
+import { reactExercise } from './react-exercise';
+import { multiAgentPattern } from './multi-agent-pattern';
+import { agentFrameworks } from './agent-frameworks';
+import { mcpProtocol } from './mcp-protocol';
+import { agentBestPractices } from './agent-best-practices';
+import { agentsExercise } from './agents-exercise';
+import { agentsE2E } from './agents-e2e';
+
 export const allSlides: ISlide[] = [
   apiLatencyGrowthBridge,
   attentionExercise,
@@ -493,4 +509,19 @@ export const allSlides: ISlide[] = [
   reasoningInference,
   reasoningExercise,
   reasoningE2e,
+  // Intelligent Agents section
+  agentsWhy,
+  agentsDefinition,
+  agentLoop,
+  agentLoopExercise,
+  agentMemory,
+  agentPlanning,
+  reactPattern,
+  reactExercise,
+  multiAgentPattern,
+  agentFrameworks,
+  mcpProtocol,
+  agentBestPractices,
+  agentsExercise,
+  agentsE2E,
 ];

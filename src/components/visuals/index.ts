@@ -173,6 +173,18 @@ export { RealDatasetsPromptsVisual } from './prompt-engineering/RealDatasetsProm
 export { MarkdownOutputCompare } from './markdown/MarkdownOutputCompare';
 export { MarkdownSyntaxVisual } from './markdown/MarkdownSyntaxVisual';
 
+// intelligent agents
+export { AgenteInAction } from './intelligent-agents/AgenteInAction';
+export { AgentAnatomy } from './intelligent-agents/AgentAnatomy';
+export { AgentLoopVisual } from './intelligent-agents/AgentLoopVisual';
+export { AgentMemoryVisual } from './intelligent-agents/AgentMemoryVisual';
+export { AgentPlanningVisual } from './intelligent-agents/AgentPlanningVisual';
+export { ReActFlowVisual } from './intelligent-agents/ReActFlowVisual';
+export { MultiAgentVisual } from './intelligent-agents/MultiAgentVisual';
+export { AgentFrameworksVisual } from './intelligent-agents/AgentFrameworksVisual';
+export { MCPVisual } from './intelligent-agents/MCPVisual';
+export { AgentPitfallsVisual } from './intelligent-agents/AgentPitfallsVisual';
+
 // synthetic data
 export { SyntheticDataDemoVisual } from './synthetic-data/SyntheticDataDemoVisual';
 export { SyntheticDataIntroVisual } from './synthetic-data/SyntheticDataIntroVisual';

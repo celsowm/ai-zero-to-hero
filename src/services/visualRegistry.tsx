@@ -225,6 +225,18 @@ const visualMap: Record<string, string> = {
   // markdown
   'markdown-output-compare': 'MarkdownOutputCompare',
   'markdown-syntax-visual': 'MarkdownSyntaxVisual',
+
+  // intelligent agents
+  'agente-in-action': 'AgenteInAction',
+  'agent-anatomy': 'AgentAnatomy',
+  'agent-loop': 'AgentLoopVisual',
+  'agent-memory': 'AgentMemoryVisual',
+  'agent-planning': 'AgentPlanningVisual',
+  'react-flow': 'ReActFlowVisual',
+  'multi-agent': 'MultiAgentVisual',
+  'agent-frameworks': 'AgentFrameworksVisual',
+  'mcp': 'MCPVisual',
+  'agent-pitfalls': 'AgentPitfallsVisual',
 };
 
 /**
@@ -272,3 +284,4 @@ export function getVisualComponent(id: string): React.LazyExoticComponent<Visual
 export function getAllVisualIds(): string[] {
   return Object.keys(visualRegistry);
 }
+

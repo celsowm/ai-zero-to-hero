@@ -16,3 +16,4 @@ export * from './synthetic-data';
 export * from './prompt-engineering';
 export * from './tool-calling';
 export * from './markdown';
+export * from './intelligent-agents';
