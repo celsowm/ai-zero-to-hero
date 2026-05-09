@@ -68,6 +68,54 @@ export interface SiliconComputeVisualCopy {
   insightTitle: string;
 }
 
+export interface PyTorchPerformanceVisualCopy {
+  // Comparison labels
+  beforeLabel: string;
+  afterLabel: string;
+  // Pain points (before)
+  pain1: string;
+  pain2: string;
+  pain3: string;
+  pain4: string;
+  // Solutions (after)
+  solution1: string;
+  solution2: string;
+  solution3: string;
+  solution4: string;
+  // Benchmark section
+  benchmarkTitle: string;
+  modelSizeLabel: string;
+  runBenchmark: string;
+  running: string;
+  pythonPureLabel: string;
+  numpyLabel: string;
+  pytorchCpuLabel: string;
+  pytorchGpuLabel: string;
+  timeUnit: string;
+  // Autograd graph
+  autogradTitle: string;
+  dynamicGraphLabel: string;
+  staticGraphLabel: string;
+  forwardLabel: string;
+  backwardLabel: string;
+  // Insight
+  insightTitle: string;
+  // Real benchmark labels
+  realBenchmarkTitle: string;
+  runRealBenchmark: string;
+  runningReal: string;
+  jsPureLabel: string;
+  jsTypedLabel: string;
+  webgpuLabel: string;
+  webgpuSupported: string;
+  webgpuNotSupported: string;
+  simulatedWarning: string;
+  realResultTitle: string;
+  speedupLabel: string;
+  operationLabel: string;
+  elementsLabel: string;
+}
+
 export interface ContextWindowSliderCopy {
   fullText?: string;
   windowLabel: string;

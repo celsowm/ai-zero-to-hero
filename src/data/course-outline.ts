@@ -50,6 +50,8 @@ export const courseSlideOrder = [
   'neural-network-pytorch-tensors',
   // Hardware level: por que tensores são mais rápidos (GPU, CUDA, Tensor Cores)
   'neural-network-pytorch-silicon',
+  // Design do framework: eager mode, autograd, C++ dispatcher, fused kernels
+  'pytorch-why-performant',
   // Função de loss para classificação binária: BCELoss
   'neural-network-bce-loss',
   'neural-network-pytorch-training',

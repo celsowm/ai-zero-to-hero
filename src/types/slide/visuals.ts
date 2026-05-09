@@ -24,6 +24,7 @@ import type {
   EmbeddingSpace3DCopy,
   EmbeddingSpace3DInteractiveCopy,
   SiliconComputeVisualCopy,
+  PyTorchPerformanceVisualCopy,
   LanguageModelingDiagramCopy,
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
@@ -192,7 +193,7 @@ import type {
   MarkdownSyntaxVisualCopy,
 } from './markdown';
 
-// ── Visual registry: maps each visual id to its copy type ──────────────────
+// â”€â”€ Visual registry: maps each visual id to its copy type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface VisualCopyMap {
   // inference / learning
@@ -228,6 +229,7 @@ interface VisualCopyMap {
   'embedding-space-3d': EmbeddingSpace3DCopy;
   'embedding-space-3d-interactive': EmbeddingSpace3DInteractiveCopy;
   'silicon-compute': SiliconComputeVisualCopy;
+  'pytorch-performance': PyTorchPerformanceVisualCopy;
   'context-window-slider': ContextWindowSliderCopy;
   'mlp-text-diagram': MlpTextDiagramCopy;
   'training-loop-stepper': TrainingLoopStepperCopy;
@@ -370,7 +372,7 @@ interface VisualCopyMap {
   'bpe-frequency-table': BPEFrequencyTableCopy;
   'bpe-merge-stack': BPEMergeStackCopy;
   'bpe-training-curve': BPETrainingCurveCopy;
-  // placeholder / future visuals (temporary — replace with proper copy types when implemented)
+  // placeholder / future visuals (temporary â€” replace with proper copy types when implemented)
   'unembedding-diagram': UnembeddingDiagramCopy;
   'temperature-slider-interactive': TemperatureSliderInteractiveCopy;
   'moe-router-simulator': MoeRouterSimulatorCopy;
@@ -390,10 +392,10 @@ interface VisualCopyMap {
   'transformer-scaling-chart': WelcomeSynthwaveCopy;
 }
 
-// ── Generated SlideVisual union from the registry ──────────────────────────
+// â”€â”€ Generated SlideVisual union from the registry â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /**
- * SlideVisual is derived from VisualCopyMap — one union member per visual id.
+ * SlideVisual is derived from VisualCopyMap â€” one union member per visual id.
  * Adding a new visual requires only adding an entry to VisualCopyMap above.
  */
 export type SlideVisual = {
@@ -403,12 +405,12 @@ export type SlideVisual = {
   };
 }[keyof VisualCopyMap];
 
-// ── Convenience: extract copy type for a given visual id ───────────────────
+// â”€â”€ Convenience: extract copy type for a given visual id â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /** Usage: `type MyCopy = VisualCopyForId<'my-visual-id'>` */
 export type VisualCopyForId<T extends keyof VisualCopyMap> = VisualCopyMap[T];
 
-// ── Slide options and ISlide ───────────────────────────────────────────────
+// â”€â”€ Slide options and ISlide â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface SlideOptions {
   columns?: number;
