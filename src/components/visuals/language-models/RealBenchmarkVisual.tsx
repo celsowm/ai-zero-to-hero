@@ -72,11 +72,8 @@ async function runWebGPUBenchmark(): Promise<number | null> {
     const byteSize = size * 4; // Float32
 
     // WebGPU globals (available at runtime in supported browsers)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _GPUBufferUsage = (globalThis as Record<string, unknown>).GPUBufferUsage as Record<string, number>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _GPUShaderStage = (globalThis as Record<string, unknown>).GPUShaderStage as Record<string, number>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _GPUMapMode = (globalThis as Record<string, unknown>).GPUMapMode as Record<string, number>;
 
     // Create buffers
