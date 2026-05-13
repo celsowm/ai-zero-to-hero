@@ -226,6 +226,11 @@ import { tokenizerInternalsHf } from './tokenizer-internals-hf';
 import { tokenizerTrainingHf } from './tokenizer-training-hf';
 import { trainerDemystified } from './trainer-demystified';
 import { trainingLanguageModels } from './training-language-models';
+import { trainingMetricsFamilies } from './training-metrics-families';
+import { trainingLossExplained } from './training-loss-explained';
+import { evalLossGeneralization } from './eval-loss-generalization';
+import { gradNormStability } from './grad-norm-stability';
+import { classificationMetrics } from './classification-metrics';
 import { transformerBlockOverview } from './transformer-block-overview';
 import { welcome } from './welcome';
 import { whyTransformersWorkSoWell } from './why-transformers-work-so-well';
@@ -489,6 +494,11 @@ export const allSlides: ISlide[] = [
   tokenizerInternalsHf,
   tokenizerTrainingHf,
   trainerDemystified,
+  trainingMetricsFamilies,
+  trainingLossExplained,
+  evalLossGeneralization,
+  gradNormStability,
+  classificationMetrics,
   trainingLanguageModels,
   transformerBlockOverview,
   welcome,

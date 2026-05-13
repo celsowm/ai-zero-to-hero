@@ -1,0 +1,5 @@
+{
+  "id": "transformers/training-metrics-log",
+  "title": "Training Metrics Logs",
+  "description": "Simulation of training logs from Hugging Face Trainer"
+}
