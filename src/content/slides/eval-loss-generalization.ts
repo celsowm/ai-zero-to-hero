@@ -2,7 +2,10 @@ import { defineSlide } from './_factory';
 
 export const evalLossGeneralization = defineSlide({
   id: 'eval-loss-generalization',
-  type: 'markdown',
+  type: 'two-column',
+  options: {
+    columnRatios: [0.5, 0.5],
+  },
   content: {
     'pt-br': {
       title: `Generalização: Treino vs. Validação`,
@@ -13,17 +16,18 @@ export const evalLossGeneralization = defineSlide({
 
 O comportamento ideal é que ambas as curvas desçam juntas. Quando elas divergem, temos um sinal de alerta.
 
-### O Diagnóstico (Saudável vs. Overfitting)
+---
 
-| Cenário | Train Loss | Eval Loss | Diagnóstico |
+### O Diagnóstico (Treino vs. Eval)
+
+| Cenário | Train | Eval | Diagnóstico |
 | :--- | :--- | :--- | :--- |
-| **Ideal** | 1.0 → 0.8 | 1.1 → 0.9 | ✅ Saudável |
-| **Alerta** | 1.0 → 0.7 | 1.1 → 1.1 | ⚠️ Platô |
-| **Crítico** | 1.0 → 0.3 | 1.1 → 1.8 | ❌ Overfitting |
+| **Ideal** | ↓ | ↓ | ✅ Saudável |
+| **Alerta** | ↓ | = | ⚠️ Platô |
+| **Crítico** | ↓ | ↑ | ❌ Overfitting |
 
 1.  **Saudável:** \`train_loss\` ↓ e \`eval_loss\` ↓.
-2.  **Overfitting (Decorando):** \`train_loss\` ↓ mas \`eval_loss\` ↑.
-3.  **Platô:** Ambas param de descer.`,
+2.  **Overfitting:** \`train_loss\` ↓ mas \`eval_loss\` ↑.`,
     },
     'en-us': {
       title: `Generalization: Training vs. Validation`,
@@ -34,17 +38,18 @@ O comportamento ideal é que ambas as curvas desçam juntas. Quando elas diverge
 
 The ideal behavior is for both curves to go down together. When they diverge, we have a red flag.
 
-### The Diagnosis (Healthy vs. Overfitting)
+---
 
-| Scenario | Train Loss | Eval Loss | Diagnosis |
+### The Diagnosis (Train vs. Eval)
+
+| Scenario | Train | Eval | Diagnosis |
 | :--- | :--- | :--- | :--- |
-| **Ideal** | 1.0 → 0.8 | 1.1 → 0.9 | ✅ Healthy |
-| **Warning** | 1.0 → 0.7 | 1.1 → 1.1 | ⚠️ Plateau |
-| **Critical** | 1.0 → 0.3 | 1.1 → 1.8 | ❌ Overfitting |
+| **Ideal** | ↓ | ↓ | ✅ Healthy |
+| **Warning** | ↓ | = | ⚠️ Plateau |
+| **Critical** | ↓ | ↑ | ❌ Overfitting |
 
 1.  **Healthy:** \`train_loss\` ↓ and \`eval_loss\` ↓.
-2.  **Overfitting (Memorizing):** \`train_loss\` ↓ but \`eval_loss\` ↑.
-3.  **Plateau:** Both stop going down.`,
+2.  **Overfitting:** \`train_loss\` ↓ but \`eval_loss\` ↑.`,
     },
   },
 });

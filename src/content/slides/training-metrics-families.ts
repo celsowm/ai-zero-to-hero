@@ -2,23 +2,21 @@ import { defineSlide } from './_factory';
 
 export const trainingMetricsFamilies = defineSlide({
   id: 'training-metrics-families',
-  type: 'markdown',
+  type: 'two-column',
+  options: {
+    columnRatios: [0.5, 0.5],
+  },
   content: {
     'pt-br': {
       title: `As Famílias de Métricas`,
       body: `Nem toda métrica mede a mesma coisa. Para não se perder no "mar de números" do Trainer, divida as métricas em quatro famílias de sinais:
 
-1.  **Qualidade de Aprendizado:** Indica se o modelo está conseguindo imitar os dados de treino.
-    *   *Ex:* \`loss\`, \`perplexity\`, \`accuracy\`.
+1.  **Qualidade de Aprendizado:** Indica se o modelo está imitando o treino (\`loss\`, \`perplexity\`).
+2.  **Generalização:** Indica se o aprendizado serve para dados novos (\`eval_loss\`).
+3.  **Estabilidade:** Indica se o treino está saudável (\`grad_norm\`, \`learning_rate\`).
+4.  **Performance:** Mede a velocidade e o custo (\`samples/s\`, \`GPU memory\`).
 
-2.  **Generalização:** Indica se o aprendizado serve para dados que o modelo nunca viu.
-    *   *Ex:* \`eval_loss\`, \`eval_accuracy\`, \`benchmark_score\`.
-
-3.  **Estabilidade:** Indica se o treino está saudável ou prestes a "explodir".
-    *   *Ex:* \`grad_norm\`, \`learning_rate\`, \`loss_spikes\`.
-
-4.  **Performance & Infra:** Mede a velocidade e o custo do processo.
-    *   *Ex:* \`samples_per_second\`, \`steps_per_second\`, \`GPU memory\`.
+---
 
 ### O que buscar?
 *   📉 **Loss e Eval Loss:** Devem descer.
@@ -32,17 +30,12 @@ export const trainingMetricsFamilies = defineSlide({
       title: `The Metric Families`,
       body: `Not every metric measures the same thing. To avoid getting lost in the Trainer's "sea of numbers," divide the metrics into four signal families:
 
-1.  **Learning Quality:** Indicates if the model is succeeding in mimicking the training data.
-    *   *Ex:* \`loss\`, \`perplexity\`, \`accuracy\`.
+1.  **Learning Quality:** Indicates if the model is mimicking training (\`loss\`, \`perplexity\`).
+2.  **Generalization:** Indicates if the learning applies to new data (\`eval_loss\`).
+3.  **Stability:** Indicates if the training is healthy (\`grad_norm\`, \`learning_rate\`).
+4.  **Performance:** Measures the speed and cost (\`samples/s\`, \`GPU memory\`).
 
-2.  **Generalization:** Indicates if the learning applies to data the model has never seen.
-    *   *Ex:* \`eval_loss\`, \`eval_accuracy\`, \`benchmark_score\`.
-
-3.  **Stability:** Indicates if the training is healthy or about to "explode."
-    *   *Ex:* \`grad_norm\`, \`learning_rate\`, \`loss_spikes\`.
-
-4.  **Performance & Infra:** Measures the speed and cost of the process.
-    *   *Ex:* \`samples_per_second\`, \`steps_per_second\`, \`GPU memory\`.
+---
 
 ### What to look for?
 *   📉 **Loss and Eval Loss:** Should go down.
