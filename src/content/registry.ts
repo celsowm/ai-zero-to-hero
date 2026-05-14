@@ -187,3 +187,7 @@ export function resolveSnippetRegion(
 export function resolveSnippetExplanations(sourceRef: CodeSourceRef, locale: Language): CodeSnippetMeta['explanations'] {
   return findSnippet(sourceRef, locale).meta?.explanations;
 }
+
+export function resolveSnippetMeta(sourceRef: CodeSourceRef, locale: Language): CodeSnippetMeta | undefined {
+  return findSnippet(sourceRef, locale).meta;
+}

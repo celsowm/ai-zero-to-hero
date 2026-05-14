@@ -5,7 +5,7 @@ import { Copy, Check, Info, Terminal } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
-import { resolveSnippetCode } from '../content/registry';
+import { resolveSnippetCode, resolveSnippetMeta } from '../content/registry';
 import 'highlight.js/styles/github-dark.css';
 
 export type CodeExplanation = ICodeExplanation;
@@ -126,6 +126,16 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     if (l === 'js') return 'javascript';
     return l;
   }, [language]);
+
+  const pyodideAllowed = useMemo(() => {
+    if (!sourceRef || lang !== 'python') return false;
+    try {
+      const meta = resolveSnippetMeta(sourceRef, courseLanguage);
+      return meta?.pyodide !== false; // defaults to true
+    } catch {
+      return false;
+    }
+  }, [sourceRef, courseLanguage, lang]);
 
   const processedLines = useMemo(() => {
     const highlighted = hljs.getLanguage(lang)
@@ -289,7 +299,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
-            {lang === 'python' && (
+            {lang === 'python' && pyodideAllowed && (
               <button
                 type="button"
                 onClick={() => {
@@ -340,7 +350,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
       {compact && (
         <div style={{ position: 'absolute', top: 6, right: 6, display: 'flex', gap: '6px', zIndex: 10 }}>
-          {lang === 'python' && (
+          {lang === 'python' && pyodideAllowed && (
             <button
               type="button"
               onClick={() => {

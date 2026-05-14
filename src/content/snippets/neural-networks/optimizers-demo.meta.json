@@ -1,4 +1,5 @@
 {
   "id": "neural-networks/optimizers-demo",
-  "language": "python"
+  "language": "python",
+  "pyodide": false
 }

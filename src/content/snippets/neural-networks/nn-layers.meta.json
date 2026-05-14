@@ -1,4 +1,5 @@
 {
   "id": "neural-networks/nn-layers",
-  "language": "python"
+  "language": "python",
+  "pyodide": false
 }

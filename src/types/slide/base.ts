@@ -12,6 +12,12 @@ export interface CodeSnippetMeta {
   language: SnippetLanguage;
   regions?: CodeRegionId[];
   explanations?: Partial<Record<CodeRegionId, string>>;
+  /**
+   * Whether this snippet can be executed in the Pyodide playground.
+   * Defaults to true. Set to false for snippets that use PyTorch,
+   * native modules, or other APIs not available in Pyodide.
+   */
+  pyodide?: boolean;
 }
 
 export type SlideType = 'markdown' | 'two-column' | 'custom' | 'code' | 'exercise';
