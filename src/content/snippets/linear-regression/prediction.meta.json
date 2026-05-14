@@ -1,0 +1,6 @@
+{
+  "id": "linear-regression/prediction",
+  "language": "python",
+  "pyodide": true,
+  "dependencies": ["linear-regression/python-1d"]
+}
