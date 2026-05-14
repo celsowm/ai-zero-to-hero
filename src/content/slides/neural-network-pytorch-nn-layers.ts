@@ -30,7 +30,36 @@ Funciona como um "dicionário de tradução". Pega IDs de palavras (ex: token \`
 Desliga aleatoriamente (zera) uma porcentagem dos neurônios durante o treino.
 - **Por quê?** Impede que a rede fique "viciada" em caminhos específicos (overfitting), forçando o modelo a aprender representações redundantes e mais robustas.
 
-> **Importante:** \`nn.Dropout\` se comporta de forma diferente no treino (zera valores) e na predição (não faz nada). Falaremos disso logo mais.`,
+> **Importante:** \`nn.Dropout\` se comporta de forma diferente no treino (zera valores) e na predição (não faz nada). Falaremos disso logo mais.
+
+---
+
+\`\`\`python
+snippet:neural-networks/nn-layers
+\`\`\`
+
+### O que observar
+- Cada camada espera um **shape de entrada** diferente: imagens 4D, sequências 3D, tokens 1D
+- \`nn.Sequential\` combina camadas lineares + ativação + dropout em um único bloco
+- \`model.train()\` e \`model.eval()\` controlam se o dropout está ativo ou não`,
+      codeExplanations: [
+    {
+      "lineRange": [1, 8],
+      "content": "Importações e nn.Conv2d: recebe imagens 4D (batch, canais, altura, largura) e produz mapas de características com 16 filtros."
+    },
+    {
+      "lineRange": [10, 14],
+      "content": "nn.LSTM processa sequências 3D (batch, tempo, features) e retorna saída por passo de tempo mais estados finais hidden e cell."
+    },
+    {
+      "lineRange": [16, 20],
+      "content": "nn.Embedding traduz IDs de tokens em vetores densos — essencialmente uma tabela de lookup otimizada."
+    },
+    {
+      "lineRange": [22, 36],
+      "content": "nn.Dropout é montado dentro de nn.Sequential e se comporta diferente em train() vs eval(). Criamos o modelo, rodamos forward nos dois modos e imprimimos os shapes."
+    }
+  ],
     },
     'en-us': {
       title: `Beyond Linear: main PyTorch layers`,
@@ -52,7 +81,36 @@ Acts as a "translation dictionary". Takes word IDs (e.g., token \`42\`) and retu
 Randomly turns off (zeros out) a percentage of neurons during training.
 - **Why?** Prevents the network from getting "addicted" to specific pathways (overfitting), forcing the model to learn redundant, more robust representations.
 
-> **Important:** \`nn.Dropout\` behaves differently in training (zeros values) and in prediction (does nothing). We'll talk about this shortly.`,
+> **Important:** \`nn.Dropout\` behaves differently in training (zeros values) and in prediction (does nothing). We'll talk about this shortly.
+
+---
+
+\`\`\`python
+snippet:neural-networks/nn-layers
+\`\`\`
+
+### What to watch
+- Each layer expects a **different input shape**: 4D images, 3D sequences, 1D tokens
+- \`nn.Sequential\` combines linear layers + activation + dropout into a single block
+- \`model.train()\` and \`model.eval()\` control whether dropout is active or not`,
+      codeExplanations: [
+    {
+      "lineRange": [1, 8],
+      "content": "Imports and nn.Conv2d: receives 4D images (batch, channels, height, width) and produces feature maps with 16 filters."
+    },
+    {
+      "lineRange": [10, 14],
+      "content": "nn.LSTM processes 3D sequences (batch, time, features) and returns per-timestep output plus final hidden and cell states."
+    },
+    {
+      "lineRange": [16, 20],
+      "content": "nn.Embedding translates token IDs into dense vectors — essentially an optimized lookup table."
+    },
+    {
+      "lineRange": [22, 36],
+      "content": "nn.Dropout is placed inside nn.Sequential and behaves differently in train() vs eval(). We build the model, run forward in both modes, and print shapes."
+    }
+  ],
     },
   },
 });
