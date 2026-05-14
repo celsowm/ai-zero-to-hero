@@ -5,7 +5,7 @@ import { Copy, Check, Info, Terminal } from 'lucide-react';
 import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../types/slide';
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
-import { resolveSnippetCode, resolveSnippetMeta } from '../content/registry';
+import { resolveSnippetCode, resolveSnippetMeta, resolveSnippetCodeWithDeps } from '../content/registry';
 import 'highlight.js/styles/github-dark.css';
 
 export type CodeExplanation = ICodeExplanation;
@@ -303,7 +303,10 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  setCodeToolCode(resolvedCode);
+                  const codeToRun = sourceRef
+                    ? resolveSnippetCodeWithDeps(sourceRef, courseLanguage)
+                    : resolvedCode;
+                  setCodeToolCode(codeToRun);
                   setIsCodeToolOpen(true);
                 }}
                 style={{
@@ -354,7 +357,10 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             <button
               type="button"
               onClick={() => {
-                setCodeToolCode(resolvedCode);
+                const codeToRun = sourceRef
+                  ? resolveSnippetCodeWithDeps(sourceRef, courseLanguage)
+                  : resolvedCode;
+                setCodeToolCode(codeToRun);
                 setIsCodeToolOpen(true);
               }}
               style={{

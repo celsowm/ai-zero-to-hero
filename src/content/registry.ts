@@ -191,3 +191,45 @@ export function resolveSnippetExplanations(sourceRef: CodeSourceRef, locale: Lan
 export function resolveSnippetMeta(sourceRef: CodeSourceRef, locale: Language): CodeSnippetMeta | undefined {
   return findSnippet(sourceRef, locale).meta;
 }
+
+/**
+ * Resolve snippet code with its full dependency chain.
+ * Uses DFS to walk the dependency graph, so for A → B → C the result is:
+ *   # --- dependency: C ---\n<C code>\n\n# --- dependency: B ---\n<B code>\n\n# --- main ---\n<A code>
+ *
+ * Deduplicates via visited set, so diamond dependencies (A→B, A→C, B→D, C→D)
+ * only include D once.
+ */
+export function resolveSnippetCodeWithDeps(sourceRef: CodeSourceRef, locale: Language): string {
+  const order: Array<{ snippetId: string; code: string }> = [];
+  const visited = new Set<string>();
+
+  function walk(ref: CodeSourceRef) {
+    if (visited.has(ref.snippetId)) return;
+    visited.add(ref.snippetId);
+
+    const record = findSnippet(ref, locale);
+    const deps = record.meta?.dependencies;
+
+    if (deps) {
+      for (const depId of deps) {
+        walk({ snippetId: depId, language: ref.language });
+      }
+    }
+
+    order.push({ snippetId: ref.snippetId, code: record.code });
+  }
+
+  walk(sourceRef);
+
+  if (order.length === 1) {
+    return order[0].code;
+  }
+
+  return order
+    .map((entry, i) => {
+      const label = i === order.length - 1 ? 'main' : `dependency: ${entry.snippetId}`;
+      return `# --- ${label} ---\n${entry.code}`;
+    })
+    .join('\n\n');
+}

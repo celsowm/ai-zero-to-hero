@@ -1,0 +1,5 @@
+{
+  "id": "gpt2_pytorch/gpt2-lm-head-generate",
+  "language": "python",
+  "dependencies": ["gpt2_pytorch/gpt2-model-forward"]
+}

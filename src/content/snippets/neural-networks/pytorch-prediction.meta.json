@@ -1,6 +1,7 @@
 {
   "id": "neural-networks/pytorch-prediction",
   "language": "python",
+  "pyodide": false,
   "explanations": [
     {
       "lineRange": [1, 5],
@@ -12,5 +13,6 @@
       "pt-br": "Inferência com torch.no_grad() e conversão para classe binária (threshold 0.5).",
       "en-us": "Inference with torch.no_grad() and conversion to binary class (threshold 0.5)."
     }
-  ]
+  ],
+  "dependencies": ["neural-networks/pytorch-training"]
 }

@@ -1,9 +1,11 @@
 {
   "id": "build_gpt2/build-gpt2-train",
+  "language": "python",
   "regions": [
     "train-imports",
     "train-setup",
     "train-loop"
   ],
-  "explanations": {}
+  "explanations": {},
+  "dependencies": ["build_gpt2/build-gpt2-model"]
 }

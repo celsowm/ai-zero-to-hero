@@ -1,9 +1,11 @@
 {
   "id": "build_gpt2/build-gpt2-generate",
+  "language": "python",
   "regions": [
     "generate-imports",
     "generate-setup",
     "generate-loop"
   ],
-  "explanations": {}
+  "explanations": {},
+  "dependencies": ["build_gpt2/build-gpt2-model"]
 }

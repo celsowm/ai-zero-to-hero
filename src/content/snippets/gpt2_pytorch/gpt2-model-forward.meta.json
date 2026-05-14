@@ -1,0 +1,5 @@
+{
+  "id": "gpt2_pytorch/gpt2-model-forward",
+  "language": "python",
+  "dependencies": ["gpt2_pytorch/gpt2-mlp-block"]
+}
