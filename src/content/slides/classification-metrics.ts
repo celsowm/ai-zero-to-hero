@@ -2,10 +2,7 @@ import { defineSlide } from './_factory';
 
 export const classificationMetrics = defineSlide({
   id: 'classification-metrics',
-  type: 'two-column',
-  options: {
-    columnRatios: [0.5, 0.5],
-  },
+  type: 'markdown',
   content: {
     'pt-br': {
       title: `Métricas de Classificação`,

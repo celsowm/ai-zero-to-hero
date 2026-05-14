@@ -2,10 +2,7 @@ import { defineSlide } from './_factory';
 
 export const trainingMetricsFamilies = defineSlide({
   id: 'training-metrics-families',
-  type: 'two-column',
-  options: {
-    columnRatios: [0.5, 0.5],
-  },
+  type: 'markdown',
   content: {
     'pt-br': {
       title: `As Famílias de Métricas`,

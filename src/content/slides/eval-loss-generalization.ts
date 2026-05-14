@@ -2,10 +2,7 @@ import { defineSlide } from './_factory';
 
 export const evalLossGeneralization = defineSlide({
   id: 'eval-loss-generalization',
-  type: 'two-column',
-  options: {
-    columnRatios: [0.5, 0.5],
-  },
+  type: 'markdown',
   content: {
     'pt-br': {
       title: `Generalização: Treino vs. Validação`,
@@ -17,6 +14,7 @@ export const evalLossGeneralization = defineSlide({
 O comportamento ideal é que ambas as curvas desçam juntas. Quando elas divergem, temos um sinal de alerta.
 
 ### O Diagnóstico (Saudável vs. Overfitting)
+
 | Cenário | Train Loss | Eval Loss | Diagnóstico |
 | :--- | :--- | :--- | :--- |
 | **Ideal** | 1.0 → 0.8 | 1.1 → 0.9 | ✅ Saudável |
@@ -37,6 +35,7 @@ O comportamento ideal é que ambas as curvas desçam juntas. Quando elas diverge
 The ideal behavior is for both curves to go down together. When they diverge, we have a red flag.
 
 ### The Diagnosis (Healthy vs. Overfitting)
+
 | Scenario | Train Loss | Eval Loss | Diagnosis |
 | :--- | :--- | :--- | :--- |
 | **Ideal** | 1.0 → 0.8 | 1.1 → 0.9 | ✅ Healthy |

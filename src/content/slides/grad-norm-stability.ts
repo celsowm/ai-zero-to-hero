@@ -2,10 +2,7 @@ import { defineSlide } from './_factory';
 
 export const gradNormStability = defineSlide({
   id: 'grad-norm-stability',
-  type: 'two-column',
-  options: {
-    columnRatios: [0.55, 0.45],
-  },
+  type: 'markdown',
   content: {
     'pt-br': {
       title: `Estabilidade: Grad Norm e Learning Rate`,
@@ -19,7 +16,7 @@ Mede o tamanho das correções que o otimizador quer aplicar.
 ### 2. Learning Rate (LR) e Scheduler
 O LR é o acelerador. Usamos um **Scheduler** para mudar a velocidade:
 *   **Warmup:** Começa bem devagar para não "assustar" o modelo com dados novos.
-*   **Cosine Decay:** Diminui o passo no final para o ajuste fino com cuidado.
+*   **Cosine Decay:** Diminui o passo no final para o modelo fazer o ajuste fino com cuidado.
 
 ### Sinais de Estabilidade
 *   🟢 **Estável:** Grad Norm oscilando entre 10 e 20.
