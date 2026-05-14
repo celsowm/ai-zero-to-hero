@@ -9,28 +9,21 @@ export const classificationMetrics = defineSlide({
   content: {
     'pt-br': {
       title: `Métricas de Classificação`,
-      body: `Quando treinamos um modelo para classificar (ex: "É crime?"), a \`loss\` não conta a história toda.
+      body: `Quando treinamos um modelo para classificar (ex: "É crime?" ou "Dano moral?"), a \`loss\` não conta a história toda. Precisamos de métricas de acerto:
 
 ### Precision (Precisão)
 "Quando o modelo diz que é positivo, o quanto podemos confiar?"
 *   Foco em **evitar falsos positivos**.
 
 ### Recall (Revogação)
-"De todos os casos positivos reais, quantos o modelo achou?"
+"De todos os casos positivos que existem, quantos o modelo achou?"
 *   Foco em **evitar falsos negativos**.
 
----
-
-### A Intuição do Trade-off
-*   ⚖️ **Mais Precisão:** Modelo "conservador", só acusa com certeza absoluta.
-*   🔍 **Mais Recall:** Modelo "agressivo", acusa qualquer suspeita.
-*   🎯 **F1-Score:** Tenta achar o ponto ideal entre os dois (média harmônica).
-
-> O melhor equilíbrio depende se você prefere evitar um erro de acusação ou não deixar passar um culpado.`,
+> **O Desafio:** Geralmente, quando você aumenta a Precisão (fica mais conservador), você diminui o Recall (deixa passar mais coisas), e vice-versa.`,
     },
     'en-us': {
       title: `Classification Metrics`,
-      body: `When we train a model to classify (e.g., "Is it a crime?"), \`loss\` doesn't tell the whole story.
+      body: `When we train a model to classify (e.g., "Is it a crime?" or "Moral damage?"), \`loss\` doesn't tell the whole story. We need accuracy metrics:
 
 ### Precision
 "When the model says it's positive, how much can we trust it?"
@@ -40,14 +33,24 @@ export const classificationMetrics = defineSlide({
 "Of all the real positive cases, how many did the model find?"
 *   Focus on **avoiding false negatives**.
 
----
-
-### The Trade-off Intuition
-*   ⚖️ **More Precision:** "Conservative" model, only accuses with absolute certainty.
-*   🔍 **More Recall:** "Aggressive" model, accuses at any suspicion.
-*   🎯 **F1-Score:** Tries to find the sweet spot between the two (harmonic mean).
-
-> The best balance depends on whether you prefer to avoid a false accusation or not let a guilty party slip through.`,
+> **The Challenge:** Generally, when you increase Precision (become more conservative), you decrease Recall (let more things slip through), and vice versa.`,
+    },
+  },
+  visual: {
+    id: 'classification-metrics-visual',
+    copy: {
+      'pt-br': {
+        precisionTitle: 'Mais Precisão',
+        precisionDesc: 'Modelo fica "conservador", só acusa quando tem certeza absoluta (ex: condenações criminais).',
+        recallTitle: 'Mais Recall',
+        recallDesc: 'Modelo fica "agressivo", acusa qualquer sinal de suspeita (ex: triagem de doenças).',
+      },
+      'en-us': {
+        precisionTitle: 'More Precision',
+        precisionDesc: 'Model becomes "conservative", only accuses when absolutely sure (e.g., criminal convictions).',
+        recallTitle: 'More Recall',
+        recallDesc: 'Model becomes "aggressive", accuses at any sign of suspicion (e.g., disease screening).',
+      },
     },
   },
 });

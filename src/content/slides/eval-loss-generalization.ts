@@ -16,18 +16,10 @@ export const evalLossGeneralization = defineSlide({
 
 O comportamento ideal é que ambas as curvas desçam juntas. Quando elas divergem, temos um sinal de alerta.
 
----
-
-### O Diagnóstico (Treino vs. Eval)
-
-| Cenário | Train | Eval | Diagnóstico |
-| :--- | :--- | :--- | :--- |
-| **Ideal** | ↓ | ↓ | ✅ Saudável |
-| **Alerta** | ↓ | = | ⚠️ Platô |
-| **Crítico** | ↓ | ↑ | ❌ Overfitting |
-
+### O Diagnóstico
 1.  **Saudável:** \`train_loss\` ↓ e \`eval_loss\` ↓.
-2.  **Overfitting:** \`train_loss\` ↓ mas \`eval_loss\` ↑.`,
+2.  **Overfitting (Decorando):** \`train_loss\` ↓ mas \`eval_loss\` ↑.
+3.  **Platô:** Ambas param de descer.`,
     },
     'en-us': {
       title: `Generalization: Training vs. Validation`,
@@ -38,18 +30,27 @@ O comportamento ideal é que ambas as curvas desçam juntas. Quando elas diverge
 
 The ideal behavior is for both curves to go down together. When they diverge, we have a red flag.
 
----
-
-### The Diagnosis (Train vs. Eval)
-
-| Scenario | Train | Eval | Diagnosis |
-| :--- | :--- | :--- | :--- |
-| **Ideal** | ↓ | ↓ | ✅ Healthy |
-| **Warning** | ↓ | = | ⚠️ Plateau |
-| **Critical** | ↓ | ↑ | ❌ Overfitting |
-
+### The Diagnosis
 1.  **Healthy:** \`train_loss\` ↓ and \`eval_loss\` ↓.
-2.  **Overfitting:** \`train_loss\` ↓ but \`eval_loss\` ↑.`,
+2.  **Overfitting (Memorizing):** \`train_loss\` ↓ but \`eval_loss\` ↑.
+3.  **Plateau:** Both stop going down.`,
+    },
+  },
+  visual: {
+    id: 'eval-loss-generalization-visual',
+    copy: {
+      'pt-br': {
+        healthyLabel: 'Saudável (Ideal)',
+        overfitLabel: 'Overfitting (Alerta)',
+        trainLoss: 'Train Loss',
+        evalLoss: 'Eval Loss',
+      },
+      'en-us': {
+        healthyLabel: 'Healthy (Ideal)',
+        overfitLabel: 'Overfitting (Warning)',
+        trainLoss: 'Train Loss',
+        evalLoss: 'Eval Loss',
+      },
     },
   },
 });
