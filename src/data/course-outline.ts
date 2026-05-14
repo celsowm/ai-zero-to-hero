@@ -52,8 +52,14 @@ export const courseSlideOrder = [
   'neural-network-pytorch-silicon',
   // Design do framework: eager mode, autograd, C++ dispatcher, fused kernels
   'pytorch-why-performant',
+  'neural-network-pytorch-nn-linear',
+  'neural-network-pytorch-nn-layers',
+  'neural-network-pytorch-activations',
+  'neural-network-pytorch-optimizers',
+  'neural-network-pytorch-model-lifecycle',
   // Função de loss para classificação binária: BCELoss
   'neural-network-bce-loss',
+  'neural-network-pytorch-nn-exercise',
   'neural-network-pytorch-training',
   'neural-network-pytorch-prediction',
   'pytorch-save-load',

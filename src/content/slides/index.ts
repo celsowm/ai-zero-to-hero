@@ -167,6 +167,12 @@ import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
+import { neuralNetworkPytorchNnLinear } from './neural-network-pytorch-nn-linear';
+import { neuralNetworkPytorchNnLayers } from './neural-network-pytorch-nn-layers';
+import { neuralNetworkPytorchActivations } from './neural-network-pytorch-activations';
+import { neuralNetworkPytorchOptimizers } from './neural-network-pytorch-optimizers';
+import { neuralNetworkPytorchModelLifecycle } from './neural-network-pytorch-model-lifecycle';
+import { neuralNetworkPytorchNnExercise } from './neural-network-pytorch-nn-exercise';
 import { neuralNetworkBceLoss } from './neural-network-bce-loss';
 import { neuralNetworkPytorchTraining } from './neural-network-pytorch-training';
 import { neuralNetworkSigmoidDeepDive } from './neural-network-sigmoid-deep-dive';
@@ -431,6 +437,12 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchHardware,
   neuralNetworkPytorchInstall,
   neuralNetworkPytorchIntro,
+  neuralNetworkPytorchNnLinear,
+  neuralNetworkPytorchNnLayers,
+  neuralNetworkPytorchActivations,
+  neuralNetworkPytorchOptimizers,
+  neuralNetworkPytorchModelLifecycle,
+  neuralNetworkPytorchNnExercise,
   neuralNetworkPytorchPrediction,
   pytorchSaveLoad,
   neuralNetworkPytorchTensors,
