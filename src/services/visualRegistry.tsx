@@ -190,6 +190,7 @@ const visualMap: Record<string, string> = {
   'biological-vs-computational-neuron': 'BiologicalVsComputationalNeuron',
   'weights-biases-explorer': 'WeightsBiasesExplorer',
   'bce-loss-curve': 'BceLossCurve',
+  'optimizer-trajectory-visual': 'OptimizerTrajectoryVisual',
 
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',

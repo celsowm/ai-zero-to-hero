@@ -458,3 +458,23 @@ export interface BceLossCurveCopy {
   insight: string;
   insightShort: string;
 }
+
+export interface OptimizerTrajectoryVisualCopy {
+  title: string;
+  description: string;
+  startLabel: string;
+  resetLabel: string;
+  optimizerLabel: string;
+  sgdLabel: string;
+  momentumLabel: string;
+  adamLabel: string;
+  lossLabel: string;
+  iterationLabel: string;
+  insightTitle: string;
+  insights: {
+    sgd: string;
+    momentum: string;
+    adam: string;
+  };
+}
+
