@@ -114,6 +114,9 @@ export interface PyTorchPerformanceVisualCopy {
   speedupLabel: string;
   operationLabel: string;
   elementsLabel: string;
+  tabs?: Array<{ label: string }>;
+  pythonLikeTitle?: string;
+  webgpuShaderTitle?: string;
 }
 
 export interface ContextWindowSliderCopy {

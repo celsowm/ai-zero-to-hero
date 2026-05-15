@@ -40,6 +40,10 @@ In PyTorch, the graph is built **at the time of execution** (Eager Mode).
     id: 'pytorch-autograd',
     copy: {
       'pt-br': {
+        tabs: [
+          { label: 'Demonstração' },
+          { label: 'Código (Benchmark)' }
+        ],
         autogradTitle: 'Grafo Computacional Dinâmico',
         dynamicGraphLabel: 'PyTorch (dinâmico)',
         staticGraphLabel: 'TF 1.x (estático)',
@@ -59,6 +63,9 @@ In PyTorch, the graph is built **at the time of execution** (Eager Mode).
         speedupLabel: 'Ganho de Velocidade',
         operationLabel: 'Operação',
         elementsLabel: 'Dados',
+        // Code view titles
+        pythonLikeTitle: 'Abordagem "Python-like" (Sequencial)',
+        webgpuShaderTitle: 'Abordagem "PyTorch-like" (WebGPU Shader)',
         // Reuse some labels from the other visual for type safety
         beforeLabel: '',
         afterLabel: '',
@@ -69,6 +76,10 @@ In PyTorch, the graph is built **at the time of execution** (Eager Mode).
         timeUnit: 'ms', insightTitle: '',
       },
       'en-us': {
+        tabs: [
+          { label: 'Demo' },
+          { label: 'Code (Benchmark)' }
+        ],
         autogradTitle: 'Dynamic Computational Graph',
         dynamicGraphLabel: 'PyTorch (dynamic)',
         staticGraphLabel: 'TF 1.x (static)',
@@ -87,6 +98,9 @@ In PyTorch, the graph is built **at the time of execution** (Eager Mode).
         speedupLabel: 'Speed gain',
         operationLabel: 'Operation',
         elementsLabel: 'Data',
+        // Code view titles
+        pythonLikeTitle: '"Python-like" Approach (Sequential)',
+        webgpuShaderTitle: '"PyTorch-like" Approach (WebGPU Shader)',
         // Reuse some labels from the other visual for type safety
         beforeLabel: '',
         afterLabel: '',
