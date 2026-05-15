@@ -13,7 +13,7 @@ export const moeIntro = defineSlide({
 
 1. **Abordagem Densa (Padrão):** Cada token passa por *todos* os neurônios do modelo. Se o modelo cresce, o custo de processamento cresce junto.
 2. **Abordagem Esparsa (MoE):** Substituímos a camada MLP única por uma coleção de "especialistas". Cada token ativa apenas uma fração deles.
-3. **Parâmetros vs. FLOPs:** Você pode ter 8x mais parâmetros, mas usar o mesmo poder computacional (FLOPs) de um modelo muito menor.
+3. **Parâmetros vs. FLOPs:** Você pode ter 8x mais parâmetros, mas usar o mesmo poder computacional (**FLOPs** - Operações de Ponto Flutuante por Segundo) de um modelo muito menor. Isso acontece porque nem todo parâmetro é "ativado" para cada palavra.
 
 > "Aumentar o número de parâmetros sem aumentar o custo computacional." — Esse é o mantra do MoE.
 
@@ -28,7 +28,7 @@ Modelos como **Mixtral 8x7B** e **DeepSeek-V3** provaram que o MoE não é apena
 
 1. **Dense Approach (Standard):** Every token passes through *all* the model's neurons. If the model grows, the processing cost grows with it.
 2. **Sparse Approach (MoE):** We replace the single MLP layer with a collection of "experts". Each token activates only a fraction of them.
-3. **Parameters vs. FLOPs:** You can have 8x more parameters but use the same computational power (FLOPs) as a much smaller model.
+3. **Parameters vs. FLOPs:** You can have 8x more parameters but use the same computational power (**FLOPs** - Floating Point Operations per Second) as a much smaller model. This happens because not every parameter is "activated" for every word.
 
 > "Increasing parameters without increasing computational cost." — This is the MoE mantra.
 

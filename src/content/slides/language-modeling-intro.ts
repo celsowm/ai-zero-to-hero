@@ -18,7 +18,7 @@ export const languageModelingIntro = defineSlide({
 
 2. **A ilusão de inteligência:** ao fazer isso bilhões de vezes, muito rápido e com extrema precisão, o modelo parece estar raciocinando, mas está apenas calculando a continuação estatisticamente mais adequada.
 
-3. **Do zero ao GPT:** todo modelo moderno, do corretor do celular ao GPT-4, compartilha esse mesmo princípio básico de previsão.
+3. **Do zero ao GPT:** todo modelo moderno, do corretor do celular ao GPT-4, compartilha esse mesmo princípio básico de previsão. Quando esses modelos são treinados em escala massiva de dados, chamamos de **LLM** (Large Language Models).
 
 > Modelos de linguagem não têm opiniões; eles são calculadoras de probabilidade incrivelmente sofisticadas.`,
     },
@@ -30,7 +30,7 @@ export const languageModelingIntro = defineSlide({
 
 2. **The illusion of intelligence:** by doing this billions of times, very fast and with extreme precision, the model appears to be reasoning, but it is just calculating the most statistically sound continuation.
 
-3. **From scratch to GPT:** every modern model, from your phone's autocomplete to GPT-4, shares this same basic prediction principle.
+3. **From scratch to GPT:** every modern model, from your phone's autocomplete to GPT-4, shares this same basic prediction principle. When these models are trained on a massive scale of data, we call them **LLMs** (Large Language Models).
 
 > Language models do not have opinions; they are incredibly sophisticated probability calculators.`,
     },

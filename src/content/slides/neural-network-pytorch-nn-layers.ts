@@ -19,8 +19,8 @@ Para imagens, \`Linear\` ignora a estrutura 2D. \`Conv2d\` desliza pequenos "fil
 - Shape de entrada esperado: \`(Batch, Canais, Altura, Largura)\`.
 
 ### 2. nn.RNN / nn.LSTM (Sequências e Séries Temporais)
-Processam dados sequenciais (texto, áudio, ações da bolsa). Elas possuem "estado interno" (memória) que passa de um passo de tempo para o próximo.
-- Hoje em dia, são frequentemente substituídas por Transformers.
+Processam dados sequenciais (texto, áudio, ações da bolsa). A **LSTM** (Long Short-Term Memory) possui um "estado interno" (memória) sofisticado que permite lembrar de informações relevantes por longos períodos.
+- Hoje em dia, são frequentemente substituídas por Transformers em tarefas de texto.
 
 ### 3. nn.Embedding (Processamento de Linguagem)
 Funciona como um "dicionário de tradução". Pega IDs de palavras (ex: token \`42\`) e retorna um vetor denso que representa o significado dessa palavra.
@@ -70,8 +70,8 @@ For images, \`Linear\` ignores the 2D structure. \`Conv2d\` slides small "filter
 - Expected input shape: \`(Batch, Channels, Height, Width)\`.
 
 ### 2. nn.RNN / nn.LSTM (Sequences and Time Series)
-Process sequential data (text, audio, stocks). They have an "internal state" (memory) that passes from one time step to the next.
-- Nowadays, they are often replaced by Transformers.
+Process sequential data (text, audio, stocks). The **LSTM** (Long Short-Term Memory) has a sophisticated "internal state" (memory) that allows it to remember relevant information for long periods.
+- Nowadays, they are often replaced by Transformers for text tasks.
 
 ### 3. nn.Embedding (Natural Language Processing)
 Acts as a "translation dictionary". Takes word IDs (e.g., token \`42\`) and returns a dense vector representing the meaning of that word.

@@ -50,6 +50,7 @@ export const courseSlideOrder = [
   'neural-network-pytorch-silicon',
   // Design do framework: eager mode, autograd, C++ dispatcher, fused kernels
   'pytorch-why-performant',
+  'pytorch-autograd',
   'neural-network-pytorch-nn-linear',
   'neural-network-pytorch-nn-layers',
   'neural-network-pytorch-activations',

@@ -61,6 +61,7 @@ const visualMap: Record<string, string> = {
   'embedding-space-3d-interactive': 'EmbeddingSpace3DInteractive',
   'silicon-compute': 'SiliconComputeVisual',
   'pytorch-performance': 'PyTorchPerformanceVisual',
+  'pytorch-autograd': 'PyTorchAutogradVisual',
   'context-window-slider': 'ContextWindowSlider',
   'mlp-text-diagram': 'MlpTextDiagram',
   'training-loop-stepper': 'TrainingLoopStepper',

@@ -242,6 +242,7 @@ interface VisualCopyMap {
   'embedding-space-3d-interactive': EmbeddingSpace3DInteractiveCopy;
   'silicon-compute': SiliconComputeVisualCopy;
   'pytorch-performance': PyTorchPerformanceVisualCopy;
+  'pytorch-autograd': PyTorchPerformanceVisualCopy;
   'context-window-slider': ContextWindowSliderCopy;
   'mlp-text-diagram': MlpTextDiagramCopy;
   'training-loop-stepper': TrainingLoopStepperCopy;

@@ -30,6 +30,7 @@ export { EmbeddingSpace3D } from './language-models/EmbeddingSpace3D';
 export { EmbeddingSpace3DInteractive } from './language-models/EmbeddingSpace3DInteractive';
 export { SiliconComputeVisual } from './language-models/SiliconComputeVisual';
 export { PyTorchPerformanceVisual } from './language-models/PyTorchPerformanceVisual';
+export { PyTorchAutogradVisual } from './language-models/PyTorchAutogradVisual';
 export { ContextWindowSlider } from './language-models/ContextWindowSlider';
 export { MlpTextDiagram } from './language-models/MlpTextDiagram';
 export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';

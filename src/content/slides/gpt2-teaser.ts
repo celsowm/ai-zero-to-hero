@@ -30,7 +30,7 @@ Hoje usamos GPT-5 com trilhões de parâmetros e contexto de milhões de tokens.
 
 2. **Pré-treinamento auto-regressivo:** prever o próximo token repetidamente. É a mesma ideia dos slides de bigram — só que com atenção em vez de contagem.
 
-3. **O salto que mudou tudo:** provou que atenção pura, sem RNN/LSTM, consegue gerar texto coerente. GPT-3 (2020), GPT-4 (2023) e GPT-5 (2026) são a mesma receita — só que maiores, com mais dados e mais engenharia.
+3. **O salto que mudou tudo:** provou que atenção pura, sem as complexas camadas de memória de antigamente (RNN/LSTM), consegue gerar texto muito mais coerente e de forma mais paralelizável. GPT-3 (2020), GPT-4 (2023) e GPT-5 (2026) são a mesma receita — só que maiores, com mais dados e mais engenharia.
 
 > Entender o GPT-2 é entender o DNA de toda a família. O que mudou de 2019 para cá foi escala, engenharia e truques de treino — não a arquitetura fundamental.`,
     },
@@ -54,7 +54,7 @@ Today we use GPT-5 with trillions of parameters and million-token context. But t
 
 2. **Autoregressive pre-training:** predict the next token repeatedly. Same idea as the bigram slides — just with attention instead of counting.
 
-3. **The leap that changed everything:** it proved that pure attention, without RNN/LSTM, can generate coherent text. GPT-3 (2020), GPT-4 (2023), and GPT-5 (2026) are the same recipe — just bigger, with more data and more engineering.
+3. **The leap that changed everything:** it proved that pure attention, without the complex memory layers of the past (RNN/LSTM), can generate much more coherent text and in a more parallelizable way. GPT-3 (2020), GPT-4 (2023), and GPT-5 (2026) are the same recipe — just bigger, with more data and more engineering.
 
 > Understanding GPT-2 means understanding the DNA of the entire family. What changed from 2019 to now was scale, engineering, and training tricks — not the fundamental architecture.`,
     },

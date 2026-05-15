@@ -18,7 +18,7 @@ export const neuralNetworkTypesOverview = defineSlide({
 
 2. **CNN (Convolutional Neural Networks):** Redes Convolucionais. Elas não tentam olhar para tudo de uma vez; elas usam **filtros deslizantes** para focar em padrões locais. São o padrão ouro para Visão Computacional, pois entendem que pixels vizinhos formam bordas e texturas.
 
-3. **RNN (Recurrent) & Transformers:** Redes de Sequência. Enquanto MLPs são estáticas, estas redes lidam com o **tempo e a ordem**. RNNs usam loops de memória, enquanto Transformers usam **Atenção** para conectar palavras distantes em uma frase. São o motor por trás do ChatGPT e traduções automáticas.
+3. **RNN (Recorrentes, incluindo LSTM) & Transformers:** Redes de Sequência. Enquanto MLPs são estáticas, estas redes lidam com o **tempo e a ordem**. RNNs (e sua variante mais famosa, a LSTM - Long Short-Term Memory) usam loops de memória para lembrar do contexto, enquanto Transformers usam **Atenção** para conectar palavras distantes. São o motor por trás do ChatGPT e traduções automáticas.
 
 > Escolher a arquitetura errada é como tentar usar uma chave de fenda para bater um prego: a ferramenta precisa combinar com a geometria do dado.
 
@@ -46,7 +46,7 @@ O MLP é o alicerce. Entender como ele funciona nos dará a base necessária par
 
 2. **CNN (Convolutional Neural Networks):** These don't try to look at everything at once; they use **sliding filters** to focus on local patterns. They are the gold standard for Computer Vision because they understand that neighboring pixels form edges and textures.
 
-3. **RNN (Recurrent) & Transformers:** Sequence Networks. While MLPs are static, these networks handle **time and order**. RNNs use memory loops, while Transformers use **Attention** to connect distant words in a sentence. They are the engine behind ChatGPT and machine translation.
+3. **RNN (Recurrent, including LSTM) & Transformers:** Sequence Networks. While MLPs are static, these networks handle **time and order**. RNNs (and their most famous variant, the LSTM - Long Short-Term Memory) use memory loops to remember context, while Transformers use **Attention** to connect distant words. They are the engine behind ChatGPT and machine translation.
 
 > Choosing the wrong architecture is like trying to use a screwdriver to hit a nail: the tool must match the data's geometry.
 

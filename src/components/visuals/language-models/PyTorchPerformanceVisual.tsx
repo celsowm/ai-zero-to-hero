@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import type { PyTorchPerformanceVisualCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
-import { RealBenchmarkVisual } from './RealBenchmarkVisual';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -17,25 +16,12 @@ interface BenchmarkResult {
 // ── Benchmark simulation ───────────────────────────────────────────────────────
 
 function simulateBenchmark(params: ModelSize): BenchmarkResult[] {
-  // Approximate benchmarks for forward + backward pass
-  // Python pure: interpreted loop, very slow
-  // NumPy: C-backed but no GPU, no autograd
-  // PyTorch CPU: C++ dispatcher, optimized kernels
-  // PyTorch GPU: CUDA + cuDNN
-
-  const opsPerParam = 6; // forward matmul + add + activation + backward chain
+  const opsPerParam = 6; 
   const totalOps = params * opsPerParam;
 
-  // Python pure: ~1e6 ops/sec (interpreter overhead)
   const pythonTime = (totalOps / 1e6) * 1000;
-
-  // NumPy: ~1e9 ops/sec (vectorized C)
   const numpyTime = (totalOps / 1e9) * 1000;
-
-  // PyTorch CPU: ~5e9 ops/sec (optimized MKL, fused ops)
   const pytorchCpuTime = (totalOps / 5e9) * 1000;
-
-  // PyTorch GPU: ~5e11 ops/sec (CUDA + cuDNN parallelism)
   const pytorchGpuTime = (totalOps / 5e11) * 1000;
 
   return [
@@ -94,124 +80,6 @@ function BenchmarkBar({
   );
 }
 
-// ── Autograd Graph Visual ──────────────────────────────────────────────────────
-
-function AutogradGraphVisual({ copy }: { copy: PyTorchPerformanceVisualCopy }) {
-  const [step, setStep] = useState<'forward' | 'backward'>('forward');
-
-  const forwardEdges = [
-    ['input', 'matmul1'], ['w1', 'matmul1'],
-    ['matmul1', 'relu'],
-    ['relu', 'matmul2'], ['w2', 'matmul2'],
-    ['matmul2', 'output'],
-    ['output', 'loss'],
-  ];
-
-  const backwardEdges = forwardEdges.map(([a, b]) => [b, a] as [string, string]);
-
-  const activeEdges = step === 'forward' ? forwardEdges : backwardEdges;
-  const activeColor = step === 'forward' ? sw.cyan : sw.pink;
-
-  const nodePositions: Record<string, { x: number; y: number }> = {};
-  const svgW = 280;
-  const svgH = 260;
-  const colX = [60, 220]; // left, right columns
-
-  // Layout: input/w1 left, matmul1 right, relu left, w2/matmul2 right, output left, loss right
-  const layout = [
-    { id: 'input', x: colX[0], y: 15 },
-    { id: 'w1', x: colX[0], y: 50 },
-    { id: 'matmul1', x: colX[1], y: 35 },
-    { id: 'relu', x: colX[0], y: 90 },
-    { id: 'w2', x: colX[0], y: 130 },
-    { id: 'matmul2', x: colX[1], y: 110 },
-    { id: 'output', x: colX[0], y: 170 },
-    { id: 'loss', x: colX[1], y: 170 },
-  ];
-
-  layout.forEach(n => { nodePositions[n.id] = { x: n.x, y: n.y }; });
-
-  return (
-    <div style={{
-      background: sw.surface,
-      borderRadius: '12px',
-      padding: '12px',
-      border: `1px solid ${sw.borderSubtle}`,
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-        <div style={{ fontSize: '11px', fontWeight: '700', color: sw.text }}>{copy.autogradTitle}</div>
-        <div style={{ display: 'flex', gap: '6px' }}>
-          <button
-            onClick={() => setStep('forward')}
-            style={{
-              padding: '3px 10px', borderRadius: '6px', fontSize: '10px', fontWeight: '700',
-              border: `1px solid ${step === 'forward' ? sw.cyan : sw.borderSubtle}`,
-              background: step === 'forward' ? `${sw.cyan}22` : 'transparent',
-              color: step === 'forward' ? sw.cyan : sw.textMuted,
-              cursor: 'pointer',
-            }}
-          >
-            {copy.forwardLabel}
-          </button>
-          <button
-            onClick={() => setStep('backward')}
-            style={{
-              padding: '3px 10px', borderRadius: '6px', fontSize: '10px', fontWeight: '700',
-              border: `1px solid ${step === 'backward' ? sw.pink : sw.borderSubtle}`,
-              background: step === 'backward' ? `${sw.pink}22` : 'transparent',
-              color: step === 'backward' ? sw.pink : sw.textMuted,
-              cursor: 'pointer',
-            }}
-          >
-            {copy.backwardLabel}
-          </button>
-        </div>
-      </div>
-
-      <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} style={{ display: 'block' }}>
-        {/* Edges */}
-        {forwardEdges.map(([from, to], i) => {
-          const p1 = nodePositions[from];
-          const p2 = nodePositions[to];
-          if (!p1 || !p2) return null;
-          const isActive = activeEdges.some(([a, b]) => a === from && b === to);
-          return (
-            <line
-              key={`f-${i}`}
-              x1={p1.x + 18} y1={p1.y + 8}
-              x2={p2.x + 18} y2={p2.y + 8}
-              stroke={isActive ? activeColor : sw.borderSubtle}
-              strokeWidth={isActive ? 2 : 1}
-              opacity={isActive ? 0.8 : 0.3}
-              style={{ transition: 'stroke 0.3s, opacity 0.3s' }}
-            />
-          );
-        })}
-
-        {/* Nodes */}
-        {layout.map(n => (
-          <g key={n.id}>
-            <rect
-              x={n.x} y={n.y} width={40} height={16} rx={4}
-              fill={sw.void} stroke={sw.borderSubtle} strokeWidth={1}
-            />
-            <text
-              x={n.x + 20} y={n.y + 11} textAnchor="middle"
-              fontSize={8} fill={sw.text} fontFamily="monospace"
-            >
-              {n.id === 'relu' ? 'ReLU' : n.id}
-            </text>
-          </g>
-        ))}
-      </svg>
-
-      <div style={{ fontSize: '9px', color: sw.textMuted, marginTop: '6px', textAlign: 'center' }}>
-        {step === 'forward' ? copy.dynamicGraphLabel : copy.staticGraphLabel}
-      </div>
-    </div>
-  );
-}
-
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 interface PyTorchPerformanceVisualProps {
@@ -264,7 +132,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
     python: '🐍', numpy: '🔢', pytorch_cpu: '🔥', pytorch_gpu: '⚡',
   };
 
-  // Speedup calculation
   const speedup = results[0].timeMs / results[3].timeMs;
   const speedupStr = speedup >= 1e6 ? `${(speedup / 1e6).toFixed(0)}M×` : speedup >= 1e3 ? `${(speedup / 1e3).toFixed(0)}K×` : `${speedup.toFixed(0)}×`;
 
@@ -273,7 +140,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
 
       {/* ── Before / After comparison ── */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-        {/* Before */}
         <div style={{
           padding: '12px',
           background: 'rgba(239, 68, 68, 0.04)',
@@ -299,7 +165,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
           ))}
         </div>
 
-        {/* After */}
         <div style={{
           padding: '12px',
           background: 'rgba(16, 185, 129, 0.04)',
@@ -337,7 +202,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
           {copy.benchmarkTitle}
         </div>
 
-        {/* Model size slider */}
         <div style={{ marginBottom: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', marginBottom: '4px' }}>
             <span style={{ color: sw.textMuted, fontWeight: '600' }}>{copy.modelSizeLabel}</span>
@@ -364,7 +228,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
           </div>
         </div>
 
-        {/* Run button */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
           <button
             onClick={startBenchmark}
@@ -382,7 +245,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
           </button>
         </div>
 
-        {/* Bars */}
         {results.map(r => (
           <BenchmarkBar
             key={r.label}
@@ -395,12 +257,6 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
           />
         ))}
       </div>
-
-      {/* ── Real In-Browser Benchmark ── */}
-      <RealBenchmarkVisual copy={copy} />
-
-      {/* ── Autograd Graph ── */}
-      <AutogradGraphVisual copy={copy} />
 
       {/* ── Insight Callout ── */}
       <div style={{
@@ -420,3 +276,4 @@ export const PyTorchPerformanceVisual = React.memo(({ copy }: PyTorchPerformance
     </div>
   );
 });
+

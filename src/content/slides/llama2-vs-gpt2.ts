@@ -14,7 +14,7 @@ export const llama2VsGpt2 = defineSlide({
 ### O Que Realmente Mudou (3 coisas)
 1. **Positional Encoding**: Sinusoidal (GPT-2) → **RoPE** (LLaMA). RoPE rotaciona vetores em vez de somar posição fixa — extrapola muito melhor para contextos longos.
 2. **Escala**: 1.5B → 70B parâmetros, 40B → 2T tokens. Mais 50x dados e 47x parâmetros. Isso cria **inteligência emergente** que o GPT-2 não tinha.
-3. **Alignment (RLHF)**: GPT-2 gera texto sem objetivo. LLaMA 2 foi alinhado com RLHF — segue instruções, faz chat multi-turno, é útil na prática.
+3. **Alinhamento (RLHF)**: O GPT-2 gera texto sem um objetivo específico. O LLaMA 2 foi alinhado usando **RLHF** (*Reinforcement Learning from Human Feedback* - Aprendizado por Reforço com Feedback Humano), o que o torna capaz de seguir instruções e manter conversas úteis.
 
 ### O Que Continuou Igual
 - **Arquitetura**: decoder-only, attention full O(n²), feedforward MLP
@@ -37,7 +37,7 @@ export const llama2VsGpt2 = defineSlide({
 ### What Really Changed (3 things)
 1. **Positional Encoding**: Sinusoidal (GPT-2) → **RoPE** (LLaMA). RoPE rotates vectors instead of adding fixed position — extrapolates much better for long contexts.
 2. **Scale**: 1.5B → 70B parameters, 40B → 2T tokens. 50x more data and 47x more parameters. This creates **emergent intelligence** that GPT-2 didn't have.
-3. **Alignment (RLHF)**: GPT-2 generates text without purpose. LLaMA 2 was aligned with RLHF — follows instructions, does multi-turn chat, is practically useful.
+3. **Alignment (RLHF)**: GPT-2 generates text without a specific goal. LLaMA 2 was aligned using **RLHF** (Reinforcement Learning from Human Feedback), making it capable of following instructions and maintaining useful conversations.
 
 ### What Stayed the Same
 - **Architecture**: decoder-only, full O(n²) attention, feedforward MLP
