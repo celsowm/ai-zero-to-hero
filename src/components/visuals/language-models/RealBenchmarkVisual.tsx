@@ -22,7 +22,8 @@ function isWebGPUSupported(): boolean {
 
 // ── Real benchmark execution ───────────────────────────────────────────────────
 
-const ELEMENT_COUNT = 10_000_000; // 10M elements
+const ELEMENT_COUNT = 1_000_000; // 1M elements
+const ITERATIONS = 20; // Repeat the math to favor compute over transfer
 
 async function runJsPureBenchmark(): Promise<number> {
   const a = new Array(ELEMENT_COUNT);
@@ -31,13 +32,19 @@ async function runJsPureBenchmark(): Promise<number> {
     a[i] = Math.random();
     b[i] = Math.random();
   }
+  
   const start = performance.now();
   let sum = 0;
   for (let i = 0; i < ELEMENT_COUNT; i++) {
-    sum += a[i] * b[i] + 0.5;
+    let val = a[i];
+    const bVal = b[i];
+    // Heavier math to avoid JIT optimization and show GPU power
+    for (let j = 0; j < ITERATIONS; j++) {
+      val = Math.exp(Math.sin(val) * Math.cos(bVal)) + Math.sqrt(Math.abs(val - bVal));
+    }
+    sum += val;
   }
   const end = performance.now();
-  // Prevent dead-code elimination
   if (Number.isNaN(sum)) console.log('impossible');
   return end - start;
 }
@@ -49,10 +56,16 @@ async function runJsTypedBenchmark(): Promise<number> {
     a[i] = Math.random();
     b[i] = Math.random();
   }
+  
   const start = performance.now();
   let sum = 0;
   for (let i = 0; i < ELEMENT_COUNT; i++) {
-    sum += a[i] * b[i] + 0.5;
+    let val = a[i];
+    const bVal = b[i];
+    for (let j = 0; j < ITERATIONS; j++) {
+      val = Math.exp(Math.sin(val) * Math.cos(bVal)) + Math.sqrt(Math.abs(val - bVal));
+    }
+    sum += val;
   }
   const end = performance.now();
   if (Number.isNaN(sum)) console.log('impossible');
@@ -69,30 +82,22 @@ async function runWebGPUBenchmark(): Promise<number | null> {
     const device = await adapter.requestDevice();
 
     const size = ELEMENT_COUNT;
-    const byteSize = size * 4; // Float32
+    const byteSize = size * 4;
 
-    // WebGPU globals (available at runtime in supported browsers)
     const _GPUBufferUsage = (globalThis as Record<string, unknown>).GPUBufferUsage as Record<string, number>;
     const _GPUShaderStage = (globalThis as Record<string, unknown>).GPUShaderStage as Record<string, number>;
     const _GPUMapMode = (globalThis as Record<string, unknown>).GPUMapMode as Record<string, number>;
 
-    // Create buffers
     const bufferA = device.createBuffer({ size: byteSize, usage: _GPUBufferUsage.STORAGE | _GPUBufferUsage.COPY_DST });
     const bufferB = device.createBuffer({ size: byteSize, usage: _GPUBufferUsage.STORAGE | _GPUBufferUsage.COPY_DST });
     const bufferResult = device.createBuffer({ size: byteSize, usage: _GPUBufferUsage.STORAGE | _GPUBufferUsage.COPY_SRC });
     const readBuffer = device.createBuffer({ size: byteSize, usage: _GPUBufferUsage.MAP_READ | _GPUBufferUsage.COPY_DST });
 
-    // Fill with data
-    const dataA = new Float32Array(size);
-    const dataB = new Float32Array(size);
-    for (let i = 0; i < size; i++) {
-      dataA[i] = Math.random();
-      dataB[i] = Math.random();
-    }
+    const dataA = new Float32Array(size).map(() => Math.random());
+    const dataB = new Float32Array(size).map(() => Math.random());
     device.queue.writeBuffer(bufferA, 0, dataA);
     device.queue.writeBuffer(bufferB, 0, dataB);
 
-    // Shader
     const shaderModule = device.createShaderModule({ code: `
       @group(0) @binding(0) var<storage, read> a: array<f32>;
       @group(0) @binding(1) var<storage, read> b: array<f32>;
@@ -102,7 +107,12 @@ async function runWebGPUBenchmark(): Promise<number | null> {
       fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
         let i = global_id.x;
         if (i < arrayLength(&a)) {
-          result[i] = a[i] * b[i] + 0.5;
+          var val = a[i];
+          let bVal = b[i];
+          for (var j = 0; j < ${ITERATIONS}; j++) {
+            val = exp(sin(val) * cos(bVal)) + sqrt(abs(val - bVal));
+          }
+          result[i] = val;
         }
       }
     ` });
@@ -128,18 +138,14 @@ async function runWebGPUBenchmark(): Promise<number | null> {
     const pipeline = device.createComputePipeline({ layout: pipelineLayout, compute: { module: shaderModule } });
 
     // Warmup
-    {
-      const encoder = device.createCommandEncoder();
-      const pass = encoder.beginComputePass();
-      pass.setPipeline(pipeline);
-      pass.setBindGroup(0, bindGroup);
-      pass.dispatchWorkgroups(Math.ceil(size / 256));
-      pass.end();
-      encoder.copyBufferToBuffer(bufferResult, 0, readBuffer, 0, byteSize);
-      device.queue.submit([encoder.finish()]);
-      await readBuffer.mapAsync(_GPUMapMode.READ);
-      readBuffer.unmap();
-    }
+    const commandEncoderWarmup = device.createCommandEncoder();
+    const passWarmup = commandEncoderWarmup.beginComputePass();
+    passWarmup.setPipeline(pipeline);
+    passWarmup.setBindGroup(0, bindGroup);
+    passWarmup.dispatchWorkgroups(Math.ceil(size / 256));
+    passWarmup.end();
+    device.queue.submit([commandEncoderWarmup.finish()]);
+    await device.queue.onSubmittedWorkDone();
 
     // Timed run
     const start = performance.now();
@@ -151,22 +157,20 @@ async function runWebGPUBenchmark(): Promise<number | null> {
     pass.end();
     encoder.copyBufferToBuffer(bufferResult, 0, readBuffer, 0, byteSize);
     device.queue.submit([encoder.finish()]);
+    
+    // We wait for the mapAsync to ensure we measure the whole process including getting results back
     await readBuffer.mapAsync(_GPUMapMode.READ);
     const end = performance.now();
     readBuffer.unmap();
 
-    // Cleanup
-    bufferA.destroy();
-    bufferB.destroy();
-    bufferResult.destroy();
-    readBuffer.destroy();
     device.destroy();
-
     return end - start;
-  } catch {
+  } catch (e) {
+    console.error(e);
     return null;
   }
 }
+
 
 // ── Progress Bar ───────────────────────────────────────────────────────────────
 
