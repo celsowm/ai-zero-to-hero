@@ -39,20 +39,31 @@ export const PyTorchAutogradVisual = React.memo(({ copy }: { copy: PyTorchPerfor
   const activeEdges = step === 'forward' ? forwardEdges : forwardEdges.map(([a, b]) => [b, a] as [string, string]);
   const activeColor = step === 'forward' ? sw.cyan : sw.pink;
 
-  const pythonLikeCode = `def forward(a, b):
-    # Sequential approach (Slow)
-    result = []
+  const pythonLikeCode = `# 1. Python Puro (Lento/Sequencial)
+def forward(a, b):
+    res = []
     for i in range(len(a)):
-        val = a[i] * b[i] + 0.5
-        result.append(val)
-    return result`;
+        # Conta complexa feita um por um no interpretador
+        v = exp(sin(a[i]) * cos(b[i])) + sqrt(abs(a[i] - b[i]))
+        res.append(v)
+    return res
 
-  const webGpuCode = `@compute @workgroup_size(256)
+# 2. PyTorch (Rápido/Vetorizado)
+# O PyTorch chama kernels nativos em C++/CUDA por baixo
+res = torch.exp(torch.sin(a) * torch.cos(b)) + torch.sqrt(torch.abs(a - b))`;
+
+  const webGpuCode = `// O que o PyTorch executa internamente (Kernel)
+@compute @workgroup_size(256)
 fn main(@builtin(global_id) id: vec3<u32>) {
     let i = id.x;
-    // Parallel approach (PyTorch-like)
     if (i < arrayLength(&a)) {
-        result[i] = a[i] * b[i] + 0.5;
+        // Executado em paralelo por milhares de núcleos
+        var v = a[i];
+        let bVal = b[i];
+        for (var j = 0; j < 20; j++) {
+            v = exp(sin(v) * cos(bVal)) + sqrt(abs(v - bVal));
+        }
+        result[i] = v;
     }
 }`;
 
