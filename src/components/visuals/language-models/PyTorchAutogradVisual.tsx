@@ -155,18 +155,18 @@ fn main(@builtin(global_id) id: vec3<u32>) {
             <RealBenchmarkVisual copy={copy} />
           </div>
         ) : (
-          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: sw.pink, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, minHeight: 0 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: sw.pink, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', flexShrink: 0 }}>
                 {copy.pythonLikeTitle}
               </div>
-              <CodeBlock code={pythonLikeCode} language="python" />
+              <CodeBlock code={pythonLikeCode} language="python" compact />
             </div>
-            <div>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: sw.cyan, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: sw.cyan, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', flexShrink: 0 }}>
                 {copy.webgpuShaderTitle}
               </div>
-              <CodeBlock code={webGpuCode} language="rust" />
+              <CodeBlock code={webGpuCode} language="rust" compact />
             </div>
           </div>
         )}
