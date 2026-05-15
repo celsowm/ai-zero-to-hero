@@ -1,5 +1,7 @@
 {
   "id": "neural-networks/prediction",
   "language": "python",
-  "regions": ["bridge", "predict", "sample", "output"]
+  "pyodide": true,
+  "regions": ["bridge", "predict", "sample", "output"],
+  "dependencies": ["neural-networks/minimal-example"]
 }
