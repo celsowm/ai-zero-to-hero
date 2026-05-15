@@ -38,12 +38,24 @@ export interface UseExerciseReturn {
  */
 export function useExercise(exercise: ExerciseItem, _language: Language): UseExerciseReturn {
   const { status, pyodide, loadPyodide } = usePyodideLoader();
+  const [prevId, setPrevId] = useState(exercise.id);
   const [code, setCode] = useState(exercise.starterCode ?? '');
   const [output, setOutput] = useState('');
   const [stderr, setStderr] = useState('');
   const [results, setResults] = useState<ValidationResult[] | null>(null);
   const [showHints, setShowHints] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Reset state when exercise changes
+  if (exercise.id !== prevId) {
+    setPrevId(exercise.id);
+    setCode(exercise.starterCode ?? '');
+    setOutput('');
+    setStderr('');
+    setResults(null);
+    setShowHints(false);
+    setError(null);
+  }
 
   const isRunning = status === 'loading';
 

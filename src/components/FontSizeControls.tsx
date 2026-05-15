@@ -1,24 +1,20 @@
 import React from 'react';
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
-
-const LABELS = {
-  'pt-br': { decrease: 'Diminuir fonte', increase: 'Aumentar fonte' },
-  'en-us': { decrease: 'Decrease font size', increase: 'Increase font size' },
-};
+import { getUiMessages } from '../i18n/uiMessages';
 
 export const FontSizeControls: React.FC = () => {
   const { increaseFontScale, decreaseFontScale, fontScale } = useUI();
   const { language } = useLocale();
-  const labels = LABELS[language];
+  const ui = getUiMessages(language);
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
       <button
         type="button"
         onClick={decreaseFontScale}
-        aria-label={labels.decrease}
-        title={labels.decrease}
+        aria-label={ui.fontDecrease}
+        title={ui.fontDecrease}
         style={{
           width: 34,
           height: 28,
@@ -37,8 +33,8 @@ export const FontSizeControls: React.FC = () => {
       <button
         type="button"
         onClick={increaseFontScale}
-        aria-label={labels.increase}
-        title={labels.increase}
+        aria-label={ui.fontIncrease}
+        title={ui.fontIncrease}
         style={{
           width: 34,
           height: 28,

@@ -11,6 +11,12 @@ interface PythonExerciseVisualProps {
 
 export const PythonExerciseVisual = React.memo(({ copy, language }: PythonExerciseVisualProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // Reset active index when slide content changes
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [copy]);
+
   const hasMultiple = copy.exercises.length > 1;
 
   return (

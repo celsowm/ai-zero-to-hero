@@ -1,13 +1,11 @@
 import type { ISlide, SlideVisual } from '../../types/slide/visuals';
-import type { IContent } from '../../types/slide/base';
-
-type Lang = 'pt-br' | 'en-us';
+import type { IContent, Language } from '../../types/slide/base';
 
 interface SlideDef {
   id: string;
   type: ISlide['type'];
-  content: Record<Lang, IContent>;
-  visual?: { id: string; copy: Record<Lang, Record<string, unknown>> };
+  content: Record<Language, IContent>;
+  visual?: { id: string; copy: Record<Language, Record<string, unknown>> };
   options?: ISlide['options'];
 }
 

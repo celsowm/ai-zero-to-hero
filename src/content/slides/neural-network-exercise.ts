@@ -29,7 +29,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "1. Fix the Bug: Derivada da Sigmoid invertida?",
           "instructions": "Alguém implementou a derivada da sigmoid — mas o resultado está **negativo** para alguns valores!\n\nA derivada correta é `s * (1 - s)`, que para s ∈ (0,1) é sempre positiva.\n\nRode o código, observe o comportamento estranho, encontre e corrija o bug.",
-          "snippetId": "neural-network-exercise-1-en-us",
+          "snippetId": "neural-network-exercise-1",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -58,7 +58,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "2. Forward Pass de uma Camada",
           "instructions": "Em vez de um único neurônio, vamos calcular uma camada inteira. \n\nImplemente `layer_forward(inputs, weight_matrix, biases)` onde:\n- `inputs` é uma lista de entradas.\n- `weight_matrix` é uma lista de listas (pesos de cada neurônio).\n- `biases` é uma lista de vieses.\n\nRetorne as ativações finais.",
-          "snippetId": "neural-network-exercise-2-en-us",
+          "snippetId": "neural-network-exercise-2",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -97,7 +97,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "3. Erro e Delta de Saída",
           "instructions": "No backpropagation, o 'delta' do neurônio de saída é: \n`delta = (predição - alvo) * derivada_da_ativacao(predição)`.\n\nImplemente a função `calculate_output_delta(pred, target)`.",
-          "snippetId": "neural-network-exercise-3-en-us",
+          "snippetId": "neural-network-exercise-3",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -118,7 +118,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "4. Compare: Sigmoid vs ReLU",
           "instructions": "Duas funções de ativação populares se comportam de forma **muito diferente**.\n\n**Antes de rodar:** para cada valor abaixo, pense mentalmente:\n- `sigmoid(-2)` é próximo de 0 ou de 1?\n- `relu(-2)` é 0 ou negativo?\n- Qual função 'mata' sinais negativos?\n\nDepois rode e compare!",
-          "snippetId": "neural-network-exercise-4-en-us",
+          "snippetId": "neural-network-exercise-4",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -160,7 +160,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "5. Forward Pass de 2 Camadas",
           "instructions": "Combine tudo! Implemente uma rede com 2 camadas:\n- Camada oculta: 2 entradas → 2 neurônios (sigmoid)\n- Camada de saída: 2 entradas → 1 neurônio (sigmoid)\n\nUse `layer_forward` que você já criou como base.",
-          "snippetId": "neural-network-exercise-5-en-us",
+          "snippetId": "neural-network-exercise-5",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -220,7 +220,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "1. Fix the Bug: Sigmoid Derivative inverted?",
           "instructions": "Someone implemented the sigmoid derivative — but the result is **negative** for some values!\n\nThe correct derivative is `s * (1 - s)`, which for s ∈ (0,1) is always positive.\n\nRun the code, observe the strange behavior, find and fix the bug.",
-          "snippetId": "neural-network-exercise-6-en-us",
+          "snippetId": "neural-network-exercise-6",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -249,7 +249,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "2. Layer Forward Pass",
           "instructions": "Instead of a single neuron, let's calculate an entire layer. \n\nImplement `layer_forward(inputs, weight_matrix, biases)` where:\n- `inputs` is a list of inputs.\n- `weight_matrix` is a list of lists (weights for each neuron).\n- `biases` is a list of biases.\n\nReturn the final activations.",
-          "snippetId": "neural-network-exercise-7-en-us",
+          "snippetId": "neural-network-exercise-7",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -288,7 +288,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "3. Error and Output Delta",
           "instructions": "In backpropagation, the output neuron's 'delta' is: \n`delta = (prediction - target) * activation_derivative(prediction)`.\n\nImplement the `calculate_output_delta(pred, target)` function.",
-          "snippetId": "neural-network-exercise-8-en-us",
+          "snippetId": "neural-network-exercise-8",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -309,7 +309,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "4. Compare: Sigmoid vs ReLU",
           "instructions": "Two popular activation functions behave **very differently**.\n\n**Before running:** for each value below, think mentally:\n- `sigmoid(-2)` is close to 0 or 1?\n- `relu(-2)` is 0 or negative?\n- Which function 'kills' negative signals?\n\nThen run and compare!",
-          "snippetId": "neural-network-exercise-9-en-us",
+          "snippetId": "neural-network-exercise-9",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -351,7 +351,7 @@ export const neuralNetworkExercise = defineSlide({
           {
           "id": "5. 2-Layer Forward Pass",
           "instructions": "Put it all together! Implement a 2-layer network:\n- Hidden layer: 2 inputs → 2 neurons (sigmoid)\n- Output layer: 2 inputs → 1 neuron (sigmoid)\n\nUse the `neuron` function as your building block.",
-          "snippetId": "neural-network-exercise-10-en-us",
+          "snippetId": "neural-network-exercise-10",
           "validators": [
             {
             "type": "assertFunctionReturn",

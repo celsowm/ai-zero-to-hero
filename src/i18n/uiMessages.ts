@@ -23,6 +23,10 @@ export interface UiMessages {
   clearButton: string;
   outputTitle: string;
   running: string;
+  runInstruction: string;
+  close: string;
+  fontDecrease: string;
+  fontIncrease: string;
 }
 
 const ptBr: UiMessages = {
@@ -41,6 +45,10 @@ const ptBr: UiMessages = {
   clearButton: 'LIMPAR',
   outputTitle: 'OUTPUT',
   running: 'Executando...',
+  runInstruction: 'Clique em ▶ RUN para executar o código',
+  close: 'Fechar',
+  fontDecrease: 'Diminuir fonte',
+  fontIncrease: 'Aumentar fonte',
 };
 
 const enUs: UiMessages = {
@@ -59,6 +67,10 @@ const enUs: UiMessages = {
   clearButton: 'CLEAR',
   outputTitle: 'OUTPUT',
   running: 'Running...',
+  runInstruction: 'Click ▶ RUN to execute the code',
+  close: 'Close',
+  fontDecrease: 'Decrease font size',
+  fontIncrease: 'Increase font size',
 };
 
 const uiMessages: Record<Language, UiMessages> = {

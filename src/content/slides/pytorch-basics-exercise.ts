@@ -29,7 +29,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "1. Reverse Engineering: Qual o shape?",
           "instructions": "Você vê a **saída** de um tensor, mas não sabe como foi criado.\n\nDado o output abaixo, descubra qual chamada `np.zeros()` ou `np.ones()` o produziu.\n\n**Dica:** conte os colchetes — cada nível é uma dimensão.",
-          "snippetId": "pytorch-basics-exercise-1-en-us",
+          "snippetId": "pytorch-basics-exercise-1",
           "validators": [
             {
             "type": "assertOutput",
@@ -44,7 +44,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "2. Operações e Reshape",
           "instructions": "Dada uma matriz 2x2, multiplique todos os elementos por 10 e depois mude o shape para (4, 1).",
-          "snippetId": "pytorch-basics-exercise-2-en-us",
+          "snippetId": "pytorch-basics-exercise-2",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -86,7 +86,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "3. Fix the Bug: Broadcasting que falha",
           "instructions": "Alguém quer somar um vetor de bias `(3,)` a cada linha de uma matriz `(3, 3)`. Mas o código quebra!\n\nRode e veja o erro. O problema é que o bias tem shape `(3,)` mas deveria ser `(3, 1)` para o broadcasting funcionar corretamente.\n\n**Desafio:** corrija o shape do bias para que o broadcasting funcione.",
-          "snippetId": "pytorch-basics-exercise-3-en-us",
+          "snippetId": "pytorch-basics-exercise-3",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -122,7 +122,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "4. Simulação de Mini-Batch",
           "instructions": "Simule um mini-batch de treino: crie 4 amostras com 3 features cada.\n\nCalcule a média de cada feature ao longo do batch (eixo 0).\n\nIsso simula o cálculo de estatísticas de batch usado em BatchNorm.",
-          "snippetId": "pytorch-basics-exercise-4-en-us",
+          "snippetId": "pytorch-basics-exercise-4",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -186,7 +186,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "1. Reverse Engineering: What's the shape?",
           "instructions": "You see the **output** of a tensor, but don't know how it was created.\n\nGiven the output below, figure out which `np.zeros()` or `np.ones()` call produced it.\n\n**Hint:** count the brackets — each nesting level is a dimension.",
-          "snippetId": "pytorch-basics-exercise-5-en-us",
+          "snippetId": "pytorch-basics-exercise-5",
           "validators": [
             {
             "type": "assertOutput",
@@ -201,7 +201,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "2. Operations and Reshape",
           "instructions": "Given a 2x2 matrix, multiply all elements by 10 and then change the shape to (4, 1).",
-          "snippetId": "pytorch-basics-exercise-6-en-us",
+          "snippetId": "pytorch-basics-exercise-6",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -243,7 +243,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "3. Fix the Bug: Broadcasting gone wrong",
           "instructions": "Someone wants to add a bias vector `(3,)` to each row of a `(3, 3)` matrix. But the code fails!\n\nRun and see the error. The bias has shape `(3,)` but needs to be `(3, 1)` for broadcasting to work correctly.\n\n**Challenge:** fix the bias shape so broadcasting works.",
-          "snippetId": "pytorch-basics-exercise-7-en-us",
+          "snippetId": "pytorch-basics-exercise-7",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -279,7 +279,7 @@ export const pytorchBasicsExercise = defineSlide({
           {
           "id": "4. Mini-Batch Simulation",
           "instructions": "Simulate a training mini-batch: create 4 samples with 3 features each.\n\nCalculate the mean of each feature across the batch (axis 0).\n\nThis simulates the batch statistics calculation used in BatchNorm.",
-          "snippetId": "pytorch-basics-exercise-8-en-us",
+          "snippetId": "pytorch-basics-exercise-8",
           "validators": [
             {
             "type": "assertFunctionReturn",

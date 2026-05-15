@@ -22,11 +22,23 @@ interface UseExerciseSessionReturn {
 export function useExerciseSession(
   exercise: ExerciseItem,
 ): UseExerciseSessionReturn {
+  const [prevId, setPrevId] = useState(exercise.id);
   const [code, setCode] = useState(exercise.starterCode ?? '');
   const [output, setOutput] = useState('');
   const [stderr, setStderr] = useState('');
   const [results, setResults] = useState<ValidationResult[] | null>(null);
   const [showHints, setShowHints] = useState(false);
+
+  // Reset state when exercise changes
+  if (exercise.id !== prevId) {
+    setPrevId(exercise.id);
+    setCode(exercise.starterCode ?? '');
+    setOutput('');
+    setStderr('');
+    setResults(null);
+    setShowHints(false);
+  }
+
   const { run, check, status, error: pyodideError } = useExerciseRunner();
 
   const isRunning = status === 'loading';

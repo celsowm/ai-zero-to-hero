@@ -1,4 +1,6 @@
-export type Language = 'pt-br' | 'en-us';
+import type { Language } from '../../constants/languages';
+
+export type { Language };
 export type SnippetLanguage = 'python' | 'javascript';
 export type CodeRegionId = string;
 

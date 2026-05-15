@@ -349,9 +349,7 @@ export const CodeToolModal: React.FC = () => {
           >
             {!output.hasRun && (
               <span style={{ color: 'rgba(255,255,255,0.2)' }}>
-                {language === 'pt-br'
-                  ? 'Clique em ▶ RUN para executar o código'
-                  : 'Click ▶ RUN to execute the code'}
+                {t.runInstruction}
               </span>
             )}
             {output.stdout && (
@@ -413,7 +411,7 @@ export const CodeToolModal: React.FC = () => {
             >
               ESC
             </span>
-            {language === 'pt-br' ? 'Fechar' : 'Close'}
+            {t.close}
           </span>
           <span
             style={{

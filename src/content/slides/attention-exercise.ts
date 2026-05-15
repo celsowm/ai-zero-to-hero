@@ -29,7 +29,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "1. Fix the Bug: Esqueceram o sqrt!",
           "instructions": "O attention score usa **scaled** dot product — o 'S' em 'Scaled Dot-Product Attention'.\n\nMas alguém esqueceu a escala! O código divide por `dk` em vez de `sqrt(dk)`.\n\nCom vetores grandes, scores sem sqrt ficam **minúsculos**, o que achata o softmax e destrói a atenção.\n\nCorrija a fórmula e veja a diferença.",
-          "snippetId": "attention-exercise-1-en-us",
+          "snippetId": "attention-exercise-1",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -58,7 +58,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "2. Softmax nos Scores",
           "instructions": "Implemente a função softmax que transforma scores brutos em pesos de atenção.\n\n`softmax(x_i) = exp(x_i) / sum(exp(x))`\n\nOs pesos devem somar 1.0.",
-          "snippetId": "attention-exercise-2-en-us",
+          "snippetId": "attention-exercise-2",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -103,7 +103,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "3. Weighted Sum dos Values",
           "instructions": "Com os pesos de atenção (softmax), calcule a soma ponderada dos vetores Value.\n\n`output = sum(weight_i * value_i)` para cada token i.\n\nIsso produz o vetor de contexto final.",
-          "snippetId": "attention-exercise-3-en-us",
+          "snippetId": "attention-exercise-3",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -157,7 +157,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "1. Fix the Bug: They forgot the sqrt!",
           "instructions": "The attention score uses **scaled** dot product — the 'S' in 'Scaled Dot-Product Attention'.\n\nBut someone forgot the scaling! The code divides by `dk` instead of `sqrt(dk)`.\n\nWith large vectors, unscaled scores become **tiny**, which flattens the softmax and destroys attention.\n\nFix the formula and see the difference.",
-          "snippetId": "attention-exercise-4-en-us",
+          "snippetId": "attention-exercise-4",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -186,7 +186,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "2. Softmax on Scores",
           "instructions": "Implement the softmax function that transforms raw scores into attention weights.\n\n`softmax(x_i) = exp(x_i) / sum(exp(x))`\n\nWeights should sum to 1.0.",
-          "snippetId": "attention-exercise-5-en-us",
+          "snippetId": "attention-exercise-5",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -231,7 +231,7 @@ export const attentionExercise = defineSlide({
           {
           "id": "3. Weighted Sum of Values",
           "instructions": "With the attention weights (softmax), compute the weighted sum of Value vectors.\n\n`output = sum(weight_i * value_i)` for each token i.\n\nThis produces the final context vector.",
-          "snippetId": "attention-exercise-6-en-us",
+          "snippetId": "attention-exercise-6",
           "validators": [
             {
             "type": "assertFunctionReturn",

@@ -29,7 +29,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "1. Variáveis",
           "instructions": "Crie as variáveis `altura` e `peso` com os valores que quiser e calcule o `imc` usando a fórmula: peso / (altura/100)².\n\nDepois imprima o resultado.",
-          "snippetId": "python-prereq-exercises-1-en-us",
+          "snippetId": "python-prereq-exercises-1",
           "validators": [
             {
             "type": "assertDerivedVariable",
@@ -54,7 +54,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "2. Listas",
           "instructions": "Acesse o terceiro elemento da lista `alturas` e armazene em `terceira_altura`.\n\nUse a função `len()` para calcular `total_pessoas`.",
-          "snippetId": "python-prereq-exercises-2-en-us",
+          "snippetId": "python-prereq-exercises-2",
           "validators": [
             {
             "type": "assertVariable",
@@ -79,7 +79,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "3. Funções",
           "instructions": "Complete a função `predicao_peso` que recebe `altura` e `idade` e retorna a predição usando a fórmula:\n\n`beta0 + beta1 * altura + beta2 * idade`",
-          "snippetId": "python-prereq-exercises-3-en-us",
+          "snippetId": "python-prereq-exercises-3",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -113,7 +113,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "4. Condicionais",
           "instructions": "Classifique o peso como 'Leve', 'Médio' ou 'Pesado' usando condicionais.\n\n- até 55 kg → 'Leve'\n- até 65 kg → 'Médio'\n- acima de 65 kg → 'Pesado'",
-          "snippetId": "python-prereq-exercises-4-en-us",
+          "snippetId": "python-prereq-exercises-4",
           "validators": [
             {
             "type": "assertVariable",
@@ -133,7 +133,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "5. Loop com range",
           "instructions": "Use um `for` com `range()` para calcular a soma dos números de 1 a 10 (inclusive).\n\nArmazene o resultado em `soma_total`.",
-          "snippetId": "python-prereq-exercises-5-en-us",
+          "snippetId": "python-prereq-exercises-5",
           "validators": [
             {
             "type": "assertVariable",
@@ -153,7 +153,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "6. Loop + acumulador",
           "instructions": "Complete o loop para calcular a soma total dos pesos no dataset usando desempacotamento de tuplas.",
-          "snippetId": "python-prereq-exercises-6-en-us",
+          "snippetId": "python-prereq-exercises-6",
           "validators": [
             {
             "type": "assertVariable",
@@ -172,7 +172,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "7. List comprehension",
           "instructions": "Use uma **list comprehension** para criar a lista `idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `[20, 24, 28]`.",
-          "snippetId": "python-prereq-exercises-7-en-us",
+          "snippetId": "python-prereq-exercises-7",
           "validators": [
             {
             "type": "assertVariable",
@@ -197,7 +197,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "8. Sum com generator",
           "instructions": "Use `sum(...)` com uma **generator expression** para calcular a variável `soma_idades` a partir da segunda coluna de `dados`.\n\nA saída esperada é `72`.",
-          "snippetId": "python-prereq-exercises-8-en-us",
+          "snippetId": "python-prereq-exercises-8",
           "validators": [
             {
             "type": "assertVariable",
@@ -230,7 +230,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "1. Variables",
           "instructions": "Create the variables `height` and `weight` with any values you want and calculate `bmi` using the formula: weight / (height/100)².\n\nThen print the result.",
-          "snippetId": "python-prereq-exercises-9-en-us",
+          "snippetId": "python-prereq-exercises-9",
           "validators": [
             {
             "type": "assertDerivedVariable",
@@ -255,7 +255,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "2. Lists",
           "instructions": "Access the third element of the `heights` list and store it in `third_height`.\n\nUse the `len()` function to calculate `total_people`.",
-          "snippetId": "python-prereq-exercises-10-en-us",
+          "snippetId": "python-prereq-exercises-10",
           "validators": [
             {
             "type": "assertVariable",
@@ -280,7 +280,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "3. Functions",
           "instructions": "Complete the `predict_weight` function that receives `height` and `age` and returns the prediction using the formula:\n\n`beta0 + beta1 * height + beta2 * age`",
-          "snippetId": "python-prereq-exercises-11-en-us",
+          "snippetId": "python-prereq-exercises-11",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -314,7 +314,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "4. Conditionals",
           "instructions": "Classify the weight as 'Light', 'Medium' or 'Heavy' using conditionals.\n\n- up to 55 kg → 'Light'\n- up to 65 kg → 'Medium'\n- above 65 kg → 'Heavy'",
-          "snippetId": "python-prereq-exercises-12-en-us",
+          "snippetId": "python-prereq-exercises-12",
           "validators": [
             {
             "type": "assertVariable",
@@ -334,7 +334,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "5. Loop with range",
           "instructions": "Use a `for` loop with `range()` to calculate the sum of numbers from 1 to 10 (inclusive).\n\nStore the result in `total_sum`.",
-          "snippetId": "python-prereq-exercises-13-en-us",
+          "snippetId": "python-prereq-exercises-13",
           "validators": [
             {
             "type": "assertVariable",
@@ -354,7 +354,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "6. Loop + accumulator",
           "instructions": "Complete the loop to calculate the total sum of weights in the dataset using tuple unpacking.",
-          "snippetId": "python-prereq-exercises-14-en-us",
+          "snippetId": "python-prereq-exercises-14",
           "validators": [
             {
             "type": "assertVariable",
@@ -373,7 +373,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "7. List comprehension",
           "instructions": "Use a **list comprehension** to build the `ages` list from the second column of `data`.\n\nThe expected output is `[20, 24, 28]`.",
-          "snippetId": "python-prereq-exercises-15-en-us",
+          "snippetId": "python-prereq-exercises-15",
           "validators": [
             {
             "type": "assertVariable",
@@ -398,7 +398,7 @@ export const pythonPrereqExercises = defineSlide({
           {
           "id": "8. Sum with generator",
           "instructions": "Use `sum(...)` with a **generator expression** to compute the variable `sum_ages` from the second column of `data`.\n\nThe expected output is `72`.",
-          "snippetId": "python-prereq-exercises-16-en-us",
+          "snippetId": "python-prereq-exercises-16",
           "validators": [
             {
             "type": "assertVariable",

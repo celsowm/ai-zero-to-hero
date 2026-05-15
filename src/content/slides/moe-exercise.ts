@@ -29,7 +29,7 @@ export const moeExercise = defineSlide({
           {
           "id": "1. Seleção Top-1",
           "instructions": "O roteador calculou scores para 4 especialistas. Identifique o índice do especialista com o maior score.\n\nDica: use `scores.index(max(scores))`",
-          "snippetId": "moe-exercise-1-en-us",
+          "snippetId": "moe-exercise-1",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -45,7 +45,7 @@ export const moeExercise = defineSlide({
           {
           "id": "2. Saída Ponderada (Gated Output)",
           "instructions": "No MoE, a saída final é a saída do especialista multiplicada pelo peso dado pelo roteador.\n\n`final_output = weight * expert_output`",
-          "snippetId": "moe-exercise-2-en-us",
+          "snippetId": "moe-exercise-2",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -73,7 +73,7 @@ export const moeExercise = defineSlide({
           {
           "id": "1. Top-1 Selection",
           "instructions": "The router calculated scores for 4 experts. Identify the index of the expert with the highest score.\n\nHint: use `scores.index(max(scores))`",
-          "snippetId": "moe-exercise-3-en-us",
+          "snippetId": "moe-exercise-3",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -89,7 +89,7 @@ export const moeExercise = defineSlide({
           {
           "id": "2. Gated Output",
           "instructions": "In MoE, the final output is the expert's output multiplied by the weight given by the router.\n\n`final_output = weight * expert_output`",
-          "snippetId": "moe-exercise-4-en-us",
+          "snippetId": "moe-exercise-4",
           "validators": [
             {
             "type": "assertFunctionReturn",

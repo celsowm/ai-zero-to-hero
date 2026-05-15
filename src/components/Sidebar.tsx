@@ -5,12 +5,20 @@ import { useLocale } from '../hooks/useLocale';
 import { ChevronLeft, ChevronRight, Globe, Zap, Search, Command } from 'lucide-react';
 import { getUiMessages } from '../i18n/uiMessages';
 
+import { SUPPORTED_LANGUAGES } from '../constants/languages';
+
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { slides, goToSlide, currentSlideIndex } = useNavigation();
   const { setSearchOpen } = useUI();
   const { language, switchLanguage } = useLocale();
   const ui = getUiMessages(language);
+
+  const rotateLanguage = () => {
+    const currentIndex = SUPPORTED_LANGUAGES.indexOf(language);
+    const nextIndex = (currentIndex + 1) % SUPPORTED_LANGUAGES.length;
+    switchLanguage(SUPPORTED_LANGUAGES[nextIndex]);
+  };
 
   return (
     <aside
@@ -121,7 +129,7 @@ export const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className="px-2.5 py-4" style={{ borderTop: '1px solid rgba(168, 85, 247, 0.06)' }}>
         <button
-          onClick={() => switchLanguage(language === 'pt-br' ? 'en-us' : 'pt-br')}
+          onClick={rotateLanguage}
           className={`flex items-center gap-2 rounded-lg text-xs transition-all w-full ${
             isCollapsed ? 'px-2.5 py-2 justify-center' : 'px-3 py-2'
           }`}

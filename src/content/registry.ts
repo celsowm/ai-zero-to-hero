@@ -1,3 +1,4 @@
+import { isSupportedLanguage } from '../constants/languages';
 import type { CodeSnippetMeta, CodeSourceRef, Language, SnippetLanguage } from '../types/slide';
 
 const codeModules = {
@@ -20,7 +21,7 @@ type LocalizedSnippetRecord = {
 const START_REGION_RE = /^\s*(?:#|\/\/)\s*@?region\s+([A-Za-z0-9_-]+)\s*$/;
 const END_REGION_RE = /^\s*(?:#|\/\/)\s*@?end(?:region)?(?:\s+[A-Za-z0-9_-]+)?\s*$/;
 const SNIPPET_ROOT_RE = /^\.\/snippets\//;
-const CODE_FILE_RE = /^(.+)\.(pt-br|en-us)\.(py|js)$/;
+const CODE_FILE_RE = /^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js)$/;
 const META_FILE_RE = /^(.+)\.meta\.json$/;
 
 const snippetIndex = new Map<string, LocalizedSnippetRecord>();
@@ -107,7 +108,12 @@ function registerCode(path: string, moduleValue: unknown) {
   }
 
   const snippetId = normalizeSnippetId(match[1]);
-  const locale = match[2] as Language;
+  const localeStr = match[2];
+  if (!isSupportedLanguage(localeStr)) {
+    console.warn(`Registry: skipping snippet with unsupported locale "${localeStr}" at "${path}"`);
+    return;
+  }
+  const locale = localeStr as Language;
   const language = match[3] === 'py' ? 'python' : 'javascript';
   const rawCode = normalizeModule<string>(moduleValue);
   const parsed = parseSnippetSource(rawCode);
@@ -167,6 +173,7 @@ function findSnippet(sourceRef: CodeSourceRef, locale: Language): LocalizedSnipp
     `Unable to resolve snippet "${sourceRef.snippetId}" for ${locale}/${sourceRef.language}. Make sure the matching file exists in src/content/snippets.`,
   );
 }
+
 
 export function resolveSnippetSource(sourceRef: CodeSourceRef, locale: Language): LocalizedSnippetRecord {
   return findSnippet(sourceRef, locale);
