@@ -11,28 +11,32 @@ export const embeddingsIntro = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Embeddings: o significado em números`,
-      body: `Token IDs são apenas rótulos. O ID 10 e o ID 11 podem ser 'cachorro' e 'rei', sem nenhuma relação. Como o modelo entende que 'cachorro' é parecido com 'gato'? Através de **Embeddings**.
+      title: `Embeddings: do token ao vetor`,
+      body: `Até aqui, o modelo viu o texto como números inteiros (token IDs): "We" → 464, "the" → 277, "People" → 2606. Mas IDs isolados não dizem nada sobre **relação entre palavras**.
 
-1. **A grande tabela:** o modelo aprende uma grande tabela (matriz) onde cada token ganha uma lista de centenas de números (um vetor).
+Para o modelo entender que "rei" e "rainha" são parecidos — ou que "cachorro" e "gato" compartilham contexto — ele precisa de uma representação mais rica que um simples número. A solução são **Embeddings**.
 
-2. **Espaço de significado:** esses números agem como coordenadas em um mapa de milhares de dimensões. Tokens com significados parecidos ('rei' e 'rainha') acabam com coordenadas próximas.
+1. **A tabela de embeddings:** o modelo aprende uma grande tabela (matriz) onde cada token ID aponta para uma lista de centenas de números (um vetor).
 
-3. **De palavra para conceito:** ao trocar o ID pelo vetor numérico correspondente, o modelo para de ver a palavra como um símbolo isolado e passa a ver o *conceito* que ela representa.
+2. **Espaço semântico:** esses vetores são coordenadas em um mapa de milhares de dimensões. Tokens com significados próximos acabam com vetores próximos no espaço.
 
-> Embeddings transformam IDs frios em coordenadas ricas de significado.`,
+3. **De símbolo para conceito:** ao trocar o ID pelo vetor, o modelo para de tratar a palavra como um rótulo isolado e passa a operar sobre o *significado* que ela carrega.
+
+> O próximo slide mostra exatamente como o GPT-2 pega o ID 464 ("We") e o transforma em um vetor de 768 dimensões.`,
     },
     'en-us': {
-      title: `Embeddings: meaning in numbers`,
-      body: `Token IDs are just labels. ID 10 and ID 11 could be 'dog' and 'king', completely unrelated. How does the model understand that 'dog' is similar to 'cat'? Through **Embeddings**.
+      title: `Embeddings: from token to vector`,
+      body: `So far, the model sees text as integer numbers (token IDs): "We" → 464, "the" → 277, "People" → 2606. But isolated IDs say nothing about **relationships between words**.
 
-1. **The grand table:** the model learns a massive table (matrix) where each token gets a list of hundreds of numbers (a vector).
+For the model to understand that "king" and "queen" are similar — or that "dog" and "cat" share context — it needs a representation richer than a simple number. The solution is **Embeddings**.
 
-2. **Meaning space:** these numbers act as coordinates in a thousands-dimensional map. Tokens with similar meanings ('king' and 'queen') end up with close coordinates.
+1. **The embedding table:** the model learns a massive table (matrix) where each token ID maps to a list of hundreds of numbers (a vector).
 
-3. **From word to concept:** by swapping the ID for its numerical vector, the model stops seeing the word as an isolated symbol and starts seeing the *concept* it represents.
+2. **Semantic space:** these vectors are coordinates in a thousands-dimensional map. Tokens with similar meanings end up with close vectors in space.
 
-> Embeddings transform cold IDs into rich coordinates of meaning.`,
+3. **From symbol to concept:** by swapping the ID for its vector, the model stops treating the word as an isolated label and starts operating on the *meaning* it carries.
+
+> The next slide shows exactly how GPT-2 takes ID 464 ("We") and transforms it into a 768-dimensional vector.`,
     },
   },
   visual: {

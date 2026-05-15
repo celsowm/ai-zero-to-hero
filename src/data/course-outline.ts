@@ -40,8 +40,6 @@ export const courseSlideOrder = [
   'neural-network-minimal-example',
   'neural-network-prediction',
   'neural-network-exercise',
-  // Embeddings: introdução antes de citar o termo em arquiteturas
-  'embeddings-intro',
   'neural-network-types-overview',
   'neural-network-architectures-deep-dive',
   'neural-network-pytorch-intro',
@@ -73,6 +71,8 @@ export const courseSlideOrder = [
   // Anatomia do GPT-2: abre a caixa preta + PyTorch puro
   'gpt2-black-box',
   'gpt2-we-the-people-input',
+  // Embeddings: o que são antes de usá-los no GPT-2
+  'embeddings-intro',
   'gpt2-embeddings-plus-position',
   'gpt2-layer-by-layer-xray',
   'gpt2-block-anatomy',
