@@ -1,0 +1,26 @@
+{
+  "id": "neural-networks/pytorch-nn-linear",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "Importação do módulo neural do PyTorch e da biblioteca base.",
+      "en-us": "Importing PyTorch's neural module and the base library."
+    },
+    {
+      "lineRange": [4, 5],
+      "pt-br": "nn.Linear define uma camada densa que transforma 4 entradas em 3 saídas.",
+      "en-us": "nn.Linear defines a dense layer that transforms 4 inputs into 3 outputs."
+    },
+    {
+      "lineRange": [7, 9],
+      "pt-br": "Inspecionamos os shapes dos parâmetros internos (pesos e bias) criados automaticamente.",
+      "en-us": "Inspecting the shapes of the internally created parameters (weights and bias)."
+    },
+    {
+      "lineRange": [11, 18],
+      "pt-br": "nn.Sequential agrupa camadas e ativações em um único fluxo de execução.",
+      "en-us": "nn.Sequential groups layers and activations into a single execution flow."
+    }
+  ]
+}

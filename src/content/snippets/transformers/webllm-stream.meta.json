@@ -1,0 +1,26 @@
+{
+  "id": "transformers/webllm-stream",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos o WebLLM, que utiliza o framework MLC para rodar modelos no navegador.",
+      "en-us": "We import WebLLM, which uses the MLC framework to run models in the browser."
+    },
+    {
+      "lineRange": [3, 3],
+      "pt-br": "Instanciamos o motor de inferência carregando um checkpoint quantizado específico para WebGPU.",
+      "en-us": "We instantiate the inference engine by loading a quantized checkpoint specific to WebGPU."
+    },
+    {
+      "lineRange": [5, 8],
+      "pt-br": "Criamos uma requisição de chat com streaming habilitado, permitindo receber tokens conforme são gerados.",
+      "en-us": "We create a chat request with streaming enabled, allowing us to receive tokens as they are generated."
+    },
+    {
+      "lineRange": [10, 12],
+      "pt-br": "Iteramos sobre os chunks assíncronos para exibir a resposta em tempo real.",
+      "en-us": "We iterate over the asynchronous chunks to display the response in real-time."
+    }
+  ]
+}

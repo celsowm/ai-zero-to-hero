@@ -1,0 +1,21 @@
+{
+  "id": "neural-networks/pytorch-activations-output",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Definimos os 'logits', que são as saídas brutas da última camada linear do modelo.",
+      "en-us": "We define 'logits', which are the raw outputs from the model's last linear layer."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "Sigmoid é aplicada a cada logit de forma isolada. Comum para prever 'probabilidade de ser classe A'.",
+      "en-us": "Sigmoid is applied to each logit in isolation. Common for predicting 'probability of being class A'."
+    },
+    {
+      "lineRange": [12, 17],
+      "pt-br": "Softmax considera todos os logits juntos para criar uma distribuição competitiva: a soma de todos será exatamente 1.0.",
+      "en-us": "Softmax considers all logits together to create a competitive distribution: the sum of all will be exactly 1.0."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "neural-networks/weights-biases-example",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 3],
+      "pt-br": "Valores concretos para testar a matemática.",
+      "en-us": "Concrete values to test the math."
+    },
+    {
+      "lineRange": [6, 8],
+      "pt-br": "Cada termo (t) mostra a contribuição individual de cada entrada.",
+      "en-us": "Each term (t) shows the individual contribution of each input."
+    },
+    {
+      "lineRange": [9, 9],
+      "pt-br": "A soma final de todos os termos ponderados mais o viés.",
+      "en-us": "The final sum of all weighted terms plus the bias."
+    }
+  ]
+}

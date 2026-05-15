@@ -20,12 +20,21 @@ export const langchainCoreConcepts = defineSlide({
 
 A sintaxe de pipe (**\`|\`**) que conecta componentes:
 
-\`\`\`python
-chain = prompt | model | parser
-response = chain.invoke({"topic": "AI"})
-\`\`\`
+---
 
-> LCEL é o coração do LangChain — qualquer componente pode ser encadeado com pipes.`,
+\`\`\`python
+snippet:langchain/core-concepts
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'A sintaxe de pipe (|) do LCEL compõe os componentes em um fluxo sequencial.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'O método .invoke() inicia a execução da chain com os dados de entrada.',
+        },
+      ],
     },
     'en-us': {
       title: 'LangChain Core Concepts',
@@ -43,12 +52,20 @@ response = chain.invoke({"topic": "AI"})
 The pipe syntax (**\`|\`**) that connects components:
 
 \`\`\`python
-chain = prompt | model | parser
-response = chain.invoke({"topic": "AI"})
-\`\`\`
-
-> LCEL is the heart of LangChain — any component can be chained with pipes.`,
+snippet:langchain/core-concepts
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'LCEL pipe syntax (|) composes components into a sequential flow.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'The .invoke() method starts the chain execution with the input data.',
+        },
+      ],
     },
+
   },
   visual: {
     id: 'langchain-core-concepts-visual',

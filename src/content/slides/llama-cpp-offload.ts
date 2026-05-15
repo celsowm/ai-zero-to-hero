@@ -37,17 +37,27 @@ $$\\text{latência} = (N_{gpu} \\times t_{gpu}) + (N_{cpu} \\times t_{cpu})$$
 ### CPU Offload no Transformers
 O accelerate usa \`device_map="auto"\`:
 \`\`\`python
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3-70B",
-    device_map="auto",
-    max_memory={"cuda:0": "20GB", "cpu": "64GB"}
-)
+snippet:transformers/offload-accelerate
 \`\`\`
 
 ### Disk Offload
 Quando nem RAM cabe — o **accelerate** usa SSD como extensão. Lento (leitura sequencial ~500MB/s) mas **funciona**.
 
 > **Interaja →** Simule diferentes configurações de GPU/CPU/disk e veja a distribuição em tempo real.`,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Importamos a classe AutoModel para carregamento genérico.',
+        },
+        {
+          lineRange: [4, 6],
+          content: 'O parâmetro device_map="auto" ativa a biblioteca accelerate para distribuir as camadas.',
+        },
+        {
+          lineRange: [7, 10],
+          content: 'Definimos quanto de memória cada dispositivo pode consumir para os pesos.',
+        },
+      ],
     },
     'en-us': {
       title: 'GPU Offload: Running Large Models on Small GPUs',
@@ -79,17 +89,27 @@ $$\\text{latency} = (N_{gpu} \\times t_{gpu}) + (N_{cpu} \\times t_{cpu})$$
 ### CPU Offload in Transformers
 The accelerate library uses \`device_map="auto"\`:
 \`\`\`python
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3-70B",
-    device_map="auto",
-    max_memory={"cuda:0": "20GB", "cpu": "64GB"}
-)
+snippet:transformers/offload-accelerate
 \`\`\`
 
 ### Disk Offload
 When not even RAM fits — **accelerate** uses SSD as extension. Slow (sequential read ~500MB/s) but **it works**.
 
 > **Interact →** Simulate different GPU/CPU/disk configurations and see the distribution in real-time.`,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Importing AutoModel class for generic loading.',
+        },
+        {
+          lineRange: [4, 6],
+          content: 'The device_map="auto" parameter enables the accelerate library to distribute layers.',
+        },
+        {
+          lineRange: [7, 10],
+          content: 'We define how much memory each device can consume for the weights.',
+        },
+      ],
     },
   },
   visual: {

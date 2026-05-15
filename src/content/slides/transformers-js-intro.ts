@@ -16,26 +16,22 @@ npm install @huggingface/transformers
 
 ### API Familiar
 \`\`\`js
-import { pipeline } from '@huggingface/transformers';
-const classifier = await pipeline('sentiment-analysis');
-const result = await classifier('I love this!');
-// [{ label: 'POSITIVE', score: 0.99 }]
-\`\`\`
-
-### Tasks Suportadas
-- **Text generation**: GPT-2, TinyLlama no browser
-- **Sentiment analysis**: distilbert-base-finetuned
-- **Feature extraction**: all-MiniLM-L6-v2 (embeddings)
-- **Zero-shot classification**: bart-large-mnli
-- **Image classification**: mobilenet, vit-base
-- **Speech recognition**: whisper-tiny
-
-### Under the Hood
-- Modelos ONNX pré-quantizados (INT8)
-- WASM backend (~10 tok/s) ou WebGPU backend (~30-50 tok/s)
-- Cache do modelo no IndexedDB (carrega rápido na próxima vez)
-
-> O playground simula o pipeline completo: tokenize → inference → decode.`,
+snippet:transformers/transformers-js-basic
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Importamos a função pipeline diretamente do pacote transformers.js.',
+        },
+        {
+          lineRange: [3, 4],
+          content: 'O carregamento do modelo é assíncrono. Na primeira vez, ele baixa os arquivos ONNX e faz o cache no browser.',
+        },
+        {
+          lineRange: [6, 7],
+          content: 'A inferência acontece localmente no navegador, retornando o resultado já processado.',
+        },
+      ],
     },
     'en-us': {
       title: 'Transformers.js: The ML Library in the Browser',
@@ -48,26 +44,22 @@ npm install @huggingface/transformers
 
 ### Familiar API
 \`\`\`js
-import { pipeline } from '@huggingface/transformers';
-const classifier = await pipeline('sentiment-analysis');
-const result = await classifier('I love this!');
-// [{ label: 'POSITIVE', score: 0.99 }]
-\`\`\`
-
-### Supported Tasks
-- **Text generation**: GPT-2, TinyLlama in the browser
-- **Sentiment analysis**: distilbert-base-finetuned
-- **Feature extraction**: all-MiniLM-L6-v2 (embeddings)
-- **Zero-shot classification**: bart-large-mnli
-- **Image classification**: mobilenet, vit-base
-- **Speech recognition**: whisper-tiny
-
-### Under the Hood
-- Pre-quantized ONNX models (INT8)
-- WASM backend (~10 tok/s) or WebGPU backend (~30-50 tok/s)
-- Model cached in IndexedDB (loads fast next time)
-
-> The playground simulates the full pipeline: tokenize → inference → decode.`,
+snippet:transformers/transformers-js-basic
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'We import the pipeline function directly from the transformers.js package.',
+        },
+        {
+          lineRange: [3, 4],
+          content: 'Model loading is asynchronous. The first time, it downloads ONNX files and caches them in the browser.',
+        },
+        {
+          lineRange: [6, 7],
+          content: 'Inference happens locally in the browser, returning the processed result.',
+        },
+      ],
     },
   },
   visual: {

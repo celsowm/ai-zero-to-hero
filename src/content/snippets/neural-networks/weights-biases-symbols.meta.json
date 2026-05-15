@@ -1,0 +1,26 @@
+{
+  "id": "neural-networks/weights-biases-symbols",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "As entradas são os dados brutos ou a saída da camada anterior.",
+      "en-us": "Inputs are the raw data or the output from the previous layer."
+    },
+    {
+      "lineRange": [2, 2],
+      "pt-br": "Os pesos representam a força da conexão de cada entrada.",
+      "en-us": "Weights represent the strength of each input connection."
+    },
+    {
+      "lineRange": [3, 3],
+      "pt-br": "O viés permite que o neurônio tenha uma saída mesmo com entradas nulas.",
+      "en-us": "The bias allows the neuron to have an output even with zero inputs."
+    },
+    {
+      "lineRange": [4, 4],
+      "pt-br": "O cálculo final combina tudo em um único valor escalar.",
+      "en-us": "The final calculation combines everything into a single scalar value."
+    }
+  ]
+}

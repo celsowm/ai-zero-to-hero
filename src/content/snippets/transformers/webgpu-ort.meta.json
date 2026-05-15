@@ -1,0 +1,21 @@
+{
+  "id": "transformers/webgpu-ort",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos o ONNX Runtime Web para execução no navegador.",
+      "en-us": "We import ONNX Runtime Web for browser execution."
+    },
+    {
+      "lineRange": [3, 5],
+      "pt-br": "Configuramos a sessão de inferência para usar explicitamente o provedor WebGPU.",
+      "en-us": "We configure the inference session to explicitly use the WebGPU provider."
+    },
+    {
+      "lineRange": [7, 7],
+      "pt-br": "A execução do modelo acontece via compute shaders, aproveitando a aceleração de hardware.",
+      "en-us": "Model execution happens via compute shaders, leveraging hardware acceleration."
+    }
+  ]
+}

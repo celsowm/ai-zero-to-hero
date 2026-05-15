@@ -1,0 +1,21 @@
+{
+  "id": "neural-networks/pytorch-activations-hidden",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Importamos o PyTorch e criamos um tensor de teste com valores negativos e positivos para observar o comportamento das ativações.",
+      "en-us": "We import PyTorch and create a test tensor with negative and positive values to observe the activations' behavior."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "ReLU (Rectified Linear Unit) é a escolha padrão: simples, rápida e evita o sumiço dos gradientes em valores positivos.",
+      "en-us": "ReLU (Rectified Linear Unit) is the default choice: simple, fast, and avoids vanishing gradients for positive values."
+    },
+    {
+      "lineRange": [12, 16],
+      "pt-br": "GELU é uma versão 'suave' da ReLU. Ela é usada em quase todos os Transformers modernos por ser mais amigável ao otimizador.",
+      "en-us": "GELU is a 'smooth' version of ReLU. It is used in almost all modern Transformers as it is more optimizer-friendly."
+    }
+  ]
+}

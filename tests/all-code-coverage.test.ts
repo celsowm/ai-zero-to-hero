@@ -205,6 +205,36 @@ describe('ALL code explanation coverage (Python & JS)', () => {
     }
   });
 
+  it('no slide contains raw triple-backtick code blocks (must use snippet: reference)', () => {
+    const allSlideFiles = findFiles(join(__dirname, '../src/content/slides'), ['.ts']);
+    const failures: string[] = [];
+
+    for (const slidePath of allSlideFiles) {
+      const content = readFileSync(slidePath, 'utf-8');
+      
+      // Look for ```lang blocks that don't contain 'snippet:'
+      // In .ts files, backticks are usually escaped: \` \` \`
+      const blockRegex = /\\`\\`\\`([a-z]+)?\s+([\s\S]*?)\\`\\`\\`/g;
+      let match;
+      while ((match = blockRegex.exec(content)) !== null) {
+        const blockContent = match[2].trim();
+        const language = match[1];
+
+        // We only enforce this for "real" code languages like python, javascript, typescript.
+        // bash and txt are allowed inline for simple commands/formulas that don't need line-by-line explanations.
+        if (['python', 'javascript', 'js', 'py'].includes(language || '')) {
+          if (!blockContent.startsWith('snippet:')) {
+            failures.push(`${relative(join(__dirname, '../src/content/slides'), slidePath)}: contains raw ${language} code block`);
+          }
+        }
+      }
+    }
+
+    if (failures.length > 0) {
+      expect.unreachable(`\n🔴 Found ${failures.length} slide(s) with raw code blocks. Move them to src/content/snippets:\n\n${failures.join('\n')}`);
+    }
+  });
+
   it('every codeExplanations lineRange refers to existing lines in its snippet', () => {
     const allSnippetFiles = findFiles(snippetsDir, ['.py', '.js']);
     const allSlideFiles = findFiles(slidesDir, ['.ts']);

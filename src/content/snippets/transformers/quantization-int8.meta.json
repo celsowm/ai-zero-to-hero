@@ -1,0 +1,26 @@
+{
+  "id": "transformers/quantization-int8",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos BitsAndBytesConfig para quantização INT8.",
+      "en-us": "We import BitsAndBytesConfig for INT8 quantization."
+    },
+    {
+      "lineRange": [4, 6],
+      "pt-br": "`load_in_8bit=True` ativa INT8. O threshold define o corte para outliers.",
+      "en-us": "`load_in_8bit=True` enables INT8. The threshold defines the outlier cutoff."
+    },
+    {
+      "lineRange": [8, 12],
+      "pt-br": "O modelo é carregado com quantização mista — outliers em FP16, resto em INT8.",
+      "en-us": "The model is loaded with mixed quantization — outliers in FP16, rest in INT8."
+    },
+    {
+      "lineRange": [13, 13],
+      "pt-br": "~7GB para um modelo 7B — metade do FP16.",
+      "en-us": "~7GB for a 7B model — half of FP16."
+    }
+  ]
+}

@@ -22,21 +22,26 @@ export const webllmInBrowser = defineSlide({
 
 ### Streaming no Browser
 \`\`\`js
-import * as webllm from '@mlc-ai/web-llm';
-const engine = await webllm.CreateMLCEngine('Llama-3-8B-q4f16_1-webgpu');
-const chunks = await engine.chat.completions.create({
-  messages: [{ role: 'user', content: 'Hello!' }],
-  stream: true
-});
-for await (const chunk of chunks) console.log(chunk.choices[0].delta.content);
-\`\`\`
-
-### Limites Práticos
-- **~7B máximo** com Q4_0 em devices com 8GB+ RAM
-- **KV cache** cresce com tokens gerados (~2MB/1K tokens para 7B)
-- **30-50 tok/s** em GPU dedicada, ~10 tok/s em integrated
-
-> O simulador mostra geração token-a-token com métricas reais de VRAM e velocidade.`,
+snippet:transformers/webllm-stream
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Importamos o WebLLM, que utiliza o framework MLC para rodar modelos no navegador.',
+        },
+        {
+          lineRange: [3, 3],
+          content: 'Instanciamos o motor de inferência carregando um checkpoint quantizado específico para WebGPU.',
+        },
+        {
+          lineRange: [5, 8],
+          content: 'Criamos uma requisição de chat com streaming habilitado, permitindo receber tokens conforme são gerados.',
+        },
+        {
+          lineRange: [10, 12],
+          content: 'Iteramos sobre os chunks assíncronos para exibir a resposta em tempo real.',
+        },
+      ],
     },
     'en-us': {
       title: 'WebLLM: Pure LLMs in the Browser via WebGPU',
@@ -55,21 +60,26 @@ for await (const chunk of chunks) console.log(chunk.choices[0].delta.content);
 
 ### Streaming in the Browser
 \`\`\`js
-import * as webllm from '@mlc-ai/web-llm';
-const engine = await webllm.CreateMLCEngine('Llama-3-8B-q4f16_1-webgpu');
-const chunks = await engine.chat.completions.create({
-  messages: [{ role: 'user', content: 'Hello!' }],
-  stream: true
-});
-for await (const chunk of chunks) console.log(chunk.choices[0].delta.content);
-\`\`\`
-
-### Practical Limits
-- **~7B max** with Q4_0 on devices with 8GB+ RAM
-- **KV cache** grows with generated tokens (~2MB/1K tokens for 7B)
-- **30-50 tok/s** on dedicated GPU, ~10 tok/s on integrated
-
-> The simulator shows token-by-token generation with real VRAM and speed metrics.`,
+snippet:transformers/webllm-stream
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'We import WebLLM, which uses the MLC framework to run models in the browser.',
+        },
+        {
+          lineRange: [3, 3],
+          content: 'We instantiate the inference engine by loading a quantized checkpoint specific to WebGPU.',
+        },
+        {
+          lineRange: [5, 8],
+          content: 'We create a chat request with streaming enabled, allowing us to receive tokens as they are generated.',
+        },
+        {
+          lineRange: [10, 12],
+          content: 'We iterate over the asynchronous chunks to display the response in real-time.',
+        },
+      ],
     },
   },
   visual: {

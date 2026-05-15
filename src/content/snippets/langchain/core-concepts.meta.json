@@ -1,0 +1,16 @@
+{
+  "id": "langchain/core-concepts",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "A sintaxe de pipe (|) do LCEL compõe os componentes em um fluxo sequencial.",
+      "en-us": "LCEL pipe syntax (|) composes components into a sequential flow."
+    },
+    {
+      "lineRange": [2, 2],
+      "pt-br": "O método .invoke() inicia a execução da chain com os dados de entrada.",
+      "en-us": "The .invoke() method starts the chain execution with the input data."
+    }
+  ]
+}

@@ -33,18 +33,18 @@ python -m pip install torch
 
 ### Teste mínimo depois da instalação
 \`\`\`python
-import torch
-print(torch.__version__)
-\`\`\`
-
-### Leitura prática
-- \`pip install\`: baixa e instala a biblioteca
-- \`import torch\`: confirma se o módulo ficou disponível
-- \`torch.__version__\`: mostra qual versão o Python carregou
-
-### Observação importante
-Este slide mostra **setup local de terminal**. Ele não é uma célula de instalação dentro do navegador.
-`,
+snippet:neural-networks/pytorch-version-check
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Tenta importar a biblioteca para confirmar que a instalação via pip funcionou.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'Exibe a versão carregada para garantir que o ambiente está correto.',
+        },
+      ],
     },
     'en-us': {
       title: `First external library: installing \`torch\` with \`pip\``,
@@ -69,18 +69,18 @@ python -m pip install torch
 
 ### Minimal test after installation
 \`\`\`python
-import torch
-print(torch.__version__)
-\`\`\`
-
-### Practical reading
-- \`pip install\`: downloads and installs the library
-- \`import torch\`: checks whether the module is available
-- \`torch.__version__\`: shows which version Python loaded
-
-### Important note
-This slide shows **local terminal setup**. It is not an installation cell inside the browser.
-`,
+snippet:neural-networks/pytorch-version-check
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Tries to import the library to confirm that the pip installation worked.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'Displays the loaded version to ensure the environment is correct.',
+        },
+      ],
     },
   },
 });

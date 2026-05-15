@@ -1,0 +1,16 @@
+{
+  "id": "neural-networks/pytorch-version-check",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Tenta importar a biblioteca para confirmar que a instalação via pip funcionou.",
+      "en-us": "Tries to import the library to confirm that the pip installation worked."
+    },
+    {
+      "lineRange": [2, 2],
+      "pt-br": "Exibe a versão carregada para garantir que o ambiente está correto.",
+      "en-us": "Displays the loaded version to ensure the environment is correct."
+    }
+  ]
+}

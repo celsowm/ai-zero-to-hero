@@ -93,31 +93,19 @@ export const neuralNetworkWeightsAndBiases = defineSlide({
 
 ### Fórmula concreta
 \`\`\`python
-# Produto escalar: multiplica par a par e soma
-z = w1 * x1 + w2 * x2 + w3 * x3 + b
+snippet:neural-networks/weights-biases-formula
 \`\`\`
 
 ### Cada símbolo, o que é
 
 \`\`\`python
-x = [x1, x2, x3]      # entradas (o que chega: pixel, palavra, nota…)
-w = [w1, w2, w3]      # pesos (importância de cada entrada)
-b = 0.0               # viés (deslocamento fixo)
-z = sum(wi * xi for wi, xi in zip(w, x)) + b   # saída bruta
+snippet:neural-networks/weights-biases-symbols
 \`\`\`
 
 ### Exemplo numérico
 
 \`\`\`python
-x = [0.8, 0.4, 0.1]   # entradas
-w = [0.6, -0.5, 0.2]  # pesos
-b = -0.1              # viés
-
-# Passo a passo:
-t1 = 0.6 * 0.8   #  0.48  ← entrada 1 empurra z para cima
-t2 = -0.5 * 0.4  # -0.20  ← entrada 2 empurra z para baixo
-t3 = 0.2 * 0.1   #  0.02  ← entrada 3 contribui pouco
-z  = t1 + t2 + t3 + b  # 0.20
+snippet:neural-networks/weights-biases-example
 \`\`\`
 
 ### Ideia principal
@@ -131,8 +119,39 @@ Boa pergunta. Este slide mostra **só a parte linear** — o cálculo de \`z\` *
 
 Sem o passo 2, toda a rede seria equivalente a uma única regressão linear — por isso a ativação é essencial.`,
       codeExplanations: [
-
-  ],
+        {
+          lineRange: [1, 2],
+          content: 'A operação fundamental: multiplicamos cada entrada pelo seu peso e somamos tudo, incluindo o viés.',
+        },
+        {
+          lineRange: [1, 1],
+          content: 'As entradas são os dados brutos ou a saída da camada anterior.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'Os pesos representam a força da conexão de cada entrada.',
+        },
+        {
+          lineRange: [3, 3],
+          content: 'O viés permite que o neurônio tenha uma saída mesmo com entradas nulas.',
+        },
+        {
+          lineRange: [4, 4],
+          content: 'O cálculo final combina tudo em um único valor escalar.',
+        },
+        {
+          lineRange: [1, 3],
+          content: 'Valores concretos para testar a matemática.',
+        },
+        {
+          lineRange: [6, 8],
+          content: 'Cada termo (t) mostra a contribuição individual de cada entrada.',
+        },
+        {
+          lineRange: [9, 9],
+          content: 'A soma final de todos os termos ponderados mais o viés.',
+        },
+      ],
     },
     'en-us': {
       title: `Weights and biases: what each one does`,
@@ -150,31 +169,19 @@ Sem o passo 2, toda a rede seria equivalente a uma única regressão linear — 
 
 ### Concrete formula
 \`\`\`python
-# Dot product: multiply element-wise and sum
-z = w1 * x1 + w2 * x2 + w3 * x3 + b
+snippet:neural-networks/weights-biases-formula
 \`\`\`
 
 ### What each symbol means
 
 \`\`\`python
-x = [x1, x2, x3]      # inputs (what arrives: pixel, word, grade...)
-w = [w1, w2, w3]      # weights (importance of each input)
-b = 0.0               # bias (fixed shift)
-z = sum(wi * xi for wi, xi in zip(w, x)) + b   # raw output
+snippet:neural-networks/weights-biases-symbols
 \`\`\`
 
 ### Numerical example
 
 \`\`\`python
-x = [0.8, 0.4, 0.1]   # inputs
-w = [0.6, -0.5, 0.2]  # weights
-b = -0.1              # bias
-
-# Step by step:
-t1 = 0.6 * 0.8   #  0.48  ← input 1 pushes z upward
-t2 = -0.5 * 0.4  # -0.20  ← input 2 pushes z downward
-t3 = 0.2 * 0.1   #  0.02  ← input 3 contributes little
-z  = t1 + t2 + t3 + b  # 0.20
+snippet:neural-networks/weights-biases-example
 \`\`\`
 
 ### Main idea
@@ -188,8 +195,39 @@ Good question. This slide shows **only the linear part** — the calculation of 
 
 Without step 2, the entire network would be equivalent to a single linear regression — that's why activation is essential.`,
       codeExplanations: [
-
-  ],
+        {
+          lineRange: [1, 2],
+          content: 'The fundamental operation: multiply each input by its weight and sum everything up, including the bias.',
+        },
+        {
+          lineRange: [1, 1],
+          content: 'Inputs are the raw data or the output from the previous layer.',
+        },
+        {
+          lineRange: [2, 2],
+          content: 'Weights represent the strength of each input connection.',
+        },
+        {
+          lineRange: [3, 3],
+          content: 'The bias allows the neuron to have an output even with zero inputs.',
+        },
+        {
+          lineRange: [4, 4],
+          content: 'The final calculation combines everything into a single scalar value.',
+        },
+        {
+          lineRange: [1, 3],
+          content: 'Concrete values to test the math.',
+        },
+        {
+          lineRange: [6, 8],
+          content: 'Each term (t) shows the individual contribution of each input.',
+        },
+        {
+          lineRange: [9, 9],
+          content: 'The final sum of all weighted terms plus the bias.',
+        },
+      ],
     },
   },
 });

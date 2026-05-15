@@ -27,14 +27,22 @@ export const webgpuDeepDive = defineSlide({
 
 ### Exemplo de uso
 \`\`\`js
-import * as ort from 'onnxruntime-web';
-const session = await ort.InferenceSession.create('model.onnx', {
-  executionProviders: ['webgpu']
-});
-const results = await session.run({ input: tensor });
-\`\`\`
-
-> O Explorer mostra o fluxo de memória CPU → GPU e compara WASM vs WebGPU.`,
+snippet:transformers/webgpu-ort
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'Importamos o ONNX Runtime Web para execução no navegador.',
+        },
+        {
+          lineRange: [3, 5],
+          content: 'Configuramos a sessão de inferência para usar explicitamente o provedor WebGPU.',
+        },
+        {
+          lineRange: [7, 7],
+          content: 'A execução do modelo acontece via compute shaders, aproveitando a aceleração de hardware.',
+        },
+      ],
     },
     'en-us': {
       title: 'WebGPU: Execution Provider for ONNX in the Browser',
@@ -58,14 +66,22 @@ const results = await session.run({ input: tensor });
 
 ### Example usage
 \`\`\`js
-import * as ort from 'onnxruntime-web';
-const session = await ort.InferenceSession.create('model.onnx', {
-  executionProviders: ['webgpu']
-});
-const results = await session.run({ input: tensor });
-\`\`\`
-
-> The Explorer shows CPU → GPU memory flow and compares WASM vs WebGPU.`,
+snippet:transformers/webgpu-ort
+\`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 1],
+          content: 'We import ONNX Runtime Web for browser execution.',
+        },
+        {
+          lineRange: [3, 5],
+          content: 'We configure the inference session to explicitly use the WebGPU provider.',
+        },
+        {
+          lineRange: [7, 7],
+          content: 'Model execution happens via compute shaders, leveraging hardware acceleration.',
+        },
+      ],
     },
   },
   visual: {

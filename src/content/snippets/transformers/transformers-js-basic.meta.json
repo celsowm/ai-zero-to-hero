@@ -1,0 +1,21 @@
+{
+  "id": "transformers/transformers-js-basic",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos a função pipeline diretamente do pacote transformers.js.",
+      "en-us": "We import the pipeline function directly from the transformers.js package."
+    },
+    {
+      "lineRange": [3, 4],
+      "pt-br": "O carregamento do modelo é assíncrono. Na primeira vez, ele baixa os arquivos ONNX e faz o cache no browser.",
+      "en-us": "Model loading is asynchronous. The first time, it downloads ONNX files and caches them in the browser."
+    },
+    {
+      "lineRange": [6, 7],
+      "pt-br": "A inferência acontece localmente no navegador, retornando o resultado já processado.",
+      "en-us": "Inference happens locally in the browser, returning the processed result."
+    }
+  ]
+}

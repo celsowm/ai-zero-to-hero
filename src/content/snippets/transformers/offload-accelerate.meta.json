@@ -1,0 +1,21 @@
+{
+  "id": "transformers/offload-accelerate",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos a classe AutoModel para carregamento genérico.",
+      "en-us": "Importing AutoModel class for generic loading."
+    },
+    {
+      "lineRange": [4, 6],
+      "pt-br": "O parâmetro device_map='auto' ativa a biblioteca accelerate para distribuir as camadas.",
+      "en-us": "The device_map='auto' parameter enables the accelerate library to distribute layers."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "Definimos quanto de memória cada dispositivo pode consumir para os pesos.",
+      "en-us": "We define how much memory each device can consume for the weights."
+    }
+  ]
+}

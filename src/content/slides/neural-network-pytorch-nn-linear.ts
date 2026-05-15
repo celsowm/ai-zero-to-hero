@@ -30,24 +30,26 @@ Quando temos uma arquitetura sequencial simples (camada → ativação → camad
 ---
 
 \`\`\`python
-import torch.nn as nn
-import torch
-
-# Criando uma única camada
-camada = nn.Linear(in_features=4, out_features=3)
-
-# Pesos e bias são parâmetros que requerem gradiente
-print(camada.weight.shape) # torch.Size([3, 4])
-print(camada.bias.shape)   # torch.Size([3])
-
-# Agrupando em uma rede completa
-model = nn.Sequential(
-    nn.Linear(4, 3),
-    nn.ReLU(),
-    nn.Linear(3, 1),
-    nn.Sigmoid()
-)
+snippet:neural-networks/pytorch-nn-linear
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 2],
+          content: 'Importação do módulo neural do PyTorch e da biblioteca base.',
+        },
+        {
+          lineRange: [4, 5],
+          content: 'nn.Linear define uma camada densa que transforma 4 entradas em 3 saídas.',
+        },
+        {
+          lineRange: [7, 9],
+          content: 'Inspecionamos os shapes dos parâmetros internos (pesos e bias) criados automaticamente.',
+        },
+        {
+          lineRange: [11, 18],
+          content: 'nn.Sequential agrupa camadas e ativações em um único fluxo de execução.',
+        },
+      ],
     },
     'en-us': {
       title: `The foundation of networks: nn.Linear and nn.Sequential`,
@@ -69,24 +71,26 @@ When we have a simple sequential architecture (layer → activation → layer �
 ---
 
 \`\`\`python
-import torch.nn as nn
-import torch
-
-# Creating a single layer
-layer = nn.Linear(in_features=4, out_features=3)
-
-# Weights and bias are parameters that require gradients
-print(layer.weight.shape) # torch.Size([3, 4])
-print(layer.bias.shape)   # torch.Size([3])
-
-# Grouping into a full network
-model = nn.Sequential(
-    nn.Linear(4, 3),
-    nn.ReLU(),
-    nn.Linear(3, 1),
-    nn.Sigmoid()
-)
+snippet:neural-networks/pytorch-nn-linear
 \`\`\``,
+      codeExplanations: [
+        {
+          lineRange: [1, 2],
+          content: 'Importing PyTorch\'s neural module and the base library.',
+        },
+        {
+          lineRange: [4, 5],
+          content: 'nn.Linear defines a dense layer that transforms 4 inputs into 3 outputs.',
+        },
+        {
+          lineRange: [7, 9],
+          content: 'Inspecting the shapes of the internally created parameters (weights and bias).',
+        },
+        {
+          lineRange: [11, 18],
+          content: 'nn.Sequential groups layers and activations into a single execution flow.',
+        },
+      ],
     },
   },
 });

@@ -1,0 +1,11 @@
+{
+  "id": "neural-networks/weights-biases-formula",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "A operação fundamental: multiplicamos cada entrada pelo seu peso e somamos tudo, incluindo o viés.",
+      "en-us": "The fundamental operation: multiply each input by its weight and sum everything up, including the bias."
+    }
+  ]
+}
