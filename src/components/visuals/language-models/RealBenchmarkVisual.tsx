@@ -180,30 +180,30 @@ function BenchmarkBarReal({
   const logPct = logMax > 0 ? Math.min(100, (logVal / logMax) * 100) : 0;
 
   return (
-    <div style={{ marginBottom: '8px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', marginBottom: '3px' }}>
-        <span style={{ color, fontWeight: '700', display: 'flex', alignItems: 'center', gap: '4px' }}>
+    <div style={{ marginBottom: '10px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px', marginBottom: '4px' }}>
+        <span style={{ color, fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span>{icon}</span> {label}
           {isReal && (
             <span style={{
-              fontSize: '8px', padding: '1px 5px', borderRadius: '4px',
+              fontSize: '9px', padding: '2px 6px', borderRadius: '4px',
               background: `${sw.emerald}22`, color: sw.emerald, fontWeight: '700',
             }}>
               REAL
             </span>
           )}
         </span>
-        <span style={{ fontFamily: 'monospace', fontSize: '10px', color: sw.text }}>{timeStr}</span>
+        <span style={{ fontFamily: 'monospace', fontSize: '12px', color: sw.text, fontWeight: '600' }}>{timeStr}</span>
       </div>
-      <div style={{ height: '6px', background: sw.void, borderRadius: '3px', overflow: 'hidden' }}>
+      <div style={{ height: '8px', background: sw.void, borderRadius: '4px', overflow: 'hidden' }}>
         <div
           style={{
             height: '100%',
             width: `${logPct}%`,
             background: color,
-            borderRadius: '3px',
+            borderRadius: '4px',
             transition: 'width 0.4s ease',
-            boxShadow: `0 0 6px ${color}44`,
+            boxShadow: `0 0 8px ${color}44`,
           }}
         />
       </div>
@@ -270,18 +270,18 @@ export const RealBenchmarkVisual = React.memo(({ copy }: RealBenchmarkVisualProp
     <div style={{
       background: sw.surface,
       borderRadius: '12px',
-      padding: '12px',
+      padding: '16px',
       border: `1px solid ${sw.borderSubtle}`,
     }}>
       {/* Title */}
       <div style={{
-        fontSize: '11px', fontWeight: '700', color: sw.text, marginBottom: '8px', textAlign: 'center',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
+        fontSize: '14px', fontWeight: '700', color: sw.text, marginBottom: '12px', textAlign: 'center',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
       }}>
         <span>🔬</span> {copy.realBenchmarkTitle}
         {hasWebGPU && (
           <span style={{
-            fontSize: '8px', padding: '1px 6px', borderRadius: '4px',
+            fontSize: '10px', padding: '2px 8px', borderRadius: '4px',
             background: `${sw.emerald}22`, color: sw.emerald, fontWeight: '700',
           }}>
             {copy.webgpuSupported}
@@ -289,7 +289,7 @@ export const RealBenchmarkVisual = React.memo(({ copy }: RealBenchmarkVisualProp
         )}
         {!hasWebGPU && (
           <span style={{
-            fontSize: '8px', padding: '1px 6px', borderRadius: '4px',
+            fontSize: '10px', padding: '2px 8px', borderRadius: '4px',
             background: `${sw.amber}22`, color: sw.amber, fontWeight: '700',
           }}>
             {copy.webgpuNotSupported}
@@ -299,24 +299,25 @@ export const RealBenchmarkVisual = React.memo(({ copy }: RealBenchmarkVisualProp
 
       {/* Operation info */}
       <div style={{
-        fontSize: '9px', color: sw.textMuted, textAlign: 'center', marginBottom: '10px',
-        fontFamily: 'monospace',
+        fontSize: '11px', color: sw.textMuted, textAlign: 'center', marginBottom: '14px',
+        fontFamily: 'monospace', fontWeight: '500',
       }}>
         {copy.operationLabel}: result[i] = a[i] × b[i] + 0.5 | {copy.elementsLabel}: {ELEMENT_COUNT.toLocaleString()}
       </div>
 
       {/* Run button */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '14px' }}>
         <button
           onClick={runBenchmark}
           disabled={isRunning}
           style={{
-            padding: '5px 16px', borderRadius: '8px', fontSize: '11px', fontWeight: '700',
+            padding: '8px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: '700',
             border: `1px solid ${hasWebGPU ? sw.emerald : sw.amber}44`,
             background: isRunning ? sw.surface : `${hasWebGPU ? sw.emerald : sw.amber}22`,
             color: hasWebGPU ? sw.emerald : sw.amber,
             cursor: isRunning ? 'not-allowed' : 'pointer',
             opacity: isRunning ? 0.6 : 1,
+            transition: 'all 0.2s',
           }}
         >
           {isRunning ? `${copy.runningReal}...` : `▶ ${copy.runRealBenchmark}`}
@@ -324,24 +325,26 @@ export const RealBenchmarkVisual = React.memo(({ copy }: RealBenchmarkVisualProp
       </div>
 
       {/* Bars */}
-      {results && results.map(r => (
-        <BenchmarkBarReal
-          key={r.label}
-          label={r.label}
-          value={r.timeMs}
-          max={maxTime}
-          color={r.color}
-          icon={r.icon}
-          timeStr={formatTime(r.timeMs)}
-          isReal={r.isReal}
-        />
-      ))}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        {results && results.map(r => (
+          <BenchmarkBarReal
+            key={r.label}
+            label={r.label}
+            value={r.timeMs}
+            max={maxTime}
+            color={r.color}
+            icon={r.icon}
+            timeStr={formatTime(r.timeMs)}
+            isReal={r.isReal}
+          />
+        ))}
+      </div>
 
       {/* Warning for simulated */}
       {!hasWebGPU && results && (
         <div style={{
-          fontSize: '9px', color: sw.amber, textAlign: 'center', marginTop: '6px',
-          fontStyle: 'italic',
+          fontSize: '10px', color: sw.amber, textAlign: 'center', marginTop: '10px',
+          fontStyle: 'italic', fontWeight: '500',
         }}>
           ⚠️ {copy.simulatedWarning}
         </div>
@@ -352,18 +355,21 @@ export const RealBenchmarkVisual = React.memo(({ copy }: RealBenchmarkVisualProp
         <div style={{
           background: `${sw.emerald}08`,
           border: `1px solid ${sw.emerald}22`,
-          borderRadius: '8px',
-          padding: '8px 10px',
-          marginTop: '8px',
-          fontSize: '10px',
+          borderRadius: '10px',
+          padding: '12px',
+          marginTop: '12px',
+          fontSize: '12px',
           color: sw.text,
-          lineHeight: '1.4',
+          lineHeight: '1.5',
         }}>
           <strong style={{ color: sw.emerald }}>{copy.realResultTitle}</strong>{' '}
           JS puro: {formatTime(results![0].timeMs)} vs WebGPU: {formatTime(results![2].timeMs)}.
-          {copy.speedupLabel}: ~{speedup >= 100 ? `${(speedup / 100).toFixed(1)}×` : `${speedup.toFixed(1)}×`}
+          <div style={{ marginTop: '4px', fontWeight: '600', color: sw.emerald }}>
+            {copy.speedupLabel}: ~{speedup >= 100 ? `${(speedup / 100).toFixed(1)}×` : `${speedup.toFixed(1)}×`}
+          </div>
         </div>
       )}
     </div>
   );
 });
+

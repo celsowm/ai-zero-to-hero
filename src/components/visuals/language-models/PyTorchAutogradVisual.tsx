@@ -19,19 +19,19 @@ export const PyTorchAutogradVisual = React.memo(({ copy }: { copy: PyTorchPerfor
   ];
 
   const nodePositions: Record<string, { x: number; y: number }> = {};
-  const svgW = 280;
-  const svgH = 220; // Reduced height to fit everything better
-  const colX = [60, 220]; 
+  const svgW = 320;
+  const svgH = 240; 
+  const colX = [60, 260]; 
 
   const layout = [
     { id: 'input', x: colX[0], y: 15 },
-    { id: 'w1', x: colX[0], y: 50 },
-    { id: 'matmul1', x: colX[1], y: 35 },
-    { id: 'relu', x: colX[0], y: 90 },
-    { id: 'w2', x: colX[0], y: 130 },
-    { id: 'matmul2', x: colX[1], y: 110 },
-    { id: 'output', x: colX[0], y: 170 },
-    { id: 'loss', x: colX[1], y: 170 },
+    { id: 'w1', x: colX[0], y: 55 },
+    { id: 'matmul1', x: colX[1], y: 40 },
+    { id: 'relu', x: colX[0], y: 100 },
+    { id: 'w2', x: colX[0], y: 145 },
+    { id: 'matmul2', x: colX[1], y: 125 },
+    { id: 'output', x: colX[0], y: 190 },
+    { id: 'loss', x: colX[1], y: 190 },
   ];
 
   layout.forEach(n => { nodePositions[n.id] = { x: n.x, y: n.y }; });
@@ -69,7 +69,7 @@ fn main(@builtin(global_id) id: vec3<u32>) {
 
       <TabbedPanelSurface>
         {activeTab === 0 ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '16px' }}>
             {/* Autograd Graph */}
             <div style={{
               background: sw.void,
@@ -77,13 +77,13 @@ fn main(@builtin(global_id) id: vec3<u32>) {
               padding: '16px',
               border: `1px solid ${sw.borderSubtle}`,
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <div style={{ fontSize: '13px', fontWeight: '700', color: sw.text }}>{copy.autogradTitle}</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <div style={{ fontSize: '15px', fontWeight: '700', color: sw.text }}>{copy.autogradTitle}</div>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button
                     onClick={() => setStep('forward')}
                     style={{
-                      padding: '4px 12px', borderRadius: '6px', fontSize: '11px', fontWeight: '700',
+                      padding: '5px 14px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
                       border: `1px solid ${step === 'forward' ? sw.cyan : sw.borderSubtle}`,
                       background: step === 'forward' ? `${sw.cyan}22` : 'transparent',
                       color: step === 'forward' ? sw.cyan : sw.textMuted,
@@ -95,7 +95,7 @@ fn main(@builtin(global_id) id: vec3<u32>) {
                   <button
                     onClick={() => setStep('backward')}
                     style={{
-                      padding: '4px 12px', borderRadius: '6px', fontSize: '11px', fontWeight: '700',
+                      padding: '5px 14px', borderRadius: '6px', fontSize: '12px', fontWeight: '700',
                       border: `1px solid ${step === 'backward' ? sw.pink : sw.borderSubtle}`,
                       background: step === 'backward' ? `${sw.pink}22` : 'transparent',
                       color: step === 'backward' ? sw.pink : sw.textMuted,
@@ -120,10 +120,10 @@ fn main(@builtin(global_id) id: vec3<u32>) {
                   return (
                     <line
                       key={`f-${i}`}
-                      x1={p1.x + 20} y1={p1.y + 8}
-                      x2={p2.x + 20} y2={p2.y + 8}
+                      x1={p1.x + 20} y1={p1.y + 10}
+                      x2={p2.x + 20} y2={p2.y + 10}
                       stroke={isActive ? activeColor : sw.borderSubtle}
-                      strokeWidth={isActive ? 2.5 : 1}
+                      strokeWidth={isActive ? 3 : 1.2}
                       opacity={isActive ? 1 : 0.3}
                       style={{ transition: 'stroke 0.3s, opacity 0.3s, stroke-width 0.3s' }}
                     />
@@ -134,12 +134,12 @@ fn main(@builtin(global_id) id: vec3<u32>) {
                 {layout.map(n => (
                   <g key={n.id}>
                     <rect
-                      x={n.x} y={n.y} width={40} height={16} rx={4}
-                      fill={sw.surface} stroke={sw.borderSubtle} strokeWidth={1}
+                      x={n.x} y={n.y} width={45} height={20} rx={4}
+                      fill={sw.surface} stroke={sw.borderSubtle} strokeWidth={1.5}
                     />
                     <text
-                      x={n.x + 20} y={n.y + 11} textAnchor="middle"
-                      fontSize={9} fill={sw.text} fontFamily="monospace" fontWeight="600"
+                      x={n.x + 22.5} y={n.y + 14} textAnchor="middle"
+                      fontSize={11} fill={sw.text} fontFamily="monospace" fontWeight="700"
                     >
                       {n.id === 'relu' ? 'ReLU' : n.id}
                     </text>
@@ -147,7 +147,7 @@ fn main(@builtin(global_id) id: vec3<u32>) {
                 ))}
               </svg>
 
-              <div style={{ fontSize: '11px', color: sw.textMuted, marginTop: '8px', textAlign: 'center', fontWeight: '500' }}>
+              <div style={{ fontSize: '12px', color: sw.textMuted, marginTop: '12px', textAlign: 'center', fontWeight: '600' }}>
                 {step === 'forward' ? copy.dynamicGraphLabel : copy.staticGraphLabel}
               </div>
             </div>
