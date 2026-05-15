@@ -5,8 +5,8 @@ export const neuralNetworkPytorchActivations = defineSlide({
   type: 'two-column',
   options: {
     "columnRatios": [
-      0.55,
-      0.45
+      0.4,
+      0.6
     ]
   },
   content: {

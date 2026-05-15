@@ -5,8 +5,8 @@ export const neuralNetworkTypesOverview = defineSlide({
   type: 'two-column',
   options: {
     "columnRatios": [
-      0.62,
-      0.38
+      0.5,
+      0.5
     ]
   },
   content: {
