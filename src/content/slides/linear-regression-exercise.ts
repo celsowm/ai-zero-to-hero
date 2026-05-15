@@ -30,7 +30,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "1. Cálculo do MSE",
           "instructions": "Complete a função `calculate_mse(y_true, y_pred)` que calcula o Erro Quadrático Médio.\n\nA fórmula é: `média((y_true - y_pred) ** 2)`",
-          "snippetId": "linear-regression-exercise-1-en-us",
+          "snippetId": "linear-regression-exercise-1",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -59,7 +59,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "2. Fix the Bug: Gradient Descent ao Contrário?",
           "instructions": "Alguém escreveu a atualização do Gradient Descent — mas tem um bug sutil.\n\nRode o código e observe: os valores de `w` estão **explodindo** ao invés de convergir.\n\nEncontre o sinal errado e corrija. O Gradient Descent deve **subtrair** o gradiente, não somar.\n\n**Dica:** observe a direção em que `w` está se movendo a cada passo.",
-          "snippetId": "linear-regression-exercise-2-en-us",
+          "snippetId": "linear-regression-exercise-2",
           "validators": [
             {
             "type": "assertOutput",
@@ -118,7 +118,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "4. Experiment: Qual predição erra mais?",
           "instructions": "Dado um modelo `y_hat = 10 + 2*x`, temos 4 pontos reais:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Antes de rodar:** qual ponto tem o maior erro absoluto? Calcule mentalmente.\n\nDepois rode e descubra se acertou!",
-          "snippetId": "linear-regression-exercise-4-en-us",
+          "snippetId": "linear-regression-exercise-4",
           "validators": [
             {
             "type": "assertOutput",
@@ -133,7 +133,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "5. Gradient Descent 1D",
           "instructions": "Simule 5 passos de Gradient Descent para encontrar o mínimo de `f(w) = w²`.\n\nO gradiente é `df/dw = 2*w`. A cada passo: `w = w - lr * 2*w`.\n\nComece com `w = 5.0` e `lr = 0.1`.",
-          "snippetId": "linear-regression-exercise-5-en-us",
+          "snippetId": "linear-regression-exercise-5",
           "validators": [
             {
             "type": "assertOutput",
@@ -161,7 +161,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "1. MSE Calculation",
           "instructions": "Complete the `calculate_mse(y_true, y_pred)` function that calculates the Mean Squared Error.\n\nThe formula is: `mean((y_true - y_pred) ** 2)`",
-          "snippetId": "linear-regression-exercise-6-en-us",
+          "snippetId": "linear-regression-exercise-6",
           "validators": [
             {
             "type": "assertFunctionReturn",
@@ -190,7 +190,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "2. Fix the Bug: Gradient Descent Backwards?",
           "instructions": "Someone wrote the Gradient Descent update — but there's a subtle bug.\n\nRun the code and observe: the `w` values are **exploding** instead of converging.\n\nFind the wrong sign and fix it. Gradient Descent should **subtract** the gradient, not add it.\n\n**Hint:** watch the direction `w` moves each step.",
-          "snippetId": "linear-regression-exercise-7-en-us",
+          "snippetId": "linear-regression-exercise-7",
           "validators": [
             {
             "type": "assertOutput",
@@ -248,7 +248,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "4. Experiment: Which prediction is most wrong?",
           "instructions": "Given a model `y_hat = 10 + 2*x`, we have 4 real data points:\n\n| x | y_real |\n|---|--------|\n| 3 | 18     |\n| 5 | 15     |\n| 7 | 30     |\n| 1 | 14     |\n\n**Before running:** which point has the largest absolute error? Calculate mentally.\n\nThen run and see if you were right!",
-          "snippetId": "linear-regression-exercise-9-en-us",
+          "snippetId": "linear-regression-exercise-9",
           "validators": [
             {
             "type": "assertOutput",
@@ -263,7 +263,7 @@ export const linearRegressionExercise = defineSlide({
           {
           "id": "5. 1D Gradient Descent",
           "instructions": "Simulate 5 steps of Gradient Descent to find the minimum of `f(w) = w²`.\n\nThe gradient is `df/dw = 2*w`. Each step: `w = w - lr * 2*w`.\n\nStart with `w = 5.0` and `lr = 0.1`.",
-          "snippetId": "linear-regression-exercise-10-en-us",
+          "snippetId": "linear-regression-exercise-10",
           "validators": [
             {
             "type": "assertOutput",
