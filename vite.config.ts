@@ -15,7 +15,7 @@ const MIME: Record<string, string> = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/ai-zero-to-hero/',
   plugins: [
     react(),
     {
