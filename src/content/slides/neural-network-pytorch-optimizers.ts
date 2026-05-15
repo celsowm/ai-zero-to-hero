@@ -16,9 +16,9 @@ export const neuralNetworkPytorchOptimizers = defineSlide({
 
 ### O Desafio do "Vale"
 A perda raramente é um buraco perfeito. Frequentemente ela parece um "vale" estreito (ravine).
-- **SGD puro:** Como ele só olha o gradiente atual, ele acaba "quicando" nas paredes do vale, avançando muito pouco para o centro.
+- **SGD puro (Stochastic Gradient Descent):** Como ele só olha o gradiente atual, ele acaba "quicando" nas paredes do vale, avançando muito pouco para o centro.
 - **Momentum:** Adiciona uma média móvel dos gradientes anteriores. Isso cancela as oscilações laterais e acelera o progresso na direção correta.
-- **Adam:** O "padrão ouro". Ele adapta a taxa de aprendizado para cada peso individualmente. Se um peso oscila muito, ele freia; se move pouco, ele acelera.
+- **Adam (Adaptive Moment Estimation):** O "padrão ouro". Ele adapta a taxa de aprendizado para cada peso individualmente. Se um peso oscila muito, ele freia; se move pouco, ele acelera.
 
 ---
 
@@ -61,9 +61,9 @@ snippet:neural-networks/optimizers-demo
 
 ### The "Ravine" Challenge
 Loss is rarely a perfect bowl. It often looks like a narrow "ravine".
-- **Pure SGD:** Since it only looks at the current gradient, it ends up "bouncing" off the ravine walls, making very little progress toward the center.
+- **Pure SGD (Stochastic Gradient Descent):** Since it only looks at the current gradient, it ends up "bouncing" off the ravine walls, making very little progress toward the center.
 - **Momentum:** Adds a moving average of previous gradients. This cancels out side-to-side oscillations and accelerates progress in the correct direction.
-- **Adam:** The "gold standard". It adapts the learning rate for each weight individually. If a weight oscillates too much, it brakes; if it moves too little, it accelerates.
+- **Adam (Adaptive Moment Estimation):** The "gold standard". It adapts the learning rate for each weight individually. If a weight oscillates too much, it brakes; if it moves too little, it accelerates.
 
 ---
 

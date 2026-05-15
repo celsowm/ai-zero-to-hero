@@ -22,7 +22,7 @@ export const trainingLanguageModels = defineSlide({
 
 4. **Backpropagation:** a perda flui de trás pra frente usando a **regra da cadeia**. Cada peso recebe um **gradiente** — uma seta dizendo "aumente" ou "diminua".
 
-5. **Update (Optimizer):** o otimizador (AdamW, Adam, SGD) usa o gradiente + **learning rate** para ajustar os pesos. O LR controla o tamanho do passo: **muito grande → diverge, muito pequeno → demora**.
+5. **Update (Optimizer):** o otimizador (AdamW, Adam, **SGD - Stochastic Gradient Descent**) usa o gradiente + **learning rate** para ajustar os pesos. O LR controla o tamanho do passo: **muito grande → diverge, muito pequeno → demora**.
 
 > Treinar IA não é preencher um banco de dados. É **esculpir instintos matemáticos** — repetição após repetição.`,
     },
@@ -38,7 +38,7 @@ export const trainingLanguageModels = defineSlide({
 
 4. **Backpropagation:** the loss flows backwards using the **chain rule**. Each weight receives a **gradient** — an arrow saying "increase" or "decrease".
 
-5. **Update (Optimizer):** the optimizer (AdamW, Adam, SGD) uses the gradient + **learning rate** to adjust weights. The LR controls step size: **too large → diverges, too small → takes forever**.
+5. **Update (Optimizer):** the optimizer (AdamW, Adam, **SGD - Stochastic Gradient Descent**) uses the gradient + **learning rate** to adjust weights. The LR controls step size: **too large → diverges, too small → takes forever**.
 
 > Training AI is not filling a database. It is **carving mathematical instincts** — repetition after repetition.`,
     },

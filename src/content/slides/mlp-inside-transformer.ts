@@ -12,7 +12,7 @@ export const mlpInsideTransformer = defineSlide({
   content: {
     'pt-br': {
       title: `Reflexão isolada (O MLP do Bloco)`,
-      body: `Depois da Atenção (que move dados *entre* as palavras), vem a rede neural clássica (MLP) agindo individualmente *dentro* de cada palavra.
+      body: `Depois da Atenção (que move dados *entre* as palavras), vem a rede neural clássica **MLP (Multi-Layer Perceptron)** agindo individualmente *dentro* de cada palavra.
 
 1. **Sem comunicação:** durante o MLP, os tokens param de conversar. Cada um é processado de forma completamente isolada.
 
@@ -24,7 +24,7 @@ export const mlpInsideTransformer = defineSlide({
     },
     'en-us': {
       title: `Isolated reflection (The Block's MLP)`,
-      body: `After Attention (which moves data *between* words), comes the classic neural network (MLP) acting individually *inside* each word.
+      body: `After Attention (which moves data *between* words), comes the classic neural network **MLP (Multi-Layer Perceptron)** acting individually *inside* each word.
 
 1. **No communication:** during the MLP, tokens stop talking. Each one is processed completely in isolation.
 

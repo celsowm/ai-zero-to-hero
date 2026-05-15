@@ -36,8 +36,8 @@ export const trainingMetricsFamilies = defineSlide({
       'pt-br': {
         q1Title: 'Loss e Eval Loss',
         q1Desc: 'Devem descer com o tempo',
-        q2Title: 'Accuracy e F1',
-        q2Desc: 'Devem subir e estabilizar',
+        q2Title: 'Accuracy e F1 Score',
+        q2Desc: 'Equilíbrio entre precisão e recall',
         q3Title: 'Grad Norm',
         q3Desc: 'Deve se manter num patamar estável',
         q4Title: 'Samples/s',
@@ -46,8 +46,8 @@ export const trainingMetricsFamilies = defineSlide({
       'en-us': {
         q1Title: 'Loss and Eval Loss',
         q1Desc: 'Should decrease over time',
-        q2Title: 'Accuracy and F1',
-        q2Desc: 'Should increase and stabilize',
+        q2Title: 'Accuracy and F1 Score',
+        q2Desc: 'Balance between precision and recall',
         q3Title: 'Grad Norm',
         q3Desc: 'Should remain at a stable level',
         q4Title: 'Samples/s',

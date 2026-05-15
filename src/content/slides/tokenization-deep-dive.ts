@@ -62,7 +62,7 @@ Use the slider to see how granularity changes everything.`,
         "sliderLabel": "Granularidade",
         "charLevel": "Caractere",
         "wordLevel": "Palavra",
-        "subwordLevel": "Subword (BPE)",
+        "subwordLevel": "Subword (BPE - Byte Pair Encoding)",
         "exampleSentence": "I love running and playing",
         "tokenCount": "tokens"
       },
@@ -70,7 +70,7 @@ Use the slider to see how granularity changes everything.`,
         "sliderLabel": "Granularity",
         "charLevel": "Character",
         "wordLevel": "Word",
-        "subwordLevel": "Subword (BPE)",
+        "subwordLevel": "Subword (BPE - Byte Pair Encoding)",
         "exampleSentence": "I love running and playing",
         "tokenCount": "tokens"
       }

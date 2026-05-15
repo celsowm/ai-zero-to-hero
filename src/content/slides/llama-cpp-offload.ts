@@ -19,8 +19,8 @@ $$\\text{layers\\_on\\_gpu} = \\min\\left(\\text{total\\_layers}, \\left\\lfloor
 Cada camada tem um custo: pesos + KV cache + ativações.
 
 ### Memory Budget
-**GPU VRAM** = pesos_gpu + KV_cache_gpu + overhead_ativações
-**CPU RAM** = pesos_cpu + KV_cache_cpu + swap (se disk offload)
+**GPU VRAM (Video RAM)** = pesos_gpu + KV_cache_gpu + overhead_ativações
+**CPU RAM (Random Access Memory)** = pesos_cpu + KV_cache_cpu + swap (se disk offload)
 
 ### Latência do Offload
 Cada camada na CPU é **~10x mais lenta** que na GPU:
@@ -71,8 +71,8 @@ $$\\text{layers\\_on\\_gpu} = \\min\\left(\\text{total\\_layers}, \\left\\lfloor
 Each layer has a cost: weights + KV cache + activations.
 
 ### Memory Budget
-**GPU VRAM** = weights_gpu + KV_cache_gpu + activation_overhead
-**CPU RAM** = weights_cpu + KV_cache_cpu + swap (if disk offload)
+**GPU VRAM (Video RAM)** = weights_gpu + KV_cache_gpu + activation_overhead
+**CPU RAM (Random Access Memory)** = weights_cpu + KV_cache_cpu + swap (if disk offload)
 
 ### Offload Latency
 Each CPU layer is **~10x slower** than GPU:

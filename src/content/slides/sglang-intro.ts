@@ -36,7 +36,7 @@ python -m sglang.launch_server \\
 
 ### Suporte de hardware
 
-NVIDIA, AMD, Intel Xeon, Google TPU, Ascend NPU — mais amplo que vLLM.`,
+NVIDIA (GPU), AMD (GPU), Intel Xeon (CPU), Google **TPU (Tensor Processing Unit)**, Ascend **NPU (Neural Processing Unit)** — suporte mais amplo que vLLM.`,
     },
     'en-us': {
       title: 'sglang: RadixAttention + Prefix Caching',
@@ -69,7 +69,7 @@ python -m sglang.launch_server \\
 
 ### Hardware support
 
-NVIDIA, AMD, Intel Xeon, Google TPU, Ascend NPU — broader than vLLM.`,
+NVIDIA (GPU), AMD (GPU), Intel Xeon (CPU), Google **TPU (Tensor Processing Unit)**, Ascend **NPU (Neural Processing Unit)** — broader than vLLM.`,
     },
   },
   visual: {

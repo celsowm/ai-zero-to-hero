@@ -29,7 +29,7 @@ snippet:openai-api/response
 | \`messages\` | array | \`[{role, content}]\` — system/user/assistant |
 | \`temperature\` | float | 0.0 (determinístico) a 2.0 (criativo) |
 | \`max_tokens\` | int | Limite de tokens na resposta |
-| \`stream\` | bool | \`true\` para SSE token-by-token |
+| \`stream\` | bool | \`true\` para **SSE (Server-Sent Events)** token-by-token |
 | \`tools\` | array | Funções que o LLM pode chamar |
 | \`response_format\` | object | \`{type: "json_schema"}\` para output estruturado |
 
@@ -59,7 +59,7 @@ snippet:openai-api/response
 | \`messages\` | array | \`[{role, content}]\` — system/user/assistant |
 | \`temperature\` | float | 0.0 (deterministic) to 2.0 (creative) |
 | \`max_tokens\` | int | Token limit in response |
-| \`stream\` | bool | \`true\` for SSE token-by-token |
+| \`stream\` | bool | \`true\` for **SSE (Server-Sent Events)** token-by-token |
 | \`tools\` | array | Functions the LLM can call |
 | \`response_format\` | object | \`{type: "json_schema"}\` for structured output |
 

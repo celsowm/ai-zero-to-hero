@@ -17,7 +17,7 @@ export const quantizationBnb = defineSlide({
 
 3. **A matemática:** cada peso de FP32 (32 bits) tem ~4 bilhões de valores possíveis. NF4 (4 bits) tem apenas 16. Mas os 16 níveis do NF4 estão **onde os pesos realmente estão**.
 
-4. **O trade-off:** perde-se ~2-5% de qualidade na geração, mas ganha-se **85% de memória**. Um Llama-3-8B que exigia A100 (80GB) roda em uma RTX 4060 (8GB).
+4. **O trade-off:** perde-se ~2-5% de qualidade na geração, mas ganha-se **85% de memória**. Um Llama-3-8B que exigia A100 (80GB) roda em uma RTX 4060 (8GB de **VRAM - Video RAM**).
 
 > Quantização não é "perder informação" — é "descartar o ruído". O sinal útil vive em poucos bits.
 
@@ -55,7 +55,7 @@ snippet:transformers/quantization-memory-check
 
 3. **The math:** each FP32 weight (32 bits) has ~4 billion possible values. NF4 (4 bits) has only 16. But NF4's 16 levels are **where the weights actually are**.
 
-4. **The trade-off:** you lose ~2-5% generation quality, but gain **85% memory back**. A Llama-3-8B that required an A100 (80GB) runs on an RTX 4060 (8GB).
+4. **The trade-off:** you lose ~2-5% generation quality, but gain **85% memory back**. A Llama-3-8B that required an A100 (80GB) runs on an RTX 4060 (8GB of **VRAM - Video RAM**).
 
 > E quantization isn't "losing information" — it's "discarding noise". The useful signal lives in few bits.
 

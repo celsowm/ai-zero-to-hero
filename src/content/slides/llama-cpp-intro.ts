@@ -32,10 +32,9 @@ Onde: bpp = bits por peso, $L$ = camadas, $d$ = hidden dim, $S$ = seq len
 - **Total: ~5 GB** (vs 16 GB em FP16!)
 
 ### Inferência CPU com SIMD
-A CPU multiplica matrizes quantizadas em blocos de 32 usando:
-- **AVX2** (x86): 256-bit vetores → 8 float32 por instrução
-- **AVX-512** (x86 moderno): 512-bit → 16 float32
-- **NEON** (ARM/Apple): 128-bit → otimizado para NEON/Apple Silicon
+A CPU multiplica matrizes quantizadas em blocos de 32 usando **SIMD (Single Instruction, Multiple Data)**:
+- **AVX2 / AVX-512** (x86): Processamento vetorial para CPUs Intel/AMD.
+- **NEON** (ARM): Otimizado para Apple Silicon e dispositivos móveis.
 
 ### Apple Silicon: Metal
 llama.cpp é o **único** engine com backend Metal nativo — roda em M1/M2/M3 com performance próxima de GPU dedicada.`,
@@ -65,10 +64,9 @@ Where: bpp = bits per weight, $L$ = layers, $d$ = hidden dim, $S$ = seq len
 - **Total: ~5 GB** (vs 16 GB in FP16!)
 
 ### CPU Inference with SIMD
-The CPU multiplies quantized matrices in blocks of 32 using:
-- **AVX2** (x86): 256-bit vectors → 8 float32 per instruction
-- **AVX-512** (modern x86): 512-bit → 16 float32
-- **NEON** (ARM/Apple): 128-bit → optimized for NEON/Apple Silicon
+The CPU multiplies quantized matrices in blocks of 32 using **SIMD (Single Instruction, Multiple Data)**:
+- **AVX2 / AVX-512** (x86): Vector processing for Intel/AMD CPUs.
+- **NEON** (ARM): Optimized for Apple Silicon and mobile devices.
 
 ### Apple Silicon: Metal
 llama.cpp is the **only** engine with native Metal backend — runs on M1/M2/M3 with near-dedicated-GPU performance.`,

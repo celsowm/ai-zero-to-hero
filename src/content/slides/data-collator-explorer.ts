@@ -13,7 +13,7 @@ export const dataCollatorExplorer = defineSlide({
 
 1. **Padding dinâmico vs estático:** o collator adiciona padding apenas até a sequência mais longa do batch (dinâmico), não um tamanho fixo (estático). Isso economiza computação.
 
-2. **\`DataCollatorForLanguageModeling\`:** para pré-treinamento causal (GPT) ou MLM (BERT). Cria \`labels\` para a loss.
+2. **\`DataCollatorForLanguageModeling\`:** para pré-treinamento causal (GPT) ou **MLM (Masked Language Modeling - BERT)**. Cria \`labels\` para a loss.
 
 3. **\`DataCollatorWithPadding\`:** apenas padding — usa \`tokenizer.pad_token_id\`. Para classificação e fine-tuning.
 
@@ -55,7 +55,7 @@ snippet:transformers/data-collator-demo
 
 1. **Dynamic vs static padding:** the collator adds padding only up to the longest sequence in the batch (dynamic), not a fixed size (static). This saves computation.
 
-2. **\`DataCollatorForLanguageModeling\`:** for causal pre-training (GPT) or MLM (BERT). Creates \`labels\` for the loss.
+2. **\`DataCollatorForLanguageModeling\`:** for causal pre-training (GPT) or **MLM (Masked Language Modeling - BERT)**. Creates \`labels\` for the loss.
 
 3. **\`DataCollatorWithPadding\`:** padding only — uses \`tokenizer.pad_token_id\`. For classification and fine-tuning.
 

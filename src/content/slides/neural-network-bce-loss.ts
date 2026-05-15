@@ -68,7 +68,7 @@ snippet:neural-networks/bce-loss-demo
       13,
       14
     ],
-    "content": "Aqui instanciamos a BCELoss e o otimizador SGD. A BCELoss é a escolha correta porque a saída é binária (0 ou 1) e já passa por sigmoid."
+    "content": "Aqui instanciamos a BCELoss (Binary Cross Entropy) e o otimizador SGD (Stochastic Gradient Descent). A BCELoss é a escolha correta porque a saída é binária (0 ou 1) e já passa por sigmoid."
   },
     {
     "lineRange": [
@@ -144,7 +144,7 @@ snippet:neural-networks/bce-loss-demo
       13,
       14
     ],
-    "content": "Here we instantiate BCELoss and the SGD optimizer. BCELoss is the right choice because the output is binary (0 or 1) and already passes through sigmoid."
+    "content": "Here we instantiate BCELoss (Binary Cross Entropy) and the SGD (Stochastic Gradient Descent) optimizer. BCELoss is the right choice because the output is binary (0 or 1) and already passes through sigmoid."
   },
     {
     "lineRange": [

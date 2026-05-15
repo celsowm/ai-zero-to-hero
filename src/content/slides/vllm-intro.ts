@@ -7,7 +7,7 @@ export const vllmIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'vLLM: PagedAttention',
-      body: `**vLLM** é o motor de inferência mais popular para GPUs. O segredo é o **PagedAttention** — inspirado na paginação de memória de sistemas operacionais.
+      body: `**vLLM** é o motor de inferência mais popular para GPUs. O segredo é o **PagedAttention** — inspirado na paginação de memória de **sistemas operacionais (OS)**.
 
 ### O problema: KV cache contíguo
 
@@ -35,7 +35,7 @@ vllm serve meta-llama/Llama-3.1-8B-Instruct \\
     },
     'en-us': {
       title: 'vLLM: PagedAttention',
-      body: `**vLLM** is the most popular inference engine for GPUs. The secret is **PagedAttention** — inspired by OS memory paging.
+      body: `**vLLM** is the most popular inference engine for GPUs. The secret is **PagedAttention** — inspired by **Operating System (OS)** memory paging.
 
 ### The problem: contiguous KV cache
 

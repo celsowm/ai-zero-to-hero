@@ -16,7 +16,7 @@ export const iaVsTradicionais = defineSlide({
 
 1. **Software tradicional:** o comportamento nasce de regras explícitas, escritas pelo programador. Se a lógica muda, o código precisa ser alterado.
 
-2. **IA/ML:** o comportamento é aprendido a partir de exemplos. O programador define a estrutura e o objetivo; os dados ajustam os parâmetros.
+2. **IA/ML (Machine Learning):** o comportamento é aprendido a partir de exemplos. O programador define a estrutura e o objetivo; os dados ajustam os parâmetros.
 
 3. **Quando cada abordagem brilha:** sistemas tradicionais são fortes em fluxos claros, decisões auditáveis e regras estáveis. IA é mais útil quando há ruído, ambiguidade, variação e padrões difíceis de programar manualmente.
 
@@ -30,7 +30,7 @@ export const iaVsTradicionais = defineSlide({
 
 1. **Traditional software:** behavior comes from explicit rules written by the programmer. If the logic changes, the code must change.
 
-2. **AI/ML:** behavior is learned from examples. The programmer defines the structure and objective; the data adjust the parameters.
+2. **AI/ML (Machine Learning):** behavior is learned from examples. The programmer defines the structure and objective; the data adjust the parameters.
 
 3. **When each approach shines:** traditional systems are strong in clear workflows, auditable decisions, and stable rules. AI is more useful when there is noise, ambiguity, variation, and patterns that are hard to encode manually.
 
