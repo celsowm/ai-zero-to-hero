@@ -7,33 +7,35 @@ export const pytorchAutograd = defineSlide({
   content: {
     'pt-br': {
       title: 'Autograd e Grafos Dinâmicos',
-      body: `O segredo da flexibilidade do PyTorch está em como ele lida com o cálculo de gradientes.
+      body: `O segredo da flexibilidade do PyTorch está no **Autograd**: o motor de diferenciação automática.
 
-### O Problema do Grafo Estático
-Antigamente (TensorFlow 1.x), você precisava definir todo o modelo (grafo) antes de rodar. Debugar era um pesadelo: erros só apareciam no "runtime" do grafo, não na sua linha de código.
+### O que é o Autograd?
+Imagine que cada operação matemática que você faz (soma, multiplicação, ReLU) é anotada em um "caderno" secreto pelo PyTorch. 
+- **No Forward:** Ele registra o que foi feito.
+- **No Backward:** Ele lê esse caderno de trás para frente e aplica a **Regra da Cadeia** automaticamente para calcular todos os gradientes.
 
-### Autograd: Grafo Dinâmico
-No PyTorch, o grafo é construído **no momento da execução** (Eager Mode).
-- **Flexibilidade:** Você pode usar \`if\`, \`for\` e recursão Python dentro do seu modelo.
-- **Backprop Automático:** O PyTorch rastreia cada operação. Basta chamar \`.backward()\` e ele calcula todos os gradientes para você.
-- **Debug Nativo:** Use \`print()\`, \`pdb\` ou breakpoints como em qualquer código Python comum.
+### Por que Grafo Dinâmico?
+Antigamente (TF 1.x), o grafo era estático: você desenhava o mapa antes de começar a viagem. No PyTorch, o grafo é **construído enquanto você dirige**.
+- **Flexibilidade Total:** Você pode usar \`if\`, \`for\` e recursão Python. O "caderno" do Autograd se adapta a cada variação do código em tempo real.
+- **Debug Nativo:** Como o grafo é criado na hora, você pode usar \`print()\` ou breakpoints para ver o que está acontecendo no meio do cálculo.
 
-> Cada vez que você roda o modelo, o PyTorch "redesenha" o caminho para o cálculo dos gradientes de forma transparente.`,
+> Chamar \`loss.backward()\` é como dar o comando para o Autograd ler o caderno e entregar a "bússola" (gradientes) para o otimizador.`,
     },
     'en-us': {
       title: 'Autograd and Dynamic Graphs',
-      body: `The secret to PyTorch's flexibility lies in how it handles gradient computation.
+      body: `The secret to PyTorch's flexibility lies in **Autograd**: the automatic differentiation engine.
 
-### The Static Graph Problem
-In the past (TensorFlow 1.x), you had to define the entire model (graph) before running it. Debugging was a nightmare: errors only appeared in the graph's "runtime", not at your line of code.
+### What is Autograd?
+Imagine that every mathematical operation you perform (addition, multiplication, ReLU) is noted in a secret "notebook" by PyTorch.
+- **Forward pass:** It records what was done.
+- **Backward pass:** It reads this notebook backwards and applies the **Chain Rule** automatically to calculate all gradients.
 
-### Autograd: Dynamic Graph
-In PyTorch, the graph is built **at the time of execution** (Eager Mode).
-- **Flexibility:** You can use Python \`if\`, \`for\`, and recursion inside your model.
-- **Automatic Backprop:** PyTorch tracks every operation. Just call \`.backward()\` and it calculates all gradients for you.
-- **Native Debug:** Use \`print()\`, \`pdb\`, or breakpoints just like in any ordinary Python code.
+### Why Dynamic Graphs?
+In the past (TF 1.x), graphs were static: you drew the map before starting the journey. In PyTorch, the graph is **built while you drive**.
+- **Total Flexibility:** You can use Python \`if\`, \`for\`, and recursion. The Autograd "notebook" adapts to every code variation in real-time.
+- **Native Debug:** Since the graph is created on the fly, you can use \`print()\` or breakpoints to see what is happening in the middle of the calculation.
 
-> Every time you run the model, PyTorch "redraws" the path for gradient calculation transparently.`,
+> Calling \`loss.backward()\` is like commanding Autograd to read the notebook and deliver the "compass" (gradients) to the optimizer.`,
     },
   },
   visual: {

@@ -39,6 +39,20 @@ export const PyTorchAutogradVisual = React.memo(({ copy }: { copy: PyTorchPerfor
   const activeEdges = step === 'forward' ? forwardEdges : forwardEdges.map(([a, b]) => [b, a] as [string, string]);
   const activeColor = step === 'forward' ? sw.cyan : sw.pink;
 
+  const getGradientLabel = (from: string, to: string) => {
+    if (step === 'forward') return null;
+    // Basic mapping of edges to partial derivatives
+    const grads: Record<string, string> = {
+      'loss-output': '∂L/∂y',
+      'output-matmul2': '∂L/∂z2',
+      'matmul2-relu': '∂L/∂a1',
+      'relu-matmul1': '∂L/∂z1',
+      'matmul2-w2': '∂L/∂W2',
+      'matmul1-w1': '∂L/∂W1',
+    };
+    return grads[`${from}-${to}`] || grads[`${to}-${from}`];
+  };
+
   const pythonLikeCode = `# 1. Python Puro (Lento/Sequencial)
 def forward(a, b):
     res = []
@@ -129,15 +143,29 @@ fn main(@builtin(global_id) id: vec3<u32>) {
                     : activeEdges.some(([a, b]) => a === to && b === from);
                   
                   return (
-                    <line
-                      key={`f-${i}`}
-                      x1={p1.x + 20} y1={p1.y + 10}
-                      x2={p2.x + 20} y2={p2.y + 10}
-                      stroke={isActive ? activeColor : sw.borderSubtle}
-                      strokeWidth={isActive ? 3 : 1.2}
-                      opacity={isActive ? 1 : 0.3}
-                      style={{ transition: 'stroke 0.3s, opacity 0.3s, stroke-width 0.3s' }}
-                    />
+                    <g key={`f-${i}`}>
+                      <line
+                        x1={p1.x + 20} y1={p1.y + 10}
+                        x2={p2.x + 20} y2={p2.y + 10}
+                        stroke={isActive ? activeColor : sw.borderSubtle}
+                        strokeWidth={isActive ? 3 : 1.2}
+                        opacity={isActive ? 1 : 0.3}
+                        style={{ transition: 'stroke 0.3s, opacity 0.3s, stroke-width 0.3s' }}
+                      />
+                      {step === 'backward' && isActive && (
+                        <text
+                          x={(p1.x + p2.x) / 2 + 20}
+                          y={(p1.y + p2.y) / 2 + 5}
+                          fontSize={9}
+                          fill={sw.pink}
+                          fontWeight="bold"
+                          textAnchor="middle"
+                          style={{ filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.8))' }}
+                        >
+                          {getGradientLabel(from, to)}
+                        </text>
+                      )}
+                    </g>
                   );
                 })}
 
