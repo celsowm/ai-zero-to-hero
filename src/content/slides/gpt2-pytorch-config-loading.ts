@@ -18,9 +18,8 @@ O GPT-2 é definido por números: tamanho do vocabulário, número de camadas, h
 ### Carregando pesos reais
 
 O \`torch.load\` traz os pesos treinados direto do checkpoint oficial do GPT-2. Não é inicialização aleatória — é o cérebro que já aprendeu a prever o próximo token com bilhões de exemplos. A função \*_load_layer_weights\* extrai os pesos de cada camada e faz o transpose quando necessário (porque o GPT-2 usa \`Conv1D\` internamente, mas nós usamos \`Linear\`).
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-config-loading
 \`\`\``,
@@ -40,9 +39,8 @@ GPT-2 is defined by numbers: vocabulary size, number of layers, attention heads,
 ### Loading real weights
 
 \`torch.load\` brings trained weights directly from the official GPT-2 checkpoint. This is not random initialization — it's a brain that has already learned to predict the next token from billions of examples. The \*_load_layer_weights\* function extracts weights per layer and transposes when needed (because GPT-2 uses \`Conv1D\` internally, but we use \`Linear\`).
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-config-loading
 \`\`\``,

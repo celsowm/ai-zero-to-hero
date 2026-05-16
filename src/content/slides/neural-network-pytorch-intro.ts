@@ -23,9 +23,8 @@ export const neuralNetworkPytorchIntro = defineSlide({
 4. **Mesmo dado, menos ruído:** seguimos com \`idade\`, \`pressao\`, \`colesterol\` e \`fumante\`, e a saída continua sendo probabilidade mais classe final.
 
 > Primeiro entendemos a engrenagem. Agora vemos como a indústria empacota a mesma engrenagem em um backend real.
-
----
-
+`,
+      rightBody: `
 ### Antes vs agora
 | Antes, na unha | Agora, com \`torch\` |
 | --- | --- |
@@ -54,9 +53,8 @@ Quando a Hugging Face pedir tensores com \`return_tensors="pt"\`, o curso já te
 4. **Same data, less noise:** we keep \`age\`, \`pressure\`, \`cholesterol\`, and \`smoker\`, and the output is still probability plus final class.
 
 > First we understood the machinery. Now we see how industry packages that same machinery inside a real backend.
-
----
-
+`,
+      rightBody: `
 ### Before vs now
 | Before, by hand | Now, with \`torch\` |
 | --- | --- |

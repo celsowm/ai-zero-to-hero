@@ -25,9 +25,8 @@ O \`tril\` cria uma matriz triangular inferior: \`[1,0,0; 1,1,0; 1,1,1]\`. Isso 
 ### LayerNorm final
 
 Antes de enviar para o \`lm_head\`, normalizamos o vetor final. Isso estabiliza a distribuição para a etapa de previsão.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-model-forward
 \`\`\``,
@@ -57,9 +56,8 @@ The two embeddings are **summed** — the final vector carries both the meaning 
 ### Final LayerNorm
 
 Before sending to \`lm_head\`, we normalize the final vector. This stabilizes the distribution for the prediction step.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-model-forward
 \`\`\``,

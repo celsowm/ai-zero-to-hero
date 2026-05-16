@@ -20,9 +20,8 @@ export const tokenizerTrainingHf = defineSlide({
 4. **Integração:** o tokenizer treinado salva como JSON e carrega com \`PreTrainedTokenizerFast\` — compatível com qualquer modelo.
 
 > Treinar um tokenizer é como ensinar o modelo o alfabeto do seu domínio antes de aprender a ler.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/tokenizer-training-hf
 \`\`\``,
@@ -63,9 +62,8 @@ snippet:transformers/tokenizer-training-hf
 4. **Integration:** the trained tokenizer saves as JSON and loads with \`PreTrainedTokenizerFast\` — compatible with any model.
 
 > Training a tokenizer is like teaching the model your domain's alphabet before it learns to read.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/tokenizer-training-hf
 \`\`\``,

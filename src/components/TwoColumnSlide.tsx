@@ -14,7 +14,8 @@ interface TwoColumnSlideProps {
 export const TwoColumnSlide: React.FC<TwoColumnSlideProps> = ({ slide, language }) => {
   const content = slide.content[language];
   const { fontScale } = useUI();
-  const [leftPart, rightPart = ''] = content.body.split(/\r?\n---\r?\n/);
+  const leftPart = content.body;
+  const rightPart = content.rightBody ?? '';
   const [leftRatio, rightRatio] = slide.options?.columnRatios ?? [0.95, 1.05];
   const columnTemplateProperty = '--slide-two-col-columns';
 

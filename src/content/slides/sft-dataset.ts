@@ -11,9 +11,8 @@ export const sftDataset = defineSlide({
 Criaremos um dataset com exemplos em Português, contendo papéis de \`system\`, \`user\` e \`assistant\`.
 
 O \`tokenizer.apply_chat_template\` se encarrega de injetar os tokens ChatML corretos automaticamente no nosso texto.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-dataset
 \`\`\`
@@ -53,9 +52,8 @@ snippet:sft-dataset
 We'll create a dataset in Portuguese containing \`system\`, \`user\`, and \`assistant\` roles.
 
 The \`tokenizer.apply_chat_template\` takes care of injecting the correct ChatML tokens automatically.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-dataset
 \`\`\`

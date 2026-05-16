@@ -23,9 +23,8 @@ export const linearRegressionPython1d = defineSlide({
 4. **A leitura de programador:** \`predict\` calcula, \`mse\` mede, \`train\` corrige. É uma função, uma métrica e um loop.
 
 > Em Python, regressão linear continua simples: uma fórmula, um custo e uma rotina de ajuste.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:linear-regression/python-1d
 \`\`\`
@@ -117,9 +116,8 @@ snippet:linear-regression/python-1d
 4. **Programmer reading:** \`predict\` calculates, \`mse\` measures, \`train\` corrects. It is one function, one metric, and one loop.
 
 > In Python, linear regression still stays simple: one formula, one cost, and one adjustment routine.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:linear-regression/python-1d
 \`\`\`

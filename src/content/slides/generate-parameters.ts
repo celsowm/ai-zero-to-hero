@@ -21,9 +21,8 @@ export const generateParameters = defineSlide({
 5. **Top-p (p=0.9):** filtra tokens cuja probabilidade cumulativa soma 90%.
 
 > Temperatura controla *o quanto* arriscar. Top-k/top-p controlam *quem* pode ser escolhido.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/generate-params
 \`\`\``,
@@ -83,9 +82,8 @@ snippet:transformers/generate-params
 5. **Top-p (p=0.9):** filters tokens whose cumulative probability sums to 90%.
 
 > Temperature controls *how much* to risk. Top-k/top-p control *who* can be chosen.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/generate-params
 \`\`\``,

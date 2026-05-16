@@ -22,9 +22,8 @@ No código, o treinamento é um imenso loop infinito de tentativa e erro (que n�
 2. O **Erro (Cross Entropy)**: Calculamos quão distante ele passou da resposta certa do livro.
 3. O **Backward**: Usando cálculo integral (derivadas), descobrirmos qual peso deve diminuir e qual deve aumentar.
 4. O **Optimizer (AdamW)**: Gira as pequenas chaves de ajuste.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-train
 \`\`\``,
@@ -64,9 +63,8 @@ In the code, training is an immense infinite loop of trial and error (which we a
 2. The **Error (Cross Entropy)**: We calculate how far it missed the right answer from the book.
 3. The **Backward**: Using calculus (derivatives), we discover which weight should decrease and which should increase.
 4. The **Optimizer (AdamW)**: Turns the tiny adjustment knobs.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-train
 \`\`\``,

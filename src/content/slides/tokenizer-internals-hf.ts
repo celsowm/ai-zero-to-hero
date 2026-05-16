@@ -23,9 +23,8 @@ export const tokenizerInternalsHf = defineSlide({
 4. **Metadados do tokenizer:** \`vocab_size\`, \`model_max_length\`, \`all_special_tokens\`.
 
 > Cada modelo tem seu próprio tokenizer. Você não pode trocar o tokenizer de um modelo com outro — os IDs não vão bater.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/tokenizer-internals
 \`\`\``,
@@ -73,9 +72,8 @@ snippet:transformers/tokenizer-internals
 4. **Tokenizer metadata:** \`vocab_size\`, \`model_max_length\`, \`all_special_tokens\`.
 
 > Each model has its own tokenizer. You can't swap a tokenizer from one model to another — the IDs won't match.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/tokenizer-internals
 \`\`\``,

@@ -30,9 +30,8 @@ Não precisa de IDE para começar. Tente isto:
    \`\`\`
 
 > Se o terminal responder com a mensagem, seu ambiente está pronto!
-
----
-
+`,
+      rightBody: `
 ### 🛠️ Onde escrever seu código?
 Para produtividade real, use ferramentas que entendem o código:
 
@@ -78,9 +77,8 @@ You don't need an IDE to start. Try this:
    \`\`\`
 
 > If the terminal prints the message, your environment is ready!
-
----
-
+`,
+      rightBody: `
 ### 🛠️ Where to write your code?
 For real productivity, use tools that understand your code:
 

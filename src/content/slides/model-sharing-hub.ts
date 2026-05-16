@@ -22,9 +22,8 @@ export const modelSharingHub = defineSlide({
 5. **Boas práticas:** incluir script de inferência, exemplos de uso, licença clara e dataset de treino.
 
 > Um modelo no Hub sem model card é como um livro sem capa — ninguém sabe do que se trata.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-sharing-hub
 \`\`\``,
@@ -66,9 +65,8 @@ snippet:transformers/model-sharing-hub
 5. **Best practices:** include inference script, usage examples, clear license and training dataset.
 
 > A model on the Hub without a model card is like a book without a cover — nobody knows what it's about.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-sharing-hub
 \`\`\``,

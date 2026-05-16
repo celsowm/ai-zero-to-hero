@@ -23,9 +23,8 @@ export const modelCacheSafetensors = defineSlide({
 4. **Path customizado:** use \`cache_dir="./meus-modelos"\` para controlar onde os arquivos ficam.
 
 > O \`from_pretrained\` parece mágica, mas é só um download inteligente com cache.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-cache-safetensors
 \`\`\``,
@@ -73,9 +72,8 @@ snippet:transformers/model-cache-safetensors
 4. **Custom path:** use \`cache_dir="./my-models"\` to control where files land.
 
 > \`from_pretrained\` looks like magic, but it's just a smart download with caching.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-cache-safetensors
 \`\`\``,

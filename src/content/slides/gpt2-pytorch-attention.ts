@@ -17,10 +17,9 @@ O GPT-2 original projeta Query, Key e Value em uma única matriz \`c_attn\` de t
 
 ### Scaled Dot-Product
 
-A atenção é um produto escalar: query pergunta, key responde. O fator \`${'`'}head_dim^{-0.5}${'`'}\` evita que valores grandes dominem o softmax. O causal mask (matriz triangular) garante que cada token só vê o que veio **antes** — é isso que torna o modelo "causal".
-
----
-
+A atenção é um produto escalar: query pergunta, key responde. O fator \`\${'\`'}head_dim^{-0.5}\${'\`'}\` evita que valores grandes dominem o softmax. O causal mask (matriz triangular) garante que cada token só vê o que veio **antes** — é isso que torna o modelo "causal".
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-attention
 \`\`\``,
@@ -44,10 +43,9 @@ The original GPT-2 projects Query, Key, and Value into a single \`c_attn\` matri
 
 ### Scaled Dot-Product
 
-Attention is a dot product: query asks, key answers. The \`${'`'}head_dim^{-0.5}${'`'}\` factor prevents large values from dominating the softmax. The causal mask (triangular matrix) ensures each token only sees what came **before** — that's what makes the model "causal".
-
----
-
+Attention is a dot product: query asks, key answers. The \`\${'\`'}head_dim^{-0.5}\${'\`'}\` factor prevents large values from dominating the softmax. The causal mask (triangular matrix) ensures each token only sees what came **before** — that's what makes the model "causal".
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-attention
 \`\`\``,

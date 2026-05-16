@@ -38,6 +38,8 @@ export interface CodeExplanation {
 export interface IContent {
   title: string;
   body: string;
+  /** Content for the right column in two-column slides. When set, body is the left column. */
+  rightBody?: string;
   codeExplanations?: CodeExplanation[];
 }
 

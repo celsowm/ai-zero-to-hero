@@ -22,9 +22,8 @@ export const bpeFromScratch = defineSlide({
 4. **Vocabulário:** O resultado é um conjunto de tokens que representam bem o seu texto.
 
 > Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:bpe/bpe-implementation
 \`\`\``,
@@ -85,9 +84,8 @@ snippet:bpe/bpe-implementation
 4. **Vocabulary:** The result is a set of tokens that efficiently represent your text.
 
 > This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:bpe/bpe-implementation
 \`\`\``,

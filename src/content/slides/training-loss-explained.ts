@@ -18,9 +18,8 @@ export const trainingLossExplained = defineSlide({
 É derivada da loss (\`exp(loss)\`). Pense nela como o número de "opções plausíveis" que o modelo está considerando. Quanto menor, mais confiante e preciso é o modelo.
 
 > **Dica:** Não se assuste com oscilações locais. A loss pode subir num step porque o batch era difícil. O que importa é a **tendência global** de queda.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/training-metrics-log
 \`\`\``,
@@ -50,9 +49,8 @@ snippet:transformers/training-metrics-log
 Derived from loss (\`exp(loss)\`). Think of it as the number of "plausible options" the model is considering. The lower it is, the more confident and precise the model is.
 
 > **Tip:** Don't be scared by local oscillations. Loss might go up in a step because the batch was difficult. What matters is the **global downward trend**.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/training-metrics-log
 \`\`\``,

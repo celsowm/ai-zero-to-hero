@@ -24,9 +24,8 @@ A geração não usa o cálculo do erro (\`loss\`). O objetivo agora é pegar a 
 - Se a Temperatura for alta (ex: 0.8), a distribuição de probabilidades se achata, e palavras inusitadas ganham mais chance de serem sorteadas, gerando "criatividade".
 
 Este é exatamente o loop que roda nas entranhas do ChatGPT enquanto você vê as palavras pipocando na sua tela!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-generate
 \`\`\``,
@@ -68,9 +67,8 @@ Generation doesn't use the error calculation (\`loss\`). The goal now is to take
 - If Temperature is high (e.g., 0.8), the probability distribution flattens, and unusual words get a higher chance of being drawn, generating "creativity".
 
 This is exactly the loop that runs in the guts of ChatGPT while you see words popping on your screen!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-generate
 \`\`\``,

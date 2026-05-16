@@ -23,9 +23,8 @@ export const linearRegressionPrediction = defineSlide({
 4. **Sem loop, sem gradiente:** predição não recalcula erro nem ajusta parâmetros. Ela só executa a fórmula aprendida.
 
 > Treino aprende os coeficientes; predição só os usa.
-
----
-
+`,
+      rightBody: `
 ### Exemplo rápido
 \`\`\`python
 snippet:linear-regression/prediction
@@ -71,9 +70,8 @@ snippet:linear-regression/prediction
 4. **No loop, no gradient:** prediction does not recompute error or update parameters. It only executes the learned formula.
 
 > Training learns the coefficients; prediction only uses them.
-
----
-
+`,
+      rightBody: `
 ### Quick example
 \`\`\`python
 snippet:linear-regression/prediction

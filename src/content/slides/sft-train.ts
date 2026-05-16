@@ -11,9 +11,8 @@ export const sftTrain = defineSlide({
 Durante o SFT, o modelo tenta prever a próxima palavra, mas agora o texto tem a estrutura exata de uma conversa (pergunta e resposta).
 
 Neste exemplo simples, treinamos um modelo pequeno (\`gpt2\`) por várias épocas (epochs) para ele decorar o formato e a resposta.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-train
 \`\`\`
@@ -49,9 +48,8 @@ snippet:sft-train
 During SFT, the model tries to predict the next word, but now the text has the exact structure of a conversation (question and answer).
 
 In this simple example, we train a small model (\`gpt2\`) for several epochs so it memorizes the format and the answer.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-train
 \`\`\`

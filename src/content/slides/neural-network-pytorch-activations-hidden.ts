@@ -18,9 +18,8 @@ export const neuralNetworkPytorchActivationsHidden = defineSlide({
 3. **GELU (\`nn.GELU\`):** Uma evolução "suave" da ReLU usada em Transformers (GPT, Llama, BERT). Ela permite que valores levemente negativos ainda passem um pouco de informação, ajudando na estabilidade de modelos gigantes.
 
 > **Dica:** Comece sempre com **ReLU**. Se estiver construindo um Transformer ou quiser extrair o último bit de performance, experimente **GELU**.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-activations-hidden
 \`\`\``,
@@ -50,9 +49,8 @@ snippet:neural-networks/pytorch-activations-hidden
 3. **GELU (\`nn.GELU\`):** A "smooth" evolution of ReLU used in Transformers (GPT, Llama, BERT). It allows slightly negative values to still pass some information, helping the stability of giant models.
 
 > **Tip:** Always start with **ReLU**. If you are building a Transformer or want to squeeze the last bit of performance, try **GELU**.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-activations-hidden
 \`\`\``,

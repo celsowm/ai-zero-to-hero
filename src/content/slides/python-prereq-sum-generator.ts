@@ -35,9 +35,8 @@ export const pythonPrereqSumGenerator = defineSlide({
 z = Σ (w_i * x_i) + b
 z = sum(w[i] * x[i] for i in range(n)) + b
 \`\`\`
-
----
-
+`,
+      rightBody: `
 ### Forma longa vs forma compacta
 \`\`\`python
 snippet:python-prereq/sum-generator
@@ -102,9 +101,8 @@ snippet:python-prereq/sum-generator
 z = Σ (w_i * x_i) + b
 z = sum(w[i] * x[i] for i in range(n)) + b
 \`\`\`
-
----
-
+`,
+      rightBody: `
 ### Long form vs compact form
 \`\`\`python
 snippet:python-prereq/sum-generator

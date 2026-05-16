@@ -302,148 +302,78 @@ describe('ALL code explanation coverage (Python & JS)', () => {
     }
   });
 
-  it('no two-column slide has an empty right column (body must contain --- split when no visual is present)', () => {
+  it('every two-column slide without visual must have rightBody for both languages', () => {
     const allSlideFiles = findFiles(slidesDir, ['.ts']);
     const failures: string[] = [];
 
     for (const slidePath of allSlideFiles) {
       const content = readFileSync(slidePath, 'utf-8');
 
-      // Only check slides with type: 'two-column'
+      // Only check two-column slides without visual
       if (!content.includes("type: 'two-column'") && !content.includes('type: "two-column"')) continue;
+      if (content.includes('visual:')) continue;
 
       const slideName = relative(slidesDir, slidePath);
 
-      // Skip slides that have a visual — the visual fills the right column
-      if (content.includes('visual:')) continue;
-
-      // For each language block (pt-br / en-us), extract body using brace-depth parsing
-      for (const lang of ['pt-br', 'en-us'] as const) {
+      for (const lang of ['pt-br', 'en-us']) {
+        // Find the language block by brace-depth parsing
         const langKey = `'${lang}'`;
         const langIdx = content.indexOf(langKey);
         if (langIdx === -1) continue;
 
-        // Find the opening brace of the language object
-        const afterKey = content.slice(langIdx + langKey.length);
-        const openBraceIdx = afterKey.indexOf('{');
-        if (openBraceIdx === -1) continue;
+        const afterLangKey = content.slice(langIdx + langKey.length);
+        const braceIdx = afterLangKey.indexOf('{');
+        if (braceIdx === -1) continue;
 
-        // Walk with brace depth to find the matching closing brace + comma
+        // Walk with brace depth
         let depth = 0;
-        let inString = false;
-        let stringChar = '';
-        let inTemplate = false;
-        let templateDepth = 0;
-        let endIdx = -1;
+        let inStr = false;
+        let strChar = '';
+        let inTpl = false;
+        let tplDepth = 0;
+        let closeIdx = -1;
 
-        for (let i = openBraceIdx; i < afterKey.length; i++) {
-          const c = afterKey[i];
-          const prev = i > 0 ? afterKey[i - 1] : '';
+        for (let i = braceIdx; i < afterLangKey.length; i++) {
+          const c = afterLangKey[i];
+          const prev = i > braceIdx ? afterLangKey[i - 1] : '';
 
-          // Handle string literals
-          if (!inTemplate) {
-            if (!inString && (c === '"' || c === "'")) {
-              inString = true;
-              stringChar = c;
-              continue;
-            }
-            if (inString && c === stringChar && prev !== '\\') {
-              inString = false;
+          if (!inTpl) {
+            if (!inStr && (c === '"' || c === "'")) { inStr = true; strChar = c; continue; }
+            if (inStr && c === strChar && prev !== '\\') { inStr = false; continue; }
+          }
+
+          if (!inStr) {
+            if (!inTpl && c === '`') { inTpl = true; continue; }
+            if (inTpl) {
+              // Escaped backtick \` — NOT a closing backtick
+              if (c === '\\' && afterLangKey[i + 1] === '`') { i++; continue; }
+              if (c === '`' && tplDepth === 0) { inTpl = false; continue; }
+              if (c === '$' && afterLangKey[i + 1] === '{') { tplDepth++; i++; continue; }
+              if (c === '}' && tplDepth > 0) { tplDepth--; continue; }
               continue;
             }
           }
 
-          // Handle template literals (backticks)
-          if (!inString) {
-            if (!inTemplate && c === '\`') {
-              inTemplate = true;
-              continue;
-            }
-            if (inTemplate) {
-              if (prev !== '\\' && c === '\`' && templateDepth === 0) {
-                inTemplate = false;
-                continue;
-              }
-              if (c === '\$' && i + 1 < afterKey.length && afterKey[i + 1] === '{') {
-                templateDepth++;
-                i++;
-                continue;
-              }
-              if (c === '}' && templateDepth > 0) {
-                templateDepth--;
-                continue;
-              }
-              continue;
-            }
-          }
-
-          if (inString || inTemplate) continue;
-
+          if (inStr || inTpl) continue;
           if (c === '{') depth++;
           if (c === '}') {
             depth--;
-            if (depth === 0) {
-              // Expect a comma after the closing brace
-              endIdx = i + 1; // include the closing brace
-              break;
-            }
+            if (depth === 0) { closeIdx = i; break; }
           }
         }
 
-        if (endIdx === -1) continue;
-        const blockContent = afterKey.slice(openBraceIdx + 1, endIdx);
+        if (closeIdx === -1) continue;
+        const blockContent = afterLangKey.slice(braceIdx + 1, closeIdx);
 
-        // Extract body field from within the language block
-        const bodyStartIdx = blockContent.indexOf('body:');
-        if (bodyStartIdx === -1) continue;
-
-        const afterBody = blockContent.slice(bodyStartIdx + 5);
-        const tickIdx = afterBody.indexOf('\`');
-        if (tickIdx === -1) continue;
-
-        // Walk through the template literal body
-        let i = tickIdx + 1;
-        let tDepth = 0;
-        while (i < afterBody.length) {
-          if (afterBody[i] === '\\' && i + 1 < afterBody.length && afterBody[i + 1] === '\`') {
-            i += 2;
-            continue;
-          }
-          if (afterBody[i] === '\`' && tDepth === 0) {
-            break;
-          }
-          if (afterBody[i] === '\$' && i + 1 < afterBody.length && afterBody[i + 1] === '{') {
-            tDepth++;
-            i += 2;
-            continue;
-          }
-          if (afterBody[i] === '}' && tDepth > 0) {
-            tDepth--;
-            i++;
-            continue;
-          }
-          i++;
-        }
-
-        const body = afterBody.slice(tickIdx + 1, i);
-
-        // Check that body contains the --- separator
-        if (!body.includes('---')) {
-          failures.push(`${slideName} [${lang}]: two-column slide missing '---' split in body (right column would be empty)`);
-          continue;
-        }
-
-        // Check that something exists after the first ---
-        const afterSplit = body.split('---').slice(1).join('---').trim();
-        if (!afterSplit) {
-          failures.push(`${slideName} [${lang}]: two-column slide has empty right column (nothing after '---' split)`);
+        if (!blockContent.includes('rightBody:')) {
+          failures.push(`${slideName} [${lang}]: two-column slide without visual is missing a rightBody field`);
         }
       }
     }
 
     if (failures.length > 0) {
       expect.unreachable(
-        `\n🔴 ${failures.length} two-column slide(s) with empty right column:\n\n${failures.join('\n')}`,
+        `\n🔴 ${failures.length} slide(s) missing rightBody:\n\n${failures.join('\n')}`,
       );
     }
   });

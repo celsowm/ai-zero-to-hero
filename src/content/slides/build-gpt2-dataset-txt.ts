@@ -24,9 +24,8 @@ A essência do treino de um GPT é que o **Alvo a prever (y)** é sempre exatame
 - O alvo \`y\` será: \`[rato, roeu, a, roupa]\`
 
 Isso permite que o modelo aprenda que, dado \`[O]\`, prevemos \`[rato]\`. Dado \`[O, rato]\`, prevemos \`[roeu]\`, e assim por diante.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-dataset-txt
 \`\`\``,
@@ -75,9 +74,8 @@ The essence of training a GPT is that the **Target to predict (y)** is always ex
 - The target \`y\` will be: \`[rat, gnawed, the, clothes]\`
 
 This allows the model to learn that, given \`[The]\`, we predict \`[rat]\`. Given \`[The, rat]\`, we predict \`[gnawed]\`, and so on.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-dataset-txt
 \`\`\``,

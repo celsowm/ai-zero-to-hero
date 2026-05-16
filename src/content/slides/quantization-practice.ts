@@ -20,9 +20,8 @@ export const quantizationPractice = defineSlide({
 4. **Regra prática:** escolha o formato mais alto que cabe na sua VRAM com margem para KV cache e ativações.
 
 > VRAM necessária = tamanho do modelo quantizado + 20% para KV cache + 10% para ativações.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/quantization-practice
 \`\`\``,
@@ -58,9 +57,8 @@ snippet:transformers/quantization-practice
 4. **Rule of thumb:** pick the highest format that fits your VRAM with margin for KV cache and activations.
 
 > Required VRAM = quantized model size + 20% for KV cache + 10% for activations.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/quantization-practice
 \`\`\``,

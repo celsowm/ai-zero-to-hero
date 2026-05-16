@@ -23,9 +23,8 @@ No mundo real de Machine Learning, nós raramente baixamos \`.txt\` manualmente.
 3.  **Filtros**: Pegar conjuntos limpos (como o **Fineweb**, mantido pelo HuggingFace, que remove spam da web).
 
 Com isso, em 3 linhas você tem gigabytes de conversas em português prontas para serem alimentadas na sua classe \`GPT2Dataset\`!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-dataset-fineweb
 \`\`\``,
@@ -66,9 +65,8 @@ In the real Machine Learning world, we rarely download \`.txt\` manually. We use
 3.  **Filters**: Grabbing clean sets (like **Fineweb**, maintained by HuggingFace, which strips spam from the web).
 
 With this, in 3 lines you have gigabytes of conversations ready to be fed into your \`GPT2Dataset\` class!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:build_gpt2/build-gpt2-dataset-fineweb
 \`\`\``,

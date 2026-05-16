@@ -24,9 +24,8 @@ export const trainerDemystified = defineSlide({
 6. **Distributed:** com \`accelerate\`, o Trainer coordena multi-GPU (DDP) e sharding (FSDP) automaticamente.
 
 > O Trainer não é mágica — é PyTorch organizado com boas práticas de produção.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/trainer-demystified
 \`\`\``,
@@ -70,9 +69,8 @@ snippet:transformers/trainer-demystified
 6. **Distributed:** with \`accelerate\`, the Trainer coordinates multi-GPU (DDP) and sharding (FSDP) automatically.
 
 > The Trainer isn't magic — it's PyTorch organized with production best practices.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/trainer-demystified
 \`\`\``,

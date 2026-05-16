@@ -22,9 +22,8 @@ export const hfDatasetsDeepDive = defineSlide({
 5. **Formato Arrow:** os dados ficam em memória mapeada (Apache Arrow). Acesso aleatório sem carregar tudo para RAM.
 
 > Datasets = pandas do mundo ML: uma API para carregar, transformar e iterar sobre dados.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/datasets-deep-dive
 \`\`\``,
@@ -66,9 +65,8 @@ snippet:transformers/datasets-deep-dive
 5. **Arrow format:** data lives in memory-mapped files (Apache Arrow). Random access without loading everything into RAM.
 
 > Datasets = the pandas of the ML world: one API to load, transform, and iterate over data.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/datasets-deep-dive
 \`\`\``,

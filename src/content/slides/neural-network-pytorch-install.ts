@@ -23,9 +23,8 @@ export const neuralNetworkPytorchInstall = defineSlide({
 4. **Depois da instalação, teste o import:** antes de seguir para treino e inferência, vale confirmar se o Python realmente enxerga a biblioteca.
 
 > Primeiro instalamos o backend. Mais à frente, \`transformers\` entra por cima desse mesmo mundo.
-
----
-
+`,
+      rightBody: `
 ### No terminal
 \`\`\`bash
 python -m pip install torch
@@ -59,9 +58,8 @@ snippet:neural-networks/pytorch-version-check
 4. **After installation, test the import:** before moving to training and inference, it is worth confirming that Python can really see the library.
 
 > First we install the backend. Later, \`transformers\` comes on top of that same world.
-
----
-
+`,
+      rightBody: `
 ### In the terminal
 \`\`\`bash
 python -m pip install torch

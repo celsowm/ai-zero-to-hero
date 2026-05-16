@@ -24,9 +24,8 @@ Cada bloco do Transformer segue a mesma receita:
 4. Repete com MLP em vez de atenção
 
 O residual é a **via expressa**: preserva o sinal original para que nenhuma informação se perca ao longo das 12 camadas.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-mlp-block
 \`\`\``,
@@ -53,9 +52,8 @@ Each Transformer block follows the same recipe:
 4. Repeats with MLP instead of attention
 
 The residual is the **highway**: it preserves the original signal so no information is lost across the 12 layers.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-mlp-block
 \`\`\``,

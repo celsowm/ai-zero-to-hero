@@ -23,9 +23,8 @@ export const neuralNetworkPytorchPrediction = defineSlide({
 4. **O limiar continua igual:** a rede devolve uma probabilidade, e a regra final ainda é comparar com \`0.5\` para transformar isso em classe.
 
 > A interface mudou. A ideia de inferência não mudou.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-prediction
 \`\`\`
@@ -79,9 +78,8 @@ snippet:neural-networks/pytorch-prediction
 4. **The threshold stays the same:** the network returns a probability, and the final rule is still comparing it with \`0.5\` to turn that into a class.
 
 > The interface changed. The inference idea did not.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-prediction
 \`\`\`

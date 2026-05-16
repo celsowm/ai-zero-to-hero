@@ -24,9 +24,8 @@ export const neuralNetworkTypesOverview = defineSlide({
 
 ### Próximo Passo
 Antes de usarmos bibliotecas prontas, vamos abrir o 'capô' dessas arquiteturas e entender a **lógica algorítmica** por trás de cada uma, comparando como elas processam os dados manualmente.
-
----
-
+`,
+      rightBody: `
 ### Comparativo Técnico
 | Nome | Foco Principal | Mecanismo Chave | Aplicação Real |
 | --- | --- | --- | --- |
@@ -52,9 +51,8 @@ O MLP é o alicerce. Entender como ele funciona nos dará a base necessária par
 
 ### Next Step
 Before using libraries, we will look 'under the hood' of these architectures and understand the **algorithmic logic** behind each one, comparing how they process data manually.
-
----
-
+`,
+      rightBody: `
 ### Technical Comparison
 | Name | Primary Focus | Key Mechanism | Real-World App |
 | --- | --- | --- | --- |

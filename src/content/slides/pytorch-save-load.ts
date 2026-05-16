@@ -23,9 +23,8 @@ export const pytorchSaveLoad = defineSlide({
 4. **\`weights_only=True\`:** desde o PyTorch 2.0, carregue sempre com esse flag. Ele impede execução arbitrária de código embutido no arquivo.
 
 > Treinar é caro. Prever é barato. Salvar o modelo é o que conecta os dois.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-save-load
 \`\`\`
@@ -67,9 +66,8 @@ snippet:neural-networks/pytorch-save-load
 4. **\`weights_only=True\`:** since PyTorch 2.0, always load with this flag. It prevents arbitrary code execution embedded in the file.
 
 > Training is expensive. Prediction is cheap. Saving the model is what connects the two.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-save-load
 \`\`\`

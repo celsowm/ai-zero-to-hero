@@ -18,9 +18,8 @@ export const neuralNetworkPytorchActivationsOutput = defineSlide({
 3. **Logits vs Probs:** Em treino, muitas vezes omitimos a ativação de saída e passamos os logits diretos para a função de perda (\`CrossEntropyLoss\`), que já aplica a matemática necessária internamente por questões de estabilidade numérica.
 
 > **Importante:** \`nn.Softmax\` exige o parâmetro \`dim\` (geralmente \`dim=1\` para batches ou \`dim=0\` para um único vetor) para saber em qual direção somar.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-activations-output
 \`\`\``,
@@ -50,9 +49,8 @@ snippet:neural-networks/pytorch-activations-output
 3. **Logits vs Probs:** During training, we often omit the output activation and pass raw logits directly to the loss function (\`CrossEntropyLoss\`), which handles the necessary math internally for numerical stability.
 
 > **Important:** \`nn.Softmax\` requires the \`dim\` parameter (usually \`dim=1\` for batches or \`dim=0\` for a single vector) to know which direction to sum.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-activations-output
 \`\`\``,

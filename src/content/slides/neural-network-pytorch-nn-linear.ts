@@ -26,9 +26,8 @@ Quando temos uma arquitetura sequencial simples (camada → ativação → camad
 - Ao chamar \`model(x)\`, o PyTorch passa \`x\` pelo primeiro módulo, pega a saída e passa pro segundo, e assim por diante.
 
 > Construir redes no PyTorch é como montar blocos de Lego. Você encaixa \`nn.Linear\` e funções de ativação dentro de um \`nn.Sequential\`.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-nn-linear
 \`\`\``,
@@ -67,9 +66,8 @@ When we have a simple sequential architecture (layer → activation → layer �
 - When calling \`model(x)\`, PyTorch passes \`x\` through the first module, takes the output and passes it to the second, and so on.
 
 > Building networks in PyTorch is like snapping Lego bricks together. You fit \`nn.Linear\` and activation functions inside an \`nn.Sequential\`.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-nn-linear
 \`\`\``,

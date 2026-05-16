@@ -40,9 +40,8 @@ Leitura útil:
 
 Leitura útil:
 - “para cada pixel, gere sua versão normalizada”
-
----
-
+`,
+      rightBody: `
 ### Forma longa vs forma compacta
 \`\`\`python
 snippet:python-prereq/list-comprehensions
@@ -112,9 +111,8 @@ Useful reading:
 
 Useful reading:
 - “for each pixel, generate its normalized version”
-
----
-
+`,
+      rightBody: `
 ### Long form vs compact form
 \`\`\`python
 snippet:python-prereq/list-comprehensions

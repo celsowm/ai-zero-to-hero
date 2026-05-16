@@ -27,9 +27,8 @@ Acesse [pytorch.org](https://pytorch.org/get-started/locally/) para pegar o coma
 
 ### 📦 3. O Ambiente Virtual
 Sempre use um \`.venv\` para não poluir o Python do sistema e garantir que o \`pip\` instale as versões corretas para o seu hardware.
-
----
-
+`,
+      rightBody: `
 ### 🧪 4. Validação (O Teste de Fogo)
 Use este script para garantir que o PyTorch está enxergando seu hardware de aceleração:
 
@@ -105,9 +104,8 @@ Visit [pytorch.org](https://pytorch.org/get-started/locally/) for the exact comm
 
 ### 📦 3. Virtual Environment
 Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` installs the correct versions for your hardware.
-
----
-
+`,
+      rightBody: `
 ### 🧪 4. Validation (The Acid Test)
 Use this script to ensure PyTorch sees your acceleration hardware:
 

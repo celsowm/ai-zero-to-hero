@@ -31,9 +31,8 @@ Aqui está o fluxo completo: pegar um Transformer pronto, transformar \`We the p
 > Isto mostra como **usar** a biblioteca. Não mostra como implementar atenção, blocos Transformer ou como eles substituíram RNNs/LSTMs internamente.
 
 A arquitetura que o GPT-2 usava em 2019 é a mesma base do GPT-5 de 2026 — só que maior, mais rápida e com muito mais engenharia. Vamos abrir essa anatomia agora.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/gpt2-we-the-people-e2e
 \`\`\``,
@@ -103,9 +102,8 @@ Here is the full flow: take a ready Transformer, turn \`We the people\` into tok
 > This shows how to **use** the library. It does not show how to implement attention, Transformer blocks, or how they replaced RNNs/LSTMs internally.
 
 The architecture GPT-2 used in 2019 is the same foundation as GPT-5 in 2026 — just bigger, faster, and with much more engineering. Let's open the anatomy now.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/gpt2-we-the-people-e2e
 \`\`\``,

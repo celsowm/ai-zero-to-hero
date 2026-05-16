@@ -22,9 +22,8 @@ export const hfPipelineCustom = defineSlide({
 5. **Pipeline do zero:** carregue qualquer modelo com \`AutoModelFor*\` + \`AutoTokenizer\` e monte seu próprio pipeline customizado.
 
 > O pipeline é a porta de entrada: uma linha para testar qualquer modelo do Hub.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/pipeline-custom
 \`\`\``,
@@ -66,9 +65,8 @@ snippet:transformers/pipeline-custom
 5. **Pipeline from scratch:** load any model with \`AutoModelFor*\` + \`AutoTokenizer\` and build your own custom pipeline.
 
 > The pipeline is the entry point: one line to test any model on the Hub.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/pipeline-custom
 \`\`\``,

@@ -22,9 +22,8 @@ export const modelEvaluationHf = defineSlide({
 5. **Pipeline de avaliação:** gerar predições → calcular métricas → comparar com baseline. Sem \`evaluate\`, cada métrica tem uma API diferente.
 
 > Avaliar não é opcional — é a bússola que diz se o modelo melhorou ou piorou.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-evaluation
 \`\`\``,
@@ -66,9 +65,8 @@ snippet:transformers/model-evaluation
 5. **Evaluation pipeline:** generate predictions → compute metrics → compare with baseline. Without \`evaluate\`, each metric has a different API.
 
 > Evaluating isn't optional — it's the compass that tells you if the model improved or got worse.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/model-evaluation
 \`\`\``,

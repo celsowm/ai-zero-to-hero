@@ -24,9 +24,8 @@ Neste exemplo, aplicamos o mesmo código a um conjunto de dados literário para 
 > O BPE aprendeu tokens como \`naveg\`, \`assinal\`, \`Lusitan\` — pedaços que aparecem frequentemente no corpus literário.
 
 Compare com o exemplo anterior: agora os merges refletem a **morfologia real da língua portuguesa**, não apenas exemplos didáticos isolados.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:bpe/bpe-e2e-gutenberg
 \`\`\``,
@@ -75,9 +74,8 @@ In this example, we apply the same code to a literary dataset to observe how the
 > BPE learned tokens like \`naveg\`, \`assinal\`, \`Lusitan\` — pieces that appear frequently in the literary corpus.
 
 Compare with the previous example: now the merges reflect the **real morphology of Portuguese**, not just isolated didactic examples.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:bpe/bpe-e2e-gutenberg
 \`\`\``,

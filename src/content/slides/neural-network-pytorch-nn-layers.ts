@@ -31,9 +31,8 @@ Desliga aleatoriamente (zera) uma porcentagem dos neurônios durante o treino.
 - **Por quê?** Impede que a rede fique "viciada" em caminhos específicos (overfitting), forçando o modelo a aprender representações redundantes e mais robustas.
 
 > **Importante:** \`nn.Dropout\` se comporta de forma diferente no treino (zera valores) e na predição (não faz nada). Falaremos disso logo mais.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/nn-layers
 \`\`\`
@@ -82,9 +81,8 @@ Randomly turns off (zeros out) a percentage of neurons during training.
 - **Why?** Prevents the network from getting "addicted" to specific pathways (overfitting), forcing the model to learn redundant, more robust representations.
 
 > **Important:** \`nn.Dropout\` behaves differently in training (zeros values) and in prediction (does nothing). We'll talk about this shortly.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/nn-layers
 \`\`\`

@@ -23,9 +23,8 @@ export const neuralNetworkPytorchTraining = defineSlide({
 4. **Mapeamento direto com o que vimos:** o \`forward\` ainda existe quando chamamos \`model(X)\`, o gradiente ainda existe em \`loss.backward()\`, e a atualização ainda existe em \`optimizer.step()\`.
 
 > A rede continua aprendendo do mesmo jeito. O que muda é que agora os dados já nascem no formato que o PyTorch entende.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-training
 \`\`\`
@@ -93,9 +92,8 @@ snippet:neural-networks/pytorch-training
 4. **Direct mapping to what we already saw:** \`forward\` still exists when we call \`model(X)\`, gradients still exist in \`loss.backward()\`, and updates still exist in \`optimizer.step()\`.
 
 > The network keeps learning the same way. What changes is that data now start in the format PyTorch understands.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:neural-networks/pytorch-training
 \`\`\`

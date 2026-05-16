@@ -24,9 +24,8 @@ export const hfV5Ecosystem = defineSlide({
 6. **\`huggingface_hub\`:** push/pull de modelos, model cards, widgets de inference, versionamento.
 
 > O valor da Hugging Face não é um modelo — é o ecossistema inteiro que conversa entre si.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/hf-v5-ecosystem
 \`\`\``,
@@ -74,9 +73,8 @@ snippet:transformers/hf-v5-ecosystem
 6. **\`huggingface_hub\`:** model push/pull, model cards, inference widgets, versioning.
 
 > Hugging Face's value isn't a single model — it's the entire ecosystem that talks to each other.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:transformers/hf-v5-ecosystem
 \`\`\``,

@@ -11,9 +11,8 @@ export const sftGenerate = defineSlide({
 Nós enviamos o \`system\` e o \`user\` formatados, e adicionamos \`add_generation_prompt=True\` para o tokenizador inserir o início do assistente (\`
 
 O modelo então gera a resposta desejada, finalizando a nossa criação de um assistente de IA!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-generate
 \`\`\`
@@ -49,9 +48,8 @@ snippet:sft-generate
 We send formatted \`system\` and \`user\` messages, and add \`add_generation_prompt=True\` so the tokenizer inserts the assistant's start marker.
 
 The model then generates the desired response, completing our AI assistant creation!
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:sft-generate
 \`\`\`

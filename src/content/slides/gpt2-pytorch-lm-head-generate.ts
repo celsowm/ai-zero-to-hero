@@ -26,9 +26,8 @@ A geração é um ciclo:
 4. Anexa o token ao input e repete
 
 Na prática, em vez de \`argmax\` usamos \`softmax + multinomial\` com temperatura para adicionar criatividade. Mas o princípio é este: **prever, anexar, repetir**.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-lm-head-generate
 \`\`\``,
@@ -58,9 +57,8 @@ Generation is a cycle:
 4. Append the token to input and repeat
 
 In practice, instead of \`argmax\` we use \`softmax + multinomial\` with temperature to add creativity. But the principle is the same: **predict, append, repeat**.
-
----
-
+`,
+      rightBody: `
 \`\`\`python
 snippet:gpt2_pytorch/gpt2-lm-head-generate
 \`\`\``,
