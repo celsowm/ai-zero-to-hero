@@ -2,10 +2,7 @@ import { defineSlide } from './_factory';
 
 export const jinjaChatmlPractice = defineSlide({
   id: 'jinja-chatml-practice',
-  type: 'two-column',
-  options: {
-    columnRatios: [0.55, 0.45],
-  },
+  type: 'markdown',
   content: {
     'pt-br': {
       title: `Jinja no ChatML na Prática`,
