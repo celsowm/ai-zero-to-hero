@@ -1,0 +1,27 @@
+{
+  "id": "jinja/jinja-intro-example",
+  "language": "python",
+  "explanations": {
+    "pt-br": [
+      {
+        "lineRange": [1, 3],
+        "content": "Importamos a classe Template do Jinja2 e criamos um template simples com uma variável {{ nome }}."
+      },
+      {
+        "lineRange": [4, 5],
+        "content": "Renderizamos o template passando o valor 'Mundo' — a saída substitui {{ nome }} pelo valor fornecido."
+      }
+    ],
+    "en-us": [
+      {
+        "lineRange": [1, 3],
+        "content": "Import the Template class from Jinja2 and create a simple template with a {{ name }} variable."
+      },
+      {
+        "lineRange": [4, 5],
+        "content": "Render the template by passing 'World' as the value — the output substitutes {{ name }} with the provided value."
+      }
+    ]
+  },
+  "regions": []
+}

@@ -146,6 +146,8 @@ export const courseSlideOrder = [
   'sft-dataset',
   'sft-train',
   'sft-generate',
+  'jinja-intro',
+  'jinja-chatml-practice',
   'synthetic-data-intro',
   'synthetic-data-pipeline',
   'synthetic-data-taxonomy',

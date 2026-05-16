@@ -222,6 +222,8 @@ import { sftDataset } from './sft-dataset';
 import { sftGenerate } from './sft-generate';
 import { sftIntro } from './sft-intro';
 import { sftTrain } from './sft-train';
+import { jinjaChatmlPractice } from './jinja-chatml-practice';
+import { jinjaIntro } from './jinja-intro';
 import { syntheticDataDemo } from './synthetic-data-demo';
 import { syntheticDataIntro } from './synthetic-data-intro';
 import { syntheticDataPipeline } from './synthetic-data-pipeline';
@@ -500,6 +502,8 @@ export const allSlides: ISlide[] = [
   sftDataset,
   sftTrain,
   sftGenerate,
+  jinjaIntro,
+  jinjaChatmlPractice,
   syntheticDataIntro,
   syntheticDataPipeline,
   syntheticDataTaxonomy,
