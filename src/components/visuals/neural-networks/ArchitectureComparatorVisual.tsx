@@ -2,13 +2,40 @@ import React, { useState } from 'react';
 import type { ArchitectureComparatorCopy } from '../../../types/slide';
 import { CodeBlock } from '../../CodeBlock';
 import { PanelCard } from '../PanelCard';
-import { TabsBar } from '../TabsBar';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { sw } from '../../../theme/tokens';
 
 interface Props {
   copy: ArchitectureComparatorCopy;
 }
+
+const tabsContainerStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gap: 6,
+  padding: 6,
+  borderRadius: 14,
+  background: 'rgba(255, 255, 255, 0.03)',
+  border: '1px solid rgba(255, 255, 255, 0.05)',
+};
+
+const tabButtonStyle = (active: boolean): React.CSSProperties => ({
+  minWidth: 0,
+  padding: '9px 12px',
+  borderRadius: 11,
+  border: '1px solid transparent',
+  fontSize: 12.5,
+  fontWeight: 800,
+  letterSpacing: '0.01em',
+  lineHeight: 1.15,
+  color: active ? '#091018' : 'var(--sw-text-dim)',
+  background: active
+    ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(102, 184, 74, 0.92))'
+    : 'rgba(255, 255, 255, 0.04)',
+  boxShadow: active ? '0 12px 30px rgba(0, 229, 255, 0.12)' : 'none',
+  cursor: 'pointer',
+  transition: 'transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease',
+});
 
 const MLPDiagram = () => (
   <svg viewBox="0 0 240 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
@@ -114,47 +141,76 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
   const currentTab = copy.tabs[activeTab];
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <TabsBar
-        ariaLabel={copy.tabs[activeTab]?.title || 'Architecture Comparison'}
-        items={copy.tabs.map((t) => ({ label: t.label }))}
-        activeIndex={activeTab}
-        onChange={setActiveTab}
-      />
+    <div style={{ width: '100%', height: '100%', minHeight: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div role="tablist" aria-label={copy.tabs[activeTab]?.title || 'Architecture Comparison'} style={tabsContainerStyle}>
+        {copy.tabs.map((tab, index) => {
+          const active = activeTab === index;
+
+          return (
+            <button
+              key={tab.label}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              tabIndex={active ? 0 : -1}
+              onClick={() => setActiveTab(index)}
+              style={tabButtonStyle(active)}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
+
       <TabbedPanelSurface>
-        <PanelCard minHeight={0} gap={16} style={{ height: '100%', overflow: 'hidden', padding: 24 }}>
+        <PanelCard minHeight={0} gap={14} style={{ height: '100%', overflow: 'hidden', padding: 18, minHeight: 0 }}>
+          <style>{`
+            @media (max-width: 1120px) {
+              .architecture-comparator-grid {
+                grid-template-columns: 1fr !important;
+              }
+
+              .architecture-comparator-diagram {
+                min-height: 280px !important;
+              }
+            }
+          `}</style>
+
           <div style={{ flexShrink: 0 }}>
-            <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--sw-text)', marginBottom: 6, letterSpacing: '-0.02em' }}>
+            <div style={{ fontSize: 21, fontWeight: 800, color: 'var(--sw-text)', marginBottom: 4, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
               {currentTab.title}
             </div>
-            <div style={{ fontSize: 14.5, color: 'var(--sw-text-dim)', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 12.8, color: 'var(--sw-text-dim)', lineHeight: 1.5, maxWidth: 860 }}>
               {currentTab.description}
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 20, flex: 1, minHeight: 0 }}>
+          <div className="architecture-comparator-grid" style={{ display: 'grid', gridTemplateColumns: '1.08fr 0.92fr', gap: 16, flex: 1, minHeight: 0 }}>
             <div
               style={{
                 background: 'rgba(13, 11, 21, 0.4)',
-                borderRadius: 16,
+                borderRadius: 15,
                 border: '1px solid rgba(168, 85, 247, 0.15)',
-                padding: 20,
+                padding: 14,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 16,
+                gap: 12,
                 boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                minHeight: 0,
+                overflow: 'hidden',
               }}
             >
               <div
                 style={{
-                  fontSize: 11,
+                  fontSize: 10.5,
                   fontWeight: 900,
                   color: 'var(--sw-cyan)',
-                  letterSpacing: '0.15em',
+                  letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8
+                  gap: 8,
+                  flexShrink: 0,
                 }}
               >
                 <div style={{ width: 8, height: 8, background: 'var(--sw-cyan)', borderRadius: 2 }} />
@@ -162,14 +218,18 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
               </div>
 
               <div
+                className="architecture-comparator-diagram"
                 style={{
                   flex: 1,
+                  minHeight: 0,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: sw.tint,
                   borderRadius: 12,
                   border: `1px solid ${sw.tintOverlay}`,
+                  padding: 8,
+                  overflow: 'hidden',
                 }}
               >
                 {activeTab === 0 && <MLPDiagram />}
@@ -177,15 +237,15 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
                 {activeTab === 2 && <TransformerDiagram />}
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, flexShrink: 0 }}>
                 {currentTab.features.map((f) => (
                   <span
                     key={f}
                     style={{
-                      fontSize: 11,
+                      fontSize: 10.5,
                       fontWeight: 700,
                       background: 'rgba(168, 85, 247, 0.1)',
-                      padding: '6px 12px',
+                      padding: '5px 10px',
                       borderRadius: 8,
                       color: 'var(--sw-purple-light)',
                       border: '1px solid rgba(168, 85, 247, 0.2)',
@@ -200,24 +260,35 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
               <div
                 style={{
-                  fontSize: 11,
+                  fontSize: 10.5,
                   fontWeight: 900,
                   color: 'var(--sw-purple)',
-                  letterSpacing: '0.15em',
+                  letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  marginBottom: 10,
+                  marginBottom: 8,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8
+                  gap: 8,
+                  flexShrink: 0,
                 }}
               >
                 <div style={{ width: 8, height: 8, background: 'var(--sw-purple)', borderRadius: 2 }} />
                 Lógica Algorítmica (Python)
               </div>
-              <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-                <CodeBlock 
-                  code={currentTab.code} 
-                  language="python" 
+              <div
+                style={{
+                  flex: 1,
+                  minHeight: 0,
+                  overflow: 'hidden',
+                  borderRadius: 12,
+                  border: `1px solid ${sw.borderSubtle}`,
+                  background: 'rgba(0,0,0,0.18)',
+                }}
+              >
+                <CodeBlock
+                  code={currentTab.code}
+                  language="python"
+                  compact
                   explanations={currentTab.codeExplanations}
                   sourceRef={currentTab.source}
                 />
@@ -227,15 +298,16 @@ export const ArchitectureComparatorVisual = React.memo(({ copy }: Props) => {
 
           <div
             style={{
-              fontSize: 13,
+              fontSize: 12,
               fontWeight: 500,
               color: 'var(--sw-text-muted)',
               borderTop: `1px solid ${sw.tintAccent}`,
-              paddingTop: 16,
+              paddingTop: 12,
               flexShrink: 0,
               display: 'flex',
               alignItems: 'center',
-              gap: 10
+              gap: 10,
+              minHeight: 0,
             }}
           >
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--sw-pink)' }} />
