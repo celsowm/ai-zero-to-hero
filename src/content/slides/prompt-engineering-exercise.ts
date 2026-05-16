@@ -29,7 +29,7 @@ export const promptEngineeringExercise = defineSlide({
           {
             id: '1. Few-shot com template errado',
             instructions: 'O FewShotPromptTemplate precisa de um ExamplePromptTemplate para formatar cada exemplo. O bug está em usar \`prompt_template\` ao invés de \`example_prompt\`. Corrija criando um \`PromptTemplate\` com input_variables=["input", "output"] e passando ao parâmetro correto.',
-            starterCode: 'from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate\n\nexamples = [\n    {"input": "happy", "output": "sad"},\n    {"input": "tall", "output": "short"},\n    {"input": "bright", "output": "dark"},\n]\n\n# BUG: usando prompt_template ao invés de example_prompt!\nfew_shot = FewShotPromptTemplate(\n    examples=examples,\n    prompt_template=PromptTemplate.from_template("Input: {input}\\nOutput: {output}"),\n    suffix="Input: {input}\\nOutput:",\n    input_variables=["input"],\n)\n\nformatted = few_shot.format(input="cold")\nprint(f"Formatted prompt:\\n{formatted}")',
+            snippetId: 'prompt-engineering-exercise',
             validators: [
               {
                 type: 'assertOutput',
@@ -56,7 +56,7 @@ export const promptEngineeringExercise = defineSlide({
           {
             id: '1. Few-shot with wrong template',
             instructions: 'The FewShotPromptTemplate needs an ExamplePromptTemplate to format each example. The bug is using \`prompt_template\` instead of \`example_prompt\`. Fix it by creating a \`PromptTemplate\` with input_variables=["input", "output"] and passing it to the correct parameter.',
-            starterCode: 'from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate\n\nexamples = [\n    {"input": "happy", "output": "sad"},\n    {"input": "tall", "output": "short"},\n    {"input": "bright", "output": "dark"},\n]\n\n# BUG: using prompt_template instead of example_prompt!\nfew_shot = FewShotPromptTemplate(\n    examples=examples,\n    prompt_template=PromptTemplate.from_template("Input: {input}\\nOutput: {output}"),\n    suffix="Input: {input}\\nOutput:",\n    input_variables=["input"],\n)\n\nformatted = few_shot.format(input="cold")\nprint(f"Formatted prompt:\\n{formatted}")',
+            snippetId: 'prompt-engineering-exercise',
             validators: [
               {
                 type: 'assertOutput',

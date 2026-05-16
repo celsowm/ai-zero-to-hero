@@ -29,7 +29,7 @@ export const langchainExercise = defineSlide({
           {
             id: '1. Parser com formato errado',
             instructions: 'O PydanticOutputParser espera um modelo Pydantic, mas está sendo passado uma string simples. Corrija criando um modelo Pydantic com \`class Answer(BaseModel)\` e passando-o ao parser.',
-            starterCode: 'from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import PydanticOutputParser\nfrom langchain_openai import ChatOpenAI\n\n# BUG: parser está esperando Pydantic mas não tem modelo!\nparser = PydanticOutputParser(pydantic_object=str)\n\nprompt = ChatPromptTemplate.from_messages([\n    ("system", "Answer the question in JSON format with fields: name, answer"),\n    ("human", "{question}"),\n])\n\nmodel = ChatOpenAI(model="gpt-4o-mini")\n\nchain = prompt | model | parser\nresult = chain.invoke({"question": "What is the capital of Brazil?"})\nprint(f"Result type: {type(result)}")\nprint(f"Result: {result}")',
+            snippetId: 'langchain-exercise',
             validators: [
               {
                 type: 'assertOutput',
@@ -56,7 +56,7 @@ export const langchainExercise = defineSlide({
           {
             id: '1. Parser with wrong format',
             instructions: 'The PydanticOutputParser expects a Pydantic model, but a plain string is being passed. Fix it by creating a Pydantic model with \`class Answer(BaseModel)\` and passing it to the parser.',
-            starterCode: 'from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_core.output_parsers import PydanticOutputParser\nfrom langchain_openai import ChatOpenAI\n\n# BUG: parser is expecting a Pydantic model but got str!\nparser = PydanticOutputParser(pydantic_object=str)\n\nprompt = ChatPromptTemplate.from_messages([\n    ("system", "Answer the question in JSON format with fields: name, answer"),\n    ("human", "{question}"),\n])\n\nmodel = ChatOpenAI(model="gpt-4o-mini")\n\nchain = prompt | model | parser\nresult = chain.invoke({"question": "What is the capital of Brazil?"})\nprint(f"Result type: {type(result)}")\nprint(f"Result: {result}")',
+            snippetId: 'langchain-exercise',
             validators: [
               {
                 type: 'assertOutput',

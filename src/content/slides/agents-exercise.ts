@@ -46,35 +46,7 @@ O agente deve:
 1. Receber uma pergunta
 2. Usar \`buscar()\` para encontrar a resposta
 3. Se encontrou, retornar. Senão, tentar novamente (máx 3 vezes).`,
-            starterCode: `def mini_agente(pergunta, max_iteracoes=3):
-    """Mini-agente que busca respostas."""
-    historico = []
-
-    for i in range(max_iteracoes):
-        # 1. PLAN: O que preciso buscar?
-        # LLM: gere o plano baseado na pergunta e histórico
-        plano = f"Buscar informação sobre: {pergunta}"
-
-        # 2. ACT: usar ferramenta de busca
-        # TODO: chame buscar(pergunta) e guarde o resultado
-        resultado = None
-
-        # 3. OBSERVE: registre no histórico
-        historico.append({"tentativa": i + 1, "resultado": resultado})
-        print(f"Tentativa {i+1}: {resultado}")
-
-        # 4. DECIDE: encontrou resposta?
-        # TODO: se resultado não é None, retorne-o
-        pass
-
-    return "Não encontrei a resposta."
-
-def buscar(termo):
-    base = {"capital da França": "Paris", "maior rio": "Amazonas"}
-    return base.get(termo, None)
-
-# Teste
-print(mini_agente("capital da França"))`,
+            snippetId: 'agents-exercise',
             validators: [
               {
                 type: 'assertOutput',
@@ -106,35 +78,7 @@ The agent should:
 1. Receive a question
 2. Use \`search()\` to find the answer
 3. If found, return. Otherwise, try again (max 3 times).`,
-            starterCode: `def mini_agent(question, max_iterations=3):
-    """Mini-agent that searches for answers."""
-    history = []
-
-    for i in range(max_iterations):
-        # 1. PLAN: What do I need to search?
-        # LLM: generate plan based on question and history
-        plan = f"Search for information about: {question}"
-
-        # 2. ACT: use search tool
-        # TODO: call search(question) and store the result
-        result = None
-
-        # 3. OBSERVE: record in history
-        history.append({"attempt": i + 1, "result": result})
-        print(f"Attempt {i+1}: {result}")
-
-        # 4. DECIDE: found the answer?
-        # TODO: if result is not None, return it
-        pass
-
-    return "I didn't find the answer."
-
-def search(term):
-    database = {"capital of France": "Paris", "largest river": "Amazon"}
-    return database.get(term, None)
-
-# Test
-print(mini_agent("capital of France"))`,
+            snippetId: 'agents-exercise',
             validators: [
               {
                 type: 'assertOutput',

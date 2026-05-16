@@ -1,7 +1,7 @@
 import type { Language } from '../../constants/languages';
 
 export type { Language };
-export type SnippetLanguage = 'python' | 'javascript';
+export type SnippetLanguage = 'python' | 'javascript' | 'markdown';
 export type CodeRegionId = string;
 
 export interface CodeSourceRef {

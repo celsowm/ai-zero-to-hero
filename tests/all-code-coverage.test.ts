@@ -179,7 +179,7 @@ describe('ALL code explanation coverage (Python & JS)', () => {
 
       // Skip exercise starter snippets — they are meant for students to complete,
       // not for slides with line-by-line explanations.
-      if (snippetId.includes('-exercise-') || snippetId.includes('-exercises-')) continue;
+      if (snippetId.includes('-exercise-') || snippetId.includes('-exercises-') || snippetId.endsWith('-exercise')) continue;
 
       const lang: 'pt-br' | 'en-us' = relativePath.includes('.en-us.') ? 'en-us' : 'pt-br';
 
@@ -298,6 +298,37 @@ describe('ALL code explanation coverage (Python & JS)', () => {
     if (failures.length > 0) {
       expect.unreachable(
         `\n🔴 ${failures.length} invalid lineRange(s):\n\n${failures.join('\n')}`,
+      );
+    }
+  });
+
+  it('no slide contains large inline starterCode without snippetId', () => {
+    const allSlideFiles = findFiles(slidesDir, ['.ts']);
+    const failures: string[] = [];
+
+    for (const slidePath of allSlideFiles) {
+      const content = readFileSync(slidePath, 'utf-8');
+      const idMatch = content.match(/id:\s*['"]([^'"]+)['"]/);
+      const slideId = idMatch ? idMatch[1] : slidePath;
+
+      // Look for starterCode that spans multiple lines (indicating large inline code)
+      // A large inline starterCode is one with more than 3 lines of code
+      const starterCodeMatches = content.matchAll(/starterCode:\s*(`[^`]*`|'[^']*'|"[^"]*")/gs);
+      for (const match of starterCodeMatches) {
+        const codeStr = match[1];
+        // Count actual newlines inside the string
+        const newlineCount = (codeStr.match(/\\n/g) || []).length;
+        if (newlineCount > 3) {
+          failures.push(
+            `${relative(slidesDir, slidePath)} (${slideId}): large inline starterCode (${newlineCount + 1} lines) without snippetId. Move to src/content/snippets/ and use snippetId.`,
+          );
+        }
+      }
+    }
+
+    if (failures.length > 0) {
+      expect.unreachable(
+        `\n🔴 Found ${failures.length} slide(s) with large inline starterCode:\n\n${failures.join('\n')}`,
       );
     }
   });

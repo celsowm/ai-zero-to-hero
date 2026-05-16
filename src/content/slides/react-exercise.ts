@@ -42,25 +42,7 @@ Leia o ciclo ReAct e preveja o próximo Thought:
 4. **Thought**: ??? (preveja!)
 
 Depois rode o código para verificar sua resposta.`,
-            starterCode: `# Ciclo ReAct para: "Qual é o país mais populoso do mundo?"
-
-passos = [
-    {"tipo": "thought", "conteudo": "Preciso saber a população atual dos países mais populosos."},
-    {"tipo": "action", "conteudo": 'buscar_dados("país mais populoso 2024")'},
-    {"tipo": "observation", "conteudo": "Resultados: 1) Índia: 1.428M, 2) China: 1.425M, 3) EUA: 339K"},
-]
-
-# Preveja o próximo Thought antes de rodar!
-proximo_thought = "???"
-
-# Verifique:
-resposta = "A Índia ultrapassou a China em 2023. Com os dados já obtidos, posso responder diretamente: Índia é o país mais populoso com 1.428 milhões."
-
-for p in passos:
-    print(f"{p['tipo'].upper()}: {p['conteudo']}")
-
-print(f"\\nSeu Thought: {proximo_thought}")
-print(f"\\nResposta correta: {resposta}")`,
+            snippetId: 'react-exercise',
             validators: [
               {
                 type: 'assertOutput',
@@ -96,25 +78,7 @@ Read the ReAct cycle and predict the next Thought:
 4. **Thought**: ??? (predict!)
 
 Then run the code to verify your answer.`,
-            starterCode: `# ReAct cycle for: "What is the most populous country?"
-
-steps = [
-    {"type": "thought", "content": "I need to know the current population of the most populous countries."},
-    {"type": "action", "content": 'search_data("most populous country 2024")'},
-    {"type": "observation", "content": "Results: 1) India: 1.428M, 2) China: 1.425M, 3) USA: 339K"},
-]
-
-# Predict the next Thought before running!
-next_thought = "???"
-
-# Verify:
-answer = "India surpassed China in 2023. With the data already obtained, I can answer directly: India is the most populous country with 1.428 billion."
-
-for s in steps:
-    print(f"{s['type'].upper()}: {s['content']}")
-
-print(f"\\nYour Thought: {next_thought}")
-print(f"\\nCorrect answer: {answer}")`,
+            snippetId: 'react-exercise',
             validators: [
               {
                 type: 'assertOutput',

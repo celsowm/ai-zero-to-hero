@@ -164,7 +164,7 @@ snippet:neural-networks/tensor-basics
         "codePanel": {
           "title": "Criando e manipulando tensores",
           "description": "Veja como criar tensores de diferentes dimensões e realizar operações básicas.",
-          "code": "import torch\n\n# Escalar (0D)\nscalar = torch.tensor(3.14)\n\n# Vetor (1D)\nvector = torch.tensor([1.0, 2.0, 3.0, 4.0])\n\n# Matriz (2D)\nmatrix = torch.zeros(3, 4)\n\n# Tensor 3D\ntensor3d = torch.randn(2, 3, 4)\n\n# Operações vetorizadas\ny = vector * 2 + 1  # broadcast automático\nz = torch.matmul(matrix, matrix.T)\n\n# Reshaping\nbatch = torch.randn(32, 3, 28, 28)  # 32 imagens RGB 28x28\nflat = batch.view(32, -1)  # achat: 32 x 2352",
+          "source": { "snippetId": "neural-network-pytorch-tensors-interactive", "language": "python" },
           "codeExplanations": [
             {
             "lineRange": [
@@ -242,7 +242,7 @@ snippet:neural-networks/tensor-basics
         "codePanel": {
           "title": "Creating and manipulating tensors",
           "description": "See how to create tensors of different dimensions and perform basic operations.",
-          "code": "import torch\n\n# Scalar (0D)\nscalar = torch.tensor(3.14)\n\n# Vector (1D)\nvector = torch.tensor([1.0, 2.0, 3.0, 4.0])\n\n# Matrix (2D)\nmatrix = torch.zeros(3, 4)\n\n# 3D Tensor\ntensor3d = torch.randn(2, 3, 4)\n\n# Vectorized operations\ny = vector * 2 + 1  # automatic broadcast\nz = torch.matmul(matrix, matrix.T)\n\n# Reshaping\nbatch = torch.randn(32, 3, 28, 28)  # 32 RGB images 28x28\nflat = batch.view(32, -1)  # flatten: 32 x 2352",
+          "source": { "snippetId": "neural-network-pytorch-tensors-interactive", "language": "python" },
           "codeExplanations": [
             {
             "lineRange": [
