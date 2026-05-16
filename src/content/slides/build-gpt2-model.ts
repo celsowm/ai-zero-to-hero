@@ -40,32 +40,54 @@ When these pieces stack up, we have a miniature of the exact same architecture r
     id: 'build-gpt2-model',
     copy: {
       "pt-br": {
-        "tabCode": "Código",
-        "tabDiagram": "Arquitetura",
-        "snippetId": "build_gpt2/build-gpt2-model",
-        "attentionLabel": "Atenção Multi-Head",
-        "mlpLabel": "MLP (Feed-Forward)",
-        "residualLabel": "Residual Stream",
-        "blockLabel": "Bloco do Transformer",
-        "inputLabel": "Input Tokens",
-        "outputLabel": "Output Logits",
-        "blocksLabel": "× N blocos",
-        "embedLabel": "Embeddings",
-        "normLabel": "LayerNorm"
+        "tabs": [
+          { "label": "Código" },
+          { "label": "Arquitetura" }
+        ],
+        "codePanel": {
+          "title": "Implementação GPT-2 em PyTorch",
+          "description": "Código completo do modelo GPT-2 com atenção causal, MLP e embedding.",
+          "source": {
+            "snippetId": "build_gpt2/build-gpt2-model",
+            "language": "python"
+          }
+        },
+        "diagramPanel": {
+          "attentionLabel": "Atenção Multi-Head",
+          "mlpLabel": "MLP (Feed-Forward)",
+          "residualLabel": "Residual Stream",
+          "blockLabel": "Bloco do Transformer",
+          "inputLabel": "Input Tokens",
+          "outputLabel": "Output Logits",
+          "blocksLabel": "× N blocos",
+          "embedLabel": "Embeddings",
+          "normLabel": "LayerNorm"
+        }
       },
       "en-us": {
-        "tabCode": "Code",
-        "tabDiagram": "Architecture",
-        "snippetId": "build_gpt2/build-gpt2-model",
-        "attentionLabel": "Multi-Head Attention",
-        "mlpLabel": "MLP (Feed-Forward)",
-        "residualLabel": "Residual Stream",
-        "blockLabel": "Transformer Block",
-        "inputLabel": "Input Tokens",
-        "outputLabel": "Output Logits",
-        "blocksLabel": "× N blocks",
-        "embedLabel": "Embeddings",
-        "normLabel": "LayerNorm"
+        "tabs": [
+          { "label": "Code" },
+          { "label": "Architecture" }
+        ],
+        "codePanel": {
+          "title": "GPT-2 Implementation in PyTorch",
+          "description": "Complete GPT-2 model code with causal attention, MLP, and embedding.",
+          "source": {
+            "snippetId": "build_gpt2/build-gpt2-model",
+            "language": "python"
+          }
+        },
+        "diagramPanel": {
+          "attentionLabel": "Multi-Head Attention",
+          "mlpLabel": "MLP (Feed-Forward)",
+          "residualLabel": "Residual Stream",
+          "blockLabel": "Transformer Block",
+          "inputLabel": "Input Tokens",
+          "outputLabel": "Output Logits",
+          "blocksLabel": "× N blocks",
+          "embedLabel": "Embeddings",
+          "normLabel": "LayerNorm"
+        }
       }
     },
   },

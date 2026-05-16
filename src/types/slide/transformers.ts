@@ -779,10 +779,13 @@ export interface SystemPromptExplorerCopy {
 
 // ── Build GPT-2 Model ──────────────────────────────────────────────────────
 
-export interface BuildGpt2ModelCopy {
-  tabCode: string;
-  tabDiagram: string;
-  snippetId: string;
+export interface BuildGpt2ModelCodePanelCopy {
+  title: string;
+  description: string;
+  source: CodeSourceRef;
+}
+
+export interface BuildGpt2ModelDiagramPanelCopy {
   attentionLabel: string;
   mlpLabel: string;
   residualLabel: string;
@@ -792,6 +795,12 @@ export interface BuildGpt2ModelCopy {
   blocksLabel: string;
   embedLabel: string;
   normLabel: string;
+}
+
+export interface BuildGpt2ModelCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: BuildGpt2ModelCodePanelCopy;
+  diagramPanel: BuildGpt2ModelDiagramPanelCopy;
 }
 
 // ── RAG (Retrieval-Augmented Generation) ────────────────────────────────────
