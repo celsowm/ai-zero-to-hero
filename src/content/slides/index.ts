@@ -163,6 +163,7 @@ import { neuralNetworkPytorchHardware } from './neural-network-pytorch-hardware'
 import { neuralNetworkPytorchInstall } from './neural-network-pytorch-install';
 import { neuralNetworkPytorchIntro } from './neural-network-pytorch-intro';
 import { neuralNetworkPytorchPrediction } from './neural-network-pytorch-prediction';
+import { neuralNetworkPytorchNnLayers } from './neural-network-pytorch-nn-layers';
 import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';

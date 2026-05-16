@@ -1,3 +1,5 @@
+import type { CodeExplanation, CodeSourceRef } from './base';
+
 export interface LanguageModelingDiagramCopy {
   text: string;
   options: string[];

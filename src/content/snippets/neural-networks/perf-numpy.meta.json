@@ -3,6 +3,11 @@
   "language": "python",
   "explanations": [
     {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos NumPy para criar arrays vetorizados e executar a soma no backend compilado.",
+      "en-us": "We import NumPy to create vectorized arrays and run the addition in the compiled backend."
+    },
+    {
       "lineRange": [4, 6],
       "pt-br": "NumPy usa arrays contíguos na memória, muito mais eficientes que listas Python.",
       "en-us": "NumPy uses contiguous arrays in memory, much more efficient than Python lists."

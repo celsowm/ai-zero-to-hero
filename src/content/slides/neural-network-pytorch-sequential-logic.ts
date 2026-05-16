@@ -2,7 +2,7 @@ import { defineSlide } from './_factory';
 
 export const neuralNetworkPytorchSequentialLogic = defineSlide({
   id: 'neural-network-pytorch-sequential-logic',
-  type: 'custom-visual',
+  type: 'custom',
   content: {
     'pt-br': {
       title: 'nn.Sequential: Mapeando Código para Arquitetura',

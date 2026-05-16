@@ -3,6 +3,11 @@
   "language": "python",
   "explanations": [
     {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos PyTorch para detectar a GPU disponível e mover os tensores para o dispositivo correto.",
+      "en-us": "We import PyTorch to detect the available GPU and move tensors to the right device."
+    },
+    {
       "lineRange": [4, 4],
       "pt-br": "Detectamos se há uma GPU disponível para mover o trabalho pesado.",
       "en-us": "We detect if a GPU is available to move the heavy lifting."
