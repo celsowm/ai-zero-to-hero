@@ -232,6 +232,8 @@ const visualMap: Record<string, string> = {
   // markdown
   'markdown-output-compare': 'MarkdownOutputCompare',
   'markdown-syntax-visual': 'MarkdownSyntaxVisual',
+  'jinja-intro-visual': 'JinjaIntroVisual',
+  'jinja-chatml-practice-visual': 'JinjaChatmlPracticeVisual',
 
   // intelligent agents
   'agente-in-action': 'AgenteInAction',

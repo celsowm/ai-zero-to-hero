@@ -178,6 +178,8 @@ export { RealDatasetsPromptsVisual } from './prompt-engineering/RealDatasetsProm
 
 // markdown
 export { MarkdownOutputCompare } from './markdown/MarkdownOutputCompare';
+export { JinjaIntroVisual } from './markdown/JinjaIntroVisual';
+export { JinjaChatmlPracticeVisual } from './markdown/JinjaChatmlPracticeVisual';
 export { MarkdownSyntaxVisual } from './markdown/MarkdownSyntaxVisual';
 
 // intelligent agents

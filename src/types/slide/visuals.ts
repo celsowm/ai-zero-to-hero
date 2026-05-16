@@ -192,6 +192,8 @@ import type {
 import type {
   MarkdownOutputCompareCopy,
   MarkdownSyntaxVisualCopy,
+  JinjaIntroVisualCopy,
+  JinjaChatmlPracticeVisualCopy,
 } from './markdown';
 import type {
   AgenteInActionCopy,
@@ -350,6 +352,9 @@ interface VisualCopyMap {
   // markdown
   'markdown-output-compare': MarkdownOutputCompareCopy;
   'markdown-syntax-visual': MarkdownSyntaxVisualCopy;
+  // jinja
+  'jinja-intro-visual': JinjaIntroVisualCopy;
+  'jinja-chatml-practice-visual': JinjaChatmlPracticeVisualCopy;
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;

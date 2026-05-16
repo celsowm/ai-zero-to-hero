@@ -2,7 +2,8 @@ import { defineSlide } from './_factory';
 
 export const jinjaIntro = defineSlide({
   id: 'jinja-intro',
-  type: 'markdown',
+  type: 'two-column',
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: `O que é Jinja Template?`,
@@ -69,6 +70,33 @@ snippet:jinja/jinja-intro-example
           content: 'Render the template by passing the value — the output substitutes the variable with the provided value.',
         },
       ],
+    },
+  },
+  visual: {
+    id: 'jinja-intro-visual',
+    copy: {
+      'pt-br': {
+        title: 'Template vs Renderizado',
+        templateLabel: 'Template Jinja',
+        renderedLabel: 'Resultado Renderizado',
+        variableExample: '{{ nome }} → "World"',
+        variableRendered: 'Hello, World!',
+        forLoopExample: '{% for item in items %}...{% endfor %}',
+        forLoopRendered: '  apple\\n  banana\\n  cherry',
+        ifExample: '{% if cond %}...{% else %}...{% endif %}',
+        ifRendered: 'Welcome, Alice!',
+      },
+      'en-us': {
+        title: 'Template vs Rendered',
+        templateLabel: 'Jinja Template',
+        renderedLabel: 'Rendered Output',
+        variableExample: '{{ name }} → "World"',
+        variableRendered: 'Hello, World!',
+        forLoopExample: '{% for item in items %}...{% endfor %}',
+        forLoopRendered: '  apple\\n  banana\\n  cherry',
+        ifExample: '{% if cond %}...{% else %}...{% endif %}',
+        ifRendered: 'Welcome, Alice!',
+      },
     },
   },
 });

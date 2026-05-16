@@ -2,7 +2,8 @@ import { defineSlide } from './_factory';
 
 export const jinjaChatmlPractice = defineSlide({
   id: 'jinja-chatml-practice',
-  type: 'markdown',
+  type: 'two-column',
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: `Jinja no ChatML na Prática`,
@@ -73,6 +74,33 @@ export const jinjaChatmlPractice = defineSlide({
           content: 'The if conditional adds the assistant start token for generation.',
         },
       ],
+    },
+  },
+  visual: {
+    id: 'jinja-chatml-practice-visual',
+    copy: {
+      'pt-br': {
+        title: 'ChatML: Template → Renderizado',
+        templateLabel: 'Template Jinja',
+        renderedLabel: 'Texto Final',
+        messagesLabel: 'Mensagens de entrada:',
+        templateContent: `{% for message in messages %}\n{{'<|im_start|>' + message['role'] + '\\n' + message['content'] + '<|im_end|>' + '\\n'}}\n{% endfor %}\n{% if add_generation_prompt %}\n{{'<|im_start|>assistant\\n'}}\n{% endif %}`,
+        renderedContent: `<|im_start|>system\nVocê é um assistente útil.<|im_end|>\n<|im_start|>user\nQual a capital do Brasil?<|im_end|>\n<|im_start|>assistant\n`,
+        addGenerationPromptLabel: '💡 add_generation_prompt=true adiciona o token <|im_start|>assistant para iniciar a geração.',
+        systemMsg: 'system: "Você é um assistente útil."',
+        userMsg: 'user: "Qual a capital do Brasil?"',
+      },
+      'en-us': {
+        title: 'ChatML: Template → Rendered',
+        templateLabel: 'Jinja Template',
+        renderedLabel: 'Final Text',
+        messagesLabel: 'Input messages:',
+        templateContent: `{% for message in messages %}\n{{'<|im_start|>' + message['role'] + '\\n' + message['content'] + '<|im_end|>' + '\\n'}}\n{% endfor %}\n{% if add_generation_prompt %}\n{{'<|im_start|>assistant\\n'}}\n{% endif %}`,
+        renderedContent: `<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWhat is the capital of Brazil?<|im_end|>\n<|im_start|>assistant\n`,
+        addGenerationPromptLabel: '💡 add_generation_prompt=true appends the <|im_start|>assistant token to kick off generation.',
+        systemMsg: 'system: "You are a helpful assistant."',
+        userMsg: 'user: "What is the capital of Brazil?"',
+      },
     },
   },
 });
