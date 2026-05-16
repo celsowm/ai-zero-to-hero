@@ -70,7 +70,7 @@ export const syntheticDataPipeline = defineSlide({
         stage2Title: '2. Geração',
         stage2Desc: 'LLM gera pares instrução-resposta a partir de seeds',
         stage3Title: '3. Filtragem',
-        stage3Desc: 'Remover низька qualidade, duplicatas e similaridade',
+        stage3Desc: 'Remover baixa qualidade, duplicatas e similaridade',
         stage4Title: '4. Balanceamento',
         stage4Desc: 'Garantir distribuição equilibrada de tarefas',
         stage5Title: '5. Separação',
