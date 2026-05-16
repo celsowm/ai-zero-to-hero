@@ -1,0 +1,16 @@
+{
+  "id": "neural-networks/perf-python",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [2, 5],
+      "pt-br": "Criamos listas gigantes com 1 milhão de elementos.",
+      "en-us": "We create giant lists with 1 million elements."
+    },
+    {
+      "lineRange": [7, 9],
+      "pt-br": "O loop for em Python é lento pois o interpretador precisa verificar o tipo de cada elemento em cada volta.",
+      "en-us": "The Python for loop is slow because the interpreter needs to check the type of each element on every turn."
+    }
+  ]
+}

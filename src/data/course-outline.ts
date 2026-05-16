@@ -52,10 +52,12 @@ export const courseSlideOrder = [
   'pytorch-why-performant',
   'pytorch-autograd',
   'neural-network-pytorch-nn-linear',
+  'neural-network-pytorch-sequential-logic',
   'neural-network-pytorch-nn-layers',
   'neural-network-pytorch-activations-hidden',
   'neural-network-pytorch-activations-output',
-  'neural-network-pytorch-optimizers',  'neural-network-pytorch-model-lifecycle',
+  'neural-network-pytorch-optimizers',
+  'neural-network-pytorch-model-lifecycle',
   // Função de loss para classificação binária: BCELoss
   'neural-network-bce-loss',
   'neural-network-pytorch-nn-exercise',

@@ -191,6 +191,7 @@ const visualMap: Record<string, string> = {
   'weights-biases-explorer': 'WeightsBiasesExplorer',
   'bce-loss-curve': 'BceLossCurve',
   'optimizer-trajectory-visual': 'OptimizerTrajectoryVisual',
+  'pytorch-sequential-map': 'PytorchSequentialMap',
 
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',

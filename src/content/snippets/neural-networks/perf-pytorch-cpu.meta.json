@@ -1,0 +1,16 @@
+{
+  "id": "neural-networks/perf-pytorch-cpu",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 6],
+      "pt-br": "Similar ao NumPy, mas usa tensores do PyTorch preparados para o Autograd.",
+      "en-us": "Similar to NumPy, but uses PyTorch tensors prepared for Autograd."
+    },
+    {
+      "lineRange": [9, 9],
+      "pt-br": "O PyTorch chama bibliotecas de alto desempenho como Intel MKL para acelerar o cálculo.",
+      "en-us": "PyTorch calls high-performance libraries like Intel MKL to accelerate calculation."
+    }
+  ]
+}

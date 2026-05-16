@@ -11,7 +11,7 @@ interface Props {
 }
 
 const MLPDiagram = () => (
-  <svg viewBox="0 0 200 140" width="100%" height="100%">
+  <svg viewBox="0 0 240 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
     <defs>
       <linearGradient id="mlpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stopColor="var(--sw-cyan)" stopOpacity="0.8" />
@@ -19,87 +19,87 @@ const MLPDiagram = () => (
       </linearGradient>
     </defs>
     {/* Connections */}
-    {[40, 100, 160].map((x, i, arr) => {
+    {[60, 120, 180].map((x, i, arr) => {
       if (i === arr.length - 1) return null;
       const nextX = arr[i + 1];
-      const currentNodes = i === 0 ? [25, 55, 85, 115] : [40, 70, 100];
-      const nextNodes = i === 0 ? [40, 70, 100] : [70];
+      const currentNodes = i === 0 ? [35, 65, 95, 125] : [50, 80, 110];
+      const nextNodes = i === 0 ? [50, 80, 110] : [80];
       return currentNodes.map(y1 => 
         nextNodes.map(y2 => (
-          <line key={`${x}-${y1}-${y2}`} x1={x} y1={y1} x2={nextX} y2={y2} stroke={sw.tintAccent} strokeWidth="0.5" />
+          <line key={`${x}-${y1}-${y2}`} x1={x} y1={y1} x2={nextX} y2={y2} stroke={sw.tintAccent} strokeWidth="0.5" strokeOpacity="0.4" />
         ))
       );
     })}
     {/* Layers */}
     <g>
-      {[25, 55, 85, 115].map(y => <circle key={y} cx="40" cy={y} r="5" fill="var(--sw-cyan)" />)}
-      <text x="40" y="15" textAnchor="middle" fontSize="7" fill="var(--sw-text-dim)" fontWeight="800">INPUT</text>
+      {[35, 65, 95, 125].map(y => <circle key={y} cx="60" cy={y} r="6" fill="var(--sw-cyan)" />)}
+      <text x="60" y="22" textAnchor="middle" fontSize="8" fill="var(--sw-text-dim)" fontWeight="900">INPUT</text>
     </g>
     <g>
-      {[40, 70, 100].map(y => <circle key={y} cx="100" cy={y} r="6" fill="var(--sw-blue)" stroke="rgba(255,255,255,0.2)" />)}
-      <text x="100" y="25" textAnchor="middle" fontSize="7" fill="var(--sw-text-dim)" fontWeight="800">HIDDEN (DENSE)</text>
+      {[50, 80, 110].map(y => <circle key={y} cx="120" cy={y} r="7" fill="var(--sw-blue)" stroke="rgba(255,255,255,0.2)" />)}
+      <text x="120" y="35" textAnchor="middle" fontSize="8" fill="var(--sw-text-dim)" fontWeight="900">HIDDEN (DENSE)</text>
     </g>
     <g>
-      <circle cx="160" cy="70" r="7" fill="var(--sw-purple)" stroke="white" strokeWidth="1" />
-      <text x="160" y="55" textAnchor="middle" fontSize="7" fill="var(--sw-text-dim)" fontWeight="800">OUTPUT</text>
+      <circle cx="180" cy={80} r="8" fill="var(--sw-purple)" stroke="white" strokeWidth="1" />
+      <text x="180" y="65" textAnchor="middle" fontSize="8" fill="var(--sw-text-dim)" fontWeight="900">OUTPUT</text>
     </g>
   </svg>
 );
 
 const CNNDiagram = () => (
-  <svg viewBox="0 0 200 140" width="100%" height="100%">
+  <svg viewBox="0 0 240 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
     {/* Image Volume */}
-    <rect x="20" y="30" width="50" height="50" fill="rgba(0, 229, 255, 0.05)" stroke="var(--sw-cyan)" strokeWidth="1" />
-    <path d="M 20 40 H 70 M 20 50 H 70 M 20 60 H 70 M 20 70 H 70 M 30 30 V 80 M 40 30 V 80 M 50 30 V 80 M 60 30 V 80" stroke="var(--sw-cyan)" strokeWidth="0.5" strokeOpacity="0.2" />
+    <rect x="30" y="40" width="60" height="60" fill="rgba(0, 229, 255, 0.05)" stroke="var(--sw-cyan)" strokeWidth="1" />
+    <path d="M 30 50 H 90 M 30 60 H 90 M 30 70 H 90 M 30 80 H 90 M 40 40 V 100 M 50 40 V 100 M 60 40 V 100 M 70 40 V 100 M 80 40 V 100" stroke="var(--sw-cyan)" strokeWidth="0.5" strokeOpacity="0.2" />
     
     {/* Kernel/Filter */}
     <g>
-      <rect x="35" y="45" width="20" height="20" fill="var(--sw-pink)" fillOpacity="0.3" stroke="var(--sw-pink)" strokeWidth="1.5" />
-      <text x="45" y="40" textAnchor="middle" fontSize="6" fill="var(--sw-pink)" fontWeight="900">KERNEL 3x3</text>
+      <rect x="45" y="55" width="20" height="20" fill="var(--sw-pink)" fillOpacity="0.3" stroke="var(--sw-pink)" strokeWidth="1.5" />
+      <text x="55" y="50" textAnchor="middle" fontSize="7" fill="var(--sw-pink)" fontWeight="900">KERNEL 3x3</text>
     </g>
 
     {/* Feature Map Stack */}
-    <rect x="110" y="35" width="35" height="35" fill="rgba(56, 189, 248, 0.1)" stroke="var(--sw-blue)" strokeWidth="1" />
-    <rect x="115" y="40" width="35" height="35" fill="rgba(56, 189, 248, 0.1)" stroke="var(--sw-blue)" strokeWidth="1" />
-    <text x="135" y="30" textAnchor="middle" fontSize="7" fill="var(--sw-blue)" fontWeight="800">FEATURE MAPS</text>
+    <rect x="130" y="45" width="40" height="40" fill="rgba(56, 189, 248, 0.1)" stroke="var(--sw-blue)" strokeWidth="1" />
+    <rect x="135" y="50" width="40" height="40" fill="rgba(56, 189, 248, 0.1)" stroke="var(--sw-blue)" strokeWidth="1" />
+    <text x="155" y="38" textAnchor="middle" fontSize="8" fill="var(--sw-blue)" fontWeight="900">FEATURE MAPS</text>
 
     {/* Projection lines */}
-    <path d="M 55 45 L 110 35 M 55 65 L 110 70" stroke="var(--sw-pink)" strokeWidth="0.8" strokeDasharray="2,1" opacity="0.6" />
+    <path d="M 65 55 L 130 45 M 65 75 L 130 85" stroke="var(--sw-pink)" strokeWidth="0.8" strokeDasharray="2,1" opacity="0.6" />
 
     {/* Pooling/Output */}
-    <rect x="170" y="50" width="15" height="15" rx="2" fill="var(--sw-purple)" opacity="0.8" />
-    <path d="M 150 57 L 170 57" stroke={sw.tintState} strokeWidth="1" markerEnd="url(#arrow)" />
+    <rect x="195" y="62" width="20" height="20" rx="3" fill="var(--sw-purple)" opacity="0.8" />
+    <path d="M 175 72 L 195 72" stroke={sw.tintState} strokeWidth="1.5" markerEnd="url(#arrow)" />
   </svg>
 );
 
 const TransformerDiagram = () => (
-  <svg viewBox="0 0 200 140" width="100%" height="100%">
+  <svg viewBox="0 0 240 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
     {/* Tokens */}
     <g>
-      <rect x="20" y="115" width="25" height="10" rx="2" fill="var(--sw-cyan)" opacity="0.7" />
-      <rect x="50" y="115" width="25" height="10" rx="2" fill="var(--sw-cyan)" opacity="0.7" />
-      <rect x="80" y="115" width="25" height="10" rx="2" fill="var(--sw-cyan)" opacity="0.7" />
-      <text x="62" y="134" textAnchor="middle" fontSize="7" fill="var(--sw-text-dim)" fontWeight="800">INPUT TOKENS</text>
+      <rect x="40" y="125" width="30" height="12" rx="3" fill="var(--sw-cyan)" opacity="0.7" />
+      <rect x="75" y="125" width="30" height="12" rx="3" fill="var(--sw-cyan)" opacity="0.7" />
+      <rect x="110" y="125" width="30" height="12" rx="3" fill="var(--sw-cyan)" opacity="0.7" />
+      <text x="90" y="150" textAnchor="middle" fontSize="8" fill="var(--sw-text-dim)" fontWeight="900">INPUT TOKENS</text>
     </g>
 
     {/* Self-Attention Block */}
-    <rect x="25" y="65" width="75" height="30" rx="4" fill="rgba(56, 189, 248, 0.05)" stroke="var(--sw-blue)" strokeWidth="1.5" />
-    <text x="62" y="83" textAnchor="middle" fontSize="8" fill="var(--sw-blue)" fontWeight="900">SELF-ATTENTION</text>
+    <rect x="45" y="75" width="90" height="35" rx="5" fill="rgba(56, 189, 248, 0.05)" stroke="var(--sw-blue)" strokeWidth="1.5" />
+    <text x="90" y="96" textAnchor="middle" fontSize="9" fill="var(--sw-blue)" fontWeight="900">SELF-ATTENTION</text>
 
     {/* MLP/FFN Block */}
-    <rect x="25" y="20" width="75" height="30" rx="4" fill="rgba(168, 85, 247, 0.05)" stroke="var(--sw-purple)" strokeWidth="1.5" />
-    <text x="62" y="38" textAnchor="middle" fontSize="8" fill="var(--sw-purple)" fontWeight="900">FEED-FORWARD</text>
+    <rect x="45" y="25" width="90" height="35" rx="5" fill="rgba(168, 85, 247, 0.05)" stroke="var(--sw-purple)" strokeWidth="1.5" />
+    <text x="90" y="46" textAnchor="middle" fontSize="9" fill="var(--sw-purple)" fontWeight="900">FEED-FORWARD</text>
 
     {/* Relationships */}
-    <path d="M 32 65 Q 62 45 92 65" fill="none" stroke="var(--sw-cyan)" strokeWidth="1" opacity="0.4" />
-    <path d="M 45 65 Q 62 55 80 65" fill="none" stroke="var(--sw-cyan)" strokeWidth="1" opacity="0.4" />
+    <path d="M 55 75 Q 90 50 125 75" fill="none" stroke="var(--sw-cyan)" strokeWidth="1" opacity="0.4" />
+    <path d="M 70 75 Q 90 60 110 75" fill="none" stroke="var(--sw-cyan)" strokeWidth="1" opacity="0.4" />
 
     {/* Flow */}
-    <path d="M 62 115 V 95 M 62 65 V 50" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" markerEnd="url(#arrow)" />
+    <path d="M 90 125 V 110 M 90 75 V 60" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" markerEnd="url(#arrow)" />
 
     {/* Residual */}
-    <path d="M 100 120 H 120 V 35 H 100" fill="none" stroke="var(--sw-pink)" strokeWidth="1.2" strokeDasharray="3,2" />
-    <text x="125" y="80" transform="rotate(90 125 80)" fontSize="6" fill="var(--sw-pink)" fontWeight="800">RESIDUAL STREAM</text>
+    <path d="M 135 131 H 160 V 43 H 135" fill="none" stroke="var(--sw-pink)" strokeWidth="1.5" strokeDasharray="4,2" />
+    <text x="168" y="87" transform="rotate(90 168 87)" fontSize="7" fill="var(--sw-pink)" fontWeight="900">RESIDUAL STREAM</text>
 
     <defs>
       <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">

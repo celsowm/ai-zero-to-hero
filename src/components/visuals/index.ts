@@ -84,6 +84,7 @@ export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer
 export { WeightsBiasesExplorer } from './neural-networks/WeightsBiasesExplorer';
 export { BceLossCurve } from './neural-networks/BceLossCurve';
 export { OptimizerTrajectoryVisual } from './neural-networks/OptimizerTrajectoryVisual';
+export { PytorchSequentialMap } from './neural-networks/PytorchSequentialMap';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';

@@ -1,0 +1,16 @@
+{
+  "id": "neural-networks/perf-numpy",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 6],
+      "pt-br": "NumPy usa arrays contíguos na memória, muito mais eficientes que listas Python.",
+      "en-us": "NumPy uses contiguous arrays in memory, much more efficient than Python lists."
+    },
+    {
+      "lineRange": [9, 9],
+      "pt-br": "A operação ocorre dentro de um loop em C pré-compilado, removendo o overhead do Python.",
+      "en-us": "The operation happens inside a pre-compiled C loop, removing Python overhead."
+    }
+  ]
+}

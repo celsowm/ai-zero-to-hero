@@ -1,0 +1,21 @@
+{
+  "id": "neural-networks/perf-pytorch-gpu",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [4, 4],
+      "pt-br": "Detectamos se há uma GPU disponível para mover o trabalho pesado.",
+      "en-us": "We detect if a GPU is available to move the heavy lifting."
+    },
+    {
+      "lineRange": [7, 8],
+      "pt-br": "Os dados são transferidos para a memória de vídeo (VRAM).",
+      "en-us": "The data is transferred to video memory (VRAM)."
+    },
+    {
+      "lineRange": [11, 11],
+      "pt-br": "A GPU processa todos os elementos simultaneamente em vez de um por um.",
+      "en-us": "The GPU processes all elements simultaneously instead of one by one."
+    }
+  ]
+}

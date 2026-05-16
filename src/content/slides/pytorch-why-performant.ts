@@ -76,6 +76,41 @@ In pure Python, every loop iteration has interpretation and type checking overhe
         speedupLabel: 'Speedup',
         operationLabel: 'Operação',
         elementsLabel: 'Elementos',
+        tabs: [
+          {
+            label: 'Python puro',
+            code: 'snippet:neural-networks/perf-python',
+            codeExplanations: [
+              { lineRange: [2, 5], content: 'Listas Python comuns: alto overhead de memória.' },
+              { lineRange: [7, 9], content: 'Loop manual: extremamente lento para escala massiva.' },
+            ]
+          },
+          {
+            label: 'NumPy',
+            code: 'snippet:neural-networks/perf-numpy',
+            codeExplanations: [
+              { lineRange: [4, 6], content: 'Arrays contíguos em C (muito mais rápidos).' },
+              { lineRange: [9, 9], content: 'Operação vetorizada: delega o loop para código compilado.' },
+            ]
+          },
+          {
+            label: 'PyTorch CPU',
+            code: 'snippet:neural-networks/perf-pytorch-cpu',
+            codeExplanations: [
+              { lineRange: [4, 6], content: 'Tensores PyTorch usando backend otimizado (Intel MKL).' },
+              { lineRange: [9, 9], content: 'Dispatcher escolhe o kernel mais rápido para sua CPU.' },
+            ]
+          },
+          {
+            label: 'PyTorch GPU',
+            code: 'snippet:neural-networks/perf-pytorch-gpu',
+            codeExplanations: [
+              { lineRange: [4, 4], content: 'Movemos o processamento para milhares de núcleos CUDA.' },
+              { lineRange: [7, 8], content: 'Transferência para VRAM: o único custo real do PyTorch.' },
+              { lineRange: [11, 11], content: 'Paralelismo massivo: tempo de execução quase constante.' },
+            ]
+          }
+        ]
       },
       'en-us': {
         beforeLabel: 'Traditional Approach',
@@ -116,6 +151,41 @@ In pure Python, every loop iteration has interpretation and type checking overhe
         speedupLabel: 'Speedup',
         operationLabel: 'Operation',
         elementsLabel: 'Elements',
+        tabs: [
+          {
+            label: 'Pure Python',
+            code: 'snippet:neural-networks/perf-python',
+            codeExplanations: [
+              { lineRange: [2, 5], content: 'Standard Python lists: high memory overhead.' },
+              { lineRange: [7, 9], content: 'Manual loop: extremely slow for massive scale.' },
+            ]
+          },
+          {
+            label: 'NumPy',
+            code: 'snippet:neural-networks/perf-numpy',
+            codeExplanations: [
+              { lineRange: [4, 6], content: 'Contiguous arrays in C (much faster).' },
+              { lineRange: [9, 9], content: 'Vectorized operation: delegates loop to compiled code.' },
+            ]
+          },
+          {
+            label: 'PyTorch CPU',
+            code: 'snippet:neural-networks/perf-pytorch-cpu',
+            codeExplanations: [
+              { lineRange: [4, 6], content: 'PyTorch tensors using optimized backend (Intel MKL).' },
+              { lineRange: [9, 9], content: 'Dispatcher chooses the fastest kernel for your CPU.' },
+            ]
+          },
+          {
+            label: 'PyTorch GPU',
+            code: 'snippet:neural-networks/perf-pytorch-gpu',
+            codeExplanations: [
+              { lineRange: [4, 4], content: 'Moving processing to thousands of CUDA cores.' },
+              { lineRange: [7, 8], content: 'VRAM transfer: the only real cost in PyTorch.' },
+              { lineRange: [11, 11], content: 'Massive parallelism: near-constant execution time.' },
+            ]
+          }
+        ]
       },
     },
   },

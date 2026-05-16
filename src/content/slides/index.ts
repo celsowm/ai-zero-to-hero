@@ -169,7 +169,7 @@ import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchAutograd } from './pytorch-autograd';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
 import { neuralNetworkPytorchNnLinear } from './neural-network-pytorch-nn-linear';
-import { neuralNetworkPytorchNnLayers } from './neural-network-pytorch-nn-layers';
+import { neuralNetworkPytorchSequentialLogic } from './neural-network-pytorch-sequential-logic';
 import { neuralNetworkPytorchActivationsHidden } from './neural-network-pytorch-activations-hidden';
 import { neuralNetworkPytorchActivationsOutput } from './neural-network-pytorch-activations-output';
 import { neuralNetworkPytorchOptimizers } from './neural-network-pytorch-optimizers';
@@ -440,6 +440,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchInstall,
   neuralNetworkPytorchIntro,
   neuralNetworkPytorchNnLinear,
+  neuralNetworkPytorchSequentialLogic,
   neuralNetworkPytorchNnLayers,
   neuralNetworkPytorchActivationsHidden,
   neuralNetworkPytorchActivationsOutput,

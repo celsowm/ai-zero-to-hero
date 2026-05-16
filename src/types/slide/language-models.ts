@@ -114,7 +114,12 @@ export interface PyTorchPerformanceVisualCopy {
   speedupLabel: string;
   operationLabel: string;
   elementsLabel: string;
-  tabs?: Array<{ label: string }>;
+  tabs?: Array<{
+    label: string;
+    code: string;
+    codeExplanations?: CodeExplanation[];
+    source?: CodeSourceRef;
+  }>;
   pythonLikeTitle?: string;
   webgpuShaderTitle?: string;
 }
