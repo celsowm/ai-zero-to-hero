@@ -24,9 +24,14 @@ export const FloatingNavigation: React.FC = () => {
   };
 
   return (
-    <footer className="flex w-full shrink-0 items-center justify-between pb-0" style={{ marginTop: 10, width: '100%' }} aria-label="Slide navigation">
+    <footer
+      className="flex w-full shrink-0 items-center justify-between pb-0"
+      style={{ marginTop: 10, width: '100%' }}
+      aria-label="Slide navigation"
+    >
       {/* Left: Code Playground + GitHub buttons */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
+        {/* Code Playground */}
         <button
           onClick={() => setIsCodeToolOpen(true)}
           style={{
@@ -43,26 +48,32 @@ export const FloatingNavigation: React.FC = () => {
           <Terminal size={16} strokeWidth={2} />
         </button>
 
-        <GitHubButton
-          href="https://github.com/celsowm/ai-zero-to-hero"
-          data-color-scheme="no-preference: dark; light: light; dark: dark;"
-          data-icon="octicon-star"
-          data-size="large"
-          data-show-count={true}
-          aria-label="Star celsowm/ai-zero-to-hero on GitHub"
-        >
-          Star
-        </GitHubButton>
+        {/* GitHub Star */}
+        <div className="flex items-center" style={{ height: 36 }}>
+          <GitHubButton
+            href="https://github.com/celsowm/ai-zero-to-hero"
+            data-color-scheme="no-preference: dark; light: light; dark: dark;"
+            data-icon="octicon-star"
+            data-size="large"
+            data-show-count={true}
+            aria-label="Star celsowm/ai-zero-to-hero on GitHub"
+          >
+            Star
+          </GitHubButton>
+        </div>
 
-        <GitHubButton
-          href="https://github.com/celsowm"
-          data-color-scheme="no-preference: dark; light: light; dark: dark;"
-          data-size="large"
-          data-show-count={true}
-          aria-label="Follow @celsowm on GitHub"
-        >
-          Follow
-        </GitHubButton>
+        {/* GitHub Follow */}
+        <div className="flex items-center" style={{ height: 36 }}>
+          <GitHubButton
+            href="https://github.com/celsowm"
+            data-color-scheme="no-preference: dark; light: light; dark: dark;"
+            data-size="large"
+            data-show-count={true}
+            aria-label="Follow @celsowm on GitHub"
+          >
+            Follow
+          </GitHubButton>
+        </div>
       </div>
 
       {/* Right: Nav buttons */}
