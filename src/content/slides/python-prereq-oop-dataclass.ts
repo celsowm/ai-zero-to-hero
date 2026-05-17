@@ -69,21 +69,18 @@ export const pythonPrereqOopDataclass = defineSlide({
         graphPanel: {
           type: 'uml-class',
           title: 'Diagrama UML: dataclasses',
-          description: 'Duas dataclasses: Config (mutável, valores padrão) e Ponto (frozen, imutável). <<dataclass>> é estereótipo UML.',
+          description: 'Duas dataclasses: Config (mutável, valores padrão) e Ponto (frozen, imutável). [dataclass] é estereótipo UML.',
           mermaidSource: `classDiagram
     class Config {
-        <<dataclass>>
         +model_name: str
         +temperature: float
         +max_tokens: int
     }
     class Ponto {
-        <<dataclass>>
         +x: float
         +y: float
         +distancia(outro: Ponto) float
-    }
-    note for Ponto "frozen=True torna imutável"`,
+    }`,
           footer: '@dataclass gera __init__, __repr__, __eq__ automaticamente. frozen=True torna imutável.',
         },
       },
@@ -117,7 +114,7 @@ export const pythonPrereqOopDataclass = defineSlide({
         graphPanel: {
           type: 'uml-class',
           title: 'UML diagram: dataclasses',
-          description: 'Two dataclasses: Config (mutable, default values) and Point (frozen, immutable). <<dataclass>> is a UML stereotype.',
+          description: 'Two dataclasses: Config (mutable, default values) and Point (frozen, immutable). [dataclass] is a UML stereotype.',
           mermaidSource: `classDiagram
     class Config {
         <<dataclass>>
