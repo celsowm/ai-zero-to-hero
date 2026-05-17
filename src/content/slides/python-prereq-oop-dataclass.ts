@@ -79,11 +79,11 @@ export const pythonPrereqOopDataclass = defineSlide({
     }
     class Ponto {
         <<dataclass>>
-        <<frozen>>
         +x: float
         +y: float
         +distancia(outro: Ponto) float
-    }`,
+    }
+    note for Ponto "frozen=True torna imutável"`,
           footer: '@dataclass gera __init__, __repr__, __eq__ automaticamente. frozen=True torna imutável.',
         },
       },
@@ -127,11 +127,11 @@ export const pythonPrereqOopDataclass = defineSlide({
     }
     class Point {
         <<dataclass>>
-        <<frozen>>
         +x: float
         +y: float
         +distance(other: Point) float
-    }`,
+    }
+    note for Point "frozen=True makes it immutable"`,
           footer: '@dataclass generates __init__, __repr__, __eq__ automatically. frozen=True makes it immutable.',
         },
       },
