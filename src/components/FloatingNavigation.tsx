@@ -33,7 +33,7 @@ export const FloatingNavigation: React.FC = () => {
       aria-label="Slide navigation"
     >
       {/* LEFT: Code Playground + GitHub Star + GitHub Follow */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center" style={{ gap: 14 }}>
         {/* Code Playground */}
         <button
           onClick={() => setIsCodeToolOpen(true)}
@@ -51,31 +51,35 @@ export const FloatingNavigation: React.FC = () => {
           <Terminal size={16} strokeWidth={2} />
         </button>
 
-        {/* GitHub Star */}
-        <div className="flex items-center" style={{ height: 36 }}>
-          <GitHubButton
-            href="https://github.com/celsowm/ai-zero-to-hero"
-            data-color-scheme="no-preference: dark; light: light; dark: dark;"
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count={true}
-            aria-label="Star celsowm/ai-zero-to-hero on GitHub"
-          >
-            Star
-          </GitHubButton>
+        {/* GitHub Star - iframe needs manual centering */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 36 }}>
+          <span style={{ transform: 'translateY(4px)' }}>
+            <GitHubButton
+              href="https://github.com/celsowm/ai-zero-to-hero"
+              data-color-scheme="no-preference: dark; light: light; dark: dark;"
+              data-icon="octicon-star"
+              data-size="large"
+              data-show-count={true}
+              aria-label="Star celsowm/ai-zero-to-hero on GitHub"
+            >
+              Star
+            </GitHubButton>
+          </span>
         </div>
 
-        {/* GitHub Follow */}
-        <div className="flex items-center" style={{ height: 36 }}>
-          <GitHubButton
-            href="https://github.com/celsowm"
-            data-color-scheme="no-preference: dark; light: light; dark: dark;"
-            data-size="large"
-            data-show-count={true}
-            aria-label="Follow @celsowm on GitHub"
-          >
-            Follow
-          </GitHubButton>
+        {/* GitHub Follow - iframe needs manual centering */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 36 }}>
+          <span style={{ transform: 'translateY(4px)' }}>
+            <GitHubButton
+              href="https://github.com/celsowm"
+              data-color-scheme="no-preference: dark; light: light; dark: dark;"
+              data-size="large"
+              data-show-count={true}
+              aria-label="Follow @celsowm on GitHub"
+            >
+              Follow
+            </GitHubButton>
+          </span>
         </div>
       </div>
 
