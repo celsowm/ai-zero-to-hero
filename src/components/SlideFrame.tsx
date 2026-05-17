@@ -37,7 +37,7 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
         style={{
           height: 2,
           borderRadius: 2,
-          marginBottom: 22,
+          marginBottom: 12,
           maxWidth: 200,
           marginLeft: 'auto',
           marginRight: 'auto',
