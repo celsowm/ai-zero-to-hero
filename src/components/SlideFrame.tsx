@@ -32,19 +32,6 @@ export const SlideFrame: React.FC<SlideFrameProps> = ({ title, children, maxWidt
         {title}
       </h1>
 
-      <div
-        className="glow-line"
-        style={{
-          height: 2,
-          borderRadius: 2,
-          marginBottom: 12,
-          maxWidth: 200,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          background: 'linear-gradient(90deg, transparent, var(--sw-pink), var(--sw-purple), transparent)',
-        }}
-      />
-
       <div className="flex-1 min-h-0 flex flex-col overflow-hidden">{children}</div>
 
       <FloatingNavigation />
