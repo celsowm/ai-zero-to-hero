@@ -17,31 +17,8 @@ export const pythonPrereqOopAssociation = defineSlide({
 
 > No PyTorch, associação aparece em todo lugar: um \`nn.Module\` contém \`nn.Linear\`, \`nn.Dropout\`, etc. — o forward delega a cada sub-módulo.
 
-\`\`\`python
-snippet:python-prereq-oop-association
-\`\`\`
-
 - \`Carro\` não herda de \`Motor\` — ele **tem** um motor
 - A associação permite trocar o \`Motor\` sem mexer no \`Carro\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Define a classe Motor.' },
-        { lineRange: [2, 2], content: '__init__ de Motor: recebe cavalos.' },
-        { lineRange: [3, 3], content: 'Atribui self.cavalos.' },
-        { lineRange: [4, 4], content: 'Linha em branco.' },
-        { lineRange: [5, 5], content: 'Método ligar de Motor.' },
-        { lineRange: [6, 6], content: 'Retorna string com cavalos.' },
-        { lineRange: [8, 8], content: 'Linha em branco.' },
-        { lineRange: [9, 9], content: 'Define a classe Carro.' },
-        { lineRange: [10, 10], content: '__init__ de Carro: recebe modelo e motor.' },
-        { lineRange: [11, 11], content: 'Atribui self.modelo.' },
-        { lineRange: [12, 12], content: 'Associação: guarda a referência ao Motor.' },
-        { lineRange: [13, 13], content: 'Linha em branco.' },
-        { lineRange: [14, 14], content: 'Método ligar de Carro (mesmo nome de Motor).' },
-        { lineRange: [15, 15], content: 'Delegação: Carro chama Motor.ligar().' },
-        { lineRange: [18, 18], content: 'Cria instância de Motor com 450 CV.' },
-        { lineRange: [19, 19], content: 'Passa motor_v8 como parâmetro ao construtor de Carro.' },
-        { lineRange: [20, 20], content: 'Print aciona a cadeia de delegação.' },
-      ],
     },
     'en-us': {
       title: 'Python OOP: class association',
@@ -53,31 +30,8 @@ snippet:python-prereq-oop-association
 
 > In PyTorch, association is everywhere: an \`nn.Module\` contains \`nn.Linear\`, \`nn.Dropout\`, etc. — the forward method delegates to each submodule.
 
-\`\`\`python
-snippet:python-prereq-oop-association
-\`\`\`
-
 - \`Carro\` does not inherit from \`Motor\` — it **has** a motor
 - Association lets you swap the \`Motor\` without changing \`Carro\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Defines Motor class.' },
-        { lineRange: [2, 2], content: '__init__ of Motor: receives cavalos.' },
-        { lineRange: [3, 3], content: 'Assigns self.cavalos.' },
-        { lineRange: [4, 4], content: 'Blank line.' },
-        { lineRange: [5, 5], content: 'Motor.ligar method.' },
-        { lineRange: [6, 6], content: 'Returns string with cavalos.' },
-        { lineRange: [8, 8], content: 'Blank line.' },
-        { lineRange: [9, 9], content: 'Defines Carro class.' },
-        { lineRange: [10, 10], content: '__init__ of Carro: receives modelo and motor.' },
-        { lineRange: [11, 11], content: 'Assigns self.modelo.' },
-        { lineRange: [12, 12], content: 'Association: stores reference to Motor.' },
-        { lineRange: [13, 13], content: 'Blank line.' },
-        { lineRange: [14, 14], content: 'Carro.ligar method (same name as Motor).' },
-        { lineRange: [15, 15], content: 'Delegation: Carro calls Motor.ligar().' },
-        { lineRange: [18, 18], content: 'Creates Motor instance with 450 HP.' },
-        { lineRange: [19, 19], content: 'Passes motor_v8 to Carro constructor.' },
-        { lineRange: [20, 20], content: 'Print triggers the delegation chain.' },
-      ],
     },
   },
   visual: {

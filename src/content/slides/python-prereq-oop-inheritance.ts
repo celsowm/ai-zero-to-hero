@@ -18,31 +18,8 @@ export const pythonPrereqOopInheritance = defineSlide({
 
 > No PyTorch, \`super().__init__()\` é usado em TODOS os modelos que herdam \`nn.Module\`. Isso registra os sub-módulos automaticamente.
 
-\`\`\`python
-snippet:python-prereq-oop-inheritance
-\`\`\`
-
 - \`super().__init__()\` é obrigatório se a classe pai tiver \`__init__\`
 - \`Aluno\` adiciona \`matricula\` sem repetir \`nome\`/\`idade\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Define a classe pai Pessoa.' },
-        { lineRange: [2, 2], content: '__init__ de Pessoa: recebe nome e idade.' },
-        { lineRange: [3, 3], content: 'Atributo self.nome.' },
-        { lineRange: [4, 4], content: 'Atributo self.idade.' },
-        { lineRange: [5, 5], content: 'Linha em branco.' },
-        { lineRange: [6, 6], content: 'Método saudacao de Pessoa.' },
-        { lineRange: [7, 7], content: 'Retorna saudação usando self.nome.' },
-        { lineRange: [10, 10], content: 'Aluno(Pessoa): Aluno herda de Pessoa.' },
-        { lineRange: [11, 11], content: '__init__ de Aluno: adiciona matricula.' },
-        { lineRange: [12, 12], content: 'super().__init__ chama construtor de Pessoa.' },
-        { lineRange: [13, 13], content: 'Novo atributo específico de Aluno.' },
-        { lineRange: [14, 14], content: 'Linha em branco.' },
-        { lineRange: [15, 15], content: 'Sobrescrita de método: substitui saudacao().' },
-        { lineRange: [16, 16], content: 'Corpo do método sobrescrito.' },
-        { lineRange: [19, 19], content: 'Instancia Aluno com nome, idade e matricula.' },
-        { lineRange: [20, 20], content: 'Chama o método sobrescrito de Aluno.' },
-        { lineRange: [21, 21], content: 'isinstance confirma que Aluno é uma Pessoa.' },
-      ],
     },
     'en-us': {
       title: 'Python OOP: inheritance and super()',
@@ -55,31 +32,8 @@ snippet:python-prereq-oop-inheritance
 
 > In PyTorch, \`super().__init__()\` is used in EVERY model that subclasses \`nn.Module\`. It automatically registers child modules.
 
-\`\`\`python
-snippet:python-prereq-oop-inheritance
-\`\`\`
-
 - \`super().__init__()\` is mandatory if the parent has an \`__init__\`
 - \`Aluno\` adds \`matricula\` without repeating \`nome\`/\`idade\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Defines the parent class Pessoa.' },
-        { lineRange: [2, 2], content: '__init__ of Pessoa: receives nome and idade.' },
-        { lineRange: [3, 3], content: 'Attribute self.nome.' },
-        { lineRange: [4, 4], content: 'Attribute self.idade.' },
-        { lineRange: [5, 5], content: 'Blank line.' },
-        { lineRange: [6, 6], content: 'saudacao method of Pessoa.' },
-        { lineRange: [7, 7], content: 'Returns greeting using self.nome.' },
-        { lineRange: [10, 10], content: 'Aluno(Pessoa): Aluno inherits from Pessoa.' },
-        { lineRange: [11, 11], content: '__init__ of Aluno: adds matricula.' },
-        { lineRange: [12, 12], content: 'super().__init__ calls Pessoa constructor.' },
-        { lineRange: [13, 13], content: 'New attribute specific to Aluno.' },
-        { lineRange: [14, 14], content: 'Blank line.' },
-        { lineRange: [15, 15], content: 'Method override: replaces saudacao().' },
-        { lineRange: [16, 16], content: 'Overridden method body.' },
-        { lineRange: [19, 19], content: 'Instantiates Aluno with nome, idade, matricula.' },
-        { lineRange: [20, 20], content: 'Calls overridden method from Aluno.' },
-        { lineRange: [21, 21], content: 'isinstance confirms Aluno IS-A Pessoa.' },
-      ],
     },
   },
   visual: {

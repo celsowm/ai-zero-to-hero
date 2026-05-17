@@ -18,38 +18,9 @@ export const pythonPrereqOopDunder = defineSlide({
 
 > O PyTorch usa dunder methods extensivamente: \`__call__\` (para modelos serem chamáveis), \`__getitem__\` (para datasets), \`__len__\` (para DataLoader).
 
-\`\`\`python
-snippet:python-prereq-oop-dunder
-\`\`\`
-
 - \`v1 + v2\` funciona graças a \`__add__\`
 - \`len(v1)\` funciona graças a \`__len__\`
 - \`v1 == Vetor(3, 4)\` funciona graças a \`__eq__\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Define a classe Vetor.' },
-        { lineRange: [2, 2], content: '__init__ com type hints: recebe x e y como float.' },
-        { lineRange: [3, 3], content: 'Atribui x à instância.' },
-        { lineRange: [4, 4], content: 'Atribui y à instância.' },
-        { lineRange: [5, 5], content: 'Linha em branco.' },
-        { lineRange: [6, 6], content: '__repr__: representação legível do objeto.' },
-        { lineRange: [7, 7], content: 'Retorna string formatada com x e y.' },
-        { lineRange: [8, 8], content: 'Linha em branco.' },
-        { lineRange: [9, 9], content: '__add__: define operador +.' },
-        { lineRange: [10, 10], content: 'Retorna novo Vetor com componentes somados.' },
-        { lineRange: [11, 11], content: 'Linha em branco.' },
-        { lineRange: [12, 12], content: '__eq__: define operador ==.' },
-        { lineRange: [13, 13], content: 'Verifica se outro é Vetor com isinstance.' },
-        { lineRange: [14, 14], content: 'Retorna NotImplemented se tipo inválido.' },
-        { lineRange: [15, 15], content: 'Compara x e y para decidir igualdade.' },
-        { lineRange: [16, 16], content: 'Linha em branco.' },
-        { lineRange: [17, 17], content: '__len__: define len().' },
-        { lineRange: [18, 18], content: 'Sempre retorna 2 (Vetor 2D).' },
-        { lineRange: [21, 21], content: 'Cria v1 = Vetor(3.0, 4.0).' },
-        { lineRange: [22, 22], content: 'Cria v2 = Vetor(1.0, 2.0).' },
-        { lineRange: [23, 23], content: 'v1 + v2 usa __add__.' },
-        { lineRange: [24, 24], content: 'len(v1) usa __len__.' },
-        { lineRange: [25, 25], content: 'v1 == Vetor(3.0, 4.0) usa __eq__.' },
-      ],
     },
     'en-us': {
       title: 'Python OOP: special methods (dunder)',
@@ -62,38 +33,9 @@ snippet:python-prereq-oop-dunder
 
 > PyTorch uses dunder methods extensively: \`__call__\` (so models are callable), \`__getitem__\` (for datasets), \`__len__\` (for DataLoader).
 
-\`\`\`python
-snippet:python-prereq-oop-dunder
-\`\`\`
-
 - \`v1 + v2\` works thanks to \`__add__\`
 - \`len(v1)\` works thanks to \`__len__\`
 - \`v1 == Vetor(3, 4)\` works thanks to \`__eq__\``,
-      codeExplanations: [
-        { lineRange: [1, 1], content: 'Defines Vetor class.' },
-        { lineRange: [2, 2], content: '__init__ with type hints.' },
-        { lineRange: [3, 3], content: 'Assigns x to instance.' },
-        { lineRange: [4, 4], content: 'Assigns y to instance.' },
-        { lineRange: [5, 5], content: 'Blank line.' },
-        { lineRange: [6, 6], content: '__repr__: readable representation.' },
-        { lineRange: [7, 7], content: 'Returns formatted string.' },
-        { lineRange: [8, 8], content: 'Blank line.' },
-        { lineRange: [9, 9], content: '__add__: defines + operator.' },
-        { lineRange: [10, 10], content: 'Returns new Vetor with summed components.' },
-        { lineRange: [11, 11], content: 'Blank line.' },
-        { lineRange: [12, 12], content: '__eq__: defines == operator.' },
-        { lineRange: [13, 13], content: 'Checks type with isinstance.' },
-        { lineRange: [14, 14], content: 'Returns NotImplemented for wrong type.' },
-        { lineRange: [15, 15], content: 'Compares x and y.' },
-        { lineRange: [16, 16], content: 'Blank line.' },
-        { lineRange: [17, 17], content: '__len__: defines len().' },
-        { lineRange: [18, 18], content: 'Always returns 2.' },
-        { lineRange: [21, 21], content: 'Creates v1.' },
-        { lineRange: [22, 22], content: 'Creates v2.' },
-        { lineRange: [23, 23], content: 'v1 + v2 uses __add__.' },
-        { lineRange: [24, 24], content: 'len(v1) uses __len__.' },
-        { lineRange: [25, 25], content: 'v1 == ... uses __eq__.' },
-      ],
     },
   },
   visual: {
@@ -151,15 +93,25 @@ snippet:python-prereq-oop-dunder
           description: 'Vetor class with __repr__, __add__, __eq__, and __len__.',
           source: { snippetId: 'python-prereq-oop-dunder', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 3], content: 'Vetor class with standard __init__: receives x and y.' },
-            { lineRange: [5, 6], content: '__repr__: returns a readable string. Called by print() and repr().' },
-            { lineRange: [8, 9], content: '__add__: defines the + operator. Creates a new Vetor with summed components.' },
-            { lineRange: [11, 14], content: '__eq__: defines ==. First checks type with isinstance, then compares values.' },
-            { lineRange: [16, 17], content: '__len__: defines len(). Always returns 2 (Vetor has 2 components).' },
-            { lineRange: [20, 20], content: 'Creates v1 = Vetor(3.0, 4.0).' },
-            { lineRange: [22, 22], content: 'v1 + v2 uses __add__ under the hood.' },
-            { lineRange: [23, 23], content: 'len(v1) uses __len__.' },
-            { lineRange: [24, 24], content: 'v1 == Vetor(3.0, 4.0) uses __eq__.' },
+            { lineRange: [1, 1], content: 'Defines Vetor class.' },
+            { lineRange: [2, 2], content: '__init__ with type hints.' },
+            { lineRange: [3, 3], content: 'Assigns x.' },
+            { lineRange: [4, 4], content: 'Assigns y.' },
+            { lineRange: [6, 6], content: '__repr__: readable rep.' },
+            { lineRange: [7, 7], content: 'Returns string.' },
+            { lineRange: [9, 9], content: '__add__: defines +.' },
+            { lineRange: [10, 10], content: 'Returns new Vetor.' },
+            { lineRange: [12, 12], content: '__eq__: defines ==.' },
+            { lineRange: [13, 13], content: 'Type check.' },
+            { lineRange: [14, 14], content: 'NotImplemented.' },
+            { lineRange: [15, 15], content: 'Compares values.' },
+            { lineRange: [17, 17], content: '__len__: defines len().' },
+            { lineRange: [18, 18], content: 'Returns 2.' },
+            { lineRange: [21, 21], content: 'Creates v1.' },
+            { lineRange: [22, 22], content: 'Creates v2.' },
+            { lineRange: [23, 23], content: 'v1 + v2 uses __add__.' },
+            { lineRange: [24, 24], content: 'len(v1) uses __len__.' },
+            { lineRange: [25, 25], content: '== uses __eq__.' },
           ],
         },
         graphPanel: {
