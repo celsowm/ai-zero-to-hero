@@ -4,6 +4,8 @@ import { useUI } from '../hooks/useUI';
 import { ChevronLeft, ChevronRight, Terminal } from 'lucide-react';
 import { sw } from '../theme/tokens';
 import GitHubButton from 'react-github-btn';
+import { SlideCounter } from './SlideCounter';
+import { FontSizeControls } from './FontSizeControls';
 
 export const FloatingNavigation: React.FC = () => {
   const { goToNextSlide, goToPrevSlide, currentSlideIndex, slides } = useNavigation();
@@ -12,7 +14,7 @@ export const FloatingNavigation: React.FC = () => {
   const isFirst = currentSlideIndex === 0;
   const isLast = currentSlideIndex === slides.length - 1;
 
-  const baseStyle: React.CSSProperties = {
+  const btnBase: React.CSSProperties = {
     width: 36,
     height: 36,
     borderRadius: 10,
@@ -21,6 +23,7 @@ export const FloatingNavigation: React.FC = () => {
     justifyContent: 'center',
     transition: 'all 0.2s ease',
     border: 'none',
+    flexShrink: 0,
   };
 
   return (
@@ -29,13 +32,13 @@ export const FloatingNavigation: React.FC = () => {
       style={{ marginTop: 10, width: '100%' }}
       aria-label="Slide navigation"
     >
-      {/* Left: Code Playground + GitHub buttons */}
+      {/* LEFT: Code Playground + GitHub Star + GitHub Follow */}
       <div className="flex items-center gap-3">
         {/* Code Playground */}
         <button
           onClick={() => setIsCodeToolOpen(true)}
           style={{
-            ...baseStyle,
+            ...btnBase,
             padding: 0,
             background: 'rgba(26, 22, 40, 0.5)',
             color: sw.cyan,
@@ -76,41 +79,49 @@ export const FloatingNavigation: React.FC = () => {
         </div>
       </div>
 
-      {/* Right: Nav buttons */}
-      <div className="inline-flex items-center gap-1.5">
-        <button
-          onClick={goToPrevSlide}
-          disabled={isFirst}
-          style={{
-            ...baseStyle,
-            padding: 0,
-            background: isFirst ? 'rgba(26, 22, 40, 0.5)' : 'var(--sw-surface)',
-            color: isFirst ? 'var(--sw-text-muted)' : 'var(--sw-text-dim)',
-            cursor: isFirst ? 'not-allowed' : 'pointer',
-            opacity: isFirst ? 0.3 : 0.8,
-          }}
-        >
-          <ChevronLeft size={16} strokeWidth={2} />
-        </button>
-        <button
-          onClick={goToNextSlide}
-          disabled={isLast}
-          style={{
-            ...baseStyle,
-            padding: 0,
-            background: isLast
-              ? 'rgba(26, 22, 40, 0.5)'
-              : 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))',
-            color: isLast ? 'var(--sw-text-muted)' : '#fff',
-            cursor: isLast ? 'not-allowed' : 'pointer',
-            opacity: isLast ? 0.3 : 1,
-            boxShadow: isLast
-              ? 'none'
-              : '0 4px 20px rgba(255, 46, 151, 0.3), 0 0 40px rgba(168, 85, 247, 0.1)',
-          }}
+      {/* CENTER: Slide Counter */}
+      <SlideCounter />
+
+      {/* RIGHT: FontSizeControls + Nav arrows */}
+      <div className="flex items-center gap-3">
+        <FontSizeControls />
+
+        {/* Prev / Next */}
+        <div className="inline-flex items-center gap-1.5">
+          <button
+            onClick={goToPrevSlide}
+            disabled={isFirst}
+            style={{
+              ...btnBase,
+              padding: 0,
+              background: isFirst ? 'rgba(26, 22, 40, 0.5)' : 'var(--sw-surface)',
+              color: isFirst ? 'var(--sw-text-muted)' : 'var(--sw-text-dim)',
+              cursor: isFirst ? 'not-allowed' : 'pointer',
+              opacity: isFirst ? 0.3 : 0.8,
+            }}
           >
-          <ChevronRight size={16} strokeWidth={2} />
-        </button>
+            <ChevronLeft size={16} strokeWidth={2} />
+          </button>
+          <button
+            onClick={goToNextSlide}
+            disabled={isLast}
+            style={{
+              ...btnBase,
+              padding: 0,
+              background: isLast
+                ? 'rgba(26, 22, 40, 0.5)'
+                : 'linear-gradient(135deg, var(--sw-pink), var(--sw-purple))',
+              color: isLast ? 'var(--sw-text-muted)' : '#fff',
+              cursor: isLast ? 'not-allowed' : 'pointer',
+              opacity: isLast ? 0.3 : 1,
+              boxShadow: isLast
+                ? 'none'
+                : '0 4px 20px rgba(255, 46, 151, 0.3), 0 0 40px rgba(168, 85, 247, 0.1)',
+            }}
+          >
+            <ChevronRight size={16} strokeWidth={2} />
+          </button>
+        </div>
       </div>
     </footer>
   );

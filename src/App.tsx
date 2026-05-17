@@ -5,7 +5,7 @@ import { NavigationProvider } from './context/NavigationContext';
 import { UIProvider } from './context/UIContext';
 import { useUI } from './hooks/useUI';
 import { LocaleProvider } from './context/LocaleContext';
-import { Sidebar, SlideFactory, SlideTopBar, SearchModal, CodeToolModal } from './components';
+import { Sidebar, SlideFactory, SearchModal, CodeToolModal } from './components';
 
 const CourseContent: React.FC = () => {
   const { currentSlide, language } = useCourse();
@@ -15,8 +15,6 @@ const CourseContent: React.FC = () => {
       <Sidebar />
 
       <main className="flex-1 relative flex flex-col sw-grid-bg min-h-0">
-        <SlideTopBar />
-
         {/* Content */}
         <div className="flex-1 flex items-stretch justify-center px-12 pt-4 pb-0 min-h-0 overflow-hidden">
           <div className="w-full h-full min-h-0 flex justify-center overflow-hidden">
