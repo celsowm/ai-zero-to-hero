@@ -80,6 +80,7 @@ export { NeuralNetworkStepDebugger } from './neural-networks/NeuralNetworkStepDe
 export { NeuralNetworkTabsStepper } from './neural-networks/NeuralNetworkTabsStepper';
 export { ArchitectureComparatorVisual } from './neural-networks/ArchitectureComparatorVisual';
 export { Tensor3DExplorer } from './neural-networks/Tensor3DExplorer';
+export { TensorOriginsVisual } from './neural-networks/TensorOriginsVisual';
 export { DerivativeRampExplorer } from './neural-networks/DerivativeRampExplorer';
 export { WeightsBiasesExplorer } from './neural-networks/WeightsBiasesExplorer';
 export { BceLossCurve } from './neural-networks/BceLossCurve';

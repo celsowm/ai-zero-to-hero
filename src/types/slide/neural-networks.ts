@@ -478,3 +478,38 @@ export interface OptimizerTrajectoryVisualCopy {
   };
 }
 
+export interface TensorOriginsCopy {
+  tabs: Array<{ label: string }>;
+  physicsVsMl: {
+    eyebrow: string;
+    title: string;
+    physicsTitle: string;
+    physicsEquation: string;
+    physicsBody: string;
+    physicsLabels: {
+      tensorName: string;
+      tensorDesc: string;
+    };
+    mlTitle: string;
+    mlCode: string;
+    mlBody: string;
+    mlLabels: {
+      tensorName: string;
+      tensorDesc: string;
+    };
+    bridgeLabel: string;
+    takeaway: string;
+  };
+  hierarchy: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    sliderLabel: string;
+    dimensionLabel: string;
+    shapeLabel: string;
+    physicsLabel: string;
+    mlLabel: string;
+    footer: string;
+  };
+}
+

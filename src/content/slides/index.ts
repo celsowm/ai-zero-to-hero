@@ -166,6 +166,7 @@ import { neuralNetworkPytorchPrediction } from './neural-network-pytorch-predict
 import { neuralNetworkPytorchNnLayers } from './neural-network-pytorch-nn-layers';
 import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
+import { tensorOrigins } from './tensor-origins';
 import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchAutograd } from './pytorch-autograd';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
@@ -459,6 +460,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchPrediction,
   pytorchSaveLoad,
   neuralNetworkPytorchTensors,
+  tensorOrigins,
   neuralNetworkPytorchSilicon,
   pytorchAutograd,
   pytorchWhyPerformant,

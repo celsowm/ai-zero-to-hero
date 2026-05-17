@@ -1,0 +1,50 @@
+{
+  "id": "neural-networks/tensor-origins",
+  "language": "python",
+  "explanations": {
+    "pt-br": [
+      {
+        "range": [1, 2],
+        "content": "Importamos o PyTorch."
+      },
+      {
+        "range": [4, 5],
+        "content": "Escalar (0D): um único número, como uma loss."
+      },
+      {
+        "range": [7, 8],
+        "content": "Vetor (1D): um array com direção, como um embedding."
+      },
+      {
+        "range": [10, 11],
+        "content": "Matriz (2D): uma tabela — o mais comum em redes neurais."
+      },
+      {
+        "range": [13, 15],
+        "content": "Tensor 4D: batch de imagens [batch, canais, altura, largura]."
+      }
+    ],
+    "en-us": [
+      {
+        "range": [1, 2],
+        "content": "We import PyTorch."
+      },
+      {
+        "range": [4, 5],
+        "content": "Scalar (0D): a single number, like a loss."
+      },
+      {
+        "range": [7, 8],
+        "content": "Vector (1D): an array with direction, like an embedding."
+      },
+      {
+        "range": [10, 11],
+        "content": "Matrix (2D): a table — the most common in neural networks."
+      },
+      {
+        "range": [13, 15],
+        "content": "4D tensor: image batch [batch, channels, height, width]."
+      }
+    ]
+  }
+}

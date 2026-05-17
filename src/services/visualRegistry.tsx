@@ -186,6 +186,7 @@ const visualMap: Record<string, string> = {
   'neural-network-tabs-stepper': 'NeuralNetworkTabsStepper',
   'architecture-comparator': 'ArchitectureComparatorVisual',
   'tensor-3d-explorer': 'Tensor3DExplorer',
+  'tensor-origins-visual': 'TensorOriginsVisual',
   'derivative-ramp-explorer': 'DerivativeRampExplorer',
   'biological-vs-computational-neuron': 'BiologicalVsComputationalNeuron',
   'weights-biases-explorer': 'WeightsBiasesExplorer',

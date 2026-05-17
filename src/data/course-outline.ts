@@ -53,6 +53,8 @@ export const courseSlideOrder = [
   'neural-network-pytorch-hardware',
   'neural-network-pytorch-tensors',
   // Hardware level: por que tensores são mais rápidos (GPU, CUDA, Tensor Cores)
+  // Origem do termo "tensor": física/matemática vs deep learning
+  'tensor-origins',
   'neural-network-pytorch-silicon',
   // Design do framework: eager mode, autograd, C++ dispatcher, fused kernels
   'pytorch-why-performant',
