@@ -87,11 +87,11 @@ export const FloatingNavigation: React.FC = () => {
       <SlideCounter />
 
       {/* RIGHT: FontSizeControls + Nav arrows */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center" style={{ gap: 14 }}>
         <FontSizeControls />
 
         {/* Prev / Next */}
-        <div className="inline-flex items-center gap-1.5">
+        <div className="inline-flex items-center" style={{ gap: 6 }}>
           <button
             onClick={goToPrevSlide}
             disabled={isFirst}
