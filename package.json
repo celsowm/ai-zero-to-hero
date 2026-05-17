@@ -23,6 +23,7 @@
     "pyodide": "^0.29.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-github-btn": "^1.4.0",
     "react-markdown": "^10.1.0",
     "rehype-highlight": "^7.0.2",
     "rehype-katex": "^7.0.1",

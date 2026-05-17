@@ -3,6 +3,7 @@ import { useNavigation } from '../hooks/useNavigation';
 import { useUI } from '../hooks/useUI';
 import { ChevronLeft, ChevronRight, Terminal } from 'lucide-react';
 import { sw } from '../theme/tokens';
+import GitHubButton from 'react-github-btn';
 
 export const FloatingNavigation: React.FC = () => {
   const { goToNextSlide, goToPrevSlide, currentSlideIndex, slides } = useNavigation();
@@ -24,24 +25,47 @@ export const FloatingNavigation: React.FC = () => {
 
   return (
     <footer className="flex w-full shrink-0 items-center justify-between pb-0" style={{ marginTop: 10, width: '100%' }} aria-label="Slide navigation">
-      {/* Code Playground button — far left */}
-      <button
-        onClick={() => setIsCodeToolOpen(true)}
-        style={{
-          ...baseStyle,
-          padding: 0,
-          background: 'rgba(26, 22, 40, 0.5)',
-          color: sw.cyan,
-          cursor: 'pointer',
-          opacity: 0.8,
-          border: `1px solid ${sw.tintOverlay}`,
-        }}
-        title="Code Playground"
-      >
-        <Terminal size={16} strokeWidth={2} />
-      </button>
+      {/* Left: Code Playground + GitHub buttons */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setIsCodeToolOpen(true)}
+          style={{
+            ...baseStyle,
+            padding: 0,
+            background: 'rgba(26, 22, 40, 0.5)',
+            color: sw.cyan,
+            cursor: 'pointer',
+            opacity: 0.8,
+            border: `1px solid ${sw.tintOverlay}`,
+          }}
+          title="Code Playground"
+        >
+          <Terminal size={16} strokeWidth={2} />
+        </button>
 
-      {/* Nav buttons — right side */}
+        <GitHubButton
+          href="https://github.com/celsowm/ai-zero-to-hero"
+          data-color-scheme="no-preference: dark; light: light; dark: dark;"
+          data-icon="octicon-star"
+          data-size="large"
+          data-show-count={true}
+          aria-label="Star celsowm/ai-zero-to-hero on GitHub"
+        >
+          Star
+        </GitHubButton>
+
+        <GitHubButton
+          href="https://github.com/celsowm"
+          data-color-scheme="no-preference: dark; light: light; dark: dark;"
+          data-size="large"
+          data-show-count={true}
+          aria-label="Follow @celsowm on GitHub"
+        >
+          Follow
+        </GitHubButton>
+      </div>
+
+      {/* Right: Nav buttons */}
       <div className="inline-flex items-center gap-1.5">
         <button
           onClick={goToPrevSlide}
