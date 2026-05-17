@@ -104,11 +104,20 @@ export interface PythonPrereqConditionalsGraphCopy {
   };
 }
 
+export interface PythonPrereqUmlClassGraphCopy {
+  type: 'uml-class';
+  title: string;
+  description: string;
+  mermaidSource: string;
+  footer: string;
+}
+
 export type PythonPrereqGraphCopy =
   | PythonPrereqDataGraphCopy
   | PythonPrereqFunctionGraphCopy
   | PythonPrereqLoopGraphCopy
-  | PythonPrereqConditionalsGraphCopy;
+  | PythonPrereqConditionalsGraphCopy
+  | PythonPrereqUmlClassGraphCopy;
 
 export interface PythonPrereqTabsVisualCopy {
   tabs: [PythonPrereqTabCopy, PythonPrereqTabCopy];

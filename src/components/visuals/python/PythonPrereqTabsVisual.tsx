@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type {
   PythonPrereqDataGraphCopy,
   PythonPrereqConditionalsGraphCopy,
   PythonPrereqFunctionGraphCopy,
   PythonPrereqLoopGraphCopy,
+  PythonPrereqUmlClassGraphCopy,
   PythonPrereqTabsVisualCopy,
 } from '../../../types/slide';
 import { CodeBlock } from '../../CodeBlock';
@@ -11,6 +12,9 @@ import { PanelCard } from '../PanelCard';
 import { TabbedPanelSurface } from '../TabbedPanelSurface';
 import { TabsBar } from '../TabsBar';
 import { sw } from '../../../theme/tokens';
+import mermaid from 'mermaid';
+
+mermaid.initialize({ theme: 'dark', themeVariables: { darkMode: true } });
 
 interface PythonPrereqTabsVisualProps {
   copy: PythonPrereqTabsVisualCopy;
@@ -700,6 +704,30 @@ const LoopsGraphPanel: React.FC<{ graph: PythonPrereqLoopGraphCopy; footer: stri
   );
 };
 
+const MermaidDiagram: React.FC<{ source: string }> = ({ source }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.innerHTML = source;
+    mermaid.run({ nodes: [ref.current] });
+    return () => {
+      if (ref.current) ref.current.innerHTML = '';
+    };
+  }, [source]);
+  return <div ref={ref} />;
+};
+
+const UmlClassGraphPanel: React.FC<{ graph: PythonPrereqUmlClassGraphCopy }> = ({ graph }) => (
+  <PanelCard minHeight={0} gap={12}>
+    <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)' }}>{graph.title}</div>
+    <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--sw-text-dim)' }}>{graph.description}</div>
+    <div style={{ ...chartCardStyle, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}>
+      <MermaidDiagram source={graph.mermaidSource} />
+    </div>
+    <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--sw-text-muted)' }}>{graph.footer}</div>
+  </PanelCard>
+);
+
 const GraphPanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) => {
   if (copy.graphPanel.type === 'data') {
     return <DataGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
@@ -715,6 +743,10 @@ const GraphPanel: React.FC<{ copy: PythonPrereqTabsVisualCopy }> = ({ copy }) =>
 
   if (copy.graphPanel.type === 'conditionals') {
     return <ConditionalsGraphPanel graph={copy.graphPanel} footer={copy.footer} />;
+  }
+
+  if (copy.graphPanel.type === 'uml-class') {
+    return <UmlClassGraphPanel graph={copy.graphPanel} />;
   }
 
   return null;

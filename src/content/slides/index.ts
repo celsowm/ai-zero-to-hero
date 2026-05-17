@@ -198,6 +198,11 @@ import { pythonPrereqExercises } from './python-prereq-exercises';
 import { pythonPrereqFunctions } from './python-prereq-functions';
 import { pythonPrereqListComprehensions } from './python-prereq-list-comprehensions';
 import { pythonPrereqLoops } from './python-prereq-loops';
+import { pythonPrereqOopClasses } from './python-prereq-oop-classes';
+import { pythonPrereqOopDataclass } from './python-prereq-oop-dataclass';
+import { pythonPrereqOopDunder } from './python-prereq-oop-dunder';
+import { pythonPrereqOopExercises } from './python-prereq-oop-exercises';
+import { pythonPrereqOopInheritance } from './python-prereq-oop-inheritance';
 import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
 import { pytorchBasicsExercise } from './pytorch-basics-exercise';
 import { qkvIntuition } from './qkv-intuition';
@@ -478,6 +483,11 @@ export const allSlides: ISlide[] = [
   pythonPrereqFunctions,
   pythonPrereqListComprehensions,
   pythonPrereqLoops,
+  pythonPrereqOopClasses,
+  pythonPrereqOopDataclass,
+  pythonPrereqOopDunder,
+  pythonPrereqOopExercises,
+  pythonPrereqOopInheritance,
   pythonPrereqSumGenerator,
   pytorchBasicsExercise,
   qkvIntuition,
