@@ -198,6 +198,7 @@ import { pythonPrereqExercises } from './python-prereq-exercises';
 import { pythonPrereqFunctions } from './python-prereq-functions';
 import { pythonPrereqListComprehensions } from './python-prereq-list-comprehensions';
 import { pythonPrereqLoops } from './python-prereq-loops';
+import { pythonPrereqOopAssociation } from './python-prereq-oop-association';
 import { pythonPrereqOopClasses } from './python-prereq-oop-classes';
 import { pythonPrereqOopDataclass } from './python-prereq-oop-dataclass';
 import { pythonPrereqOopDunder } from './python-prereq-oop-dunder';
@@ -483,6 +484,7 @@ export const allSlides: ISlide[] = [
   pythonPrereqFunctions,
   pythonPrereqListComprehensions,
   pythonPrereqLoops,
+  pythonPrereqOopAssociation,
   pythonPrereqOopClasses,
   pythonPrereqOopDataclass,
   pythonPrereqOopDunder,

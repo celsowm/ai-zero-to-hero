@@ -10,6 +10,7 @@ export const courseSlideOrder = [
   'python-prereq-sum-generator',
   'python-prereq-exercises',
   'python-prereq-oop-classes',
+  'python-prereq-oop-association',
   'python-prereq-oop-inheritance',
   'python-prereq-oop-dataclass',
   'python-prereq-oop-dunder',
