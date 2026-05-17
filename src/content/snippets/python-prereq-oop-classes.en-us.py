@@ -1,25 +1,25 @@
-class Pessoa:
-    especie: str = "humano"
+class Person:
+    species: str = "human"
 
-    def __init__(self, nome: str, idade: int) -> None:
-        self.nome = nome
-        self.idade = idade
-        self._segredos: list[str] = []
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
+        self._secrets: list[str] = []
 
-    def saudacao(self) -> str:
-        return f"Olá, me chamo {self.nome}"
+    def greet(self) -> str:
+        return f"Hi, I'm {self.name}"
 
     @classmethod
-    def criar_anonimo(cls) -> "Pessoa":
-        return cls("Anônimo", 0)
+    def create_anonymous(cls) -> "Person":
+        return cls("Anonymous", 0)
 
     @staticmethod
-    def maior_idade(idade: int) -> bool:
-        return idade >= 18
+    def is_adult(age: int) -> bool:
+        return age >= 18
 
 
-p1 = Pessoa("Alice", 30)
-print(p1.saudacao())
+p1 = Person("Alice", 30)
+print(p1.greet())
 
-anon = Pessoa.criar_anonimo()
-print(Pessoa.maior_idade(anon.idade))
+anon = Person.create_anonymous()
+print(Person.is_adult(anon.age))

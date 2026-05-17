@@ -89,24 +89,24 @@ export const pythonPrereqOopInheritance = defineSlide({
         tabs: [{ label: 'Code' }, { label: 'UML Diagram' }],
         codePanel: {
           title: 'Code: inheritance in Python',
-          description: 'Aluno extends Pessoa with super().__init__() and method override.',
+          description: 'Student extends Person with super().__init__() and method override.',
           source: { snippetId: 'python-prereq-oop-inheritance', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Defines parent class Pessoa.' },
-            { lineRange: [2, 2], content: '__init__ of Pessoa.' },
-            { lineRange: [3, 3], content: 'Attribute self.nome.' },
-            { lineRange: [4, 4], content: 'Attribute self.idade.' },
+            { lineRange: [1, 1], content: 'Defines parent class Person.' },
+            { lineRange: [2, 2], content: '__init__ of Person.' },
+            { lineRange: [3, 3], content: 'Attribute self.name.' },
+            { lineRange: [4, 4], content: 'Attribute self.age.' },
             { lineRange: [5, 5], content: 'Blank line.' },
-            { lineRange: [6, 6], content: 'saudacao method.' },
+            { lineRange: [6, 6], content: 'greet method.' },
             { lineRange: [7, 7], content: 'Returns greeting.' },
-            { lineRange: [10, 10], content: 'Aluno(Pessoa): inherits from Pessoa.' },
-            { lineRange: [11, 11], content: '__init__ of Aluno.' },
+            { lineRange: [10, 10], content: 'Student(Person): inherits from Person.' },
+            { lineRange: [11, 11], content: '__init__ of Student.' },
             { lineRange: [12, 12], content: 'super().__init__ calls parent constructor.' },
-            { lineRange: [13, 13], content: 'New attribute: matricula.' },
+            { lineRange: [13, 13], content: 'New attribute: student_id.' },
             { lineRange: [14, 14], content: 'Blank line.' },
-            { lineRange: [15, 15], content: 'Override saudacao().' },
+            { lineRange: [15, 15], content: 'Override greet().' },
             { lineRange: [16, 16], content: 'Overridden method body.' },
-            { lineRange: [19, 19], content: 'Instantiates Aluno.' },
+            { lineRange: [19, 19], content: 'Instantiates Student.' },
             { lineRange: [20, 20], content: 'Calls overridden method.' },
             { lineRange: [21, 21], content: 'isinstance confirms inheritance.' },
           ],
@@ -114,20 +114,20 @@ export const pythonPrereqOopInheritance = defineSlide({
         graphPanel: {
           type: 'uml-class',
           title: 'UML diagram: inheritance',
-          description: 'Empty arrow (△) indicates inheritance: Aluno extends Pessoa. Overridden methods appear in both classes.',
+          description: 'Empty arrow (△) indicates inheritance: Student extends Person. Overridden methods appear in both classes.',
           mermaidSource: `classDiagram
-    class Pessoa {
-        +nome: str
-        +idade: int
-        +__init__(nome: str, idade: int) None
-        +saudacao() str
+    class Person {
+        +name: str
+        +age: int
+        +__init__(name: str, age: int) None
+        +greet() str
     }
-    class Aluno {
-        +matricula: str
-        +__init__(nome: str, idade: int, matricula: str) None
-        +saudacao() str
+    class Student {
+        +student_id: str
+        +__init__(name: str, age: int, student_id: str) None
+        +greet() str
     }
-    Pessoa <|-- Aluno`,
+    Person <|-- Student`,
           footer: 'super().__init__() is required to initialize parent class attributes.',
         },
       },

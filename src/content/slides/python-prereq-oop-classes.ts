@@ -94,19 +94,19 @@ export const pythonPrereqOopClasses = defineSlide({
       'en-us': {
         tabs: [{ label: 'Code' }, { label: 'UML Diagram' }],
         codePanel: {
-          title: 'Code: Pessoa class',
+          title: 'Code: Person class',
           description: 'Class with class and instance attributes, methods, classmethod, and staticmethod.',
           source: { snippetId: 'python-prereq-oop-classes', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Defines the Pessoa class — the blueprint for person objects.' },
+            { lineRange: [1, 1], content: 'Defines Person class — blueprint for person objects.' },
             { lineRange: [2, 2], content: 'Class attribute: shared across all instances.' },
-            { lineRange: [4, 4], content: '__init__ is the constructor. self is the instance itself.' },
-            { lineRange: [5, 5], content: 'First instance attribute: self.nome.' },
-            { lineRange: [6, 6], content: 'Second instance attribute: self.idade.' },
-            { lineRange: [7, 7], content: '"Private" attribute with _ prefix: convention only.' },
+            { lineRange: [4, 4], content: '__init__ is the constructor.' },
+            { lineRange: [5, 5], content: 'Instance attribute: self.name.' },
+            { lineRange: [6, 6], content: 'Instance attribute: self.age.' },
+            { lineRange: [7, 7], content: '"Private" attribute with _ prefix.' },
             { lineRange: [8, 8], content: 'Blank line.' },
-            { lineRange: [9, 9], content: 'Instance method signature.' },
-            { lineRange: [10, 10], content: 'Method body: accesses self.nome.' },
+            { lineRange: [9, 9], content: 'Instance method greet.' },
+            { lineRange: [10, 10], content: 'Method body: accesses self.name.' },
             { lineRange: [11, 11], content: 'Blank line.' },
             { lineRange: [12, 12], content: '@classmethod decorator.' },
             { lineRange: [13, 13], content: 'Class method: receives cls.' },
@@ -116,25 +116,25 @@ export const pythonPrereqOopClasses = defineSlide({
             { lineRange: [17, 17], content: 'Static method: no self or cls.' },
             { lineRange: [18, 18], content: 'Returns boolean comparison.' },
             { lineRange: [21, 21], content: 'Instantiates the class.' },
-            { lineRange: [22, 22], content: 'Calls instance method via object.' },
-            { lineRange: [24, 24], content: 'Calls classmethod from the class.' },
-            { lineRange: [25, 25], content: 'Calls staticmethod — no instance needed.' },
+            { lineRange: [22, 22], content: 'Calls instance method greet.' },
+            { lineRange: [24, 24], content: 'Calls classmethod from class.' },
+            { lineRange: [25, 25], content: 'Calls staticmethod is_adult.' },
           ],
         },
         graphPanel: {
           type: 'uml-class',
-          title: 'UML class diagram for Pessoa',
+          title: 'UML class diagram for Person',
           description: 'Three compartments: class name, attributes, methods. + denotes public, - denotes "private".',
           mermaidSource: `classDiagram
-    class Pessoa {
-        +especie: str
-        +nome: str
-        +idade: int
-        -_segredos: list[str]
-        +__init__(nome: str, idade: int) None
-        +saudacao() str
-        +criar_anonimo() Pessoa
-        +maior_idade(idade: int) bool
+    class Person {
+        +species: str
+        +name: str
+        +age: int
+        -_secrets: list[str]
+        +__init__(name: str, age: int) None
+        +greet() str
+        +create_anonymous() Person
+        +is_adult(age: int) bool
     }`,
           footer: 'Class vs instance attributes. Methods: instance, class (@classmethod), static (@staticmethod).',
         },

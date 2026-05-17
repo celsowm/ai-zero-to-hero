@@ -1,21 +1,21 @@
-class Pessoa:
-    def __init__(self, nome: str, idade: int) -> None:
-        self.nome = nome
-        self.idade = idade
+class Person:
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
 
-    def saudacao(self) -> str:
-        return f"Olá, me chamo {self.nome}"
-
-
-class Aluno(Pessoa):
-    def __init__(self, nome: str, idade: int, matricula: str) -> None:
-        super().__init__(nome, idade)
-        self.matricula = matricula
-
-    def saudacao(self) -> str:
-        return f"Olá, sou {self.nome} (matrícula {self.matricula})"
+    def greet(self) -> str:
+        return f"Hi, I'm {self.name}"
 
 
-a = Aluno("Bob", 20, "2024001")
-print(a.saudacao())
-print(isinstance(a, Pessoa))
+class Student(Person):
+    def __init__(self, name: str, age: int, student_id: str) -> None:
+        super().__init__(name, age)
+        self.student_id = student_id
+
+    def greet(self) -> str:
+        return f"Hi, I'm {self.name} (ID {self.student_id})"
+
+
+s = Student("Bob", 20, "2024001")
+print(s.greet())
+print(isinstance(s, Person))

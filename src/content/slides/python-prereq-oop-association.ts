@@ -25,9 +25,9 @@ export const pythonPrereqOopAssociation = defineSlide({
       title: 'Python OOP: class association',
       body: `**Association** ("has-a") is when one class holds a reference to another. Three common variations:
 
-1. **Simple association (→):** \`Carro\` receives \`Motor\` as a parameter and delegates to it. Independent lifecycles.
-2. **Aggregation (◇→):** \`Departamento\` has \`Funcionario[]\` — the employees exist outside the department.
-3. **Composition (◆→):** \`Pedido\` creates \`ItemPedido\` internally — items die with the order.
+1. **Simple association (→):** \`Car\` receives \`Engine\` as a parameter and delegates to it. Independent lifecycles.
+2. **Aggregation (◇→):** \`Department\` has \`Employee[]\` — the employees exist outside the department.
+3. **Composition (◆→):** \`Order\` creates \`OrderItem\` internally — items die with the order.
 
 > In PyTorch, association is everywhere: an \`nn.Module\` contains \`nn.Linear\`, \`nn.Dropout\`, etc. — the forward method delegates to each submodule.
 
@@ -141,53 +141,53 @@ export const pythonPrereqOopAssociation = defineSlide({
           description: 'Three forms of association: simple (→), aggregation (◇), composition (◆).',
           source: { snippetId: 'python-prereq-oop-association', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Defines Motor class.' },
-            { lineRange: [2, 2], content: '__init__ of Motor.' },
-            { lineRange: [3, 3], content: 'Assigns cavalos.' },
-            { lineRange: [5, 5], content: 'Motor.ligar method.' },
+            { lineRange: [1, 1], content: 'Defines Engine class (was Motor).' },
+            { lineRange: [2, 2], content: '__init__ of Engine.' },
+            { lineRange: [3, 3], content: 'Assigns horsepower.' },
+            { lineRange: [5, 5], content: 'Engine.start method.' },
             { lineRange: [6, 6], content: 'Returns string.' },
-            { lineRange: [9, 9], content: 'Defines Carro class.' },
-            { lineRange: [10, 10], content: '__init__: receives Motor.' },
-            { lineRange: [11, 11], content: 'Assigns modelo.' },
-            { lineRange: [12, 12], content: 'Simple assoc: stores Motor ref.' },
-            { lineRange: [14, 14], content: 'Carro.ligar method.' },
-            { lineRange: [15, 15], content: 'Delegates to Motor.ligar().' },
-            { lineRange: [18, 18], content: 'Defines Funcionario.' },
+            { lineRange: [9, 9], content: 'Defines Car class (was Carro).' },
+            { lineRange: [10, 10], content: '__init__: receives engine.' },
+            { lineRange: [11, 11], content: 'Assigns model.' },
+            { lineRange: [12, 12], content: 'Simple assoc: stores Engine ref.' },
+            { lineRange: [14, 14], content: 'Car.start method.' },
+            { lineRange: [15, 15], content: 'Delegates to Engine.start().' },
+            { lineRange: [18, 18], content: 'Defines Employee (was Funcionario).' },
             { lineRange: [19, 19], content: '__init__: only name.' },
             { lineRange: [20, 20], content: 'Name attribute.' },
-            { lineRange: [23, 23], content: 'Defines Departamento (aggregation).' },
+            { lineRange: [23, 23], content: 'Defines Department (was Departamento, aggregation).' },
             { lineRange: [24, 24], content: '__init__: receives name.' },
             { lineRange: [25, 25], content: 'Assigns dept name.' },
             { lineRange: [26, 26], content: 'Empty list — aggregation.' },
-            { lineRange: [28, 28], content: 'contratar method.' },
+            { lineRange: [28, 28], content: 'hire method (was contratar).' },
             { lineRange: [29, 29], content: 'Appends to list.' },
-            { lineRange: [31, 31], content: 'listar method.' },
+            { lineRange: [31, 31], content: 'list_names method (was listar).' },
             { lineRange: [32, 32], content: 'Joins names.' },
-            { lineRange: [35, 35], content: 'Defines ItemPedido.' },
+            { lineRange: [35, 35], content: 'Defines OrderItem (was ItemPedido).' },
             { lineRange: [36, 36], content: '__init__: description and price.' },
-            { lineRange: [37, 37], content: 'Assigns descricao.' },
-            { lineRange: [38, 38], content: 'Assigns preco.' },
-            { lineRange: [41, 41], content: 'Defines Pedido (composition).' },
-            { lineRange: [42, 42], content: '__init__: receives client.' },
-            { lineRange: [43, 43], content: 'Assigns cliente.' },
+            { lineRange: [37, 37], content: 'Assigns description.' },
+            { lineRange: [38, 38], content: 'Assigns price.' },
+            { lineRange: [41, 41], content: 'Defines Order (was Pedido, composition).' },
+            { lineRange: [42, 42], content: '__init__: receives customer.' },
+            { lineRange: [43, 43], content: 'Assigns customer.' },
             { lineRange: [44, 44], content: 'Empty list — composition.' },
-            { lineRange: [46, 46], content: 'adicionar_item method.' },
-            { lineRange: [47, 47], content: 'Creates ItemPedido internally (composition).' },
+            { lineRange: [46, 46], content: 'add_item method (was adicionar_item).' },
+            { lineRange: [47, 47], content: 'Creates OrderItem internally (composition).' },
             { lineRange: [49, 49], content: 'total method.' },
             { lineRange: [50, 50], content: 'Sum via generator.' },
             { lineRange: [53, 53], content: '# Comment: simple association.' },
-            { lineRange: [54, 54], content: 'Creates independent Motor.' },
-            { lineRange: [55, 55], content: 'Passes Motor to Carro.' },
+            { lineRange: [54, 54], content: 'Creates independent Engine.' },
+            { lineRange: [55, 55], content: 'Passes Engine to Car.' },
             { lineRange: [56, 56], content: 'Print triggers delegation.' },
             { lineRange: [58, 58], content: '# Comment: aggregation.' },
-            { lineRange: [59, 59], content: 'Funcionario created outside.' },
+            { lineRange: [59, 59], content: 'Employee created outside.' },
             { lineRange: [60, 60], content: 'Second employee.' },
-            { lineRange: [61, 61], content: 'Departamento exists.' },
+            { lineRange: [61, 61], content: 'Department exists.' },
             { lineRange: [62, 62], content: 'Hires external.' },
             { lineRange: [63, 63], content: 'Hires another.' },
             { lineRange: [64, 64], content: 'Lists employees.' },
             { lineRange: [66, 66], content: '# Comment: composition.' },
-            { lineRange: [67, 67], content: 'Creates Pedido.' },
+            { lineRange: [67, 67], content: 'Creates Order.' },
             { lineRange: [68, 68], content: 'Adds item (creates inside).' },
             { lineRange: [69, 69], content: 'Adds another.' },
             { lineRange: [70, 70], content: 'Prints total.' },
@@ -198,34 +198,34 @@ export const pythonPrereqOopAssociation = defineSlide({
           title: 'UML diagram: 3 types of association',
           description: 'Simple arrow (→) = association; white diamond (◇) = aggregation; black diamond (◆) = composition.',
           mermaidSource: `classDiagram
-    class Motor {
-        +cavalos: int
-        +ligar() str
+    class Engine {
+        +horsepower: int
+        +start() str
     }
-    class Carro {
-        +modelo: str
-        +ligar() str
+    class Car {
+        +model: str
+        +start() str
     }
-    class Funcionario {
-        +nome: str
+    class Employee {
+        +name: str
     }
-    class Departamento {
-        +nome: str
-        +contratar(Funcionario) None
-        +listar() str
+    class Department {
+        +name: str
+        +hire(Employee) None
+        +list_names() str
     }
-    class ItemPedido {
-        +descricao: str
-        +preco: float
+    class OrderItem {
+        +description: str
+        +price: float
     }
-    class Pedido {
-        +cliente: str
-        +adicionar_item(str, float) None
+    class Order {
+        +customer: str
+        +add_item(str, float) None
         +total() float
     }
-    Carro --> Motor : simple association
-    Departamento o--> Funcionario : aggregation
-    Pedido *--> ItemPedido : composition`,
+    Car --> Engine : simple association
+    Department o--> Employee : aggregation
+    Order *--> OrderItem : composition`,
           footer: 'Simple association (→): independent objects. Aggregation (◇→): part exists without whole. Composition (◆→): part dies with whole.',
         },
       },

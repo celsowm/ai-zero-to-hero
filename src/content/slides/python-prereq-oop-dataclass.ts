@@ -101,23 +101,23 @@ export const pythonPrereqOopDataclass = defineSlide({
             { lineRange: [7, 7], content: 'temperature with default.' },
             { lineRange: [8, 8], content: 'max_tokens with default.' },
             { lineRange: [11, 11], content: '@dataclass(frozen=True): immutable.' },
-            { lineRange: [12, 12], content: 'Point class.' },
+            { lineRange: [12, 12], content: 'Point class (was Ponto).' },
             { lineRange: [13, 13], content: 'Field x.' },
             { lineRange: [14, 14], content: 'Field y.' },
             { lineRange: [15, 15], content: 'Blank line.' },
-            { lineRange: [16, 16], content: 'distancia method.' },
+            { lineRange: [16, 16], content: 'distance method (was distancia).' },
             { lineRange: [17, 17], content: 'Distance calculation.' },
             { lineRange: [20, 20], content: 'Creates Config.' },
             { lineRange: [21, 21], content: 'Prints dataclass.' },
             { lineRange: [23, 23], content: 'Creates p1.' },
             { lineRange: [24, 24], content: 'Creates p2.' },
-            { lineRange: [25, 25], content: 'Calls distancia().' },
+            { lineRange: [25, 25], content: 'Calls distance().' },
           ],
         },
         graphPanel: {
           type: 'uml-class',
           title: 'UML diagram: dataclasses',
-          description: 'Two dataclasses: Config (mutable, default values) and Ponto (frozen, immutable). <<dataclass>> is a UML stereotype.',
+          description: 'Two dataclasses: Config (mutable, default values) and Point (frozen, immutable). <<dataclass>> is a UML stereotype.',
           mermaidSource: `classDiagram
     class Config {
         <<dataclass>>
@@ -125,12 +125,12 @@ export const pythonPrereqOopDataclass = defineSlide({
         +temperature: float
         +max_tokens: int
     }
-    class Ponto {
+    class Point {
         <<dataclass>>
         <<frozen>>
         +x: float
         +y: float
-        +distancia(outro: Ponto) float
+        +distance(other: Point) float
     }`,
           footer: '@dataclass generates __init__, __repr__, __eq__ automatically. frozen=True makes it immutable.',
         },

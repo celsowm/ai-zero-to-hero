@@ -90,23 +90,23 @@ export const pythonPrereqOopDunder = defineSlide({
         tabs: [{ label: 'Code' }, { label: 'UML Diagram' }],
         codePanel: {
           title: 'Code: dunder methods',
-          description: 'Vetor class with __repr__, __add__, __eq__, and __len__.',
+          description: 'Vector class with __repr__, __add__, __eq__, and __len__.',
           source: { snippetId: 'python-prereq-oop-dunder', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Defines Vetor class.' },
+            { lineRange: [1, 1], content: 'Defines Vector class (was Vetor).' },
             { lineRange: [2, 2], content: '__init__ with type hints.' },
             { lineRange: [3, 3], content: 'Assigns x.' },
             { lineRange: [4, 4], content: 'Assigns y.' },
             { lineRange: [6, 6], content: '__repr__: readable rep.' },
             { lineRange: [7, 7], content: 'Returns string.' },
             { lineRange: [9, 9], content: '__add__: defines +.' },
-            { lineRange: [10, 10], content: 'Returns new Vetor.' },
+            { lineRange: [10, 10], content: 'Returns new Vector.' },
             { lineRange: [12, 12], content: '__eq__: defines ==.' },
             { lineRange: [13, 13], content: 'Type check.' },
             { lineRange: [14, 14], content: 'NotImplemented.' },
             { lineRange: [15, 15], content: 'Compares values.' },
             { lineRange: [17, 17], content: '__len__: defines len().' },
-            { lineRange: [18, 18], content: 'Returns 2.' },
+            { lineRange: [18, 18], content: 'Returns 2 (dimensions).' },
             { lineRange: [21, 21], content: 'Creates v1.' },
             { lineRange: [22, 22], content: 'Creates v2.' },
             { lineRange: [23, 23], content: 'v1 + v2 uses __add__.' },
@@ -116,16 +116,16 @@ export const pythonPrereqOopDunder = defineSlide({
         },
         graphPanel: {
           type: 'uml-class',
-          title: 'UML diagram: Vetor',
+          title: 'UML diagram: Vector',
           description: 'Dunder methods (__repr__, __add__, __eq__, __len__) in the third compartment.',
           mermaidSource: `classDiagram
-    class Vetor {
+    class Vector {
         +x: float
         +y: float
         +__init__(x: float, y: float) None
         +__repr__() str
-        +__add__(outro: Vetor) Vetor
-        +__eq__(outro: object) bool
+        +__add__(other: Vector) Vector
+        +__eq__(other: object) bool
         +__len__() int
     }`,
           footer: 'Dunder methods are called automatically by native operators (+, ==, len(), print).',

@@ -13,8 +13,8 @@ class Point:
     x: float
     y: float
 
-    def distancia(self, outro: "Point") -> float:
-        return ((self.x - outro.x) ** 2 + (self.y - outro.y) ** 2) ** 0.5
+    def distance(self, other: "Point") -> float:
+        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
 
 
 cfg = Config()
@@ -22,4 +22,4 @@ print(cfg)
 
 p1 = Point(1.0, 2.0)
 p2 = Point(4.0, 6.0)
-print(p1.distancia(p2))
+print(p1.distance(p2))
