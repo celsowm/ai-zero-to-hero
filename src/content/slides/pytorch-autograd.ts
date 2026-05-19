@@ -7,32 +7,32 @@ export const pytorchAutograd = defineSlide({
   content: {
     'pt-br': {
       title: 'Autograd: o que é, por que esse nome, e como entra no treino',
-      body: `**Autograd** = *automatic differentiation* (diferenciação automática).
+      body: `Lembra do slide de backpropagation, onde derivamos \`sigmoid\`, calculamos \`delta_out\`, \`delta_h\` e atualizamos cada peso na unha? No PyTorch, **todo esse trabalho manual vira uma chamada so**: \`loss.backward()\`.
 
-Por que esse nome:
-1. **auto**: o PyTorch calcula gradientes automaticamente.
-2. **grad**: ele calcula derivadas parciais de cada parâmetro em relação à loss.
+**Autograd** = *automatic differentiation* (diferenciação automática). O nome resume o que faz:
+1. **auto**: o PyTorch calcula gradientes sozinho, sem voce derivar nada.
+2. **grad**: ele computa derivadas parciais de cada parametro em relacao a loss.
 
-Mecânica real:
-- no forward, o PyTorch registra operações em um grafo dinâmico;
-- na loss, você define o escalar que quer minimizar;
-- no \`backward()\`, o motor aplica regra da cadeia do fim para o começo.
+Mecanica real:
+- no forward, o PyTorch registra operacoes em um grafo dinamico;
+- na loss, voce define o escalar que quer minimizar;
+- no \`backward()\`, o motor aplica regra da cadeia do fim para o comeco.
 
-Resultado prático: cada peso recebe um gradiente dizendo **direção e intensidade** de ajuste.
+Resultado pratico: cada peso recebe um gradiente dizendo **direcao e intensidade** de ajuste.
 
 Mini caso operacional:
 - sem \`zero_grad()\`, o passo 2 soma gradiente do passo 1
 - com \`zero_grad()\`, cada backward representa so o batch atual
 
-Sem Autograd, você teria que derivar e implementar manualmente o backward de cada operação.`,
+Sem Autograd, voce teria que derivar e implementar manualmente o backward de cada operacao — exatamente como fizemos no exemplo manual.`,
     },
     'en-us': {
       title: 'Autograd: what it is, why this name, and where it enters training',
-      body: `**Autograd** = *automatic differentiation*.
+      body: `Remember the backpropagation slide, where we derived \`sigmoid\`, computed \`delta_out\`, \`delta_h\`, and updated each weight by hand? In PyTorch, **all that manual work becomes a single call**: \`loss.backward()\`.
 
-Why this name:
-1. **auto**: PyTorch computes gradients automatically.
-2. **grad**: it computes partial derivatives of each parameter w.r.t. loss.
+**Autograd** = *automatic differentiation*. The name says what it does:
+1. **auto**: PyTorch computes gradients on its own, no manual derivation needed.
+2. **grad**: it computes partial derivatives of each parameter w.r.t. the loss.
 
 Actual mechanics:
 - in forward, PyTorch records operations into a dynamic graph;
@@ -45,7 +45,7 @@ Operational mini-case:
 - without \`zero_grad()\`, step 2 accumulates step 1 gradients
 - with \`zero_grad()\`, each backward reflects only the current batch
 
-Without Autograd, you would need to derive and implement backward for each operation manually.`,
+Without Autograd, you would need to derive and implement backward for each operation manually — exactly what we did in the manual example.`,
     },
   },
   visual: {
