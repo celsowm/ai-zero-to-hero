@@ -9,6 +9,10 @@ export const neuralNetworkPytorchTensors = defineSlide({
       title: 'Tensores no PyTorch: leitura operacional',
       body: `Aqui tensor significa: **array com eixos explícitos**.
 
+Antes de seguir, termo novo:
+- **token** = a menor unidade de texto que o modelo enxerga (pode ser palavra inteira, pedaço de palavra ou símbolo).
+- exemplo: "treinar modelos" pode virar algo como ["tre", "inar", " modelos"] dependendo do tokenizer.
+
 Antes de qualquer sigla, use esta leitura:
 1. eixo de **lote**: quantas sequências você processa juntas;
 2. eixo de **tempo/sequência**: quantos tokens por sequência;
@@ -29,6 +33,10 @@ snippet:pytorch-lm/tensor-primer
     'en-us': {
       title: 'PyTorch tensors: operational reading',
       body: `Here tensor means: **array with explicit axes**.
+
+Before moving on, new term:
+- **token** = the smallest text unit the model sees (it may be a full word, a word piece, or a symbol).
+- example: "training models" might become something like ["train", "ing", " models"] depending on tokenizer.
 
 Before any abbreviations, use this reading:
 1. **batch axis**: how many sequences are processed together;

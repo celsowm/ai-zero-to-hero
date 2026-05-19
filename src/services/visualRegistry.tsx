@@ -68,6 +68,7 @@ const visualMap: Record<string, string> = {
   'training-loop-animation': 'TrainingLoopAnimation',
   'neural-network-to-language-modeling-comparator': 'NeuralNetworkToLanguageModelingComparator',
   'pytorch-dual-panel': 'PytorchDualPanel',
+  'token-batch-shift-interactive': 'TokenBatchShiftInteractive',
 
   // transformers
   'auto-class-resolver': 'AutoClassResolver',

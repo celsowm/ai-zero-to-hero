@@ -211,3 +211,19 @@ export interface PytorchDualPanelCopy {
     footer?: string;
   };
 }
+
+export interface TokenBatchShiftInteractiveCopy {
+  title: string;
+  subtitle: string;
+  rowLabel: string;
+  baseSequenceLabel: string;
+  inputLabel: string;
+  targetLabel: string;
+  currentPairLabel: string;
+  parallelLabel: string;
+  positionsPerRowLabel: string;
+  totalPairsLabel: string;
+  prevLabel: string;
+  nextLabel: string;
+  sequences: string[][];
+}

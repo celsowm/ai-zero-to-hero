@@ -37,6 +37,7 @@ export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';
 export { TrainingLoopAnimation } from './language-models/TrainingLoopAnimation';
 export { NeuralNetworkToLanguageModelingComparator } from './language-models/NeuralNetworkToLanguageModelingComparator';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
+export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';
 export { Gpt2BlockAnatomy } from './transformers/Gpt2BlockAnatomy';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';

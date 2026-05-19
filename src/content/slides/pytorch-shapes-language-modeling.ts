@@ -7,7 +7,12 @@ export const pytorchShapesLanguageModeling = defineSlide({
   content: {
     'pt-br': {
       title: 'Convencoes de shape para LM (language model)',
-      body: `Agora sim formalizamos o dicionario curto usado no restante do bloco:
+      body: `Agora formalizamos o dicionário e introduzimos o termo novo deste bloco: **logits**.
+
+O que são logits:
+- são **scores brutos** que o modelo gera para cada token do vocabulário;
+- ainda **não são probabilidades**;
+- viram probabilidades depois de uma normalização (softmax), feita internamente pela cross-entropy no treino.
 
 - **B** = batch
 - **T** = sequência
@@ -17,7 +22,7 @@ export const pytorchShapesLanguageModeling = defineSlide({
 Contrato mínimo de treino:
 - \`idx\` e \`targets\` sempre inteiros em \`(B, T)\`
 - hidden states em \`(B, T, C)\`
-- logits em \`(B, T, V)\`
+- logits em \`(B, T, V)\` = para cada posição temporal, um vetor de \`V\` scores
 - flatten para loss: \`logits -> (B*T, V)\` e \`targets -> (B*T)\`
 
 Invariantes de sanidade:
@@ -27,7 +32,12 @@ Invariantes de sanidade:
     },
     'en-us': {
       title: 'Shape conventions for LM (language model)',
-      body: `Now we formalize the short dictionary used across the next slides:
+      body: `Now we formalize the dictionary and introduce the new term in this block: **logits**.
+
+What logits are:
+- they are **raw scores** the model outputs for each vocabulary token;
+- they are **not probabilities yet**;
+- they become probabilities after normalization (softmax), applied internally by cross-entropy during training.
 
 - **B** = batch
 - **T** = sequence
@@ -37,7 +47,7 @@ Invariantes de sanidade:
 Minimum training contract:
 - \`idx\` and \`targets\` are always integer tensors in \`(B, T)\`
 - hidden states are \`(B, T, C)\`
-- logits are \`(B, T, V)\`
+- logits are \`(B, T, V)\` = for each time position, one vector of \`V\` scores
 - loss flattening: \`logits -> (B*T, V)\` and \`targets -> (B*T)\`
 
 Sanity invariants:
@@ -63,17 +73,17 @@ Sanity invariants:
           ],
         },
         visualPanel: {
-          title: 'Pipeline de shape em 6 checkpoints',
-          subtitle: 'Use esta ordem para depurar qualquer forward de language modeling.',
+          title: 'Pipeline de shape + significado dos logits',
+          subtitle: 'Ordem para depurar forward e entender o que cada tensor representa.',
           items: [
             { label: '1) Entrada', value: 'idx e targets em (B,T), dtype inteiro.' },
             { label: '2) Estado interno', value: 'hidden em (B,T,C): largura C por token.' },
-            { label: '3) Saída bruta', value: 'logits em (B,T,V): score por token e por item do vocabulário.' },
+            { label: '3) Logits (novo conceito)', value: 'logits em (B,T,V): scores brutos por token do vocabulário, antes de probabilidade.' },
             { label: '4) Flatten', value: 'logits -> (B*T,V) e targets -> (B*T) antes da loss.' },
-            { label: '5) Device', value: 'logits e targets devem estar no mesmo device para evitar crash.' },
-            { label: '6) Loss', value: 'cross-entropy retorna escalar; se não retornar, contrato quebrou.' },
+            { label: '5) Loss', value: 'cross-entropy compara logits com target e internamente resolve softmax + penalização.' },
+            { label: '6) Device/Dtype', value: 'targets inteiros e mesmo device dos logits para evitar erro silencioso ou crash.' },
           ],
-          footer: 'Diagnóstico rápido: 80% dos bugs de treino aparecem em dtype, shape ou flatten.',
+          footer: 'Regra mental: logits = “placar” do vocabulário; probabilidade é etapa posterior.',
         },
       },
       'en-us': {
@@ -90,17 +100,17 @@ Sanity invariants:
           ],
         },
         visualPanel: {
-          title: 'Shape pipeline in 6 checkpoints',
-          subtitle: 'Use this order to debug any language-model forward pass.',
+          title: 'Shape pipeline + logits semantics',
+          subtitle: 'Order to debug forward while understanding tensor meaning.',
           items: [
             { label: '1) Input', value: 'idx and targets in (B,T), integer dtype.' },
             { label: '2) Internal state', value: 'hidden in (B,T,C): C-width representation per token.' },
-            { label: '3) Raw output', value: 'logits in (B,T,V): score per token and vocabulary entry.' },
+            { label: '3) Logits (new concept)', value: 'logits in (B,T,V): raw vocabulary scores before probabilities.' },
             { label: '4) Flatten', value: 'logits -> (B*T,V) and targets -> (B*T) before loss.' },
-            { label: '5) Device', value: 'logits and targets must share device to avoid runtime failure.' },
-            { label: '6) Loss', value: 'cross-entropy must return a scalar; otherwise contract is broken.' },
+            { label: '5) Loss', value: 'cross-entropy compares logits and targets, internally handling softmax + penalty.' },
+            { label: '6) Device/Dtype', value: 'targets must be integer and on same device as logits.' },
           ],
-          footer: 'Fast diagnosis: most training bugs start at dtype, shape, or flatten mismatch.',
+          footer: 'Mental rule: logits are the vocabulary scoreboard; probabilities come later.',
         },
       },
     },

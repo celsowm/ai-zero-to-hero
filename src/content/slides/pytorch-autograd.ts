@@ -6,43 +6,45 @@ export const pytorchAutograd = defineSlide({
   options: { columnRatios: [0.52, 0.48] },
   content: {
     'pt-br': {
-      title: 'Autograd no treino real',
-      body: `Aqui Autograd sai da teoria e vira mecanismo de treino.
+      title: 'Autograd: o que é, por que esse nome, e como entra no treino',
+      body: `**Autograd** = *automatic differentiation* (diferenciação automática).
 
-O ponto central e simples: **a loss calcula o erro; o backward distribui esse erro para cada parametro**.
+Por que esse nome:
+1. **auto**: o PyTorch calcula gradientes automaticamente.
+2. **grad**: ele calcula derivadas parciais de cada parâmetro em relação à loss.
 
-Leitura de engenheiro:
-1. voce produz logits (scores brutos).
-2. compara com target via \`cross_entropy\`.
-3. roda \`loss.backward()\`.
-4. inspeciona gradiente para verificar direcao do update.
+Mecânica real:
+- no forward, o PyTorch registra operações em um grafo dinâmico;
+- na loss, você define o escalar que quer minimizar;
+- no \`backward()\`, o motor aplica regra da cadeia do fim para o começo.
 
-No LM, essa etapa responde: "quais pesos devem mudar para o token correto subir e os errados descerem?".
+Resultado prático: cada peso recebe um gradiente dizendo **direção e intensidade** de ajuste.
 
-Sem esse ciclo claro, qualquer otimizador vira caixa-preta.`,
+Sem Autograd, você teria que derivar e implementar manualmente o backward de cada operação.`,
     },
     'en-us': {
-      title: 'Autograd inside the real training loop',
-      body: `Autograd stops being theory here and becomes training mechanism.
+      title: 'Autograd: what it is, why this name, and where it enters training',
+      body: `**Autograd** = *automatic differentiation*.
 
-Core point: **loss measures error; backward distributes that error across parameters**.
+Why this name:
+1. **auto**: PyTorch computes gradients automatically.
+2. **grad**: it computes partial derivatives of each parameter w.r.t. loss.
 
-Engineer reading:
-1. produce logits (raw scores).
-2. compare against target through \`cross_entropy\`.
-3. run \`loss.backward()\`.
-4. inspect gradients to verify update direction.
+Actual mechanics:
+- in forward, PyTorch records operations into a dynamic graph;
+- at loss, you define the scalar objective to minimize;
+- at \`backward()\`, the engine applies chain rule from output back to inputs.
 
-In LM training, this answers: "which weights must move so the correct token score goes up and the wrong ones go down?".
+Practical outcome: each weight gets a gradient telling both **direction and magnitude** of update.
 
-Without this loop being explicit, any optimizer becomes a black box.`,
+Without Autograd, you would need to derive and implement backward for each operation manually.`,
     },
   },
   visual: {
     id: 'pytorch-dual-panel',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Mecanica' }],
         codePanel: {
           title: 'Backward minimo',
           description: 'Exemplo reduzido de logits + target para ver claramente a formacao de gradiente.',
@@ -54,18 +56,19 @@ Without this loop being explicit, any optimizer becomes a black box.`,
           ],
         },
         visualPanel: {
-          title: 'Checklist de depuracao de gradiente',
+          title: 'Fluxo causal do gradiente',
           items: [
-            { label: 'requires_grad', value: 'Sem isso, backward nao propaga para o tensor.' },
-            { label: 'loss escalar', value: 'A loss precisa ser escalar para backward direto.' },
-            { label: 'grad nao nulo', value: 'Se gradiente vier zero sempre, revisar logits/targets e saturacao.' },
-            { label: 'sinal coerente', value: 'Gradiente deve empurrar score correto para cima no update.' },
+            { label: '1) Rastro do forward', value: 'Operações com `requires_grad=True` entram no grafo dinâmico.' },
+            { label: '2) Nó final (loss)', value: 'Cross-entropy cria o escalar que concentra o erro do batch.' },
+            { label: '3) Backward no grafo', value: 'Regra da cadeia propaga derivadas da loss para cada parâmetro conectado.' },
+            { label: '4) Gradiente no tensor', value: '`.grad` guarda o quanto cada peso deve subir/descer na próxima atualização.' },
+            { label: '5) Erro clássico', value: 'Sem `zero_grad()`, gradiente acumula e distorce leitura do passo atual.' },
           ],
-          footer: 'Primeiro valide gradiente. Depois discuta hiperparametro.',
+          footer: 'Regra prática: debugue grafo/gradiente primeiro; só depois ajuste otimizador e learning rate.',
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Code' }, { label: 'Mechanics' }],
         codePanel: {
           title: 'Minimal backward pass',
           description: 'Reduced logits + target example to make gradient flow explicit.',
@@ -77,14 +80,15 @@ Without this loop being explicit, any optimizer becomes a black box.`,
           ],
         },
         visualPanel: {
-          title: 'Gradient debugging checklist',
+          title: 'Gradient causal flow',
           items: [
-            { label: 'requires_grad', value: 'Without it, backward does not propagate into the tensor.' },
-            { label: 'scalar loss', value: 'Loss must be scalar for direct backward.' },
-            { label: 'non-zero grad', value: 'If gradient is always zero, inspect logits/targets and saturation.' },
-            { label: 'coherent sign', value: 'Gradient should push the correct score upward after update.' },
+            { label: '1) Forward trace', value: 'Operations with `requires_grad=True` are recorded in the dynamic graph.' },
+            { label: '2) Final node (loss)', value: 'Cross-entropy creates the scalar objective that concentrates batch error.' },
+            { label: '3) Graph backward', value: 'Chain rule propagates derivatives from loss to each connected parameter.' },
+            { label: '4) Tensor gradient', value: '`.grad` stores how much each weight should move on the next update.' },
+            { label: '5) Classic pitfall', value: 'Without `zero_grad()`, gradients accumulate and distort current-step interpretation.' },
           ],
-          footer: 'Validate gradients first. Tune hyperparameters second.',
+          footer: 'Practical order: debug graph/gradients first, then tune optimizer and learning rate.',
         },
       },
     },
