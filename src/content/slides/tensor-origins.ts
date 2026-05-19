@@ -22,7 +22,7 @@ Na matemática, tensores são uma **generalização** de objetos numéricos:
 - **Tensor (3D+):** relações entre múltiplas dimensões — ex: curvatura do espaço-tempo
 
 ### Física vs Deep Learning
-Na **física**, o que define um tensor é como ele se **transforma** quando você muda o sistema de coordenadas. O tensor de curvatura de Einstein, *T*<sub>μν</sub>, descreve como matéria e energia deformam o espaço-tempo — independente de como você mede.
+Na **física**, o que define um tensor é como ele se **transforma** quando você muda o sistema de coordenadas. Na equação de Einstein, $G_{\mu\nu} = (8\pi G/c^4) \cdot T_{\mu\nu}$, o lado esquerdo descreve a curvatura do espaço-tempo e o lado direito ($T_{\mu\nu}$, o tensor energia-momento) descreve como matéria e energia se distribuem — independente de como você mede.
 
 No **PyTorch**, "tensor" é mais simples: é um **array N-dimensional otimizado** para computação numérica. Não precisa seguir regras de transformação de coordenadas — só precisa ser rápido e rodar em GPU.
 
@@ -69,7 +69,7 @@ In mathematics, tensors are a **generalization** of numerical objects:
 - **Tensor (3D+):** relations between multiple dimensions — e.g., spacetime curvature
 
 ### Physics vs Deep Learning
-In **physics**, what defines a tensor is how it **transforms** when you change the coordinate system. Einstein's curvature tensor, *T*<sub>μν</sub>, describes how matter and energy deform spacetime — regardless of how you measure.
+In **physics**, what defines a tensor is how it **transforms** when you change the coordinate system. In Einstein's equation, $G_{\mu\nu} = (8\pi G/c^4) \cdot T_{\mu\nu}$, the left side describes spacetime curvature and the right side ($T_{\mu\nu}$, the energy-momentum tensor) describes how matter and energy are distributed — regardless of how you measure.
 
 In **PyTorch**, "tensor" is simpler: it's an **N-dimensional array optimized** for numerical computation. It doesn't need to follow coordinate transformation rules — it just needs to be fast and run on GPU.
 
