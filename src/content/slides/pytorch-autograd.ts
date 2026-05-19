@@ -11,12 +11,10 @@ export const pytorchAutograd = defineSlide({
 
 **Autograd** = *automatic differentiation* (diferenciação automática). O nome é direto: **auto**matic **grad**ient — o motor calcula gradientes sozinho, sem você derivar nada à mão.
 
-Mecanica real:
-- no forward, o PyTorch registra operacoes em um grafo dinamico;
-- na loss, voce define o escalar que quer minimizar;
-- no \`backward()\`, o motor aplica regra da cadeia do fim para o comeco.
+Imagine que cada operação matemática que você faz (soma, multiplicação, ReLU) é anotada em um **"caderno" secreto** pelo PyTorch:
 
-Resultado pratico: cada peso recebe um gradiente dizendo **direcao e intensidade** de ajuste.
+- **No Forward:** ele registra o que foi feito.
+- **No Backward:** ele lê esse caderno de trás para frente e aplica a **Regra da Cadeia** automaticamente para calcular todos os gradientes.
 
 Mini caso operacional:
 - sem \`zero_grad()\`, o passo 2 soma gradiente do passo 1
@@ -30,12 +28,10 @@ Sem Autograd, voce teria que derivar e implementar manualmente o backward de cad
 
 **Autograd** = *automatic differentiation*. The name says it all: **auto**matic **grad**ient — the engine computes gradients on its own, no manual derivation needed.
 
-Actual mechanics:
-- in forward, PyTorch records operations into a dynamic graph;
-- at loss, you define the scalar objective to minimize;
-- at \`backward()\`, the engine applies chain rule from output back to inputs.
+Imagine that every math operation you perform (addition, multiplication, ReLU) gets annotated in a **"secret notebook"** by PyTorch:
 
-Practical outcome: each weight gets a gradient telling both **direction and magnitude** of update.
+- **On Forward:** it records what was done.
+- **On Backward:** it reads that notebook backwards and applies the **Chain Rule** automatically to compute every gradient.
 
 Operational mini-case:
 - without \`zero_grad()\`, step 2 accumulates step 1 gradients
