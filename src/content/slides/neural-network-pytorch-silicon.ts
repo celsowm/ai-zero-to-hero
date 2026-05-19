@@ -12,31 +12,33 @@ export const neuralNetworkPytorchSilicon = defineSlide({
   content: {
     'pt-br': {
       title: `Do Python ao Silício: por que tensores são mais rápidos`,
-      body: `Quando você cria um tensor no PyTorch e o envia para a GPU com \`.to('cuda')\`, o que **realmente** acontece?
+      body: `Quando você cria um tensor no PyTorch e o envia para a GPU com \`.to('cuda')\`, a ideia central nao e decorar barramentos: e entender **throughput**.
 
-1. **O gargalo do Python:** cada operação com \`for\` em Python tem overhead — chamada de função, garbage collector, interpretação bytecode. Para milhões de contas, isso mata a performance.
+1. **Python sai do caminho:** loops lentos viram kernels nativos.
+2. **GPU multiplica em paralelo:** muitas contas iguais rodam ao mesmo tempo.
+3. **Dados perto da computacao:** quando tensor e modelo ficam no mesmo device, o fluxo anda sem idas e vindas desnecessarias.
 
-2. **A GPU como paralelismo massivo:** uma GPU tem **milhares de núcleos simples** (CUDA cores). Em vez de fazer 1 conta 1 milhão de vezes (CPU sequencial), faz 10.000 contas **ao mesmo tempo**.
+Resumo util:
+- CPU = menor latencia para debug
+- GPU = maior throughput para treino
+- erro comum = esquecer tensor/modelo no mesmo device
 
-3. **VRAM = memória de alta largura de banda:** a GPU tem sua própria memória (GDDR6X) com ~1.000 GB/s vs ~50 GB/s da RAM do sistema. Os dados ficam **na GPU**, não precisam viajar.
-
-4. **Tensor Cores:** unidades especializadas para multiplicação de matrizes. Fazem \`4×4×4\` em **1 ciclo**. É o hardware que torna o deep learning viável.
-
-> Tensores não são "listas inteligentes" — são **passaportes para hardware especializado**.`,
+> Tensores nao sao "listas inteligentes" - sao o formato que libera hardware especializado.`,
     },
     'en-us': {
       title: `From Python to Silicon: why tensors are faster`,
-      body: `When you create a tensor in PyTorch and send it to the GPU with \`.to('cuda')\`, what **really** happens?
+      body: `When you create a tensor in PyTorch and send it to the GPU with \`.to('cuda')\`, the key idea is not memorizing buses. It is understanding **throughput**.
 
-1. **Python's bottleneck:** every operation with \`for\` in Python has overhead — function calls, garbage collector, bytecode interpretation. For millions of calculations, this kills performance.
+1. **Python moves out of the way:** slow loops become native kernels.
+2. **GPU multiplies in parallel:** many similar operations run at the same time.
+3. **Data stays near compute:** when tensor and model share one device, the pipeline avoids unnecessary trips.
 
-2. **GPU as massive parallelism:** a GPU has **thousands of simple cores** (CUDA cores). Instead of doing 1 calculation 1 million times (sequential CPU), it does 10,000 calculations **at the same time**.
+Useful summary:
+- CPU = lower-latency debugging
+- GPU = higher-throughput training
+- common error = forgetting tensor/model on the same device
 
-3. **VRAM = high bandwidth memory:** the GPU has its own memory (GDDR6X) with ~1,000 GB/s vs ~50 GB/s of system RAM. Data stays **on the GPU**, no need to travel.
-
-4. **Tensor Cores:** specialized units for matrix multiplication. They do \`4×4×4\` in **1 cycle**. This is the hardware that makes deep learning viable.
-
-> Tensors aren't "smart lists" — they're **passports to specialized hardware**.`,
+> Tensors are not "smart lists" - they are the format that unlocks specialized hardware.`,
     },
   },
   visual: {

@@ -17,7 +17,11 @@ Estado minimo serio:
 Sem estado do otimizador, voce "retoma" com outra dinamica de update.
 Sem passo atual, metricas e scheduler ficam inconsistentes.
 
-Objetivo: reiniciar o processo sem perder historico operacional.`,
+Objetivo: reiniciar o processo sem perder historico operacional.
+
+Dois casos de uso:
+- **inferencia**: salvar so pesos do modelo ja basta
+- **retomada de treino**: salvar modelo + optimizer + passo`,
     },
     'en-us': {
       title: 'Save and reload a checkpoint',
@@ -31,7 +35,11 @@ Minimum serious state:
 Without optimizer state, resume starts with different update dynamics.
 Without step metadata, metrics and scheduler become inconsistent.
 
-Goal: restart process without losing operational history.`,
+Goal: restart process without losing operational history.
+
+Two use cases:
+- **inference**: saving only model weights is enough
+- **training resume**: save model + optimizer + step`,
     },
   },
   visual: {
@@ -50,10 +58,10 @@ Goal: restart process without losing operational history.`,
           ],
         },
         visualPanel: {
-          title: 'Composicao do payload',
+          title: 'Minimo para inferencia vs treino',
           items: [
-            { label: 'model', value: 'Pesos e buffers para reproduzir comportamento do forward.' },
-            { label: 'optimizer', value: 'Estado interno necessario para manter dinamica de update.' },
+            { label: 'Inferencia', value: 'model/state_dict: suficiente para reproduzir o forward.' },
+            { label: 'Treino completo', value: 'model + optimizer + step para retomar com a mesma dinamica.' },
             { label: 'step', value: 'Posicao no treino para log/scheduler/retomada correta.' },
             { label: 'arquivo .pt', value: 'Unidade de retomada e transferencia entre execucoes.' },
           ],
@@ -73,10 +81,10 @@ Goal: restart process without losing operational history.`,
           ],
         },
         visualPanel: {
-          title: 'Payload composition',
+          title: 'Minimum for inference vs training',
           items: [
-            { label: 'model', value: 'Weights and buffers to reproduce forward behavior.' },
-            { label: 'optimizer', value: 'Internal state needed to keep update dynamics consistent.' },
+            { label: 'Inference', value: 'model/state_dict: enough to reproduce the forward pass.' },
+            { label: 'Full training', value: 'model + optimizer + step to resume with the same dynamics.' },
             { label: 'step', value: 'Training position for logging/scheduler/resume correctness.' },
             { label: 'file .pt', value: 'Resume and transfer unit across runs.' },
           ],

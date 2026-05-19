@@ -22,6 +22,11 @@ Relacoes que precisam fechar:
 - \`idx.max() < vocab_size\` para nao quebrar embedding lookup
 - contexto de inferencia \`<= block_size\`
 
+Reaterrissando a entrada em atencao:
+- **head** = um subespaco de atencao que olha para o mesmo contexto com pesos proprios
+- **D** = largura por head, calculada como \`n_embd / n_head\`
+- leitura util: \`C -> H x D\`
+
 Se a configuracao estiver errada, todos os erros seguintes parecem "misteriosos".`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/config
@@ -48,6 +53,11 @@ Relations that must hold:
 - \`n_embd % n_head == 0\` so head splitting is valid
 - \`idx.max() < vocab_size\` so embedding lookup stays in range
 - inference context length \`<= block_size\`
+
+Re-grounding the attention entry point:
+- **head** = one attention subspace that sees the same context with its own weights
+- **D** = per-head width, computed as \`n_embd / n_head\`
+- useful reading: \`C -> H x D\`
 
 If config is wrong, later errors look mysterious even when the code is fine.`,
       rightBody: `\`\`\`python

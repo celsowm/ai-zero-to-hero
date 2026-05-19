@@ -12,7 +12,7 @@ export const neuralNetworkPytorchHardware = defineSlide({
   content: {
     'pt-br': {
       title: `Acelerando com GPU: PyTorch Multi-Ambiente`,
-      body: `Se você tem uma placa de vídeo ou um Mac moderno, não use a CPU. O PyTorch pode ser centenas de vezes mais rápido se configurado corretamente.
+      body: `Se você tem uma placa de vídeo ou um Mac moderno, vale avaliar acelerador. Mas CPU ainda é a melhor escolha para debug curto, instalação simples e primeiros testes.
 
 ### 🔍 1. Regra de Ouro: Hardware
 Verifique se o seu driver está instalado e funcional ANTES do PyTorch:
@@ -26,11 +26,15 @@ Acesse [pytorch.org](https://pytorch.org/get-started/locally/) para pegar o coma
 - **Apple / CPU:** \`pip install torch\`.
 
 ### 📦 3. O Ambiente Virtual
-Sempre use um \`.venv\` para não poluir o Python do sistema e garantir que o \`pip\` instale as versões corretas para o seu hardware.`,
+Sempre use um \`.venv\` para não poluir o Python do sistema e garantir que o \`pip\` instale as versões corretas para o seu hardware.
+
+Regra de decisão:
+- **CPU:** melhor para smoke tests, debug e batches pequenos.
+- **MPS/CUDA:** melhor quando o treino domina o tempo total e a transferência compensa.`,
     },
     'en-us': {
       title: `GPU Acceleration: Multi-Environment PyTorch`,
-      body: `If you have a graphics card or a modern Mac, don't use the CPU. PyTorch can be hundreds of times faster if configured correctly.
+      body: `If you have a graphics card or a modern Mac, accelerators are worth evaluating. But CPU is still the best choice for short debugging sessions, simple setup, and first tests.
 
 ### 🔍 1. Golden Rule: Hardware
 Check if your driver is installed and functional BEFORE PyTorch:
@@ -44,7 +48,11 @@ Visit [pytorch.org](https://pytorch.org/get-started/locally/) for the exact comm
 - **Apple / CPU:** \`pip install torch\`.
 
 ### 📦 3. Virtual Environment
-Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` installs the correct versions for your hardware.`,
+Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` installs the correct versions for your hardware.
+
+Decision rule:
+- **CPU:** best for smoke tests, debugging, and tiny batches.
+- **MPS/CUDA:** best when training dominates total runtime and transfer cost is worth it.`,
     },
   },
   visual: {
@@ -64,12 +72,12 @@ Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` insta
           ],
         },
         visualPanel: {
-          title: 'Checklist de troubleshooting',
+          title: 'Objetivo x backend recomendado',
           items: [
-            { label: 'GPU nao aparece', value: 'Validar driver (`nvidia-smi`/`rocm-smi`) antes de culpar PyTorch.' },
-            { label: 'Instalacao errada', value: 'Conferir wheel CUDA correta no site oficial para sua versao.' },
-            { label: 'Performance baixa', value: 'Garantir tensor e modelo no mesmo `device`.' },
-            { label: 'Fallback esperado', value: 'Sem acelerador, CPU deve funcionar sem quebrar o fluxo.' },
+            { label: 'Debug rapido', value: 'CPU. Menos variaveis de ambiente e mensagens de erro mais diretas.' },
+            { label: 'Mac moderno', value: 'MPS. Bom ganho local sem configurar CUDA.' },
+            { label: 'Treino recorrente', value: 'CUDA. Vale quando batches e epocas deixam a GPU ocupada.' },
+            { label: 'Troubleshooting base', value: 'Se algo falhar, cheque driver, wheel correta e se modelo/tensor estao no mesmo `device`.' },
           ],
         },
       },
@@ -87,12 +95,12 @@ Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` insta
           ],
         },
         visualPanel: {
-          title: 'Troubleshooting checklist',
+          title: 'Goal vs recommended backend',
           items: [
-            { label: 'GPU not detected', value: 'Validate drivers (`nvidia-smi`/`rocm-smi`) before blaming PyTorch.' },
-            { label: 'Wrong install', value: 'Use official wheel that matches your CUDA version.' },
-            { label: 'Low performance', value: 'Ensure model and tensors are on the same `device`.' },
-            { label: 'Expected fallback', value: 'Without accelerator, CPU path should still run safely.' },
+            { label: 'Fast debugging', value: 'CPU. Fewer environment variables and clearer error messages.' },
+            { label: 'Modern Mac', value: 'MPS. Solid local speedup without CUDA setup.' },
+            { label: 'Recurring training', value: 'CUDA. Worth it when batches and epochs keep GPU busy.' },
+            { label: 'Troubleshooting base', value: 'If it fails, check driver, correct wheel, and whether model/tensors share the same `device`.' },
           ],
         },
       },

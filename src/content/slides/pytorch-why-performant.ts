@@ -17,6 +17,10 @@ Em Python puro, cada iteração de um loop tem overhead de interpretação e ver
 2. **Dispatcher Inteligente:** o framework decide instantaneamente qual a melhor implementação para o hardware atual (CPU, GPU, MPS).
 3. **Fused Kernels (TorchCompile):** o PyTorch pode "fundir" várias operações em uma única chamada de GPU, economizando tempo de lançamento de kernel.
 
+O que muda no seu código:
+- trocar loops explícitos por operações vetorizadas em tensor
+- mover modelo e tensores para o mesmo \`device\` antes de medir performance
+
 > O PyTorch delega o trabalho pesado para o hardware via código nativo, mantendo a flexibilidade do Python para o desenvolvedor.`,
     },
     'en-us': {
@@ -30,6 +34,10 @@ In pure Python, every loop iteration has interpretation and type checking overhe
 1. **C++ Backend:** Python is just an interface. When you do \`a + b\`, PyTorch calls highly optimized C++ kernels (using MKL or CUDA) with almost no overhead.
 2. **Smart Dispatcher:** the framework instantly decides the best implementation for the current hardware (CPU, GPU, MPS).
 3. **Fused Kernels (TorchCompile):** PyTorch can "fuse" multiple operations into a single GPU call, saving kernel launch time.
+
+What changes in your code:
+- replace explicit Python loops with vectorized tensor ops
+- move both model and tensors to the same \`device\` before timing performance
 
 > PyTorch delegates the heavy lifting to hardware via native code, keeping Python's flexibility for the developer.`,
     },

@@ -23,6 +23,10 @@ Sequencia de depuracao recomendada:
 - localize o primeiro bloco que quebra contrato
 - confirme retorno final em \`(B, T, V)\`
 
+Quando passar para debug numerico:
+- depois que todos os shapes fecharem
+- e quando o problema virar NaN, escala absurda ou logits sem sentido
+
 Regra pratica: depure por contrato de shape antes de depurar por valor numerico.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/e2e-trace
@@ -50,6 +54,10 @@ Recommended debugging sequence:
 - confirm \`(B, T, C)\` after embeddings
 - find the first block that breaks contract
 - confirm final return to \`(B, T, V)\`
+
+When to move into numeric debugging:
+- after every shape contract closes
+- and when the problem becomes NaNs, exploding scales, or meaningless logits
 
 Practical rule: debug shape contracts before debugging numeric values.`,
       rightBody: `\`\`\`python

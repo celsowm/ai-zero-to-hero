@@ -19,6 +19,9 @@ Antes de qualquer sigla, use esta leitura:
 3. eixo de **largura**: quantos valores descrevem cada token;
 4. eixo de **vocabulário**: quantos candidatos de saída o modelo pode escolher.
 
+Microfluxo concreto:
+\`texto -> tokens -> IDs inteiros -> tensor (B,T)\`
+
 Se você sempre identificar esses eixos, o restante do bloco (treino, inferência e debug) fica mecânico em vez de confuso.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
@@ -43,6 +46,9 @@ Before any abbreviations, use this reading:
 2. **time/sequence axis**: how many tokens per sequence;
 3. **width axis**: how many values represent each token;
 4. **vocabulary axis**: how many output candidates the model can pick from.
+
+Concrete micro-flow:
+\`text -> tokens -> integer IDs -> tensor (B,T)\`
 
 If you always identify these axes, the rest of this block (training, inference, debugging) becomes mechanical instead of confusing.`,
       rightBody: `\`\`\`python

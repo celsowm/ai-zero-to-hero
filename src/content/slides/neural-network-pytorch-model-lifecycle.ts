@@ -15,6 +15,11 @@ Contrato de ciclo de vida:
 3. **\`torch.no_grad()\`**: desliga grafo para economizar memoria e tempo.
 4. **checkpoint**: persiste estado para retomar exatamente de onde parou.
 
+O que muda por modo:
+- \`train()\` deixa dropout ativo e prepara o modelo para atualizar gradientes
+- \`eval()\` congela comportamento estocastico do forward
+- \`no_grad()\` evita construir grafo quando voce so quer medir ou gerar
+
 Erro recorrente:
 - avaliar sem \`eval()\` e culpar "instabilidade do modelo".
 - inferir sem \`no_grad()\` e gastar memoria sem necessidade.`,
@@ -28,6 +33,11 @@ Lifecycle contract:
 2. **\`model.eval()\`**: freezes stochastic behavior for inference.
 3. **\`torch.no_grad()\`**: disables graph building to save memory and time.
 4. **checkpointing**: persists state to resume exactly where you stopped.
+
+What changes per mode:
+- \`train()\` keeps dropout active and prepares the model for gradient updates
+- \`eval()\` freezes stochastic forward behavior
+- \`no_grad()\` avoids graph construction when you only want measurement or generation
 
 Recurring mistakes:
 - evaluating without \`eval()\` then blaming model instability.
@@ -50,10 +60,10 @@ Recurring mistakes:
           ],
         },
         visualPanel: {
-          title: 'Tabela de estados',
+          title: 'Modo -> efeito no forward',
           items: [
-            { label: 'train + grad', value: 'Usar durante ajuste de peso.' },
-            { label: 'eval + no_grad', value: 'Usar para medicao/inferencia.' },
+            { label: 'train + grad', value: 'Dropout ativo, grafo ligado e pesos prontos para update.' },
+            { label: 'eval + no_grad', value: 'Forward estavel, sem ruido de treino e sem custo de gradiente.' },
             { label: 'checkpoint save', value: 'Salvar peso + estado de treino.' },
             { label: 'checkpoint load', value: 'Retomar sem perder progresso.' },
           ],
@@ -73,10 +83,10 @@ Recurring mistakes:
           ],
         },
         visualPanel: {
-          title: 'State table',
+          title: 'Mode -> forward effect',
           items: [
-            { label: 'train + grad', value: 'Use while updating weights.' },
-            { label: 'eval + no_grad', value: 'Use for evaluation/inference.' },
+            { label: 'train + grad', value: 'Dropout active, graph enabled, and weights ready for updates.' },
+            { label: 'eval + no_grad', value: 'Stable forward, no training noise, and no gradient cost.' },
             { label: 'checkpoint save', value: 'Save weights plus training state.' },
             { label: 'checkpoint load', value: 'Resume without losing progress.' },
           ],

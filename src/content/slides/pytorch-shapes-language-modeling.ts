@@ -25,6 +25,10 @@ Contrato mínimo de treino:
 - logits em \`(B, T, V)\` = para cada posição temporal, um vetor de \`V\` scores
 - flatten para loss: \`logits -> (B*T, V)\` e \`targets -> (B*T)\`
 
+Fechando o ciclo:
+- logits viram distribuicao
+- a distribuicao vira escolha de indice (argmax ou sampling) na geracao
+
 Invariantes de sanidade:
 1. \`idx/targets\` usam \`torch.long\`
 2. tensores comparados na loss ficam no mesmo device
@@ -49,6 +53,10 @@ Minimum training contract:
 - hidden states are \`(B, T, C)\`
 - logits are \`(B, T, V)\` = for each time position, one vector of \`V\` scores
 - loss flattening: \`logits -> (B*T, V)\` and \`targets -> (B*T)\`
+
+Closing the loop:
+- logits become a distribution
+- the distribution becomes an index choice (argmax or sampling) during generation
 
 Sanity invariants:
 1. \`idx/targets\` use \`torch.long\`
@@ -82,6 +90,7 @@ Sanity invariants:
             { label: '4) Flatten', value: 'logits -> (B*T,V) e targets -> (B*T) antes da loss.' },
             { label: '5) Loss', value: 'cross-entropy compara logits com target e internamente resolve softmax + penalização.' },
             { label: '6) Device/Dtype', value: 'targets inteiros e mesmo device dos logits para evitar erro silencioso ou crash.' },
+            { label: '7) Proximo token', value: 'na inferencia, a ultima fatia de logits vira distribuicao e depois um indice escolhido.' },
           ],
           footer: 'Regra mental: logits = “placar” do vocabulário; probabilidade é etapa posterior.',
         },
@@ -109,6 +118,7 @@ Sanity invariants:
             { label: '4) Flatten', value: 'logits -> (B*T,V) and targets -> (B*T) before loss.' },
             { label: '5) Loss', value: 'cross-entropy compares logits and targets, internally handling softmax + penalty.' },
             { label: '6) Device/Dtype', value: 'targets must be integer and on same device as logits.' },
+            { label: '7) Next token', value: 'during inference, the final logits slice becomes a distribution and then a chosen index.' },
           ],
           footer: 'Mental rule: logits are the vocabulary scoreboard; probabilities come later.',
         },

@@ -20,6 +20,10 @@ Mecânica real:
 
 Resultado prático: cada peso recebe um gradiente dizendo **direção e intensidade** de ajuste.
 
+Mini caso operacional:
+- sem \`zero_grad()\`, o passo 2 soma gradiente do passo 1
+- com \`zero_grad()\`, cada backward representa so o batch atual
+
 Sem Autograd, você teria que derivar e implementar manualmente o backward de cada operação.`,
     },
     'en-us': {
@@ -36,6 +40,10 @@ Actual mechanics:
 - at \`backward()\`, the engine applies chain rule from output back to inputs.
 
 Practical outcome: each weight gets a gradient telling both **direction and magnitude** of update.
+
+Operational mini-case:
+- without \`zero_grad()\`, step 2 accumulates step 1 gradients
+- with \`zero_grad()\`, each backward reflects only the current batch
 
 Without Autograd, you would need to derive and implement backward for each operation manually.`,
     },
@@ -62,7 +70,9 @@ Without Autograd, you would need to derive and implement backward for each opera
             { label: '2) Nó final (loss)', value: 'Cross-entropy cria o escalar que concentra o erro do batch.' },
             { label: '3) Backward no grafo', value: 'Regra da cadeia propaga derivadas da loss para cada parâmetro conectado.' },
             { label: '4) Gradiente no tensor', value: '`.grad` guarda o quanto cada peso deve subir/descer na próxima atualização.' },
-            { label: '5) Erro clássico', value: 'Sem `zero_grad()`, gradiente acumula e distorce leitura do passo atual.' },
+            { label: '5) Passo 1', value: 'Backward preenche `.grad` com o sinal do batch atual.' },
+            { label: '6) Passo 2 sem zero_grad', value: 'Novo backward soma gradiente antigo e atual, alterando a escala do update.' },
+            { label: '7) Passo 2 com zero_grad', value: 'O gradiente reflete so o batch corrente, como o loop normalmente espera.' },
           ],
           footer: 'Regra prática: debugue grafo/gradiente primeiro; só depois ajuste otimizador e learning rate.',
         },
@@ -86,7 +96,9 @@ Without Autograd, you would need to derive and implement backward for each opera
             { label: '2) Final node (loss)', value: 'Cross-entropy creates the scalar objective that concentrates batch error.' },
             { label: '3) Graph backward', value: 'Chain rule propagates derivatives from loss to each connected parameter.' },
             { label: '4) Tensor gradient', value: '`.grad` stores how much each weight should move on the next update.' },
-            { label: '5) Classic pitfall', value: 'Without `zero_grad()`, gradients accumulate and distort current-step interpretation.' },
+            { label: '5) Step 1', value: 'Backward fills `.grad` with the current batch signal.' },
+            { label: '6) Step 2 without zero_grad', value: 'A new backward adds old and new gradients, changing update scale.' },
+            { label: '7) Step 2 with zero_grad', value: 'Gradient reflects only the current batch, which is what the loop usually expects.' },
           ],
           footer: 'Practical order: debug graph/gradients first, then tune optimizer and learning rate.',
         },

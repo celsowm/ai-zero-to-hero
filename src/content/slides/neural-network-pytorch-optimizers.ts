@@ -19,6 +19,7 @@ Ritual correto:
 Ponto critico:
 - \`zero_grad()\` evita acumular gradiente velho sem querer.
 - \`step()\` sem backward atualizado aplica ruido, nao aprendizado.
+- em AdamW, o otimizador tambem guarda estado interno (momentos); recriar o objeto no meio do treino quebra essa dinamica.
 
 Otimizador e a etapa que transforma gradiente em movimento de parametro.
 Se o loop estiver errado, nenhum otimizador salva o treino.`,
@@ -37,6 +38,7 @@ Correct ritual:
 Critical points:
 - \`zero_grad()\` prevents accidental stale-gradient accumulation.
 - \`step()\` without fresh backward applies noise, not learning.
+- in AdamW, the optimizer also carries internal state (moments); recreating it mid-training breaks that dynamic.
 
 Optimizer is the stage that turns gradient into parameter movement.
 If loop order is wrong, optimizer choice cannot rescue training.`,
@@ -64,8 +66,9 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
             { label: 'loss', value: 'Mede erro contra target do batch.' },
             { label: 'backward', value: 'Converte erro em gradiente por parametro.' },
             { label: 'step', value: 'Aplica regra do otimizador (ex: AdamW) para mover pesos.' },
+            { label: 'estado interno', value: 'AdamW carrega momentos e acumuladores; perder isso muda a trajetoria do treino.' },
           ],
-          footer: 'Erro tipico: esquecer zero_grad e acumular gradiente entre batches sem intencao.',
+          footer: 'Erros tipicos: esquecer zero_grad ou recriar optimizer e perder a dinamica acumulada.',
         },
       },
       'en-us': {
@@ -87,8 +90,9 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
             { label: 'loss', value: 'Measures batch error against targets.' },
             { label: 'backward', value: 'Turns error into per-parameter gradients.' },
             { label: 'step', value: 'Applies optimizer rule (for example AdamW) to move weights.' },
+            { label: 'internal state', value: 'AdamW carries moments and accumulators; losing them changes training trajectory.' },
           ],
-          footer: 'Common bug: missing zero_grad and unintentionally accumulating gradients across batches.',
+          footer: 'Common bugs: missing zero_grad or recreating the optimizer and losing accumulated dynamics.',
         },
       },
     },

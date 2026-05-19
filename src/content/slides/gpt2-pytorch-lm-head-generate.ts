@@ -21,6 +21,10 @@ Controles que mudam o comportamento:
 - top-k/top-p: limita cauda da distribuicao
 - max_new_tokens: controla custo e tamanho da resposta
 
+Efeito tipico dos knobs:
+- temperatura baixa + top-k curto = saida repetitiva e segura
+- temperatura moderada + top-p = saida mais diversa sem abrir toda a cauda
+
 Problemas comuns:
 - repeticao excessiva: temperatura baixa demais
 - ruido sem sentido: temperatura alta demais`,
@@ -47,6 +51,10 @@ Controls that change behavior:
 - temperature: lower = more conservative
 - top-k/top-p: trims the distribution tail
 - max_new_tokens: controls cost and output length
+
+Typical knob effect:
+- low temperature + short top-k = safer but repetitive output
+- moderate temperature + top-p = more diverse output without opening the full tail
 
 Common issues:
 - excessive repetition: temperature too low

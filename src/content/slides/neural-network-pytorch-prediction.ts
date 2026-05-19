@@ -19,6 +19,7 @@ No fluxo autoregressivo:
 2. pega \`logits[:, -1, :]\`.
 3. escolhe proximo token (argmax ou sampling).
 4. concatena e repete.
+5. para por \`EOS\` ou por limite de tokens.
 
 Se voce esquecer \`eval()\` e \`no_grad()\`, desempenho cai e saida fica menos estavel.`,
     },
@@ -36,6 +37,7 @@ In autoregressive flow:
 2. take \`logits[:, -1, :]\`.
 3. pick next token (argmax or sampling).
 4. append and repeat.
+5. stop on \`EOS\` or token limit.
 
 If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become less stable.`,
     },
@@ -62,6 +64,7 @@ If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become
             { label: 'Forward', value: 'Produz logits para cada posicao do contexto.' },
             { label: 'Ultimo passo', value: 'Usa apenas a linha temporal final para decidir proximo token.' },
             { label: 'Loop', value: 'Concatena token novo e repete ate condicao de parada.' },
+            { label: 'Parada', value: 'Encerrar por `EOS` ou por `max_new_tokens` evita geracao sem criterio.' },
           ],
           footer: 'Padrao mental: treino usa todas posicoes; inferencia decide uma posicao por vez.',
         },
@@ -85,6 +88,7 @@ If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become
             { label: 'Forward', value: 'Produces logits for each context position.' },
             { label: 'Last step', value: 'Use final time index only to decide next token.' },
             { label: 'Loop', value: 'Append token and repeat until stop condition.' },
+            { label: 'Stop', value: 'Stopping on `EOS` or `max_new_tokens` avoids open-ended generation.' },
           ],
           footer: 'Mental model: training consumes all positions; inference decides one position at a time.',
         },

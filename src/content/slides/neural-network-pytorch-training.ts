@@ -15,7 +15,9 @@ Checklist:
 2. chamar \`model(x, y)\`
 3. zerar gradiente
 4. fazer backward
-5. atualizar pesos`,
+5. atualizar pesos
+
+Ponte importante: esses \`x/y\` sao exatamente o batch deslocado do slide \`pytorch-token-batch\`.`,
     },
     'en-us': {
       title: 'Training loop for next-token prediction',
@@ -27,14 +29,16 @@ Checklist:
 2. call \`model(x, y)\`
 3. zero gradients
 4. run backward
-5. update weights`,
+5. update weights
+
+Important bridge: these \`x/y\` tensors are exactly the shifted batch from the \`pytorch-token-batch\` slide.`,
     },
   },
   visual: {
     id: 'pytorch-dual-panel',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Dependencias' }],
         codePanel: {
           title: 'Modelo minimo treinavel',
           description: 'Classe pequena com `Embedding`, `lm_head` e `forward(idx, targets)` que retorna logits e loss.',
@@ -46,11 +50,11 @@ Checklist:
           ],
         },
         visualPanel: {
-          title: 'Ordem do loop de treino',
-          subtitle: 'A ordem importa para evitar gradiente acumulado e update errado.',
+          title: 'Dependencias do loop de treino',
+          subtitle: 'A ordem importa, mas ela depende de um batch deslocado e de um loss bem formado.',
           items: [
-            { label: '1. Forward', value: 'roda `model(x, y)` e coleta logits/loss.' },
-            { label: '2. zero_grad', value: 'limpa gradiente antigo antes do backward atual.' },
+            { label: '1. Batch', value: '`x/y` vem do deslocamento temporal do proximo-token training.' },
+            { label: '2. Forward', value: 'roda `model(x, y)` e coleta logits/loss.' },
             { label: '3. backward', value: 'propaga erro da loss para os parametros.' },
             { label: '4. step', value: 'otimizador atualiza pesos com base no gradiente.' },
           ],
@@ -58,7 +62,7 @@ Checklist:
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Code' }, { label: 'Dependencies' }],
         codePanel: {
           title: 'Minimal trainable model',
           description: 'Small class with `Embedding`, `lm_head`, and `forward(idx, targets)` returning logits and loss.',
@@ -70,11 +74,11 @@ Checklist:
           ],
         },
         visualPanel: {
-          title: 'Training-loop order',
-          subtitle: 'Order matters to avoid stale gradients and wrong updates.',
+          title: 'Training-loop dependencies',
+          subtitle: 'Order matters, but it depends on a shifted batch and a correctly formed loss.',
           items: [
-            { label: '1. Forward', value: 'run `model(x, y)` and collect logits/loss.' },
-            { label: '2. zero_grad', value: 'clear previous gradients before current backward.' },
+            { label: '1. Batch', value: '`x/y` comes from the temporal shift in next-token training.' },
+            { label: '2. Forward', value: 'run `model(x, y)` and collect logits/loss.' },
             { label: '3. backward', value: 'propagate loss error into parameters.' },
             { label: '4. step', value: 'optimizer updates weights using gradients.' },
           ],

@@ -17,6 +17,7 @@ Por que isso importa:
 - cada posição de \`x\` aprende "quem vem depois" na mesma linha;
 - o treino roda em paralelo nas posições (não token por token);
 - uma única loss já resume erro de todo o lote.
+- para isso, o flatten final trata cada posicao como um exemplo supervisionado independente para a cross-entropy.
 
 Erros comuns aqui:
 - deslocar \`x/y\` na direção errada;
@@ -35,6 +36,7 @@ Why this matters:
 - each position in \`x\` learns "what comes next" on the same row;
 - training runs in parallel across positions (not token-by-token);
 - one loss already summarizes error over the full batch.
+- the final flatten does that by treating each position as an independent supervised example for cross-entropy.
 
 Common mistakes:
 - shifting \`x/y\` in the wrong direction;
@@ -47,7 +49,7 @@ Common mistakes:
     copy: {
       'pt-br': {
         title: 'Deslocamento temporal interativo',
-        subtitle: 'Escolha uma linha do batch e navegue posição por posição para ver qual par supervisionado entra na loss.',
+        subtitle: 'Escolha uma linha do batch e navegue posição por posição para ver qual par supervisionado entra na loss e depois no flatten.',
         rowLabel: 'Lote',
         baseSequenceLabel: 'Sequência original (idx)',
         inputLabel: 'Entrada x = idx[:, :-1]',
@@ -65,7 +67,7 @@ Common mistakes:
       },
       'en-us': {
         title: 'Interactive temporal shift',
-        subtitle: 'Pick a batch row and move step-by-step to inspect which supervised pair contributes to loss.',
+        subtitle: 'Pick a batch row and move step-by-step to inspect which supervised pair contributes to loss and then into flattening.',
         rowLabel: 'Batch',
         baseSequenceLabel: 'Original sequence (idx)',
         inputLabel: 'Input x = idx[:, :-1]',

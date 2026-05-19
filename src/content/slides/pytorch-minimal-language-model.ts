@@ -19,7 +19,12 @@ Leitura importante:
 - sem \`targets\`: usamos para inferencia.
 - com \`targets\`: devolve loss para treino.
 
-Se essa classe estiver clara, os modelos grandes sao "a mesma classe, so com corpo interno maior".`,
+Se essa classe estiver clara, os modelos grandes sao "a mesma classe, so com corpo interno maior".
+
+Limites deste modelo didatico:
+- nao tem atencao
+- nao tem contexto longo sofisticado
+- nao representa uma arquitetura de producao`,
     },
     'en-us': {
       title: 'A minimal PyTorch language model',
@@ -35,7 +40,12 @@ Critical reading:
 - without \`targets\`: inference mode.
 - with \`targets\`: returns loss for training.
 
-Once this class is clear, larger models are "the same contract with a larger internal body".`,
+Once this class is clear, larger models are "the same contract with a larger internal body".
+
+Limits of this teaching model:
+- no attention
+- no sophisticated long-context handling
+- not a production architecture`,
     },
   },
   visual: {
@@ -54,12 +64,13 @@ Once this class is clear, larger models are "the same contract with a larger int
           ],
         },
         visualPanel: {
-          title: 'Contrato da assinatura',
+          title: 'Contrato e limites',
           items: [
             { label: 'Entrada', value: '`idx (B,T)` sempre obrigatorio.' },
             { label: 'Targets opcionais', value: 'Quando presentes, ativam caminho de loss.' },
             { label: 'Saida 1', value: 'Logits `(B,T,V)` para todas as posicoes.' },
             { label: 'Saida 2', value: 'Loss escalar para backward (apenas no treino).' },
+            { label: 'O que falta para virar GPT', value: 'atencao, posicao, blocos repetidos e um corpo interno muito mais expressivo.' },
           ],
           footer: 'Esse contrato reaparece em GPTs maiores com o mesmo principio.',
         },
@@ -77,12 +88,13 @@ Once this class is clear, larger models are "the same contract with a larger int
           ],
         },
         visualPanel: {
-          title: 'Signature contract',
+          title: 'Contract and limits',
           items: [
             { label: 'Input', value: '`idx (B,T)` is always required.' },
             { label: 'Optional targets', value: 'When present, they enable the loss path.' },
             { label: 'Output 1', value: 'Logits `(B,T,V)` for all positions.' },
             { label: 'Output 2', value: 'Scalar loss for backward (training only).' },
+            { label: 'What is missing for GPT', value: 'attention, positions, repeated blocks, and a much richer internal body.' },
           ],
           footer: 'The same contract reappears in larger GPT variants.',
         },

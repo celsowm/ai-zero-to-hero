@@ -15,6 +15,11 @@ Um token ID (ex: \`42\`) e um inteiro sem geometria. O embedding resolve isso co
 2. a largura da linha e \`C\` (hidden size)
 3. fazer \`embedding(idx)\` troca \`(B, T)\` por \`(B, T, C)\`
 
+Por que existe assim:
+- conceitualmente, isso equivale a fazer \`one-hot @ W\`
+- na pratica, \`Embedding\` e um lookup muito mais eficiente: pega so a linha necessaria
+- a tabela continua treinavel, entao o modelo aprende a geometria util desses vetores
+
 Intuicao pratica:
 - IDs sao indice
 - embedding e memoria parametrica
@@ -37,6 +42,11 @@ A token ID (for example \`42\`) is just an integer with no geometry. Embedding f
 1. each row stands for one vocabulary token
 2. row width is \`C\` (hidden size)
 3. calling \`embedding(idx)\` turns \`(B, T)\` into \`(B, T, C)\`
+
+Why it exists in this form:
+- conceptually, this is equivalent to \`one-hot @ W\`
+- in practice, \`Embedding\` is a much more efficient lookup: it fetches only the needed row
+- the table is still trainable, so the model learns useful vector geometry
 
 Practical intuition:
 - IDs are indexes

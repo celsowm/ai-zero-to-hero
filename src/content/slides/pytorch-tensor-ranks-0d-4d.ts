@@ -14,7 +14,7 @@ Leitura prática:
 2. **1D (vetor)**: uma lista (ex.: embedding de um token).
 3. **2D (matriz)**: tabela (ex.: sequência de IDs).
 4. **3D**: lote de sequências vetorizadas.
-5. **4D**: eixo extra de grupos/canais (muito comum em visão, também útil para pensar batching mais rico).
+5. **4D**: eixo extra de grupos/canais (muito comum em visão, e em LM serve mais como intuição de micro-batches/chunks do que como necessidade imediata).
 
 Objetivo deste slide: quando você olhar um \`shape\`, bater o olho e saber "quantos eixos tenho e o que cada eixo representa".`,
     },
@@ -27,7 +27,7 @@ Practical reading:
 2. **1D (vector)**: one list (for example, one token embedding).
 3. **2D (matrix)**: one table (for example, token ID sequence).
 4. **3D**: batch of vectorized sequences.
-5. **4D**: extra group/channel axis (common in vision, also useful for richer batching intuition).
+5. **4D**: extra group/channel axis (common in vision, and in LM it is more useful as micro-batch/chunk intuition than as an immediate necessity).
 
 Goal of this slide: when you see a \`shape\`, immediately know how many axes exist and what each axis means.`,
     },
@@ -59,7 +59,7 @@ Goal of this slide: when you see a \`shape\`, immediately know how many axes exi
           vectorLabel: 'Vetor',
           matrixLabel: 'Matriz',
           tensor3dLabel: 'Tensor 3D',
-          footer: 'Regra operacional: cada eixo novo adiciona um grau de organização dos dados.',
+          footer: 'Regra operacional: 0D-3D aparecem ja neste trilho; 4D fica como repertorio para casos mais ricos.',
         },
       },
       'en-us': {
@@ -86,7 +86,7 @@ Goal of this slide: when you see a \`shape\`, immediately know how many axes exi
           vectorLabel: 'Vector',
           matrixLabel: 'Matrix',
           tensor3dLabel: '3D tensor',
-          footer: 'Operational rule: each new axis adds one more level of data organization.',
+          footer: 'Operational rule: 0D-3D appear right away in this track; 4D stays as extra repertoire.',
         },
       },
     },

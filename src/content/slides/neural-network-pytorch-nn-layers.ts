@@ -22,6 +22,7 @@ Leitura de engenheiro:
 - \`Embedding\` define como o token entra.
 - \`ModuleList\` define profundidade.
 - \`Linear\` final define como o token sai (logits).
+- nomes como \`wte\` e \`lm_head\` aparecem em repos reais e valem como mapa mental, nao como siglas decorativas.
 
 Se voce reconhecer esse esqueleto, o resto vira detalhe de implementacao.`,
     },
@@ -42,6 +43,7 @@ Engineer reading:
 - \`Embedding\` defines token entry.
 - \`ModuleList\` defines depth.
 - final \`Linear\` defines token exit (logits).
+- names such as \`wte\` and \`lm_head\` appear in real repos and should be read as mental landmarks, not decorative labels.
 
 If you can recognize this skeleton, the rest becomes implementation detail.`,
     },
@@ -65,10 +67,10 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
           ],
         },
         visualPanel: {
-          title: 'Como ler esse modelo em 20 segundos',
+          title: 'Leitura de codigo real com nomes recorrentes',
           subtitle: 'Ordem de leitura para revisar arquitetura sem perder tempo.',
           items: [
-            { label: '1. Entrada', value: '`wte`: IDs (B,T) viram vetores (B,T,C).' },
+            { label: '1. Entrada', value: '`wte` = word token embedding: IDs (B,T) viram vetores (B,T,C).' },
             { label: '2. Corpo', value: '`blocks`: transformacoes repetidas no stream (normaliza, projeta, regulariza).' },
             { label: '3. Saida', value: '`lm_head`: cada posicao vira vetor de logits no vocabulario (B,T,V).' },
             { label: '4. Diagnostico rapido', value: 'Shape quebrou? cheque transicao entre entrada/corpo/saida nessa ordem.' },
@@ -92,10 +94,10 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
           ],
         },
         visualPanel: {
-          title: 'How to read this model in 20 seconds',
+          title: 'Reading real code with recurring names',
           subtitle: 'Review order to inspect architecture without drifting.',
           items: [
-            { label: '1. Entry', value: '`wte`: IDs (B,T) become vectors (B,T,C).' },
+            { label: '1. Entry', value: '`wte` = word token embedding: IDs (B,T) become vectors (B,T,C).' },
             { label: '2. Body', value: '`blocks`: repeated stream transforms (normalize, project, regularize).' },
             { label: '3. Exit', value: '`lm_head`: each position becomes vocabulary logits (B,T,V).' },
             { label: '4. Fast diagnosis', value: 'Shape mismatch? check entry/body/exit transitions in that order.' },

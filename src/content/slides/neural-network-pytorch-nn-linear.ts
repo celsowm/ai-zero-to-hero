@@ -17,6 +17,7 @@ Leitura operacional para LM:
 3. **define semântica da saída**:
    - \`C -> V\` = logits do vocabulário;
    - \`C -> C\` = transformação interna no residual stream.
+4. **compartilha pesos no tempo**: a mesma matriz é aplicada a todas as posições da grade \`(B,T)\`.
 
 Se você confunde isso, perde a leitura do modelo.  
 \`Linear\` responde sempre: **“qual dimensão estou projetando para qual outra dimensão?”**`,
@@ -33,6 +34,7 @@ Operational reading for LM:
 3. **it defines output semantics**:
    - \`C -> V\` = vocabulary logits;
    - \`C -> C\` = internal residual-stream transform.
+4. **it shares weights across time**: the same matrix is applied to every position on the \`(B,T)\` grid.
 
 If this is unclear, model reading breaks down.  
 \`Linear\` always answers: **“which dimension am I projecting into which new dimension?”**`,

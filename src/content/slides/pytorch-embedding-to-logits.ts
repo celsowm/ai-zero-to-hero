@@ -14,7 +14,11 @@ export const pytorchEmbeddingToLogits = defineSlide({
 3. \`Linear(C, V)\` projeta para \`(B, T, V)\`
 4. cada posicao passa a ter um score para cada token do vocabulario
 
-Esse slide fecha a ponte matematica: inteiro discreto -> vetor continuo -> distribuicao sobre vocabulario.`,
+Esse slide fecha a ponte matematica: inteiro discreto -> vetor continuo -> distribuicao sobre vocabulario.
+
+Leitura por etapa:
+- \`Embedding\` preserva batch e tempo, mas troca inteiro por vetor
+- \`Linear\` preserva batch e tempo, mas troca largura \`C\` por vocabulario \`V\``,
     },
     'en-us': {
       title: 'From embeddings to logits',
@@ -25,7 +29,11 @@ Esse slide fecha a ponte matematica: inteiro discreto -> vetor continuo -> distr
 3. \`Linear(C, V)\` projects to \`(B, T, V)\`
 4. each position now has one score per vocabulary token
 
-This slide closes the math bridge: discrete integer -> continuous vector -> distribution over vocabulary.`,
+This slide closes the math bridge: discrete integer -> continuous vector -> distribution over vocabulary.
+
+Stage-by-stage reading:
+- \`Embedding\` preserves batch and time, but swaps integer IDs for vectors
+- \`Linear\` preserves batch and time, but swaps width \`C\` for vocabulary \`V\``,
     },
   },
   visual: {
@@ -51,6 +59,7 @@ This slide closes the math bridge: discrete integer -> continuous vector -> dist
             { label: 'Entrada', value: 'idx -> (B, T) inteiros.' },
             { label: 'Lookup', value: 'embedding(idx) -> (B, T, C).' },
             { label: 'Projecao', value: 'linear(x) -> (B, T, V).' },
+            { label: 'Leitura causal', value: 'cada etapa preserva `(B,T)` e muda so a ultima dimensao.' },
           ],
           footer: 'Interpretacao: cada posicao de T ganha um vetor de V scores candidatos.',
         },
@@ -75,6 +84,7 @@ This slide closes the math bridge: discrete integer -> continuous vector -> dist
             { label: 'Input', value: 'idx -> (B, T) integers.' },
             { label: 'Lookup', value: 'embedding(idx) -> (B, T, C).' },
             { label: 'Projection', value: 'linear(x) -> (B, T, V).' },
+            { label: 'Causal reading', value: 'each stage preserves `(B,T)` and changes only the last dimension.' },
           ],
           footer: 'Interpretation: each T position gets a V-sized score vector.',
         },

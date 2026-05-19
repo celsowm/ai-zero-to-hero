@@ -7,7 +7,14 @@ export const gpt2PytorchAttention = defineSlide({
   content: {
     'pt-br': {
       title: 'Atenção causal no repo',
-      body: `O repo usa o padrão GPT-2 clássico:
+      body: `O repo usa o padrão GPT-2 clássico.
+
+Antes da mecânica, aterrisse QKV assim:
+- **Q (query)** = o que a posição atual procura
+- **K (key)** = o que cada posição oferece como endereço de comparação
+- **V (value)** = o conteúdo que será combinado quando a comparação bater
+
+Fluxo:
 
 1. projecao \`C -> 3C\` para QKV (Query, Key, Value)
 2. reshape para múltiplas heads
@@ -29,12 +36,19 @@ snippet:repo-gpt2/attention
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'A classe guarda número de heads, largura do embedding e as projeções lineares centrais.' },
-        { lineRange: [13, 20], content: 'No forward, o tensor vira QKV (Query, Key, Value), ganha formato multi-head, passa pela atencao causal e volta para `(B, T, C)`.' },
+        { lineRange: [13, 20], content: 'No forward, o tensor vira QKV (Query, Key, Value), ganha formato multi-head, aplica mascara triangular para impedir futuro e volta para `(B, T, C)`.' },
       ],
     },
     'en-us': {
       title: 'Causal attention in the repo',
-      body: `The repo follows the classic GPT-2 pattern:
+      body: `The repo follows the classic GPT-2 pattern.
+
+Before the mechanics, ground QKV like this:
+- **Q (query)** = what the current position is looking for
+- **K (key)** = what each position offers as a comparison address
+- **V (value)** = the content that will be mixed in once the comparison matches
+
+Flow:
 
 1. one \`C -> 3C\` projection for QKV (Query, Key, Value)
 2. reshape into multiple heads
@@ -56,7 +70,7 @@ snippet:repo-gpt2/attention
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'The class stores number of heads, embedding width, and the central linear projections.' },
-        { lineRange: [13, 20], content: 'In the forward pass, the tensor becomes QKV (Query, Key, Value), gains multi-head shape, runs causal attention, and returns to `(B, T, C)`.' },
+        { lineRange: [13, 20], content: 'In the forward pass, the tensor becomes QKV (Query, Key, Value), gains multi-head shape, applies a triangular mask to block the future, and returns to `(B, T, C)`.' },
       ],
     },
   },

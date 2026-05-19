@@ -19,6 +19,9 @@ Papel funcional do MLP no bloco:
 - MLP transforma cada token de forma nao linear
 - residual soma o resultado sem perder trilha anterior
 
+Ponte com slide anterior:
+- isso reaproveita exatamente o padrao de \`nn.Linear\` ja visto, so que em pilha: \`C -> 4C -> C\`
+
 Sinal de bug tipico:
 - se \`4C\` nao volta para \`C\`, o residual nao fecha`,
       rightBody: `\`\`\`python
@@ -42,6 +45,9 @@ Functional role of the MLP inside the block:
 - attention mixes information across tokens
 - MLP applies nonlinear transformation token-wise
 - residual adds the result while preserving the previous stream
+
+Bridge to the earlier slide:
+- this reuses the exact \`nn.Linear\` pattern you already saw, now as a stack: \`C -> 4C -> C\`
 
 Typical bug signal:
 - if \`4C\` does not return to \`C\`, residual addition cannot close`,

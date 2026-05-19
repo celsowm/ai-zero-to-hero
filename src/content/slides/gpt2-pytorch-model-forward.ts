@@ -24,6 +24,8 @@ Assinatura pratica:
 - saida treino: \`(logits, loss)\` quando \`targets\` existe
 
 Ponto critico:
+- sem \`targets\`, o forward devolve so logits para inferencia/geracao
+- com \`targets\`, o forward tambem fecha a loss para treino
 - treino usa todas as posicoes em paralelo
 - geracao usa apenas \`logits[:, -1, :]\``,
       rightBody: `\`\`\`python
@@ -54,6 +56,8 @@ Practical signature:
 - training output: \`(logits, loss)\` when \`targets\` is provided
 
 Critical distinction:
+- without \`targets\`, forward returns logits only for inference/generation
+- with \`targets\`, forward also closes the training loss
 - training consumes all positions in parallel
 - generation consumes only \`logits[:, -1, :]\``,
       rightBody: `\`\`\`python

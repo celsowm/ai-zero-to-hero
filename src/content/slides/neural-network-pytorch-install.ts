@@ -22,6 +22,10 @@ export const neuralNetworkPytorchInstall = defineSlide({
 
 4. **Depois da instalação, teste o import:** antes de seguir para treino e inferência, vale confirmar se o Python realmente enxerga a biblioteca.
 
+Sintomas reais de ambiente:
+- **\`ModuleNotFoundError: No module named 'torch'\`**: o pacote não foi instalado nesse interpretador.
+- **versão instalada mas notebook/script falha igual**: o editor está usando outro Python ou outra \`.venv\`.
+
 > Primeiro instalamos o backend. Depois treinamos e inferimos no mesmo ambiente.`,
     },
     'en-us': {
@@ -36,6 +40,10 @@ export const neuralNetworkPytorchInstall = defineSlide({
 
 4. **After installation, test the import:** before moving to training and inference, it is worth confirming that Python can really see the library.
 
+Real environment symptoms:
+- **\`ModuleNotFoundError: No module named 'torch'\`**: the package was not installed into this interpreter.
+- **installed version exists but notebook/script still fails**: the editor is using a different Python or a different \`.venv\`.
+
 > Install backend first, then train and infer in the same environment.`,
     },
   },
@@ -43,7 +51,7 @@ export const neuralNetworkPytorchInstall = defineSlide({
     id: 'pytorch-dual-panel',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
         codePanel: {
           title: 'Verificacao minima de instalacao',
           description: 'Depois do `pip install`, valide import e versao antes de seguir para treino.',
@@ -54,17 +62,17 @@ export const neuralNetworkPytorchInstall = defineSlide({
           ],
         },
         visualPanel: {
-          title: 'Checklist de ambiente',
+          title: 'Sintoma -> causa -> correcao',
           items: [
-            { label: 'Comando recomendado', value: '`python -m pip install torch` para casar pip e interpretador.' },
-            { label: 'Ambiente virtual', value: 'Use `.venv` para isolamento e reprodutibilidade.' },
-            { label: 'Teste pos-instalacao', value: 'Import + versao antes de qualquer notebook/script longo.' },
-            { label: 'Erro comum', value: 'Instalar em um Python e executar em outro.' },
+            { label: 'ModuleNotFoundError', value: 'Causa: torch ausente neste Python. Correcao: instalar com `python -m pip install torch`.' },
+            { label: 'Versao aparece no terminal mas nao no editor', value: 'Causa: interpretador diferente. Correcao: selecionar a mesma `.venv` no IDE/notebook.' },
+            { label: 'Ambiente limpo', value: 'Use `.venv` para isolar dependencias e reproduzir o mesmo setup.' },
+            { label: 'Teste minimo', value: 'Import + `torch.__version__` antes de qualquer script longo.' },
           ],
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Checklist' }],
+        tabs: [{ label: 'Code' }, { label: 'Diagnosis' }],
         codePanel: {
           title: 'Minimum installation verification',
           description: 'After `pip install`, validate import and version before any training step.',
@@ -75,12 +83,12 @@ export const neuralNetworkPytorchInstall = defineSlide({
           ],
         },
         visualPanel: {
-          title: 'Environment checklist',
+          title: 'Symptom -> cause -> fix',
           items: [
-            { label: 'Recommended command', value: '`python -m pip install torch` to match pip with interpreter.' },
-            { label: 'Virtual environment', value: 'Use `.venv` for isolation and reproducibility.' },
-            { label: 'Post-install test', value: 'Run import + version before long scripts/notebooks.' },
-            { label: 'Common failure', value: 'Installing in one Python and running in another.' },
+            { label: 'ModuleNotFoundError', value: 'Cause: torch missing in this Python. Fix: install with `python -m pip install torch`.' },
+            { label: 'Version shows in terminal but not editor', value: 'Cause: different interpreter. Fix: select the same `.venv` in your IDE/notebook.' },
+            { label: 'Clean environment', value: 'Use `.venv` to isolate dependencies and reproduce the same setup.' },
+            { label: 'Minimum test', value: 'Run import + `torch.__version__` before any long script.' },
           ],
         },
       },
