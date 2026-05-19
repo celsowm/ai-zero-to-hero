@@ -1,5 +1,0 @@
-{
-  "id": "gpt2_pytorch/gpt2-attention",
-  "language": "python",
-  "dependencies": ["gpt2_pytorch/gpt2-config-loading"]
-}

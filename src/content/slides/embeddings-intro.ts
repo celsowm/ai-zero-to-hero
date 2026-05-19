@@ -3,53 +3,41 @@ import { defineSlide } from './_factory';
 export const embeddingsIntro = defineSlide({
   id: 'embeddings-intro',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  options: { columnRatios: [0.55, 0.45] },
   content: {
     'pt-br': {
-      title: `Embeddings: do token ao vetor`,
-      body: `Até aqui, o modelo viu o texto como números inteiros (token IDs): "We" → 464, "the" → 277, "People" → 2606. Mas IDs isolados não dizem nada sobre **relação entre palavras**.
+      title: 'Embedding: ID não é vetor',
+      body: `Token ID sozinho não carrega geometria. O embedding é a tabela treinável que troca cada inteiro por um vetor contínuo.
 
-Para o modelo entender que "rei" e "rainha" são parecidos — ou que "cachorro" e "gato" compartilham contexto — ele precisa de uma representação mais rica que um simples número. A solução são **Embeddings**.
+No GPT-2, isso faz duas coisas:
 
-1. **A tabela de embeddings:** o modelo aprende uma grande tabela (matriz) onde cada token ID aponta para uma lista de centenas de números (um vetor).
-
-2. **Espaço semântico:** esses vetores são coordenadas em um mapa de milhares de dimensões. Tokens com significados próximos acabam com vetores próximos no espaço.
-
-3. **De símbolo para conceito:** ao trocar o ID pelo vetor, o modelo para de tratar a palavra como um rótulo isolado e passa a operar sobre o *significado* que ela carrega.
-
-> O próximo slide mostra exatamente como o GPT-2 pega o ID 464 ("We") e o transforma em um vetor de 768 dimensões.`,
+1. cria uma largura fixa \`C\` por token
+2. prepara o residual stream inicial`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/embedding-sum
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 5], content: 'Começamos com IDs e posições explícitas para mostrar as duas fontes de informação.' },
+        { lineRange: [7, 8], content: 'As duas tabelas aprendem coisas diferentes: conteúdo do token e posição.' },
+        { lineRange: [10, 11], content: 'A soma já produz o tensor `(B, T, C)` que entra nos blocos do Transformer.' },
+      ],
     },
     'en-us': {
-      title: `Embeddings: from token to vector`,
-      body: `So far, the model sees text as integer numbers (token IDs): "We" → 464, "the" → 277, "People" → 2606. But isolated IDs say nothing about **relationships between words**.
+      title: 'Embedding: an ID is not a vector',
+      body: `A token ID alone carries no geometry. The embedding table is the trainable lookup that swaps each integer for a continuous vector.
 
-For the model to understand that "king" and "queen" are similar — or that "dog" and "cat" share context — it needs a representation richer than a simple number. The solution is **Embeddings**.
+In GPT-2, that does two jobs:
 
-1. **The embedding table:** the model learns a massive table (matrix) where each token ID maps to a list of hundreds of numbers (a vector).
-
-2. **Semantic space:** these vectors are coordinates in a thousands-dimensional map. Tokens with similar meanings end up with close vectors in space.
-
-3. **From symbol to concept:** by swapping the ID for its vector, the model stops treating the word as an isolated label and starts operating on the *meaning* it carries.
-
-> The next slide shows exactly how GPT-2 takes ID 464 ("We") and transforms it into a 768-dimensional vector.`,
-    },
-  },
-  visual: {
-    id: 'embedding-space-3d-interactive',
-    copy: {
-      "pt-br": {
-        "title": "Espaço de Embeddings",
-        "distanceLabel": "Distância semântica"
-      },
-      "en-us": {
-        "title": "Embedding Space",
-        "distanceLabel": "Semantic distance"
-      }
+1. it creates a fixed width \`C\` per token
+2. it prepares the initial residual stream`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/embedding-sum
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 5], content: 'We start with explicit IDs and positions to expose the two information sources.' },
+        { lineRange: [7, 8], content: 'The two tables learn different things: token content and position.' },
+        { lineRange: [10, 11], content: 'The sum already produces the `(B, T, C)` tensor that enters Transformer blocks.' },
+      ],
     },
   },
 });

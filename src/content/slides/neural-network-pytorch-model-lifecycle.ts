@@ -3,114 +3,41 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchModelLifecycle = defineSlide({
   id: 'neural-network-pytorch-model-lifecycle',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.55,
-      0.45
-    ]
-  },
+  options: { columnRatios: [0.52, 0.48] },
   content: {
     'pt-br': {
-      title: `Ciclo de Vida do Modelo: Treino vs Inferência`,
-      body: `Quando um modelo PyTorch vai para o mundo real prever dados (Inferência/Prediction), precisamos alterar seu estado e como ele usa a memória.
+      title: 'Ciclo de vida do modelo',
+      body: `Antes de chegar ao repo do GPT-2, precisamos fixar quatro operações que voltam sempre:
 
-### 1. model.train() e model.eval()
-Camadas como \`nn.Dropout\` e \`nn.BatchNorm\` se comportam de maneira diferente dependendo do que você está fazendo.
-- **\`model.train()\`**: Coloca a rede em modo de aprendizado. O Dropout ativa (zerando neurônios), BatchNorm calcula novas médias.
-- **\`model.eval()\`**: Coloca a rede em modo de produção. O Dropout é **desligado** (usamos todos os neurônios) e o BatchNorm usa as médias congeladas do treino. **Nunca faça inferência sem chamar isso antes.**
-
-### 2. Contexto \`torch.no_grad()\`
-Por padrão, toda operação em tensores rastreia o histórico para permitir o backpropagation (\`loss.backward()\`).
-Mas na inferência nós não vamos treinar. Rastrear o histórico consome uma **quantidade massiva de memória RAM/VRAM**.
-Ao colocar seu código dentro de \`with torch.no_grad():\`, o PyTorch desliga a gravação. O modelo roda mais rápido e gasta uma fração da memória.
-
-### 3. O método \`.detach()\`
-Às vezes você tem um tensor gerado pelo modelo que possui histórico de gradiente ativo, mas quer movê-lo para um array numpy ou salvá-lo em uma lista.
-- Se você salvar o tensor diretamente, ele arrastará todo o grafo de computação dezenas de megabytes junto com ele.
-- \`tensor.detach()\` cria uma cópia limpa, desconectada da árvore de gradientes, segura para armazenar na memória comum do Python.
-`,
-      rightBody: `
-\`\`\`python
-snippet:neural-networks/lifecycle-demo
-\`\`\`
-
-### O que observar
-- \`model.train()\` e \`model.eval()\` mudam o comportamento de Dropout e BatchNorm
-- \`torch.no_grad()\` economiza memória desligando o rastreamento de gradientes
-- \`.detach()\` permite salvar tensores sem arrastar o grafo de computação inteiro`,
+1. **\`model.train()\`**
+2. **\`model.eval()\`**
+3. **\`torch.no_grad()\`**
+4. **checkpoint**`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/model-lifecycle
+\`\`\``,
       codeExplanations: [
-    {
-      "lineRange": [1, 12],
-      "content": "Modelo de exemplo com Dropout que se comporta diferente em treino vs avaliação."
-    },
-    {
-      "lineRange": [14, 21],
-      "content": "model.train() ativa o Dropout (zera neurônios), model.eval() desliga — todos os neurônios participam na inferência."
-    },
-    {
-      "lineRange": [23, 27],
-      "content": "torch.no_grad() desliga o rastreamento de gradientes, economizando memória RAM/VRAM durante inferência."
-    },
-    {
-      "lineRange": [29, 39],
-      "content": "Treino básico para demonstrar .detach(): salvamos a loss sem o grafo de computação e convertemos para numpy."
-    },
-    {
-      "lineRange": [40, 46],
-      "content": "Uso de .detach() para salvar valores escalares e converter tensores para numpy sem arrastar o grafo de gradientes."
-    }
-  ],
+        { lineRange: [1, 4], content: 'Montamos um modelo pequeno com `Dropout` para que a diferença entre treino e avaliação faça sentido.' },
+        { lineRange: [5, 8], content: 'Em modo treino, o forward ainda pode aplicar ruído e atualizar comportamento interno.' },
+        { lineRange: [9, 14], content: 'Em modo avaliação, com `no_grad`, a inferência fica estável e barata sem mudar o shape.' },
+      ],
     },
     'en-us': {
-      title: `Model Lifecycle: Training vs Inference`,
-      body: `When a PyTorch model goes into the real world to predict data (Inference/Prediction), we need to alter its state and how it uses memory.
+      title: 'Model lifecycle',
+      body: `Before we get to the GPT-2 repo, we need to lock in four operations that keep coming back:
 
-### 1. model.train() and model.eval()
-Layers like \`nn.Dropout\` and \`nn.BatchNorm\` behave differently depending on what you are doing.
-- **\`model.train()\`**: Puts the network in learning mode. Dropout activates (zeroing neurons), BatchNorm calculates new means.
-- **\`model.eval()\`**: Puts the network in production mode. Dropout is **turned off** (we use all neurons) and BatchNorm uses frozen training means. **Never run inference without calling this first.**
-
-### 2. Context \`torch.no_grad()\`
-By default, every tensor operation tracks history to allow backpropagation (\`loss.backward()\`).
-But in inference, we are not going to train. Tracking history consumes a **massive amount of RAM/VRAM**.
-By placing your code inside \`with torch.no_grad():\`, PyTorch disables recording. The model runs faster and uses a fraction of the memory.
-
-### 3. The \`.detach()\` method
-Sometimes you have a tensor generated by the model that has an active gradient history, but you want to move it to a numpy array or save it in a list.
-- If you save the tensor directly, it will drag the entire computation graph (tens of megabytes) along with it.
-- \`tensor.detach()\` creates a clean copy, disconnected from the gradient tree, safe to store in standard Python memory.
-`,
-      rightBody: `
-\`\`\`python
-snippet:neural-networks/lifecycle-demo
-\`\`\`
-
-### What to watch
-- \`model.train()\` and \`model.eval()\` change Dropout and BatchNorm behavior
-- \`torch.no_grad()\` saves memory by disabling gradient tracking
-- \`.detach()\` lets you save tensors without dragging the entire computation graph`,
+1. **\`model.train()\`**
+2. **\`model.eval()\`**
+3. **\`torch.no_grad()\`**
+4. **checkpointing**`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/model-lifecycle
+\`\`\``,
       codeExplanations: [
-    {
-      "lineRange": [1, 12],
-      "content": "Example model with Dropout that behaves differently in training vs evaluation."
-    },
-    {
-      "lineRange": [14, 21],
-      "content": "model.train() activates Dropout (zeros neurons), model.eval() disables it — all neurons participate in inference."
-    },
-    {
-      "lineRange": [23, 27],
-      "content": "torch.no_grad() disables gradient tracking, saving RAM/VRAM during inference."
-    },
-    {
-      "lineRange": [29, 39],
-      "content": "Basic training to demonstrate .detach(): we save the loss without the computation graph and convert to numpy."
-    },
-    {
-      "lineRange": [40, 46],
-      "content": "Using .detach() to save scalar values and convert tensors to numpy without dragging the gradient graph."
-    }
-  ],
+        { lineRange: [1, 4], content: 'We build a tiny model with `Dropout` so the train/eval difference is concrete.' },
+        { lineRange: [5, 8], content: 'In train mode, the forward pass may still inject noise and update internal behavior.' },
+        { lineRange: [9, 14], content: 'In eval mode, with `no_grad`, inference becomes stable and cheaper without changing shape.' },
+      ],
     },
   },
 });

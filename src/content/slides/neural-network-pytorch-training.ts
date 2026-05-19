@@ -3,150 +3,47 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchTraining = defineSlide({
   id: 'neural-network-pytorch-training',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.48,
-      0.52
-    ]
-  },
+  options: { columnRatios: [0.54, 0.46] },
   content: {
     'pt-br': {
-      title: `Rede Neural com \`torch\`: treinando o mesmo caso em menos linhas`,
-      body: `No slide anterior vimos o loop de treino completo — aqui repetimos o problema e2e do paciente fumante com **os dados como tensores PyTorch**, o que antes era lista Python pura.
+      title: 'Loop de treino para next-token',
+      body: `O loop de treino de um language model é o loop padrão do PyTorch, com uma diferença prática: o target é a sequência deslocada.
 
-1. **A novidade são os tensores:** \`idade\`, \`pressao\`, \`colesterol\` e \`fumante\` agora entram como \`torch.tensor\` com \`dtype=torch.float32\`. É o formato que o PyTorch espera.
+Checklist:
 
-2. **A arquitetura é a mesma MLP \`4 -> 3 -> 1\`:** já explicada no slide anterior — o que muda aqui é que os dados de entrada são tensores desde o início.
-
-3. **BCELoss e o loop já foram apresentados:** a única diferença aqui é que os dados são reais (criados como tensores), não placeholders.
-
-4. **Mapeamento direto com o que vimos:** o \`forward\` ainda existe quando chamamos \`model(X)\`, o gradiente ainda existe em \`loss.backward()\`, e a atualização ainda existe em \`optimizer.step()\`.
-
-> A rede continua aprendendo do mesmo jeito. O que muda é que agora os dados já nascem no formato que o PyTorch entende.
-`,
-      rightBody: `
-\`\`\`python
-snippet:neural-networks/pytorch-training
-\`\`\`
-
-### O que observar
-- \`X\` e \`y\`: agora como \`torch.tensor\`, não listas Python
-- \`dtype=torch.float32\`: tipo numérico que o PyTorch espera
-- \`manual_seed(7)\`: garante reprodutibilidade dos pesos iniciais
-- O resto do loop é **idêntico** ao slide anterior`,
+1. pegar \`x\` e \`y\`
+2. chamar \`model(x, y)\`
+3. zerar gradiente
+4. fazer backward
+5. atualizar pesos`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/minimal-language-model
+\`\`\``,
       codeExplanations: [
-    {
-    "lineRange": [
-      1,
-      2
-    ],
-    "content": "Aqui importamos o backend principal e o módulo `nn`, que reúne as camadas e funções de rede neural."
-  },
-    {
-    "lineRange": [
-      4,
-      14
-    ],
-    "content": "Este bloco recria o mesmo dataset do paciente fumante, agora como tensores PyTorch em vez de listas Python. O `manual_seed` garante que os pesos iniciais serão sempre os mesmos para fins didáticos."
-  },
-    {
-    "lineRange": [
-      16,
-      21
-    ],
-    "content": "Aqui declaramos a MLP `4 -> 3 -> 1` em poucas linhas. As duas ativações sigmoid reaproveitam exatamente a ideia discutida nos slides anteriores."
-  },
-    {
-    "lineRange": [
-      23,
-      24
-    ],
-    "content": "A função de loss mede o erro binário, e o optimizer define como os parâmetros vão ser ajustados a cada passo."
-  },
-    {
-    "lineRange": [
-      26,
-      31
-    ],
-    "content": "Este é o loop de treino enxuto: forward com `model(X)`, cálculo da loss, zerar gradientes antigos, backprop automático e atualização dos pesos."
-  },
-    {
-    "lineRange": [
-      33,
-      34
-    ],
-    "content": "No fim imprimimos a loss final e a saída da rede já treinada para o dataset inteiro."
-  }
-  ],
+        { lineRange: [1, 5], content: 'Importamos só o necessário para um modelo mínimo de linguagem com perda.' },
+        { lineRange: [6, 10], content: 'Embedding e `lm_head` já bastam para montar um LM treinável.' },
+        { lineRange: [11, 14], content: 'O `forward` recebe token IDs, produz logits e opcionalmente devolve a loss para o loop.' },
+      ],
     },
     'en-us': {
-      title: `Neural Network with \`torch\`: training the same case in fewer lines`,
-      body: `In the previous slide we saw the full training loop — here we repeat the smoker-patient e2e problem with **the data as PyTorch tensors**, which was previously plain Python lists.
+      title: 'Training loop for next-token prediction',
+      body: `A language-model training loop is the standard PyTorch loop, with one practical twist: the target is the shifted sequence.
 
-1. **The novelty is the tensors:** \`age\`, \`pressure\`, \`cholesterol\`, and \`smoker\` now enter as \`torch.tensor\` with \`dtype=torch.float32\`. This is the format PyTorch expects.
+Checklist:
 
-2. **The architecture is the same \`4 -> 3 -> 1\` MLP:** already explained in the previous slide — what changes here is that input data are tensors from the start.
-
-3. **BCELoss and the loop were already introduced:** the only difference here is that the data are real (created as tensors), not placeholders.
-
-4. **Direct mapping to what we already saw:** \`forward\` still exists when we call \`model(X)\`, gradients still exist in \`loss.backward()\`, and updates still exist in \`optimizer.step()\`.
-
-> The network keeps learning the same way. What changes is that data now start in the format PyTorch understands.
-`,
-      rightBody: `
-\`\`\`python
-snippet:neural-networks/pytorch-training
-\`\`\`
-
-### What to watch
-- \`X\` and \`y\`: now as \`torch.tensor\`, not Python lists
-- \`dtype=torch.float32\`: numeric type PyTorch expects
-- \`manual_seed(7)\`: ensures reproducibility of initial weights
-- The rest of the loop is **identical** to the previous slide`,
+1. fetch \`x\` and \`y\`
+2. call \`model(x, y)\`
+3. zero gradients
+4. run backward
+5. update weights`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/minimal-language-model
+\`\`\``,
       codeExplanations: [
-    {
-    "lineRange": [
-      1,
-      2
-    ],
-    "content": "Here we import the main backend and the `nn` module, which groups neural-network layers and utilities."
-  },
-    {
-    "lineRange": [
-      4,
-      14
-    ],
-    "content": "This block recreates the same smoker-patient dataset, now as PyTorch tensors instead of Python lists. The `manual_seed` ensures initial weights stay the same for didactic purposes."
-  },
-    {
-    "lineRange": [
-      16,
-      21
-    ],
-    "content": "Here we declare the `4 -> 3 -> 1` MLP in a few lines. Both sigmoid activations reuse the exact same idea discussed in the previous slides."
-  },
-    {
-    "lineRange": [
-      23,
-      24
-    ],
-    "content": "The loss function measures binary error, and the optimizer defines how parameters are updated at each step."
-  },
-    {
-    "lineRange": [
-      26,
-      31
-    ],
-    "content": "This is the compact training loop: forward with `model(X)`, loss calculation, clearing old gradients, automatic backpropagation, and parameter update."
-  },
-    {
-    "lineRange": [
-      33,
-      34
-    ],
-    "content": "At the end we print the final loss and the trained network output for the full dataset."
-  }
-  ],
+        { lineRange: [1, 5], content: 'We import only what is needed for a tiny language model with loss.' },
+        { lineRange: [6, 10], content: 'Embedding and `lm_head` are already enough to build a trainable LM.' },
+        { lineRange: [11, 14], content: 'The `forward` method receives token IDs, produces logits, and optionally returns loss for the loop.' },
+      ],
     },
   },
 });

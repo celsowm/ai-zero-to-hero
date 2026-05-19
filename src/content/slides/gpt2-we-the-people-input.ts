@@ -3,55 +3,41 @@ import { defineSlide } from './_factory';
 export const gpt2WeThePeopleInput = defineSlide({
   id: 'gpt2-we-the-people-input',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  options: { columnRatios: [0.54, 0.46] },
   content: {
     'pt-br': {
-      title: `Alimentando o gigante`,
-      body: `Vamos colocar nosso exemplo 'We the people' dentro do GPT-2. Lembre-se, o Transformer prevê simultaneamente o próximo token para CADA posição da sequência!
+      title: '`"We the people"` como tensor',
+      body: `Antes de entrar no GPT, o texto precisa virar exatamente o tipo de input que o forward espera: uma matriz \`(B, T)\` de IDs.
 
-1. **Entrada paralela:** nós não damos as palavras uma a uma esperando o modelo terminar. Jogamos a frase inteira de uma vez.
+Para o modelo, isso significa:
 
-2. **Múltiplas previsões:** o GPT-2 olha para 'We' e tenta prever 'the'. Olha para 'We the' e tenta prever 'people'. Olha para 'We the people' e tenta prever o que vem a seguir.
-
-3. **Eficiência extrema:** prever todos os passos anteriores simultaneamente durante o treino é o que faz o Transformer ser treinado de forma muito mais rápida que modelos antigos (RNNs).
-
-> Um Transformer não lê as palavras como um humano; ele engole a página inteira de uma vez.`,
+1. uma linha por exemplo do batch
+2. uma coluna por posição
+3. nenhum “significado” ainda, só índices`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/text-to-tokens
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 4], content: 'Representamos o prompt como IDs inteiros antes de qualquer embedding.' },
+        { lineRange: [6, 7], content: 'Os `print`s deixam visíveis tanto o conteúdo quanto o shape de entrada.' },
+      ],
     },
     'en-us': {
-      title: `Feeding the giant`,
-      body: `Let's put our 'We the people' example into GPT-2. Remember, the Transformer simultaneously predicts the next token for EVERY position in the sequence!
+      title: '`"We the people"` as a tensor',
+      body: `Before entering GPT, the text must become exactly the kind of input the forward pass expects: a \`(B, T)\` matrix of IDs.
 
-1. **Parallel input:** we do not feed words one by one waiting for the model to finish. We throw the entire sentence at once.
+For the model, that means:
 
-2. **Multiple predictions:** GPT-2 looks at 'We' and tries to predict 'the'. It looks at 'We the' and tries to predict 'people'. It looks at 'We the people' and tries to predict what comes next.
-
-3. **Extreme efficiency:** predicting all previous steps simultaneously during training is what allows the Transformer to train much faster than older models (RNNs).
-
-> A Transformer does not read words like a human; it swallows the whole page at once.`,
-    },
-  },
-  visual: {
-    id: 'parallel-prediction-diagram',
-    copy: {
-      "pt-br": {
-        "text": "We the people",
-        "parallelLabel": "Paralelo",
-        "prediction1": "'the'",
-        "prediction2": "'people'",
-        "prediction3": "'?'"
-      },
-      "en-us": {
-        "text": "We the people",
-        "parallelLabel": "Parallel",
-        "prediction1": "'the'",
-        "prediction2": "'people'",
-        "prediction3": "'?'"
-      }
+1. one row per batch example
+2. one column per position
+3. no “meaning” yet, only indices`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/text-to-tokens
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 4], content: 'We represent the prompt as integer IDs before any embedding happens.' },
+        { lineRange: [6, 7], content: 'The `print`s make both the content and the input shape explicit.' },
+      ],
     },
   },
 });

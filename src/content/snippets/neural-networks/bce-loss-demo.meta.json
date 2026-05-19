@@ -1,6 +1,0 @@
-{
-  "id": "neural-networks/bce-loss-demo",
-  "language": "python",
-  "pyodide": false,
-  "dependencies": ["neural-networks/pytorch-training"]
-}

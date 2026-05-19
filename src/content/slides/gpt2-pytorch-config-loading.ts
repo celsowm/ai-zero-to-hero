@@ -3,50 +3,46 @@ import { defineSlide } from './_factory';
 export const gpt2PytorchConfigLoading = defineSlide({
   id: 'gpt2-pytorch-config-loading',
   type: 'two-column',
-  options: {
-    "columnRatios": [0.42, 0.58]
-  },
+  options: { columnRatios: [0.5, 0.5] },
   content: {
     'pt-br': {
-      title: `GPT-2 por dentro: Configuração e Pesos`,
-      body: `Até aqui vimos o raio-X do GPT-2. Agora vamos **implementar** — sem a abstração \`pipeline()\` do HuggingFace, sem \`AutoModelForCausalLM\`. PyTorch puro.
+      title: 'Configuração do GPT no repo',
+      body: `No fluxo novo, “abrir o GPT-2” começa pela configuração, não por checkpoints externos.
 
-### As constantes que definem o modelo
+Os números que definem o modelo são:
 
-O GPT-2 é definido por números: tamanho do vocabulário, número de camadas, heads de atenção, dimensão dos embeddings. Esses números vêm da configuração oficial e determinam **todo** o comportamento da rede.
-
-### Carregando pesos reais
-
-O \`torch.load\` traz os pesos treinados direto do checkpoint oficial do GPT-2. Não é inicialização aleatória — é o cérebro que já aprendeu a prever o próximo token com bilhões de exemplos. A função \*_load_layer_weights\* extrai os pesos de cada camada e faz o transpose quando necessário (porque o GPT-2 usa \`Conv1D\` internamente, mas nós usamos \`Linear\`).
-`,
-      rightBody: `
-\`\`\`python
-snippet:gpt2_pytorch/gpt2-config-loading
+- \`vocab_size\`
+- \`block_size\`
+- \`n_layer\`
+- \`n_head\`
+- \`n_embd\``,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/config
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 14], "content": "As constantes do GPT-2: 50257 tokens, 12 camadas, 12 heads, 768 dimensões. Esses números são a 'anatomia' do modelo." },
-        { "lineRange": [15, 40], "content": "Carregamento dos pesos reais do HuggingFace. A função extrai pesos por camada e faz transpose quando necessário (Conv1D → Linear)." }
+        { lineRange: [1, 3], content: 'A configuração nasce como dataclass porque essas dimensões são contrato de arquitetura.' },
+        { lineRange: [4, 10], content: 'Cada campo controla uma parte concreta do modelo: vocabulário, contexto, profundidade, heads e largura.' },
+        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head pode ser compartilhado desde a configuração.' },
       ],
     },
     'en-us': {
-      title: `GPT-2 internals: Config and Weights`,
-      body: `So far we've seen the X-ray of GPT-2. Now let's **implement** it — no HuggingFace \`pipeline()\` abstraction, no \`AutoModelForCausalLM\`. Pure PyTorch.
+      title: 'GPT config in the repo',
+      body: `In the new flow, “opening GPT-2” starts from configuration, not from external checkpoints.
 
-### The constants that define the model
+The numbers that define the model are:
 
-GPT-2 is defined by numbers: vocabulary size, number of layers, attention heads, embedding dimensions. These numbers come from the official config and determine **all** of the network's behavior.
-
-### Loading real weights
-
-\`torch.load\` brings trained weights directly from the official GPT-2 checkpoint. This is not random initialization — it's a brain that has already learned to predict the next token from billions of examples. The \*_load_layer_weights\* function extracts weights per layer and transposes when needed (because GPT-2 uses \`Conv1D\` internally, but we use \`Linear\`).
-`,
-      rightBody: `
-\`\`\`python
-snippet:gpt2_pytorch/gpt2-config-loading
+- \`vocab_size\`
+- \`block_size\`
+- \`n_layer\`
+- \`n_head\`
+- \`n_embd\``,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/config
 \`\`\``,
       codeExplanations: [
-        { "lineRange": [1, 14], "content": "GPT-2 constants: 50257 tokens, 12 layers, 12 heads, 768 dimensions. These numbers are the 'anatomy' of the model." },
-        { "lineRange": [15, 40], "content": "Loading real HuggingFace weights. The function extracts weights per layer and transposes when needed (Conv1D → Linear)." }
+        { lineRange: [1, 3], content: 'The config starts as a dataclass because these dimensions are an architectural contract.' },
+        { lineRange: [4, 10], content: 'Each field controls one concrete model choice: vocabulary, context, depth, heads, and width.' },
+        { lineRange: [11, 11], content: 'Embedding and LM head weight tying can already be decided at config level.' },
       ],
     },
   },

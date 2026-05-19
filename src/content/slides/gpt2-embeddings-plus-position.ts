@@ -3,61 +3,41 @@ import { defineSlide } from './_factory';
 export const gpt2EmbeddingsPlusPosition = defineSlide({
   id: 'gpt2-embeddings-plus-position',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  options: { columnRatios: [0.52, 0.48] },
   content: {
     'pt-br': {
-      title: `O primeiro passo: Embeddings + Posição`,
-      body: `Se o Transformer 'engole' a página inteira de uma vez, como ele sabe qual palavra veio primeiro? Sem ajuda, 'O cão mordeu o homem' seria igual a 'O homem mordeu o cão'.
+      title: 'Token embedding + position embedding',
+      body: `No repo novo, a entrada do GPT nasce exatamente desta soma:
 
-1. **Token Embeddings:** primeiro, trocamos os IDs pelas coordenadas de significado (exatamente como vimos antes).
+- \`token_embedding(idx)\`
+- \`position_embedding(positions)\`
 
-2. **Positional Embeddings:** criamos um SEGUNDO vetor para cada token, não com o seu significado, mas com a sua **posição** na frase (1º, 2º, 3º).
-
-3. **A soma:** nós literalmente somamos o vetor de significado com o vetor de posição. O resultado é um vetor misto: 'eu sou a palavra cachorro, e estou na posição 2'.
-
-> Como os Transformers processam tudo ao mesmo tempo, a ordem das palavras precisa ser carimbada matematicamente em cada token.`,
+Sem posição, tokens iguais em lugares diferentes pareceriam o mesmo evento.`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/embedding-sum
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 5], content: 'Os IDs entram como sequência e as posições são geradas a partir do comprimento dela.' },
+        { lineRange: [7, 8], content: 'As duas embeddings têm papéis diferentes e são treinadas separadamente.' },
+        { lineRange: [10, 11], content: 'A soma final gera o residual stream inicial do modelo.' },
+      ],
     },
     'en-us': {
-      title: `The first step: Embeddings + Position`,
-      body: `If the Transformer 'swallows' the whole page at once, how does it know which word came first? Without help, 'Dog bites man' would be identical to 'Man bites dog'.
+      title: 'Token embedding + position embedding',
+      body: `In the new repo, GPT input is born from exactly this sum:
 
-1. **Token Embeddings:** first, we swap the IDs for the meaning coordinates (exactly as we saw earlier).
+- \`token_embedding(idx)\`
+- \`position_embedding(positions)\`
 
-2. **Positional Embeddings:** we create a SECOND vector for each token, not with its meaning, but with its **position** in the sentence (1st, 2nd, 3rd).
-
-3. **The sum:** we literally add the meaning vector and the position vector together. The result is a mixed vector: 'I am the word dog, and I am in position 2'.
-
-> Because Transformers process everything at once, the word order must be mathematically stamped onto each token.`,
-    },
-  },
-  visual: {
-    id: 'positional-embedding-adder',
-    copy: {
-      "pt-br": {
-        "tokenLabel": "Token Embedding",
-        "positionLabel": "Positional Encoding",
-        "sumLabel": "Combined",
-        "plusSign": "+",
-        "equalsSign": "=",
-        "tokenVector": "Significado",
-        "posVector": "Posição (sen/cos)",
-        "resultVector": "Significado + Posição"
-      },
-      "en-us": {
-        "tokenLabel": "Token Embedding",
-        "positionLabel": "Positional Encoding",
-        "sumLabel": "Combined",
-        "plusSign": "+",
-        "equalsSign": "=",
-        "tokenVector": "Meaning",
-        "posVector": "Position (sin/cos)",
-        "resultVector": "Meaning + Position"
-      }
+Without position, identical tokens in different places would look like the same event.`,
+      rightBody: `\`\`\`python
+snippet:repo-gpt2/embedding-sum
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 5], content: 'IDs enter as a sequence and positions are generated from its length.' },
+        { lineRange: [7, 8], content: 'The two embeddings play different roles and are trained separately.' },
+        { lineRange: [10, 11], content: 'The final sum becomes the model’s initial residual stream.' },
+      ],
     },
   },
 });
