@@ -31,6 +31,7 @@ import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
 import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
+import { gpt2PytorchQkvIntuition } from './gpt2-pytorch-qkv-intuition';
 import { gpt2PytorchLmHeadGenerate } from './gpt2-pytorch-lm-head-generate';
 import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
 import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
@@ -199,7 +200,6 @@ import { pythonPrereqOopDunder } from './python-prereq-oop-dunder';
 import { pythonPrereqOopExercises } from './python-prereq-oop-exercises';
 import { pythonPrereqOopInheritance } from './python-prereq-oop-inheritance';
 import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
-import { qkvIntuition } from './qkv-intuition';
 import { quantizationBnb } from './quantization-bnb';
 import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
@@ -313,6 +313,7 @@ export const allSlides: ISlide[] = [
   gpt2PytorchLmHeadGenerate,
   gpt2PytorchMlpBlock,
   gpt2PytorchModelForward,
+  gpt2PytorchQkvIntuition,
   gpt2Teaser,
   gpt2WeightsOrigin,
   gpt2WeThePeopleInput,
@@ -477,7 +478,6 @@ export const allSlides: ISlide[] = [
   pythonPrereqOopExercises,
   pythonPrereqOopInheritance,
   pythonPrereqSumGenerator,
-  qkvIntuition,
   quantizationBnb,
   quantizationFp16,
   quantizationInt8,

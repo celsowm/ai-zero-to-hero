@@ -7,18 +7,13 @@ export const gpt2PytorchAttention = defineSlide({
   content: {
     'pt-br': {
       title: 'Atenção causal no repo',
-      body: `O repo usa o padrão GPT-2 clássico.
+      body: `Agora entramos na mecânica completa da atenção causal do repo.
 
-Antes da mecânica, aterrisse QKV assim:
-- **Q (query)** = o que a posição atual procura
-- **K (key)** = o que cada posição oferece como endereço de comparação
-- **V (value)** = o conteúdo que será combinado quando a comparação bater
-
-Fluxo:
+Com QKV já definido, o fluxo passa a ser:
 
 1. projecao \`C -> 3C\` para QKV (Query, Key, Value)
 2. reshape para múltiplas heads
-3. atenção causal
+3. aplicar mascara causal nos scores
 4. projeção final de volta para \`C\`
 
 Contratos de shape:
@@ -28,9 +23,10 @@ Contratos de shape:
 - saída: \`(B, T, C)\`
 
 Erros comuns:
-- esquecer mask causal (vaza futuro no treino)
+- esquecer a mascara causal (vaza futuro no treino)
 - permutar dimensão errada em \`transpose/view\`
-- usar \`softmax\` no eixo errado`,
+- usar \`softmax\` no eixo errado
+- esquecer que o reshape precisa respeitar \`C = H x D\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/attention
 \`\`\``,
@@ -41,18 +37,13 @@ snippet:repo-gpt2/attention
     },
     'en-us': {
       title: 'Causal attention in the repo',
-      body: `The repo follows the classic GPT-2 pattern.
+      body: `Now we enter the full mechanics of causal attention in the repo.
 
-Before the mechanics, ground QKV like this:
-- **Q (query)** = what the current position is looking for
-- **K (key)** = what each position offers as a comparison address
-- **V (value)** = the content that will be mixed in once the comparison matches
-
-Flow:
+With QKV already defined, the flow becomes:
 
 1. one \`C -> 3C\` projection for QKV (Query, Key, Value)
 2. reshape into multiple heads
-3. causal attention
+3. apply a causal mask over the scores
 4. final projection back to \`C\`
 
 Shape contracts:
@@ -64,7 +55,8 @@ Shape contracts:
 Common failures:
 - missing causal mask (future leakage during training)
 - wrong \`transpose/view\` dimension order
-- applying \`softmax\` on the wrong axis`,
+- applying \`softmax\` on the wrong axis
+- forgetting that reshape must respect \`C = H x D\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/attention
 \`\`\``,
