@@ -22,28 +22,7 @@ export const neuralNetworkPytorchInstall = defineSlide({
 
 4. **Depois da instalação, teste o import:** antes de seguir para treino e inferência, vale confirmar se o Python realmente enxerga a biblioteca.
 
-> Primeiro instalamos o backend. Mais à frente, \`transformers\` entra por cima desse mesmo mundo.
-`,
-      rightBody: `
-### No terminal
-\`\`\`bash
-python -m pip install torch
-\`\`\`
-
-### Teste mínimo depois da instalação
-\`\`\`python
-snippet:neural-networks/pytorch-version-check
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Tenta importar a biblioteca para confirmar que a instalação via pip funcionou.',
-        },
-        {
-          lineRange: [2, 2],
-          content: 'Exibe a versão carregada para garantir que o ambiente está correto.',
-        },
-      ],
+> Primeiro instalamos o backend. Depois treinamos e inferimos no mesmo ambiente.`,
     },
     'en-us': {
       title: `First external library: installing \`torch\` with \`pip\``,
@@ -57,28 +36,54 @@ snippet:neural-networks/pytorch-version-check
 
 4. **After installation, test the import:** before moving to training and inference, it is worth confirming that Python can really see the library.
 
-> First we install the backend. Later, \`transformers\` comes on top of that same world.
-`,
-      rightBody: `
-### In the terminal
-\`\`\`bash
-python -m pip install torch
-\`\`\`
-
-### Minimal test after installation
-\`\`\`python
-snippet:neural-networks/pytorch-version-check
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Tries to import the library to confirm that the pip installation worked.',
+> Install backend first, then train and infer in the same environment.`,
+    },
+  },
+  visual: {
+    id: 'pytorch-dual-panel',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Codigo' }, { label: 'Checklist' }],
+        codePanel: {
+          title: 'Verificacao minima de instalacao',
+          description: 'Depois do `pip install`, valide import e versao antes de seguir para treino.',
+          source: { snippetId: 'neural-networks/pytorch-version-check', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 1], content: 'Importa a biblioteca para confirmar instalacao funcional.' },
+            { lineRange: [2, 2], content: 'Mostra a versao carregada no ambiente atual.' },
+          ],
         },
-        {
-          lineRange: [2, 2],
-          content: 'Displays the loaded version to ensure the environment is correct.',
+        visualPanel: {
+          title: 'Checklist de ambiente',
+          items: [
+            { label: 'Comando recomendado', value: '`python -m pip install torch` para casar pip e interpretador.' },
+            { label: 'Ambiente virtual', value: 'Use `.venv` para isolamento e reprodutibilidade.' },
+            { label: 'Teste pos-instalacao', value: 'Import + versao antes de qualquer notebook/script longo.' },
+            { label: 'Erro comum', value: 'Instalar em um Python e executar em outro.' },
+          ],
         },
-      ],
+      },
+      'en-us': {
+        tabs: [{ label: 'Code' }, { label: 'Checklist' }],
+        codePanel: {
+          title: 'Minimum installation verification',
+          description: 'After `pip install`, validate import and version before any training step.',
+          source: { snippetId: 'neural-networks/pytorch-version-check', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 1], content: 'Import library to confirm installation actually works.' },
+            { lineRange: [2, 2], content: 'Print loaded version from the current environment.' },
+          ],
+        },
+        visualPanel: {
+          title: 'Environment checklist',
+          items: [
+            { label: 'Recommended command', value: '`python -m pip install torch` to match pip with interpreter.' },
+            { label: 'Virtual environment', value: 'Use `.venv` for isolation and reproducibility.' },
+            { label: 'Post-install test', value: 'Run import + version before long scripts/notebooks.' },
+            { label: 'Common failure', value: 'Installing in one Python and running in another.' },
+          ],
+        },
+      },
     },
   },
 });

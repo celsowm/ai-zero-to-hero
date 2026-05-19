@@ -26,66 +26,7 @@ Acesse [pytorch.org](https://pytorch.org/get-started/locally/) para pegar o coma
 - **Apple / CPU:** \`pip install torch\`.
 
 ### 📦 3. O Ambiente Virtual
-Sempre use um \`.venv\` para não poluir o Python do sistema e garantir que o \`pip\` instale as versões corretas para o seu hardware.
-`,
-      rightBody: `
-### 🧪 4. Validação (O Teste de Fogo)
-Use este script para garantir que o PyTorch está enxergando seu hardware de aceleração:
-
-\`\`\`python
-snippet:neural-networks/pytorch-hardware-test
-\`\`\``,
-      codeExplanations: [
-    {
-    "lineRange": [
-      1,
-      2
-    ],
-    "content": "Importamos o torch, o módulo base do PyTorch que permite criar tensores e rodar operações na GPU."
-  },
-    {
-    "lineRange": [
-      4,
-      6
-    ],
-    "content": "CUDA é o motor da NVIDIA. MPS (Metal Performance Shaders) é o motor da Apple para chips M1/M2/M3."
-  },
-    {
-    "lineRange": [
-      8,
-      13
-    ],
-    "content": "Este padrão de código é obrigatório na indústria: ele detecta o melhor hardware e só usa a CPU como última alternativa."
-  },
-    {
-    "lineRange": [
-      14,
-      15
-    ],
-    "content": "Se nenhum acelerador estiver disponível, o fallback seguro é a CPU — o código continua funcionando."
-  },
-    {
-    "lineRange": [
-      17,
-      17
-    ],
-    "content": "Crucial: ao passar 'device=device', você diz ao PyTorch para criar o dado já dentro da memória da GPU, evitando lentidão na transferência."
-  },
-    {
-    "lineRange": [
-      19,
-      19
-    ],
-    "content": "Imprimimos qual hardware foi selecionado para confirmar que a detecção funcionou corretamente."
-  },
-    {
-    "lineRange": [
-      21,
-      22
-    ],
-    "content": "Executamos uma operação simples no tensor para provar que o hardware está respondendo — se rodar sem erro, a GPU/MPS está ativa."
-  }
-  ],
+Sempre use um \`.venv\` para não poluir o Python do sistema e garantir que o \`pip\` instale as versões corretas para o seu hardware.`,
     },
     'en-us': {
       title: `GPU Acceleration: Multi-Environment PyTorch`,
@@ -103,66 +44,58 @@ Visit [pytorch.org](https://pytorch.org/get-started/locally/) for the exact comm
 - **Apple / CPU:** \`pip install torch\`.
 
 ### 📦 3. Virtual Environment
-Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` installs the correct versions for your hardware.
-`,
-      rightBody: `
-### 🧪 4. Validation (The Acid Test)
-Use this script to ensure PyTorch sees your acceleration hardware:
-
-\`\`\`python
-snippet:neural-networks/pytorch-hardware-test
-\`\`\``,
-      codeExplanations: [
-    {
-    "lineRange": [
-      1,
-      2
-    ],
-    "content": "We import torch, PyTorch's base module that enables tensor creation and GPU operations."
+Always use a \`.venv\` to avoid polluting system Python and ensure \`pip\` installs the correct versions for your hardware.`,
+    },
   },
-    {
-    "lineRange": [
-      4,
-      6
-    ],
-    "content": "CUDA is NVIDIA's engine. MPS (Metal Performance Shaders) is Apple's engine for M1/M2/M3 chips."
-  },
-    {
-    "lineRange": [
-      8,
-      13
-    ],
-    "content": "This code pattern is an industry standard: it detects the best hardware and only uses CPU as a last resort."
-  },
-    {
-    "lineRange": [
-      14,
-      15
-    ],
-    "content": "If no accelerator is available, the safe fallback is CPU — the code continues to work normally."
-  },
-    {
-    "lineRange": [
-      17,
-      17
-    ],
-    "content": "Crucial: by passing 'device=device', you tell PyTorch to create data directly inside GPU memory, avoiding transfer overhead."
-  },
-    {
-    "lineRange": [
-      19,
-      19
-    ],
-    "content": "We print which hardware was selected to confirm the detection worked correctly."
-  },
-    {
-    "lineRange": [
-      21,
-      22
-    ],
-    "content": "We run a simple operation on the tensor to prove the hardware is responding — if this runs without error, the GPU/MPS is active."
-  }
-  ],
+  visual: {
+    id: 'pytorch-dual-panel',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
+        codePanel: {
+          title: 'Teste de aceleracao',
+          description: 'Script padrao para detectar backend (CUDA/MPS/CPU) e validar execucao em dispositivo.',
+          source: { snippetId: 'neural-networks/pytorch-hardware-test', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 2], content: 'Importa torch, base para tensores e dispatch de hardware.' },
+            { lineRange: [4, 6], content: 'Consulta disponibilidade de CUDA e MPS.' },
+            { lineRange: [8, 15], content: 'Escolhe melhor backend com fallback seguro para CPU.' },
+            { lineRange: [17, 22], content: 'Cria tensor no device selecionado e executa operacao de validacao.' },
+          ],
+        },
+        visualPanel: {
+          title: 'Checklist de troubleshooting',
+          items: [
+            { label: 'GPU nao aparece', value: 'Validar driver (`nvidia-smi`/`rocm-smi`) antes de culpar PyTorch.' },
+            { label: 'Instalacao errada', value: 'Conferir wheel CUDA correta no site oficial para sua versao.' },
+            { label: 'Performance baixa', value: 'Garantir tensor e modelo no mesmo `device`.' },
+            { label: 'Fallback esperado', value: 'Sem acelerador, CPU deve funcionar sem quebrar o fluxo.' },
+          ],
+        },
+      },
+      'en-us': {
+        tabs: [{ label: 'Code' }, { label: 'Diagnostics' }],
+        codePanel: {
+          title: 'Acceleration test',
+          description: 'Standard script to detect backend (CUDA/MPS/CPU) and validate execution on selected device.',
+          source: { snippetId: 'neural-networks/pytorch-hardware-test', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 2], content: 'Import torch, the base for tensors and hardware dispatch.' },
+            { lineRange: [4, 6], content: 'Query CUDA and MPS availability.' },
+            { lineRange: [8, 15], content: 'Select best backend with safe CPU fallback.' },
+            { lineRange: [17, 22], content: 'Create tensor on selected device and run validation operation.' },
+          ],
+        },
+        visualPanel: {
+          title: 'Troubleshooting checklist',
+          items: [
+            { label: 'GPU not detected', value: 'Validate drivers (`nvidia-smi`/`rocm-smi`) before blaming PyTorch.' },
+            { label: 'Wrong install', value: 'Use official wheel that matches your CUDA version.' },
+            { label: 'Low performance', value: 'Ensure model and tensors are on the same `device`.' },
+            { label: 'Expected fallback', value: 'Without accelerator, CPU path should still run safely.' },
+          ],
+        },
+      },
     },
   },
 });
