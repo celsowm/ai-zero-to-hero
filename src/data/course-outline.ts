@@ -50,6 +50,7 @@ export const courseSlideOrder = [
   'neural-network-architectures-deep-dive',
   'neural-network-pytorch-intro',
   'neural-network-pytorch-install',
+  'pytorch-why-performant',
   'neural-network-pytorch-hardware',
   'neural-network-pytorch-tensors',
   'pytorch-tensor-ranks-0d-4d',
@@ -58,7 +59,6 @@ export const courseSlideOrder = [
   // Origem do termo "tensor": física/matemática vs deep learning
   'tensor-origins',
   'neural-network-pytorch-silicon',
-  'pytorch-why-performant',
   'pytorch-autograd',
   'neural-network-pytorch-nn-linear',
   'pytorch-embedding-intro',

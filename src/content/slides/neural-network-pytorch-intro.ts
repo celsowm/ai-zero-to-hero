@@ -11,7 +11,7 @@ export const neuralNetworkPytorchIntro = defineSlide({
       title: 'A mesma rede, agora com `torch`',
       body: `Nos slides anteriores nós abrimos a rede neural por dentro: pesos, bias, \`sigmoid\`, \`forward\`, \`backprop\` e atualização manual. Agora a ideia é repetir **o mesmo problema do paciente fumante**, mas usando a biblioteca que reaparece depois quando entrarmos em \`transformers\`.
 
-1. **Não é outra teoria:** \`torch\` continua trabalhando com tensores, camadas, loss, gradiente e atualização de parâmetros.
+1. **Não é outra teoria:** \`torch\` continua trabalhando com tensores (arrays numéricos multidimensionais — vamos abrir isso nos próximos slides), camadas, loss, gradiente e atualização de parâmetros.
 
 2. **O que muda é a interface:** em vez de escrevermos a mecânica inteira na mão, passamos a declarar a arquitetura com \`nn.Linear\`, \`nn.Sigmoid\`, uma função de loss e um optimizer.
 
@@ -40,7 +40,7 @@ Quando a Hugging Face pedir tensores com \`return_tensors="pt"\`, o curso já te
       title: 'The same network, now with `torch`',
       body: `In the previous slides we opened the neural network from the inside: weights, bias, \`sigmoid\`, \`forward\`, \`backprop\`, and manual parameter updates. Now the idea is to repeat **the same smoker-patient problem**, but using the library that reappears later when we enter \`transformers\`.
 
-1. **It is not a different theory:** \`torch\` still works with tensors, layers, loss, gradients, and parameter updates.
+1. **It is not a different theory:** \`torch\` still works with tensors (multidimensional numeric arrays — we will unpack this in the next slides), layers, loss, gradients, and parameter updates.
 
 2. **What changes is the interface:** instead of writing the full mechanics by hand, we declare the architecture with \`nn.Linear\`, \`nn.Sigmoid\`, a loss function, and an optimizer.
 
