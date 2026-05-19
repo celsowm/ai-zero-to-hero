@@ -1,0 +1,18 @@
+{
+  "id": "pytorch-lm/shape-contract",
+  "language": "python",
+  "explanations": {
+    "pt-br": [
+      "Monta o contrato de shape completo de treino: idx, targets, hidden e logits.",
+      "Mostra o flatten de logits e targets para casar com cross-entropy.",
+      "Valida shape, dtype e device para evitar bugs silenciosos.",
+      "Confirma que a loss final é escalar."
+    ],
+    "en-us": [
+      "Builds the full training shape contract: idx, targets, hidden, and logits.",
+      "Shows logits/targets flattening required by cross-entropy.",
+      "Validates shape, dtype, and device to prevent silent bugs.",
+      "Confirms the final loss is scalar."
+    ]
+  }
+}

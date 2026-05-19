@@ -6,53 +6,45 @@ export const neuralNetworkPytorchTensors = defineSlide({
   options: { columnRatios: [0.56, 0.44] },
   content: {
     'pt-br': {
-      title: 'Tensores uteis para language modeling (LM)',
-      body: `Neste bloco, tensor importa menos como teoria abstrata e mais como **estrutura com shape previsível**.
+      title: 'Tensores no PyTorch: leitura operacional',
+      body: `Aqui tensor significa: **array com eixos explícitos**.
 
-Padrão que vai se repetir:
+Antes de qualquer sigla, use esta leitura:
+1. eixo de **lote**: quantas sequências você processa juntas;
+2. eixo de **tempo/sequência**: quantos tokens por sequência;
+3. eixo de **largura**: quantos valores descrevem cada token;
+4. eixo de **vocabulário**: quantos candidatos de saída o modelo pode escolher.
 
-1. **\`(B, T)\`** para token IDs
-2. **\`(B, T, C)\`** para hidden states
-3. **\`(B, T, V)\`** para logits
-
-Quando você lê PyTorch para LM, quase tudo fica mais simples se souber responder:
-
-- qual é o batch?
-- qual é o comprimento da sequência?
-- qual é a largura do vetor ou do vocabulário?`,
+Se você sempre identificar esses eixos, o restante do bloco (treino, inferência e debug) fica mecânico em vez de confuso.`,
       rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-shapes
+snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'Importamos o PyTorch e nomeamos as dimensões base que vão aparecer em todo o bloco.' },
-        { lineRange: [5, 8], content: 'Os token IDs já nascem como uma matriz `(B, T)` de inteiros.' },
-        { lineRange: [10, 11], content: 'Depois do embedding e das projeções, o modelo passa a carregar vetores e logits por token.' },
-        { lineRange: [13, 15], content: 'Os tres `print`s fixam a convencao de shape que vai reaparecer em todo o bloco de modelagem de linguagem.' },
+        { lineRange: [1, 6], content: 'Definimos nomes explícitos dos eixos (`batch_size`, `sequence_length`, etc.) para não depender de siglas cedo demais.' },
+        { lineRange: [8, 11], content: 'Construímos token IDs inteiros: essa é a forma de entrada mais comum para embedding.' },
+        { lineRange: [13, 14], content: 'Criamos estados internos e logits preservando lote e sequência.' },
+        { lineRange: [16, 18], content: 'Os prints confirmam shape e dtype, que são os primeiros alvos de debug.' },
       ],
     },
     'en-us': {
-      title: 'Tensors that matter for language modeling (LM)',
-      body: `In this block, tensors matter less as abstract theory and more as **structures with predictable shapes**.
+      title: 'PyTorch tensors: operational reading',
+      body: `Here tensor means: **array with explicit axes**.
 
-The pattern that keeps coming back is:
+Before any abbreviations, use this reading:
+1. **batch axis**: how many sequences are processed together;
+2. **time/sequence axis**: how many tokens per sequence;
+3. **width axis**: how many values represent each token;
+4. **vocabulary axis**: how many output candidates the model can pick from.
 
-1. **\`(B, T)\`** for token IDs
-2. **\`(B, T, C)\`** for hidden states
-3. **\`(B, T, V)\`** for logits
-
-When reading PyTorch for LM, most of the code becomes easier once you can answer:
-
-- what is the batch?
-- what is the sequence length?
-- what is the hidden width or vocabulary size?`,
+If you always identify these axes, the rest of this block (training, inference, debugging) becomes mechanical instead of confusing.`,
       rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-shapes
+snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'We import PyTorch and name the base dimensions that will reappear across the block.' },
-        { lineRange: [5, 8], content: 'Token IDs already start as an integer matrix shaped `(B, T)`.' },
-        { lineRange: [10, 11], content: 'After embedding and projections, the model carries vectors and logits per token.' },
-        { lineRange: [13, 15], content: 'The three prints lock in the shape convention reused across this full language-modeling block.' },
+        { lineRange: [1, 6], content: 'We define explicit axis names (`batch_size`, `sequence_length`, etc.) instead of early abbreviations.' },
+        { lineRange: [8, 11], content: 'We build integer token IDs, the usual input shape for embedding lookup.' },
+        { lineRange: [13, 14], content: 'Hidden states and logits preserve batch and sequence axes.' },
+        { lineRange: [16, 18], content: 'Prints verify shape and dtype, the first debugging targets.' },
       ],
     },
   },

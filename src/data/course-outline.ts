@@ -52,6 +52,7 @@ export const courseSlideOrder = [
   'neural-network-pytorch-install',
   'neural-network-pytorch-hardware',
   'neural-network-pytorch-tensors',
+  'pytorch-tensor-ranks-0d-4d',
   'pytorch-shapes-language-modeling',
   'pytorch-token-batch',
   // Origem do termo "tensor": física/matemática vs deep learning

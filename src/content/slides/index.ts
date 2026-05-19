@@ -167,6 +167,7 @@ import { pytorchEmbeddingToLogits } from './pytorch-embedding-to-logits';
 import { pytorchEmbeddingIntro } from './pytorch-embedding-intro';
 import { pytorchMinimalLanguageModel } from './pytorch-minimal-language-model';
 import { pytorchShapesLanguageModeling } from './pytorch-shapes-language-modeling';
+import { pytorchTensorRanks0d4d } from './pytorch-tensor-ranks-0d-4d';
 import { pytorchTokenBatch } from './pytorch-token-batch';
 import { neuralNetworkPytorchNnLinear } from './neural-network-pytorch-nn-linear';
 import { neuralNetworkPytorchOptimizers } from './neural-network-pytorch-optimizers';
@@ -447,6 +448,7 @@ export const allSlides: ISlide[] = [
   pytorchEmbeddingToLogits,
   pytorchMinimalLanguageModel,
   pytorchShapesLanguageModeling,
+  pytorchTensorRanks0d4d,
   pytorchTokenBatch,
   neuralNetworkPytorchTraining,
   neuralNetworkSigmoidDeepDive,

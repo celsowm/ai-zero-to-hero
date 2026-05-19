@@ -1,0 +1,18 @@
+{
+  "id": "pytorch-lm/tensor-primer",
+  "language": "python",
+  "explanations": {
+    "pt-br": [
+      "Declara nomes explícitos para cada dimensão, sem usar siglas antes da hora.",
+      "Monta IDs inteiros de tokens com dtype correto para embedding.",
+      "Cria estados ocultos e logits com o mesmo batch e sequência.",
+      "Imprime shape e dtype para validar contrato mínimo do pipeline."
+    ],
+    "en-us": [
+      "Declares explicit names for each dimension instead of early abbreviations.",
+      "Builds integer token IDs with the right dtype for embedding lookup.",
+      "Creates hidden states and logits with the same batch and sequence axes.",
+      "Prints shape and dtype to validate the minimum pipeline contract."
+    ]
+  }
+}
