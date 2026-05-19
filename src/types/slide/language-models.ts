@@ -285,6 +285,8 @@ export interface PytorchArchitectureBlueprintCopy {
   };
 }
 
+export type PytorchProjectionSpaceCopy = PytorchArchitectureBlueprintCopy;
+
 export interface PytorchExecutionPipelineCopy {
   tabs: Array<{ label: string }>;
   codePanel: {
@@ -298,6 +300,7 @@ export interface PytorchExecutionPipelineCopy {
     subtitle?: string;
     steps: Array<{
       label: string;
+      title?: string;
       shape?: string;
       body: string;
       risk: string;

@@ -12,6 +12,9 @@ const STAGE_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b'];
 
 export const PytorchShapeTraceFlow = React.memo(({ copy }: PytorchShapeTraceFlowProps) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [activeStage, setActiveStage] = useState(0);
+  const stages = copy.tracePanel.stages;
+  const stage = stages[activeStage] ?? stages[0];
 
   return (
     <div className="flex flex-col h-full min-h-0">
@@ -45,83 +48,130 @@ export const PytorchShapeTraceFlow = React.memo(({ copy }: PytorchShapeTraceFlow
               )}
             </div>
 
-            <div style={{ position: 'relative', paddingTop: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${stages.length}, minmax(0, 1fr))`, gap: 8 }}>
+              {stages.map((item, index) => {
+                const accent = STAGE_COLORS[index] ?? sw.cyan;
+                const isActive = index === activeStage;
+                return (
+                  <button
+                    key={item.kicker}
+                    type="button"
+                    onClick={() => setActiveStage(index)}
+                    style={{
+                      border: `1px solid ${isActive ? accent : sw.borderSubtle}`,
+                      borderRadius: 14,
+                      background: isActive ? `${accent}18` : sw.surface,
+                      padding: '10px 12px',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      color: isActive ? accent : sw.textDim,
+                      boxShadow: isActive ? `0 10px 24px ${accent}12` : 'none',
+                    }}
+                  >
+                    <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{item.kicker}</div>
+                    <div style={{ marginTop: 5, fontSize: 11, fontWeight: 700, lineHeight: 1.35, color: isActive ? sw.text : sw.textDim }}>
+                      {item.title}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ height: 8, borderRadius: 999, background: sw.surfaceLight, overflow: 'hidden' }}>
               <div
                 style={{
-                  position: 'absolute',
-                  top: 28,
-                  left: 18,
-                  right: 18,
-                  height: 2,
-                  background: `linear-gradient(90deg, ${sw.cyan}, ${sw.purple}, ${sw.pink}, ${sw.green}, #f59e0b)`,
-                  opacity: 0.4,
+                  width: `${stages.length > 1 ? (activeStage / (stages.length - 1)) * 100 : 100}%`,
+                  height: '100%',
+                  background: `linear-gradient(90deg, ${STAGE_COLORS[0]}, ${STAGE_COLORS[4]})`,
+                  transition: 'width 220ms ease',
                 }}
               />
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 10 }}>
-                {copy.tracePanel.stages.map((stage, index) => {
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 12, alignItems: 'stretch' }}>
+              <div
+                style={{
+                  border: `1px solid ${STAGE_COLORS[activeStage] ? `${STAGE_COLORS[activeStage]}33` : sw.borderSubtle}`,
+                  borderRadius: 18,
+                  background: `linear-gradient(180deg, ${(STAGE_COLORS[activeStage] ?? sw.cyan)}10, rgba(255,255,255,0.01))`,
+                  padding: 16,
+                }}
+              >
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: STAGE_COLORS[activeStage] ?? sw.cyan }}>
+                  Etapa ativa
+                </div>
+                <div style={{ marginTop: 6, fontSize: 16, fontWeight: 700, lineHeight: 1.35, color: sw.text }}>{stage.title}</div>
+                <div
+                  style={{
+                    marginTop: 10,
+                    padding: '8px 10px',
+                    borderRadius: 10,
+                    background: `${(STAGE_COLORS[activeStage] ?? sw.cyan)}14`,
+                    border: `1px solid ${(STAGE_COLORS[activeStage] ?? sw.cyan)}33`,
+                    fontFamily: sw.fontMono,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: STAGE_COLORS[activeStage] ?? sw.cyan,
+                    display: 'inline-flex',
+                  }}
+                >
+                  {stage.shape}
+                </div>
+                <div style={{ marginTop: 12, fontSize: 13, lineHeight: 1.65, color: sw.text }}>{stage.role}</div>
+                <div style={{ marginTop: 10, fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>{stage.debugHint}</div>
+              </div>
+
+              <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 18, background: sw.surface, padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: sw.pink, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Linha do forward
+                </div>
+                {stages.map((item, index) => {
                   const accent = STAGE_COLORS[index] ?? sw.cyan;
+                  const isActive = index === activeStage;
                   return (
-                    <div
-                      key={stage.kicker}
+                    <button
+                      key={`${item.kicker}-rail`}
+                      type="button"
+                      onClick={() => setActiveStage(index)}
                       style={{
-                        position: 'relative',
-                        border: `1px solid ${sw.borderSubtle}`,
-                        borderRadius: 16,
-                        background: sw.surface,
-                        padding: '14px 12px 12px',
-                        minHeight: 210,
-                        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.03), 0 10px 30px ${accent}18`,
+                        border: 'none',
+                        background: 'transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        opacity: isActive ? 1 : 0.72,
                       }}
                     >
-                      <div
-                        style={{
-                          position: 'absolute',
-                          top: -8,
-                          left: 12,
-                          width: 18,
-                          height: 18,
-                          borderRadius: 999,
-                          background: accent,
-                          boxShadow: `0 0 0 4px ${sw.deep}`,
-                        }}
-                      />
-                      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: accent }}>
-                        {stage.kicker}
+                      <div style={{ display: 'grid', gridTemplateColumns: '18px 1fr', gap: 10, alignItems: 'start', padding: '7px 0' }}>
+                        <div
+                          style={{
+                            width: 14,
+                            height: 14,
+                            marginTop: 3,
+                            borderRadius: 999,
+                            background: isActive ? accent : sw.surfaceLight,
+                            border: `1px solid ${isActive ? accent : sw.borderSubtle}`,
+                            boxShadow: isActive ? `0 0 0 4px ${accent}18` : 'none',
+                          }}
+                        />
+                        <div>
+                          <div style={{ fontSize: 10, fontWeight: 800, color: isActive ? accent : sw.textMuted, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            {item.kicker}
+                          </div>
+                          <div style={{ marginTop: 3, fontSize: 12, lineHeight: 1.45, color: isActive ? sw.text : sw.textDim }}>
+                            {item.title}
+                          </div>
+                        </div>
                       </div>
-                      <div style={{ marginTop: 6, fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: sw.text }}>{stage.title}</div>
-                      <div
-                        style={{
-                          marginTop: 10,
-                          padding: '8px 10px',
-                          borderRadius: 10,
-                          background: `${accent}14`,
-                          border: `1px solid ${accent}33`,
-                          fontFamily: sw.fontMono,
-                          fontSize: 12,
-                          fontWeight: 700,
-                          color: accent,
-                        }}
-                      >
-                        {stage.shape}
-                      </div>
-                      <div style={{ marginTop: 10, fontSize: 12, lineHeight: 1.55, color: sw.text }}>{stage.role}</div>
-                      <div style={{ marginTop: 10, fontSize: 11, lineHeight: 1.5, color: sw.textMuted }}>{stage.debugHint}</div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 12 }}>
-              <div
-                style={{
-                  border: `1px solid ${sw.borderSubtle}`,
-                  borderRadius: 16,
-                  background: sw.surface,
-                  padding: 14,
-                }}
-              >
-                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: sw.pink }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 16, background: sw.surface, padding: 14 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: sw.pink }}>
                   {copy.tracePanel.failureTitle}
                 </div>
                 <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>

@@ -34,6 +34,7 @@ import type {
   PytorchDecisionMatrixCopy,
   PytorchDualPanelCopy,
   PytorchExecutionPipelineCopy,
+  PytorchProjectionSpaceCopy,
   PytorchShapeTraceFlowCopy,
   TokenBatchShiftInteractiveCopy,
   SamplingRouletteCopy,
@@ -259,6 +260,7 @@ interface VisualCopyMap {
   'training-loop-animation': TrainingLoopAnimationCopy;
   'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
   'pytorch-architecture-blueprint': PytorchArchitectureBlueprintCopy;
+  'pytorch-projection-space': PytorchProjectionSpaceCopy;
   'pytorch-bridge-shift': PytorchBridgeShiftCopy;
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;

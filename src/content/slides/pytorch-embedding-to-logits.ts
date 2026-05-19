@@ -37,7 +37,7 @@ Stage-by-stage reading:
     },
   },
   visual: {
-    id: 'pytorch-architecture-blueprint',
+    id: 'pytorch-projection-space',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Shapes' }],

@@ -41,7 +41,7 @@ If this is unclear, model reading breaks down.
     },
   },
   visual: {
-    id: 'pytorch-architecture-blueprint',
+    id: 'pytorch-projection-space',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mapa de shape' }],

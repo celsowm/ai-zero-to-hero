@@ -68,6 +68,7 @@ const visualMap: Record<string, string> = {
   'training-loop-animation': 'TrainingLoopAnimation',
   'neural-network-to-language-modeling-comparator': 'NeuralNetworkToLanguageModelingComparator',
   'pytorch-architecture-blueprint': 'PytorchArchitectureBlueprintVisual',
+  'pytorch-projection-space': 'PytorchProjectionSpaceVisual',
   'pytorch-bridge-shift': 'PytorchBridgeShiftVisual',
   'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',

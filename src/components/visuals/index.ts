@@ -37,6 +37,7 @@ export { TrainingLoopStepper } from './language-models/TrainingLoopStepper';
 export { TrainingLoopAnimation } from './language-models/TrainingLoopAnimation';
 export { NeuralNetworkToLanguageModelingComparator } from './language-models/NeuralNetworkToLanguageModelingComparator';
 export { PytorchArchitectureBlueprintVisual } from './language-models/PytorchArchitectureBlueprintVisual';
+export { PytorchProjectionSpaceVisual } from './language-models/PytorchProjectionSpaceVisual';
 export { PytorchBridgeShiftVisual } from './language-models/PytorchBridgeShiftVisual';
 export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMatrixVisual';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
