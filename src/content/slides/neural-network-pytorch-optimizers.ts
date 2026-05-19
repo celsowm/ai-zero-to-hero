@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchOptimizers = defineSlide({
   id: 'neural-network-pytorch-optimizers',
   type: 'two-column',
-  options: { columnRatios: [0.54, 0.46] },
+  options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
       title: 'Otimizador no loop certo',

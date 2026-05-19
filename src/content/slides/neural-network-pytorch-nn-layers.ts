@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchNnLayers = defineSlide({
   id: 'neural-network-pytorch-nn-layers',
   type: 'two-column',
-  options: { columnRatios: [0.55, 0.45] },
+  options: { columnRatios: [0.45, 0.55] },
   content: {
     'pt-br': {
       title: 'Camadas PyTorch que importam aqui',

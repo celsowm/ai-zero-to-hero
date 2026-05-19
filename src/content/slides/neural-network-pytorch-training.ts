@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchTraining = defineSlide({
   id: 'neural-network-pytorch-training',
   type: 'two-column',
-  options: { columnRatios: [0.54, 0.46] },
+  options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
       title: 'Loop de treino para next-token',

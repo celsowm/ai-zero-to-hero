@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const pytorchShapesLanguageModeling = defineSlide({
   id: 'pytorch-shapes-language-modeling',
   type: 'two-column',
-  options: { columnRatios: [0.58, 0.42] },
+  options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
       title: 'Convencoes de shape para LM (language model)',

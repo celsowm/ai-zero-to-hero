@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchNnLinear = defineSlide({
   id: 'neural-network-pytorch-nn-linear',
   type: 'two-column',
-  options: { columnRatios: [0.52, 0.48] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: '`nn.Linear`: projeção, não “camada mágica”',

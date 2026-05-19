@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const pytorchAutograd = defineSlide({
   id: 'pytorch-autograd',
   type: 'two-column',
-  options: { columnRatios: [0.52, 0.48] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: 'Autograd: o que é, por que esse nome, e como entra no treino',

@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const pytorchEmbeddingToLogits = defineSlide({
   id: 'pytorch-embedding-to-logits',
   type: 'two-column',
-  options: { columnRatios: [0.52, 0.48] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: 'De embedding a logits',

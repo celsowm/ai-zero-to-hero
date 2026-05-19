@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const pytorchMinimalLanguageModel = defineSlide({
   id: 'pytorch-minimal-language-model',
   type: 'two-column',
-  options: { columnRatios: [0.5, 0.5] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: 'Mini language model em PyTorch',

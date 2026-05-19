@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchPrediction = defineSlide({
   id: 'neural-network-pytorch-prediction',
   type: 'two-column',
-  options: { columnRatios: [0.54, 0.46] },
+  options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
       title: 'Inferência: eval, no_grad e próximo token',

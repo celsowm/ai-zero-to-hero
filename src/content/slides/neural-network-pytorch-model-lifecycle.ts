@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchModelLifecycle = defineSlide({
   id: 'neural-network-pytorch-model-lifecycle',
   type: 'two-column',
-  options: { columnRatios: [0.52, 0.48] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
       title: 'Ciclo de vida do modelo',
