@@ -43,7 +43,7 @@ If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Passos' }],
@@ -57,14 +57,27 @@ If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become
             { lineRange: [9, 14], content: '`eval()` e `no_grad()` formam o par padrao para previsao/geracao.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Passos de geracao',
-          items: [
-            { label: 'Contexto', value: 'Entrada atual com shape (B,T).' },
-            { label: 'Forward', value: 'Produz logits para cada posicao do contexto.' },
-            { label: 'Ultimo passo', value: 'Usa apenas a linha temporal final para decidir proximo token.' },
-            { label: 'Loop', value: 'Concatena token novo e repete ate condicao de parada.' },
-            { label: 'Parada', value: 'Encerrar por `EOS` ou por `max_new_tokens` evita geracao sem criterio.' },
+          subtitle: 'Treino usa todas as posições em paralelo. Geração autoregressiva decide uma posição por vez.',
+          steps: [
+            { label: 'eval + no_grad', body: 'Antes do primeiro token novo, congelamos o modo do modelo e desligamos o grafo.', risk: 'Esquecer esse passo custa desempenho e pode introduzir ruído de treino.' },
+            { label: 'contexto', shape: '(B,T)', body: 'O modelo recebe o prefixo atual inteiro, não apenas a última palavra.', risk: 'Confundir contexto parcial com estado interno e perder a leitura do que o modelo realmente enxerga.' },
+            { label: 'forward', shape: 'logits -> (B,T,V)', body: 'A saída produz um placar para cada posição do contexto atual.', risk: 'Assumir que todos esses logits serão usados para a decisão seguinte.' },
+            { label: 'última fatia', shape: 'logits[:, -1, :]', body: 'Só a posição final interessa para escolher o próximo token.', risk: 'Ler o tensor inteiro e esquecer qual corte realmente alimenta a geração.' },
+            { label: 'amostra + append', body: 'Argmax ou sampling escolhe um índice; o token novo entra no contexto e o ciclo recomeça.', risk: 'Gerar sem critério de parada e transformar inferência em loop sem controle.' },
+          ],
+          failureTitle: 'Onde a geração degrada',
+          failureModes: [
+            { label: 'Modo errado', value: '`train()` ativo deixa dropout contaminar a geração.' },
+            { label: 'Corte errado', value: 'Se você não pegar a última fatia, a decisão usa a posição errada do contexto.' },
+            { label: 'Parada ausente', value: 'Sem `EOS` ou limite de tokens, o loop continua sem critério.' },
+          ],
+          mentalModelTitle: 'Modelo mental',
+          mentalModel: [
+            'Forward produz logits para todas as posições vistas até agora.',
+            'Geração consome só a última decisão disponível.',
+            'O novo token volta para a entrada e alonga o contexto.',
           ],
           footer: 'Padrao mental: treino usa todas posicoes; inferencia decide uma posicao por vez.',
         },
@@ -81,14 +94,27 @@ If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become
             { lineRange: [9, 14], content: '`eval()` and `no_grad()` are the default pair for prediction/generation.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Generation steps',
-          items: [
-            { label: 'Context', value: 'Current input with shape (B,T).' },
-            { label: 'Forward', value: 'Produces logits for each context position.' },
-            { label: 'Last step', value: 'Use final time index only to decide next token.' },
-            { label: 'Loop', value: 'Append token and repeat until stop condition.' },
-            { label: 'Stop', value: 'Stopping on `EOS` or `max_new_tokens` avoids open-ended generation.' },
+          subtitle: 'Training consumes all positions in parallel. Autoregressive generation decides one position at a time.',
+          steps: [
+            { label: 'eval + no_grad', body: 'Before the first new token, freeze model mode and disable graph building.', risk: 'Skipping this hurts performance and may reintroduce training-time noise.' },
+            { label: 'context', shape: '(B,T)', body: 'The model receives the entire current prefix, not only the last word.', risk: 'Confusing partial context with hidden state and losing sight of what the model actually sees.' },
+            { label: 'forward', shape: 'logits -> (B,T,V)', body: 'Output produces a scoreboard for every position in the current context.', risk: 'Assuming all of those logits are equally used for the next decision.' },
+            { label: 'last slice', shape: 'logits[:, -1, :]', body: 'Only the final position matters for choosing the next token.', risk: 'Reading the whole tensor and forgetting which slice truly drives generation.' },
+            { label: 'sample + append', body: 'Argmax or sampling chooses an index; the new token is appended to context and the cycle restarts.', risk: 'Generating without a stop criterion and turning inference into an uncontrolled loop.' },
+          ],
+          failureTitle: 'Where generation degrades',
+          failureModes: [
+            { label: 'Wrong mode', value: '`train()` left active lets dropout contaminate generation.' },
+            { label: 'Wrong slice', value: 'If you do not take the last slice, the decision uses the wrong position.' },
+            { label: 'Missing stop', value: 'Without `EOS` or a token limit, the loop has no control boundary.' },
+          ],
+          mentalModelTitle: 'Mental model',
+          mentalModel: [
+            'Forward produces logits for every position seen so far.',
+            'Generation consumes only the latest available decision.',
+            'The new token returns to the input and extends the context.',
           ],
           footer: 'Mental model: training consumes all positions; inference decides one position at a time.',
         },

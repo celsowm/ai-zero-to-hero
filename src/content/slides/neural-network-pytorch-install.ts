@@ -4,14 +4,11 @@ export const neuralNetworkPytorchInstall = defineSlide({
   id: 'neural-network-pytorch-install',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.56,
-      0.44
-    ]
+    columnRatios: [0.56, 0.44],
   },
   content: {
     'pt-br': {
-      title: `Primeira biblioteca externa: instalando \`torch\` com \`pip\``,
+      title: 'Primeira biblioteca externa: instalando `torch` com `pip`',
       body: `Até aqui o curso usou apenas Python puro. Agora aparece a primeira biblioteca externa, e isso exige um passo novo: instalar o pacote antes de importar.
 
 1. **\`torch\` não vem junto com o Python:** se você abrir um projeto limpo e tentar \`import torch\`, o mais comum é receber erro de módulo não encontrado.
@@ -29,7 +26,7 @@ Sintomas reais de ambiente:
 > Primeiro instalamos o backend. Depois treinamos e inferimos no mesmo ambiente.`,
     },
     'en-us': {
-      title: `First external library: installing \`torch\` with \`pip\``,
+      title: 'First external library: installing `torch` with `pip`',
       body: `Up to this point the course only used pure Python. Now the first external library appears, and that requires a new step: install the package before importing it.
 
 1. **\`torch\` does not come with Python by default:** if you open a clean project and try \`import torch\`, the usual result is a module-not-found error.
@@ -48,7 +45,7 @@ Real environment symptoms:
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-decision-matrix',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
@@ -61,14 +58,21 @@ Real environment symptoms:
             { lineRange: [2, 2], content: 'Mostra a versao carregada no ambiente atual.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Sintoma -> causa -> correcao',
-          items: [
-            { label: 'ModuleNotFoundError', value: 'Causa: torch ausente neste Python. Correcao: instalar com `python -m pip install torch`.' },
-            { label: 'Versao aparece no terminal mas nao no editor', value: 'Causa: interpretador diferente. Correcao: selecionar a mesma `.venv` no IDE/notebook.' },
-            { label: 'Ambiente limpo', value: 'Use `.venv` para isolar dependencias e reproduzir o mesmo setup.' },
-            { label: 'Teste minimo', value: 'Import + `torch.__version__` antes de qualquer script longo.' },
+          subtitle: 'Instalar PyTorch quase nunca falha por “misterio”. Quase sempre e ambiente, interpretador ou wheel errada.',
+          columns: ['Causa provavel', 'Correcao', 'Como validar'],
+          callouts: [
+            { label: 'Comando-base', value: 'Use `python -m pip install torch` para amarrar o pip ao mesmo interpretador que vai rodar o codigo.' },
+            { label: 'Ambiente', value: 'Prefira `.venv` desde o primeiro install para evitar dependencia espalhada entre Python global e editor.' },
           ],
+          rows: [
+            { label: 'ModuleNotFoundError', cells: ['O pacote nao foi instalado neste interpretador.', 'Rode `python -m pip install torch` no ambiente certo.', 'Abra o mesmo Python e teste `import torch`.'] },
+            { label: 'Versao aparece no terminal mas nao no editor', cells: ['Terminal e IDE estao apontando para Pythons diferentes.', 'Selecione a mesma `.venv` no notebook, VS Code ou PyCharm.', 'Compare o caminho do interpretador nos dois lados.'] },
+            { label: 'Ambiente novo', cells: ['Ainda nao ha dependencias registradas para o projeto.', 'Crie e ative uma `.venv` antes do install.', 'Instale e rode `torch.__version__` dentro dela.'] },
+            { label: 'Teste minimo', cells: ['Voce ainda nao confirmou que o install funciona de verdade.', 'Faça import e imprima versao antes de qualquer script longo.', 'Se isso falhar, o resto do projeto vai falhar tambem.'] },
+          ],
+          footer: 'Regra pratica: so avance para treino ou inferencia depois que import e versao funcionarem no mesmo ambiente em que voce vai executar o modelo.',
         },
       },
       'en-us': {
@@ -82,14 +86,21 @@ Real environment symptoms:
             { lineRange: [2, 2], content: 'Print loaded version from the current environment.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Symptom -> cause -> fix',
-          items: [
-            { label: 'ModuleNotFoundError', value: 'Cause: torch missing in this Python. Fix: install with `python -m pip install torch`.' },
-            { label: 'Version shows in terminal but not editor', value: 'Cause: different interpreter. Fix: select the same `.venv` in your IDE/notebook.' },
-            { label: 'Clean environment', value: 'Use `.venv` to isolate dependencies and reproduce the same setup.' },
-            { label: 'Minimum test', value: 'Run import + `torch.__version__` before any long script.' },
+          subtitle: 'PyTorch installation problems are rarely mysterious. They are usually interpreter, environment, or wheel mismatches.',
+          columns: ['Likely cause', 'Fix', 'How to validate'],
+          callouts: [
+            { label: 'Base command', value: 'Use `python -m pip install torch` so pip is tied to the same interpreter that will run the code.' },
+            { label: 'Environment', value: 'Prefer a `.venv` from day one to avoid mixing global Python, editor settings, and project dependencies.' },
           ],
+          rows: [
+            { label: 'ModuleNotFoundError', cells: ['The package is missing from this interpreter.', 'Run `python -m pip install torch` in the correct environment.', 'Open that same Python and test `import torch`.'] },
+            { label: 'Version shows in terminal but not editor', cells: ['Terminal and IDE point to different Pythons.', 'Select the same `.venv` in the notebook, VS Code, or PyCharm.', 'Compare interpreter paths on both sides.'] },
+            { label: 'Fresh environment', cells: ['No dependencies have been installed for this project yet.', 'Create and activate a `.venv` before installing.', 'Install and run `torch.__version__` inside it.'] },
+            { label: 'Minimum test', cells: ['You have not confirmed the install actually works.', 'Run import plus version print before any long script.', 'If that fails, everything else will fail too.'] },
+          ],
+          footer: 'Practical rule: do not move to training or inference until import and version work in the exact environment that will run the model.',
         },
       },
     },

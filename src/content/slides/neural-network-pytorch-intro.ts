@@ -4,14 +4,11 @@ export const neuralNetworkPytorchIntro = defineSlide({
   id: 'neural-network-pytorch-intro',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.58,
-      0.42
-    ]
+    columnRatios: [0.58, 0.42],
   },
   content: {
     'pt-br': {
-      title: `A mesma rede, agora com \`torch\``,
+      title: 'A mesma rede, agora com `torch`',
       body: `Nos slides anteriores abrimos a rede por dentro: pesos, bias, \`sigmoid\`, \`forward\`, \`backprop\` e update manual. Agora vamos repetir o mesmo problema, mas com a interface industrial.
 
 1. **Nao e outra teoria:** \`torch\` continua com tensores, camadas, loss, gradiente e atualizacao de parametro.
@@ -23,7 +20,7 @@ export const neuralNetworkPytorchIntro = defineSlide({
 > Primeiro aprendemos a mecanica. Agora passamos a operar no formato que aparece em codigo real.`,
     },
     'en-us': {
-      title: `The same network, now with \`torch\``,
+      title: 'The same network, now with `torch`',
       body: `In previous slides we opened the network internals: weights, bias, \`sigmoid\`, \`forward\`, \`backprop\`, and manual updates. Now we repeat the same problem with the industrial interface.
 
 1. **Not a new theory:** \`torch\` still uses tensors, layers, loss, gradients, and parameter updates.
@@ -36,7 +33,7 @@ export const neuralNetworkPytorchIntro = defineSlide({
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-bridge-shift',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mapa' }],
@@ -51,14 +48,18 @@ export const neuralNetworkPytorchIntro = defineSlide({
             { lineRange: [15, 15], content: 'A predicao final confirma o ciclo completo com interface torch.' },
           ],
         },
-        visualPanel: {
+        mapPanel: {
           title: 'Mesmo loop, nova ergonomia',
-          items: [
-            { label: 'Modelar', value: 'Antes: wiring manual. Agora: camadas prontas e assinatura clara.' },
-            { label: 'Treinar', value: 'Antes: update na unha. Agora: loss, backward e optimizer padronizados.' },
-            { label: 'Depurar', value: 'Antes: instrumentacao improvisada. Agora: shape, grad e device seguem contratos conhecidos.' },
-            { label: 'Iterar', value: 'Antes: muito boilerplate por variante. Agora: trocar bloco e repetir experimento fica barato.' },
+          subtitle: 'A mudanca importante nao e matematica nova. E troca de interface: menos engenharia manual, mais contrato legivel.',
+          beforeLabel: 'Antes: rede aberta na unha',
+          afterLabel: 'Agora: interface torch',
+          rows: [
+            { label: 'Modelar', before: 'Montar peso, bias e ativacao manualmente exigia wiring explicito em cada experimento.', after: '`nn.Module`, `Linear` e `Sigmoid` deixam a arquitetura declarada em poucos blocos nomeados.', why: 'Voce passa a ler a estrutura em segundos, sem se perder em codigo mecanico.' },
+            { label: 'Treinar', before: 'O loop dependia de backward e update implementados quase do zero.', after: 'Loss, `backward()` e optimizer viram um protocolo padrao, repetido em qualquer projeto serio.', why: 'Isso reduz erro de implementacao e aproxima o aluno do codigo que aparece em repos reais.' },
+            { label: 'Depurar', before: 'Cada bug parecia um caso isolado: gradiente, shape e update se misturavam.', after: 'Shape, gradiente, modo do modelo e device viram eixos claros de diagnostico.', why: 'O debug deixa de ser artesanal e passa a seguir contratos previsiveis.' },
+            { label: 'Iterar', before: 'Trocar arquitetura pedia muito retrabalho de boilerplate.', after: 'Substituir camada, loss ou optimizer custa pouco e preserva o mesmo loop mental.', why: 'Fica barato comparar variantes sem reconstruir todo o experimento.' },
           ],
+          footer: 'Ponte do curso: quando `return_tensors="pt"` aparecer, isso nao sera detalhe sintatico; sera a entrada para esse ecossistema de contratos.',
         },
       },
       'en-us': {
@@ -74,14 +75,18 @@ export const neuralNetworkPytorchIntro = defineSlide({
             { lineRange: [15, 15], content: 'Final prediction confirms full cycle through torch interface.' },
           ],
         },
-        visualPanel: {
+        mapPanel: {
           title: 'Same loop, new ergonomics',
-          items: [
-            { label: 'Model', value: 'Before: manual wiring. Now: ready layers and a clear signature.' },
-            { label: 'Train', value: 'Before: hand-written updates. Now: standardized loss, backward, and optimizer.' },
-            { label: 'Debug', value: 'Before: ad hoc instrumentation. Now: shape, grad, and device follow known contracts.' },
-            { label: 'Iterate', value: 'Before: lots of boilerplate per variant. Now: swapping blocks is cheap.' },
+          subtitle: 'The important change is not new math. It is a new interface: less manual engineering, more readable contracts.',
+          beforeLabel: 'Before: network opened by hand',
+          afterLabel: 'Now: torch interface',
+          rows: [
+            { label: 'Model', before: 'Defining weights, bias, and activations manually required explicit wiring for every experiment.', after: '`nn.Module`, `Linear`, and `Sigmoid` make the architecture declarative in a few named blocks.', why: 'You can read the structure in seconds instead of tracing mechanics.' },
+            { label: 'Train', before: 'The loop depended on nearly hand-built backward and update logic.', after: 'Loss, `backward()`, and optimizer become a standard protocol reused across serious projects.', why: 'This reduces implementation mistakes and brings the student closer to real repo code.' },
+            { label: 'Debug', before: 'Each bug felt isolated: gradients, shapes, and updates were tangled together.', after: 'Shape, gradients, mode, and device become distinct diagnostic axes.', why: 'Debugging stops being artisanal and starts following predictable contracts.' },
+            { label: 'Iterate', before: 'Changing architecture meant heavy boilerplate rewrites.', after: 'Swapping a layer, loss, or optimizer is cheap while preserving the same mental loop.', why: 'Variant comparison becomes inexpensive instead of a rewrite.' },
           ],
+          footer: 'Course bridge: when `return_tensors="pt"` appears later, it will not feel like syntax trivia; it will signal entry into this contract-based ecosystem.',
         },
       },
     },

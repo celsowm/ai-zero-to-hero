@@ -37,7 +37,7 @@ Stage-by-stage reading:
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-architecture-blueprint',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Shapes' }],
@@ -52,14 +52,25 @@ Stage-by-stage reading:
             { lineRange: [13, 14], content: 'A ultima dimensao vira vocabulario: um score por token possivel.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'Contrato de transformacao',
           subtitle: 'Apenas a ultima dimensao muda em cada etapa.',
-          items: [
-            { label: 'Entrada', value: 'idx -> (B, T) inteiros.' },
-            { label: 'Lookup', value: 'embedding(idx) -> (B, T, C).' },
-            { label: 'Projecao', value: 'linear(x) -> (B, T, V).' },
-            { label: 'Leitura causal', value: 'cada etapa preserva `(B,T)` e muda so a ultima dimensao.' },
+          stages: [
+            { label: 'IDs', title: 'O pipeline começa no espaço discreto', shape: '(B,T)', body: 'Cada posição carrega um inteiro que referencia o vocabulário. Ainda não existe geometria; só índice.', reading: 'Essa é a última vez que o modelo “vê” o token como ID puro.' },
+            { label: 'Embedding', title: 'Lookup transforma índice em vetor', shape: '(B,T,C)', body: 'O lookup preserva batch e tempo, mas troca o símbolo por uma representação contínua de largura C.', reading: 'A semântica muda de “qual token é?” para “como esse token é representado?”.' },
+            { label: 'Linear', title: 'Projeção final abre disputa no vocabulário', shape: '(B,T,V)', body: 'A última dimensão deixa de ser largura de representação e passa a ser placar de candidatos no vocabulário.', reading: 'Aqui fecha a ponte inteiro -> vetor -> logits.' },
+          ],
+          invariantsTitle: 'Invariantes',
+          invariants: [
+            'Batch e tempo são preservados nas duas transições.',
+            'Só a última dimensão muda de papel em cada etapa.',
+            'O significado final do tensor é “um score por token possível”.',
+          ],
+          diagnosticsTitle: 'Leitura operacional',
+          diagnostics: [
+            'Se `(B,T)` some, o problema não está na ideia do pipeline; está na implementação.',
+            'Se `C` e `V` se confundem, você perdeu a distinção entre representação e decisão.',
+            'O objetivo do slide é fixar a primeira cadeia completa de previsão de próximo token.',
           ],
           footer: 'Interpretacao: cada posicao de T ganha um vetor de V scores candidatos.',
         },
@@ -77,14 +88,25 @@ Stage-by-stage reading:
             { lineRange: [13, 14], content: 'Last dimension becomes vocabulary: one score per candidate token.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'Transformation contract',
           subtitle: 'Only the last dimension changes at each stage.',
-          items: [
-            { label: 'Input', value: 'idx -> (B, T) integers.' },
-            { label: 'Lookup', value: 'embedding(idx) -> (B, T, C).' },
-            { label: 'Projection', value: 'linear(x) -> (B, T, V).' },
-            { label: 'Causal reading', value: 'each stage preserves `(B,T)` and changes only the last dimension.' },
+          stages: [
+            { label: 'IDs', title: 'The pipeline starts in discrete space', shape: '(B,T)', body: 'Each position carries an integer referencing the vocabulary. There is no geometry yet; only indices.', reading: 'This is the last time the model sees the token as a raw ID.' },
+            { label: 'Embedding', title: 'Lookup turns index into vector', shape: '(B,T,C)', body: 'Lookup preserves batch and time while replacing the symbol with a width-C continuous representation.', reading: 'Semantics change from “which token is this?” to “how is this token represented?”.' },
+            { label: 'Linear', title: 'Final projection opens vocabulary competition', shape: '(B,T,V)', body: 'The last dimension stops meaning representation width and starts meaning a scoreboard over the vocabulary.', reading: 'This closes the bridge integer -> vector -> logits.' },
+          ],
+          invariantsTitle: 'Invariants',
+          invariants: [
+            'Batch and time are preserved across both transitions.',
+            'Only the last dimension changes role at each stage.',
+            'The final tensor means “one score per possible token”.',
+          ],
+          diagnosticsTitle: 'Operational reading',
+          diagnostics: [
+            'If `(B,T)` disappears, the problem is not the pipeline idea but the implementation.',
+            'If `C` and `V` get confused, you lost the distinction between representation and decision.',
+            'The purpose of this slide is to lock in the first complete next-token pipeline.',
           ],
           footer: 'Interpretation: each T position gets a V-sized score vector.',
         },

@@ -212,6 +212,137 @@ export interface PytorchDualPanelCopy {
   };
 }
 
+export interface PytorchBridgeShiftCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  mapPanel: {
+    title: string;
+    subtitle?: string;
+    beforeLabel: string;
+    afterLabel: string;
+    rows: Array<{
+      label: string;
+      before: string;
+      after: string;
+      why: string;
+    }>;
+    footer?: string;
+  };
+}
+
+export interface PytorchDecisionMatrixCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  matrixPanel: {
+    title: string;
+    subtitle?: string;
+    columns: string[];
+    rows: Array<{
+      label: string;
+      cells: string[];
+    }>;
+    callouts?: Array<{
+      label: string;
+      value: string;
+    }>;
+    footer?: string;
+  };
+}
+
+export interface PytorchArchitectureBlueprintCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  blueprintPanel: {
+    title: string;
+    subtitle?: string;
+    stages: Array<{
+      label: string;
+      title: string;
+      shape: string;
+      body: string;
+      reading: string;
+    }>;
+    invariantsTitle: string;
+    invariants: string[];
+    diagnosticsTitle: string;
+    diagnostics: string[];
+    footer?: string;
+  };
+}
+
+export interface PytorchExecutionPipelineCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  pipelinePanel: {
+    title: string;
+    subtitle?: string;
+    steps: Array<{
+      label: string;
+      shape?: string;
+      body: string;
+      risk: string;
+    }>;
+    failureTitle: string;
+    failureModes: Array<{
+      label: string;
+      value: string;
+    }>;
+    mentalModelTitle: string;
+    mentalModel: string[];
+    footer?: string;
+  };
+}
+
+export interface PytorchShapeTraceFlowCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  tracePanel: {
+    title: string;
+    subtitle?: string;
+    stages: Array<{
+      kicker: string;
+      title: string;
+      shape: string;
+      role: string;
+      debugHint: string;
+    }>;
+    failureTitle: string;
+    failureModes: Array<{
+      label: string;
+      value: string;
+    }>;
+    inferenceTitle: string;
+    inferenceSnippet: string;
+    inferenceBody: string;
+    footer: string;
+  };
+}
+
 export interface TokenBatchShiftInteractiveCopy {
   title: string;
   subtitle: string;

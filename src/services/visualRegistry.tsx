@@ -67,7 +67,12 @@ const visualMap: Record<string, string> = {
   'training-loop-stepper': 'TrainingLoopStepper',
   'training-loop-animation': 'TrainingLoopAnimation',
   'neural-network-to-language-modeling-comparator': 'NeuralNetworkToLanguageModelingComparator',
+  'pytorch-architecture-blueprint': 'PytorchArchitectureBlueprintVisual',
+  'pytorch-bridge-shift': 'PytorchBridgeShiftVisual',
+  'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',
+  'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
+  'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
   'token-batch-shift-interactive': 'TokenBatchShiftInteractive',
 
   // transformers

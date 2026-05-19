@@ -29,7 +29,12 @@ import type {
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
   NeuralNetworkToLanguageModelingComparatorCopy,
+  PytorchArchitectureBlueprintCopy,
+  PytorchBridgeShiftCopy,
+  PytorchDecisionMatrixCopy,
   PytorchDualPanelCopy,
+  PytorchExecutionPipelineCopy,
+  PytorchShapeTraceFlowCopy,
   TokenBatchShiftInteractiveCopy,
   SamplingRouletteCopy,
   SoftmaxVisualizerCopy,
@@ -253,7 +258,12 @@ interface VisualCopyMap {
   'training-loop-stepper': TrainingLoopStepperCopy;
   'training-loop-animation': TrainingLoopAnimationCopy;
   'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
+  'pytorch-architecture-blueprint': PytorchArchitectureBlueprintCopy;
+  'pytorch-bridge-shift': PytorchBridgeShiftCopy;
+  'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;
+  'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
+  'pytorch-shape-trace-flow': PytorchShapeTraceFlowCopy;
   'token-batch-shift-interactive': TokenBatchShiftInteractiveCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;

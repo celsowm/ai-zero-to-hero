@@ -45,7 +45,7 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Fluxo' }],
@@ -59,14 +59,27 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
             { lineRange: [10, 11], content: 'Antes do step, ja conseguimos inspecionar o que mudara.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Fluxo operacional do update',
-          items: [
-            { label: 'forward', value: 'Produz logits com pesos atuais.' },
-            { label: 'loss', value: 'Mede erro contra target do batch.' },
-            { label: 'backward', value: 'Converte erro em gradiente por parametro.' },
-            { label: 'step', value: 'Aplica regra do otimizador (ex: AdamW) para mover pesos.' },
-            { label: 'estado interno', value: 'AdamW carrega momentos e acumuladores; perder isso muda a trajetoria do treino.' },
+          subtitle: 'O otimizador não “aprende sozinho”. Ele só transforma o gradiente certo, na ordem certa, em movimento de parâmetro.',
+          steps: [
+            { label: 'forward', body: 'Os pesos atuais produzem logits e, indiretamente, o erro do batch.', risk: 'Sem uma leitura clara do forward, o restante do loop parece ruído estatístico.' },
+            { label: 'loss', body: 'A loss concentra o erro em um escalar que o backward consegue propagar.', risk: 'Se a loss estiver mal formada, o otimizador só receberá um sinal confuso.' },
+            { label: 'zero_grad()', body: 'Limpa o buffer de gradientes antes do batch atual.', risk: 'Sem isso, o batch novo soma gradiente velho e altera a escala real do update.' },
+            { label: 'backward()', body: 'Converte erro em `.grad` por parâmetro.', risk: 'Chamar `step()` sem backward novo não aplica aprendizado; aplica movimento sem sinal fresco.' },
+            { label: 'step()', body: 'AdamW ou SGD transforma `.grad` em deslocamento efetivo dos pesos.', risk: 'Recriar o optimizer no meio do treino apaga estado interno e muda a trajetória.' },
+          ],
+          failureTitle: 'Falhas do loop',
+          failureModes: [
+            { label: 'Acúmulo acidental', value: 'Quase sempre vem de `zero_grad()` fora do lugar ou ausente.' },
+            { label: 'Trajetória quebrada', value: 'Recriar AdamW apaga momentos e reinicia a dinâmica do update.' },
+            { label: 'Step cego', value: 'Sem backward atualizado, o optimizer não está “otimizando”; está aplicando ruído.' },
+          ],
+          mentalModelTitle: 'Modelo mental',
+          mentalModel: [
+            'Optimizer não cria gradiente; ele consome gradiente.',
+            '`zero_grad()` protege a leitura do batch atual.',
+            'Estado interno do optimizer também faz parte da continuidade do treino.',
           ],
           footer: 'Erros tipicos: esquecer zero_grad ou recriar optimizer e perder a dinamica acumulada.',
         },
@@ -83,14 +96,27 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
             { lineRange: [10, 11], content: 'Even before step, we can inspect what will move.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Operational update flow',
-          items: [
-            { label: 'forward', value: 'Produces logits with current weights.' },
-            { label: 'loss', value: 'Measures batch error against targets.' },
-            { label: 'backward', value: 'Turns error into per-parameter gradients.' },
-            { label: 'step', value: 'Applies optimizer rule (for example AdamW) to move weights.' },
-            { label: 'internal state', value: 'AdamW carries moments and accumulators; losing them changes training trajectory.' },
+          subtitle: 'The optimizer does not “learn by itself”. It only turns the correct gradient, in the correct order, into parameter movement.',
+          steps: [
+            { label: 'forward', body: 'Current weights produce logits and, indirectly, the batch error.', risk: 'Without a clear forward reading, the rest of the loop looks like statistical noise.' },
+            { label: 'loss', body: 'Loss concentrates error into a scalar that backward can propagate.', risk: 'If loss is malformed, the optimizer only receives a confused signal.' },
+            { label: 'zero_grad()', body: 'Clears gradient buffers before the current batch.', risk: 'Without it, the new batch adds stale gradients and changes the true update scale.' },
+            { label: 'backward()', body: 'Turns error into per-parameter `.grad` values.', risk: 'Calling `step()` without a fresh backward does not apply learning; it applies motion without signal.' },
+            { label: 'step()', body: 'AdamW or SGD turns `.grad` into actual weight displacement.', risk: 'Recreating the optimizer mid-run erases internal state and changes trajectory.' },
+          ],
+          failureTitle: 'Loop failures',
+          failureModes: [
+            { label: 'Accidental accumulation', value: 'Usually caused by misplaced or missing `zero_grad()`.' },
+            { label: 'Broken trajectory', value: 'Recreating AdamW erases moments and restarts update dynamics.' },
+            { label: 'Blind step', value: 'Without fresh backward, the optimizer is not optimizing; it is applying noise.' },
+          ],
+          mentalModelTitle: 'Mental model',
+          mentalModel: [
+            'The optimizer does not create gradients; it consumes them.',
+            '`zero_grad()` protects the meaning of the current batch.',
+            'Optimizer internal state is also part of training continuity.',
           ],
           footer: 'Common bugs: missing zero_grad or recreating the optimizer and losing accumulated dynamics.',
         },
