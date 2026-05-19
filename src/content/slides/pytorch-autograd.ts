@@ -49,7 +49,7 @@ Without Autograd, you would need to derive and implement backward for each opera
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mecanica' }],
@@ -63,16 +63,27 @@ Without Autograd, you would need to derive and implement backward for each opera
             { lineRange: [10, 11], content: 'Loss e gradiente mostram a direcao do ajuste.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Fluxo causal do gradiente',
-          items: [
-            { label: '1) Rastro do forward', value: 'Operações com `requires_grad=True` entram no grafo dinâmico.' },
-            { label: '2) Nó final (loss)', value: 'Cross-entropy cria o escalar que concentra o erro do batch.' },
-            { label: '3) Backward no grafo', value: 'Regra da cadeia propaga derivadas da loss para cada parâmetro conectado.' },
-            { label: '4) Gradiente no tensor', value: '`.grad` guarda o quanto cada peso deve subir/descer na próxima atualização.' },
-            { label: '5) Passo 1', value: 'Backward preenche `.grad` com o sinal do batch atual.' },
-            { label: '6) Passo 2 sem zero_grad', value: 'Novo backward soma gradiente antigo e atual, alterando a escala do update.' },
-            { label: '7) Passo 2 com zero_grad', value: 'O gradiente reflete so o batch corrente, como o loop normalmente espera.' },
+          subtitle: 'Autograd não é um mistério escondido. É um encadeamento operacional: gravar operações, definir a loss e propagar derivadas.',
+          steps: [
+            { label: 'requires_grad', body: 'Tensores e parâmetros marcados entram no radar do motor automático de derivação.', risk: 'Se o tensor certo não participa, não adianta chamar backward depois.' },
+            { label: 'forward trace', body: 'Cada operação relevante deixa um rastro no grafo dinâmico.', risk: 'Achar que o grafo existe “depois” da loss; ele começa a nascer durante o forward.' },
+            { label: 'loss escalar', body: 'A cross-entropy concentra o erro em um número que vira origem da retropropagação.', risk: 'Sem um objetivo escalar claro, o backward não sabe o que minimizar.' },
+            { label: 'backward()', body: 'A regra da cadeia corre do fim para o começo e distribui sensibilidade pelos parâmetros conectados.', risk: 'Esperar que o optimizer funcione sem esse sinal ter sido populado em `.grad`.' },
+            { label: 'buffer .grad', body: 'Cada parâmetro guarda quanto deve subir ou descer no próximo update.', risk: 'Esquecer que `.grad` acumula entre passos quando não é limpo.' },
+          ],
+          failureTitle: 'Onde a leitura quebra',
+          failureModes: [
+            { label: 'Sem gradiente', value: 'O tensor não entrou no grafo ou o caminho até a loss foi interrompido.' },
+            { label: 'Escala estranha', value: 'Acúmulo antigo em `.grad` distorce o próximo update.' },
+            { label: 'Debug errado', value: 'Ajustar learning rate antes de verificar se o gradiente está sendo formado corretamente.' },
+          ],
+          mentalModelTitle: 'Modelo mental',
+          mentalModel: [
+            'Forward grava operações relevantes.',
+            'Loss define o alvo escalar da diferenciação.',
+            'Backward preenche `.grad`; optimizer usa esse buffer depois.',
           ],
           footer: 'Regra prática: debugue grafo/gradiente primeiro; só depois ajuste otimizador e learning rate.',
         },
@@ -89,16 +100,27 @@ Without Autograd, you would need to derive and implement backward for each opera
             { lineRange: [10, 11], content: 'Loss and gradient expose update direction.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Gradient causal flow',
-          items: [
-            { label: '1) Forward trace', value: 'Operations with `requires_grad=True` are recorded in the dynamic graph.' },
-            { label: '2) Final node (loss)', value: 'Cross-entropy creates the scalar objective that concentrates batch error.' },
-            { label: '3) Graph backward', value: 'Chain rule propagates derivatives from loss to each connected parameter.' },
-            { label: '4) Tensor gradient', value: '`.grad` stores how much each weight should move on the next update.' },
-            { label: '5) Step 1', value: 'Backward fills `.grad` with the current batch signal.' },
-            { label: '6) Step 2 without zero_grad', value: 'A new backward adds old and new gradients, changing update scale.' },
-            { label: '7) Step 2 with zero_grad', value: 'Gradient reflects only the current batch, which is what the loop usually expects.' },
+          subtitle: 'Autograd is not hidden magic. It is an operational chain: record operations, define loss, propagate derivatives.',
+          steps: [
+            { label: 'requires_grad', body: 'Tensors and parameters marked for gradients enter the scope of automatic differentiation.', risk: 'If the right tensor never participates, calling backward later changes nothing.' },
+            { label: 'forward trace', body: 'Each relevant operation leaves a trace in the dynamic graph.', risk: 'Assuming the graph appears only after loss; it starts forming during forward.' },
+            { label: 'scalar loss', body: 'Cross-entropy concentrates error into one number that becomes the source of backpropagation.', risk: 'Without a clear scalar objective, backward has nothing coherent to minimize.' },
+            { label: 'backward()', body: 'Chain rule runs from output back to inputs and distributes sensitivity through connected parameters.', risk: 'Expecting the optimizer to work before `.grad` has been populated.' },
+            { label: 'buffer .grad', body: 'Each parameter stores how much it should move on the next update.', risk: 'Forgetting that `.grad` accumulates between steps unless cleared.' },
+          ],
+          failureTitle: 'Where reading breaks',
+          failureModes: [
+            { label: 'No gradient', value: 'The tensor never entered the graph or the path to loss was broken.' },
+            { label: 'Weird scale', value: 'Old accumulation in `.grad` distorts the next update.' },
+            { label: 'Wrong debug order', value: 'Tuning learning rate before verifying that gradients are being formed correctly.' },
+          ],
+          mentalModelTitle: 'Mental model',
+          mentalModel: [
+            'Forward records relevant operations.',
+            'Loss defines the scalar differentiation target.',
+            'Backward fills `.grad`; the optimizer consumes that buffer later.',
           ],
           footer: 'Practical order: debug graph/gradients first, then tune optimizer and learning rate.',
         },

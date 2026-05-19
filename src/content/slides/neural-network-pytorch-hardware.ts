@@ -4,14 +4,11 @@ export const neuralNetworkPytorchHardware = defineSlide({
   id: 'neural-network-pytorch-hardware',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.54,
-      0.46
-    ]
+    columnRatios: [0.54, 0.46],
   },
   content: {
     'pt-br': {
-      title: `Acelerando com GPU: PyTorch Multi-Ambiente`,
+      title: 'Acelerando com GPU: PyTorch Multi-Ambiente',
       body: `Se você tem uma placa de vídeo ou um Mac moderno, vale avaliar acelerador. Mas CPU ainda é a melhor escolha para debug curto, instalação simples e primeiros testes.
 
 ### 🔍 1. Regra de Ouro: Hardware
@@ -33,7 +30,7 @@ Regra de decisão:
 - **MPS/CUDA:** melhor quando o treino domina o tempo total e a transferência compensa.`,
     },
     'en-us': {
-      title: `GPU Acceleration: Multi-Environment PyTorch`,
+      title: 'GPU Acceleration: Multi-Environment PyTorch',
       body: `If you have a graphics card or a modern Mac, accelerators are worth evaluating. But CPU is still the best choice for short debugging sessions, simple setup, and first tests.
 
 ### 🔍 1. Golden Rule: Hardware
@@ -56,7 +53,7 @@ Decision rule:
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-decision-matrix',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
@@ -71,14 +68,21 @@ Decision rule:
             { lineRange: [17, 22], content: 'Cria tensor no device selecionado e executa operacao de validacao.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Objetivo x backend recomendado',
-          items: [
-            { label: 'Debug rapido', value: 'CPU. Menos variaveis de ambiente e mensagens de erro mais diretas.' },
-            { label: 'Mac moderno', value: 'MPS. Bom ganho local sem configurar CUDA.' },
-            { label: 'Treino recorrente', value: 'CUDA. Vale quando batches e epocas deixam a GPU ocupada.' },
-            { label: 'Troubleshooting base', value: 'Se algo falhar, cheque driver, wheel correta e se modelo/tensor estao no mesmo `device`.' },
+          subtitle: 'A decisao nao e “GPU sempre”. Ela depende do custo de setup, do tamanho do experimento e do que voce esta tentando otimizar.',
+          columns: ['Quando faz sentido', 'Primeira checagem', 'Risco tipico'],
+          callouts: [
+            { label: 'Regra de ouro', value: 'Cheque o hardware antes do PyTorch: `nvidia-smi`, `rocm-smi` ou o suporte nativo do macOS para Apple Silicon.' },
+            { label: 'Setup', value: 'A wheel correta importa mais do que “ter GPU”. Wheel errada transforma acelerador em bug de ambiente.' },
           ],
+          rows: [
+            { label: 'CPU', cells: ['Smoke tests, debug curto, primeira leitura do modelo.', 'Ver se o script roda do começo ao fim sem depender de driver.', 'Experimento lento demais para treino real quando o batch cresce.'] },
+            { label: 'MPS (Mac)', cells: ['Mac moderno com Apple Silicon e treino local moderado.', 'Confirmar `torch.backends.mps.is_available()`.', 'Esperar paridade total com CUDA e descobrir gaps de suporte tarde demais.'] },
+            { label: 'CUDA (NVIDIA)', cells: ['Treino recorrente, batches maiores, epocas que justificam setup.', 'Validar driver, `nvidia-smi` e wheel compativel com sua stack CUDA.', 'Modelo em um device e tensor em outro: bug classico de dispatch.'] },
+            { label: 'Troubleshooting', cells: ['Quando o ganho esperado nao aparece ou o script quebra cedo.', 'Rodar um tensor simples no device escolhido antes do modelo inteiro.', 'Culpar PyTorch sem verificar driver, install e dispatch primeiro.'] },
+          ],
+          footer: 'Regra de decisao: CPU e o baseline confiavel; acelerador vale quando o tempo de treino domina o custo de setup e de transferencia.',
         },
       },
       'en-us': {
@@ -94,14 +98,21 @@ Decision rule:
             { lineRange: [17, 22], content: 'Create tensor on selected device and run validation operation.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Goal vs recommended backend',
-          items: [
-            { label: 'Fast debugging', value: 'CPU. Fewer environment variables and clearer error messages.' },
-            { label: 'Modern Mac', value: 'MPS. Solid local speedup without CUDA setup.' },
-            { label: 'Recurring training', value: 'CUDA. Worth it when batches and epochs keep GPU busy.' },
-            { label: 'Troubleshooting base', value: 'If it fails, check driver, correct wheel, and whether model/tensors share the same `device`.' },
+          subtitle: 'The decision is not “GPU always”. It depends on setup cost, experiment size, and what you are trying to optimize.',
+          columns: ['When it fits', 'First check', 'Typical risk'],
+          callouts: [
+            { label: 'Golden rule', value: 'Check hardware before PyTorch: `nvidia-smi`, `rocm-smi`, or native macOS support for Apple Silicon.' },
+            { label: 'Setup', value: 'The correct wheel matters more than merely “having a GPU”. The wrong wheel turns acceleration into environment pain.' },
           ],
+          rows: [
+            { label: 'CPU', cells: ['Smoke tests, short debugging, first model read-through.', 'Verify the script runs end to end without driver dependencies.', 'Training becomes too slow for serious runs once batch size grows.'] },
+            { label: 'MPS (Mac)', cells: ['Modern Apple Silicon Mac with moderate local training.', 'Confirm `torch.backends.mps.is_available()`.', 'Assuming full CUDA parity and discovering support gaps too late.'] },
+            { label: 'CUDA (NVIDIA)', cells: ['Recurring training, larger batches, epochs that justify setup.', 'Validate driver, `nvidia-smi`, and a wheel compatible with your CUDA stack.', 'Model on one device and tensors on another: classic dispatch failure.'] },
+            { label: 'Troubleshooting', cells: ['When expected speedup never appears or the script fails early.', 'Run a simple tensor op on the chosen device before the full model.', 'Blaming PyTorch before checking driver, install, and dispatch.'] },
+          ],
+          footer: 'Decision rule: CPU is the trustworthy baseline; an accelerator is worth it when training time dominates setup and transfer overhead.',
         },
       },
     },

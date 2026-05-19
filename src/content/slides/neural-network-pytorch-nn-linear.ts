@@ -41,7 +41,7 @@ If this is unclear, model reading breaks down.
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-architecture-blueprint',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mapa de shape' }],
@@ -56,15 +56,25 @@ If this is unclear, model reading breaks down.
             { lineRange: [13, 14], content: 'Os prints provam que B e T permanecem; só a dimensão final muda.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'Como ler `Linear` sem cair em abstração vazia',
           subtitle: 'Perguntas que você deve responder ao ver `nn.Linear` no código.',
-          items: [
-            { label: 'Entrada real', value: 'Tensor de rank 3 (B,T,C). Cada posição temporal carrega um vetor C.' },
-            { label: 'Operação', value: 'Mesma matriz de pesos é aplicada em paralelo para cada vetor da grade (B,T).' },
-            { label: 'Saída', value: 'Tensor vira (B,T,V). Isso cria um score por token do vocabulário em cada posição.' },
-            { label: 'Semântica', value: '`C -> V` significa “preparar decisão de próximo token”, não só “fazer conta linear”.' },
-            { label: 'Erro comum', value: 'Tratar `Linear` como camada genérica e esquecer qual eixo está sendo projetado.' },
+          stages: [
+            { label: 'Entrada', title: 'O `Linear` enxerga vetores da última dimensão', shape: '(B,T,C)', body: 'Batch e tempo continuam sendo contexto externo. O que a camada realmente consome é cada vetor de largura C.', reading: 'A pergunta certa não é “qual o rank do tensor?”, mas “qual vetor está sendo projetado?”.' },
+            { label: 'Projeção', title: 'A mesma matriz atua em paralelo na grade inteira', shape: 'W: C -> V', body: 'Não existe uma matriz por token ou por posição temporal. A mesma transformação é compartilhada em todas as células de `(B,T)`.', reading: 'Isso explica por que `Linear` muda semântica sem misturar batch nem tempo.' },
+            { label: 'Saída', title: 'A largura muda e o significado muda junto', shape: '(B,T,V)', body: 'Quando a saída vira V, cada posição passa a carregar um placar sobre o vocabulário. O resultado não é “mais um tensor”; é uma decisão bruta de próximo token.', reading: '`C -> V` é mudança de papel, não só mudança de shape.' },
+          ],
+          invariantsTitle: 'Invariantes',
+          invariants: [
+            '`nn.Linear` atua só no último eixo.',
+            'Batch e tempo são preservados.',
+            'A nova largura define a semântica da saída.',
+          ],
+          diagnosticsTitle: 'Erros comuns',
+          diagnostics: [
+            'Ler `Linear` como caixa-preta e esquecer qual dimensão entra e qual sai.',
+            'Assumir que a camada mistura posições temporais quando ela só projeta vetores locais.',
+            'Ver `C -> V` como detalhe matemático e perder que isso produz logits.',
           ],
           footer: 'Regra de leitura: em LM, quase toda transição de bloco pode ser explicada por projeções de `Linear`.',
         },
@@ -82,15 +92,25 @@ If this is unclear, model reading breaks down.
             { lineRange: [13, 14], content: 'Prints confirm B and T stay fixed while only the last axis changes.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'How to read `Linear` without empty abstraction',
           subtitle: 'Questions you should answer every time `nn.Linear` appears.',
-          items: [
-            { label: 'Actual input', value: 'Rank-3 tensor (B,T,C). Each time position carries one C-width vector.' },
-            { label: 'Operation', value: 'The same weight matrix is applied in parallel over the full (B,T) grid.' },
-            { label: 'Output', value: 'Tensor becomes (B,T,V), creating one vocabulary score vector per position.' },
-            { label: 'Semantics', value: '`C -> V` means “prepare next-token decision,” not just “do a linear op”.' },
-            { label: 'Common failure', value: 'Treating `Linear` as generic and forgetting which axis is being projected.' },
+          stages: [
+            { label: 'Input', title: '`Linear` sees vectors on the last axis', shape: '(B,T,C)', body: 'Batch and time stay as outer structure. What the layer actually consumes is each width-C vector.', reading: 'The right question is not “what rank is this tensor?”, but “which vector is being projected?”.' },
+            { label: 'Projection', title: 'The same matrix acts across the full grid', shape: 'W: C -> V', body: 'There is not one matrix per token or per time step. The same transformation is shared across every `(B,T)` cell.', reading: 'That is why `Linear` changes semantics without mixing batch or time.' },
+            { label: 'Output', title: 'Changing width also changes meaning', shape: '(B,T,V)', body: 'Once output width becomes V, each position carries a vocabulary scoreboard. The result is not “just another tensor”; it is a raw next-token decision surface.', reading: '`C -> V` is a change of role, not only a change of shape.' },
+          ],
+          invariantsTitle: 'Invariants',
+          invariants: [
+            '`nn.Linear` acts only on the last axis.',
+            'Batch and time are preserved.',
+            'The new width defines output semantics.',
+          ],
+          diagnosticsTitle: 'Common failures',
+          diagnostics: [
+            'Reading `Linear` as a black box and forgetting which dimension enters and which exits.',
+            'Assuming the layer mixes time positions when it only projects local vectors.',
+            'Treating `C -> V` as math trivia instead of the step that creates logits.',
           ],
           footer: 'Reading rule: in LM stacks, most block transitions are ultimately `Linear` projections.',
         },

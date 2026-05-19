@@ -43,7 +43,7 @@ Two use cases:
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-decision-matrix',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Payload' }],
@@ -57,13 +57,19 @@ Two use cases:
             { lineRange: [12, 14], content: '`torch.save` escreve arquivo e `torch.load` reconstrui em memoria.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Minimo para inferencia vs treino',
-          items: [
-            { label: 'Inferencia', value: 'model/state_dict: suficiente para reproduzir o forward.' },
-            { label: 'Treino completo', value: 'model + optimizer + step para retomar com a mesma dinamica.' },
-            { label: 'step', value: 'Posicao no treino para log/scheduler/retomada correta.' },
-            { label: 'arquivo .pt', value: 'Unidade de retomada e transferencia entre execucoes.' },
+          subtitle: 'Checkpoint bom não é arquivo “salvo”. É payload suficiente para reproduzir o comportamento certo no contexto certo.',
+          columns: ['O que precisa', 'O que garante', 'O que quebra se faltar'],
+          callouts: [
+            { label: 'Inferência', value: 'Para reproduzir forward, `state_dict` do modelo já costuma bastar.' },
+            { label: 'Retomada de treino', value: 'Para continuar a mesma curva, você precisa modelo + optimizer + passo/época.' },
+          ],
+          rows: [
+            { label: 'Pesos do modelo', cells: ['`model.state_dict()`', 'Reconstruir a função que gera logits.', 'Você nem reproduz a inferência corretamente.'] },
+            { label: 'Estado do optimizer', cells: ['Momentos, acumuladores e buffers internos.', 'Retomar a mesma dinâmica de update.', 'A curva volta com outra inércia e outro comportamento.'] },
+            { label: 'Passo/época', cells: ['Metadado operacional do treino.', 'Scheduler, log e retomada coerentes.', 'Métricas e agenda ficam desalinhadas.'] },
+            { label: 'Arquivo `.pt`', cells: ['Container de serialização do payload.', 'Transferência entre execuções e máquinas.', 'Você salva pedaços desconectados e depois não recompõe o estado real.'] },
           ],
           footer: 'Regra: checkpoint bom permite retomar e obter curva de treino continua.',
         },
@@ -80,15 +86,21 @@ Two use cases:
             { lineRange: [12, 14], content: '`torch.save` writes file and `torch.load` reconstructs in memory.' },
           ],
         },
-        visualPanel: {
+        matrixPanel: {
           title: 'Minimum for inference vs training',
-          items: [
-            { label: 'Inference', value: 'model/state_dict: enough to reproduce the forward pass.' },
-            { label: 'Full training', value: 'model + optimizer + step to resume with the same dynamics.' },
-            { label: 'step', value: 'Training position for logging/scheduler/resume correctness.' },
-            { label: 'file .pt', value: 'Resume and transfer unit across runs.' },
+          subtitle: 'A good checkpoint is not merely “a saved file”. It is enough payload to reproduce the right behavior in the right context.',
+          columns: ['What is needed', 'What it guarantees', 'What breaks if missing'],
+          callouts: [
+            { label: 'Inference', value: 'To reproduce forward behavior, model `state_dict` is often enough.' },
+            { label: 'Training resume', value: 'To continue the same curve, you need model + optimizer + step/epoch metadata.' },
           ],
-          footer: 'Rule: good checkpoint resumes with a continuous training curve.',
+          rows: [
+            { label: 'Model weights', cells: ['`model.state_dict()`', 'Reconstruct the function that generates logits.', 'You cannot even reproduce inference correctly.'] },
+            { label: 'Optimizer state', cells: ['Moments, accumulators, and internal buffers.', 'Resume the same update dynamics.', 'The curve restarts with different inertia and behavior.'] },
+            { label: 'Step/epoch', cells: ['Operational training metadata.', 'Consistent scheduler, logging, and resume behavior.', 'Metrics and schedule drift out of alignment.'] },
+            { label: '`.pt` file', cells: ['Serialization container for the payload.', 'Transfer across runs and machines.', 'You save disconnected pieces and fail to reconstruct the real state.'] },
+          ],
+          footer: 'Rule: a good checkpoint lets training resume with a continuous curve.',
         },
       },
     },

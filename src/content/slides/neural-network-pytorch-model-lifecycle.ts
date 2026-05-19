@@ -45,7 +45,7 @@ Recurring mistakes:
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Estados' }],
@@ -59,13 +59,27 @@ Recurring mistakes:
             { lineRange: [9, 14], content: 'Em avaliacao, com no_grad, inferencia fica estavel e barata.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Modo -> efeito no forward',
-          items: [
-            { label: 'train + grad', value: 'Dropout ativo, grafo ligado e pesos prontos para update.' },
-            { label: 'eval + no_grad', value: 'Forward estavel, sem ruido de treino e sem custo de gradiente.' },
-            { label: 'checkpoint save', value: 'Salvar peso + estado de treino.' },
-            { label: 'checkpoint load', value: 'Retomar sem perder progresso.' },
+          subtitle: 'O mesmo modelo muda de comportamento conforme o modo. Se isso ficar implícito, o resultado parece aleatório.',
+          steps: [
+            { label: 'train()', body: 'Ativa comportamento de treino, como dropout e caminho normal para atualização de parâmetros.', risk: 'Esquecer que treino ainda está ligado e depois culpar o modelo por variância de inferência.' },
+            { label: 'forward com gradiente', body: 'O grafo dinâmico é construído para que `backward()` possa propagar derivadas depois.', risk: 'Medir ou gerar nesse modo custa memória que não traz benefício algum.' },
+            { label: 'eval()', body: 'Congela o comportamento estocástico do forward para produzir uma leitura estável do modelo.', risk: 'Avaliar sem `eval()` distorce a percepção de qualidade e estabilidade.' },
+            { label: 'no_grad()', body: 'Desliga a construção do grafo quando você só quer inferir, medir ou gerar texto.', risk: 'Inferir sem `no_grad()` mantém custo de gradiente por puro desperdício.' },
+            { label: 'checkpoint', body: 'Persiste pesos e estado operacional para retomar ou comparar execuções.', risk: 'Salvar só uma parte do estado e depois acreditar que retomou exatamente de onde parou.' },
+          ],
+          failureTitle: 'Falhas recorrentes',
+          failureModes: [
+            { label: 'Avaliação ruidosa', value: 'Quase sempre é `eval()` ausente, não “instabilidade mágica” do modelo.' },
+            { label: 'Memória alta', value: 'Inferência sem `no_grad()` carrega grafo sem necessidade.' },
+            { label: 'Retomada inconsistente', value: 'Checkpoint parcial quebra a continuidade operacional do treino.' },
+          ],
+          mentalModelTitle: 'Leitura mental',
+          mentalModel: [
+            'Treino = forward com ruído/gradiente preparado para update.',
+            'Inferência = forward estável e barato.',
+            'Checkpoint = memória operacional da execução, não simples backup.',
           ],
           footer: 'Se o resultado muda sem motivo entre duas inferencias, cheque modo do modelo primeiro.',
         },
@@ -82,13 +96,27 @@ Recurring mistakes:
             { lineRange: [9, 14], content: 'In eval mode with no_grad, inference is stable and cheaper.' },
           ],
         },
-        visualPanel: {
+        pipelinePanel: {
           title: 'Mode -> forward effect',
-          items: [
-            { label: 'train + grad', value: 'Dropout active, graph enabled, and weights ready for updates.' },
-            { label: 'eval + no_grad', value: 'Stable forward, no training noise, and no gradient cost.' },
-            { label: 'checkpoint save', value: 'Save weights plus training state.' },
-            { label: 'checkpoint load', value: 'Resume without losing progress.' },
+          subtitle: 'The same model changes behavior depending on mode. If that remains implicit, the output feels random.',
+          steps: [
+            { label: 'train()', body: 'Enables training behavior, such as dropout and the standard path toward parameter updates.', risk: 'Forgetting training mode is still active and then blaming inference variance on the model itself.' },
+            { label: 'forward with gradients', body: 'The dynamic graph is built so `backward()` can propagate derivatives later.', risk: 'Measuring or generating in this mode wastes memory without any benefit.' },
+            { label: 'eval()', body: 'Freezes stochastic forward behavior so you can inspect a stable model state.', risk: 'Evaluating without `eval()` distorts your view of quality and stability.' },
+            { label: 'no_grad()', body: 'Disables graph construction when you only want inference, measurement, or generation.', risk: 'Running inference without `no_grad()` keeps gradient cost for no reason.' },
+            { label: 'checkpoint', body: 'Persists weights and operational state so runs can be resumed or compared.', risk: 'Saving only part of the state and assuming you resumed exactly where you left off.' },
+          ],
+          failureTitle: 'Recurring failures',
+          failureModes: [
+            { label: 'Noisy evaluation', value: 'Usually missing `eval()`, not some mysterious model instability.' },
+            { label: 'High memory', value: 'Inference without `no_grad()` keeps graph state unnecessarily.' },
+            { label: 'Broken resume', value: 'A partial checkpoint breaks training continuity.' },
+          ],
+          mentalModelTitle: 'Mental model',
+          mentalModel: [
+            'Training = forward with stochastic behavior and gradient tracking.',
+            'Inference = stable and cheaper forward pass.',
+            'Checkpoint = operational memory of the run, not a casual backup.',
           ],
           footer: 'If output changes unexpectedly between inferences, check model mode first.',
         },

@@ -86,6 +86,7 @@ export const courseSlideOrder = [
   'gpt2-block-anatomy',
   'gpt2-from-scratch-repo-map',
   'gpt2-pytorch-config-loading',
+  'gpt2-pytorch-qkv-intuition',
   'gpt2-pytorch-attention',
   'gpt2-pytorch-mlp-block',
   'gpt2-pytorch-model-forward',

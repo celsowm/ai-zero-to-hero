@@ -49,7 +49,7 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
     },
   },
   visual: {
-    id: 'pytorch-dual-panel',
+    id: 'pytorch-architecture-blueprint',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mapa' }],
@@ -66,14 +66,25 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
             { lineRange: [12, 12], content: 'Fechamos o dicionario do modelo: entrada, corpo e saida no mesmo objeto.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'Leitura de codigo real com nomes recorrentes',
           subtitle: 'Ordem de leitura para revisar arquitetura sem perder tempo.',
-          items: [
-            { label: '1. Entrada', value: '`wte` = word token embedding: IDs (B,T) viram vetores (B,T,C).' },
-            { label: '2. Corpo', value: '`blocks`: transformacoes repetidas no stream (normaliza, projeta, regulariza).' },
-            { label: '3. Saida', value: '`lm_head`: cada posicao vira vetor de logits no vocabulario (B,T,V).' },
-            { label: '4. Diagnostico rapido', value: 'Shape quebrou? cheque transicao entre entrada/corpo/saida nessa ordem.' },
+          stages: [
+            { label: 'Entrada', title: '`wte` faz o token entrar no modelo', shape: '(B,T) -> (B,T,C)', body: 'IDs discretos viram vetores densos. Aqui o modelo deixa o mundo simbólico e entra no espaço contínuo.', reading: 'Quando você vê `Embedding`, pergunte qual inteiro entra e qual largura C sai.' },
+            { label: 'Corpo', title: '`blocks` repetem transformação de hidden state', shape: '(B,T,C) -> (B,T,C)', body: '`ModuleList` não é detalhe de API: ele torna a profundidade explícita e rastreável. Cada bloco mexe no stream, mas preserva o contrato central.', reading: 'Se algo explode no meio, cheque a repetição: normalização, projeção e regularização estão sendo empilhadas aqui.' },
+            { label: 'Saída', title: '`lm_head` converte representação em decisão', shape: '(B,T,C) -> (B,T,V)', body: 'A cabeça final projeta cada posição para o vocabulário. É aqui que hidden state vira logits e o modelo passa a competir entre tokens candidatos.', reading: 'O fim da arquitetura sempre responde: como o token sai do modelo?' },
+          ],
+          invariantsTitle: 'Invariantes de leitura',
+          invariants: [
+            '`Embedding` define a porta de entrada do token.',
+            '`ModuleList` define profundidade e repetição estrutural.',
+            '`lm_head` define a semântica da saída: logits por posição.',
+          ],
+          diagnosticsTitle: 'Diagnóstico rápido',
+          diagnostics: [
+            'Shape quebrou cedo? valide a transição IDs -> vetores.',
+            'Shape quebrou no meio? inspecione um bloco da `ModuleList` e repita a leitura.',
+            'Shape quebrou no fim? cheque a projeção `C -> V` do `lm_head`.',
           ],
           footer: 'Essa leitura reduz debug cego: primeiro contrato de estrutura, depois detalhe matematico.',
         },
@@ -93,14 +104,25 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
             { lineRange: [12, 12], content: 'Dictionary closes: input, body, and output in one structured object.' },
           ],
         },
-        visualPanel: {
+        blueprintPanel: {
           title: 'Reading real code with recurring names',
           subtitle: 'Review order to inspect architecture without drifting.',
-          items: [
-            { label: '1. Entry', value: '`wte` = word token embedding: IDs (B,T) become vectors (B,T,C).' },
-            { label: '2. Body', value: '`blocks`: repeated stream transforms (normalize, project, regularize).' },
-            { label: '3. Exit', value: '`lm_head`: each position becomes vocabulary logits (B,T,V).' },
-            { label: '4. Fast diagnosis', value: 'Shape mismatch? check entry/body/exit transitions in that order.' },
+          stages: [
+            { label: 'Entry', title: '`wte` is how the token enters the model', shape: '(B,T) -> (B,T,C)', body: 'Discrete IDs become dense vectors. This is where the model leaves symbolic space and enters continuous representation space.', reading: 'When you see `Embedding`, ask which integer enters and which width-C vector comes out.' },
+            { label: 'Body', title: '`blocks` repeat hidden-state transformation', shape: '(B,T,C) -> (B,T,C)', body: '`ModuleList` is not API trivia: it makes depth explicit and traceable. Each block changes the stream while preserving the central contract.', reading: 'If something explodes in the middle, inspect one repeated block: normalization, projection, and regularization live here.' },
+            { label: 'Exit', title: '`lm_head` turns representation into decision', shape: '(B,T,C) -> (B,T,V)', body: 'The final head projects each position into vocabulary space. This is where hidden state becomes logits and candidate tokens start competing.', reading: 'The end of the architecture always answers: how does the token leave the model?' },
+          ],
+          invariantsTitle: 'Reading invariants',
+          invariants: [
+            '`Embedding` defines the token entry point.',
+            '`ModuleList` defines depth and structural repetition.',
+            '`lm_head` defines output semantics: logits per position.',
+          ],
+          diagnosticsTitle: 'Fast diagnosis',
+          diagnostics: [
+            'Early shape break? validate IDs -> vector transition.',
+            'Middle shape break? inspect one repeated `ModuleList` block and replay the reading.',
+            'Late shape break? check the `C -> V` projection at `lm_head`.',
           ],
           footer: 'This avoids blind debugging: validate structure contract before deep math details.',
         },
