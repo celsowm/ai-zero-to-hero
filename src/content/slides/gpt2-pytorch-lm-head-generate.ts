@@ -14,7 +14,16 @@ Ritmo da geração autoregressiva:
 1. rodar o modelo no contexto atual
 2. pegar \`logits[:, -1, :]\`
 3. transformar em probabilidades
-4. amostrar um próximo token`,
+4. amostrar um próximo token
+
+Controles que mudam o comportamento:
+- temperatura: mais baixa = mais conservador
+- top-k/top-p: limita cauda da distribuicao
+- max_new_tokens: controla custo e tamanho da resposta
+
+Problemas comuns:
+- repeticao excessiva: temperatura baixa demais
+- ruido sem sentido: temperatura alta demais`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/generate
 \`\`\``,
@@ -32,7 +41,16 @@ Rhythm of autoregressive generation:
 1. run the model on the current context
 2. take \`logits[:, -1, :]\`
 3. turn them into probabilities
-4. sample the next token`,
+4. sample the next token
+
+Controls that change behavior:
+- temperature: lower = more conservative
+- top-k/top-p: trims the distribution tail
+- max_new_tokens: controls cost and output length
+
+Common issues:
+- excessive repetition: temperature too low
+- incoherent noise: temperature too high`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/generate
 \`\`\``,

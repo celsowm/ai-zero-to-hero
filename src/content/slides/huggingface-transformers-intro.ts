@@ -16,7 +16,7 @@ export const huggingfaceTransformersIntro = defineSlide({
 
 1. **Não é o modelo, é a interface:** \`transformers\` organiza o acesso a tokenizers, configs, checkpoints e APIs de geração para que você carregue modelos prontos sem reimplementar a arquitetura inteira.
 
-2. **A tríade principal:** \`AutoTokenizer\` converte texto em tokens, \`AutoModelForCausalLM\` carrega um modelo causal treinado para prever o próximo token, e \`pipeline()\` junta essas peças em uma API de alto nível para teste rápido, demo e prototipação.
+2. **A triade principal:** \`AutoTokenizer\` converte texto em tokens, \`AutoModelForCausalLM\` carrega um modelo causal treinado para prever o proximo token, e \`pipeline()\` junta essas pecas em uma API (interface de programacao) de alto nivel para teste rapido, demo e prototipacao.
 
 3. **O Hub por trás da biblioteca:** o valor real da Hugging Face é que a biblioteca conversa diretamente com o ecossistema do Hub. Isso permite buscar modelos, revisar versões, trocar checkpoints e experimentar sem sair do mesmo padrão de uso.
 
@@ -30,7 +30,7 @@ export const huggingfaceTransformersIntro = defineSlide({
 
 1. **It is not the model, it is the interface:** \`transformers\` organizes tokenizers, configs, checkpoints, and generation APIs so you can load ready-made models without reimplementing the full architecture.
 
-2. **The main trio:** \`AutoTokenizer\` turns text into tokens, \`AutoModelForCausalLM\` loads a causal model trained for next-token prediction, and \`pipeline()\` wraps those pieces in a high-level API for quick tests, demos, and prototyping.
+2. **The main trio:** \`AutoTokenizer\` turns text into tokens, \`AutoModelForCausalLM\` loads a causal model trained for next-token prediction, and \`pipeline()\` wraps those pieces in a high-level API (application programming interface) for quick tests, demos, and prototyping.
 
 3. **The Hub behind the library:** Hugging Face's real value is the bridge to the Hub ecosystem. That makes it easy to discover models, swap checkpoints, inspect versions, and experiment without changing the overall usage pattern.
 

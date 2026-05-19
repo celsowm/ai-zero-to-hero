@@ -12,31 +12,31 @@ export const attentionIsAllYouNeedTeaser = defineSlide({
   content: {
     'pt-br': {
       title: `Attention is all you need`,
-      body: `Em **2017**, o paper **"Attention Is All You Need"** (https://arxiv.org/abs/1706.03762) troca o paradigma de sequência recorrente por atenção vetorizada e abre o caminho para o regime de escala dos LLMs.
+      body: `Em **2017**, o paper **"Attention Is All You Need"** (https://arxiv.org/abs/1706.03762) troca o paradigma de sequencia recorrente por atencao vetorizada e abre o caminho para o regime de escala dos LLMs.
 
-1. **Limite estrutural das RNNs/LSTMs:** o estado oculto é atualizado token a token (\`h_t = f(h_{t-1}, x_t)\`). Isso força dependência temporal estrita no treino, reduz ocupação de GPU e alonga o caminho de gradiente em contextos longos.
+1. **Limite estrutural das RNNs/LSTMs (redes recorrentes):** o estado oculto e atualizado token a token (\`h_t = f(h_{t-1}, x_t)\`). Isso forca dependencia temporal estrita no treino, reduz ocupacao de GPU e alonga o caminho de gradiente em contextos longos.
 
-2. **Atenção como roteamento de contexto:** no Transformer, cada palavra projeta três vetores (Query, Key e Value). O modelo usa esses vetores para decidir quais outras palavras da frase são relevantes para entender a palavra atual. Veremos o detalhe técnico desse "match" (Q, K, V) em breve.
+2. **Atencao como roteamento de contexto:** no Transformer, cada token projeta Query, Key e Value. O modelo usa isso para decidir quais posicoes consultar ao atualizar cada token.
 
 3. **Paralelismo e escala:** a autoatenção é altamente paralelizável. Na prática, isso permitiu treinar modelos em escala massiva, tornando viável aumentar largura, profundidade e volume de dados de forma coordenada.
 
-4. **Efeito no ecossistema:** todos os modelos modernos como **BERT** (Encoder), **GPT** (Decoder) e **T5** (Encoder-Decoder) derivam dessa mesma base de 2017. O ganho não foi só acurácia; foi a eficiência no treino.
+4. **Efeito no ecossistema:** modelos como **BERT** (encoder), **GPT** (decoder) e **T5** (encoder-decoder) derivam dessa base. Neste curso, vamos focar no ramo **decoder-only**.
 
 5. **Contexto histórico correto:** os autores estavam majoritariamente ligados a [Google Brain](https://research.google/teams-and-labs/google-brain/) e instituições acadêmicas. [Google DeepMind](https://deepmind.google/) é fase organizacional posterior (integração consolidada a partir de **2023**).
 
-> Resumo técnico: o paper substituiu memória recorrente por roteamento de contexto via atenção e transformou o limite dominante de engenharia em um problema escalável por paralelismo.`,
+> Resumo tecnico: o paper substituiu memoria recorrente por roteamento de contexto via atencao e transformou o limite dominante de engenharia em um problema escalavel por paralelismo.`,
     },
     'en-us': {
       title: `Attention is all you need`,
       body: `In **2017**, **"Attention Is All You Need"** (https://arxiv.org/abs/1706.03762) replaced recurrent sequence processing with vectorized attention and enabled the scaling regime behind modern LLMs.
 
-1. **Structural limit of RNNs/LSTMs:** hidden state updates are strictly serial (\`h_t = f(h_{t-1}, x_t)\`). That imposes temporal dependency during training, underutilizes GPUs, and lengthens gradient paths on long contexts.
+1. **Structural limit of RNNs/LSTMs (recurrent networks):** hidden state updates are strictly serial (\`h_t = f(h_{t-1}, x_t)\`). That imposes temporal dependency during training, underutilizes GPUs, and lengthens gradient paths on long contexts.
 
-2. **Attention as context routing:** in a Transformer, each word projects three vectors (Query, Key, and Value). The model uses these vectors to decide which other words in the sentence are relevant for understanding the current word. We will see the technical details of this "match" (Q, K, V) soon.
+2. **Attention as context routing:** in a Transformer, each token projects Query, Key, and Value. The model uses that routing to decide which positions to consult when updating each token.
 
 3. **Parallelism and scale:** self-attention is highly parallelizable. In practice, this allowed training models at a massive scale, making it feasible to increase width, depth, and data volume in a coordinated way.
 
-4. **Ecosystem impact:** all modern models like **BERT** (Encoder), **GPT** (Decoder), and **T5** (Encoder-Decoder) derive from this same 2017 foundation. The key gain was not just accuracy, but training efficiency.
+4. **Ecosystem impact:** models like **BERT** (encoder), **GPT** (decoder), and **T5** (encoder-decoder) derive from this foundation. In this course, we focus on the **decoder-only** branch.
 
 5. **Accurate historical framing:** authors were mostly linked to [Google Brain](https://research.google/teams-and-labs/google-brain/) and academia. [Google DeepMind](https://deepmind.google/) is a later organizational phase (integration consolidated from **2023** onward).
 

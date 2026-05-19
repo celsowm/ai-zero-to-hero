@@ -17,8 +17,14 @@ Leitura mental do projeto:
 4. **\`scripts/\`**: smoke tests, overfit e treino real
 5. **\`configs/\`**: tamanhos do modelo e opções de treino
 
-O objetivo do bloco não é decorar a árvore inteira. É saber **onde olhar** quando o fluxo sair do slide e virar código real.`,
-      rightBody: '```txt\nconfigs/\n  model/\n  train/\nscripts/\nsrc/pytorch_gpt2/\n  model/\n  train/\n  infer/\n```',
+O objetivo do bloco nao e decorar a arvore inteira. E saber **onde olhar** quando o fluxo sair do slide e virar codigo real.
+
+Roteiro de leitura recomendado:
+1. rode \`scripts/smoke_forward.py\`
+2. abra implementacao do modelo em \`src/pytorch_gpt2/model\`
+3. abra treino em \`src/pytorch_gpt2/train\`
+4. feche o ciclo em \`scripts/generate.py\``,
+      rightBody: '```txt\nconfigs/\n  model/\n    gpt2-debug.yaml\n  train/\n    debug.yaml\nscripts/\n  smoke_forward.py\n  overfit_tiny_text.py\n  train.py\n  generate.py\nsrc/pytorch_gpt2/\n  model/\n  train/\n  infer/\n```',
     },
     'en-us': {
       title: 'Map of the `pytorch-gpt2-from-scratch` repo',
@@ -32,8 +38,14 @@ Mental map of the project:
 4. **\`scripts/\`**: smoke tests, overfit, and real training
 5. **\`configs/\`**: model sizes and training options
 
-The point of this slide is not to memorize the whole tree. It is to know **where to look** once the flow leaves the slide and becomes real code.`,
-      rightBody: '```txt\nconfigs/\n  model/\n  train/\nscripts/\nsrc/pytorch_gpt2/\n  model/\n  train/\n  infer/\n```',
+The point of this slide is not to memorize the whole tree. It is to know **where to look** once the flow leaves the slide and becomes real code.
+
+Recommended reading order:
+1. run \`scripts/smoke_forward.py\`
+2. open model implementation in \`src/pytorch_gpt2/model\`
+3. open training flow in \`src/pytorch_gpt2/train\`
+4. close the loop in \`scripts/generate.py\``,
+      rightBody: '```txt\nconfigs/\n  model/\n    gpt2-debug.yaml\n  train/\n    debug.yaml\nscripts/\n  smoke_forward.py\n  overfit_tiny_text.py\n  train.py\n  generate.py\nsrc/pytorch_gpt2/\n  model/\n  train/\n  infer/\n```',
     },
   },
 });

@@ -17,7 +17,12 @@ O que queremos ver:
 
 - logits com shape \`(B, T, V)\`
 - uma loss numérica
-- contagem plausível de parâmetros`,
+- contagem plausível de parâmetros
+
+Diagnostico rapido:
+- se shape falhar, o erro costuma estar em embedding/projecao
+- se loss vier \`nan\`, revisar inicializacao, dtype e targets
+- se parametros estiverem absurdos, revisar config \`n_layer/n_head/n_embd\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/smoke-forward
 \`\`\``,
@@ -39,7 +44,12 @@ What we want to see:
 
 - logits shaped \`(B, T, V)\`
 - a numeric loss
-- a plausible parameter count`,
+- a plausible parameter count
+
+Quick diagnostics:
+- if shapes fail, the bug is usually in embedding/projection wiring
+- if loss is \`nan\`, check init, dtype, and targets
+- if parameter count is absurd, check \`n_layer/n_head/n_embd\` config`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/smoke-forward
 \`\`\``,

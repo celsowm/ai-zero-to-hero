@@ -60,6 +60,7 @@ export const courseSlideOrder = [
   'pytorch-why-performant',
   'pytorch-autograd',
   'neural-network-pytorch-nn-linear',
+  'pytorch-embedding-intro',
   'pytorch-embedding-to-logits',
   'neural-network-pytorch-nn-layers',
   'neural-network-pytorch-optimizers',

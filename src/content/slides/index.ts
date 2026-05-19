@@ -164,6 +164,7 @@ import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchAutograd } from './pytorch-autograd';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
 import { pytorchEmbeddingToLogits } from './pytorch-embedding-to-logits';
+import { pytorchEmbeddingIntro } from './pytorch-embedding-intro';
 import { pytorchMinimalLanguageModel } from './pytorch-minimal-language-model';
 import { pytorchShapesLanguageModeling } from './pytorch-shapes-language-modeling';
 import { pytorchTokenBatch } from './pytorch-token-batch';
@@ -442,6 +443,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchSilicon,
   pytorchAutograd,
   pytorchWhyPerformant,
+  pytorchEmbeddingIntro,
   pytorchEmbeddingToLogits,
   pytorchMinimalLanguageModel,
   pytorchShapesLanguageModeling,

@@ -7,12 +7,14 @@ export const pytorchMinimalLanguageModel = defineSlide({
   content: {
     'pt-br': {
       title: 'Mini language model em PyTorch',
-      body: `Antes do GPT-2 completo, vale congelar o menor modelo que já treina como LM:
+      body: `Antes de ampliar a arquitetura, vale congelar o menor modelo que ja treina como LM:
 
 - \`Embedding\`
 - \`lm_head\`
 - \`forward(idx, targets)\`
-- \`cross_entropy\``,
+- \`cross_entropy\`
+
+Se isso estiver claro, o restante do curso vira escala e composicao de modulos.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/minimal-language-model
 \`\`\``,
@@ -24,12 +26,14 @@ snippet:pytorch-lm/minimal-language-model
     },
     'en-us': {
       title: 'A minimal PyTorch language model',
-      body: `Before the full GPT-2, it helps to freeze the smallest model that already trains like an LM:
+      body: `Before scaling the architecture, it helps to lock in the smallest model that already trains like an LM:
 
 - \`Embedding\`
 - \`lm_head\`
 - \`forward(idx, targets)\`
-- \`cross_entropy\``,
+- \`cross_entropy\`
+
+Once this is clear, the rest of the course becomes scale plus module composition.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/minimal-language-model
 \`\`\``,

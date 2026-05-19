@@ -14,9 +14,18 @@ Dentro dele, o fluxo é:
 1. embeddings + posição
 2. dropout
 3. pilha de blocos
-4. \`ln_f\`
-5. \`lm_head\`
-6. loss opcional`,
+4. \`ln_f\` (LayerNorm final)
+5. \`lm_head\` (camada final de logits)
+6. loss opcional
+
+Assinatura pratica:
+- entrada: \`idx (B, T)\`
+- saida base: \`logits (B, T, V)\`
+- saida treino: \`(logits, loss)\` quando \`targets\` existe
+
+Ponto critico:
+- treino usa todas as posicoes em paralelo
+- geracao usa apenas \`logits[:, -1, :]\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/model-forward
 \`\`\``,
@@ -35,9 +44,18 @@ Inside it, the flow is:
 1. embeddings + position
 2. dropout
 3. stack of blocks
-4. \`ln_f\`
-5. \`lm_head\`
-6. optional loss`,
+4. \`ln_f\` (final LayerNorm)
+5. \`lm_head\` (final logits layer)
+6. optional loss
+
+Practical signature:
+- input: \`idx (B, T)\`
+- base output: \`logits (B, T, V)\`
+- training output: \`(logits, loss)\` when \`targets\` is provided
+
+Critical distinction:
+- training consumes all positions in parallel
+- generation consumes only \`logits[:, -1, :]\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/model-forward
 \`\`\``,

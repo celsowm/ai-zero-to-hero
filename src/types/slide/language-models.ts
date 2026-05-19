@@ -192,3 +192,22 @@ export interface NeuralNetworkToLanguageModelingComparatorCopy {
   coreValue: string;
   footer: string;
 }
+
+export interface PytorchDualPanelCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  visualPanel: {
+    title: string;
+    subtitle?: string;
+    items: Array<{
+      label: string;
+      value: string;
+    }>;
+    footer?: string;
+  };
+}

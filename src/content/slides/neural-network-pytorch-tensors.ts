@@ -6,7 +6,7 @@ export const neuralNetworkPytorchTensors = defineSlide({
   options: { columnRatios: [0.56, 0.44] },
   content: {
     'pt-br': {
-      title: 'Tensores úteis para language modeling',
+      title: 'Tensores uteis para language modeling (LM)',
       body: `Neste bloco, tensor importa menos como teoria abstrata e mais como **estrutura com shape previsível**.
 
 Padrão que vai se repetir:
@@ -27,11 +27,11 @@ snippet:pytorch-lm/tensor-shapes
         { lineRange: [1, 3], content: 'Importamos o PyTorch e nomeamos as dimensões base que vão aparecer em todo o bloco.' },
         { lineRange: [5, 8], content: 'Os token IDs já nascem como uma matriz `(B, T)` de inteiros.' },
         { lineRange: [10, 11], content: 'Depois do embedding e das projeções, o modelo passa a carregar vetores e logits por token.' },
-        { lineRange: [13, 15], content: 'Os três `print`s fixam a convenção que vai reaparecer do mini LM até o GPT-2.' },
+        { lineRange: [13, 15], content: 'Os tres `print`s fixam a convencao de shape que vai reaparecer em todo o bloco de modelagem de linguagem.' },
       ],
     },
     'en-us': {
-      title: 'Tensors that matter for language modeling',
+      title: 'Tensors that matter for language modeling (LM)',
       body: `In this block, tensors matter less as abstract theory and more as **structures with predictable shapes**.
 
 The pattern that keeps coming back is:
@@ -52,7 +52,7 @@ snippet:pytorch-lm/tensor-shapes
         { lineRange: [1, 3], content: 'We import PyTorch and name the base dimensions that will reappear across the block.' },
         { lineRange: [5, 8], content: 'Token IDs already start as an integer matrix shaped `(B, T)`.' },
         { lineRange: [10, 11], content: 'After embedding and projections, the model carries vectors and logits per token.' },
-        { lineRange: [13, 15], content: 'The three prints lock in the convention reused from the tiny LM to GPT-2.' },
+        { lineRange: [13, 15], content: 'The three prints lock in the shape convention reused across this full language-modeling block.' },
       ],
     },
   },

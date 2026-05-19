@@ -16,7 +16,7 @@ export const gpt2LayerByLayerXray = defineSlide({
 
 1. **Entrada:** O texto vira Tokens, que viram Embeddings, que ganham Posição.
 
-2. **A Torre (12 Blocos):** O vetor flui pela via expressa (residual). Em cada bloco, a Atenção busca contexto e o MLP deduz novas informações, somando tudo de volta na via.
+2. **A Torre (N blocos):** O vetor flui pela via expressa (residual). Em cada bloco, a Atenção busca contexto e o MLP transforma a representação, somando tudo de volta na via.
 
 3. **Saída:** O vetor final do último bloco é multiplicado pelo vocabulário (Unembedding), passa pelo Softmax (ajustado por Temperatura), e o próximo token é sorteado.
 
@@ -30,7 +30,7 @@ export const gpt2LayerByLayerXray = defineSlide({
 
 1. **Input:** Text becomes Tokens, which become Embeddings, which get Position.
 
-2. **The Tower (12 Blocks):** The vector flows down the highway (residual). In each block, Attention seeks context and MLP deduces new info, adding it back to the highway.
+2. **The Tower (N blocks):** The vector flows down the residual highway. In each block, Attention seeks context and MLP transforms the representation, adding it back to the highway.
 
 3. **Output:** The final vector from the last block is multiplied by the vocabulary (Unembedding), passes through Softmax (adjusted by Temperature), and the next token is sampled.
 

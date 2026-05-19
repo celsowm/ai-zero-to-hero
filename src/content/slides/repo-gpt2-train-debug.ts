@@ -13,7 +13,13 @@ export const repoGpt2TrainDebug = defineSlide({
 python scripts/train.py --language pt --model-config configs/model/gpt2-debug.yaml --train-config configs/train/debug.yaml
 \`\`\`
 
-A ideia aqui é validar o pipeline inteiro com custo baixo antes de subir escala.`,
+A ideia aqui e validar o pipeline inteiro com custo baixo antes de subir escala.
+
+Checklist desse estagio:
+- arquivo de dados encontrado e tokenizado
+- loss de treino descendo sem instabilidade
+- checkpoints sendo gravados
+- metadados suficientes para retomar ou gerar depois`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/train-debug
 \`\`\``,
@@ -31,7 +37,13 @@ snippet:repo-gpt2/train-debug
 python scripts/train.py --language pt --model-config configs/model/gpt2-debug.yaml --train-config configs/train/debug.yaml
 \`\`\`
 
-The point is to validate the whole pipeline cheaply before scaling it up.`,
+The point is to validate the whole pipeline cheaply before scaling it up.
+
+Stage checklist:
+- data file is found and tokenized
+- training loss trends down without instability
+- checkpoints are written
+- enough metadata exists to resume or generate later.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/train-debug
 \`\`\``,

@@ -15,7 +15,15 @@ Sequência útil:
 2. token embedding
 3. soma com posição
 4. saída de cada bloco
-5. logits finais`,
+5. logits finais
+
+Sequencia de depuracao recomendada:
+- valide dtype/range de \`idx\` primeiro
+- confirme \`(B, T, C)\` apos embeddings
+- localize o primeiro bloco que quebra contrato
+- confirme retorno final em \`(B, T, V)\`
+
+Regra pratica: depure por contrato de shape antes de depurar por valor numerico.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/e2e-trace
 \`\`\``,
@@ -35,7 +43,15 @@ Useful sequence:
 2. token embedding
 3. add position
 4. output of each block
-5. final logits`,
+5. final logits
+
+Recommended debugging sequence:
+- validate \`idx\` dtype/range first
+- confirm \`(B, T, C)\` after embeddings
+- find the first block that breaks contract
+- confirm final return to \`(B, T, V)\`
+
+Practical rule: debug shape contracts before debugging numeric values.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/e2e-trace
 \`\`\``,

@@ -29,6 +29,7 @@ import type {
   MlpTextDiagramCopy,
   NextTokenInteractiveCopy,
   NeuralNetworkToLanguageModelingComparatorCopy,
+  PytorchDualPanelCopy,
   SamplingRouletteCopy,
   SoftmaxVisualizerCopy,
   TokenizationVisualizerCopy,
@@ -251,6 +252,7 @@ interface VisualCopyMap {
   'training-loop-stepper': TrainingLoopStepperCopy;
   'training-loop-animation': TrainingLoopAnimationCopy;
   'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
+  'pytorch-dual-panel': PytorchDualPanelCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
   'gpt2-block-anatomy': Gpt2BlockAnatomyCopy;

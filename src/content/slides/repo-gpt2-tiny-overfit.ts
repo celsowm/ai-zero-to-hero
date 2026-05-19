@@ -17,7 +17,12 @@ Sinais esperados:
 
 - loss cai rápido
 - perplexidade cai junto
-- a geração final repete padrões do corpus`,
+- a geração final repete padrões do corpus
+
+Se isso nao acontecer, geralmente e um destes pontos:
+- LR (learning rate) muito baixa/alta
+- batch/contexto nao batendo com o tamanho do corpus
+- bug no shift de targets (\`x[:, :-1]\` vs \`x[:, 1:]\`)`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/tiny-overfit
 \`\`\``,
@@ -38,7 +43,12 @@ Expected signs:
 
 - loss falls quickly
 - perplexity falls with it
-- the final sample repeats corpus patterns`,
+- the final sample repeats corpus patterns
+
+If that does not happen, the usual causes are:
+- LR (learning rate) too low/high
+- batch or context not matching corpus size
+- target-shift bug (\`x[:, :-1]\` vs \`x[:, 1:]\`)`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/tiny-overfit
 \`\`\``,

@@ -7,14 +7,14 @@ export const neuralNetworkPytorchNnLayers = defineSlide({
   content: {
     'pt-br': {
       title: 'Camadas PyTorch que importam aqui',
-      body: `Em vez de um catálogo genérico, este bloco precisa só das peças que reaparecem no mini LM e no GPT-2:
+      body: `Em vez de um catálogo genérico, este bloco precisa so das pecas que reaparecem em qualquer modelo autoregressivo:
 
 1. **\`nn.Module\`**
-2. **\`nn.Embedding\`**
-3. **\`nn.Linear\`**
-4. **\`nn.LayerNorm\`**
-5. **\`nn.Dropout\`**
-6. **\`nn.ModuleList\`**`,
+2. **\`nn.Embedding\`**: converte IDs em vetores aprendiveis
+3. **\`nn.Linear\`**: projeta dimensoes (ex: \`C -> V\`)
+4. **\`nn.LayerNorm\`**: estabiliza escala de ativacoes
+5. **\`nn.Dropout\`**: regularizacao no treino
+6. **\`nn.ModuleList\`**: empilha blocos repetidos`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/lm-layers
 \`\`\``,
@@ -25,14 +25,14 @@ snippet:pytorch-lm/lm-layers
     },
     'en-us': {
       title: 'The PyTorch layers that matter here',
-      body: `Instead of a generic catalog, this block only needs the pieces that keep coming back in the tiny LM and GPT-2:
+      body: `Instead of a generic catalog, this block only needs the pieces that keep coming back in autoregressive models:
 
 1. **\`nn.Module\`**
-2. **\`nn.Embedding\`**
-3. **\`nn.Linear\`**
-4. **\`nn.LayerNorm\`**
-5. **\`nn.Dropout\`**
-6. **\`nn.ModuleList\`**`,
+2. **\`nn.Embedding\`**: converts IDs into learnable vectors
+3. **\`nn.Linear\`**: projects dimensions (for example \`C -> V\`)
+4. **\`nn.LayerNorm\`**: stabilizes activation scale
+5. **\`nn.Dropout\`**: training regularization
+6. **\`nn.ModuleList\`**: stacks repeated blocks`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/lm-layers
 \`\`\``,

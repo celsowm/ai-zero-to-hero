@@ -12,14 +12,14 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
 Exemplos que vamos reutilizar:
 
 - \`C -> V\` para virar logits
-- \`C -> 3C\` para produzir Q, K e V
-- \`4C -> C\` para fechar o MLP`,
+- \`C -> C\` para transformar representacoes sem trocar largura
+- \`4C -> C\` para fechar blocos com expansao e contracao`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/linear-to-logits
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 4], content: 'Definimos explicitamente batch, tempo, embedding e vocabulário para ligar leitura de código à leitura de shape.' },
-        { lineRange: [6, 7], content: 'Embedding e Linear são as duas peças mínimas da projeção para LM.' },
+        { lineRange: [6, 7], content: 'Embedding e Linear sao as duas pecas minimas da projecao para um LM (language model).' },
         { lineRange: [9, 11], content: 'O forward faz exatamente a ponte token IDs -> embeddings -> logits.' },
         { lineRange: [13, 14], content: 'Os prints mostram a troca da última dimensão sem mudar batch nem sequência.' },
       ],
@@ -31,14 +31,14 @@ snippet:pytorch-lm/linear-to-logits
 Examples we will reuse:
 
 - \`C -> V\` to become logits
-- \`C -> 3C\` to produce Q, K, and V
-- \`4C -> C\` to close the MLP`,
+- \`C -> C\` to transform representations without changing width
+- \`4C -> C\` to close expansion-contraction blocks`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/linear-to-logits
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 4], content: 'We explicitly name batch, time, embedding, and vocabulary so code reading stays tied to shape reading.' },
-        { lineRange: [6, 7], content: 'Embedding and Linear are the two minimum pieces behind LM projection.' },
+        { lineRange: [6, 7], content: 'Embedding and Linear are the two minimum pieces behind an LM (language model) projection.' },
         { lineRange: [9, 11], content: 'The forward pass is exactly the bridge token IDs -> embeddings -> logits.' },
         { lineRange: [13, 14], content: 'The prints show the last dimension changing while batch and sequence stay fixed.' },
       ],

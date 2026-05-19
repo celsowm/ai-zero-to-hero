@@ -7,7 +7,7 @@ export const neuralNetworkPytorchModelLifecycle = defineSlide({
   content: {
     'pt-br': {
       title: 'Ciclo de vida do modelo',
-      body: `Antes de chegar ao repo do GPT-2, precisamos fixar quatro operações que voltam sempre:
+      body: `Antes de abrir arquiteturas maiores, precisamos fixar quatro operacoes que voltam sempre:
 
 1. **\`model.train()\`**
 2. **\`model.eval()\`**
@@ -24,7 +24,7 @@ snippet:pytorch-lm/model-lifecycle
     },
     'en-us': {
       title: 'Model lifecycle',
-      body: `Before we get to the GPT-2 repo, we need to lock in four operations that keep coming back:
+      body: `Before opening larger architectures, we need to lock in four operations that keep coming back:
 
 1. **\`model.train()\`**
 2. **\`model.eval()\`**

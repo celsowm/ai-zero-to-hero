@@ -18,7 +18,7 @@ export const gpt2Teaser = defineSlide({
 
 - **Quem criou:** OpenAI (mesmo laboratório do ChatGPT, GPT-4 e GPT-5).
 - **Tamanho:** 1,5 bilhão de parâmetros na versão maior (4 versões: 124M, 355M, 774M, 1.5B).
-- **Tarefa:** prever o próximo token — a mesma do bigram e do MLP dos slides anteriores, só que em escala de web inteira.
+- **Tarefa:** prever o proximo token - a mesma tarefa dos slides de language modeling que acabamos de ver, so que em escala de web inteira.
 - **Dados:** 8 milhões de páginas da internet (WebText), ~40 GB de texto filtrado.
 - **Contexto:** 1024 tokens de janela.
 
@@ -28,7 +28,7 @@ Hoje usamos GPT-5 com trilhões de parâmetros e contexto de milhões de tokens.
 
 1. **Decoder-only:** só o decoder do Transformer original. Perfeito para gerar texto, onde você só precisa do passado.
 
-2. **Pré-treinamento auto-regressivo:** prever o próximo token repetidamente. É a mesma ideia dos slides de bigram — só que com atenção em vez de contagem.
+2. **Pre-treinamento auto-regressivo:** prever o proximo token repetidamente. E a mesma ideia do loop de LM que vimos, agora com blocos Transformer em vez de um modelo minimo.
 
 3. **O salto que mudou tudo:** provou que atenção pura, sem as complexas camadas de memória de antigamente (RNN/LSTM), consegue gerar texto muito mais coerente e de forma mais paralelizável. GPT-3 (2020), GPT-4 (2023) e GPT-5 (2026) são a mesma receita — só que maiores, com mais dados e mais engenharia.
 
@@ -42,7 +42,7 @@ Hoje usamos GPT-5 com trilhões de parâmetros e contexto de milhões de tokens.
 
 - **Who created it:** OpenAI (the same lab behind ChatGPT, GPT-4, and GPT-5).
 - **Size:** 1.5 billion parameters in the largest version (4 versions: 124M, 355M, 774M, 1.5B).
-- **Task:** predict the next token — the same task as the bigram and MLP from previous slides, just at web scale.
+- **Task:** predict the next token - the same task from the language-modeling slides we just covered, but at web scale.
 - **Data:** 8 million web pages (WebText), ~40 GB of filtered text.
 - **Context:** 1024 tokens window.
 
@@ -52,7 +52,7 @@ Today we use GPT-5 with trillions of parameters and million-token context. But t
 
 1. **Decoder-only:** only the decoder from the original Transformer. Perfect for generating text where you only need the past.
 
-2. **Autoregressive pre-training:** predict the next token repeatedly. Same idea as the bigram slides — just with attention instead of counting.
+2. **Autoregressive pre-training:** predict the next token repeatedly. Same idea as the LM training loop we just covered, now with Transformer blocks instead of a minimal model.
 
 3. **The leap that changed everything:** it proved that pure attention, without the complex memory layers of the past (RNN/LSTM), can generate much more coherent text and in a more parallelizable way. GPT-3 (2020), GPT-4 (2023), and GPT-5 (2026) are the same recipe — just bigger, with more data and more engineering.
 

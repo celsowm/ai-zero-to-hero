@@ -19,7 +19,12 @@ python scripts/generate.py --model examples/tiny-overfit --prompt "ana viu"
 - modelo
 - checkpoint
 - loop autoregressivo
-- texto final`,
+- texto final
+
+Interpretacao do resultado:
+- se o texto ignora o prompt, revisar tokenizer/checkpoint compativeis
+- se degrada muito rapido, revisar temperatura/top-k e qualidade do treino
+- se o loop quebra por contexto, revisar \`block_size\` e truncamento`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/generate-checkpoint
 \`\`\``,
@@ -42,7 +47,12 @@ This is where the whole pipeline closes:
 - model
 - checkpoint
 - autoregressive loop
-- final text`,
+- final text
+
+How to read the result:
+- if output ignores the prompt, verify tokenizer/checkpoint compatibility
+- if quality degrades too fast, tune temperature/top-k and training quality
+- if the loop breaks on context size, review \`block_size\` and truncation`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/generate-checkpoint
 \`\`\``,

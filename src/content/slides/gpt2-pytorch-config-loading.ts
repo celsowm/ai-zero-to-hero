@@ -7,22 +7,29 @@ export const gpt2PytorchConfigLoading = defineSlide({
   content: {
     'pt-br': {
       title: 'Configuração do GPT no repo',
-      body: `No fluxo novo, “abrir o GPT-2” começa pela configuração, não por checkpoints externos.
+      body: `No fluxo novo, “abrir o GPT-2” começa pela configuracao, nao por checkpoints externos.
 
-Os números que definem o modelo são:
+Os numeros que definem o modelo sao:
 
 - \`vocab_size\`
 - \`block_size\`
 - \`n_layer\`
 - \`n_head\`
-- \`n_embd\``,
+- \`n_embd\`
+
+Relacoes que precisam fechar:
+- \`n_embd % n_head == 0\` para permitir split por head
+- \`idx.max() < vocab_size\` para nao quebrar embedding lookup
+- contexto de inferencia \`<= block_size\`
+
+Se a configuracao estiver errada, todos os erros seguintes parecem "misteriosos".`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/config
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'A configuração nasce como dataclass porque essas dimensões são contrato de arquitetura.' },
         { lineRange: [4, 10], content: 'Cada campo controla uma parte concreta do modelo: vocabulário, contexto, profundidade, heads e largura.' },
-        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head pode ser compartilhado desde a configuração.' },
+        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head (camada final de logits) pode ser compartilhado desde a configuracao.' },
       ],
     },
     'en-us': {
@@ -35,14 +42,21 @@ The numbers that define the model are:
 - \`block_size\`
 - \`n_layer\`
 - \`n_head\`
-- \`n_embd\``,
+- \`n_embd\`
+
+Relations that must hold:
+- \`n_embd % n_head == 0\` so head splitting is valid
+- \`idx.max() < vocab_size\` so embedding lookup stays in range
+- inference context length \`<= block_size\`
+
+If config is wrong, later errors look mysterious even when the code is fine.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/config
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'The config starts as a dataclass because these dimensions are an architectural contract.' },
         { lineRange: [4, 10], content: 'Each field controls one concrete model choice: vocabulary, context, depth, heads, and width.' },
-        { lineRange: [11, 11], content: 'Embedding and LM head weight tying can already be decided at config level.' },
+        { lineRange: [11, 11], content: 'Embedding and LM head (final logits layer) weight tying can already be decided at config level.' },
       ],
     },
   },
