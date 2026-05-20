@@ -269,6 +269,7 @@ interface VisualCopyMap {
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;
   'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
+  'pytorch-autograd-3d': PytorchExecutionPipelineCopy;
   'pytorch-shape-trace-flow': PytorchShapeTraceFlowCopy;
   'token-batch-shift-interactive': TokenBatchShiftVisualCopy;
   // transformers

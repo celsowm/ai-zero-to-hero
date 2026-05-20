@@ -41,7 +41,7 @@ Without Autograd, you would need to derive and implement backward for each opera
     },
   },
   visual: {
-    id: 'pytorch-execution-pipeline',
+    id: 'pytorch-autograd-3d',
     copy: {
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mecanica' }],

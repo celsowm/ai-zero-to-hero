@@ -4,7 +4,7 @@ export const neuralNetworkPytorchInstall = defineSlide({
   id: 'neural-network-pytorch-install',
   type: 'two-column',
   options: {
-    columnRatios: [0.56, 0.44],
+    columnRatios: [0.4, 0.6],
   },
   content: {
     'pt-br': {

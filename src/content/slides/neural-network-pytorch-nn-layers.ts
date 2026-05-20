@@ -66,6 +66,16 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
             { lineRange: [12, 12], content: 'Fechamos o dicionario do modelo: entrada, corpo e saida no mesmo objeto.' },
           ],
         },
+        architecturePreview: {
+          title: 'Rede resultante (entrada -> corpo -> saida)',
+          layers: [
+            { name: 'wte (Embedding)', shape: '(B,T) -> (B,T,C)', role: 'IDs -> vetores' },
+            { name: 'LayerNorm', shape: '(B,T,C)', role: 'estabiliza escala' },
+            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'projecao interna' },
+            { name: 'Dropout', shape: '(B,T,C)', role: 'regulariza no treino' },
+            { name: 'lm_head (Linear)', shape: '(B,T,C) -> (B,T,V)', role: 'logits por token' },
+          ],
+        },
         blueprintPanel: {
           title: 'Leitura de codigo real com nomes recorrentes',
           subtitle: 'Ordem de leitura para revisar arquitetura sem perder tempo.',
@@ -102,6 +112,16 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
             { lineRange: [5, 10], content: '`ModuleList` stores repeated blocks; here a simple block with normalization, projection, and dropout.' },
             { lineRange: [11, 11], content: '`lm_head` projects from `C` to vocabulary, producing per-token logits.' },
             { lineRange: [12, 12], content: 'Dictionary closes: input, body, and output in one structured object.' },
+          ],
+        },
+        architecturePreview: {
+          title: 'Resulting network (entry -> body -> exit)',
+          layers: [
+            { name: 'wte (Embedding)', shape: '(B,T) -> (B,T,C)', role: 'IDs -> vectors' },
+            { name: 'LayerNorm', shape: '(B,T,C)', role: 'stabilize scale' },
+            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'internal projection' },
+            { name: 'Dropout', shape: '(B,T,C)', role: 'training regularizer' },
+            { name: 'lm_head (Linear)', shape: '(B,T,C) -> (B,T,V)', role: 'per-token logits' },
           ],
         },
         blueprintPanel: {

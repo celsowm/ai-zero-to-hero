@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { PytorchExecutionPipelineCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 import { PytorchTabbedCodeLayout } from './PytorchTabbedCodeLayout';
+import { PytorchGenerationStepper } from './PytorchGenerationStepper';
 
 interface PytorchExecutionPipelineVisualProps {
   copy: PytorchExecutionPipelineCopy;
@@ -19,6 +20,7 @@ export const PytorchExecutionPipelineVisual = React.memo(({ copy }: PytorchExecu
     <PytorchTabbedCodeLayout
       tabs={copy.tabs}
       codePanel={copy.codePanel}
+      codeTabFooter={copy.generation ? <PytorchGenerationStepper copy={copy.generation} /> : undefined}
       altPanel={(
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 16 }}>
           <div>

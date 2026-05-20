@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { PytorchArchitectureBlueprintCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 import { PytorchTabbedCodeLayout } from './PytorchTabbedCodeLayout';
+import { PytorchArchitecturePreview } from './PytorchArchitecturePreview';
 
 interface PytorchArchitectureBlueprintVisualProps {
   copy: PytorchArchitectureBlueprintCopy;
@@ -18,6 +19,7 @@ export const PytorchArchitectureBlueprintVisual = React.memo(({ copy }: PytorchA
     <PytorchTabbedCodeLayout
       tabs={copy.tabs}
       codePanel={copy.codePanel}
+      codeTabFooter={copy.architecturePreview ? <PytorchArchitecturePreview copy={copy.architecturePreview} /> : undefined}
       altPanel={(
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 16 }}>
           <div>

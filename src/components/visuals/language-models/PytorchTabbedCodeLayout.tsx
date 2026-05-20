@@ -13,9 +13,14 @@ interface PytorchTabbedCodeLayoutProps {
     codeExplanations?: CodeExplanation[];
   };
   altPanel: React.ReactNode;
+  /**
+   * Optional content rendered at the bottom of the Code tab, below the code editor.
+   * Used to add an iterative network diagram or auxiliary visualization underneath the code.
+   */
+  codeTabFooter?: React.ReactNode;
 }
 
-export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel }: PytorchTabbedCodeLayoutProps) => {
+export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel, codeTabFooter }: PytorchTabbedCodeLayoutProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -32,7 +37,7 @@ export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel }
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, padding: 12, gap: 10 }}>
             <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>{codePanel.title}</div>
             <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>{codePanel.description}</div>
-            <div style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ flex: codeTabFooter ? '1 1 0' : 1, minHeight: 0 }}>
               <CodeBlock
                 language="python"
                 code=""
@@ -40,6 +45,11 @@ export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel }
                 explanations={codePanel.codeExplanations}
               />
             </div>
+            {codeTabFooter && (
+              <div style={{ flex: '1 1 0', minHeight: 0, overflow: 'auto' }}>
+                {codeTabFooter}
+              </div>
+            )}
           </div>
         ) : altPanel}
       </div>

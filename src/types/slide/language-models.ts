@@ -283,6 +283,14 @@ export interface PytorchArchitectureBlueprintCopy {
     diagnostics: string[];
     footer?: string;
   };
+  /**
+   * Optional bottom-half visualization for the Code tab: a small layered architecture
+   * preview rendered below the code so the reader sees the structure without leaving the code tab.
+   */
+  architecturePreview?: {
+    title: string;
+    layers: Array<{ name: string; shape: string; role: string }>;
+  };
 }
 
 export type PytorchProjectionSpaceCopy = PytorchArchitectureBlueprintCopy;
@@ -313,6 +321,27 @@ export interface PytorchExecutionPipelineCopy {
     mentalModelTitle: string;
     mentalModel: string[];
     footer?: string;
+  };
+  /**
+   * Optional bottom-half visualization for the Code tab. When present, the Code tab
+   * splits into two halves: the code editor on top and an iterative mini-network
+   * stepper at the bottom. Used by slides like the autoregressive prediction slide.
+   */
+  generation?: {
+    title: string;
+    subtitle?: string;
+    initialTokens: string[];
+    generatedTokens: string[];
+    vocabularyHint?: string;
+    embeddingLabel: string;
+    linearLabel: string;
+    logitsLabel: string;
+    contextLabel: string;
+    nextLabel: string;
+    prevLabel: string;
+    nextStepLabel: string;
+    stepLabel: string;
+    completionLabel: string;
   };
 }
 
