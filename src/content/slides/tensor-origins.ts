@@ -12,21 +12,20 @@ export const tensorOrigins = defineSlide({
   content: {
     'pt-br': {
       title: `Tensor: de onde vem esse nome?`,
-      body: `O termo **"tensor"** veio da física e da matemática — não do deep learning. A palavra vem do latim *tendere* ("esticar", "tensionar"), usada no século XIX para descrever como forças deformam materiais.
+      body: `No slide anterior, \`torch\` apareceu como o nucleo numerico do ecossistema. Agora falta responder: **o que exatamente e um tensor aqui?**
 
-### A hierarquia
-Na matemática, tensores são uma **generalização** de objetos numéricos:
-- **Escalar (0D):** um número isolado — ex: temperatura em um ponto (25°C)
-- **Vetor (1D):** uma direção com magnitude — ex: velocidade [x, y, z]
-- **Matriz (2D):** uma transformação linear — ex: tabela de pesos
-- **Tensor (3D+):** relações entre múltiplas dimensões — ex: curvatura do espaço-tempo
+O nome **"tensor"** veio da fisica e da matematica, nao do deep learning. A palavra vem do latim *tendere* ("esticar", "tensionar"), ligada historicamente a ideias de deformacao e tensao.
 
-### Física vs Deep Learning
-Na **física**, o que define um tensor é como ele se **transforma** quando você muda o sistema de coordenadas. Na equação de Einstein, $G_{\mu\nu} = (8\pi G/c^4) \cdot T_{\mu\nu}$, o lado esquerdo descreve a curvatura do espaço-tempo e o lado direito ($T_{\mu\nu}$, o tensor energia-momento) descreve como matéria e energia se distribuem — independente de como você mede.
+O contraste que importa para o curso e este:
+- na **fisica**, tensor e um objeto definido por como se transforma quando voce muda de coordenadas;
+- no **PyTorch**, "tensor" e a versao operacional do termo: um **array N-dimensional otimizado** para computacao numerica.
 
-No **PyTorch**, "tensor" é mais simples: é um **array N-dimensional otimizado** para computação numérica. Não precisa seguir regras de transformação de coordenadas — só precisa ser rápido e rodar em GPU.
+Entao a traducao util para o aluno e:
+- o nome veio de um contexto matematico mais pesado;
+- mas aqui ele significa uma estrutura de dados multidimensional;
+- e e essa estrutura que depois vamos ler por **eixos, rank e shape**.
 
-> **O nome vem da física, mas no PyTorch é uma estrutura N-dimensional que roda em GPU.**
+> Regra de leitura para esta trilha: em PyTorch, pense em tensor como a caixa multidimensional que carrega numeros, roda operacoes vetorizadas e pode viver em CPU ou GPU.
 
 ---
 
@@ -59,21 +58,20 @@ snippet:neural-networks/tensor-origins
     },
     'en-us': {
       title: `Tensor: Where Does This Name Come From?`,
-      body: `The term **"tensor"** came from physics and mathematics — not deep learning. The word comes from Latin *tendere* ("to stretch", "to tense"), used in the 19th century to describe how forces deform materials.
+      body: `In the previous slide, \`torch\` appeared as the numeric core of the ecosystem. Now one question remains: **what exactly is a tensor in that world?**
 
-### The hierarchy
-In mathematics, tensors are a **generalization** of numerical objects:
-- **Scalar (0D):** a single number — e.g., temperature at a point (25°C)
-- **Vector (1D):** a direction with magnitude — e.g., velocity [x, y, z]
-- **Matrix (2D):** a linear transformation — e.g., weight table
-- **Tensor (3D+):** relations between multiple dimensions — e.g., spacetime curvature
+The name **"tensor"** came from physics and mathematics, not deep learning. The word comes from Latin *tendere* ("to stretch", "to tense"), historically tied to deformation and tension ideas.
 
-### Physics vs Deep Learning
-In **physics**, what defines a tensor is how it **transforms** when you change the coordinate system. In Einstein's equation, $G_{\mu\nu} = (8\pi G/c^4) \cdot T_{\mu\nu}$, the left side describes spacetime curvature and the right side ($T_{\mu\nu}$, the energy-momentum tensor) describes how matter and energy are distributed — regardless of how you measure.
+The contrast that matters here is:
+- in **physics**, a tensor is defined by how it transforms under coordinate changes;
+- in **PyTorch**, "tensor" is the operational version of the term: an **N-dimensional array optimized** for numerical computation.
 
-In **PyTorch**, "tensor" is simpler: it's an **N-dimensional array optimized** for numerical computation. It doesn't need to follow coordinate transformation rules — it just needs to be fast and run on GPU.
+So the useful translation for the learner is:
+- the name came from a heavier mathematical context;
+- but here it means a multidimensional data structure;
+- and that is the structure we will soon read in terms of **axes, rank, and shape**.
 
-> **The name comes from physics, but in PyTorch it's an N-dimensional structure that runs on GPU.**
+> Reading rule for this track: in PyTorch, think of a tensor as the multidimensional box that carries numbers, runs vectorized operations, and can live on CPU or GPU.
 
 ---
 
@@ -108,7 +106,7 @@ snippet:neural-networks/tensor-origins
   visual: {
     id: 'tensor-origins-visual',
     copy: {
-      'pt-br': {
+    'pt-br': {
         tabs: [
           { label: 'Física vs ML' },
           { label: 'Hierarquia Interativa' },
@@ -131,7 +129,7 @@ snippet:neural-networks/tensor-origins
             tensorDesc: 'Estrutura de dados otimizada com suporte a GPU, autograd e operações vetorizadas. Não precisa seguir regras de transformação de coordenadas.',
           },
           bridgeLabel: 'Nome herdado da álgebra linear',
-          takeaway: 'O nome "tensor" foi emprestado da física/matemática porque os dados são naturalmente multidimensionais e as operações usam álgebra linear — mas no ML, o foco é eficiência computacional, não transformação de coordenadas.',
+          takeaway: 'Para esta trilha, a conclusao importante e simples: no PyTorch, tensor e a estrutura multidimensional que depois vamos ler por eixos, rank e shape.',
         },
         hierarchy: {
           eyebrow: 'Hierarquia visual',
@@ -142,7 +140,7 @@ snippet:neural-networks/tensor-origins
           shapeLabel: 'Shape (PyTorch)',
           physicsLabel: 'Exemplo na física',
           mlLabel: 'Exemplo no ML',
-          footer: 'No PyTorch, use .ndim ou .dim() para ver a dimensionalidade de um tensor. Cada dimensão adicional agrega uma "direção" de informação.',
+          footer: 'Ponte para o proximo slide: se tensor e uma estrutura multidimensional, a pergunta seguinte e como contar e interpretar seus eixos.',
         },
       },
       'en-us': {
@@ -168,7 +166,7 @@ snippet:neural-networks/tensor-origins
             tensorDesc: 'Optimized data structure with GPU support, autograd, and vectorized operations. Does not need to follow coordinate transformation rules.',
           },
           bridgeLabel: 'Name borrowed from linear algebra',
-          takeaway: 'The name "tensor" was borrowed from physics/math because data is naturally multidimensional and operations use linear algebra — but in ML, the focus is computational efficiency, not coordinate transformation.',
+          takeaway: 'For this track, the important conclusion is simple: in PyTorch, a tensor is the multidimensional structure we will soon read through axes, rank, and shape.',
         },
         hierarchy: {
           eyebrow: 'Visual hierarchy',
@@ -179,7 +177,7 @@ snippet:neural-networks/tensor-origins
           shapeLabel: 'Shape (PyTorch)',
           physicsLabel: 'Physics example',
           mlLabel: 'ML example',
-          footer: 'In PyTorch, use .ndim or .dim() to see a tensor\'s dimensionality. Each additional dimension adds a "direction" of information.',
+          footer: 'Bridge to the next slide: if a tensor is multidimensional, the next question is how to count and interpret its axes.',
         },
       },
     },

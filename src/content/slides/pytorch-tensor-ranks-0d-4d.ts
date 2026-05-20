@@ -7,45 +7,49 @@ export const pytorchTensorRanks0d4d = defineSlide({
   content: {
     'pt-br': {
       title: 'Progressão de tensor: 0D até 4D',
-      body: `Depois do mapa do ecossistema, a proxima pergunta e estrutural: **como ler a forma dos dados que circulam por esse ecossistema?**
+      body: `Se tensor, neste curso, e a estrutura multidimensional do PyTorch, a pergunta seguinte e inevitavel: **como contar e interpretar os eixos dessa estrutura?**
 
 Começo do contrato:
 1. **Tensor nao e so "uma caixa de numeros".** Ele organiza valores em eixos.
 2. **Rank** e a contagem desses eixos.
-3. **Shape** vem depois: ele diz o tamanho de cada eixo.
+3. **Shape** vem depois: ele registra o tamanho de cada eixo.
 
 Entao a progressao correta e esta:
 1. **0D (escalar)**: nenhum eixo, apenas um numero. Ex.: uma loss.
 2. **1D (vetor)**: um eixo. Ex.: lista de valores ou embedding de um token.
 3. **2D (matriz)**: dois eixos. Ex.: tabela ou sequencia organizada em linhas e colunas.
-4. **3D**: tres eixos. Aqui comeca a leitura que domina em modelos: lote, posicao e conteudo.
+4. **3D**: tres eixos. Aqui comeca a leitura que reaparece em modelos: lote, posicao e conteudo.
 5. **4D**: quatro eixos. Surge quando existe mais uma organizacao estrutural, muito comum em visao.
 
 Leitura mental certa:
 - primeiro conte os eixos;
 - depois nomeie o papel de cada um;
-- so entao leia o \`shape\` como a assinatura numerica desses papeis.`,
+- so entao leia o \`shape\` como a assinatura numerica desses papeis.
+
+O proximo passo e usar essa leitura em um caso real: texto tokenizado virando tensor no PyTorch.`,
     },
     'en-us': {
       title: 'Tensor progression: 0D to 4D',
-      body: `After the ecosystem map, the next question is structural: **how do we read the form of the data moving through that ecosystem?**
+      body: `If a tensor, in this course, is PyTorch's multidimensional structure, the next question is unavoidable: **how do we count and interpret that structure's axes?**
 
 Start with the contract:
 1. **A tensor is not just "a box of numbers".** It organizes values along axes.
 2. **Rank** is the count of those axes.
-3. **Shape** comes after that: it tells you the size of each axis.
+3. **Shape** comes after that: it records the size of each axis.
 
 So the correct progression is:
 1. **0D (scalar)**: no axis, just one number. For example, a loss.
 2. **1D (vector)**: one axis. For example, a value list or one token embedding.
 3. **2D (matrix)**: two axes. For example, a table or a sequence arranged in rows and columns.
-4. **3D**: three axes. This is where the dominant model reading begins: batch, position, and content.
+4. **3D**: three axes. This is where the reading that reappears in models begins: batch, position, and content.
 5. **4D**: four axes. It appears when one more structural organization is needed, especially common in vision.
 
 Correct mental reading:
 - first count the axes;
 - then name the role of each axis;
-- only then read the \`shape\` as the numeric signature of those roles.`,
+- only then read the \`shape\` as the numeric signature of those roles.
+
+The next step is to use that reading in a real case: tokenized text becoming a tensor in PyTorch.`,
     },
   },
   visual: {
@@ -55,7 +59,7 @@ Correct mental reading:
         tabs: [{ label: 'Código' }, { label: 'Explorador 3D' }],
         codePanel: {
           title: 'Do escalar ao tensor 4D em PyTorch',
-          description: 'Exemplo curto para ligar numero de eixos, rank e shape antes do bloco de language modeling.',
+          description: 'Exemplo curto para ligar numero de eixos, rank e shape antes de aplicar essa leitura em texto tokenizado.',
           source: { snippetId: 'neural-networks/tensor-origins', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'Importa PyTorch para criar tensores com ranks diferentes.' },
@@ -82,7 +86,7 @@ Correct mental reading:
         tabs: [{ label: 'Code' }, { label: '3D Explorer' }],
         codePanel: {
           title: 'From scalar to 4D tensor in PyTorch',
-          description: 'Short example connecting axis count, rank, and shape before the language-modeling block.',
+          description: 'Short example connecting axis count, rank, and shape before applying that reading to tokenized text.',
           source: { snippetId: 'neural-networks/tensor-origins', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'Imports PyTorch to create tensors at different ranks.' },

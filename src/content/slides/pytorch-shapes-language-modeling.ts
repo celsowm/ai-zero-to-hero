@@ -41,7 +41,9 @@ Fechando o ciclo:
 Invariantes de sanidade:
 1. \`idx/targets\` usam \`torch.long\`
 2. tensores comparados na loss ficam no mesmo device
-3. loss final é escalar`,
+3. loss final é escalar
+
+O proximo passo e mostrar como o mesmo tensor de IDs gera pares de entrada/alvo para esse treino.`,
     },
     'en-us': {
       title: 'Shape conventions for LM (language model)',
@@ -79,7 +81,9 @@ Closing the loop:
 Sanity invariants:
 1. \`idx/targets\` use \`torch.long\`
 2. tensors in the loss are on the same device
-3. final loss is scalar`,
+3. final loss is scalar
+
+The next step is to show how that same ID tensor becomes input/target pairs for this training setup.`,
     },
   },
   visual: {

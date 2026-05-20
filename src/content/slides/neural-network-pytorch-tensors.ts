@@ -7,7 +7,7 @@ export const neuralNetworkPytorchTensors = defineSlide({
   content: {
     'pt-br': {
       title: 'Tensores no PyTorch: leitura operacional',
-      body: `Agora que o mapa do ecossistema ficou claro e os ranks foram revisados, entramos no primeiro contrato concreto de LM: **tensor com eixos explícitos**.
+      body: `No slide anterior, vimos como contar eixos. Agora a pergunta muda de forma: **onde isso aparece no problema de texto que o modelo realmente recebe?**
 
 Termo novo com contexto:
 - **token** = menor unidade de texto que o modelo processa.
@@ -19,7 +19,7 @@ Fluxo causal deste bloco:
 
 Observacao de ordem didatica:
 - neste slide, tratamos apenas como **scores de saida**;
-- no proximo slide de shape LM, formalizamos o nome tecnico **logits**.
+- no proximo slide, fechamos para que esses scores servem e formalizamos o nome tecnico **logits**.
 
 Leitura operacional dos eixos:
 1. **batch**: quantas sequências entram juntas;
@@ -27,7 +27,7 @@ Leitura operacional dos eixos:
 3. **width**: tamanho da representação interna por token;
 4. **vocabulary**: quantidade de candidatos de próximo token.
 
-Se você identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhação.`,
+Se voce identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhacao.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
@@ -40,7 +40,7 @@ snippet:pytorch-lm/tensor-primer
     },
     'en-us': {
       title: 'PyTorch tensors: operational reading',
-      body: `Now that the ecosystem map is clear and ranks were reviewed, we enter the first concrete LM contract: **tensor with explicit axes**.
+      body: `In the previous slide, we learned how to count axes. Now the question changes form: **where does that show up in the text problem the model actually receives?**
 
 New term with context:
 - **token** = smallest text unit processed by the model.
@@ -52,7 +52,7 @@ Causal flow for this block:
 
 Didactic ordering note:
 - in this slide, we treat them only as **output scores**;
-- in the next LM-shape slide, we formalize the technical term **logits**.
+- in the next slide, we close what those scores are for and formalize the technical term **logits**.
 
 Operational axis reading:
 1. **batch**: how many sequences enter together;

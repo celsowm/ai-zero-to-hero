@@ -7,7 +7,7 @@ export const pytorchTokenBatch = defineSlide({
   content: {
     'pt-br': {
       title: 'Texto tokenizado vira batch',
-      body: `Depois de definir o contrato de shape, falta uma pergunta operacional: **como o próximo-token training nasce do mesmo tensor de IDs?**
+      body: `No slide anterior, definimos o contrato de logits e loss. Falta fechar a engrenagem que gera esse treino: **como o mesmo tensor de IDs vira entrada e alvo ao mesmo tempo?**
 
 O modelo não recebe frase solta; ele recebe **lotes temporais alinhados**.
 
@@ -28,7 +28,7 @@ Erros comuns aqui:
     },
     'en-us': {
       title: 'Tokenized text becomes a batch',
-      body: `After defining the shape contract, one operational question remains: **how does next-token training emerge from the same ID tensor?**
+      body: `In the previous slide, we defined the logits and loss contract. One mechanism is still missing: **how does the same ID tensor become both input and target?**
 
 The model does not receive isolated sentences; it receives **time-aligned sequence batches**.
 

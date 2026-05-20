@@ -15,7 +15,7 @@ export const pytorchEcosystemOverview = defineSlide({
 4. **\`torch.utils.data\` organiza a entrada.** Dataset, sampler, dataloader e batch ficam separados do loop de treino.
 5. **\`torch.cuda\` decide onde roda.** O mesmo tensor pode estar na CPU ou na GPU, mas tudo precisa concordar no mesmo device.
 
-> Leia o diagrama como um mapa de responsabilidades. Se o bug é de shape/device, comece no núcleo. Se é de arquitetura, vá para \`torch.nn\`.`,
+> Leia o diagrama como um mapa de responsabilidades. Se o bug é de shape/device, comece no núcleo. Se é de arquitetura, vá para \`torch.nn\`. O próximo passo é fechar o significado de "tensor" nesse contexto.`,
     },
     'en-us': {
       title: 'PyTorch ecosystem mental map',
@@ -27,7 +27,7 @@ export const pytorchEcosystemOverview = defineSlide({
 4. **\`torch.utils.data\` organizes input.** Dataset, sampler, dataloader, and batching stay separate from the training loop.
 5. **\`torch.cuda\` decides where it runs.** The same tensor can live on CPU or GPU, but every part must agree on the same device.
 
-> Read the diagram as a responsibility map. If the bug is shape/device related, start at the core. If it is architecture related, move to \`torch.nn\`.`,
+> Read the diagram as a responsibility map. If the bug is shape/device related, start at the core. If it is architecture related, move to \`torch.nn\`. The next step is to define what "tensor" means in this context.`,
     },
   },
   visual: {
@@ -58,7 +58,7 @@ export const pytorchEcosystemOverview = defineSlide({
           { module: 'torch.utils.data', role: 'Dataset, sampler, dataloader e batch; separa ingestão de dados do treino.' },
           { module: 'torch.cuda', role: 'Execução em GPU e movimentação de tensores; device mismatch aqui vira erro.' },
         ],
-        footer: 'Próxima etapa do curso: sair do mapa estrutural e entrar no contrato de tensores, shapes e devices.',
+        footer: 'Proxima etapa: antes de ler ranks e shapes, fixar o que "tensor" significa no PyTorch.',
       },
       'en-us': {
         title: 'PyTorch ecosystem module architecture',
@@ -85,7 +85,7 @@ export const pytorchEcosystemOverview = defineSlide({
           { module: 'torch.utils.data', role: 'Dataset, sampler, dataloader, and batching; keeps input separate from training.' },
           { module: 'torch.cuda', role: 'GPU execution and tensor movement; device mismatches show up here fast.' },
         ],
-        footer: 'Next step in the course: move from structural map into tensor, shape, and device contracts.',
+        footer: 'Next step: before reading ranks and shapes, fix what "tensor" means in PyTorch.',
       },
     },
   },
