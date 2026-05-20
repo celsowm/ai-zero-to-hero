@@ -54,7 +54,22 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
     id: 'pytorch-embedding-logits-contract',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Contrato' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Pipeline interativo' }],
+        interactive: {
+          title: 'Pipeline interativo: idx → H → logits → loss / next',
+          subtitle: 'Ajuste B, T, C, V e percorra cada estagio para ver como o tensor muda de forma e papel.',
+          sliders: { batch: 'B (batch)', time: 'T (tempo)', channels: 'C (canais)', vocab: 'V (vocab)' },
+          legend: {
+            idx: 'idx (B,T) — ids inteiros por posicao',
+            hidden: 'H (B,T,C) — vetores continuos',
+            logits: 'logits (B,T,V) — scores por classe',
+            loss: '(B*T, V) vs (B*T) — cross-entropy',
+            next: 'logits[:, -1, :] → (B,V) — proximo token',
+          },
+          playLabel: '▶ Animar',
+          pauseLabel: '⏸ Pausar',
+          resetLabel: '↺ Reset',
+        },
         codePanel: {
           title: 'Contrato completo: idx -> embedding -> logits -> loss',
           description: 'Snippet unico com forward, flatten para cross-entropy e slice de inferencia autoregressiva.',
@@ -120,7 +135,22 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Contract' }],
+        tabs: [{ label: 'Code' }, { label: 'Interactive pipeline' }],
+        interactive: {
+          title: 'Interactive pipeline: idx → H → logits → loss / next',
+          subtitle: 'Tune B, T, C, V and step through each stage to see how the tensor changes shape and role.',
+          sliders: { batch: 'B (batch)', time: 'T (time)', channels: 'C (channels)', vocab: 'V (vocab)' },
+          legend: {
+            idx: 'idx (B,T) — integer ids per position',
+            hidden: 'H (B,T,C) — continuous vectors',
+            logits: 'logits (B,T,V) — per-class scores',
+            loss: '(B*T, V) vs (B*T) — cross-entropy',
+            next: 'logits[:, -1, :] → (B,V) — next token',
+          },
+          playLabel: '▶ Animate',
+          pauseLabel: '⏸ Pause',
+          resetLabel: '↺ Reset',
+        },
         codePanel: {
           title: 'Full contract: idx -> embedding -> logits -> loss',
           description: 'Single snippet with forward pass, cross-entropy flattening, and autoregressive inference slice.',

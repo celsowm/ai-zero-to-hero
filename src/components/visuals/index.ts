@@ -46,6 +46,7 @@ export { PytorchAutograd3DVisual } from './language-models/PytorchAutograd3DVisu
 export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePlaybookVisual';
 export { PytorchEcosystemMermaidVisual } from './language-models/PytorchEcosystemMermaidVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
+export { PytorchEmbeddingLogitsContract } from './language-models/PytorchEmbeddingLogitsContract';
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { TokenBatchShiftVisual } from './language-models/TokenBatchShiftVisual';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';

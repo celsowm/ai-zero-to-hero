@@ -77,6 +77,7 @@ const visualMap: Record<string, string> = {
   'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
   'pytorch-ecosystem-mermaid': 'PytorchEcosystemMermaidVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
+  'pytorch-embedding-logits-contract': 'PytorchEmbeddingLogitsContract',
   'token-batch-shift-interactive': 'TokenBatchShiftVisual',
 
   // transformers
