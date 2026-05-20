@@ -7,23 +7,22 @@ export const pytorchEmbeddingIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding: de ID inteiro para vetor',
-      body: `Antes de projetar para logits, precisamos fixar o papel do \`Embedding\`.
+      body: `**Intuição:** um token ID (ex: \`42\`) é só um índice. \`Embedding\` é a etapa que "insere/imersa" esse índice em espaço contínuo.
 
-Um token ID (ex: \`42\`) e um inteiro sem geometria. O embedding resolve isso com uma tabela treinavel:
+**Operação:**
+1. cada linha da tabela representa um token do vocabulário
+2. a largura da linha é \`C\` (hidden size)
+3. \`embedding(idx)\` troca \`(B, T)\` por \`(B, T, C)\`
 
-1. cada linha da tabela representa um token do vocabulario
-2. a largura da linha e \`C\` (hidden size)
-3. fazer \`embedding(idx)\` troca \`(B, T)\` por \`(B, T, C)\`
+**Formal (curto):**
+- \`idx \\in Z^{B\\times T}\`
+- \`E \\in R^{V\\times C}\`
+- \`H = E[idx] \\in R^{B\\times T\\times C}\`
 
-Por que existe assim:
-- conceitualmente, isso equivale a fazer \`one-hot @ W\`
-- na pratica, \`Embedding\` e um lookup muito mais eficiente: pega so a linha necessaria
-- a tabela continua treinavel, entao o modelo aprende a geometria util desses vetores
-
-Intuicao pratica:
-- IDs sao indice
-- embedding e memoria parametrica
-- saida ja esta pronta para as proximas camadas do modelo`,
+Leitura de engenharia:
+- conceitualmente equivale a \`one-hot @ W\`
+- operacionalmente é lookup eficiente (busca só as linhas necessárias)
+- a tabela é treinável, então a geometria útil é aprendida`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/embedding-intro
 \`\`\``,
@@ -35,23 +34,22 @@ snippet:pytorch-lm/embedding-intro
     },
     'en-us': {
       title: 'Embedding: from integer ID to vector',
-      body: `Before projecting to logits, we need to lock in what \`Embedding\` does.
+      body: `**Intuition:** a token ID (for example \`42\`) is only an index. \`Embedding\` is the step that inserts/immerses this index into continuous space.
 
-A token ID (for example \`42\`) is just an integer with no geometry. Embedding fixes this with a trainable table:
-
-1. each row stands for one vocabulary token
+**Operation:**
+1. each table row represents one vocabulary token
 2. row width is \`C\` (hidden size)
-3. calling \`embedding(idx)\` turns \`(B, T)\` into \`(B, T, C)\`
+3. \`embedding(idx)\` turns \`(B, T)\` into \`(B, T, C)\`
 
-Why it exists in this form:
-- conceptually, this is equivalent to \`one-hot @ W\`
-- in practice, \`Embedding\` is a much more efficient lookup: it fetches only the needed row
-- the table is still trainable, so the model learns useful vector geometry
+**Formal (short):**
+- \`idx \\in Z^{B\\times T}\`
+- \`E \\in R^{V\\times C}\`
+- \`H = E[idx] \\in R^{B\\times T\\times C}\`
 
-Practical intuition:
-- IDs are indexes
-- embedding is parametric memory
-- output is now ready for the next model layers`,
+Engineering reading:
+- conceptually this matches \`one-hot @ W\`
+- operationally it is an efficient lookup (fetch only required rows)
+- the table is trainable, so useful geometry is learned`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/embedding-intro
 \`\`\``,

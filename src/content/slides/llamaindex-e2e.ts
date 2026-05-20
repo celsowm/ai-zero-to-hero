@@ -39,7 +39,7 @@ snippet:llamaindex/e2e-step4
 snippet:llamaindex/e2e-step5
 \`\`\`
 
-> Em **15 linhas de código** você tem um RAG production-ready com chunking inteligente, embeddings, retrieval semântico e geração com contexto.`,
+> Em **15 linhas de código** você tem um RAG production-ready com chunking inteligente, embedding model, query embedding, retrieval semântico e geração com contexto.`,
     },
     'en-us': {
       title: 'E2E: Build a RAG App with LlamaIndex',
@@ -75,7 +75,7 @@ snippet:llamaindex/e2e-step4
 snippet:llamaindex/e2e-step5
 \`\`\`
 
-> In **15 lines of code** you have a production-ready RAG with intelligent chunking, embeddings, semantic retrieval and context generation.`,
+> In **15 lines of code** you have a production-ready RAG with intelligent chunking, embedding model, query embedding, semantic retrieval and context generation.`,
     },
   },
   visual: {
@@ -86,9 +86,9 @@ snippet:llamaindex/e2e-step5
         step1Label: 'Load',
         step1Desc: 'SimpleDirectoryReader lê todos os arquivos do diretório e retorna Document objects com texto + metadata.',
         step2Label: 'Index',
-        step2Desc: 'VectorStoreIndex.from_documents() faz chunking automático, embedding e armazenamento dos vetores.',
+        step2Desc: 'VectorStoreIndex.from_documents() faz chunking automático, embedding com embedding model e armazenamento no vector store.',
         step3Label: 'Retrieve',
-        step3Desc: 'index.as_retriever(similarity_top_k=3) configura busca semântica por similaridade de cosseno.',
+        step3Desc: 'index.as_retriever(similarity_top_k=3) configura busca semântica: query -> query embedding -> similaridade de cosseno.',
         step4Label: 'Query',
         step4Desc: 'RetrieverQueryEngine combina retriever + LLM para gerar respostas com contexto.',
         step5Label: 'Ask',
@@ -99,9 +99,9 @@ snippet:llamaindex/e2e-step5
         step1Label: 'Load',
         step1Desc: 'SimpleDirectoryReader reads all files from directory and returns Document objects with text + metadata.',
         step2Label: 'Index',
-        step2Desc: 'VectorStoreIndex.from_documents() does automatic chunking, embedding and vector storage.',
+        step2Desc: 'VectorStoreIndex.from_documents() does automatic chunking, embedding through an embedding model, and vector-store persistence.',
         step3Label: 'Retrieve',
-        step3Desc: 'index.as_retriever(similarity_top_k=3) configures semantic search by cosine similarity.',
+        step3Desc: 'index.as_retriever(similarity_top_k=3) configures semantic search: query -> query embedding -> cosine similarity.',
         step4Label: 'Query',
         step4Desc: 'RetrieverQueryEngine combines retriever + LLM to generate responses with context.',
         step5Label: 'Ask',

@@ -15,7 +15,7 @@ export const ragArchitecture = defineSlide({
 Armazena documentos como vetores. Permite busca semântica rápida por similaridade. Exemplos: **ChromaDB**, **FAISS**, **Pinecone**, **Weaviate**.
 
 ### 2. Embedding Model
-Transforma texto em vetores densos. Modelos como **all-MiniLM-L6-v2** mapeiam significado para coordenadas numéricas.
+Transforma texto em vetores densos. Esse **embedding model** é usado tanto na indexação dos documentos quanto no **query embedding** da pergunta.
 
 ### 3. Retriever
 Dada uma query, encontra os top-k documentos mais similares no vector store usando **cosine similarity**.
@@ -37,7 +37,7 @@ snippet:rag/rag-architecture
 Stores documents as vectors. Enables fast semantic search by similarity. Examples: **ChromaDB**, **FAISS**, **Pinecone**, **Weaviate**.
 
 ### 2. Embedding Model
-Transforms text into dense vectors. Models like **all-MiniLM-L6-v2** map meaning to numerical coordinates.
+Transforms text into dense vectors. The same **embedding model** is used for document indexing and for the query embedding.
 
 ### 3. Retriever
 Given a query, finds the top-k most similar documents in the vector store using **cosine similarity**.

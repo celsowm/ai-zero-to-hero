@@ -9,11 +9,13 @@ export const chromadbIndexDocuments = defineSlide({
   content: {
     'pt-br': {
       title: `VectorDB: Indexando Documentos com ChromaDB`,
-      body: `Um **vector database** é a peça que faltava para busca semântica. Em vez de buscar por palavras-chave, buscamos por **significado**.
+      body: `**Intuição:** o **vector store** guarda semântica em vez de só texto literal. Em vez de palavra-chave, buscamos por significado.
+
+**Operação:** documentos passam pelo **embedding model** e os vetores resultantes são indexados.
 
 ### Como funciona
 
-1. **Documento → Embedding:** cada texto vira um vetor de 384 dimensões (SentenceTransformer).
+1. **Documento → Embedding:** cada texto vira um vetor de 384 dimensões (SentenceTransformer como embedding model).
 
 2. **Indexação:** os vetores são salvos no ChromaDB com o texto original.
 
@@ -24,7 +26,7 @@ export const chromadbIndexDocuments = defineSlide({
 - **Open-source e gratuito**
 - **Local**: roda no seu PC, sem servidor externo
 - **Simples**: API de 3 linhas para adicionar e buscar
-- **Integra com tudo**: funciona com SentenceTransformer, OpenAI, qualquer embedder
+- **Integra com tudo**: funciona com SentenceTransformer, OpenAI e outros embedders
 
 \`\`\`python
 snippet:chromadb/chromadb-index-documents
@@ -34,11 +36,13 @@ snippet:chromadb/chromadb-index-documents
     },
     'en-us': {
       title: `VectorDB: Indexing Documents with ChromaDB`,
-      body: `A **vector database** is the missing piece for semantic search. Instead of searching by keywords, we search by **meaning**.
+      body: `**Intuition:** the **vector store** keeps semantics, not only literal text. Instead of keywords, we search by meaning.
+
+**Operation:** documents go through an **embedding model** and resulting vectors are indexed.
 
 ### How it works
 
-1. **Document → Embedding:** each text becomes a 384-dimensional vector (SentenceTransformer).
+1. **Document → Embedding:** each text becomes a 384-dimensional vector (SentenceTransformer as embedding model).
 
 2. **Indexing:** vectors are saved in ChromaDB with the original text.
 
@@ -49,7 +53,7 @@ snippet:chromadb/chromadb-index-documents
 - **Open-source and free**
 - **Local**: runs on your PC, no external server
 - **Simple**: 3-line API to add and search
-- **Integrates with everything**: works with SentenceTransformer, OpenAI, any embedder
+- **Integrates with everything**: works with SentenceTransformer, OpenAI, and other embedders
 
 \`\`\`python
 snippet:chromadb/chromadb-index-documents

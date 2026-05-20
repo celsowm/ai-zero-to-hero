@@ -9,7 +9,14 @@ export const ragEmbeddingModel = defineSlide({
   content: {
     'pt-br': {
       title: `Como Documentos Viram Vetores`,
-      body: `O coração do RAG é o **embedding model** — uma rede neural que transforma texto em vetores numéricos.
+      body: `**Intuição:** no RAG, o **embedding model** converte texto em coordenadas numéricas para que "buscar por significado" vire "buscar por proximidade vetorial".
+
+**Operação:**
+- cada documento vira um vetor denso
+- a query vira um **query embedding** no mesmo espaço
+- similaridade (ex: cosseno) mede proximidade semântica
+
+**Formal (curto):** para textos \(x_i\) e pergunta \(q\), buscamos \(\\arg\\max_i\\;\\cos(f(q), f(x_i))\), onde \(f\) é o embedding model.
 
 ### O que é um embedding?
 
@@ -35,7 +42,14 @@ snippet:rag/rag-embedding-model
     },
     'en-us': {
       title: `How Documents Become Vectors`,
-      body: `The heart of RAG is the **embedding model** — a neural network that transforms text into numerical vectors.
+      body: `**Intuition:** in RAG, the **embedding model** turns text into numeric coordinates so "search by meaning" becomes "search by vector proximity".
+
+**Operation:**
+- each document becomes a dense vector
+- the query becomes a **query embedding** in the same space
+- similarity (for example cosine) measures semantic closeness
+
+**Formal (short):** for texts \(x_i\) and query \(q\), we retrieve \(\\arg\\max_i\\;\\cos(f(q), f(x_i))\), where \(f\) is the embedding model.
 
 ### What is an embedding?
 

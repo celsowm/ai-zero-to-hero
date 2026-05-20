@@ -9,12 +9,12 @@ export const chromadbRagE2e = defineSlide({
   content: {
     'pt-br': {
       title: `RAG Ponta a Ponta: ChromaDB + Transformers`,
-      body: `Vamos unir **ChromaDB** (vector store) com **Transformers** (geração de texto) em um pipeline RAG completo e funcional.
+      body: `Vamos unir **ChromaDB** (vector store), **embedding model** e **Transformers** (geração de texto) em um pipeline RAG completo e funcional.
 
 ### O pipeline
 
 1. **INDEX:** documentos → embeddings (SentenceTransformer) → ChromaDB
-2. **RETRIEVE:** query → embedding → busca semântica → contexto relevante
+2. **RETRIEVE:** query → query embedding → busca semântica → contexto relevante
 3. **GENERATE:** contexto + query → prompt → GPT-2 gera resposta fundamentada
 
 ### Código completo
@@ -39,12 +39,12 @@ pip install chromadb sentence-transformers transformers torch
     },
     'en-us': {
       title: `RAG End-to-End: ChromaDB + Transformers`,
-      body: `Let's combine **ChromaDB** (vector store) with **Transformers** (text generation) in a complete, working RAG pipeline.
+      body: `Let's combine **ChromaDB** (vector store), an **embedding model**, and **Transformers** (text generation) in a complete, working RAG pipeline.
 
 ### The pipeline
 
 1. **INDEX:** documents → embeddings (SentenceTransformer) → ChromaDB
-2. **RETRIEVE:** query → embedding → semantic search → relevant context
+2. **RETRIEVE:** query → query embedding → semantic search → relevant context
 3. **GENERATE:** context + query → prompt → GPT-2 generates grounded answer
 
 ### Complete code

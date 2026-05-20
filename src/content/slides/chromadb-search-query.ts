@@ -9,11 +9,13 @@ export const chromadbSearchQuery = defineSlide({
   content: {
     'pt-br': {
       title: `Busca Semântica no VectorDB`,
-      body: `Agora que os documentos estão indexados, podemos fazer **busca por significado**, não por palavras-chave.
+      body: `**Intuição:** consultar um vector store é comparar significados, não só termos exatos.
+
+**Operação:** a query vira **query embedding** no mesmo espaço vetorial dos documentos.
 
 ### Como funciona a busca
 
-1. **Query → Embedding:** a pergunta do usuário vira um vetor com o mesmo modelo.
+1. **Query → Embedding:** a pergunta do usuário vira um **query embedding** com o mesmo embedding model.
 
 2. **Similaridade vetorial:** ChromaDB compara o vetor da query com todos os documentos indexados.
 
@@ -35,11 +37,13 @@ snippet:chromadb/chromadb-search-query
     },
     'en-us': {
       title: `Semantic Search in the VectorDB`,
-      body: `Now that documents are indexed, we can do **search by meaning**, not by keywords.
+      body: `**Intuition:** querying a vector store compares meaning, not only exact terms.
+
+**Operation:** the query becomes a **query embedding** in the same vector space as documents.
 
 ### How search works
 
-1. **Query → Embedding:** the user's question becomes a vector with the same model.
+1. **Query → Embedding:** the user's question becomes a **query embedding** with the same embedding model.
 
 2. **Vector similarity:** ChromaDB compares the query vector with all indexed documents.
 

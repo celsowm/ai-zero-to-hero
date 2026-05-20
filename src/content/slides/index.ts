@@ -7,7 +7,6 @@ import { attentionOnWeThePeople } from './attention-on-we-the-people';
 import { autoclassesDeepDive } from './autoclasses-deep-dive';
 import { biologicalVsComputationalNeuron } from './biological-vs-computational-neuron';
 import { bpeAlgorithm } from './bpe-algorithm';
-import { bpeE2eGutenberg } from './bpe-e2e-gutenberg';
 import { bpeExercise } from './bpe-exercise';
 import { bpeFromScratch } from './bpe-from-scratch';
 import { bpeMergeStack } from './bpe-merge-stack';
@@ -26,7 +25,6 @@ import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
 import { gpt2BlackBox } from './gpt2-black-box';
 import { gpt2FromScratchRepoMap } from './gpt2-from-scratch-repo-map';
-import { gpt2EmbeddingsPlusPosition } from './gpt2-embeddings-plus-position';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
@@ -37,7 +35,6 @@ import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
 import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
 import { gpt2PytorchE2eDebugger } from './gpt2-pytorch-e2e-debugger';
 import { gpt2Teaser } from './gpt2-teaser';
-import { gpt2WeightsOrigin } from './gpt2-weights-origin';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
 import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
 import { hfPipelineCustom } from './hf-pipeline-custom';
@@ -96,8 +93,6 @@ import { inferenceE2e } from './inference-e2e';
 import { inferenceComparison } from './inference-comparison';
 import { llamaCppIntro } from './llama-cpp-intro';
 import { llamaCppOffload } from './llama-cpp-offload';
-import { llama2VsGpt2 } from './llama2-vs-gpt2';
-import { ropeDeepDive } from './rope-deep-dive';
 import { browserInferenceWhy } from './browser-inference-why';
 import { transformersJsIntro } from './transformers-js-intro';
 import { webgpuDeepDive } from './webgpu-deep-dive';
@@ -132,15 +127,6 @@ import { markdownSyntax } from './markdown-syntax';
 import { markdownWhy } from './markdown-why';
 import { mlPipeline } from './ml-pipeline';
 import { mlpInsideTransformer } from './mlp-inside-transformer';
-import { moeIntro } from './moe-intro';
-import { moeSparseVsDense } from './moe-sparse-vs-dense';
-import { moeRouting } from './moe-routing';
-import { moeExercise } from './moe-exercise';
-import { moeNamingConventions } from './moe-naming-conventions';
-import { moePytorchDeepDive } from './moe-pytorch-deep-dive';
-import { moeExpertVisualization } from './moe-expert-visualization';
-import { moeGatingMath } from './moe-gating-math';
-import { moeCapacityDeepDive } from './moe-capacity-deep-dive';
 import { modelEvaluationHf } from './model-evaluation-hf';
 import { modelSharingHub } from './model-sharing-hub';
 import { multiheadAttention } from './multihead-attention';
@@ -290,7 +276,6 @@ export const allSlides: ISlide[] = [
   autoclassesDeepDive,
   biologicalVsComputationalNeuron,
   bpeAlgorithm,
-  bpeE2eGutenberg,
   bpeExercise,
   bpeFromScratch,
   bpeMergeStack,
@@ -309,7 +294,6 @@ export const allSlides: ISlide[] = [
   embeddingsIntro,
   gpt2BlackBox,
   gpt2FromScratchRepoMap,
-  gpt2EmbeddingsPlusPosition,
   gpt2LayerByLayerXray,
   gpt2BlockAnatomy,
   gpt2PytorchAttention,
@@ -320,7 +304,6 @@ export const allSlides: ISlide[] = [
   gpt2PytorchModelForward,
   gpt2PytorchQkvIntuition,
   gpt2Teaser,
-  gpt2WeightsOrigin,
   gpt2WeThePeopleInput,
   hfDatasetsDeepDive,
   hfPipelineCustom,
@@ -379,8 +362,6 @@ export const allSlides: ISlide[] = [
   inferenceComparison,
   llamaCppIntro,
   llamaCppOffload,
-  llama2VsGpt2,
-  ropeDeepDive,
   browserInferenceWhy,
   transformersJsIntro,
   webgpuDeepDive,
@@ -415,15 +396,6 @@ export const allSlides: ISlide[] = [
   markdownWhy,
   mlPipeline,
   mlpInsideTransformer,
-  moeIntro,
-  moeSparseVsDense,
-  moeRouting,
-  moeExercise,
-  moeNamingConventions,
-  moePytorchDeepDive,
-  moeExpertVisualization,
-  moeGatingMath,
-  moeCapacityDeepDive,
   modelEvaluationHf,
   modelSharingHub,
   multiheadAttention,

@@ -16,7 +16,7 @@ A resposta operacional começa em \`nn.Linear(in, out)\`, que aplica uma transfo
 No contrato clássico \`(B,T,C)\` de language models:
 - \`B\` = batch (quantas sequências em paralelo),
 - \`T\` = tempo/comprimento da sequência (tokens por sequência),
-- \`C\` = **dimensão de embedding / hidden dimension** (às vezes chamada de channels/capacity, mas aqui a leitura prática é largura vetorial por token).
+- \`C\` = **dimensão de embedding / hidden dimension** (largura vetorial por token, já definida no slide de embedding-intro).
 
 Por isso, \`nn.Linear(C, V)\` e \`nn.Linear(C, C)\` ignoram totalmente \`B\` e \`T\`: a camada projeta, de forma isolada, cada vetor de tamanho \`C\` na última dimensão.
 
@@ -44,7 +44,7 @@ The operational answer starts with \`nn.Linear(in, out)\`, which applies an affi
 In the standard LM tensor contract \`(B,T,C)\`:
 - \`B\` = batch (how many sequences run in parallel),
 - \`T\` = time/sequence length (tokens per sequence),
-- \`C\` = **embedding dimension / hidden dimension** (sometimes called channels/capacity, but operationally this is the per-token vector width).
+- \`C\` = **embedding dimension / hidden dimension** (per-token vector width, already established in the embedding-intro slide).
 
 That is why \`nn.Linear(C, V)\` and \`nn.Linear(C, C)\` completely ignore \`B\` and \`T\`: the layer projects each size-\`C\` vector independently on the last axis.
 

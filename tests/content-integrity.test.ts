@@ -3,6 +3,8 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert';
+import { allSlides } from '../src/content/slides';
+import { courseSlideOrder } from '../src/data/course-outline';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
@@ -134,6 +136,54 @@ describe('content integrity', () => {
       assert.fail(
         `Slides referenced in course-outline.ts but not found: ${missingSlides.join(', ')}`,
       );
+    }
+  });
+
+  it('every slide in allSlides is listed in courseSlideOrder', () => {
+    const orderedIds = new Set(courseSlideOrder);
+    const unexpected = allSlides.map(slide => slide.id).filter(id => !orderedIds.has(id));
+    if (unexpected.length > 0) {
+      assert.fail(`Slides in allSlides but missing from courseSlideOrder: ${unexpected.join(', ')}`);
+    }
+  });
+
+  it('does not allow consecutive duplicate snippet usage inside the same thematic arc', () => {
+    const slidesById = new Map(allSlides.map(slide => [slide.id, slide]));
+    const failures: string[] = [];
+
+    const arcOf = (id: string) => {
+      if (id === 'embeddings-intro' || id.startsWith('gpt2-') || id.startsWith('repo-gpt2-') || id.startsWith('build-gpt2-')) return 'gpt2';
+      if (id.startsWith('rag-') || id.startsWith('chromadb-') || id.startsWith('llamaindex-')) return 'rag';
+      if (id.startsWith('pytorch-') || id.startsWith('neural-network-pytorch-')) return 'pytorch';
+      return id.split('-')[0];
+    };
+
+    const snippetIdsOf = (id: string) => {
+      const slide = slidesById.get(id);
+      if (!slide) return new Set<string>();
+      const payload = JSON.stringify(slide);
+      const refs = new Set<string>();
+      for (const match of payload.matchAll(/snippet:([a-zA-Z0-9_/-]+)/g)) refs.add(match[1]);
+      for (const match of payload.matchAll(/"snippetId":"([a-zA-Z0-9_/-]+)"/g)) refs.add(match[1]);
+      return refs;
+    };
+
+    for (let i = 0; i < courseSlideOrder.length - 1; i++) {
+      const currentId = courseSlideOrder[i];
+      const nextId = courseSlideOrder[i + 1];
+      if (arcOf(currentId) !== arcOf(nextId)) continue;
+
+      const currentRefs = snippetIdsOf(currentId);
+      const nextRefs = snippetIdsOf(nextId);
+      const overlap = [...currentRefs].filter(ref => nextRefs.has(ref));
+
+      if (overlap.length > 0) {
+        failures.push(`${currentId} -> ${nextId} share snippet(s): ${overlap.join(', ')}`);
+      }
+    }
+
+    if (failures.length > 0) {
+      assert.fail(`Consecutive snippet duplication detected in the same arc:\n${failures.join('\n')}`);
     }
   });
 });

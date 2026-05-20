@@ -6,13 +6,17 @@ export const embeddingsIntro = defineSlide({
   options: { columnRatios: [0.55, 0.45] },
   content: {
     'pt-br': {
-      title: 'Embedding: ID não é vetor',
-      body: `Token ID sozinho não carrega geometria. O embedding é a tabela treinável que troca cada inteiro por um vetor contínuo.
+      title: 'Embedding no GPT-2: entrada canônica',
+      body: `**Intuição:** \`embedding\` vem da ideia de "inserir/imersar" IDs discretos em um espaço vetorial contínuo onde o modelo consegue raciocinar por geometria.
 
-No GPT-2, isso faz duas coisas:
+**Operação:** no GPT-2, a entrada nasce de um passo canônico:
+1. \`token_embedding(idx)\` mapeia IDs para vetores de conteúdo
+2. \`position_embedding(positions)\` mapeia posição para vetores de ordem
+3. soma dos dois vetores produz o residual stream inicial \`(B, T, C)\`
 
-1. cria uma largura fixa \`C\` por token
-2. prepara o residual stream inicial`,
+**Formal (curto):** se \`idx \\in Z^{B\\times T}\`, então \`E_t[idx] + E_p[pos] \\in R^{B\\times T\\times C}\`.
+
+Sem posição, tokens iguais em lugares diferentes parecem o mesmo evento.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/embedding-sum
 \`\`\``,
@@ -23,13 +27,17 @@ snippet:repo-gpt2/embedding-sum
       ],
     },
     'en-us': {
-      title: 'Embedding: an ID is not a vector',
-      body: `A token ID alone carries no geometry. The embedding table is the trainable lookup that swaps each integer for a continuous vector.
+      title: 'GPT-2 Embedding: canonical input step',
+      body: `**Intuition:** \`embedding\` comes from the idea of "inserting/immersing" discrete IDs into a continuous vector space where geometry becomes usable.
 
-In GPT-2, that does two jobs:
+**Operation:** in GPT-2, input is born from one canonical step:
+1. \`token_embedding(idx)\` maps IDs into content vectors
+2. \`position_embedding(positions)\` maps positions into order vectors
+3. summing both vectors produces the initial residual stream \`(B, T, C)\`
 
-1. it creates a fixed width \`C\` per token
-2. it prepares the initial residual stream`,
+**Formal (short):** if \`idx \\in Z^{B\\times T}\`, then \`E_t[idx] + E_p[pos] \\in R^{B\\times T\\times C}\`.
+
+Without position, identical tokens in different places look like the same event.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/embedding-sum
 \`\`\``,

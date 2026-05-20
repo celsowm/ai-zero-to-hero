@@ -11,7 +11,7 @@ export const llamaindexRetrieversDeepDive = defineSlide({
 
 ### VectorIndexRetriever (semântico)
 
-Busca por **similaridade de cosseno** no espaço de embeddings. Bom para conceitos e significado.
+Busca por **similaridade de cosseno** no espaço de embeddings. A query vira **query embedding** antes do ranking. Bom para conceitos e significado.
 
 \`\`\`python
 snippet:llamaindex/vector-retriever
@@ -33,7 +33,7 @@ Escolhe **automaticamente** o melhor retriever baseado na query. Combina os dois
 
 ### VectorIndexRetriever (semantic)
 
-Searches by **cosine similarity** in embedding space. Good for concepts and meaning.
+Searches by **cosine similarity** in embedding space. The query is converted into a **query embedding** before ranking. Good for concepts and meaning.
 
 \`\`\`python
 snippet:llamaindex/vector-retriever

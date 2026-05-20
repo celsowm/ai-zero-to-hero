@@ -7,15 +7,17 @@ export const llamaindexIndexingPipeline = defineSlide({
   content: {
     'pt-br': {
       title: 'Indexing Pipeline: Documents → Vetores',
-      body: `O coração do LlamaIndex é o **indexing pipeline** — transforma documentos brutos em uma estrutura indexada para busca semântica.
+      body: `**Intuição:** no LlamaIndex, indexar é transformar texto em geometria de busca.
+
+**Operação:** chunking + embedding model + vector store.
 
 ### Etapas do pipeline
 
 1. **Loading**: loaders leem os dados brutos → \`Document[]\`
 2. **Parsing**: cada Document é quebrado em **Nodes** (chunks)
 3. **Transformations**: chunking, limpeza, extração de metadata
-4. **Embedding**: cada node vira um vetor via modelo de embedding
-5. **Storage**: vetores + metadata são salvos no **VectorStore**
+4. **Embedding**: cada node vira vetor via **embedding model**
+5. **Storage**: vetores + metadata são salvos no **vector store**
 
 ### Chunking inteligente
 
@@ -33,15 +35,17 @@ O index mais comum é o **VectorStoreIndex** — armazena embeddings e permite b
     },
     'en-us': {
       title: 'Indexing Pipeline: Documents → Vectors',
-      body: `The heart of LlamaIndex is the **indexing pipeline** — transforms raw documents into an indexed structure for semantic search.
+      body: `**Intuition:** in LlamaIndex, indexing means turning text into searchable geometry.
+
+**Operation:** chunking + embedding model + vector store.
 
 ### Pipeline stages
 
 1. **Loading**: loaders read raw data → \`Document[]\`
 2. **Parsing**: each Document is split into **Nodes** (chunks)
 3. **Transformations**: chunking, cleaning, metadata extraction
-4. **Embedding**: each node becomes a vector via embedding model
-5. **Storage**: vectors + metadata are saved to **VectorStore**
+4. **Embedding**: each node becomes a vector via the **embedding model**
+5. **Storage**: vectors + metadata are saved to the **vector store**
 
 ### Intelligent chunking
 
