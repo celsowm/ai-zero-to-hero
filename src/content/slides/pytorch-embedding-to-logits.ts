@@ -7,51 +7,63 @@ export const pytorchEmbeddingToLogits = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding -> logits: contrato formal de previsao',
-      body: `Problema formal deste slide: como mapear \'idx\' discreto para uma distribuicao de proximo token sem quebrar o contrato de shape?
+      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(batch_size, seq_len, embed_dim)\`. Agora damos o proximo passo: transformar esse \`H\` em logits \`(batch_size, seq_len, vocab_size)\` para previsao de proximo token.
+
+Problema formal deste slide: como mapear \`idx\` (IDs de token no vocabulario) para uma distribuicao de proximo token sem quebrar o contrato de shape?
+
+Ponto de partida sem ambiguidade:
+- \`idx\` nao e embedding; \`idx\` e apenas grade de inteiros com IDs de token.
+- Cada inteiro referencia uma linha da matriz de embedding \`E\`.
 
 Notacao do pipeline:
-- \`idx \in Z^{BxT}\`
-- \`E \in R^{VxC}\`
-- \`H = E[idx] \in R^{BxTxC}\`
-- \`W_out \in R^{VxC}\`, \`b \in R^V\`
-- \`logits = H W_out^T + b \in R^{BxTxV}\`
+- \`idx \in Z^{batch\_size x seq\_len}\`
+- \`E \in R^{vocab\_size x embed\_dim}\`
+- \`H = E[idx] \in R^{batch\_size x seq\_len x embed\_dim}\`
+- \`W_out \in R^{vocab\_size x embed\_dim}\`, \`b \in R^{vocab\_size}\`
+- \`logits = H W_out^T + b \in R^{batch\_size x seq\_len x vocab\_size}\`
 
 Leitura operacional por espaco:
-1. \`idx\` carrega identidade discreta por posicao temporal.
-2. \`Embedding\` move para espaco continuo parametrizado (representacao \`C\`).
-3. Projecao de saida transforma representacao em scores nao normalizados por classe.
+1. \`idx\` carrega identidade discreta de token por posicao temporal.
+2. \`Embedding\` faz lookup desses IDs e move para espaco continuo parametrizado (representacao \`embed_dim\`).
+3. Projecao de saida transforma representacao em scores nao normalizados por classe no espaco \`vocab_size\`.
 
 Consumo do tensor em treino e inferencia:
-- treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
+- treino com \`cross_entropy\`: \`(batch_size*seq_len, vocab_size)\` contra \`(batch_size*seq_len)\` via flatten alinhado;
 - inferencia autoregressiva: \`logits[:, -1, :]\` para escolher o proximo indice.
 
 Ponte didatica: no modulo de regressao, o escalar de treino era o MSE; aqui mantemos a mesma logica de minimizacao, mas com CE para classes de vocabulario.
 
-Regra de rigor: \`C\` e espaco de representacao; \`V\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
+Regra de rigor: \`embed_dim\` e espaco de representacao; \`vocab_size\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
     },
     'en-us': {
       title: 'Embedding -> logits: formal prediction contract',
-      body: `Formal problem for this slide: how do we map discrete \'idx\' into a next-token distribution without breaking shape contracts?
+      body: `In the previous slide (\`pytorch-embedding-intro\`), we ended at \`H = E[idx]\` with shape \`(batch_size, seq_len, embed_dim)\`. Now we take the next step: turn that \`H\` into logits \`(batch_size, seq_len, vocab_size)\` for next-token prediction.
+
+Formal problem for this slide: how do we map \`idx\` (token IDs in the vocabulary) into a next-token distribution without breaking shape contracts?
+
+Unambiguous starting point:
+- \`idx\` is not an embedding; it is only an integer grid of token IDs.
+- Each integer points to one row in the embedding matrix \`E\`.
 
 Pipeline notation:
-- \`idx \in Z^{BxT}\`
-- \`E \in R^{VxC}\`
-- \`H = E[idx] \in R^{BxTxC}\`
-- \`W_out \in R^{VxC}\`, \`b \in R^V\`
-- \`logits = H W_out^T + b \in R^{BxTxV}\`
+- \`idx \in Z^{batch\_size x seq\_len}\`
+- \`E \in R^{vocab\_size x embed\_dim}\`
+- \`H = E[idx] \in R^{batch\_size x seq\_len x embed\_dim}\`
+- \`W_out \in R^{vocab\_size x embed\_dim}\`, \`b \in R^{vocab\_size}\`
+- \`logits = H W_out^T + b \in R^{batch\_size x seq\_len x vocab\_size}\`
 
 Operational reading by space:
-1. \`idx\` carries discrete identity per time position.
-2. \`Embedding\` moves data into continuous parametric space (representation width \`C\`).
-3. Output projection turns representation into non-normalized class scores.
+1. \`idx\` carries discrete token identity per time position.
+2. \`Embedding\` looks up those IDs and lifts data into continuous parametric space (representation width \`embed_dim\`).
+3. Output projection turns representation into non-normalized class scores in \`vocab_size\` space.
 
 How the tensor is consumed in training and inference:
-- training with \`cross_entropy\`: \`(B*T,V)\` against \`(B*T)\` via aligned flattening;
+- training with \`cross_entropy\`: \`(batch_size*seq_len, vocab_size)\` against \`(batch_size*seq_len)\` via aligned flattening;
 - autoregressive inference: \`logits[:, -1, :]\` to choose the next index.
 
 Didactic bridge: in the regression module, the training scalar was MSE; here we keep the same minimization logic, but with CE over vocabulary classes.
 
-Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these roles breaks interpretation and debugging.`,
+Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision space. Mixing these roles breaks interpretation and debugging.`,
     },
   },
   visual: {
