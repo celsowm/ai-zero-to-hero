@@ -25,6 +25,8 @@ Consumo do tensor em treino e inferencia:
 - treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
 - inferencia autoregressiva: \`logits[:, -1, :]\` para escolher o proximo indice.
 
+Ponte didatica: no modulo de regressao, o escalar de treino era o MSE; aqui mantemos a mesma logica de minimizacao, mas com CE para classes de vocabulario.
+
 Regra de rigor: \`C\` e espaco de representacao; \`V\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
     },
     'en-us': {
@@ -46,6 +48,8 @@ Operational reading by space:
 How the tensor is consumed in training and inference:
 - training with \`cross_entropy\`: \`(B*T,V)\` against \`(B*T)\` via aligned flattening;
 - autoregressive inference: \`logits[:, -1, :]\` to choose the next index.
+
+Didactic bridge: in the regression module, the training scalar was MSE; here we keep the same minimization logic, but with CE over vocabulary classes.
 
 Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these roles breaks interpretation and debugging.`,
     },
@@ -114,7 +118,7 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
               label: '4. training consume',
               title: 'Cross-entropy exige flatten alinhado',
               shape: '(B*T,V) vs (B*T)',
-              body: 'O cubo temporal e reindexado para lista de casos de classificacao mantendo correspondencia token-a-token.',
+              body: 'O cubo temporal e reindexado para lista de casos de classificacao mantendo correspondencia token-a-token. Esse escalar cumpre o mesmo papel estrutural que o MSE cumpria em regressao.',
               reading: 'Flatten errado mantem shape valido mas corrompe supervisao.',
             },
             {
@@ -195,7 +199,7 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
               label: '4. training consume',
               title: 'Cross-entropy requires aligned flattening',
               shape: '(B*T,V) vs (B*T)',
-              body: 'The temporal cube is reindexed into a list of classification cases while preserving token-to-token correspondence.',
+              body: 'The temporal cube is reindexed into a list of classification cases while preserving token-to-token correspondence. This scalar plays the same structural role MSE had in regression.',
               reading: 'Wrong flattening can keep valid shapes while corrupting supervision.',
             },
             {

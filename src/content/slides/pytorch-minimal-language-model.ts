@@ -15,6 +15,11 @@ Componentes minimos:
 - \`forward(idx, targets)\`: caminho unico para treino e inferencia.
 - \`cross_entropy\`: criterio de erro quando ha target.
 
+Ponte com o que veio antes:
+- em regressao, minimizamos MSE;
+- aqui, para classificacao de proximo token, minimizamos CE.
+- o loop operacional e o mesmo; muda a semantica do erro.
+
 Leitura importante:
 - sem \`targets\`: usamos para inferencia.
 - com \`targets\`: devolve loss para treino.
@@ -35,6 +40,11 @@ Minimum components:
 - \`lm_head\`: vectors -> vocabulary logits.
 - \`forward(idx, targets)\`: single path for training and inference.
 - \`cross_entropy\`: error criterion when targets exist.
+
+Bridge to earlier modules:
+- in regression, we minimized MSE;
+- here, for next-token classification, we minimize CE.
+- operational loop is the same; error semantics changes.
 
 Critical reading:
 - without \`targets\`: inference mode.
@@ -69,7 +79,7 @@ Limits of this teaching model:
           stages: [
             { label: 'Entrada', title: '`idx` é a porta obrigatória', shape: '(B,T)', body: 'Toda execução começa com IDs inteiros. Sem isso, o modelo nem entra no domínio de linguagem.', reading: 'O primeiro contrato do LM é aceitar contexto tokenizado, não texto cru.' },
             { label: 'Corpo mínimo', title: '`Embedding` + `lm_head` já fecham o ciclo', shape: '(B,T) -> (B,T,C) -> (B,T,V)', body: 'Mesmo sem atenção, o modelo já transforma IDs em vetores e vetores em logits. Isso basta para ter previsão e loss.', reading: 'O corpo é pequeno, mas a assinatura já é a de um language model de verdade.' },
-            { label: 'Saída dupla', title: 'A mesma classe serve treino e inferência', shape: 'logits + loss?', body: 'Sem `targets`, ela devolve só logits. Com `targets`, devolve logits e loss para backward. É o mesmo contrato operacional com dois usos.', reading: 'O segredo aqui não é tamanho; é unificar os dois modos na mesma interface.' },
+            { label: 'Saída dupla', title: 'A mesma classe serve treino e inferência', shape: 'logits + loss?', body: 'Sem `targets`, ela devolve só logits. Com `targets`, devolve logits e loss para backward (tipicamente CE, no lugar do MSE de regressao). É o mesmo contrato operacional com dois usos.', reading: 'O segredo aqui não é tamanho; é unificar os dois modos na mesma interface.' },
           ],
           invariantsTitle: 'O que este mini-LM já prova',
           invariants: [
@@ -104,7 +114,7 @@ Limits of this teaching model:
           stages: [
             { label: 'Input', title: '`idx` is the mandatory entry point', shape: '(B,T)', body: 'Every execution starts from integer token IDs. Without that, the model never even enters the language domain.', reading: 'The first LM contract is tokenized context, not raw text.' },
             { label: 'Minimal body', title: '`Embedding` + `lm_head` already close the loop', shape: '(B,T) -> (B,T,C) -> (B,T,V)', body: 'Even without attention, the model already maps IDs to vectors and vectors to logits. That is enough for prediction and loss.', reading: 'The body is tiny, but the signature is already that of a real language model.' },
-            { label: 'Dual output', title: 'The same class serves training and inference', shape: 'logits + loss?', body: 'Without `targets`, it returns logits only. With `targets`, it returns logits plus loss for backward. Same operational contract, two uses.', reading: 'The key is not size; it is unifying both modes behind one interface.' },
+            { label: 'Dual output', title: 'The same class serves training and inference', shape: 'logits + loss?', body: 'Without `targets`, it returns logits only. With `targets`, it returns logits plus loss for backward (typically CE, instead of regression MSE). Same operational contract, two uses.', reading: 'The key is not size; it is unifying both modes behind one interface.' },
           ],
           invariantsTitle: 'What this mini-LM already proves',
           invariants: [

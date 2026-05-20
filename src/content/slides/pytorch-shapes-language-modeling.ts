@@ -34,6 +34,12 @@ Contrato minimo de treino:
 - logits em \`(B, T, V)\` = para cada posição temporal, um vetor de \`V\` scores
 - flatten para loss: \`logits -> (B*T, V)\` e \`targets -> (B*T)\`
 
+Critério de erro usado aqui:
+- **CE (Cross-Entropy / Entropia Cruzada)**, também vista como NLL média no batch;
+- leitura prática por token correto: \`CE = -log(p_token_correto)\`;
+- em classificação, isso é o mesmo espírito do **log-loss** multiclasse.
+- ponte com slides anteriores: no lugar da lógica do **MSE** (erro contínuo), agora penalizamos confiança na classe/token errado.
+
 Fechando o ciclo:
 - logits viram distribuicao sobre o vocabulario
 - a distribuicao vira escolha de indice (argmax ou sampling) na geracao
@@ -73,6 +79,12 @@ Minimum training contract:
 - hidden states are \`(B, T, C)\`
 - logits are \`(B, T, V)\` = for each time position, one vector of \`V\` scores
 - loss flattening: \`logits -> (B*T, V)\` and \`targets -> (B*T)\`
+
+Error criterion used here:
+- **CE (Cross-Entropy)**, also read as average NLL over the batch;
+- per-correct-token operational view: \`CE = -log(p_correct_token)\`;
+- in classification terms, this is the same family as multiclass **log-loss**.
+- bridge to earlier slides: instead of **MSE** (continuous error), we now penalize confidence assigned to the wrong class/token.
 
 Closing the loop:
 - logits become a vocabulary distribution
@@ -131,14 +143,14 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
               kicker: '4. Flatten',
               title: 'Tempo vira lista de decisoes',
               shape: '(B*T, V) + (B*T)',
-              role: 'A cross-entropy nao compara um cubo temporal. Ela quer uma lista de casos de classificacao: uma linha de logits por posicao, um alvo por posicao.',
+              role: 'A CE (cross-entropy) nao compara um cubo temporal. Ela quer uma lista de casos de classificacao: uma linha de logits por posicao, um alvo por posicao.',
               debugHint: 'Se o flatten estiver errado, a loss continua rodando, mas passa a comparar tokens desalinhados.',
             },
             {
               kicker: '5. Loss',
               title: 'O treino penaliza o token errado',
               shape: 'loss -> escalar',
-              role: 'A cross-entropy olha o placar inteiro do vocabulario, aplica softmax internamente e aumenta a penalizacao quando o token correto recebe pouca massa.',
+              role: 'A CE olha o placar inteiro do vocabulario, aplica softmax internamente e aumenta a penalizacao quando o token correto recebe pouca massa.',
               debugHint: 'No fim, a loss precisa ser um unico numero. Se nao for, o contrato de shape quebrou antes.',
             },
           ],
@@ -196,14 +208,14 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
               kicker: '4. Flatten',
               title: 'Time becomes a list of decisions',
               shape: '(B*T, V) + (B*T)',
-              role: 'Cross-entropy does not compare a temporal cube. It wants a list of classification cases: one logits row per position, one target per position.',
+              role: 'CE (cross-entropy) does not compare a temporal cube. It wants a list of classification cases: one logits row per position, one target per position.',
               debugHint: 'If flattening is wrong, the loss may still run while comparing misaligned tokens.',
             },
             {
               kicker: '5. Loss',
               title: 'Training penalizes the wrong token',
               shape: 'loss -> scalar',
-              role: 'Cross-entropy inspects the full vocabulary scoreboard, applies softmax internally, and increases the penalty when the correct token receives too little mass.',
+              role: 'CE inspects the full vocabulary scoreboard, applies softmax internally, and increases the penalty when the correct token receives too little mass.',
               debugHint: 'At the end, loss must collapse into a single number. If not, the shape contract was violated earlier.',
             },
           ],

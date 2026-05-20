@@ -14,6 +14,12 @@ export const crossEntropyLanguageModeling = defineSlide({
       title: `Medindo o erro: Cross-Entropy`,
       body: `Durante o treinamento, precisamos de um jeito matemático para dizer ao modelo se as previsões dele estão boas ou ruins. Entra a **Perda de Entropia Cruzada** (Cross-Entropy Loss).
 
+Por que o nome "entropia"?
+- **Entropia** \`H(p)\`: mede a incerteza media de uma distribuicao real \`p\`.
+- **Cross-entropy** \`H(p, q)\`: mede o custo medio quando os dados vem de \`p\`, mas o modelo aposta com distribuicao \`q\`.
+- "Cross" vem desse cruzamento entre **distribuicao real** e **distribuicao prevista**.
+- No caso one-hot por token correto, isso vira \`-log(p_token_correto)\` (mesma familia de NLL/log-loss).
+
 1. **O gabarito:** no treino, nós sabemos qual é a verdadeira próxima palavra. Digamos que seja 'people'.
 
 2. **A surpresa do modelo:** olhamos para a probabilidade que o modelo deu para a palavra correta 'people'. Se ele deu 99%, a perda é quase zero. Ele não ficou surpreso.
@@ -25,6 +31,12 @@ export const crossEntropyLanguageModeling = defineSlide({
     'en-us': {
       title: `Measuring error: Cross-Entropy`,
       body: `During training, we need a mathematical way to tell the model if its predictions are good or bad. Enter **Cross-Entropy Loss**.
+
+Why the name "entropy"?
+- **Entropy** \`H(p)\`: measures the average uncertainty of the true distribution \`p\`.
+- **Cross-entropy** \`H(p, q)\`: measures average cost when data comes from \`p\`, but the model predicts with distribution \`q\`.
+- "Cross" comes from this crossing between the **true distribution** and the **predicted distribution**.
+- In the one-hot correct-token case, this becomes \`-log(p_correct_token)\` (same NLL/log-loss family).
 
 1. **The answer key:** in training, we know the true next word. Let's say it is 'people'.
 

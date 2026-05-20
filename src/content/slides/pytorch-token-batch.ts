@@ -19,7 +19,9 @@ Por que isso importa:
 - cada posição de \`x\` aprende "quem vem depois" na mesma linha;
 - o treino roda em paralelo nas posições (não token por token);
 - uma única loss já resume erro de todo o lote.
-- para isso, o flatten final trata cada posicao como um exemplo supervisionado independente para a cross-entropy.
+- para isso, o flatten final trata cada posicao como um exemplo supervisionado independente para a **CE (cross-entropy)**.
+- leitura operacional da CE: \`-log(p_token_correto)\`, média no lote (mesma família do log-loss/NLL).
+- ponte com regressao: o papel estrutural da CE aqui e o mesmo do MSE antes (virar um escalar para backward).
 
 Erros comuns aqui:
 - deslocar \`x/y\` na direção errada;
@@ -40,7 +42,9 @@ Why this matters:
 - each position in \`x\` learns "what comes next" on the same row;
 - training runs in parallel across positions (not token-by-token);
 - one loss already summarizes error over the full batch.
-- the final flatten does that by treating each position as an independent supervised example for cross-entropy.
+- the final flatten does that by treating each position as an independent supervised example for **CE (cross-entropy)**.
+- operational CE view: \`-log(p_correct_token)\`, averaged over the batch (same log-loss/NLL family).
+- bridge to regression: CE plays the same structural role MSE had before (produce one scalar for backward).
 
 Common mistakes:
 - shifting \`x/y\` in the wrong direction;

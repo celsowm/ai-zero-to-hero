@@ -9,6 +9,8 @@ export const neuralNetworkPytorchTraining = defineSlide({
       title: 'Loop de treino para next-token',
       body: `O loop de treino de um language model é o loop padrão do PyTorch, com uma diferença prática: o target é a sequência deslocada.
 
+Ponte direta com o bloco anterior de regressao: a mecanica do loop e a mesma do caso com MSE (\`forward -> loss -> backward -> step\`); o que muda aqui e o criterio de erro (CE) e o formato discreto do target.
+
 Checklist:
 
 1. pegar \`x\` e \`y\`
@@ -22,6 +24,8 @@ Ponte importante: esses \`x/y\` sao exatamente o batch deslocado do slide \`pyto
     'en-us': {
       title: 'Training loop for next-token prediction',
       body: `A language-model training loop is the standard PyTorch loop, with one practical twist: the target is the shifted sequence.
+
+Direct bridge to earlier regression slides: loop mechanics are the same as the MSE case (\`forward -> loss -> backward -> step\`); what changes here is the error criterion (CE) and the discrete target format.
 
 Checklist:
 
@@ -54,7 +58,7 @@ Important bridge: these \`x/y\` tensors are exactly the shifted batch from the \
           subtitle: 'A ordem importa, mas ela depende de um batch deslocado e de um loss bem formado.',
           steps: [
             { label: 'batch deslocado', shape: 'x,y -> (B,T)', body: '`x` e `y` não são dois tensores arbitrários: `y` é a sequência deslocada que ensina próximo token.', risk: 'Se targets não estiverem deslocados, o modelo aprende a copiar a posição errada.' },
-            { label: 'model(x, y)', body: 'O forward devolve logits sempre e loss quando os targets existem.', risk: 'Ler esse forward como “caixa-preta” apaga a ponte entre batch deslocado e critério de erro.' },
+            { label: 'model(x, y)', body: 'O forward devolve logits sempre e loss quando os targets existem. Em LM, essa loss costuma ser CE no lugar do MSE de regressao.', risk: 'Ler esse forward como “caixa-preta” apaga a ponte entre batch deslocado e critério de erro.' },
             { label: 'zero_grad()', body: 'Zera o buffer antes de propagar o erro do batch atual.', risk: 'Sem isso, um batch invade o próximo e polui a leitura do update.' },
             { label: 'backward()', body: 'A loss empurra sinal de correção para cada parâmetro treinável.', risk: 'Backward sem loss coerente só propaga um erro mal definido.' },
             { label: 'step()', body: 'O optimizer aplica o ajuste e fecha o ciclo treino -> erro -> correção.', risk: 'Se a loss não cai, quase sempre o problema está no batch, no contrato do forward ou na ordem do loop.' },
@@ -91,7 +95,7 @@ Important bridge: these \`x/y\` tensors are exactly the shifted batch from the \
           subtitle: 'Order matters, but it depends on a shifted batch and a correctly formed loss.',
           steps: [
             { label: 'shifted batch', shape: 'x,y -> (B,T)', body: '`x` and `y` are not arbitrary tensors: `y` is the shifted sequence that teaches next-token prediction.', risk: 'If targets are not shifted, the model learns the wrong position-to-target alignment.' },
-            { label: 'model(x, y)', body: 'Forward always returns logits and returns loss when targets exist.', risk: 'Reading this forward as a black box hides the bridge between shifted data and error criterion.' },
+            { label: 'model(x, y)', body: 'Forward always returns logits and returns loss when targets exist. In LM, this loss is typically CE instead of regression MSE.', risk: 'Reading this forward as a black box hides the bridge between shifted data and error criterion.' },
             { label: 'zero_grad()', body: 'Clears buffers before propagating the current batch error.', risk: 'Without it, one batch leaks into the next and pollutes update meaning.' },
             { label: 'backward()', body: 'Loss pushes correction signals into each trainable parameter.', risk: 'Backward with incoherent loss only propagates a poorly defined error.' },
             { label: 'step()', body: 'The optimizer applies the update and closes the loop: training -> error -> correction.', risk: 'If loss does not fall, the bug is often in data, targets, or loop order before it is “the model”.' },

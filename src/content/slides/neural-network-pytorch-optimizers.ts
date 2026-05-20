@@ -9,6 +9,8 @@ export const neuralNetworkPytorchOptimizers = defineSlide({
       title: 'Otimizador no loop certo',
       body: `Para LM, o erro comum nao e "escolher AdamW ou SGD". E errar a **ordem do loop**.
 
+Ponte com regressao: com MSE ou com CE, o otimizador recebe o mesmo tipo de sinal (\`.grad\`). Ele nao "sabe" a tarefa; ele apenas aplica update no parametro.
+
 Ritual correto:
 1. forward
 2. loss
@@ -27,6 +29,8 @@ Se o loop estiver errado, nenhum otimizador salva o treino.`,
     'en-us': {
       title: 'The optimizer in the right loop',
       body: `For LM training, the common failure is not "AdamW vs SGD". It is loop order.
+
+Bridge to regression: with MSE or CE, the optimizer consumes the same signal type (\`.grad\`). It does not "know" the task; it only applies parameter updates.
 
 Correct ritual:
 1. forward
@@ -64,7 +68,7 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
           subtitle: 'O otimizador não “aprende sozinho”. Ele só transforma o gradiente certo, na ordem certa, em movimento de parâmetro.',
           steps: [
             { label: 'forward', body: 'Os pesos atuais produzem logits e, indiretamente, o erro do batch.', risk: 'Sem uma leitura clara do forward, o restante do loop parece ruído estatístico.' },
-            { label: 'loss', body: 'A loss concentra o erro em um escalar que o backward consegue propagar.', risk: 'Se a loss estiver mal formada, o otimizador só receberá um sinal confuso.' },
+            { label: 'loss', body: 'A loss concentra o erro em um escalar que o backward consegue propagar. Ontem era MSE; aqui, com frequencia, CE.', risk: 'Se a loss estiver mal formada, o otimizador só receberá um sinal confuso.' },
             { label: 'zero_grad()', body: 'Limpa o buffer de gradientes antes do batch atual.', risk: 'Sem isso, o batch novo soma gradiente velho e altera a escala real do update.' },
             { label: 'backward()', body: 'Converte erro em `.grad` por parâmetro.', risk: 'Chamar `step()` sem backward novo não aplica aprendizado; aplica movimento sem sinal fresco.' },
             { label: 'step()', body: 'AdamW ou SGD transforma `.grad` em deslocamento efetivo dos pesos.', risk: 'Recriar o optimizer no meio do treino apaga estado interno e muda a trajetória.' },
@@ -101,7 +105,7 @@ If loop order is wrong, optimizer choice cannot rescue training.`,
           subtitle: 'The optimizer does not “learn by itself”. It only turns the correct gradient, in the correct order, into parameter movement.',
           steps: [
             { label: 'forward', body: 'Current weights produce logits and, indirectly, the batch error.', risk: 'Without a clear forward reading, the rest of the loop looks like statistical noise.' },
-            { label: 'loss', body: 'Loss concentrates error into a scalar that backward can propagate.', risk: 'If loss is malformed, the optimizer only receives a confused signal.' },
+            { label: 'loss', body: 'Loss concentrates error into a scalar that backward can propagate. Yesterday it was MSE; here it is often CE.', risk: 'If loss is malformed, the optimizer only receives a confused signal.' },
             { label: 'zero_grad()', body: 'Clears gradient buffers before the current batch.', risk: 'Without it, the new batch adds stale gradients and changes the true update scale.' },
             { label: 'backward()', body: 'Turns error into per-parameter `.grad` values.', risk: 'Calling `step()` without a fresh backward does not apply learning; it applies motion without signal.' },
             { label: 'step()', body: 'AdamW or SGD turns `.grad` into actual weight displacement.', risk: 'Recreating the optimizer mid-run erases internal state and changes trajectory.' },

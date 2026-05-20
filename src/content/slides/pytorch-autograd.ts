@@ -9,6 +9,8 @@ export const pytorchAutograd = defineSlide({
       title: 'Autograd: o que é, por que esse nome, e como entra no treino',
       body: `Lembra do slide de backpropagation, onde derivamos \`sigmoid\`, calculamos \`delta_out\`, \`delta_h\` e atualizamos cada peso na unha? No PyTorch, **todo esse trabalho manual vira uma chamada so**: \`loss.backward()\`.
 
+Ponte com os slides anteriores: no bloco de regressao, o alvo escalar era minimizado com **MSE**; aqui, no LM, o papel continua igual (gerar sinal para backward), mas o criterio tipico vira **CE (cross-entropy)** por token.
+
 **Autograd** = *automatic differentiation* (diferenciação automática). O nome é direto: **auto**matic **grad**ient — o motor calcula gradientes sozinho, sem você derivar nada à mão.
 
 Imagine que cada operação matemática que você faz (soma, multiplicação, ReLU) é anotada em um **"caderno" secreto** pelo PyTorch:
@@ -25,6 +27,8 @@ Sem Autograd, voce teria que derivar e implementar manualmente o backward de cad
     'en-us': {
       title: 'Autograd: what it is, why this name, and where it enters training',
       body: `Remember the backpropagation slide, where we derived \`sigmoid\`, computed \`delta_out\`, \`delta_h\`, and updated each weight by hand? In PyTorch, **all that manual work becomes a single call**: \`loss.backward()\`.
+
+Bridge to earlier slides: in the regression block, the scalar objective was minimized with **MSE**; here in LM, the role is the same (produce backward signal), but the typical criterion becomes per-token **CE (cross-entropy)**.
 
 **Autograd** = *automatic differentiation*. The name says it all: **auto**matic **grad**ient — the engine computes gradients on its own, no manual derivation needed.
 
@@ -51,7 +55,7 @@ Without Autograd, you would need to derive and implement backward for each opera
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'Criamos logits com gradiente habilitado e um target correto para isolar o backward.' },
-            { lineRange: [7, 8], content: 'Cross-entropy mede erro e `backward()` preenche gradientes.' },
+            { lineRange: [7, 8], content: 'Cross-entropy mede erro (papel equivalente ao MSE na regressao) e `backward()` preenche gradientes.' },
             { lineRange: [10, 11], content: 'Loss e gradiente mostram a direcao do ajuste.' },
           ],
         },
@@ -61,7 +65,7 @@ Without Autograd, you would need to derive and implement backward for each opera
           steps: [
             { label: 'requires_grad', body: 'Tensores e parâmetros marcados entram no radar do motor automático de derivação.', risk: 'Se o tensor certo não participa, não adianta chamar backward depois.' },
             { label: 'forward trace', body: 'Cada operação relevante deixa um rastro no grafo dinâmico.', risk: 'Achar que o grafo existe “depois” da loss; ele começa a nascer durante o forward.' },
-            { label: 'loss escalar', body: 'A cross-entropy concentra o erro em um número que vira origem da retropropagação.', risk: 'Sem um objetivo escalar claro, o backward não sabe o que minimizar.' },
+            { label: 'loss escalar', body: 'A cross-entropy concentra o erro em um número que vira origem da retropropagação; em regressao, esse mesmo papel era do MSE.', risk: 'Sem um objetivo escalar claro, o backward não sabe o que minimizar.' },
             { label: 'backward()', body: 'A regra da cadeia corre do fim para o começo e distribui sensibilidade pelos parâmetros conectados.', risk: 'Esperar que o optimizer funcione sem esse sinal ter sido populado em `.grad`.' },
             { label: 'buffer .grad', body: 'Cada parâmetro guarda quanto deve subir ou descer no próximo update.', risk: 'Esquecer que `.grad` acumula entre passos quando não é limpo.' },
           ],
@@ -88,7 +92,7 @@ Without Autograd, you would need to derive and implement backward for each opera
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'We create logits with gradients enabled plus one correct target to isolate backward.' },
-            { lineRange: [7, 8], content: 'Cross-entropy measures error and `backward()` fills gradients.' },
+            { lineRange: [7, 8], content: 'Cross-entropy measures error (same role MSE had in regression) and `backward()` fills gradients.' },
             { lineRange: [10, 11], content: 'Loss and gradient expose update direction.' },
           ],
         },
@@ -98,7 +102,7 @@ Without Autograd, you would need to derive and implement backward for each opera
           steps: [
             { label: 'requires_grad', body: 'Tensors and parameters marked for gradients enter the scope of automatic differentiation.', risk: 'If the right tensor never participates, calling backward later changes nothing.' },
             { label: 'forward trace', body: 'Each relevant operation leaves a trace in the dynamic graph.', risk: 'Assuming the graph appears only after loss; it starts forming during forward.' },
-            { label: 'scalar loss', body: 'Cross-entropy concentrates error into one number that becomes the source of backpropagation.', risk: 'Without a clear scalar objective, backward has nothing coherent to minimize.' },
+            { label: 'scalar loss', body: 'Cross-entropy concentrates error into one number that becomes the source of backpropagation; in regression, MSE played this same role.', risk: 'Without a clear scalar objective, backward has nothing coherent to minimize.' },
             { label: 'backward()', body: 'Chain rule runs from output back to inputs and distributes sensitivity through connected parameters.', risk: 'Expecting the optimizer to work before `.grad` has been populated.' },
             { label: 'buffer .grad', body: 'Each parameter stores how much it should move on the next update.', risk: 'Forgetting that `.grad` accumulates between steps unless cleared.' },
           ],

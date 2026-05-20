@@ -26,7 +26,9 @@ Leitura mental certa:
 - depois nomeie o papel de cada um;
 - so entao leia o \`shape\` como a assinatura numerica desses papeis.
 
-O proximo passo e usar essa leitura em um caso real: texto tokenizado virando tensor no PyTorch.`,
+O proximo passo e usar essa leitura em um caso real: texto tokenizado virando tensor no PyTorch.
+
+Ponte de criterio: esse escalar 0D pode ser MSE (regressao) ou CE (classificacao em LM).`,
     },
     'en-us': {
       title: 'Tensor progression: 0D to 4D',
@@ -49,7 +51,9 @@ Correct mental reading:
 - then name the role of each axis;
 - only then read the \`shape\` as the numeric signature of those roles.
 
-The next step is to use that reading in a real case: tokenized text becoming a tensor in PyTorch.`,
+The next step is to use that reading in a real case: tokenized text becoming a tensor in PyTorch.
+
+Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classification).`,
     },
   },
   visual: {

@@ -6,11 +6,11 @@ export const pytorchExercisesLanguageModeling = defineSlide({
   content: {
     'pt-br': {
       title: 'Exercícios: Language Modeling em PyTorch',
-      body: 'Fechamos com os blocos centrais de LM: shift x/y, shape de logits, cross-entropy e decode.',
+      body: 'Fechamos com os blocos centrais de LM: shift x/y, shape de logits, cross-entropy e decode. Ponte: o loop e o mesmo da fase MSE; muda o criterio para CE por token.',
     },
     'en-us': {
       title: 'Exercises: Language Modeling in PyTorch',
-      body: 'Finish with core LM blocks: x/y shift, logits shape, cross-entropy, and decoding.',
+      body: 'Finish with core LM blocks: x/y shift, logits shape, cross-entropy, and decoding. Bridge: loop mechanics match the MSE phase; criterion shifts to per-token CE.',
     },
   },
   visual: {

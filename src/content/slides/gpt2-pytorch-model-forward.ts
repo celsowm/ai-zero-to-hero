@@ -27,14 +27,16 @@ Ponto critico:
 - sem \`targets\`, o forward devolve so logits para inferencia/geracao
 - com \`targets\`, o forward tambem fecha a loss para treino
 - treino usa todas as posicoes em paralelo
-- geracao usa apenas \`logits[:, -1, :]\``,
+- geracao usa apenas \`logits[:, -1, :]\`
+
+Ponte com PyTorch anterior: a mecanica de treino continua \`forward -> loss -> backward -> step\`; a mudanca de dominio aqui e trocar MSE por CE sobre vocabulario.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/model-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'A assinatura já mostra a dupla que interessa: logits sempre; loss só quando há targets.' },
         { lineRange: [6, 14], content: 'O forward transforma `(B, T)` em residual stream, atravessa os blocos e projeta de volta para o vocabulário.' },
-        { lineRange: [15, 16], content: 'Quando há targets, a cross-entropy fecha o contrato de treino.' },
+        { lineRange: [15, 16], content: 'Quando há targets, a cross-entropy fecha o contrato de treino (mesmo papel estrutural do MSE em regressao).' },
       ],
     },
     'en-us': {
@@ -59,14 +61,16 @@ Critical distinction:
 - without \`targets\`, forward returns logits only for inference/generation
 - with \`targets\`, forward also closes the training loss
 - training consumes all positions in parallel
-- generation consumes only \`logits[:, -1, :]\``,
+- generation consumes only \`logits[:, -1, :]\`
+
+Bridge to earlier PyTorch slides: training mechanics remain \`forward -> loss -> backward -> step\`; the domain shift here is replacing MSE with vocabulary-level CE.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/model-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'The signature already exposes the key pair: logits always; loss only when targets exist.' },
         { lineRange: [6, 14], content: 'The forward pass turns `(B, T)` into a residual stream, crosses the blocks, and projects back into vocabulary space.' },
-        { lineRange: [15, 16], content: 'When targets exist, cross-entropy closes the training contract.' },
+        { lineRange: [15, 16], content: 'When targets exist, cross-entropy closes the training contract (same structural role MSE had in regression).' },
       ],
     },
   },
