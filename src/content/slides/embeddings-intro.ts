@@ -14,7 +14,7 @@ export const embeddingsIntro = defineSlide({
 2. \`position_embedding(positions)\` mapeia posição para vetores de ordem
 3. soma dos dois vetores produz o residual stream inicial \`(B, T, C)\`
 
-**Formal (curto):** se \`idx \\in Z^{B\\times T}\`, então \`E_t[idx] + E_p[pos] \\in R^{B\\times T\\times C}\`.
+**Formal (curto):** se $$idx \in \mathbb{Z}^{B\times T}$$, então $$E_t[idx] + E_p[pos] \in \mathbb{R}^{B\times T\times C}$$.
 
 Sem posição, tokens iguais em lugares diferentes parecem o mesmo evento.`,
     },
@@ -27,7 +27,7 @@ Sem posição, tokens iguais em lugares diferentes parecem o mesmo evento.`,
 2. \`position_embedding(positions)\` maps positions into order vectors
 3. summing both vectors produces the initial residual stream \`(B, T, C)\`
 
-**Formal (short):** if \`idx \\in Z^{B\\times T}\`, then \`E_t[idx] + E_p[pos] \\in R^{B\\times T\\times C}\`.
+**Formal (short):** if $$idx \in \mathbb{Z}^{B\times T}$$, then $$E_t[idx] + E_p[pos] \in \mathbb{R}^{B\times T\times C}$$.
 
 Without position, identical tokens in different places look like the same event.`,
     },

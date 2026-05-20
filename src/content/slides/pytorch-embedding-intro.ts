@@ -15,9 +15,9 @@ export const pytorchEmbeddingIntro = defineSlide({
 3. \`embedding(idx)\` troca \`(B, T)\` por \`(B, T, C)\`
 
 **Formal (curto):**
-- \`idx \\in Z^{B\\times T}\`
-- \`E \\in R^{V\\times C}\`
-- \`H = E[idx] \\in R^{B\\times T\\times C}\`
+- $$idx \in \mathbb{Z}^{B\times T}$$
+- $$E \in \mathbb{R}^{V\times C}$$
+- $$H = E[idx] \in \mathbb{R}^{B\times T\times C}$$
 
 Leitura de engenharia:
 - conceitualmente equivale a \`one-hot @ W\`
@@ -42,9 +42,9 @@ snippet:pytorch-lm/embedding-intro
 3. \`embedding(idx)\` turns \`(B, T)\` into \`(B, T, C)\`
 
 **Formal (short):**
-- \`idx \\in Z^{B\\times T}\`
-- \`E \\in R^{V\\times C}\`
-- \`H = E[idx] \\in R^{B\\times T\\times C}\`
+- $$idx \in \mathbb{Z}^{B\times T}$$
+- $$E \in \mathbb{R}^{V\times C}$$
+- $$H = E[idx] \in \mathbb{R}^{B\times T\times C}$$
 
 Engineering reading:
 - conceptually this matches \`one-hot @ W\`
