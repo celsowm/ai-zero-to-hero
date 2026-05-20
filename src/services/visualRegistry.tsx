@@ -74,6 +74,7 @@ const visualMap: Record<string, string> = {
   'pytorch-dual-panel': 'PytorchDualPanel',
   'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
   'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
+  'pytorch-ecosystem-mermaid': 'PytorchEcosystemMermaidVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
   'token-batch-shift-interactive': 'TokenBatchShiftInteractive',
 

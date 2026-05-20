@@ -362,6 +362,18 @@ export interface PytorchRuntimePlaybookCopy {
   footer: string;
 }
 
+export interface PytorchEcosystemMermaidCopy {
+  title: string;
+  subtitle: string;
+  mermaidSource: string;
+  legendTitle: string;
+  legend: Array<{
+    module: string;
+    role: string;
+  }>;
+  footer: string;
+}
+
 export interface TokenBatchShiftInteractiveCopy {
   title: string;
   subtitle: string;

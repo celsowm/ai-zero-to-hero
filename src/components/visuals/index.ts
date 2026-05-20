@@ -43,6 +43,7 @@ export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMa
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
 export { PytorchExecutionPipelineVisual } from './language-models/PytorchExecutionPipelineVisual';
 export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePlaybookVisual';
+export { PytorchEcosystemMermaidVisual } from './language-models/PytorchEcosystemMermaidVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';

@@ -34,6 +34,7 @@ import type {
   PytorchDecisionMatrixCopy,
   PytorchDualPanelCopy,
   PytorchExecutionPipelineCopy,
+  PytorchEcosystemMermaidCopy,
   PytorchProjectionSpaceCopy,
   PytorchRuntimePlaybookCopy,
   PytorchShapeTraceFlowCopy,
@@ -262,6 +263,7 @@ interface VisualCopyMap {
   'neural-network-to-language-modeling-comparator': NeuralNetworkToLanguageModelingComparatorCopy;
   'pytorch-architecture-blueprint': PytorchArchitectureBlueprintCopy;
   'pytorch-projection-space': PytorchProjectionSpaceCopy;
+  'pytorch-ecosystem-mermaid': PytorchEcosystemMermaidCopy;
   'pytorch-runtime-playbook': PytorchRuntimePlaybookCopy;
   'pytorch-bridge-shift': PytorchBridgeShiftCopy;
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;

@@ -19,7 +19,13 @@ export const pytorchRuntimeOptions = defineSlide({
 - **Usar Colab/Kaggle** não significa GPU garantida para sempre.
 - **CPU local** não é "lixo": PyTorch usa kernels nativos, threads e bibliotecas otimizadas.
 
-> O código bom começa em CPU e sobe para CUDA/MPS quando existe acelerador.`,
+> O código bom começa em CPU e sobe para CUDA/MPS quando existe acelerador.
+
+### Links diretos
+- [PyTorch install](https://pytorch.org/get-started/locally/)
+- [Threading env vars](https://docs.pytorch.org/docs/stable/threading_environment_variables.html)
+- [Google Colab](https://colab.research.google.com/)
+- [Kaggle Code](https://www.kaggle.com/code)`,
     },
     'en-us': {
       title: "Where do I run this if I'm GPU poor?",
@@ -35,7 +41,13 @@ export const pytorchRuntimeOptions = defineSlide({
 - **Using Colab/Kaggle** does not mean GPU is guaranteed forever.
 - **Local CPU** is not "trash": PyTorch uses native kernels, threads, and optimized libraries.
 
-> Good code starts on CPU and moves to CUDA/MPS when an accelerator exists.`,
+> Good code starts on CPU and moves to CUDA/MPS when an accelerator exists.
+
+### Direct links
+- [PyTorch install](https://pytorch.org/get-started/locally/)
+- [Threading env vars](https://docs.pytorch.org/docs/stable/threading_environment_variables.html)
+- [Google Colab](https://colab.research.google.com/)
+- [Kaggle Code](https://www.kaggle.com/code)`,
     },
   },
   visual: {

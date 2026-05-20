@@ -7,60 +7,76 @@ export const pytorchEcosystemOverview = defineSlide({
   content: {
     'pt-br': {
       title: 'Mapa mental do ecossistema PyTorch',
-      body: `Antes de cair em \`nn.Linear\`, vale enxergar o mapa geral para não parecer que cada recurso surge do nada.
+      body: `O objetivo aqui é estrutural: enxergar o ecossistema antes de aprofundar em camadas e treino.
 
-\`torch\` é o núcleo de tensores e operações numéricas. Em cima dele, os módulos mais usados neste bloco são:
+- \`torch\` é o núcleo numérico.
+- os módulos ao redor especializam responsabilidades.
+- essa separação evita debug aleatório quando algo falha.
 
-1. \`torch\`: cria tensores, controla \`dtype\`, \`shape\` e \`device\`.
-2. \`torch.nn\`: declara camadas e modelos (\`Linear\`, \`Embedding\`, ativações).
-3. \`torch.optim\`: atualiza parâmetros com gradiente (\`SGD\`, \`AdamW\`).
-4. \`torch.utils.data\`: organiza dataset e batch para treino.
-5. \`torch.cuda\`: move computação para GPU quando disponível.
-
-Por que isso importa no curso:
-- você vai ler código por contratos (shape, loss, gradiente, update), não por mágica;
-- o \`pt\` de \`return_tensors="pt"\` aponta para esse ecossistema inteiro;
-- quando aparecer bug, você sabe em qual módulo depurar primeiro.`,
-      rightBody: `### Fluxo operacional
-\`texto -> token IDs -> torch.Tensor -> nn.Module -> loss.backward() -> optimizer.step()\`
-
-### Regra de orientação
-- **shape/dtype/device**: comece em \`torch\`
-- **arquitetura**: olhe \`torch.nn\`
-- **treino**: valide \`autograd + torch.optim\`
-- **entrada de dados**: confirme \`torch.utils.data\`
-
-### Ponte para os próximos slides
-Agora vamos entrar no contrato de tensores e shapes que sustenta todo esse fluxo.`,
+Leia o diagrama como um mapa de responsabilidades, não como sequência temporal.`,
     },
     'en-us': {
       title: 'PyTorch ecosystem mental map',
-      body: `Before diving into \`nn.Linear\`, it helps to see the full map so each feature does not feel random.
+      body: `The goal here is structural: see the ecosystem before diving into layers and training.
 
-\`torch\` is the tensor and numeric core. On top of it, the main modules in this block are:
+- \`torch\` is the numeric core.
+- surrounding modules specialize responsibilities.
+- this split prevents random debugging when something breaks.
 
-1. \`torch\`: creates tensors and controls \`dtype\`, \`shape\`, and \`device\`.
-2. \`torch.nn\`: declares layers and models (\`Linear\`, \`Embedding\`, activations).
-3. \`torch.optim\`: updates parameters from gradients (\`SGD\`, \`AdamW\`).
-4. \`torch.utils.data\`: organizes dataset and batching for training.
-5. \`torch.cuda\`: moves compute to GPU when available.
+Read the diagram as a responsibility map, not as a time sequence.`,
+    },
+  },
+  visual: {
+    id: 'pytorch-ecosystem-mermaid',
+    copy: {
+      'pt-br': {
+        title: 'Arquitetura de módulos do ecossistema PyTorch',
+        subtitle: 'Núcleo `torch` no centro e módulos especializados ao redor.',
+        mermaidSource: `flowchart LR
+  T["torch\\n(core tensor + ops)"]
+  NN["torch.nn\\nmodelagem de camadas"]
+  OPT["torch.optim\\natualização de parâmetros"]
+  DATA["torch.utils.data\\ndataset + batching"]
+  CUDA["torch.cuda\\nexecução em GPU"]
 
-Why this matters in the course:
-- you will read code through contracts (shape, loss, gradient, update), not magic;
-- the \`pt\` in \`return_tensors="pt"\` points to this full ecosystem;
-- when bugs appear, you know which module to inspect first.`,
-      rightBody: `### Operational flow
-\`text -> token IDs -> torch.Tensor -> nn.Module -> loss.backward() -> optimizer.step()\`
+  T --> NN
+  T --> OPT
+  T --> DATA
+  T --> CUDA`,
+        legendTitle: 'Legenda operacional',
+        legend: [
+          { module: 'torch', role: 'Tensor, dtype, shape e device. Base de operações numéricas.' },
+          { module: 'torch.nn', role: 'Definição de arquitetura: módulos, camadas, parâmetros e forward.' },
+          { module: 'torch.optim', role: 'Aplicação de update nos parâmetros a partir dos gradientes.' },
+          { module: 'torch.utils.data', role: 'Construção de pipeline de dados: dataset, sampler, dataloader, batch.' },
+          { module: 'torch.cuda', role: 'Movimentação e execução de tensores/modelos em acelerador NVIDIA.' },
+        ],
+        footer: 'Próxima etapa do curso: sair do mapa estrutural e entrar no contrato de tensores e shapes.',
+      },
+      'en-us': {
+        title: 'PyTorch ecosystem module architecture',
+        subtitle: 'Core `torch` in the center with specialized modules around it.',
+        mermaidSource: `flowchart LR
+  T["torch\\n(core tensor + ops)"]
+  NN["torch.nn\\nlayer modeling"]
+  OPT["torch.optim\\nparameter updates"]
+  DATA["torch.utils.data\\ndataset + batching"]
+  CUDA["torch.cuda\\nGPU execution"]
 
-### Navigation rule
-- **shape/dtype/device**: start in \`torch\`
-- **architecture**: inspect \`torch.nn\`
-- **training**: validate \`autograd + torch.optim\`
-- **data input**: verify \`torch.utils.data\`
-
-### Bridge to the next slides
-Now we enter the tensor and shape contracts that support this whole flow.`,
+  T --> NN
+  T --> OPT
+  T --> DATA
+  T --> CUDA`,
+        legendTitle: 'Operational legend',
+        legend: [
+          { module: 'torch', role: 'Tensor, dtype, shape, and device. Numeric operation foundation.' },
+          { module: 'torch.nn', role: 'Architecture definition: modules, layers, parameters, and forward logic.' },
+          { module: 'torch.optim', role: 'Parameter updates driven by computed gradients.' },
+          { module: 'torch.utils.data', role: 'Data pipeline construction: dataset, sampler, dataloader, batch.' },
+          { module: 'torch.cuda', role: 'Tensor/model movement and execution on NVIDIA accelerator.' },
+        ],
+        footer: 'Next step in the course: move from structural map into tensor and shape contracts.',
+      },
     },
   },
 });
-
