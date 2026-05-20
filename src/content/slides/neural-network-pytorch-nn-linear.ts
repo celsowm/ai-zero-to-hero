@@ -13,6 +13,13 @@ A resposta operacional começa em \`nn.Linear(in, out)\`, que aplica uma transfo
 
 \`y = xW^T + b\`
 
+No contrato clássico \`(B,T,C)\` de language models:
+- \`B\` = batch (quantas sequências em paralelo),
+- \`T\` = tempo/comprimento da sequência (tokens por sequência),
+- \`C\` = **dimensão de embedding / hidden dimension** (às vezes chamada de channels/capacity, mas aqui a leitura prática é largura vetorial por token).
+
+Por isso, \`nn.Linear(C, V)\` e \`nn.Linear(C, C)\` ignoram totalmente \`B\` e \`T\`: a camada projeta, de forma isolada, cada vetor de tamanho \`C\` na última dimensão.
+
 Leitura operacional para LM:
 1. **não mistura batch/tempo**: só atua no eixo final.
 2. **troca largura de representação**: \`C -> V\`, \`C -> C\`, \`C -> 4C\`.
@@ -33,6 +40,13 @@ Se você confunde isso, perde a leitura do modelo.
 The operational answer starts with \`nn.Linear(in, out)\`, which applies an affine transform on vectors from the last axis:
 
 \`y = xW^T + b\`
+
+In the standard LM tensor contract \`(B,T,C)\`:
+- \`B\` = batch (how many sequences run in parallel),
+- \`T\` = time/sequence length (tokens per sequence),
+- \`C\` = **embedding dimension / hidden dimension** (sometimes called channels/capacity, but operationally this is the per-token vector width).
+
+That is why \`nn.Linear(C, V)\` and \`nn.Linear(C, C)\` completely ignore \`B\` and \`T\`: the layer projects each size-\`C\` vector independently on the last axis.
 
 Operational reading for LM:
 1. **it does not mix batch/time**: it acts only on the final axis.
