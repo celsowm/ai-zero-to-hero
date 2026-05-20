@@ -7,29 +7,37 @@ export const pytorchTensorRanks0d4d = defineSlide({
   content: {
     'pt-br': {
       title: 'Progressão de tensor: 0D até 4D',
-      body: `Antes das siglas de modelagem de linguagem, vale fixar o chão: **dimensão é só número de eixos**.
+      body: `Onde quase todo mundo quebra no começo: ler \`shape\` como números soltos e não como **papel de cada eixo**.
 
-Leitura prática:
+Base mínima para não se perder:
+**dimensão = número de eixos**.
+
+Leitura prática por rank:
 1. **0D (escalar)**: um número (ex.: uma loss).
 2. **1D (vetor)**: uma lista (ex.: embedding de um token).
 3. **2D (matriz)**: tabela (ex.: sequência de IDs).
-4. **3D**: lote de sequências vetorizadas.
-5. **4D**: eixo extra de grupos/canais (muito comum em visão, e em LM serve mais como intuição de micro-batches/chunks do que como necessidade imediata).
+4. **3D**: lote de sequências vetorizadas (o caso operacional dominante em LM).
+5. **4D**: eixo extra de grupos/canais (mais comum em visão; em LM fica como repertório contextual).
 
-Objetivo deste slide: quando você olhar um \`shape\`, bater o olho e saber "quantos eixos tenho e o que cada eixo representa".`,
+Objetivo deste slide: ao olhar um \`shape\`, responder rápido:
+"quantos eixos existem e qual função cada eixo cumpre no pipeline?".`,
     },
     'en-us': {
       title: 'Tensor progression: 0D to 4D',
-      body: `Before language-model abbreviations, lock the basics: **dimension is just axis count**.
+      body: `Where most learners break early: reading \`shape\` as loose numbers instead of **axis roles**.
 
-Practical reading:
+Minimum base to stay oriented:
+**dimension = number of axes**.
+
+Practical rank reading:
 1. **0D (scalar)**: one number (for example, a loss).
 2. **1D (vector)**: one list (for example, one token embedding).
 3. **2D (matrix)**: one table (for example, token ID sequence).
-4. **3D**: batch of vectorized sequences.
-5. **4D**: extra group/channel axis (common in vision, and in LM it is more useful as micro-batch/chunk intuition than as an immediate necessity).
+4. **3D**: batch of vectorized sequences (the dominant operational LM case).
+5. **4D**: extra group/channel axis (common in vision; in LM it is contextual repertoire).
 
-Goal of this slide: when you see a \`shape\`, immediately know how many axes exist and what each axis means.`,
+Goal of this slide: when you see a \`shape\`, quickly answer:
+"how many axes exist and what role each axis plays in the pipeline?"`,
     },
   },
   visual: {

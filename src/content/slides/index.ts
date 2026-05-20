@@ -167,6 +167,7 @@ import { pytorchRuntimeOptions } from './pytorch-runtime-options';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
 import { pytorchEmbeddingToLogits } from './pytorch-embedding-to-logits';
 import { pytorchEmbeddingIntro } from './pytorch-embedding-intro';
+import { pytorchEcosystemOverview } from './pytorch-ecosystem-overview';
 import { pytorchMinimalLanguageModel } from './pytorch-minimal-language-model';
 import { pytorchShapesLanguageModeling } from './pytorch-shapes-language-modeling';
 import { pytorchTensorRanks0d4d } from './pytorch-tensor-ranks-0d-4d';
@@ -435,6 +436,7 @@ export const allSlides: ISlide[] = [
   neuralNetworkPytorchHardware,
   neuralNetworkPytorchInstall,
   neuralNetworkPytorchIntro,
+  pytorchEcosystemOverview,
   neuralNetworkPytorchNnLinear,
   neuralNetworkPytorchNnLayers,
   neuralNetworkPytorchOptimizers,

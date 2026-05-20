@@ -7,7 +7,9 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
   content: {
     'pt-br': {
       title: '`nn.Linear`: projeção, não “camada mágica”',
-      body: `\`nn.Linear(in, out)\` aplica uma transformação afim em cada vetor da última dimensão:
+      body: `Pergunta-problema deste ponto: **como transformar representação interna em decisão sobre vocabulário?**
+
+A resposta operacional começa em \`nn.Linear(in, out)\`, que aplica uma transformação afim em cada vetor da última dimensão:
 
 \`y = xW^T + b\`
 
@@ -19,12 +21,16 @@ Leitura operacional para LM:
    - \`C -> C\` = transformação interna no residual stream.
 4. **compartilha pesos no tempo**: a mesma matriz é aplicada a todas as posições da grade \`(B,T)\`.
 
-Se você confunde isso, perde a leitura do modelo.  
+No contexto de LM, isso conecta diretamente ao passo de logits e reaparece depois em MLP e blocos Transformer.
+
+Se você confunde isso, perde a leitura do modelo.
 \`Linear\` responde sempre: **“qual dimensão estou projetando para qual outra dimensão?”**`,
     },
     'en-us': {
       title: '`nn.Linear`: projection, not a “magic layer”',
-      body: `\`nn.Linear(in, out)\` applies an affine transform on vectors from the last axis:
+      body: `Core question at this point: **how do we turn internal representation into a vocabulary decision?**
+
+The operational answer starts with \`nn.Linear(in, out)\`, which applies an affine transform on vectors from the last axis:
 
 \`y = xW^T + b\`
 
@@ -36,7 +42,9 @@ Operational reading for LM:
    - \`C -> C\` = internal residual-stream transform.
 4. **it shares weights across time**: the same matrix is applied to every position on the \`(B,T)\` grid.
 
-If this is unclear, model reading breaks down.  
+In LM context, this connects directly to logits and returns later in MLP and Transformer blocks.
+
+If this is unclear, model reading breaks down.
 \`Linear\` always answers: **“which dimension am I projecting into which new dimension?”**`,
     },
   },

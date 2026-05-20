@@ -7,12 +7,14 @@ export const pytorchShapesLanguageModeling = defineSlide({
   content: {
     'pt-br': {
       title: 'Convencoes de shape para LM (language model)',
-      body: `Agora formalizamos o dicionário e introduzimos o termo novo deste bloco: **logits**.
+      body: `Agora que os eixos estao claros, formalizamos o contrato B/T/C/V para treino de linguagem.
+
+Termo novo com motivacao: **logits**.
 
 O que são logits:
 - são **scores brutos** que o modelo gera para cada token do vocabulário;
 - ainda **não são probabilidades**;
-- viram probabilidades depois de uma normalização (softmax), feita internamente pela cross-entropy no treino.
+- viram distribuicao apos normalizacao (softmax), usada para penalizar no treino e escolher token na geracao.
 
 - **B** = batch
 - **T** = sequência
@@ -26,7 +28,7 @@ Contrato mínimo de treino:
 - flatten para loss: \`logits -> (B*T, V)\` e \`targets -> (B*T)\`
 
 Fechando o ciclo:
-- logits viram distribuicao
+- logits viram distribuicao sobre o vocabulario
 - a distribuicao vira escolha de indice (argmax ou sampling) na geracao
 
 Invariantes de sanidade:
@@ -36,12 +38,14 @@ Invariantes de sanidade:
     },
     'en-us': {
       title: 'Shape conventions for LM (language model)',
-      body: `Now we formalize the dictionary and introduce the new term in this block: **logits**.
+      body: `Now that axis reading is stable, we formalize the B/T/C/V contract for language-model training.
+
+New term with motivation: **logits**.
 
 What logits are:
 - they are **raw scores** the model outputs for each vocabulary token;
 - they are **not probabilities yet**;
-- they become probabilities after normalization (softmax), applied internally by cross-entropy during training.
+- they become a distribution after normalization (softmax), used to penalize training and choose tokens at generation time.
 
 - **B** = batch
 - **T** = sequence
@@ -55,8 +59,8 @@ Minimum training contract:
 - loss flattening: \`logits -> (B*T, V)\` and \`targets -> (B*T)\`
 
 Closing the loop:
-- logits become a distribution
-- the distribution becomes an index choice (argmax or sampling) during generation
+- logits become a vocabulary distribution
+- that distribution becomes an index choice (argmax or sampling) during generation
 
 Sanity invariants:
 1. \`idx/targets\` use \`torch.long\`

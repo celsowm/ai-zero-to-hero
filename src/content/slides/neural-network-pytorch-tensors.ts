@@ -7,57 +7,67 @@ export const neuralNetworkPytorchTensors = defineSlide({
   content: {
     'pt-br': {
       title: 'Tensores no PyTorch: leitura operacional',
-      body: `Aqui tensor significa: **array com eixos explícitos**.
+      body: `Agora que o mapa do ecossistema ficou claro e os ranks foram revisados, entramos no primeiro contrato concreto de LM: **tensor com eixos explícitos**.
 
-Antes de seguir, termo novo:
-- **token** = a menor unidade de texto que o modelo enxerga (pode ser palavra inteira, pedaço de palavra ou símbolo).
-- exemplo: "treinar modelos" pode virar algo como ["tre", "inar", " modelos"] dependendo do tokenizer.
+Termo novo com contexto:
+- **token** = menor unidade de texto que o modelo processa.
+- Por que aparece agora: o modelo não recebe frase crua; recebe IDs inteiros de tokens em tensor.
+- Onde reaparece depois: no treino/autograd e em APIs como Hugging Face com \`return_tensors="pt"\`.
 
-Antes de qualquer sigla, use esta leitura:
-1. eixo de **lote**: quantas sequências você processa juntas;
-2. eixo de **tempo/sequência**: quantos tokens por sequência;
-3. eixo de **largura**: quantos valores descrevem cada token;
-4. eixo de **vocabulário**: quantos candidatos de saída o modelo pode escolher.
+Fluxo causal deste bloco:
+\`texto -> tokenização -> IDs inteiros -> tensor (B,T) -> embedding -> output scores\`
 
-Microfluxo concreto:
-\`texto -> tokens -> IDs inteiros -> tensor (B,T)\`
+Observacao de ordem didatica:
+- neste slide, tratamos apenas como **scores de saida**;
+- no proximo slide de shape LM, formalizamos o nome tecnico **logits**.
 
-Se você sempre identificar esses eixos, o restante do bloco (treino, inferência e debug) fica mecânico em vez de confuso.`,
+Leitura operacional dos eixos:
+1. **batch**: quantas sequências entram juntas;
+2. **time/sequence**: quantas posições por sequência;
+3. **width**: tamanho da representação interna por token;
+4. **vocabulary**: quantidade de candidatos de próximo token.
+
+Se você identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhação.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 6], content: 'Definimos nomes explícitos dos eixos (`batch_size`, `sequence_length`, etc.) para não depender de siglas cedo demais.' },
         { lineRange: [8, 11], content: 'Construímos token IDs inteiros: essa é a forma de entrada mais comum para embedding.' },
-        { lineRange: [13, 14], content: 'Criamos estados internos e logits preservando lote e sequência.' },
+        { lineRange: [13, 14], content: 'Criamos estados internos e scores de saida preservando lote e sequencia.' },
         { lineRange: [16, 18], content: 'Os prints confirmam shape e dtype, que são os primeiros alvos de debug.' },
       ],
     },
     'en-us': {
       title: 'PyTorch tensors: operational reading',
-      body: `Here tensor means: **array with explicit axes**.
+      body: `Now that the ecosystem map is clear and ranks were reviewed, we enter the first concrete LM contract: **tensor with explicit axes**.
 
-Before moving on, new term:
-- **token** = the smallest text unit the model sees (it may be a full word, a word piece, or a symbol).
-- example: "training models" might become something like ["train", "ing", " models"] depending on tokenizer.
+New term with context:
+- **token** = smallest text unit processed by the model.
+- Why it appears now: the model does not consume raw sentences; it consumes integer token IDs in tensors.
+- Where it returns later: training/autograd and APIs like Hugging Face with \`return_tensors="pt"\`.
 
-Before any abbreviations, use this reading:
-1. **batch axis**: how many sequences are processed together;
-2. **time/sequence axis**: how many tokens per sequence;
-3. **width axis**: how many values represent each token;
-4. **vocabulary axis**: how many output candidates the model can pick from.
+Causal flow for this block:
+\`text -> tokenization -> integer IDs -> tensor (B,T) -> embedding -> output scores\`
 
-Concrete micro-flow:
-\`text -> tokens -> integer IDs -> tensor (B,T)\`
+Didactic ordering note:
+- in this slide, we treat them only as **output scores**;
+- in the next LM-shape slide, we formalize the technical term **logits**.
 
-If you always identify these axes, the rest of this block (training, inference, debugging) becomes mechanical instead of confusing.`,
+Operational axis reading:
+1. **batch**: how many sequences enter together;
+2. **time/sequence**: how many positions per sequence;
+3. **width**: internal representation size per token;
+4. **vocabulary**: number of next-token candidates.
+
+If you can identify axis, \`dtype\`, and \`device\` at each step, training and debugging stop being guesswork.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 6], content: 'We define explicit axis names (`batch_size`, `sequence_length`, etc.) instead of early abbreviations.' },
         { lineRange: [8, 11], content: 'We build integer token IDs, the usual input shape for embedding lookup.' },
-        { lineRange: [13, 14], content: 'Hidden states and logits preserve batch and sequence axes.' },
+        { lineRange: [13, 14], content: 'Hidden states and output scores preserve batch and sequence axes.' },
         { lineRange: [16, 18], content: 'Prints verify shape and dtype, the first debugging targets.' },
       ],
     },
