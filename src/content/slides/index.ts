@@ -144,6 +144,7 @@ import { neuralNetworkPytorchInstall } from './neural-network-pytorch-install';
 import { neuralNetworkPytorchIntro } from './neural-network-pytorch-intro';
 import { neuralNetworkPytorchPrediction } from './neural-network-pytorch-prediction';
 import { neuralNetworkPytorchNnLayers } from './neural-network-pytorch-nn-layers';
+import { neuralNetworkPytorchOptimizerIntuition } from './neural-network-pytorch-optimizer-intuition';
 import { pytorchSaveLoad } from './pytorch-save-load';
 import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { tensorOrigins } from './tensor-origins';
@@ -414,6 +415,7 @@ export const allSlides: ISlide[] = [
   pytorchEcosystemOverview,
   neuralNetworkPytorchNnLinear,
   neuralNetworkPytorchNnLayers,
+  neuralNetworkPytorchOptimizerIntuition,
   neuralNetworkPytorchOptimizers,
   neuralNetworkPytorchModelLifecycle,
   neuralNetworkPytorchPrediction,

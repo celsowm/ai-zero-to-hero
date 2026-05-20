@@ -67,6 +67,7 @@ export const courseSlideOrder = [
   'pytorch-embedding-intro',
   'pytorch-embedding-to-logits',
   'neural-network-pytorch-nn-layers',
+  'neural-network-pytorch-optimizer-intuition',
   'neural-network-pytorch-optimizers',
   'neural-network-pytorch-model-lifecycle',
   'neural-network-pytorch-training',

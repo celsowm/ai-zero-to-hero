@@ -7,22 +7,41 @@ export const pytorchEmbeddingIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding: de ID inteiro para vetor',
-      body: `**Intuição:** um token ID (ex: \`42\`) é só um índice. \`Embedding\` é a etapa que "insere/imersa" esse índice em espaço contínuo.
+      body: `No slide anterior (\`nn.Linear\`), vimos como projetar vetores (\`C -> V\`). Agora falta responder **de onde vem esse vetor \`C\`**.
 
-**Operação:**
-1. cada linha da tabela representa um token do vocabulário
-2. a largura da linha é \`C\` (hidden size)
-3. \`embedding(idx)\` troca \`(B, T)\` por \`(B, T, C)\`
+É exatamente esse o papel de \`Embedding\`:
+- antes: \`idx\` é inteiro em \`(B,T)\` (identidade simbólica, sem geometria útil);
+- depois: cada ID vira vetor denso treinável, e o tensor passa a \`(B,T,C)\`.
+
+Leitura prática:
+1. a tabela \`E\` tem uma linha por token do vocabulário (\`V\`);
+2. cada linha tem largura \`C\` (hidden/embedding dimension);
+3. \`embedding(idx)\` faz lookup dessas linhas, preservando \`B\` e \`T\`.
+
+O que cada dimensão significa:
+- \`V\`: quantos tokens diferentes o modelo consegue indexar;
+- \`C\`: quanta capacidade vetorial cada token recebe para carregar informação contextual ao longo da rede.
 
 **Formal (curto):**
-- $$idx \in \mathbb{Z}^{B\times T}$$
-- $$E \in \mathbb{R}^{V\times C}$$
-- $$H = E[idx] \in \mathbb{R}^{B\times T\times C}$$
+- $$idx \\in \\mathbb{Z}^{B\\times T}$$
+- $$E \\in \\mathbb{R}^{V\\times C}$$
+- $$H = E[idx] \\in \\mathbb{R}^{B\\times T\\times C}$$
 
 Leitura de engenharia:
-- conceitualmente equivale a \`one-hot @ W\`
-- operacionalmente é lookup eficiente (busca só as linhas necessárias)
-- a tabela é treinável, então a geometria útil é aprendida`,
+- conceitualmente equivale a \`one-hot @ W\`;
+- operacionalmente é lookup eficiente (não multiplica vetor one-hot explícito);
+- \`E\` é treinável, então tokens semanticamente próximos podem acabar próximos no espaço vetorial.
+
+Checklist de debug neste ponto:
+- \`idx\` precisa ser inteiro (\`torch.long\`);
+- valores de \`idx\` precisam estar no intervalo \`[0, V-1]\`;
+- shape esperado após embedding: \`(B,T,C)\`.
+
+Conexão com próximos slides:
+- este \`H\` é a entrada das projeções lineares;
+- no próximo passo, \`Linear(C,V)\` transforma representação em logits por token.
+
+Resumo mental: **Embedding não decide token; embedding cria representação para o resto da rede decidir.**`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/embedding-intro
 \`\`\``,
@@ -34,22 +53,41 @@ snippet:pytorch-lm/embedding-intro
     },
     'en-us': {
       title: 'Embedding: from integer ID to vector',
-      body: `**Intuition:** a token ID (for example \`42\`) is only an index. \`Embedding\` is the step that inserts/immerses this index into continuous space.
+      body: `In the previous slide (\`nn.Linear\`), we saw how to project vectors (\`C -> V\`). Now one key question remains: **where does that \`C\`-wide vector come from?**
 
-**Operation:**
-1. each table row represents one vocabulary token
-2. row width is \`C\` (hidden size)
-3. \`embedding(idx)\` turns \`(B, T)\` into \`(B, T, C)\`
+That is exactly the job of \`Embedding\`:
+- before: \`idx\` is integer-only data in \`(B,T)\` (symbolic identity, no useful geometry yet);
+- after: each ID becomes a trainable dense vector, so shape becomes \`(B,T,C)\`.
+
+Practical reading:
+1. table \`E\` has one row per vocabulary token (\`V\`);
+2. each row has width \`C\` (hidden/embedding dimension);
+3. \`embedding(idx)\` performs row lookup while preserving \`B\` and \`T\`.
+
+What each dimension means:
+- \`V\`: how many distinct tokens can be indexed;
+- \`C\`: how much vector capacity each token gets to carry information through the network.
 
 **Formal (short):**
-- $$idx \in \mathbb{Z}^{B\times T}$$
-- $$E \in \mathbb{R}^{V\times C}$$
-- $$H = E[idx] \in \mathbb{R}^{B\times T\times C}$$
+- $$idx \\in \\mathbb{Z}^{B\\times T}$$
+- $$E \\in \\mathbb{R}^{V\\times C}$$
+- $$H = E[idx] \\in \\mathbb{R}^{B\\times T\\times C}$$
 
 Engineering reading:
-- conceptually this matches \`one-hot @ W\`
-- operationally it is an efficient lookup (fetch only required rows)
-- the table is trainable, so useful geometry is learned`,
+- conceptually this matches \`one-hot @ W\`;
+- operationally it is efficient lookup (no explicit one-hot multiplication);
+- \`E\` is trainable, so semantically related tokens can move closer in vector space.
+
+Debug checklist at this stage:
+- \`idx\` must be integer type (\`torch.long\`);
+- \`idx\` values must stay in range \`[0, V-1]\`;
+- expected post-embedding shape is \`(B,T,C)\`.
+
+Connection to next slides:
+- this \`H\` is the input consumed by linear projections;
+- next, \`Linear(C,V)\` turns representation into per-token logits.
+
+Mental summary: **Embedding does not choose the token; embedding builds the representation so the network can choose.**`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/embedding-intro
 \`\`\``,
