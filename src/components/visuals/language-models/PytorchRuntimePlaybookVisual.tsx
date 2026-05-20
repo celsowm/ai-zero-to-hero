@@ -8,6 +8,7 @@ interface PytorchRuntimePlaybookVisualProps {
 }
 
 const ACCENTS = [sw.cyan, sw.purple, sw.pink];
+const EMPTY_TABS: PytorchRuntimePlaybookCopy['tabs'] = [];
 
 function InlineCode({ children }: { children: React.ReactNode }) {
   return (
@@ -27,9 +28,13 @@ function InlineCode({ children }: { children: React.ReactNode }) {
 }
 
 export const PytorchRuntimePlaybookVisual = React.memo(({ copy }: PytorchRuntimePlaybookVisualProps) => {
-  const tabs = copy.tabs ?? [];
+  const tabs = copy.tabs ?? EMPTY_TABS;
   const [activeIndex, setActiveIndex] = useState(0);
   const [copied, setCopied] = useState(false);
+  const tabItems = useMemo(
+    () => tabs.map(tab => ({ label: tab.label })),
+    [tabs],
+  );
 
   if (tabs.length === 0) {
     return (
@@ -44,11 +49,6 @@ export const PytorchRuntimePlaybookVisual = React.memo(({ copy }: PytorchRuntime
 
   const active = tabs[activeIndex] ?? tabs[0];
   const accent = ACCENTS[activeIndex % ACCENTS.length];
-
-  const tabItems = useMemo(
-    () => tabs.map(tab => ({ label: tab.label })),
-    [tabs],
-  );
 
   async function copyCode() {
     try {

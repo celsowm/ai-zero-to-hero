@@ -10,6 +10,8 @@ interface PytorchProjectionSpaceVisualProps {
 }
 
 const STAGE_COLORS = [sw.cyan, sw.purple, sw.pink];
+const EMPTY_TABS: PytorchProjectionSpaceCopy['tabs'] = [];
+const EMPTY_STAGES: PytorchProjectionSpaceCopy['blueprintPanel']['stages'] = [];
 
 function disposeObject(object: THREE.Object3D) {
   object.traverse(node => {
@@ -143,30 +145,19 @@ function makeStageGroup(index: number) {
 }
 
 export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProjectionSpaceVisualProps) => {
-  const tabs = copy.tabs ?? [];
+  const tabs = copy.tabs ?? EMPTY_TABS;
   const [activeStage, setActiveStage] = useState(0);
-  const stages = copy.blueprintPanel?.stages ?? [];
-  if (tabs.length === 0 || stages.length === 0) {
-    return (
-      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
-        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Projection space unavailable</div>
-        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
-          This visual is missing tab or stage data for the current locale.
-        </div>
-      </div>
-    );
-  }
-  const stage = stages[activeStage] ?? stages[0];
+  const stages = copy.blueprintPanel?.stages ?? EMPTY_STAGES;
+  const activeAccent = useMemo(() => STAGE_COLORS[activeStage] ?? sw.cyan, [activeStage]);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
   const stageGroupsRef = useRef<THREE.Group[]>([]);
 
-  const activeAccent = useMemo(() => STAGE_COLORS[activeStage] ?? sw.cyan, [activeStage]);
-
   useEffect(() => {
     const host = containerRef.current;
-    if (!host) return;
+    if (!host || stages.length === 0) return;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(sw.void);
@@ -268,6 +259,18 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
       cameraRef.current.position.set(0.2 + activeStage * 0.1, 2.3, 8.4 - activeStage * 0.2);
     }
   }, [activeStage]);
+
+  if (tabs.length === 0 || stages.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Projection space unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          This visual is missing tab or stage data for the current locale.
+        </div>
+      </div>
+    );
+  }
+  const stage = stages[activeStage] ?? stages[0];
 
   return (
     <PytorchTabbedCodeLayout
