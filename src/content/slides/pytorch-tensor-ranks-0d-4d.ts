@@ -7,37 +7,45 @@ export const pytorchTensorRanks0d4d = defineSlide({
   content: {
     'pt-br': {
       title: 'Progressão de tensor: 0D até 4D',
-      body: `Onde quase todo mundo quebra no começo: ler \`shape\` como números soltos e não como **papel de cada eixo**.
+      body: `Depois do mapa do ecossistema, a proxima pergunta e estrutural: **como ler a forma dos dados que circulam por esse ecossistema?**
 
-Base mínima para não se perder:
-**dimensão = número de eixos**.
+Começo do contrato:
+1. **Tensor nao e so "uma caixa de numeros".** Ele organiza valores em eixos.
+2. **Rank** e a contagem desses eixos.
+3. **Shape** vem depois: ele diz o tamanho de cada eixo.
 
-Leitura prática por rank:
-1. **0D (escalar)**: um número (ex.: uma loss).
-2. **1D (vetor)**: uma lista (ex.: embedding de um token).
-3. **2D (matriz)**: tabela (ex.: sequência de IDs).
-4. **3D**: lote de sequências vetorizadas (o caso operacional dominante em LM).
-5. **4D**: eixo extra de grupos/canais (mais comum em visão; em LM fica como repertório contextual).
+Entao a progressao correta e esta:
+1. **0D (escalar)**: nenhum eixo, apenas um numero. Ex.: uma loss.
+2. **1D (vetor)**: um eixo. Ex.: lista de valores ou embedding de um token.
+3. **2D (matriz)**: dois eixos. Ex.: tabela ou sequencia organizada em linhas e colunas.
+4. **3D**: tres eixos. Aqui comeca a leitura que domina em modelos: lote, posicao e conteudo.
+5. **4D**: quatro eixos. Surge quando existe mais uma organizacao estrutural, muito comum em visao.
 
-Objetivo deste slide: ao olhar um \`shape\`, responder rápido:
-"quantos eixos existem e qual função cada eixo cumpre no pipeline?".`,
+Leitura mental certa:
+- primeiro conte os eixos;
+- depois nomeie o papel de cada um;
+- so entao leia o \`shape\` como a assinatura numerica desses papeis.`,
     },
     'en-us': {
       title: 'Tensor progression: 0D to 4D',
-      body: `Where most learners break early: reading \`shape\` as loose numbers instead of **axis roles**.
+      body: `After the ecosystem map, the next question is structural: **how do we read the form of the data moving through that ecosystem?**
 
-Minimum base to stay oriented:
-**dimension = number of axes**.
+Start with the contract:
+1. **A tensor is not just "a box of numbers".** It organizes values along axes.
+2. **Rank** is the count of those axes.
+3. **Shape** comes after that: it tells you the size of each axis.
 
-Practical rank reading:
-1. **0D (scalar)**: one number (for example, a loss).
-2. **1D (vector)**: one list (for example, one token embedding).
-3. **2D (matrix)**: one table (for example, token ID sequence).
-4. **3D**: batch of vectorized sequences (the dominant operational LM case).
-5. **4D**: extra group/channel axis (common in vision; in LM it is contextual repertoire).
+So the correct progression is:
+1. **0D (scalar)**: no axis, just one number. For example, a loss.
+2. **1D (vector)**: one axis. For example, a value list or one token embedding.
+3. **2D (matrix)**: two axes. For example, a table or a sequence arranged in rows and columns.
+4. **3D**: three axes. This is where the dominant model reading begins: batch, position, and content.
+5. **4D**: four axes. It appears when one more structural organization is needed, especially common in vision.
 
-Goal of this slide: when you see a \`shape\`, quickly answer:
-"how many axes exist and what role each axis plays in the pipeline?"`,
+Correct mental reading:
+- first count the axes;
+- then name the role of each axis;
+- only then read the \`shape\` as the numeric signature of those roles.`,
     },
   },
   visual: {
@@ -47,7 +55,7 @@ Goal of this slide: when you see a \`shape\`, quickly answer:
         tabs: [{ label: 'Código' }, { label: 'Explorador 3D' }],
         codePanel: {
           title: 'Do escalar ao tensor 4D em PyTorch',
-          description: 'Exemplo curto para conectar rank e shape antes do bloco de language modeling.',
+          description: 'Exemplo curto para ligar numero de eixos, rank e shape antes do bloco de language modeling.',
           source: { snippetId: 'neural-networks/tensor-origins', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'Importa PyTorch para criar tensores com ranks diferentes.' },
@@ -58,23 +66,23 @@ Goal of this slide: when you see a \`shape\`, quickly answer:
           ],
         },
         interactivePanel: {
-          eyebrow: 'Rank e shape',
+          eyebrow: 'Eixos, rank e shape',
           title: 'Navegue nos ranks em 3D',
-          description: 'Altere o rank e observe como a geometria muda no canvas. Em seguida leia shape e rank da seleção.',
+          description: 'Altere o rank e observe como a geometria muda no canvas. A leitura correta e: quantos eixos existem, o que cada eixo representa e so depois qual shape aparece.',
           shapeLabel: 'Shape atual',
           rankLabel: 'Rank atual',
           scalarLabel: 'Escalar',
           vectorLabel: 'Vetor',
           matrixLabel: 'Matriz',
           tensor3dLabel: 'Tensor 3D',
-          footer: 'Regra operacional: 0D-3D aparecem ja neste trilho; 4D fica como repertorio para casos mais ricos.',
+          footer: 'Regra operacional: rank nao e decoracao. Ele diz quantos eixos voce precisa explicar para entender o tensor.',
         },
       },
       'en-us': {
         tabs: [{ label: 'Code' }, { label: '3D Explorer' }],
         codePanel: {
           title: 'From scalar to 4D tensor in PyTorch',
-          description: 'Short example connecting rank and shape before the language-modeling block.',
+          description: 'Short example connecting axis count, rank, and shape before the language-modeling block.',
           source: { snippetId: 'neural-networks/tensor-origins', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'Imports PyTorch to create tensors at different ranks.' },
@@ -85,16 +93,16 @@ Goal of this slide: when you see a \`shape\`, quickly answer:
           ],
         },
         interactivePanel: {
-          eyebrow: 'Rank and shape',
+          eyebrow: 'Axes, rank, and shape',
           title: 'Explore tensor ranks in 3D',
-          description: 'Switch rank and watch geometry change on canvas, then read shape and rank for that state.',
+          description: 'Switch rank and watch geometry change on canvas. The correct reading is: how many axes exist, what each axis means, and only then what shape appears.',
           shapeLabel: 'Current shape',
           rankLabel: 'Current rank',
           scalarLabel: 'Scalar',
           vectorLabel: 'Vector',
           matrixLabel: 'Matrix',
           tensor3dLabel: '3D tensor',
-          footer: 'Operational rule: 0D-3D appear right away in this track; 4D stays as extra repertoire.',
+          footer: 'Operational rule: rank is not decoration. It tells you how many axes you must explain to understand the tensor.',
         },
       },
     },

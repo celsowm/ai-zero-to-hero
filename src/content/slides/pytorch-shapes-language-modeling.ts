@@ -7,7 +7,14 @@ export const pytorchShapesLanguageModeling = defineSlide({
   content: {
     'pt-br': {
       title: 'Convencoes de shape para LM (language model)',
-      body: `Agora que os eixos estao claros, formalizamos o contrato B/T/C/V para treino de linguagem.
+      body: `No slide anterior, o modelo ja recebia IDs inteiros e produzia **scores de saida**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
+
+No caso de language modeling, a tarefa e simples na definicao:
+- para cada posicao da sequencia, o modelo tenta prever **qual token vem a seguir**;
+- por isso ele nao produz um numero so, mas um placar sobre o vocabulario inteiro;
+- e por isso o contrato de shape precisa preservar batch, tempo e vocabulario ao mesmo tempo.
+
+Agora sim faz sentido formalizar o contrato B/T/C/V para esse tipo de treino.
 
 Termo novo com motivacao: **logits**.
 
@@ -21,7 +28,7 @@ O que são logits:
 - **C** = hidden size
 - **V** = vocabulário
 
-Contrato mínimo de treino:
+Contrato minimo de treino:
 - \`idx\` e \`targets\` sempre inteiros em \`(B, T)\`
 - hidden states em \`(B, T, C)\`
 - logits em \`(B, T, V)\` = para cada posição temporal, um vetor de \`V\` scores
@@ -38,7 +45,14 @@ Invariantes de sanidade:
     },
     'en-us': {
       title: 'Shape conventions for LM (language model)',
-      body: `Now that axis reading is stable, we formalize the B/T/C/V contract for language-model training.
+      body: `In the previous slide, the model already consumed integer IDs and produced **output scores**. One central question is still open: **scores for what, exactly?**
+
+In language modeling, the task is simple to define:
+- for each sequence position, the model tries to predict **which token comes next**;
+- that is why it does not output a single number, but a scoreboard over the full vocabulary;
+- and that is why the shape contract must preserve batch, time, and vocabulary at once.
+
+Only now does it make sense to formalize the B/T/C/V contract for this kind of training.
 
 New term with motivation: **logits**.
 
