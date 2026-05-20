@@ -389,3 +389,14 @@ export interface TokenBatchShiftInteractiveCopy {
   nextLabel: string;
   sequences: string[][];
 }
+
+export interface TokenBatchShiftVisualCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  interactivePanel: TokenBatchShiftInteractiveCopy;
+}

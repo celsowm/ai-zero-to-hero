@@ -76,7 +76,7 @@ const visualMap: Record<string, string> = {
   'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
   'pytorch-ecosystem-mermaid': 'PytorchEcosystemMermaidVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
-  'token-batch-shift-interactive': 'TokenBatchShiftInteractive',
+  'token-batch-shift-interactive': 'TokenBatchShiftVisual',
 
   // transformers
   'auto-class-resolver': 'AutoClassResolver',

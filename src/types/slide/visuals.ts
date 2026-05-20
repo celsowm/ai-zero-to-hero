@@ -38,7 +38,7 @@ import type {
   PytorchProjectionSpaceCopy,
   PytorchRuntimePlaybookCopy,
   PytorchShapeTraceFlowCopy,
-  TokenBatchShiftInteractiveCopy,
+  TokenBatchShiftVisualCopy,
   SamplingRouletteCopy,
   SoftmaxVisualizerCopy,
   TokenizationVisualizerCopy,
@@ -270,7 +270,7 @@ interface VisualCopyMap {
   'pytorch-dual-panel': PytorchDualPanelCopy;
   'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
   'pytorch-shape-trace-flow': PytorchShapeTraceFlowCopy;
-  'token-batch-shift-interactive': TokenBatchShiftInteractiveCopy;
+  'token-batch-shift-interactive': TokenBatchShiftVisualCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
   'gpt2-block-anatomy': Gpt2BlockAnatomyCopy;

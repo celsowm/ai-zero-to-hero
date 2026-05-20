@@ -46,6 +46,7 @@ export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePl
 export { PytorchEcosystemMermaidVisual } from './language-models/PytorchEcosystemMermaidVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
+export { TokenBatchShiftVisual } from './language-models/TokenBatchShiftVisual';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';
 export { Gpt2BlockAnatomy } from './transformers/Gpt2BlockAnatomy';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';

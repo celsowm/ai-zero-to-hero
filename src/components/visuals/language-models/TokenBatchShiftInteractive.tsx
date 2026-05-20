@@ -34,18 +34,29 @@ function TokenCell({
 }
 
 export const TokenBatchShiftInteractive = React.memo(({ copy }: TokenBatchShiftInteractiveProps) => {
+  const sequences = useMemo(() => copy.sequences ?? [], [copy.sequences]);
   const [rowIndex, setRowIndex] = useState(0);
   const [step, setStep] = useState(0);
 
-  const sequence = copy.sequences[rowIndex] ?? copy.sequences[0] ?? [];
+  if (sequences.length === 0) {
+    return (
+      <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 12, color: sw.textDim }}>
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>{copy.title}</div>
+        <div style={{ fontSize: 13, lineHeight: 1.55 }}>{copy.subtitle}</div>
+        <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 12, padding: 12, background: sw.surface }}>
+          No token sequences were provided for this visual.
+        </div>
+      </div>
+    );
+  }
+
+  const sequence = sequences[rowIndex] ?? sequences[0];
   const maxStep = Math.max(0, sequence.length - 2);
   const safeStep = Math.min(step, maxStep);
   const x = sequence.slice(0, -1);
   const y = sequence.slice(1);
 
-  const supervisedPairs = useMemo(() => {
-    return copy.sequences.reduce((acc, seq) => acc + Math.max(0, seq.length - 1), 0);
-  }, [copy.sequences]);
+  const supervisedPairs = sequences.reduce((acc, seq) => acc + Math.max(0, seq.length - 1), 0);
 
   return (
     <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -53,7 +64,7 @@ export const TokenBatchShiftInteractive = React.memo(({ copy }: TokenBatchShiftI
       <div style={{ fontSize: 13, lineHeight: 1.55, color: sw.textDim }}>{copy.subtitle}</div>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        {copy.sequences.map((_, idx) => (
+        {sequences.map((_, idx) => (
           <button
             key={idx}
             onClick={() => {
