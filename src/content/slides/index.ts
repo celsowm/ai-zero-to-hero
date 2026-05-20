@@ -11,7 +11,7 @@ import { bpeExercise } from './bpe-exercise';
 import { bpeFromScratch } from './bpe-from-scratch';
 import { bpeMergeStack } from './bpe-merge-stack';
 import { bpeTraining } from './bpe-training';
-import { buildGpt2DatasetFineweb } from './build-gpt2-dataset-fineweb';
+import { buildGpt2DatasetGutenberg } from './build-gpt2-dataset-gutenberg';
 import { buildGpt2DatasetTxt } from './build-gpt2-dataset-txt';
 import { buildGpt2Generate } from './build-gpt2-generate';
 import { buildGpt2Intro } from './build-gpt2-intro';
@@ -280,7 +280,7 @@ export const allSlides: ISlide[] = [
   bpeFromScratch,
   bpeMergeStack,
   bpeTraining,
-  buildGpt2DatasetFineweb,
+  buildGpt2DatasetGutenberg,
   buildGpt2DatasetTxt,
   buildGpt2Generate,
   buildGpt2Intro,

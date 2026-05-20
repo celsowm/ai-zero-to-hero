@@ -34,7 +34,7 @@ snippet:repo-gpt2/train-debug
       body: `After the smoke test and tiny overfit, we move into configurable training.
 
 \`\`\`bash
-python scripts/train.py --language pt --model-config configs/model/gpt2-debug.yaml --train-config configs/train/debug.yaml
+python scripts/train.py --language en --model-config configs/model/gpt2-debug.yaml --train-config configs/train/debug.yaml
 \`\`\`
 
 The point is to validate the whole pipeline cheaply before scaling it up.

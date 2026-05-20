@@ -118,7 +118,7 @@ export const courseSlideOrder = [
   'repo-gpt2-generate-checkpoint',
   'build-gpt2-intro',
   'build-gpt2-dataset-txt',
-  'build-gpt2-dataset-fineweb',
+  'build-gpt2-dataset-gutenberg',
   'build-gpt2-model',
   'build-gpt2-train',
   'build-gpt2-generate',

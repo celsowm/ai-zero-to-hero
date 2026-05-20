@@ -38,7 +38,7 @@ snippet:repo-gpt2/generate-checkpoint
       body: `We close the flow by using a trained checkpoint to generate text.
 
 \`\`\`bash
-python scripts/generate.py --model examples/tiny-overfit --prompt "ana viu"
+python scripts/generate.py --model examples/tiny-overfit --prompt "Once upon a time"
 \`\`\`
 
 This is where the whole pipeline closes:
