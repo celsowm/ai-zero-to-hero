@@ -55,14 +55,14 @@ export const courseSlideOrder = [
   'neural-network-pytorch-silicon',
   'neural-network-pytorch-intro',
   'pytorch-ecosystem-overview',
+  // Origem do termo "tensor": física/matemática vs deep learning
+  'tensor-origins',
   'pytorch-tensor-ranks-0d-4d',
   'neural-network-pytorch-tensors',
   'pytorch-shapes-language-modeling',
   'pytorch-token-batch',
   'pytorch-autograd',
   'neural-network-pytorch-nn-linear',
-  // Origem do termo "tensor": física/matemática vs deep learning
-  'tensor-origins',
   'pytorch-embedding-intro',
   'pytorch-embedding-to-logits',
   'neural-network-pytorch-nn-layers',
