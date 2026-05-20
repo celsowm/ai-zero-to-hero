@@ -50,6 +50,7 @@ export const courseSlideOrder = [
   'neural-network-architectures-deep-dive',
   'neural-network-pytorch-intro',
   'neural-network-pytorch-install',
+  'pytorch-runtime-options',
   'pytorch-why-performant',
   'neural-network-pytorch-hardware',
   'neural-network-pytorch-tensors',

@@ -42,6 +42,7 @@ export { PytorchBridgeShiftVisual } from './language-models/PytorchBridgeShiftVi
 export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMatrixVisual';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
 export { PytorchExecutionPipelineVisual } from './language-models/PytorchExecutionPipelineVisual';
+export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePlaybookVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';

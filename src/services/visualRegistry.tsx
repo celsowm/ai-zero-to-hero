@@ -73,6 +73,7 @@ const visualMap: Record<string, string> = {
   'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',
   'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
+  'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
   'token-batch-shift-interactive': 'TokenBatchShiftInteractive',
 

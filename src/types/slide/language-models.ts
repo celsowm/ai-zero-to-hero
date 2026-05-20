@@ -346,6 +346,22 @@ export interface PytorchShapeTraceFlowCopy {
   };
 }
 
+export interface PytorchRuntimePlaybookCopy {
+  tabs: Array<{
+    label: string;
+    badge: string;
+    when: string;
+    steps: string[];
+    links: Array<{
+      label: string;
+      url: string;
+    }>;
+    code: string;
+    caveat: string;
+  }>;
+  footer: string;
+}
+
 export interface TokenBatchShiftInteractiveCopy {
   title: string;
   subtitle: string;

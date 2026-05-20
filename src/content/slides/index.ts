@@ -163,6 +163,7 @@ import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { tensorOrigins } from './tensor-origins';
 import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchAutograd } from './pytorch-autograd';
+import { pytorchRuntimeOptions } from './pytorch-runtime-options';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
 import { pytorchEmbeddingToLogits } from './pytorch-embedding-to-logits';
 import { pytorchEmbeddingIntro } from './pytorch-embedding-intro';
@@ -444,6 +445,7 @@ export const allSlides: ISlide[] = [
   tensorOrigins,
   neuralNetworkPytorchSilicon,
   pytorchAutograd,
+  pytorchRuntimeOptions,
   pytorchWhyPerformant,
   pytorchEmbeddingIntro,
   pytorchEmbeddingToLogits,
