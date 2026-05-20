@@ -7,7 +7,7 @@ export const pytorchEmbeddingToLogits = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding -> logits: contrato formal de previsao',
-      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(batch_size, seq_len, embed_dim)\`. Agora damos o proximo passo: transformar esse \`H\` em logits \`(batch_size, seq_len, vocab_size)\` para previsao de proximo token.
+      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(B,T,C)\`. Agora damos o proximo passo: transformar esse \`H\` em logits \`(B,T,V)\` para previsao de proximo token.
 
 Problema formal deste slide: como mapear \`idx\` (IDs de token no vocabulario) para uma distribuicao de proximo token sem quebrar o contrato de shape?
 
@@ -16,28 +16,33 @@ Ponto de partida sem ambiguidade:
 - Cada inteiro referencia uma linha da matriz de embedding \`E\`.
 
 Notacao do pipeline:
-- \`idx \in Z^{batch\_size x seq\_len}\`
-- \`E \in R^{vocab\_size x embed\_dim}\`
-- \`H = E[idx] \in R^{batch\_size x seq\_len x embed\_dim}\`
-- \`W_out \in R^{vocab\_size x embed\_dim}\`, \`b \in R^{vocab\_size}\`
-- \`logits = H W_out^T + b \in R^{batch\_size x seq\_len x vocab\_size}\`
+- \`idx \in Z^{BxT}\`
+  (idx e uma grade de IDs inteiros de token com B lotes e T posicoes por sequencia)
+- \`E \in R^{VxC}\`
+  (E e a tabela de embedding: V tokens no vocabulario, cada um com vetor de tamanho C)
+- \`H = E[idx] \in R^{BxTxC}\`
+  (H e o resultado do lookup: para cada token em cada posicao, um vetor continuo de tamanho C)
+- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+  (W_out e b sao os parametros da camada de saida que projetam de C para classes do vocabulario V)
+- \`logits = H W_out^T + b \in R^{BxTxV}\`
+  (logits sao scores por token do vocabulario em cada posicao temporal, antes de softmax)
 
 Leitura operacional por espaco:
 1. \`idx\` carrega identidade discreta de token por posicao temporal.
-2. \`Embedding\` faz lookup desses IDs e move para espaco continuo parametrizado (representacao \`embed_dim\`).
-3. Projecao de saida transforma representacao em scores nao normalizados por classe no espaco \`vocab_size\`.
+2. \`Embedding\` faz lookup desses IDs e move para espaco continuo parametrizado (representacao \`C\`).
+3. Projecao de saida transforma representacao em scores nao normalizados por classe no espaco \`V\`.
 
 Consumo do tensor em treino e inferencia:
-- treino com \`cross_entropy\`: \`(batch_size*seq_len, vocab_size)\` contra \`(batch_size*seq_len)\` via flatten alinhado;
+- treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
 - inferencia autoregressiva: \`logits[:, -1, :]\` para escolher o proximo indice.
 
 Ponte didatica: no modulo de regressao, o escalar de treino era o MSE; aqui mantemos a mesma logica de minimizacao, mas com CE para classes de vocabulario.
 
-Regra de rigor: \`embed_dim\` e espaco de representacao; \`vocab_size\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
+Regra de rigor: \`C\` e espaco de representacao; \`V\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
     },
     'en-us': {
       title: 'Embedding -> logits: formal prediction contract',
-      body: `In the previous slide (\`pytorch-embedding-intro\`), we ended at \`H = E[idx]\` with shape \`(batch_size, seq_len, embed_dim)\`. Now we take the next step: turn that \`H\` into logits \`(batch_size, seq_len, vocab_size)\` for next-token prediction.
+      body: `In the previous slide (\`pytorch-embedding-intro\`), we ended at \`H = E[idx]\` with shape \`(B,T,C)\`. Now we take the next step: turn that \`H\` into logits \`(B,T,V)\` for next-token prediction.
 
 Formal problem for this slide: how do we map \`idx\` (token IDs in the vocabulary) into a next-token distribution without breaking shape contracts?
 
@@ -46,24 +51,29 @@ Unambiguous starting point:
 - Each integer points to one row in the embedding matrix \`E\`.
 
 Pipeline notation:
-- \`idx \in Z^{batch\_size x seq\_len}\`
-- \`E \in R^{vocab\_size x embed\_dim}\`
-- \`H = E[idx] \in R^{batch\_size x seq\_len x embed\_dim}\`
-- \`W_out \in R^{vocab\_size x embed\_dim}\`, \`b \in R^{vocab\_size}\`
-- \`logits = H W_out^T + b \in R^{batch\_size x seq\_len x vocab\_size}\`
+- \`idx \in Z^{BxT}\`
+  (idx is an integer grid of token IDs with B batches and T positions per sequence)
+- \`E \in R^{VxC}\`
+  (E is the embedding table: V vocabulary tokens, each represented by a C-wide vector)
+- \`H = E[idx] \in R^{BxTxC}\`
+  (H is the lookup output: for each token at each position, one continuous C-wide vector)
+- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+  (W_out and b are output-layer parameters that project from C representation space to V vocabulary classes)
+- \`logits = H W_out^T + b \in R^{BxTxV}\`
+  (logits are pre-softmax scores over vocabulary tokens at each time position)
 
 Operational reading by space:
 1. \`idx\` carries discrete token identity per time position.
-2. \`Embedding\` looks up those IDs and lifts data into continuous parametric space (representation width \`embed_dim\`).
-3. Output projection turns representation into non-normalized class scores in \`vocab_size\` space.
+2. \`Embedding\` looks up those IDs and lifts data into continuous parametric space (representation width \`C\`).
+3. Output projection turns representation into non-normalized class scores in \`V\` space.
 
 How the tensor is consumed in training and inference:
-- training with \`cross_entropy\`: \`(batch_size*seq_len, vocab_size)\` against \`(batch_size*seq_len)\` via aligned flattening;
+- training with \`cross_entropy\`: \`(B*T,V)\` against \`(B*T)\` via aligned flattening;
 - autoregressive inference: \`logits[:, -1, :]\` to choose the next index.
 
 Didactic bridge: in the regression module, the training scalar was MSE; here we keep the same minimization logic, but with CE over vocabulary classes.
 
-Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision space. Mixing these roles breaks interpretation and debugging.`,
+Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these roles breaks interpretation and debugging.`,
     },
   },
   visual: {
@@ -73,7 +83,7 @@ Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision sp
         tabs: [{ label: 'Codigo' }, { label: 'Pipeline interativo' }],
         interactive: {
           title: 'Pipeline interativo: idx → H → logits → loss / next',
-          subtitle: 'Ajuste B, T, C, V e percorra cada estagio para ver como o tensor muda de forma e papel.',
+          subtitle: 'Ajuste B, T, C, V e percorra cada estagio para ver como o tensor muda de forma e papel. (B=lote, T=tempo, C=largura da representacao, V=vocabulario).',
           sliders: { batch: 'B (batch)', time: 'T (tempo)', channels: 'C (canais)', vocab: 'V (vocab)' },
           legend: {
             idx: 'idx (B,T) — ids inteiros por posicao',
@@ -103,7 +113,7 @@ Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision sp
         },
         blueprintPanel: {
           title: 'Cadeia causal de espacos',
-          subtitle: 'Este slide nao e sobre camada isolada; e sobre o contrato ponta-a-ponta que conecta representacao e decisao.',
+          subtitle: 'Este slide nao e sobre camada isolada; e sobre o contrato ponta-a-ponta que conecta representacao e decisao. (B=lote, T=tempo, C=largura da representacao, V=vocabulario).',
           stages: [
             {
               label: '1. idx discreto',
@@ -154,7 +164,7 @@ Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision sp
         tabs: [{ label: 'Code' }, { label: 'Interactive pipeline' }],
         interactive: {
           title: 'Interactive pipeline: idx → H → logits → loss / next',
-          subtitle: 'Tune B, T, C, V and step through each stage to see how the tensor changes shape and role.',
+          subtitle: 'Tune B, T, C, V and step through each stage to see how the tensor changes shape and role. (B=batch size, T=sequence length, C=representation width, V=vocabulary size).',
           sliders: { batch: 'B (batch)', time: 'T (time)', channels: 'C (channels)', vocab: 'V (vocab)' },
           legend: {
             idx: 'idx (B,T) — integer ids per position',
@@ -184,7 +194,7 @@ Rigor rule: \`embed_dim\` is representation space; \`vocab_size\` is decision sp
         },
         blueprintPanel: {
           title: 'Causal chain of spaces',
-          subtitle: 'This slide is not about one isolated layer; it is about the end-to-end contract linking representation and decision.',
+          subtitle: 'This slide is not about one isolated layer; it is about the end-to-end contract linking representation and decision. (B=batch size, T=sequence length, C=representation width, V=vocabulary size).',
           stages: [
             {
               label: '1. discrete idx',
