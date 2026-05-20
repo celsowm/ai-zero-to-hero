@@ -76,10 +76,10 @@ When Hugging Face asks for tensors with \`return_tensors="pt"\`, the course will
           description: 'Os mesmos 6 pacientes do exemplo manual, agora com loop de treino PyTorch e inferencia em um novo paciente.',
           source: { snippetId: 'pytorch-lm/torch-bridge', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 15], content: 'Imports do torch e os mesmos 6 pacientes do exemplo manual com features normalizadas e alvo.' },
-            { lineRange: [16, 24], content: 'Arquitetura equivalente declarada com \`nn.Linear\` e \`nn.Sigmoid\`: 4 → 3 → 1.' },
-            { lineRange: [26, 39], content: 'Loop de treino com MSE + SGD: zero_grad, forward, loss, backward, step — 600 epocas.' },
-            { lineRange: [40, 48], content: 'Inferencia no paciente novo (58 anos, fumante) sem calcular gradiente (\`no_grad\`).' },
+            { lineRange: [1, 15], content: 'Entramos com PyTorch e os mesmos dados do exemplo manual, para comparar exatamente o mesmo problema em outra interface.' },
+            { lineRange: [16, 24], content: 'A rede é declarada com camadas prontas (`Linear` e `Sigmoid`), mantendo o mesmo fluxo 4 -> 3 -> 1.' },
+            { lineRange: [26, 39], content: 'Aqui está o ciclo de treino completo: zera gradiente, faz forward, calcula loss, roda backward e aplica update com o otimizador.' },
+            { lineRange: [40, 48], content: 'No trecho final fazemos inferência em um novo paciente com `no_grad()`, reduzindo custo e evitando construção de grafo.' },
           ],
         },
         mapPanel: {
@@ -103,10 +103,10 @@ When Hugging Face asks for tensors with \`return_tensors="pt"\`, the course will
           description: 'The same 6 patients from the manual example, now with PyTorch training loop and inference on a new patient.',
           source: { snippetId: 'pytorch-lm/torch-bridge', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 15], content: 'Torch imports and the same 6 patients from the manual example with normalized features and targets.' },
-            { lineRange: [16, 24], content: 'Equivalent architecture declared with \`nn.Linear\` and \`nn.Sigmoid\`: 4 → 3 → 1.' },
-            { lineRange: [26, 39], content: 'Training loop with MSE + SGD: zero_grad, forward, loss, backward, step — 600 epochs.' },
-            { lineRange: [40, 48], content: 'Inference on new patient (age 58, smoker) without computing gradients (\`no_grad\`).' },
+            { lineRange: [1, 15], content: 'We load PyTorch and reuse the exact same patient data from the manual example, so the comparison stays fair.' },
+            { lineRange: [16, 24], content: 'The network is declared with built-in layers (`Linear` and `Sigmoid`) while preserving the same 4 -> 3 -> 1 flow.' },
+            { lineRange: [26, 39], content: 'This is the full training cycle: clear grads, run forward, compute loss, call backward, and update with the optimizer.' },
+            { lineRange: [40, 48], content: 'The final block runs inference on a new patient under `no_grad()`, cutting cost and avoiding graph construction.' },
           ],
         },
         mapPanel: {

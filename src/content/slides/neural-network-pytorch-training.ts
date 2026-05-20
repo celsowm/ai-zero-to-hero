@@ -48,9 +48,9 @@ Important bridge: these \`x/y\` tensors are exactly the shifted batch from the \
           description: 'Classe pequena com `Embedding`, `lm_head` e `forward(idx, targets)` que retorna logits e loss.',
           source: { snippetId: 'pytorch-lm/minimal-language-model', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Importamos o necessario para um modelo minimo de linguagem com perda.' },
-            { lineRange: [6, 10], content: 'Embedding e `lm_head` ja montam um LM treinavel.' },
-            { lineRange: [11, 14], content: 'O `forward` recebe IDs, produz logits e opcionalmente devolve loss.' },
+            { lineRange: [1, 5], content: 'Essas linhas importam os blocos mínimos para definir uma classe de language model e calcular perda no próprio forward.' },
+            { lineRange: [6, 10], content: 'No `__init__`, criamos a embedding (IDs -> vetores) e a camada final `lm_head` (vetores -> logits de vocabulário).' },
+            { lineRange: [11, 14], content: 'No `forward`, sempre retornamos logits; quando `targets` existe, também calculamos cross-entropy com flatten para habilitar treino.' },
           ],
         },
         pipelinePanel: {
@@ -85,9 +85,9 @@ Important bridge: these \`x/y\` tensors are exactly the shifted batch from the \
           description: 'Small class with `Embedding`, `lm_head`, and `forward(idx, targets)` returning logits and loss.',
           source: { snippetId: 'pytorch-lm/minimal-language-model', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'We import what is needed for a tiny language model with loss.' },
-            { lineRange: [6, 10], content: 'Embedding and `lm_head` are enough to build a trainable LM.' },
-            { lineRange: [11, 14], content: '`forward` receives IDs, produces logits, and optionally returns loss.' },
+            { lineRange: [1, 5], content: 'These lines import the minimum pieces needed to define a language-model class and compute loss inside forward.' },
+            { lineRange: [6, 10], content: 'Inside `__init__`, we create embedding (IDs -> vectors) and `lm_head` (vectors -> vocabulary logits).' },
+            { lineRange: [11, 14], content: 'Inside `forward`, logits are always returned; when `targets` is provided, cross-entropy is also computed with flattening for training.' },
           ],
         },
         pipelinePanel: {

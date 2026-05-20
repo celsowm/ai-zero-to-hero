@@ -32,10 +32,10 @@ Se voce identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug de
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'Definimos nomes explícitos dos eixos (`batch_size`, `sequence_length`, etc.) para não depender de siglas cedo demais.' },
-        { lineRange: [8, 11], content: 'Construímos token IDs inteiros: essa é a forma de entrada mais comum para embedding.' },
-        { lineRange: [13, 14], content: 'Criamos estados internos e scores de saida preservando lote e sequencia.' },
-        { lineRange: [16, 18], content: 'Os prints confirmam shape e dtype, que são os primeiros alvos de debug.' },
+        { lineRange: [1, 6], content: 'Damos nome aos eixos (`batch_size`, `sequence_length` etc.) para deixar claro o papel de cada dimensão do tensor.' },
+        { lineRange: [8, 11], content: 'Montamos IDs inteiros de tokens, que é o formato de entrada usado pela camada de embedding.' },
+        { lineRange: [13, 14], content: 'Criamos exemplos de estado interno e de saída preservando lote e sequência, mudando só a dimensão final.' },
+        { lineRange: [16, 18], content: 'Os prints validam shape e dtype, que são os dois primeiros checkpoints quando algo quebra.' },
       ],
     },
     'en-us': {
@@ -65,10 +65,10 @@ If you can identify axis, \`dtype\`, and \`device\` at each step, training and d
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'We define explicit axis names (`batch_size`, `sequence_length`, etc.) instead of early abbreviations.' },
-        { lineRange: [8, 11], content: 'We build integer token IDs, the usual input shape for embedding lookup.' },
-        { lineRange: [13, 14], content: 'Hidden states and output scores preserve batch and sequence axes.' },
-        { lineRange: [16, 18], content: 'Prints verify shape and dtype, the first debugging targets.' },
+        { lineRange: [1, 6], content: 'We name each axis explicitly (`batch_size`, `sequence_length`, etc.) so every tensor dimension has a clear role.' },
+        { lineRange: [8, 11], content: 'We build integer token IDs, which is the standard input format for embedding lookup.' },
+        { lineRange: [13, 14], content: 'Hidden-state and output examples keep batch and sequence axes intact while changing only the last dimension.' },
+        { lineRange: [16, 18], content: 'The prints verify shape and dtype, the two first checks when debugging tensor-contract issues.' },
       ],
     },
   },

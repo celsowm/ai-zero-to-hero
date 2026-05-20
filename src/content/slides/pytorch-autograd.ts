@@ -54,9 +54,9 @@ Without Autograd, you would need to derive and implement backward for each opera
           description: 'Exemplo reduzido de logits + target para ver claramente a formacao de gradiente.',
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Criamos logits com gradiente habilitado e um target correto para isolar o backward.' },
-            { lineRange: [7, 8], content: 'Cross-entropy mede erro (papel equivalente ao MSE na regressao) e `backward()` preenche gradientes.' },
-            { lineRange: [10, 11], content: 'Loss e gradiente mostram a direcao do ajuste.' },
+            { lineRange: [1, 5], content: 'Criamos logits com gradiente habilitado e um alvo válido para isolar o comportamento do backward.' },
+            { lineRange: [7, 8], content: 'A cross-entropy mede o erro e o `backward()` propaga esse erro para preencher os gradientes.' },
+            { lineRange: [10, 11], content: 'No final, imprimimos loss e gradiente para visualizar o sentido do ajuste que será aplicado.' },
           ],
         },
         pipelinePanel: {
@@ -91,9 +91,9 @@ Without Autograd, you would need to derive and implement backward for each opera
           description: 'Reduced logits + target example to make gradient flow explicit.',
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'We create logits with gradients enabled plus one correct target to isolate backward.' },
-            { lineRange: [7, 8], content: 'Cross-entropy measures error (same role MSE had in regression) and `backward()` fills gradients.' },
-            { lineRange: [10, 11], content: 'Loss and gradient expose update direction.' },
+            { lineRange: [1, 5], content: 'We create logits with gradients enabled and one valid target to isolate backward behavior.' },
+            { lineRange: [7, 8], content: 'Cross-entropy measures error, and `backward()` propagates it to fill gradients.' },
+            { lineRange: [10, 11], content: 'Finally, we print loss and gradient so the upcoming update direction is visible.' },
           ],
         },
         pipelinePanel: {

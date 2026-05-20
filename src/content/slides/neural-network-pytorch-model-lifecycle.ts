@@ -54,9 +54,9 @@ Recurring mistakes:
           description: 'Mesmo modelo, dois comportamentos: treino com ruido e inferencia estavel.',
           source: { snippetId: 'pytorch-lm/model-lifecycle', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Modelo pequeno com Dropout para tornar visivel a diferenca train/eval.' },
-            { lineRange: [5, 8], content: 'Em treino, o forward pode injetar ruido.' },
-            { lineRange: [9, 14], content: 'Em avaliacao, com no_grad, inferencia fica estavel e barata.' },
+            { lineRange: [1, 4], content: 'Criamos um modelo simples com Dropout para deixar visível a diferença prática entre modo de treino e modo de avaliação.' },
+            { lineRange: [5, 8], content: 'Neste bloco o modelo está em `train()`, então o forward pode variar entre execuções por causa do dropout.' },
+            { lineRange: [9, 14], content: 'Aqui trocamos para `eval()` e `no_grad()`, deixando a inferência estável e mais leve em memória.' },
           ],
         },
         pipelinePanel: {
@@ -91,9 +91,9 @@ Recurring mistakes:
           description: 'Same model, two behaviors: noisy training and stable inference.',
           source: { snippetId: 'pytorch-lm/model-lifecycle', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Tiny model with Dropout to make train/eval difference visible.' },
-            { lineRange: [5, 8], content: 'In training mode, forward may inject noise.' },
-            { lineRange: [9, 14], content: 'In eval mode with no_grad, inference is stable and cheaper.' },
+            { lineRange: [1, 4], content: 'We build a tiny model with Dropout to make the practical difference between train mode and eval mode visible.' },
+            { lineRange: [5, 8], content: 'In this block the model is in `train()`, so forward outputs may vary across runs because dropout is active.' },
+            { lineRange: [9, 14], content: 'Here we switch to `eval()` plus `no_grad()`, making inference stable and cheaper in memory.' },
           ],
         },
         pipelinePanel: {

@@ -108,10 +108,10 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           description: 'Snippet curto para validar shape, dtype, flatten e loss em uma passada.',
           source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Definimos o dicionário B/T/C/V e preparamos cross-entropy.' },
-            { lineRange: [6, 9], content: 'Criamos entrada, alvo, estados e logits no contrato esperado.' },
-            { lineRange: [11, 13], content: 'Flatten transforma saída e alvo para o formato exigido pela loss.' },
-            { lineRange: [15, 21], content: 'Impressões finais checam shape, dtype, device e escalar da loss.' },
+            { lineRange: [1, 4], content: 'Começamos declarando B, T, C e V e importando a cross-entropy; isso fixa o vocabulário de shape usado no restante do exemplo.' },
+            { lineRange: [6, 9], content: 'Criamos `idx`, `targets`, `hidden` e `logits` no contrato esperado: entrada/alvo em `(B, T)` e saída em `(B, T, V)`.' },
+            { lineRange: [11, 13], content: 'O flatten converte o problema temporal em uma lista de casos de classificação, no formato que a cross-entropy realmente consome.' },
+            { lineRange: [15, 21], content: 'Os prints verificam sanidade de shape, dtype e device e confirmam que a loss final é escalar.' },
           ],
         },
         tracePanel: {
@@ -173,10 +173,10 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           description: 'Compact snippet to validate shape, dtype, flattening, and loss in one pass.',
           source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'We define the B/T/C/V dictionary and prepare cross-entropy.' },
-            { lineRange: [6, 9], content: 'We create input, target, hidden states, and logits in the expected contract.' },
-            { lineRange: [11, 13], content: 'Flattening adapts outputs/targets to the loss-required format.' },
-            { lineRange: [15, 21], content: 'Final prints verify shape, dtype, device, and scalar loss.' },
+            { lineRange: [1, 4], content: 'We start by declaring B, T, C, and V and importing cross-entropy, which fixes the shape vocabulary used by the rest of the snippet.' },
+            { lineRange: [6, 9], content: 'We create `idx`, `targets`, `hidden`, and `logits` in the expected contract: input/target in `(B, T)` and model scores in `(B, T, V)`.' },
+            { lineRange: [11, 13], content: 'Flattening rewrites the temporal tensor problem into a list of classification cases in the exact format cross-entropy expects.' },
+            { lineRange: [15, 21], content: 'Final prints check shape, dtype, and device consistency and confirm the final loss is a scalar.' },
           ],
         },
         tracePanel: {

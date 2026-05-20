@@ -68,9 +68,9 @@ Limits of this teaching model:
           description: 'Implementacao enxuta que ja suporta inferencia e treino com a mesma assinatura.',
           source: { snippetId: 'pytorch-lm/minimal-language-model', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Imports minimos e declaracao de classe com contrato de LM.' },
-            { lineRange: [6, 10], content: 'Estado da classe: embedding de entrada e cabeca final de logits.' },
-            { lineRange: [11, 14], content: 'Forward retorna logits sempre e loss opcional quando targets existem.' },
+            { lineRange: [1, 5], content: 'Essas linhas importam o mínimo necessário e declaram a classe que vai concentrar o contrato do mini language model.' },
+            { lineRange: [6, 10], content: 'No construtor, a embedding faz ID -> vetor e a `lm_head` faz vetor -> logits de vocabulário.' },
+            { lineRange: [11, 14], content: 'No forward, logits sempre existem; com `targets`, também calculamos a loss para viabilizar treino.' },
           ],
         },
         blueprintPanel: {
@@ -103,9 +103,9 @@ Limits of this teaching model:
           description: 'Lean implementation that already supports inference and training under one signature.',
           source: { snippetId: 'pytorch-lm/minimal-language-model', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Minimal imports and class declaration with LM contract.' },
-            { lineRange: [6, 10], content: 'Class state: input embedding plus final logits head.' },
-            { lineRange: [11, 14], content: 'Forward always returns logits and optional loss when targets exist.' },
+            { lineRange: [1, 5], content: 'These lines import the minimum set and declare the class that holds the mini language-model contract.' },
+            { lineRange: [6, 10], content: 'In the constructor, embedding maps IDs to vectors and `lm_head` maps vectors to vocabulary logits.' },
+            { lineRange: [11, 14], content: 'In forward, logits are always returned; when `targets` are provided, loss is also computed for training.' },
           ],
         },
         blueprintPanel: {

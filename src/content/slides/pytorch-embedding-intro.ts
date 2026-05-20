@@ -28,9 +28,9 @@ Intuicao pratica:
 snippet:pytorch-lm/embedding-intro
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 5], content: 'Definimos vocabulario e largura do vetor, e inicializamos a tabela de embeddings.' },
-        { lineRange: [6, 8], content: 'O batch de entrada ainda e inteiro: cada numero aponta para uma linha da tabela.' },
-        { lineRange: [10, 13], content: 'A consulta produz vetores densos e permite inspecionar o mapeamento ID -> vetor.' },
+        { lineRange: [1, 5], content: 'Definimos tamanho de vocabulário e largura dos vetores e criamos a tabela de embedding.' },
+        { lineRange: [6, 8], content: 'A entrada ainda é inteira: cada ID funciona como índice para uma linha da tabela.' },
+        { lineRange: [10, 13], content: 'A chamada da embedding devolve vetores densos e deixa explícita a conversão de ID para representação contínua.' },
       ],
     },
     'en-us': {
@@ -57,8 +57,8 @@ snippet:pytorch-lm/embedding-intro
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'We define vocabulary size and vector width, then initialize the embedding table.' },
-        { lineRange: [6, 8], content: 'Input batches are still integers: each number indexes one table row.' },
-        { lineRange: [10, 13], content: 'The lookup returns dense vectors and makes the ID -> vector mapping concrete.' },
+        { lineRange: [6, 8], content: 'Inputs are still integers: each token ID indexes one row in that table.' },
+        { lineRange: [10, 13], content: 'Embedding lookup returns dense vectors and makes the ID -> representation conversion explicit.' },
       ],
     },
   },

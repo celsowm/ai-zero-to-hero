@@ -52,9 +52,9 @@ Two use cases:
           description: 'Exemplo curto de save/load com modelo, otimizador e passo.',
           source: { snippetId: 'pytorch-lm/save-load', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Criamos modelo e otimizador para capturar estado completo de treino.' },
-            { lineRange: [6, 10], content: 'Dicionario junta pesos, estado do otimizador e passo atual.' },
-            { lineRange: [12, 14], content: '`torch.save` escreve arquivo e `torch.load` reconstrui em memoria.' },
+            { lineRange: [1, 5], content: 'Criamos modelo e otimizador porque checkpoint de treino precisa dos dois estados, não só dos pesos.' },
+            { lineRange: [6, 10], content: 'Montamos um dicionário com pesos, estado do otimizador e passo atual, que é o payload mínimo para retomada consistente.' },
+            { lineRange: [12, 14], content: '`torch.save` serializa esse payload em disco e `torch.load` reconstrói o estado em memória.' },
           ],
         },
         matrixPanel: {
@@ -81,9 +81,9 @@ Two use cases:
           description: 'Short save/load example with model, optimizer, and step metadata.',
           source: { snippetId: 'pytorch-lm/save-load', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'We build model and optimizer so full training state can be serialized.' },
-            { lineRange: [6, 10], content: 'Dictionary groups weights, optimizer internals, and current step.' },
-            { lineRange: [12, 14], content: '`torch.save` writes file and `torch.load` reconstructs in memory.' },
+            { lineRange: [1, 5], content: 'We instantiate model and optimizer because training checkpoints must preserve both, not just weights.' },
+            { lineRange: [6, 10], content: 'We assemble a payload with model weights, optimizer state, and current step for consistent resume.' },
+            { lineRange: [12, 14], content: '`torch.save` serializes that payload to disk, and `torch.load` reconstructs it in memory.' },
           ],
         },
         matrixPanel: {

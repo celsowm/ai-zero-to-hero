@@ -62,10 +62,10 @@ Common mistakes:
           description: 'O mesmo batch gera `x`, `y`, logits simulados e o flatten esperado pela cross-entropy.',
           source: { snippetId: 'pytorch-lm/token-batch-shift', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 3], content: 'Definimos um batch de IDs inteiros no formato base `(B,T)`.' },
-            { lineRange: [5, 6], content: 'Criamos `x` e `y` com deslocamento temporal: entrada sem ultimo token e alvo sem primeiro.' },
-            { lineRange: [8, 13], content: 'Simulamos logits `(B,T-1,V)` e fazemos flatten para `(B*(T-1),V)` e `(B*(T-1))`.' },
-            { lineRange: [15, 20], content: 'Os prints validam todo o contrato de shape usado na loss.' },
+            { lineRange: [1, 3], content: 'Montamos um lote de IDs inteiros no formato `(B, T)`, representando várias sequências processadas em paralelo.' },
+            { lineRange: [5, 6], content: 'Geramos `x` e `y` com deslocamento de uma posição: `x` vira a entrada e `y` vira o alvo de próximo token para cada posição.' },
+            { lineRange: [8, 13], content: 'Simulamos logits no formato temporal e depois achatamos para o formato de classificação usado na cross-entropy.' },
+            { lineRange: [15, 20], content: 'Os prints confirmam se os shapes finais realmente batem com o contrato esperado antes de calcular loss.' },
           ],
         },
         interactivePanel: {
@@ -94,10 +94,10 @@ Common mistakes:
           description: 'The same batch builds `x`, `y`, simulated logits, and the flatten format expected by cross-entropy.',
           source: { snippetId: 'pytorch-lm/token-batch-shift', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 3], content: 'We define an integer ID batch in base `(B,T)` format.' },
-            { lineRange: [5, 6], content: 'We build time-shifted `x` and `y`: input without last token and target without first token.' },
-            { lineRange: [8, 13], content: 'We simulate logits `(B,T-1,V)` and flatten into `(B*(T-1),V)` and `(B*(T-1))`.' },
-            { lineRange: [15, 20], content: 'Prints validate the full shape contract used by the loss.' },
+            { lineRange: [1, 3], content: 'We build a batch of integer token IDs in `(B, T)`, representing multiple sequences processed in parallel.' },
+            { lineRange: [5, 6], content: 'We create a one-step shift: `x` becomes model input and `y` becomes next-token target for each position.' },
+            { lineRange: [8, 13], content: 'We simulate temporal logits and then flatten them into the classification format required by cross-entropy.' },
+            { lineRange: [15, 20], content: 'The prints verify whether final shapes match the expected loss contract before training step calculations.' },
           ],
         },
         interactivePanel: {

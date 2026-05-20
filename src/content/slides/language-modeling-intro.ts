@@ -18,9 +18,9 @@ No treino:
 snippet:pytorch-lm/token-batch
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'O batch inteiro é só uma matriz de inteiros, mas já contém o problema completo.' },
-        { lineRange: [8, 10], content: 'O deslocamento entre `x` e `y` materializa a tarefa de prever o próximo token.' },
-        { lineRange: [12, 14], content: 'Os shapes deixam claro que o treino acontece para várias posições ao mesmo tempo.' },
+        { lineRange: [1, 6], content: 'Essas linhas montam um lote de IDs de tokens; já é o problema real de treino, só que em formato numérico.' },
+        { lineRange: [8, 10], content: 'Aqui fazemos o deslocamento temporal: `x` vira contexto de entrada e `y` vira alvo de próximo token.' },
+        { lineRange: [12, 14], content: 'Os prints deixam explícito que o treino acontece em paralelo em várias posições, não uma palavra por vez.' },
       ],
     },
     'en-us': {
@@ -36,9 +36,9 @@ During training:
 snippet:pytorch-lm/token-batch
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'The whole batch is just an integer matrix, but it already contains the full learning problem.' },
-        { lineRange: [8, 10], content: 'The shift between `x` and `y` materializes the next-token task.' },
-        { lineRange: [12, 14], content: 'The shapes make it clear that training happens for many positions at once.' },
+        { lineRange: [1, 6], content: 'These lines build a batch of token IDs; this is already the real training problem in numeric form.' },
+        { lineRange: [8, 10], content: 'This is the temporal shift: `x` becomes input context and `y` becomes next-token target.' },
+        { lineRange: [12, 14], content: 'The prints make it clear that training runs in parallel over many positions, not one token at a time.' },
       ],
     },
   },

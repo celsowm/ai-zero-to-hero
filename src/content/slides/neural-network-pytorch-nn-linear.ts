@@ -72,10 +72,10 @@ If this is unclear, model reading breaks down.
           description: 'Exemplo curto onde `Linear` troca a última dimensão sem mexer em lote e sequência.',
           source: { snippetId: 'pytorch-lm/linear-to-logits', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Definimos B/T/C/V para visualizar claramente o contrato de shape.' },
-            { lineRange: [6, 7], content: 'Embedding produz vetores de largura C; Linear projeta C para V.' },
-            { lineRange: [9, 11], content: 'Forward: IDs -> vetores -> logits para cada token do batch.' },
-            { lineRange: [13, 14], content: 'Os prints provam que B e T permanecem; só a dimensão final muda.' },
+            { lineRange: [1, 4], content: 'Definimos B, T, C e V para deixar explícito: lote, tempo, largura interna e tamanho do vocabulário.' },
+            { lineRange: [6, 7], content: 'A embedding gera vetores de largura C e a camada linear converte esses vetores em pontuações de vocabulário (C -> V).' },
+            { lineRange: [9, 11], content: 'No forward, cada ID vira vetor e depois vira logits; isso acontece posição por posição no lote inteiro.' },
+            { lineRange: [13, 14], content: 'Os prints confirmam o ponto central: B e T são preservados, e só a última dimensão muda.' },
           ],
         },
         blueprintPanel: {
@@ -108,10 +108,10 @@ If this is unclear, model reading breaks down.
           description: 'Compact example where `Linear` changes only the last axis while preserving batch and sequence.',
           source: { snippetId: 'pytorch-lm/linear-to-logits', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'We define B/T/C/V to make the shape contract explicit.' },
-            { lineRange: [6, 7], content: 'Embedding creates C-width vectors; Linear projects C into V.' },
-            { lineRange: [9, 11], content: 'Forward: IDs -> vectors -> logits at each batch-time position.' },
-            { lineRange: [13, 14], content: 'Prints confirm B and T stay fixed while only the last axis changes.' },
+            { lineRange: [1, 4], content: 'We define B, T, C, and V explicitly: batch size, sequence length, hidden width, and vocabulary size.' },
+            { lineRange: [6, 7], content: 'Embedding creates C-wide vectors, and the linear layer projects those vectors into vocabulary scores (C -> V).' },
+            { lineRange: [9, 11], content: 'In forward, each ID becomes a vector and then logits; this runs position-by-position across the full batch.' },
+            { lineRange: [13, 14], content: 'The prints verify the key invariant: B and T stay fixed while only the last axis changes.' },
           ],
         },
         blueprintPanel: {
