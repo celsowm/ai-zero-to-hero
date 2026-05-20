@@ -284,29 +284,33 @@ const splitGuideLabel = (label: string) => {
 };
 
 export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisualProps) => {
+  const points = copy.points ?? [];
+  const hasPoints = points.length > 0;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [sliderUsers, setSliderUsers] = useState<number>(copy.points[0].users);
+  const [sliderUsers, setSliderUsers] = useState<number>(points[0]?.users ?? 0);
 
-  const minUsers = Math.min(...copy.points.map(point => point.users));
-  const maxUsers = Math.max(...copy.points.map(point => point.users));
-  const minLatency = Math.min(...copy.points.map(point => point.latency));
-  const maxLatency = Math.max(...copy.points.map(point => point.latency));
+  const minUsers = hasPoints ? Math.min(...points.map(point => point.users)) : 0;
+  const maxUsers = hasPoints ? Math.max(...points.map(point => point.users)) : 1;
+  const minLatency = hasPoints ? Math.min(...points.map(point => point.latency)) : 0;
+  const maxLatency = hasPoints ? Math.max(...points.map(point => point.latency)) : 1;
 
   const chartPoints = useMemo(
-    () => copy.points.map(point => toScreenPoint(point.users, point.latency, minUsers, maxUsers, minLatency, maxLatency)),
-    [copy.points, minUsers, maxUsers, minLatency, maxLatency]
+    () => points.map(point => toScreenPoint(point.users, point.latency, minUsers, maxUsers, minLatency, maxLatency)),
+    [points, minUsers, maxUsers, minLatency, maxLatency]
   );
 
   const curvePath = useMemo(() => buildSmoothPath(chartPoints), [chartPoints]);
   const referencePath = useMemo(
-    () => `M ${chartPoints[0].x} ${chartPoints[0].y} L ${chartPoints[chartPoints.length - 1].x} ${chartPoints[chartPoints.length - 1].y}`,
+    () => (chartPoints.length >= 2
+      ? `M ${chartPoints[0].x} ${chartPoints[0].y} L ${chartPoints[chartPoints.length - 1].x} ${chartPoints[chartPoints.length - 1].y}`
+      : ''),
     [chartPoints]
   );
 
   // Ponto do slider na curva
   const sliderLatency = useMemo(
-    () => interpolateLatency(sliderUsers, copy.points),
-    [sliderUsers, copy.points]
+    () => (hasPoints ? interpolateLatency(sliderUsers, points) : 0),
+    [sliderUsers, points, hasPoints]
   );
   const sliderPoint = useMemo(
     () => toScreenPoint(sliderUsers, sliderLatency, minUsers, maxUsers, minLatency, maxLatency),
@@ -322,9 +326,21 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
   }, []);
 
   const guideIndexes = [0, 4, chartPoints.length - 1];
-  const guideUsers = guideIndexes.map(i => copy.points[i].users);
+  const guideUsers = guideIndexes.map(i => points[i]?.users ?? 0);
   const guideLabels = [copy.lowLoadLabel, copy.saturationLabel, copy.explosionLabel];
   const sliderNearGuide = isNearGuide(sliderUsers, guideUsers);
+
+  if (!hasPoints) {
+    return (
+      <PanelCard minHeight={0} gap={10}>
+        <div style={summaryBlockStyle}>
+          <div style={eyebrowStyle}>{copy.eyebrow}</div>
+          <div style={titleStyle}>{copy.title}</div>
+          <p style={descriptionStyle}>{copy.description}</p>
+        </div>
+      </PanelCard>
+    );
+  }
 
   return (
     <div style={shellStyle}>
@@ -418,7 +434,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
             <path d={`${curvePath} L ${chartPoints[chartPoints.length - 1].x} ${chartHeight - chartPadding.bottom} L ${chartPoints[0].x} ${chartHeight - chartPadding.bottom} Z`} fill="url(#api-latency-fill)" opacity="0.34" />
 
             {/* Pontos com hover */}
-            {copy.points.map((point, index) => {
+            {points.map((point, index) => {
               const screenPoint = chartPoints[index];
               const isHovered = hoveredIndex === index;
               const isGuide = guideIndexes.includes(index);
@@ -559,7 +575,7 @@ export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisu
               const label = guideLabels[guideIndex];
               const layout = guideCalloutLayouts[guideIndex];
               const [primaryLine, secondaryLine] = splitGuideLabel(label);
-              const dataLabel = copy.points[index]?.label ?? '';
+              const dataLabel = points[index]?.label ?? '';
               const boxHeight = dataLabel ? 56 : 42;
 
               return (
