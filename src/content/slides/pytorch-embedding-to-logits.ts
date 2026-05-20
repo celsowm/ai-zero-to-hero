@@ -6,109 +6,183 @@ export const pytorchEmbeddingToLogits = defineSlide({
   options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
-      title: 'De embedding a logits',
-      body: `Este e o primeiro pipeline completo de previsao de proximo token:
+      title: 'Embedding -> logits: contrato formal de previsao',
+      body: `Problema formal deste slide: como mapear \'idx\' discreto para uma distribuicao de proximo token sem quebrar o contrato de shape?
 
-1. token ID entra em \`Embedding\`
-2. cada token vira vetor \`C\` em \`(B, T, C)\`
-3. \`Linear(C, V)\` projeta para \`(B, T, V)\`
-4. cada posicao passa a ter um score para cada token do vocabulario
+Notacao do pipeline:
+- \`idx \in Z^{BxT}\`
+- \`E \in R^{VxC}\`
+- \`H = E[idx] \in R^{BxTxC}\`
+- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+- \`logits = H W_out^T + b \in R^{BxTxV}\`
 
-Esse slide fecha a ponte matematica: inteiro discreto -> vetor continuo -> distribuicao sobre vocabulario.
+Leitura operacional por espaco:
+1. \`idx\` carrega identidade discreta por posicao temporal.
+2. \`Embedding\` move para espaco continuo parametrizado (representacao \`C\`).
+3. Projecao de saida transforma representacao em scores nao normalizados por classe.
 
-Leitura por etapa:
-- \`Embedding\` preserva batch e tempo, mas troca inteiro por vetor
-- \`Linear\` preserva batch e tempo, mas troca largura \`C\` por vocabulario \`V\``,
+Consumo do tensor em treino e inferencia:
+- treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
+- inferencia autoregressiva: \`logits[:, -1, :]\` para escolher o proximo indice.
+
+Regra de rigor: \`C\` e espaco de representacao; \`V\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
     },
     'en-us': {
-      title: 'From embeddings to logits',
-      body: `This is the first complete next-token prediction pipeline:
+      title: 'Embedding -> logits: formal prediction contract',
+      body: `Formal problem for this slide: how do we map discrete \'idx\' into a next-token distribution without breaking shape contracts?
 
-1. token IDs go into an \`Embedding\`
-2. each token becomes a width-\`C\` vector in \`(B, T, C)\`
-3. \`Linear(C, V)\` projects to \`(B, T, V)\`
-4. each position now has one score per vocabulary token
+Pipeline notation:
+- \`idx \in Z^{BxT}\`
+- \`E \in R^{VxC}\`
+- \`H = E[idx] \in R^{BxTxC}\`
+- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+- \`logits = H W_out^T + b \in R^{BxTxV}\`
 
-This slide closes the math bridge: discrete integer -> continuous vector -> distribution over vocabulary.
+Operational reading by space:
+1. \`idx\` carries discrete identity per time position.
+2. \`Embedding\` moves data into continuous parametric space (representation width \`C\`).
+3. Output projection turns representation into non-normalized class scores.
 
-Stage-by-stage reading:
-- \`Embedding\` preserves batch and time, but swaps integer IDs for vectors
-- \`Linear\` preserves batch and time, but swaps width \`C\` for vocabulary \`V\``,
+How the tensor is consumed in training and inference:
+- training with \`cross_entropy\`: \`(B*T,V)\` against \`(B*T)\` via aligned flattening;
+- autoregressive inference: \`logits[:, -1, :]\` to choose the next index.
+
+Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these roles breaks interpretation and debugging.`,
     },
   },
   visual: {
-    id: 'pytorch-projection-space',
+    id: 'pytorch-embedding-logits-contract',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Shapes' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Contrato' }],
         codePanel: {
-          title: 'Embedding para logits',
-          description: 'Pipeline minimo: lookup de embedding seguido de projecao Linear para o vocabulario.',
-          source: { snippetId: 'pytorch-lm/linear-to-logits', language: 'python' },
+          title: 'Contrato completo: idx -> embedding -> logits -> loss',
+          description: 'Snippet unico com forward, flatten para cross-entropy e slice de inferencia autoregressiva.',
+          source: { snippetId: 'pytorch-lm/embedding-logits-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Definimos dimensoes para conectar leitura de codigo com leitura de shape.' },
-            { lineRange: [6, 7], content: 'Embedding e Linear bastam para montar o pipeline de linguagem.' },
-            { lineRange: [9, 11], content: 'O forward preserva `(B, T)` e troca IDs por vetores e depois por logits.' },
-            { lineRange: [13, 14], content: 'A ultima dimensao vira vocabulario: um score por token possivel.' },
+            { lineRange: [1, 3], content: 'Importamos torch, modulos de rede e a cross-entropy funcional.' },
+            { lineRange: [5, 7], content: 'Definimos dimensoes estruturais B/T/C/V e inicializamos embedding + cabeca de saida.' },
+            { lineRange: [9, 10], content: 'Geramos idx e targets inteiros no contrato base `(B,T)`.' },
+            { lineRange: [12, 13], content: 'Forward: IDs viram representacoes `(B,T,C)` e depois logits `(B,T,V)`.' },
+            { lineRange: [15, 16], content: 'Flatten alinhado prepara entrada e alvo para `cross_entropy`.' },
+            { lineRange: [18, 18], content: 'Calculamos loss escalar de treino.' },
+            { lineRange: [20, 20], content: 'Na inferencia autoregressiva, usamos apenas a ultima posicao temporal.' },
+            { lineRange: [22, 26], content: 'As impressoes validam shapes criticos para treino e geracao.' },
           ],
         },
         blueprintPanel: {
-          title: 'Contrato de transformacao',
-          subtitle: 'Apenas a ultima dimensao muda em cada etapa.',
+          title: 'Cadeia causal de espacos',
+          subtitle: 'Este slide nao e sobre camada isolada; e sobre o contrato ponta-a-ponta que conecta representacao e decisao.',
           stages: [
-            { label: 'IDs', title: 'O pipeline começa no espaço discreto', shape: '(B,T)', body: 'Cada posição carrega um inteiro que referencia o vocabulário. Ainda não existe geometria; só índice.', reading: 'Essa é a última vez que o modelo “vê” o token como ID puro.' },
-            { label: 'Embedding', title: 'Lookup transforma índice em vetor', shape: '(B,T,C)', body: 'O lookup preserva batch e tempo, mas troca o símbolo por uma representação contínua de largura C.', reading: 'A semântica muda de “qual token é?” para “como esse token é representado?”.' },
-            { label: 'Linear', title: 'Projeção final abre disputa no vocabulário', shape: '(B,T,V)', body: 'A última dimensão deixa de ser largura de representação e passa a ser placar de candidatos no vocabulário.', reading: 'Aqui fecha a ponte inteiro -> vetor -> logits.' },
+            {
+              label: '1. idx discreto',
+              title: 'Identidade simbolica por tempo',
+              shape: 'idx -> (B,T)',
+              body: 'Entrada e inteiro discreto. Nao ha geometria vetorial aqui; ha apenas indice por posicao temporal.',
+              reading: 'Primeira verificacao: dtype inteiro e alinhamento temporal de entrada/alvo.',
+            },
+            {
+              label: '2. embedding',
+              title: 'Levantamento para espaco continuo',
+              shape: 'H -> (B,T,C)',
+              body: 'Lookup parametrizado consulta E e produz representacoes treinaveis com largura C sem alterar B nem T.',
+              reading: 'Aqui nasce o espaco de representacao onde blocos internos operam.',
+            },
+            {
+              label: '3. output projection',
+              title: 'Mapeamento C -> V',
+              shape: 'logits -> (B,T,V)',
+              body: 'A cabeca linear aplica o mesmo operador em toda grade (B,T) e gera scores por classe na base do vocabulario.',
+              reading: 'V e espaco de decisao; ainda sem normalizacao probabilistica.',
+            },
+            {
+              label: '4. training consume',
+              title: 'Cross-entropy exige flatten alinhado',
+              shape: '(B*T,V) vs (B*T)',
+              body: 'O cubo temporal e reindexado para lista de casos de classificacao mantendo correspondencia token-a-token.',
+              reading: 'Flatten errado mantem shape valido mas corrompe supervisao.',
+            },
+            {
+              label: '5. inference slice',
+              title: 'Decisao na ultima posicao',
+              shape: 'logits[:, -1, :] -> (B,V)',
+              body: 'Na geracao autoregressiva, apenas o ultimo passo temporal participa da escolha do proximo indice.',
+              reading: 'Treino consome toda a sequencia; inferencia consome o corte final.',
+            },
           ],
-          invariantsTitle: 'Invariantes',
-          invariants: [
-            'Batch e tempo são preservados nas duas transições.',
-            'Só a última dimensão muda de papel em cada etapa.',
-            'O significado final do tensor é “um score por token possível”.',
-          ],
-          diagnosticsTitle: 'Leitura operacional',
+          diagnosticsTitle: 'Falhas de leitura frequentes',
           diagnostics: [
-            'Se `(B,T)` some, o problema não está na ideia do pipeline; está na implementação.',
-            'Se `C` e `V` se confundem, você perdeu a distinção entre representação e decisão.',
-            'O objetivo do slide é fixar a primeira cadeia completa de previsão de próximo token.',
+            'Confundir `C` com `V` e interpretar projeção de saída como continuação do espaço de representação.',
+            'Usar `targets` fora de `torch.long`, quebrando a semântica discreta da cross-entropy.',
+            'Perder alinhamento temporal no flatten (`logits` e `targets` deixam de se referir ao mesmo token).',
           ],
-          footer: 'Interpretacao: cada posicao de T ganha um vetor de V scores candidatos.',
+          footer: 'Contrato mental: embedding constrói representacao; projeção constrói decisao; loss e slice definem o uso operacional do mesmo tensor.',
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Shapes' }],
+        tabs: [{ label: 'Code' }, { label: 'Contract' }],
         codePanel: {
-          title: 'Embedding to logits',
-          description: 'Minimum pipeline: embedding lookup followed by Linear projection into vocabulary space.',
-          source: { snippetId: 'pytorch-lm/linear-to-logits', language: 'python' },
+          title: 'Full contract: idx -> embedding -> logits -> loss',
+          description: 'Single snippet with forward pass, cross-entropy flattening, and autoregressive inference slice.',
+          source: { snippetId: 'pytorch-lm/embedding-logits-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'We define dimensions to keep code reading tied to shape reading.' },
-            { lineRange: [6, 7], content: 'Embedding plus Linear is enough to form the language pipeline.' },
-            { lineRange: [9, 11], content: 'Forward preserves `(B, T)` and swaps IDs for vectors, then logits.' },
-            { lineRange: [13, 14], content: 'Last dimension becomes vocabulary: one score per candidate token.' },
+            { lineRange: [1, 3], content: 'We import torch, neural modules, and functional cross-entropy.' },
+            { lineRange: [5, 7], content: 'We define structural dimensions B/T/C/V and initialize embedding plus output head.' },
+            { lineRange: [9, 10], content: 'We create integer idx and targets in base `(B,T)` contract.' },
+            { lineRange: [12, 13], content: 'Forward pass: IDs become `(B,T,C)` representations, then `(B,T,V)` logits.' },
+            { lineRange: [15, 16], content: 'Aligned flattening adapts logits/targets to cross-entropy input format.' },
+            { lineRange: [18, 18], content: 'We compute scalar training loss.' },
+            { lineRange: [20, 20], content: 'For autoregressive inference, we keep only the last time position.' },
+            { lineRange: [22, 26], content: 'Prints validate critical shapes for training and generation.' },
           ],
         },
         blueprintPanel: {
-          title: 'Transformation contract',
-          subtitle: 'Only the last dimension changes at each stage.',
+          title: 'Causal chain of spaces',
+          subtitle: 'This slide is not about one isolated layer; it is about the end-to-end contract linking representation and decision.',
           stages: [
-            { label: 'IDs', title: 'The pipeline starts in discrete space', shape: '(B,T)', body: 'Each position carries an integer referencing the vocabulary. There is no geometry yet; only indices.', reading: 'This is the last time the model sees the token as a raw ID.' },
-            { label: 'Embedding', title: 'Lookup turns index into vector', shape: '(B,T,C)', body: 'Lookup preserves batch and time while replacing the symbol with a width-C continuous representation.', reading: 'Semantics change from “which token is this?” to “how is this token represented?”.' },
-            { label: 'Linear', title: 'Final projection opens vocabulary competition', shape: '(B,T,V)', body: 'The last dimension stops meaning representation width and starts meaning a scoreboard over the vocabulary.', reading: 'This closes the bridge integer -> vector -> logits.' },
+            {
+              label: '1. discrete idx',
+              title: 'Symbolic identity over time',
+              shape: 'idx -> (B,T)',
+              body: 'Input is discrete integer data. No vector geometry exists yet; only one index per time position.',
+              reading: 'First check: integer dtype and temporal alignment between input and targets.',
+            },
+            {
+              label: '2. embedding',
+              title: 'Lift into continuous space',
+              shape: 'H -> (B,T,C)',
+              body: 'Parameterized lookup reads E and emits trainable width-C representations without changing B or T.',
+              reading: 'This is where representation space begins for downstream blocks.',
+            },
+            {
+              label: '3. output projection',
+              title: 'Map C -> V',
+              shape: 'logits -> (B,T,V)',
+              body: 'The output head applies one shared operator across the full (B,T) grid and produces per-class scores over vocabulary basis.',
+              reading: 'V is decision space; still pre-normalization.',
+            },
+            {
+              label: '4. training consume',
+              title: 'Cross-entropy requires aligned flattening',
+              shape: '(B*T,V) vs (B*T)',
+              body: 'The temporal cube is reindexed into a list of classification cases while preserving token-to-token correspondence.',
+              reading: 'Wrong flattening can keep valid shapes while corrupting supervision.',
+            },
+            {
+              label: '5. inference slice',
+              title: 'Decision at the final position',
+              shape: 'logits[:, -1, :] -> (B,V)',
+              body: 'In autoregressive generation, only the last time step is used to pick the next index.',
+              reading: 'Training consumes all positions; inference consumes the final slice.',
+            },
           ],
-          invariantsTitle: 'Invariants',
-          invariants: [
-            'Batch and time are preserved across both transitions.',
-            'Only the last dimension changes role at each stage.',
-            'The final tensor means “one score per possible token”.',
-          ],
-          diagnosticsTitle: 'Operational reading',
+          diagnosticsTitle: 'Frequent interpretation failures',
           diagnostics: [
-            'If `(B,T)` disappears, the problem is not the pipeline idea but the implementation.',
-            'If `C` and `V` get confused, you lost the distinction between representation and decision.',
-            'The purpose of this slide is to lock in the first complete next-token pipeline.',
+            'Confusing `C` with `V` and reading output projection as continuation of representation space.',
+            'Using targets outside `torch.long`, breaking cross-entropy class semantics.',
+            'Losing temporal alignment during flattening (`logits` no longer match the same-token targets).',
           ],
-          footer: 'Interpretation: each T position gets a V-sized score vector.',
+          footer: 'Mental contract: embedding builds representation; projection builds decision; loss and slice define operational usage of the same tensor.',
         },
       },
     },
