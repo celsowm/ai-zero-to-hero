@@ -14,13 +14,17 @@ interface PytorchTabbedCodeLayoutProps {
   };
   altPanel: React.ReactNode;
   /**
+   * Optional third tab content. When provided, tab index 2 renders this panel.
+   */
+  extraPanel?: React.ReactNode;
+  /**
    * Optional content rendered at the bottom of the Code tab, below the code editor.
    * Used to add an iterative network diagram or auxiliary visualization underneath the code.
    */
   codeTabFooter?: React.ReactNode;
 }
 
-export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel, codeTabFooter }: PytorchTabbedCodeLayoutProps) => {
+export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel, extraPanel, codeTabFooter }: PytorchTabbedCodeLayoutProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -51,7 +55,7 @@ export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel, 
               </div>
             )}
           </div>
-        ) : altPanel}
+        ) : activeTab === 1 || !extraPanel ? altPanel : extraPanel}
       </div>
     </div>
   );

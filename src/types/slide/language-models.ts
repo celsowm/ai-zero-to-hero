@@ -359,6 +359,20 @@ export interface PytorchExecutionPipelineCopy {
     stepLabel: string;
     completionLabel: string;
   };
+  interactivePanel?: {
+    title: string;
+    subtitle?: string;
+    weightLabel: string;
+    targetLabel: string;
+    learningRateLabel: string;
+    gradientLabel: string;
+    stepSizeLabel: string;
+    updatedWeightLabel: string;
+    lossBeforeLabel: string;
+    lossAfterLabel: string;
+    interpretationTitle: string;
+    interpretationBullets: string[];
+  };
 }
 
 export interface PytorchShapeTraceFlowCopy {
