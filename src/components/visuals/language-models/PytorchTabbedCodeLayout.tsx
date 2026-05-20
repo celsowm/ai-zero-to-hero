@@ -16,13 +16,25 @@ interface PytorchTabbedCodeLayoutProps {
 }
 
 export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel }: PytorchTabbedCodeLayoutProps) => {
+  const safeTabs = tabs ?? [];
   const [activeTab, setActiveTab] = useState(0);
+
+  if (safeTabs.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Tab data unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          This visual has no tabs to render for the current locale.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full min-h-0">
       <TabsBar
-        ariaLabel={tabs[0]?.label ?? 'Tabs'}
-        items={tabs}
+        ariaLabel={safeTabs[0]?.label ?? 'Tabs'}
+        items={safeTabs}
         activeIndex={activeTab}
         onChange={setActiveTab}
       />

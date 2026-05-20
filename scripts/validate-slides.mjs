@@ -3,7 +3,9 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const slidesDir = join(__dirname, '..', 'src', 'content', 'slides');
+const projectRoot = join(__dirname, '..');
+const slidesDir = join(projectRoot, 'src', 'content', 'slides');
+const outlinePath = join(projectRoot, 'src', 'data', 'course-outline.ts');
 
 const files = readdirSync(slidesDir).filter(f => f.endsWith('.ts') && f !== '_factory.ts' && f !== 'index.ts');
 const ids = new Set();
@@ -23,6 +25,24 @@ for (const file of files) {
   } else {
     ids.add(idMatch[1]);
   }
+}
+
+const outlineIds = new Set(
+  (readFileSync(outlinePath, 'utf-8').match(/'([\w-]+)'/g) ?? []).map(s => s.replace(/'/g, '')),
+);
+
+const fileIds = [...ids];
+const missingFromOutline = fileIds.filter(id => !outlineIds.has(id));
+const missingFromFiles = [...outlineIds].filter(id => !ids.has(id));
+
+if (missingFromOutline.length > 0) {
+  console.error(`❌ Slides missing from course-outline.ts: ${missingFromOutline.join(', ')}`);
+  hasError = true;
+}
+
+if (missingFromFiles.length > 0) {
+  console.error(`❌ course-outline.ts references missing slide files: ${missingFromFiles.join(', ')}`);
+  hasError = true;
 }
 
 if (hasError) {

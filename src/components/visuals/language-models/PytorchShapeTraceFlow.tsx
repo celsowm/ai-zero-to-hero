@@ -11,16 +11,29 @@ interface PytorchShapeTraceFlowProps {
 const STAGE_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b'];
 
 export const PytorchShapeTraceFlow = React.memo(({ copy }: PytorchShapeTraceFlowProps) => {
+  const tabs = copy.tabs ?? [];
+  const stages = copy.tracePanel?.stages ?? [];
   const [activeTab, setActiveTab] = useState(0);
   const [activeStage, setActiveStage] = useState(0);
-  const stages = copy.tracePanel.stages;
+
+  if (tabs.length === 0 || stages.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Shape trace data unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          The current slide copy is missing the tab or stage data required to render this visual.
+        </div>
+      </div>
+    );
+  }
+
   const stage = stages[activeStage] ?? stages[0];
 
   return (
     <div className="flex flex-col h-full min-h-0">
       <TabsBar
-        ariaLabel={copy.tabs[0]?.label ?? 'Tabs'}
-        items={copy.tabs}
+        ariaLabel={tabs[0]?.label ?? 'Tabs'}
+        items={tabs}
         activeIndex={activeTab}
         onChange={setActiveTab}
       />

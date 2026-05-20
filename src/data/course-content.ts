@@ -73,9 +73,17 @@ const orderedSlides = courseSlideOrder.map((slideId) => {
 
 const courseSlideIds = new Set<string>(courseSlideOrder);
 const unexpectedSlides = [...slidesById.keys()].filter(id => !courseSlideIds.has(id));
+const missingSlides = courseSlideOrder.filter(id => !slidesById.has(id));
 
-if (unexpectedSlides.length > 0) {
-  console.error(`Slides not listed in course outline: ${unexpectedSlides.join(', ')}`);
+if (unexpectedSlides.length > 0 || missingSlides.length > 0) {
+  const messages: string[] = [];
+  if (unexpectedSlides.length > 0) {
+    messages.push(`Slides not listed in course outline: ${unexpectedSlides.join(', ')}`);
+  }
+  if (missingSlides.length > 0) {
+    messages.push(`Slides listed in course outline but missing from content: ${missingSlides.join(', ')}`);
+  }
+  throw new Error(messages.join(' | '));
 }
 
 export const courseContent: ISlide[] = orderedSlides;
