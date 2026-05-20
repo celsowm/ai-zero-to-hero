@@ -10,14 +10,25 @@ interface PytorchExecutionPipelineVisualProps {
 const STEP_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b'];
 
 export const PytorchExecutionPipelineVisual = React.memo(({ copy }: PytorchExecutionPipelineVisualProps) => {
+  const tabs = copy.tabs ?? [];
   const [activeStep, setActiveStep] = useState(0);
-  const steps = copy.pipelinePanel.steps;
+  const steps = copy.pipelinePanel?.steps ?? [];
+  if (tabs.length === 0 || steps.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Execution pipeline unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          This visual is missing tab or step data for the current locale.
+        </div>
+      </div>
+    );
+  }
   const step = steps[activeStep] ?? steps[0];
   const progress = steps.length > 1 ? activeStep / (steps.length - 1) : 1;
 
   return (
     <PytorchTabbedCodeLayout
-      tabs={copy.tabs}
+      tabs={tabs}
       codePanel={copy.codePanel}
       altPanel={(
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 16 }}>

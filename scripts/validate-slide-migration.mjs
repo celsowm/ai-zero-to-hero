@@ -5,7 +5,7 @@
  * Checks:
  * 1. Every JSON slide has a corresponding .ts file
  * 2. Every .ts file has matching id field
- * 3. No slides missing from course-outline.ts
+ * 3. Every TS slide is listed in course-outline.ts
  *
  * Usage: node scripts/validate-slide-migration.mjs
  */
@@ -19,6 +19,7 @@ const projectRoot = join(__dirname, '..');
 
 const jsonDir = join(projectRoot, 'src/data/slides');
 const tsDir = join(projectRoot, 'src/content/slides');
+const outlinePath = join(projectRoot, 'src/data/course-outline.ts');
 
 const jsonFiles = readdirSync(jsonDir).filter(f => f.endsWith('.json'));
 const tsFiles = readdirSync(tsDir).filter(f => f.endsWith('.ts') && !f.startsWith('_') && f !== 'index.ts');
@@ -62,12 +63,26 @@ if (badIds.length > 0) {
   console.log('\n✅ All TS files have correct id fields');
 }
 
+// Check 3: every TS slide is listed in course-outline.ts
+const outline = readFileSync(outlinePath, 'utf-8');
+const outlineIds = new Set((outline.match(/'([\w-]+)'/g) ?? []).map(s => s.replace(/'/g, '')));
+const missingFromOutline = tsFiles
+  .map(file => file.replace('.ts', ''))
+  .filter(id => !outlineIds.has(id));
+
+if (missingFromOutline.length > 0) {
+  console.error(`\n❌ ${missingFromOutline.length} TS files missing from course-outline.ts:`);
+  for (const id of missingFromOutline) console.error(`  - ${id}`);
+} else {
+  console.log('\n✅ All TS files are listed in course-outline.ts');
+}
+
 // Summary
 console.log('\n' + '='.repeat(50));
-if (missingTs.length === 0 && badIds.length === 0) {
+if (missingTs.length === 0 && badIds.length === 0 && missingFromOutline.length === 0) {
   console.log('✅ MIGRATION COMPLETE — safe to delete JSON files');
   console.log(`   ${tsFiles.length} slides migrated successfully`);
 } else {
-  console.log(`❌ MIGRATION INCOMPLETE — ${missingTs.length + badIds.length} issues remain`);
+  console.log(`❌ MIGRATION INCOMPLETE — ${missingTs.length + badIds.length + missingFromOutline.length} issues remain`);
   process.exit(1);
 }

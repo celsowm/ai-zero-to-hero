@@ -136,4 +136,18 @@ describe('content integrity', () => {
       );
     }
   });
+
+  it('every slide TS file is listed in course-outline.ts', () => {
+    const outlinePath = join(projectRoot, 'src/data/course-outline.ts');
+    const outline = readFileSync(outlinePath, 'utf-8');
+
+    const outlineIds = new Set((outline.match(/'([\w-]+)'/g) ?? []).map(s => s.replace(/'/g, '')));
+    const missingFromOutline = slideFiles
+      .map(file => file.replace('.ts', ''))
+      .filter(id => !outlineIds.has(id));
+
+    if (missingFromOutline.length > 0) {
+      assert.fail(`Slides missing from course-outline.ts:\n${missingFromOutline.join(', ')}`);
+    }
+  });
 });

@@ -27,15 +27,27 @@ function InlineCode({ children }: { children: React.ReactNode }) {
 }
 
 export const PytorchRuntimePlaybookVisual = React.memo(({ copy }: PytorchRuntimePlaybookVisualProps) => {
+  const tabs = copy.tabs ?? [];
   const [activeIndex, setActiveIndex] = useState(0);
   const [copied, setCopied] = useState(false);
 
-  const active = copy.tabs[activeIndex] ?? copy.tabs[0];
+  if (tabs.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Runtime options unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          The current slide copy is missing runtime tabs for this locale.
+        </div>
+      </div>
+    );
+  }
+
+  const active = tabs[activeIndex] ?? tabs[0];
   const accent = ACCENTS[activeIndex % ACCENTS.length];
 
   const tabItems = useMemo(
-    () => copy.tabs.map(tab => ({ label: tab.label })),
-    [copy.tabs],
+    () => tabs.map(tab => ({ label: tab.label })),
+    [tabs],
   );
 
   async function copyCode() {

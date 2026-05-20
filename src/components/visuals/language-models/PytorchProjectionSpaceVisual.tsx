@@ -143,8 +143,19 @@ function makeStageGroup(index: number) {
 }
 
 export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProjectionSpaceVisualProps) => {
+  const tabs = copy.tabs ?? [];
   const [activeStage, setActiveStage] = useState(0);
-  const stages = copy.blueprintPanel.stages;
+  const stages = copy.blueprintPanel?.stages ?? [];
+  if (tabs.length === 0 || stages.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 flex-col items-center justify-center gap-3 p-6 text-center">
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>Projection space unavailable</div>
+        <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>
+          This visual is missing tab or stage data for the current locale.
+        </div>
+      </div>
+    );
+  }
   const stage = stages[activeStage] ?? stages[0];
   const containerRef = useRef<HTMLDivElement>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -260,7 +271,7 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
 
   return (
     <PytorchTabbedCodeLayout
-      tabs={copy.tabs}
+      tabs={tabs}
       codePanel={copy.codePanel}
       altPanel={(
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 16 }}>
