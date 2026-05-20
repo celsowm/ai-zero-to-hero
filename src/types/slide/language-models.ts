@@ -53,8 +53,24 @@ export interface EmbeddingSpace3DCopy {
 }
 
 export interface EmbeddingSpace3DInteractiveCopy {
-  title: string;
-  distanceLabel: string;
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  interactivePanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    dimensionsLabel: string;
+    projectionLabel: string;
+    retainedLabel: string;
+    beyond3dTitle: string;
+    beyond3dBody: string;
+    hint: string;
+  };
 }
 
 export interface SiliconComputeVisualCopy {
