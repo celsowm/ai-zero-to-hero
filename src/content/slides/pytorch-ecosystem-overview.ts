@@ -49,14 +49,14 @@ export const pytorchEcosystemOverview = defineSlide({
   T --> OPT
   T --> DATA
   T --> CUDA`,
-        legendTitle: 'Legenda operacional',
+        legendTitle: 'Inspector de responsabilidades',
         legend: [
-          { module: 'torch', role: 'Núcleo de tensores, shapes, dtypes e device. Operações como torch.add, torch.matmul e torch.randn moram aqui. Quando o bug é "shape mismatch" ou "expected float, got long", a causa está neste módulo.' },
-          { module: 'torch.nn', role: 'Construção de arquiteturas: Linear, Embedding, Transformer, losses (CrossEntropyLoss). Quando você vê model = nn.Sequential(...) ou class MyModel(nn.Module), está usando este módulo.' },
-          { module: 'nn.Module', role: 'Classe base que todo modelo herda. Agrupa parâmetros (nn.Parameter), submódulos e define a interface forward(). Quando você chama model(parameters()) para o optimizer, está consumindo esse contrato.' },
-          { module: 'torch.optim', role: 'Otimizadores (SGD, Adam) e estratégias de atualização de parâmetros. Só existe depois do backward() e é configurado com model.parameters(). Quando o loss não desce, o problema está aqui ou no learning rate.' },
-          { module: 'torch.utils.data', role: 'Pipeline de ingestão: Dataset (acesso indexado), DataLoader (iteração com batch), Sampler (ordem de iteração). Separa dados do treino — se o dataset está vazio ou o batch está errado, o bug aparece aqui.' },
-          { module: 'torch.cuda', role: 'Gerenciamento de GPU: .to("cuda"), .cuda(), torch.cuda.is_available(). Erro clássico: "expected tensor on cuda, got cuda:1" — todos os tensores precisam estar no mesmo device antes de operar.' },
+          { module: 'torch', role: 'Responsabilidade: Base numerica do runtime: tensor, dtype, shape, stride e operacoes vetoriais.\nLimite: Nao define arquitetura de modelo nem politica de treino; entrega primitivas para os outros modulos.\nAPIs: torch.tensor(...), torch.matmul(...).' },
+          { module: 'torch.nn', role: 'Responsabilidade: Camada declarativa para montar blocos de rede, camadas e funcoes de perda.\nLimite: Nao executa passo de otimizacao; descreve estrutura e computacao do forward.\nAPIs: nn.Linear(...), nn.CrossEntropyLoss(...).' },
+          { module: 'nn.Module', role: 'Responsabilidade: Contrato estrutural de um modelo: parametros registrados, submodulos e metodo forward().\nLimite: Nao escolhe algoritmo de update nem origem dos dados; organiza estado e composicao.\nAPIs: class MyModel(nn.Module), model.parameters().' },
+          { module: 'torch.optim', role: 'Responsabilidade: Aplicar regra de atualizacao sobre gradientes para mover parametros no espaco de solucao.\nLimite: Nao calcula gradiente por conta propria e nao define arquitetura.\nAPIs: torch.optim.AdamW(...), optimizer.step().' },
+          { module: 'torch.utils.data', role: 'Responsabilidade: Pipeline de leitura e batching com fronteira clara entre armazenamento e iteracao.\nLimite: Nao treina modelo nem define regra de gradiente; apenas entrega lotes consistentes.\nAPIs: Dataset, DataLoader(...).' },
+          { module: 'torch.cuda', role: 'Responsabilidade: Superficie de execucao em GPU, alocacao de device e operacoes associadas ao backend CUDA.\nLimite: Nao substitui design de modelo ou loop de treino; apenas controla contexto de hardware.\nAPIs: torch.cuda.is_available(), tensor.to(\"cuda\").' },
         ],
         footer: 'Proxima etapa: antes de ler ranks e shapes, fixar o que "tensor" significa no PyTorch.',
       },
@@ -76,14 +76,14 @@ export const pytorchEcosystemOverview = defineSlide({
   T --> OPT
   T --> DATA
   T --> CUDA`,
-        legendTitle: 'Operational legend',
+        legendTitle: 'Responsibility inspector',
         legend: [
-          { module: 'torch', role: 'Core tensor engine: shapes, dtypes, device placement. Operations like torch.add, torch.matmul, and torch.randn live here. When the bug is "shape mismatch" or "expected float, got long", the root cause is this module.' },
-          { module: 'torch.nn', role: 'Architecture building blocks: Linear, Embedding, Transformer, losses (CrossEntropyLoss). When you see model = nn.Sequential(...) or class MyModel(nn.Module), you are using this module.' },
-          { module: 'nn.Module', role: 'Base class every model inherits from. Groups parameters (nn.Parameter), submodules, and defines the forward() interface. When you pass model.parameters() to the optimizer, this is the contract you depend on.' },
-          { module: 'torch.optim', role: 'Optimizers (SGD, Adam) and parameter update strategies. Only exists after backward() and is configured with model.parameters(). When the loss does not decrease, the problem is here or in the learning rate.' },
-          { module: 'torch.utils.data', role: 'Input pipeline: Dataset (indexed access), DataLoader (batched iteration), Sampler (iteration order). Keeps data separate from training — if the dataset is empty or the batch is wrong, the bug surfaces here.' },
-          { module: 'torch.cuda', role: 'GPU management: .to("cuda"), .cuda(), torch.cuda.is_available(). Classic error: "expected tensor on cuda, got cuda:1" — all tensors must be on the same device before any operation.' },
+          { module: 'torch', role: 'Responsibility: Numerical runtime foundation for tensors, dtypes, shapes, strides, and vectorized math.\nBoundary: Does not define model architecture or training policy; provides primitives for higher-level modules.\nAPI Anchors: torch.tensor(...), torch.matmul(...).' },
+          { module: 'torch.nn', role: 'Responsibility: Declarative layer to compose network blocks, layers, and loss functions.\nBoundary: Does not perform optimizer updates; it defines structure and forward computation.\nAPI Anchors: nn.Linear(...), nn.CrossEntropyLoss(...).' },
+          { module: 'nn.Module', role: 'Responsibility: Structural contract of a model: registered parameters, submodules, and forward().\nBoundary: Does not choose update algorithms or data sources; it organizes model state and composition.\nAPI Anchors: class MyModel(nn.Module), model.parameters().' },
+          { module: 'torch.optim', role: 'Responsibility: Applies update rules over gradients to move parameters through solution space.\nBoundary: Does not compute gradients by itself and does not define architecture.\nAPI Anchors: torch.optim.AdamW(...), optimizer.step().' },
+          { module: 'torch.utils.data', role: 'Responsibility: Data access and batching pipeline with a clean boundary between storage and iteration.\nBoundary: Does not train the model or define gradient rules; it delivers consistent batches.\nAPI Anchors: Dataset, DataLoader(...).' },
+          { module: 'torch.cuda', role: 'Responsibility: GPU execution surface, device placement, and CUDA runtime access.\nBoundary: Does not replace model design or training-loop logic; it controls hardware context.\nAPI Anchors: torch.cuda.is_available(), tensor.to(\"cuda\").' },
         ],
         footer: 'Next step: before reading ranks and shapes, fix what "tensor" means in PyTorch.',
       },

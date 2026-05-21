@@ -8,9 +8,19 @@ interface PytorchEcosystemMermaidVisualProps {
 
 const MODULE_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b', '#38bdf8'];
 
+const clampLabel = (text: string, max = 22) => (text.length > max ? `${text.slice(0, max - 1)}...` : text);
+
+type ParsedRole = {
+  responsibility: string;
+  boundary: string;
+  anchors: string;
+  raw: string;
+  parsed: boolean;
+};
+
 type Node = {
   module: string;
-  role: string;
+  micro: string;
   color: string;
   x: number;
   y: number;
@@ -18,9 +28,54 @@ type Node = {
   h: number;
 };
 
-const ELLIPSIS = (text: string, max = 34) => (text.length > max ? `${text.slice(0, max - 1)}…` : text);
+const parseRole = (role: string): ParsedRole => {
+  const lines = role
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
 
-const EcosystemDiagram: React.FC<{
+  const readField = (prefixes: string[]) => {
+    const hit = lines.find((line) => prefixes.some((prefix) => line.toLowerCase().startsWith(prefix)));
+    if (!hit) return '';
+    const idx = hit.indexOf(':');
+    return idx >= 0 ? hit.slice(idx + 1).trim() : '';
+  };
+
+  const responsibility = readField(['responsabilidade:', 'responsibility:']);
+  const boundary = readField(['limite:', 'boundary:']);
+  const anchors = readField(['apis:', 'api anchors:']);
+
+  if (responsibility && boundary && anchors) {
+    return { responsibility, boundary, anchors, raw: role, parsed: true };
+  }
+
+  return {
+    responsibility: '',
+    boundary: '',
+    anchors: '',
+    raw: role,
+    parsed: false,
+  };
+};
+
+const microLabelFromRole = (parsed: ParsedRole) => {
+  if (parsed.parsed) return clampLabel(parsed.responsibility, 30);
+  return clampLabel(parsed.raw, 30);
+};
+
+const buildPath = (from: Node, to: Node) => {
+  const x1 = from.x + from.w / 2;
+  const y1 = from.y + from.h / 2;
+  const x2 = to.x + to.w / 2;
+  const y2 = to.y + to.h / 2;
+  const cx1 = x1 + (x2 - x1) * 0.36;
+  const cy1 = y1;
+  const cx2 = x1 + (x2 - x1) * 0.68;
+  const cy2 = y2;
+  return `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
+};
+
+const RadialDiagram: React.FC<{
   nodes: Node[];
   activeIndex: number;
   onSelect: (index: number) => void;
@@ -29,10 +84,16 @@ const EcosystemDiagram: React.FC<{
   const satellites = nodes.slice(1);
 
   return (
-    <svg viewBox="0 0 900 460" style={{ width: '100%', height: '100%' }}>
+    <svg viewBox="0 0 980 520" style={{ width: '100%', height: '100%' }}>
       <defs>
-        <filter id="nodeGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
+        <radialGradient id="diagramBackdrop" cx="50%" cy="48%" r="62%">
+          <stop offset="0%" stopColor="rgba(14,165,233,0.14)" />
+          <stop offset="55%" stopColor="rgba(168,85,247,0.09)" />
+          <stop offset="100%" stopColor="rgba(15,23,42,0.06)" />
+        </radialGradient>
+
+        <filter id="activeGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
@@ -40,43 +101,64 @@ const EcosystemDiagram: React.FC<{
         </filter>
       </defs>
 
+      <rect x="0" y="0" width="980" height="520" fill="url(#diagramBackdrop)" />
+
       {satellites.map((node, i) => {
         const idx = i + 1;
         const isActive = activeIndex === idx;
+        const dimmed = activeIndex !== 0 && !isActive;
         return (
-          <g key={`edge-${node.module}`}>
-            <line
-              x1={core.x + core.w / 2}
-              y1={core.y + core.h / 2}
-              x2={node.x + node.w / 2}
-              y2={node.y + node.h / 2}
-              stroke={isActive ? node.color : '#334155'}
-              strokeWidth={isActive ? 3 : 1.5}
-              strokeDasharray={isActive ? '0' : '6 4'}
-              opacity={0.9}
-            />
-          </g>
+          <path
+            key={`edge-${node.module}`}
+            d={buildPath(core, node)}
+            fill="none"
+            stroke={isActive ? node.color : '#334155'}
+            strokeWidth={isActive ? 3.6 : 1.9}
+            strokeLinecap="round"
+            opacity={dimmed ? 0.28 : isActive ? 0.95 : 0.6}
+            style={{ transition: 'all 260ms ease' }}
+          />
         );
       })}
 
       {nodes.map((node, index) => {
         const isActive = activeIndex === index;
+        const dimmed = activeIndex !== index && activeIndex !== 0;
+
         return (
-          <g key={node.module} style={{ cursor: 'pointer' }} onClick={() => onSelect(index)}>
+          <g
+            key={node.module}
+            style={{ cursor: 'pointer', transition: 'all 220ms ease' }}
+            onClick={() => onSelect(index)}
+          >
             <rect
               x={node.x}
               y={node.y}
               width={node.w}
               height={node.h}
               rx={14}
-              fill={isActive ? `${node.color}22` : 'rgba(17,24,39,0.78)'}
+              fill={isActive ? `${node.color}1c` : 'rgba(15,23,42,0.88)'}
               stroke={isActive ? node.color : '#334155'}
-              strokeWidth={isActive ? 2.2 : 1}
-              filter={isActive ? 'url(#nodeGlow)' : undefined}
+              strokeWidth={isActive ? 2.5 : 1.2}
+              opacity={dimmed ? 0.4 : 1}
+              filter={isActive ? 'url(#activeGlow)' : undefined}
+              style={{ transition: 'all 220ms ease' }}
             />
+
+            <rect
+              x={node.x + 1.5}
+              y={node.y + 1.5}
+              width={4}
+              height={node.h - 3}
+              rx={2}
+              fill={node.color}
+              opacity={isActive ? 1 : 0.45}
+              style={{ transition: 'all 220ms ease' }}
+            />
+
             <text
-              x={node.x + 14}
-              y={node.y + 28}
+              x={node.x + 16}
+              y={node.y + 30}
               fill={isActive ? node.color : '#cbd5e1'}
               fontFamily={sw.fontMono}
               fontSize="20"
@@ -84,8 +166,9 @@ const EcosystemDiagram: React.FC<{
             >
               {node.module}
             </text>
-            <text x={node.x + 14} y={node.y + 53} fill="#94a3b8" fontSize="12">
-              {ELLIPSIS(node.role, 50)}
+
+            <text x={node.x + 16} y={node.y + 55} fill="#94a3b8" fontSize="12.5" opacity={dimmed ? 0.65 : 1}>
+              {node.micro}
             </text>
           </g>
         );
@@ -96,39 +179,45 @@ const EcosystemDiagram: React.FC<{
 
 export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosystemMermaidVisualProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = copy.legend[activeIndex] ?? copy.legend[0];
-  const activeColor = MODULE_COLORS[activeIndex % MODULE_COLORS.length];
+
+  const enriched = useMemo(
+    () => copy.legend.slice(0, 6).map((item) => ({ ...item, parsed: parseRole(item.role) })),
+    [copy.legend]
+  );
 
   const nodes = useMemo<Node[]>(() => {
-    const base = copy.legend.slice(0, 6);
-    if (base.length === 0) return [];
-    const core = {
-      module: base[0].module,
-      role: base[0].role,
-      color: MODULE_COLORS[0],
-      x: 338,
-      y: 172,
-      w: 224,
-      h: 96,
-    };
+    if (enriched.length === 0) return [];
+
     const ring = [
-      { x: 96, y: 82 },
-      { x: 628, y: 82 },
-      { x: 640, y: 302 },
-      { x: 350, y: 330 },
-      { x: 74, y: 302 },
+      { x: 122, y: 66 },
+      { x: 676, y: 72 },
+      { x: 708, y: 336 },
+      { x: 396, y: 382 },
+      { x: 92, y: 332 },
     ];
-    const satellites = base.slice(1).map((entry, i) => ({
+
+    const core = {
+      module: enriched[0].module,
+      micro: microLabelFromRole(enriched[0].parsed),
+      color: MODULE_COLORS[0],
+      x: 376,
+      y: 202,
+      w: 238,
+      h: 104,
+    };
+
+    const satellites = enriched.slice(1).map((entry, i) => ({
       module: entry.module,
-      role: entry.role,
+      micro: microLabelFromRole(entry.parsed),
       color: MODULE_COLORS[(i + 1) % MODULE_COLORS.length],
-      x: ring[i]?.x ?? 80 + i * 120,
-      y: ring[i]?.y ?? 300,
-      w: 210,
-      h: 82,
+      x: ring[i]?.x ?? 110 + i * 120,
+      y: ring[i]?.y ?? 320,
+      w: 214,
+      h: 88,
     }));
+
     return [core, ...satellites];
-  }, [copy.legend]);
+  }, [enriched]);
 
   return (
     <div style={{ display: 'grid', gap: 10, height: '100%' }}>
@@ -147,7 +236,7 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(320px, 1.6fr) minmax(240px, 1fr)',
+          gridTemplateColumns: 'minmax(340px, 1.65fr) minmax(270px, 1fr)',
           gap: 10,
           flex: 1,
           minHeight: 0,
@@ -160,12 +249,10 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             background: sw.surface,
             padding: 10,
             overflow: 'hidden',
-            minHeight: 220,
+            minHeight: 260,
           }}
         >
-          {nodes.length > 0 ? (
-            <EcosystemDiagram nodes={nodes} activeIndex={activeIndex} onSelect={setActiveIndex} />
-          ) : null}
+          {nodes.length > 0 ? <RadialDiagram nodes={nodes} activeIndex={activeIndex} onSelect={setActiveIndex} /> : null}
         </div>
 
         <div
@@ -177,56 +264,109 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             overflow: 'auto',
           }}
         >
-          <div style={{
-            border: `1px solid ${sw.borderSubtle}`,
-            borderRadius: 14,
-            background: sw.surface,
-            padding: '10px 14px',
-            color: sw.text,
-            fontSize: 13,
-            fontWeight: 800,
-          }}>{copy.legendTitle}</div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-            {copy.legend.map((item, index) => {
-              const color = MODULE_COLORS[index % MODULE_COLORS.length];
-              const isActive = index === activeIndex;
-              return (
-                <button
-                  key={item.module}
-                  type="button"
-                  onClick={() => setActiveIndex(index)}
-                  style={{
-                    fontFamily: sw.fontMono,
-                    fontSize: 11,
-                    fontWeight: 800,
-                    padding: '5px 9px',
-                    borderRadius: 999,
-                    border: `1px solid ${isActive ? color : sw.borderSubtle}`,
-                    background: isActive ? `${color}18` : sw.surfaceLight,
-                    color: isActive ? color : sw.textDim,
-                    cursor: 'pointer',
-                  }}
-                >
-                  {item.module}
-                </button>
-              );
-            })}
-          </div>
-
           <div
-            aria-live="polite"
             style={{
-              border: `1px solid ${activeColor}55`,
-              borderRadius: 12,
-              background: `linear-gradient(180deg, ${activeColor}10, rgba(255,255,255,0.01))`,
-              padding: 14,
+              border: `1px solid ${sw.borderSubtle}`,
+              borderRadius: 14,
+              background: sw.surface,
+              padding: '10px 14px',
+              color: sw.text,
+              fontSize: 13,
+              fontWeight: 800,
             }}
           >
-            <div style={{ fontSize: 15, fontWeight: 800, color: activeColor, fontFamily: sw.fontMono, marginBottom: 8 }}>
-              {active.module}
-            </div>
-            <div style={{ fontSize: 12.5, lineHeight: 1.65, color: sw.text }}>{active.role}</div>
+            {copy.legendTitle}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {enriched.map((item, index) => {
+              const isActive = activeIndex === index;
+              const color = MODULE_COLORS[index % MODULE_COLORS.length];
+
+              return (
+                <section
+                  key={item.module}
+                  style={{
+                    border: `1px solid ${isActive ? color : sw.borderSubtle}`,
+                    borderRadius: 12,
+                    background: isActive ? `linear-gradient(160deg, ${color}12, rgba(15,23,42,0.75))` : sw.surfaceLight,
+                    overflow: 'hidden',
+                    transition: 'all 220ms ease',
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    style={{
+                      width: '100%',
+                      border: 0,
+                      background: 'transparent',
+                      color: sw.text,
+                      display: 'grid',
+                      gridTemplateColumns: '4px 1fr auto',
+                      alignItems: 'center',
+                      gap: 10,
+                      textAlign: 'left',
+                      padding: '10px 12px 10px 0',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <span style={{ width: 4, alignSelf: 'stretch', borderRadius: 99, background: color, opacity: isActive ? 1 : 0.55 }} />
+                    <span style={{ display: 'grid', gap: 2 }}>
+                      <span style={{ fontFamily: sw.fontMono, fontSize: 14, fontWeight: 800, color: isActive ? color : sw.text }}>{item.module}</span>
+                      <span style={{ fontSize: 11.5, color: sw.textDim }}>{microLabelFromRole(item.parsed)}</span>
+                    </span>
+                    <span style={{ color: isActive ? color : sw.textDim, fontSize: 13, fontWeight: 800 }}>{isActive ? '-' : '+'}</span>
+                  </button>
+
+                  {isActive ? (
+                    <div
+                      aria-live="polite"
+                      style={{
+                        padding: '0 12px 12px 14px',
+                        display: 'grid',
+                        gap: 8,
+                      }}
+                    >
+                      {item.parsed.parsed ? (
+                        <>
+                          <div style={{ borderTop: `1px solid ${color}44`, paddingTop: 9 }}>
+                            <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                              Responsabilidade
+                            </div>
+                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6 }}>{item.parsed.responsibility}</div>
+                          </div>
+                          <div>
+                            <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                              Limite do modulo
+                            </div>
+                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6 }}>{item.parsed.boundary}</div>
+                          </div>
+                          <div>
+                            <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
+                              APIs ancora
+                            </div>
+                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6, fontFamily: sw.fontMono }}>{item.parsed.anchors}</div>
+                          </div>
+                        </>
+                      ) : (
+                        <div
+                          style={{
+                            borderTop: `1px solid ${color}44`,
+                            paddingTop: 9,
+                            color: sw.text,
+                            fontSize: 12.5,
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {item.parsed.raw}
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
+                </section>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -247,4 +387,3 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
     </div>
   );
 });
-
