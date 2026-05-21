@@ -8,7 +8,7 @@ interface PytorchEcosystemMermaidVisualProps {
 
 const MODULE_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b', '#38bdf8'];
 
-const clampLabel = (text: string, max = 22) => (text.length > max ? `${text.slice(0, max - 1)}...` : text);
+const clampLabel = (text: string, max = 44) => (text.length > max ? `${text.slice(0, max - 1)}...` : text);
 
 type ParsedRole = {
   responsibility: string;
@@ -63,6 +63,11 @@ const microLabelFromRole = (parsed: ParsedRole) => {
   return clampLabel(parsed.raw, 30);
 };
 
+const summaryFromRole = (parsed: ParsedRole) => {
+  if (parsed.parsed) return parsed.responsibility;
+  return parsed.raw;
+};
+
 const buildPath = (from: Node, to: Node) => {
   const x1 = from.x + from.w / 2;
   const y1 = from.y + from.h / 2;
@@ -84,7 +89,7 @@ const RadialDiagram: React.FC<{
   const satellites = nodes.slice(1);
 
   return (
-    <svg viewBox="0 0 980 520" style={{ width: '100%', height: '100%' }}>
+    <svg viewBox="0 0 1000 560" style={{ width: '100%', height: '100%' }}>
       <defs>
         <radialGradient id="diagramBackdrop" cx="50%" cy="48%" r="62%">
           <stop offset="0%" stopColor="rgba(14,165,233,0.14)" />
@@ -101,7 +106,7 @@ const RadialDiagram: React.FC<{
         </filter>
       </defs>
 
-      <rect x="0" y="0" width="980" height="520" fill="url(#diagramBackdrop)" />
+      <rect x="0" y="0" width="1000" height="560" fill="url(#diagramBackdrop)" />
 
       {satellites.map((node, i) => {
         const idx = i + 1;
@@ -161,13 +166,13 @@ const RadialDiagram: React.FC<{
               y={node.y + 30}
               fill={isActive ? node.color : '#cbd5e1'}
               fontFamily={sw.fontMono}
-              fontSize="20"
+              fontSize="24"
               fontWeight="800"
             >
               {node.module}
             </text>
 
-            <text x={node.x + 16} y={node.y + 55} fill="#94a3b8" fontSize="12.5" opacity={dimmed ? 0.65 : 1}>
+            <text x={node.x + 16} y={node.y + 62} fill="#94a3b8" fontSize="14" opacity={dimmed ? 0.65 : 1}>
               {node.micro}
             </text>
           </g>
@@ -189,21 +194,21 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
     if (enriched.length === 0) return [];
 
     const ring = [
-      { x: 122, y: 66 },
-      { x: 676, y: 72 },
-      { x: 708, y: 336 },
-      { x: 396, y: 382 },
-      { x: 92, y: 332 },
+      { x: 86, y: 76 },
+      { x: 704, y: 78 },
+      { x: 734, y: 372 },
+      { x: 392, y: 428 },
+      { x: 56, y: 366 },
     ];
 
     const core = {
       module: enriched[0].module,
       micro: microLabelFromRole(enriched[0].parsed),
       color: MODULE_COLORS[0],
-      x: 376,
-      y: 202,
-      w: 238,
-      h: 104,
+      x: 372,
+      y: 228,
+      w: 260,
+      h: 112,
     };
 
     const satellites = enriched.slice(1).map((entry, i) => ({
@@ -212,8 +217,8 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
       color: MODULE_COLORS[(i + 1) % MODULE_COLORS.length],
       x: ring[i]?.x ?? 110 + i * 120,
       y: ring[i]?.y ?? 320,
-      w: 214,
-      h: 88,
+      w: 238,
+      h: 98,
     }));
 
     return [core, ...satellites];
@@ -236,7 +241,7 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(340px, 1.65fr) minmax(270px, 1fr)',
+          gridTemplateColumns: 'minmax(380px, 1.7fr) minmax(280px, 1fr)',
           gap: 10,
           flex: 1,
           minHeight: 0,
@@ -249,7 +254,7 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             background: sw.surface,
             padding: 10,
             overflow: 'hidden',
-            minHeight: 260,
+            minHeight: 280,
           }}
         >
           {nodes.length > 0 ? <RadialDiagram nodes={nodes} activeIndex={activeIndex} onSelect={setActiveIndex} /> : null}
@@ -278,7 +283,7 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             {copy.legendTitle}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
             {enriched.map((item, index) => {
               const isActive = activeIndex === index;
               const color = MODULE_COLORS[index % MODULE_COLORS.length];
@@ -312,11 +317,11 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
                     }}
                   >
                     <span style={{ width: 4, alignSelf: 'stretch', borderRadius: 99, background: color, opacity: isActive ? 1 : 0.55 }} />
-                    <span style={{ display: 'grid', gap: 2 }}>
-                      <span style={{ fontFamily: sw.fontMono, fontSize: 14, fontWeight: 800, color: isActive ? color : sw.text }}>{item.module}</span>
-                      <span style={{ fontSize: 11.5, color: sw.textDim }}>{microLabelFromRole(item.parsed)}</span>
+                      <span style={{ display: 'grid', gap: 3 }}>
+                      <span style={{ fontFamily: sw.fontMono, fontSize: 15, fontWeight: 800, color: isActive ? color : sw.text }}>{item.module}</span>
+                      <span style={{ fontSize: 12, color: sw.textDim, lineHeight: 1.4, whiteSpace: 'normal', overflowWrap: 'anywhere' }}>{summaryFromRole(item.parsed)}</span>
                     </span>
-                    <span style={{ color: isActive ? color : sw.textDim, fontSize: 13, fontWeight: 800 }}>{isActive ? '-' : '+'}</span>
+                    <span style={{ color: isActive ? color : sw.textDim, fontSize: 16, fontWeight: 800 }}>{isActive ? '-' : '+'}</span>
                   </button>
 
                   {isActive ? (
@@ -334,19 +339,19 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
                             <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
                               Responsabilidade
                             </div>
-                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6 }}>{item.parsed.responsibility}</div>
+                            <div style={{ color: sw.text, fontSize: 13, lineHeight: 1.6 }}>{item.parsed.responsibility}</div>
                           </div>
                           <div>
                             <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
-                              Limite do modulo
+                              Limite do módulo
                             </div>
-                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6 }}>{item.parsed.boundary}</div>
+                            <div style={{ color: sw.text, fontSize: 13, lineHeight: 1.6 }}>{item.parsed.boundary}</div>
                           </div>
                           <div>
                             <div style={{ color: color, fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase' }}>
-                              APIs ancora
+                              APIs âncora
                             </div>
-                            <div style={{ color: sw.text, fontSize: 12.5, lineHeight: 1.6, fontFamily: sw.fontMono }}>{item.parsed.anchors}</div>
+                            <div style={{ color: sw.text, fontSize: 13, lineHeight: 1.6, fontFamily: sw.fontMono }}>{item.parsed.anchors}</div>
                           </div>
                         </>
                       ) : (
