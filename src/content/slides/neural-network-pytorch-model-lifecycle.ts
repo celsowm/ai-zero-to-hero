@@ -7,7 +7,7 @@ export const neuralNetworkPytorchModelLifecycle = defineSlide({
   content: {
     'pt-br': {
       title: 'Ciclo de vida do modelo',
-      body: `Todo projeto serio com PyTorch alterna modos de execucao. Se isso ficar confuso, o comportamento parece "aleatorio".
+      body: `Nos slides anteriores, discutimos otimizadores — como \`AdamW\` ajusta os pesos durante o treino. Mas o mesmo modelo PyTorch opera em **dois modos radicalmente diferentes**: treino (quando pesos mudam via \`backward\`) e inferência (quando apenas lemos a saída). Sem controle explícito desses modos, dropout, batch normalization e até o grafo de computação se comportam de formas inesperadas — e o modelo parece "aleatório".
 
 Contrato de ciclo de vida:
 1. **\`model.train()\`**: ativa comportamento de treino (ex: dropout).
@@ -26,7 +26,7 @@ Erro recorrente:
     },
     'en-us': {
       title: 'Model lifecycle',
-      body: `Every serious PyTorch project alternates execution modes. If this is fuzzy, behavior feels random.
+      body: `In the preceding slides we covered optimizers — how \`AdamW\` updates weights during training. But the same PyTorch model operates in **two radically different modes**: training (when weights change via \`backward()\`) and inference (when we only read the output). Without explicit control of these modes, dropout, batch normalization, and even the computation graph behave unexpectedly — and the model seems "random".
 
 Lifecycle contract:
 1. **\`model.train()\`**: enables training behavior (for example dropout).

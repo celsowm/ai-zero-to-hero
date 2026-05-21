@@ -11,7 +11,7 @@ export const pytorchEmbeddingIntro = defineSlide({
 
 É exatamente esse o papel de \`Embedding\`:
 - antes: \`idx\` é inteiro em \`(B,T)\` (identidade simbólica, sem geometria útil);
-- depois: cada ID vira vetor denso treinável, e o tensor passa a \`(B,T,C)\`.
+- depois: cada ID vira vetor denso treinável, e o tensor passa a \`(B,T,C)\` (\`C\` = largura do vetor de embedding / dimensão vetorial por token).
 
 Leitura prática:
 1. a tabela \`E\` tem uma linha por token do vocabulário (\`V\`);
@@ -42,14 +42,6 @@ Conexão com próximos slides:
 - no próximo passo, \`Linear(C,V)\` transforma representação em logits por token.
 
 Resumo mental: **Embedding não decide token; embedding cria representação para o resto da rede decidir.**`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/embedding-intro
-\`\`\``,
-      codeExplanations: [
-        { lineRange: [1, 5], content: 'Definimos tamanho de vocabulário e largura dos vetores e criamos a tabela de embedding.' },
-        { lineRange: [6, 8], content: 'A entrada ainda é inteira: cada ID funciona como índice para uma linha da tabela.' },
-        { lineRange: [10, 13], content: 'A chamada da embedding devolve vetores densos e deixa explícita a conversão de ID para representação contínua.' },
-      ],
     },
     'en-us': {
       title: 'Embedding: from integer ID to vector',
@@ -57,7 +49,7 @@ snippet:pytorch-lm/embedding-intro
 
 That is exactly the job of \`Embedding\`:
 - before: \`idx\` is integer-only data in \`(B,T)\` (symbolic identity, no useful geometry yet);
-- after: each ID becomes a trainable dense vector, so shape becomes \`(B,T,C)\`.
+- after: each ID becomes a trainable dense vector, so shape becomes \`(B,T,C)\` (\`C\` = embedding vector width / per-token representation dimension).
 
 Practical reading:
 1. table \`E\` has one row per vocabulary token (\`V\`);
@@ -88,14 +80,67 @@ Connection to next slides:
 - next, \`Linear(C,V)\` turns representation into per-token logits.
 
 Mental summary: **Embedding does not choose the token; embedding builds the representation so the network can choose.**`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/embedding-intro
-\`\`\``,
-      codeExplanations: [
-        { lineRange: [1, 5], content: 'We define vocabulary size and vector width, then initialize the embedding table.' },
-        { lineRange: [6, 8], content: 'Inputs are still integers: each token ID indexes one row in that table.' },
-        { lineRange: [10, 13], content: 'Embedding lookup returns dense vectors and makes the ID -> representation conversion explicit.' },
-      ],
+    },
+  },
+  visual: {
+    id: 'pytorch-embedding-intro',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Código' }, { label: 'Explorador' }],
+        codePanel: {
+          title: 'Embedding: lookup na tabela',
+          description: 'Exemplo curto que mostra o lookup de IDs inteiros na tabela de embedding.',
+          source: { snippetId: 'pytorch-lm/embedding-intro', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 6], content: 'Importamos torch e nn. Definimos V (vocabulário), C (dimensão do embedding) e criamos a tabela de embedding.' },
+            { lineRange: [7, 10], content: 'A tabela de embedding tem shape (V, C) e é treinável — gradientes fluem por ela durante o backward.' },
+            { lineRange: [11, 14], content: 'Criamos um tensor de índices inteiros (batch=2, seq=3) e fazemos lookup na tabela.' },
+            { lineRange: [15, 18], content: 'Shape após lookup: (B,T,C). Token 42 ganha um vetor de 16 dimensões.' },
+            { lineRange: [19, 23], content: 'Internamente é um one-hot indexado, não multiplicado — eficiente porque evita construir a matriz one-hot gigante.' },
+          ],
+        },
+        embedExplorer: {
+          title: 'Tabela de embedding interativa',
+          subtitle: 'Clique em uma linha para ver como o lookup funciona: ID inteiro → vetor denso.',
+          vocabSizeLabel: 'Vocabulário (V)',
+          embedDimLabel: 'Dimensão (C)',
+          tableLabel: 'Tabela de Embedding E ∈ R^(V × C)',
+          rowLabel: 'Token',
+          maxIdLabel: 'Lookup ativo',
+          lookupLabel: 'Lookup',
+          lookupBody: 'embedding(idx) percorre a linha correspondente e retorna o vetor. Não há multiplicação de matriz — é puramente indexação.',
+          sharedWeightsHint: 'A mesma tabela é usada para todas as posições da sequência e todos os batches. Não existe uma tabela por token de entrada.',
+          footer: 'Regra: embedding não computa representação contextual — ele apenas fornece o ponto de partida vetorial para cada token.',
+        },
+      },
+      'en-us': {
+        tabs: [{ label: 'Code' }, { label: 'Explorer' }],
+        codePanel: {
+          title: 'Embedding: table lookup',
+          description: 'Short example showing the integer-ID lookup in the embedding table.',
+          source: { snippetId: 'pytorch-lm/embedding-intro', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 6], content: 'Import torch and nn. Define V (vocab size), C (embedding dim), then create the embedding table.' },
+            { lineRange: [7, 10], content: 'The embedding table has shape (V, C) and is trainable — gradients flow through it during backward.' },
+            { lineRange: [11, 14], content: 'Create an integer index tensor (batch=2, seq=3) and look up rows in the table.' },
+            { lineRange: [15, 18], content: 'Post-lookup shape: (B,T,C). Token 42 gets a 16-dimensional vector.' },
+            { lineRange: [19, 23], content: 'Internally: indexed one-hot, not multiplied — efficient because it avoids building the huge one-hot matrix.' },
+          ],
+        },
+        embedExplorer: {
+          title: 'Interactive embedding table',
+          subtitle: 'Click a row to see how lookup works: integer ID → dense vector.',
+          vocabSizeLabel: 'Vocabulary (V)',
+          embedDimLabel: 'Dimension (C)',
+          tableLabel: 'Embedding Table E ∈ R^(V × C)',
+          rowLabel: 'Token',
+          maxIdLabel: 'Active lookup',
+          lookupLabel: 'Lookup',
+          lookupBody: 'embedding(idx) walks the matching row and returns the vector. No matrix multiplication — it is pure indexing.',
+          sharedWeightsHint: 'The same table is shared across all sequence positions and batches. There is no per-input-token table.',
+          footer: 'Rule: embedding does not compute contextual representation — it only provides the starting vector for each token.',
+        },
+      },
     },
   },
 });

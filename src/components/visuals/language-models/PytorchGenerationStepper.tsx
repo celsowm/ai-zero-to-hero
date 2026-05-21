@@ -13,7 +13,7 @@ interface GenerationCopy {
   contextLabel: string;
   nextLabel: string;
   prevLabel: string;
-  nextStepLabel: string;
+  nextStepLabel?: string;
   stepLabel: string;
   completionLabel: string;
 }
@@ -32,7 +32,6 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const totalSteps = copy.generatedTokens.length;
   const visibleGenerated = copy.generatedTokens.slice(0, step);
   const allTokens = [...copy.initialTokens, ...visibleGenerated];
-  const currentlyEmittedIndex = step > 0 ? copy.initialTokens.length + step - 1 : -1;
   const isComplete = step >= totalSteps;
 
   const accent = sw.cyan;
@@ -77,7 +76,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
       </div>
 
       {/* Tiny network diagram */}
-      <svg viewBox="0 0 320 110" style={{ width: '100%', height: 110, display: 'block' }}>
+      <svg viewBox="0 0 340 155" style={{ width: '100%', height: 155, display: 'block' }}>
         <defs>
           <marker id="genArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
@@ -87,18 +86,19 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         <text x="40" y="14" textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
-        {allTokens.slice(-4).map((token, i, arr) => {
-          const y = 30 + i * 16;
-          const isJustEmitted = arr.length - 1 - i === arr.length - 1 - (allTokens.length - 1 - currentlyEmittedIndex) && currentlyEmittedIndex >= 0 && allTokens.length - 1 === currentlyEmittedIndex && i === arr.length - 1;
+        {allTokens.map((token, i) => {
+          const y = 26 + i * 16;
+          const isGenerated = i >= copy.initialTokens.length;
+          const isLast = isGenerated && i === allTokens.length - 1;
           return (
             <g key={`tok-${i}`}>
               <rect
                 x={10} y={y - 8} rx={4} ry={4} width={60} height={14}
-                fill={isJustEmitted ? `${accent3}25` : sw.surface}
-                stroke={isJustEmitted ? accent3 : sw.borderSubtle}
-                strokeWidth={isJustEmitted ? 1.5 : 1}
+                fill={isLast ? `${accent3}25` : isGenerated ? `${accent2}10` : sw.surface}
+                stroke={isLast ? accent3 : isGenerated ? `${accent2}88` : sw.borderSubtle}
+                strokeWidth={isLast ? 1.5 : 1}
               />
-              <text x={40} y={y + 2} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={isJustEmitted ? accent3 : sw.text} fontWeight="700">
+              <text x={40} y={y + 2} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
                 {token}
               </text>
             </g>
@@ -106,7 +106,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         })}
 
         {/* Arrow tokens -> embedding */}
-        <line x1={72} y1={60} x2={108} y2={60} stroke={accent} strokeWidth="1.5" markerEnd="url(#genArrow)" />
+        <line x1={72} y1={Math.max(60, 26 + (allTokens.length - 1) * 8)} x2={108} y2={Math.max(60, 26 + (allTokens.length - 1) * 8)} stroke={accent} strokeWidth="1.5" markerEnd="url(#genArrow)" />
 
         {/* Embedding node */}
         <rect x={110} y={45} rx={6} ry={6} width={60} height={30} fill={`${accent}22`} stroke={accent} strokeWidth="1.5" />
@@ -185,8 +185,44 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         >
           {copy.prevLabel}
         </button>
-        <div style={{ fontSize: 11, lineHeight: 1.5, color: sw.textDim, textAlign: 'center' }}>
-          {isComplete ? copy.completionLabel : copy.nextStepLabel}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            flexWrap: 'wrap',
+            fontFamily: sw.fontMono,
+            fontSize: 11,
+            color: sw.text,
+            padding: '4px 8px',
+            borderRadius: 8,
+            border: `1px solid ${sw.borderSubtle}`,
+            background: sw.surface,
+          }}
+        >
+          <span style={{ fontWeight: 800, color: sw.textMuted, textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: 10 }}>
+            {copy.contextLabel}:
+          </span>
+          {allTokens.map((token, i) => {
+            const isGenerated = i >= copy.initialTokens.length;
+            const isLast = i === allTokens.length - 1 && isGenerated;
+            return (
+              <span
+                key={`ctl-${i}`}
+                style={{
+                  fontWeight: 700,
+                  padding: '1px 6px',
+                  borderRadius: 6,
+                  background: isLast ? `${accent3}20` : isGenerated ? `${accent2}15` : sw.surfaceLight,
+                  border: `1px solid ${isLast ? accent3 : isGenerated ? `${accent2}55` : sw.borderSubtle}`,
+                  color: isLast ? accent3 : isGenerated ? accent2 : sw.text,
+                }}
+              >
+                {token}
+              </span>
+            );
+          })}
         </div>
         <button
           type="button"
@@ -207,12 +243,6 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           {copy.nextLabel}
         </button>
       </div>
-
-      {copy.vocabularyHint && (
-        <div style={{ fontSize: 11, lineHeight: 1.5, color: sw.textMuted, fontStyle: 'italic' }}>
-          {copy.vocabularyHint}
-        </div>
-      )}
     </div>
   );
 });

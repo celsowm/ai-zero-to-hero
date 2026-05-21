@@ -42,10 +42,13 @@ export { PytorchBridgeShiftVisual } from './language-models/PytorchBridgeShiftVi
 export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMatrixVisual';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
 export { PytorchExecutionPipelineVisual } from './language-models/PytorchExecutionPipelineVisual';
-export { PytorchAutograd3DVisual } from './language-models/PytorchAutograd3DVisual';
+export { TrainingLoopGraph } from './language-models/TrainingLoopGraph';
+export { PytorchCheckpointExplorerVisual } from './language-models/PytorchCheckpointExplorerVisual';
+export { AutogradCodeWalkthrough } from './language-models/AutogradCodeWalkthrough';
 export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePlaybookVisual';
 export { PytorchEcosystemMermaidVisual } from './language-models/PytorchEcosystemMermaidVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
+export { default as EmbeddingIntroVisual } from './language-models/EmbeddingIntroVisual';
 export { PytorchEmbeddingLogitsContract } from './language-models/PytorchEmbeddingLogitsContract';
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { TokenBatchShiftVisual } from './language-models/TokenBatchShiftVisual';
@@ -107,6 +110,7 @@ export { TokenGranularitySlider } from './bpe-tokenization/TokenGranularitySlide
 export { BPEFrequencyTable } from './bpe-tokenization/BPEFrequencyTable';
 export { BPEMergeStack } from './bpe-tokenization/BPEMergeStack';
 export { BPETrainingCurve } from './bpe-tokenization/BPETrainingCurve';
+export { BPEStepByStep } from './bpe-tokenization/BPEStepByStep';
 export { ClassificationProblemVisual } from './classification-problem/ClassificationProblemVisual';
 export { AutoClassResolver } from './transformers/AutoClassResolver';
 export { DataCollatorVisualizer } from './transformers/DataCollatorVisualizer';

@@ -7,6 +7,7 @@ import { attentionOnWeThePeople } from './attention-on-we-the-people';
 import { autoclassesDeepDive } from './autoclasses-deep-dive';
 import { biologicalVsComputationalNeuron } from './biological-vs-computational-neuron';
 import { bpeAlgorithm } from './bpe-algorithm';
+import { bpeByHand } from './bpe-by-hand';
 import { bpeExercise } from './bpe-exercise';
 import { bpeFromScratch } from './bpe-from-scratch';
 import { bpeMergeStack } from './bpe-merge-stack';
@@ -189,6 +190,7 @@ import { pythonPrereqOopAssociation } from './python-prereq-oop-association';
 import { pythonPrereqOopClasses } from './python-prereq-oop-classes';
 import { pythonPrereqOopDataclass } from './python-prereq-oop-dataclass';
 import { pythonPrereqOopDunder } from './python-prereq-oop-dunder';
+import { pythonPrereqOopDunderCall } from './python-prereq-oop-dunder-call';
 import { pythonPrereqOopExercises } from './python-prereq-oop-exercises';
 import { pythonPrereqOopInheritance } from './python-prereq-oop-inheritance';
 import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
@@ -276,8 +278,9 @@ export const allSlides: ISlide[] = [
   attentionOnWeThePeople,
   autoclassesDeepDive,
   biologicalVsComputationalNeuron,
-  bpeAlgorithm,
-  bpeExercise,
+   bpeAlgorithm,
+   bpeByHand,
+   bpeExercise,
   bpeFromScratch,
   bpeMergeStack,
   bpeTraining,
@@ -459,6 +462,7 @@ export const allSlides: ISlide[] = [
   pythonPrereqOopClasses,
   pythonPrereqOopDataclass,
   pythonPrereqOopDunder,
+  pythonPrereqOopDunderCall,
   pythonPrereqOopExercises,
   pythonPrereqOopInheritance,
   pythonPrereqSumGenerator,

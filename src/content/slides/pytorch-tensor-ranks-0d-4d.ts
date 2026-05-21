@@ -19,7 +19,7 @@ Entao a progressao correta e esta:
 2. **1D (vetor)**: um eixo. Ex.: lista de valores ou embedding de um token.
 3. **2D (matriz)**: dois eixos. Ex.: tabela ou sequencia organizada em linhas e colunas.
 4. **3D**: tres eixos. Aqui comeca a leitura que reaparece em modelos: lote, posicao e conteudo.
-5. **4D**: quatro eixos. Surge quando existe mais uma organizacao estrutural, muito comum em visao.
+5. **4D**: quatro eixos. Ex.: batch de imagens \`(2, 3, 28, 28)\` — lote (2 imagens), canais (3: RGB), altura (28px), largura (28px). Os limites de cada eixo sao: batch [0..1], canal [0..2], altura [0..27], largura [0..27].
 
 Leitura mental certa:
 - primeiro conte os eixos;
@@ -44,7 +44,7 @@ So the correct progression is:
 2. **1D (vector)**: one axis. For example, a value list or one token embedding.
 3. **2D (matrix)**: two axes. For example, a table or a sequence arranged in rows and columns.
 4. **3D**: three axes. This is where the reading that reappears in models begins: batch, position, and content.
-5. **4D**: four axes. It appears when one more structural organization is needed, especially common in vision.
+5. **4D**: four axes. For example, a batch of images \`(2, 3, 28, 28)\` — batch (2 images), channels (3: RGB), height (28px), width (28px). Axis limits: batch [0..1], channel [0..2], height [0..27], width [0..27].
 
 Correct mental reading:
 - first count the axes;
@@ -68,9 +68,10 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           codeExplanations: [
             { lineRange: [1, 2], content: 'Importa PyTorch para criar tensores com ranks diferentes.' },
             { lineRange: [4, 5], content: 'Escalar: rank 0, sem eixos.' },
-            { lineRange: [7, 8], content: 'Vetor: rank 1, um eixo.' },
-            { lineRange: [10, 11], content: 'Matriz: rank 2, dois eixos.' },
-            { lineRange: [13, 14], content: 'Tensor 4D: quatro eixos, útil para batches estruturados.' },
+            { lineRange: [7, 8], content: 'Vetor: rank 1, um eixo com shape (4,).' },
+            { lineRange: [10, 11], content: 'Matriz: rank 2, shape (3, 4) — três linhas, quatro colunas.' },
+            { lineRange: [13, 14], content: 'Tensor 3D: rank 3, shape (2, 3, 4) — batch, posição e conteúdo.' },
+            { lineRange: [16, 17], content: 'Tensor 4D: rank 4, shape (2, 3, 28, 28) — típico em visão computacional.' },
           ],
         },
         interactivePanel: {
@@ -83,6 +84,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           vectorLabel: 'Vetor',
           matrixLabel: 'Matriz',
           tensor3dLabel: 'Tensor 3D',
+          tensor4dLabel: 'Tensor 4D',
           footer: 'Regra operacional: rank nao e decoracao. Ele diz quantos eixos voce precisa explicar para entender o tensor.',
         },
       },
@@ -95,9 +97,10 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           codeExplanations: [
             { lineRange: [1, 2], content: 'Imports PyTorch to create tensors at different ranks.' },
             { lineRange: [4, 5], content: 'Scalar: rank 0, no axes.' },
-            { lineRange: [7, 8], content: 'Vector: rank 1, one axis.' },
-            { lineRange: [10, 11], content: 'Matrix: rank 2, two axes.' },
-            { lineRange: [13, 14], content: '4D tensor: four axes, useful for structured batching.' },
+            { lineRange: [7, 8], content: 'Vector: rank 1, one axis with shape (4,).' },
+            { lineRange: [10, 11], content: 'Matrix: rank 2, shape (3, 4) — three rows, four columns.' },
+            { lineRange: [13, 14], content: '3D tensor: rank 3, shape (2, 3, 4) — batch, position, and content.' },
+            { lineRange: [16, 17], content: '4D tensor: rank 4, shape (2, 3, 28, 28) — typical in computer vision.' },
           ],
         },
         interactivePanel: {
@@ -110,6 +113,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           vectorLabel: 'Vector',
           matrixLabel: 'Matrix',
           tensor3dLabel: '3D tensor',
+          tensor4dLabel: '4D tensor',
           footer: 'Operational rule: rank is not decoration. It tells you how many axes you must explain to understand the tensor.',
         },
       },

@@ -12,7 +12,7 @@ interface Props {
   copy: Tensor3DExplorerCopy;
 }
 
-type TensorRank = 'scalar' | 'vector' | 'matrix' | 'tensor3d';
+type TensorRank = 'scalar' | 'vector' | 'matrix' | 'tensor3d' | 'tensor4d';
 
 /* ─── Code Panel ─── */
 const CodePanel: React.FC<{ copy: Tensor3DExplorerCopy['codePanel']; eyebrowLabel: string }> = ({ copy, eyebrowLabel }) => (
@@ -88,6 +88,23 @@ const Tensor3DCanvas: React.FC<{ rank: TensorRank }> = React.memo(({ rank }) => 
               group.add(box);
             }
           }
+        }
+        break;
+      }
+      case 'tensor4d': {
+        for (let t = 0; t < 2; t++) {
+          const subGroup = new THREE.Group();
+          for (let d = 0; d < 2; d++) {
+            for (let row = 0; row < 3; row++) {
+              for (let col = 0; col < 4; col++) {
+                const box = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.25, 0.25), material);
+                box.position.set((col - 1.5) * 0.35, (d - 0.5) * 0.45, (row - 1) * 0.35);
+                subGroup.add(box);
+              }
+            }
+          }
+          subGroup.position.x = (t - 0.5) * 1.4;
+          group.add(subGroup);
         }
         break;
       }
@@ -248,18 +265,18 @@ const infoValueStyle: React.CSSProperties = {
 };
 
 function getShapeValue(rank: TensorRank): string {
-  switch (rank) { case 'scalar': return '()'; case 'vector': return '(4,)'; case 'matrix': return '(3, 4)'; case 'tensor3d': return '(2, 3, 4)'; }
+  switch (rank) { case 'scalar': return '()'; case 'vector': return '(4,)'; case 'matrix': return '(3, 4)'; case 'tensor3d': return '(2, 3, 4)'; case 'tensor4d': return '(2, 3, 28, 28)'; }
 }
 
 function getRankValue(rank: TensorRank): string {
-  switch (rank) { case 'scalar': return '0D'; case 'vector': return '1D'; case 'matrix': return '2D'; case 'tensor3d': return '3D'; }
+  switch (rank) { case 'scalar': return '0D'; case 'vector': return '1D'; case 'matrix': return '2D'; case 'tensor3d': return '3D'; case 'tensor4d': return '4D'; }
 }
 
 function getRankLabel(rank: TensorRank, copy: Tensor3DExplorerCopy['interactivePanel']): string {
-  switch (rank) { case 'scalar': return copy.scalarLabel; case 'vector': return copy.vectorLabel; case 'matrix': return copy.matrixLabel; case 'tensor3d': return copy.tensor3dLabel; }
+  switch (rank) { case 'scalar': return copy.scalarLabel; case 'vector': return copy.vectorLabel; case 'matrix': return copy.matrixLabel; case 'tensor3d': return copy.tensor3dLabel; case 'tensor4d': return copy.tensor4dLabel; }
 }
 
-const rankOptions: TensorRank[] = ['scalar', 'vector', 'matrix', 'tensor3d'];
+const rankOptions: TensorRank[] = ['scalar', 'vector', 'matrix', 'tensor3d', 'tensor4d'];
 
 /* ─── Main Component ─── */
 export const Tensor3DExplorer = React.memo(({ copy }: Props) => {

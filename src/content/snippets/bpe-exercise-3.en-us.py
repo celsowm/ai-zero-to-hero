@@ -1,5 +1,5 @@
 # BPE completo
-corpus = 'low lower newer newest'.split()
+corpus = 'Once upon a time'.split()
 word_freq = {w: 1 for w in corpus}
 
 # prepara vocab inicial
@@ -19,8 +19,8 @@ for i in range(num_merges):
     # faz merge
     corpus_tuples = merge_pair(best, corpus_tuples)
     vocab[best] = i + 1
+    print(f'Merge {i+1}: {best}')
 
-print(f'Merge {i+1}: {best}')
 print(f'Vocabulario final: {len(vocab)} simbolos')
 for symbol, idx in sorted(vocab.items(), key=lambda x: x[1]):
     if idx > 0:

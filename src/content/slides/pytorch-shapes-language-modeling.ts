@@ -9,8 +9,7 @@ export const pytorchShapesLanguageModeling = defineSlide({
       title: 'Convencoes de shape para LM (language model)',
       body: `No slide anterior, o modelo ja recebia IDs inteiros e produzia **scores de saida**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
 
-No caso de language modeling, a tarefa e simples na definicao:
-- para cada posicao da sequencia, o modelo tenta prever **qual token vem a seguir**;
+Resposta: o modelo tenta prever **qual token vem a seguir** em cada posicao da sequencia.
 - por isso ele nao produz um numero so, mas um placar sobre o vocabulario inteiro;
 - e por isso o contrato de shape precisa preservar batch, tempo e vocabulario ao mesmo tempo.
 
@@ -102,7 +101,7 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
     id: 'pytorch-shape-trace-flow',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Shape Trace' }],
+        tabs: [{ label: 'Codigo' }, { label: 'Vocabulario' }],
         codePanel: {
           title: 'Contrato de shape completo',
           description: 'Snippet curto para validar shape, dtype, flatten e loss em uma passada.',
@@ -114,60 +113,33 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
             { lineRange: [15, 21], content: 'Os prints verificam sanidade de shape, dtype e device e confirmam que a loss final é escalar.' },
           ],
         },
-        tracePanel: {
-          title: 'Como ler o forward sem se perder nos tensores',
-          subtitle: 'Em vez de decorar shapes soltos, siga o papel de cada tensor do input ate a loss e depois ate a geracao.',
-          stages: [
-            {
-              kicker: '1. Entrada',
-              title: 'IDs inteiros entram no modelo',
-              shape: 'idx, targets -> (B, T)',
-              role: 'O modelo nao recebe palavras prontas. Ele recebe indices que apontam para o vocabulario, preservando batch e ordem temporal.',
-              debugHint: 'Se aqui o dtype nao for inteiro, o embedding ja falha ou a loss quebra depois.',
-            },
-            {
-              kicker: '2. Estado',
-              title: 'Cada posicao vira representacao',
-              shape: 'hidden -> (B, T, C)',
-              role: 'Depois de embedding e camadas internas, cada token ganha um vetor contextualizado de largura C. Ainda nao ha escolha de palavra; ha representacao.',
-              debugHint: 'Se esse eixo C sumir ou trocar de lugar, a cabeca final deixa de saber projetar para o vocabulario.',
-            },
-            {
-              kicker: '3. Logits',
-              title: 'A previsao nasce no eixo V',
-              shape: 'logits -> (B, T, V)',
-              role: 'A cabeca final transforma cada estado interno em um placar bruto sobre o vocabulario inteiro. Cada fatia logits[b,t,:] e uma disputa entre todas as palavras possiveis.',
-              debugHint: 'Aqui aparece o conceito novo: logits nao sao probabilidade; sao scores antes de normalizacao.',
-            },
-            {
-              kicker: '4. Flatten',
-              title: 'Tempo vira lista de decisoes',
-              shape: '(B*T, V) + (B*T)',
-              role: 'A CE (cross-entropy) nao compara um cubo temporal. Ela quer uma lista de casos de classificacao: uma linha de logits por posicao, um alvo por posicao.',
-              debugHint: 'Se o flatten estiver errado, a loss continua rodando, mas passa a comparar tokens desalinhados.',
-            },
-            {
-              kicker: '5. Loss',
-              title: 'O treino penaliza o token errado',
-              shape: 'loss -> escalar',
-              role: 'A CE olha o placar inteiro do vocabulario, aplica softmax internamente e aumenta a penalizacao quando o token correto recebe pouca massa.',
-              debugHint: 'No fim, a loss precisa ser um unico numero. Se nao for, o contrato de shape quebrou antes.',
-            },
+        vocabPanel: {
+          title: 'Vocabulario: o que e e como aparece nos shapes',
+          subtitle: 'V é a quantidade de tokens diferentes que o modelo conhece. Cada token ganha um ID unico e uma linha na tabela de embedding.',
+          tokenLabel: 'Token',
+          idLabel: 'ID',
+          shapeLabel: 'embedding table: V tokens × C dimensoes cada',
+          examples: [
+            { token: 'hello', id: 0 },
+            { token: 'world', id: 1 },
+            { token: 'the', id: 2 },
+            { token: '.', id: 3 },
+            { token: '[UNK]', id: 4 },
           ],
-          failureTitle: 'Onde depurar primeiro',
-          failureModes: [
-            { label: 'dtype', value: '`targets` precisa estar em `torch.long`; caso contrario, a cross-entropy nao entende classes discretas.' },
-            { label: 'device', value: 'logits e targets precisam morar no mesmo device; mismatch aqui normalmente interrompe o treino na hora.' },
-            { label: 'alinhamento', value: 'O flatten certo nao e detalhe: ele garante que cada linha de logits encontre exatamente o target da mesma posicao temporal.' },
-          ],
-          inferenceTitle: 'O mesmo tensor, outro recorte',
-          inferenceSnippet: 'logits[:, -1, :]',
-          inferenceBody: 'Na inferencia, nao usamos todas as posicoes para calcular erro. Pegamos apenas o placar da ultima posicao, transformamos em distribuicao e escolhemos o proximo indice por argmax ou sampling.',
-          footer: 'Regra mental: hidden state e representacao; logits sao decisao bruta sobre o vocabulario; probabilidade entra so na etapa seguinte.',
+          dimensionCard: {
+            shapes: ['V = 5', 'V × C', 'C = 16'],
+            embedLabel: 'Tokens',
+            embedShape: 'V = 5',
+            vocabLabel: 'Tabela',
+            vocabShape: '(V, C) = (5, 16)',
+            dimLabel: 'Dimensao',
+            dimShape: 'C = 16',
+          },
+          footer: 'Regra: V aparece no shape dos logits (B, T, V) porque cada posicao vota em todo o vocabulario.',
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Shape Trace' }],
+        tabs: [{ label: 'Code' }, { label: 'Vocabulary' }],
         codePanel: {
           title: 'Full shape contract',
           description: 'Compact snippet to validate shape, dtype, flattening, and loss in one pass.',
@@ -179,56 +151,29 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
             { lineRange: [15, 21], content: 'Final prints check shape, dtype, and device consistency and confirm the final loss is a scalar.' },
           ],
         },
-        tracePanel: {
-          title: 'How to read the forward pass without getting lost in tensors',
-          subtitle: 'Instead of memorizing isolated shapes, follow each tensor from input to loss and then into generation.',
-          stages: [
-            {
-              kicker: '1. Input',
-              title: 'Integer IDs enter the model',
-              shape: 'idx, targets -> (B, T)',
-              role: 'The model does not receive words directly. It receives vocabulary indices, while preserving batch structure and temporal order.',
-              debugHint: 'If the dtype is wrong here, the embedding will fail or the loss will break later.',
-            },
-            {
-              kicker: '2. State',
-              title: 'Each position becomes a representation',
-              shape: 'hidden -> (B, T, C)',
-              role: 'After embeddings and internal layers, each token position gets a contextual vector of width C. No word has been chosen yet; this is still representation space.',
-              debugHint: 'If axis C disappears or moves, the final head can no longer project into vocabulary space correctly.',
-            },
-            {
-              kicker: '3. Logits',
-              title: 'Prediction is born on axis V',
-              shape: 'logits -> (B, T, V)',
-              role: 'The final head turns each internal state into a raw scoreboard over the full vocabulary. Each slice logits[b,t,:] is a competition between all possible next words.',
-              debugHint: 'This is the new concept: logits are not probabilities yet; they are scores before normalization.',
-            },
-            {
-              kicker: '4. Flatten',
-              title: 'Time becomes a list of decisions',
-              shape: '(B*T, V) + (B*T)',
-              role: 'CE (cross-entropy) does not compare a temporal cube. It wants a list of classification cases: one logits row per position, one target per position.',
-              debugHint: 'If flattening is wrong, the loss may still run while comparing misaligned tokens.',
-            },
-            {
-              kicker: '5. Loss',
-              title: 'Training penalizes the wrong token',
-              shape: 'loss -> scalar',
-              role: 'CE inspects the full vocabulary scoreboard, applies softmax internally, and increases the penalty when the correct token receives too little mass.',
-              debugHint: 'At the end, loss must collapse into a single number. If not, the shape contract was violated earlier.',
-            },
+        vocabPanel: {
+          title: 'Vocabulary: what it is and how it appears in shapes',
+          subtitle: 'V is the number of distinct tokens the model knows. Each token gets a unique ID and one row in the embedding table.',
+          tokenLabel: 'Token',
+          idLabel: 'ID',
+          shapeLabel: 'embedding table: V tokens × C dimensions each',
+          examples: [
+            { token: 'hello', id: 0 },
+            { token: 'world', id: 1 },
+            { token: 'the', id: 2 },
+            { token: '.', id: 3 },
+            { token: '[UNK]', id: 4 },
           ],
-          failureTitle: 'Where to debug first',
-          failureModes: [
-            { label: 'dtype', value: '`targets` must be `torch.long`; otherwise cross-entropy cannot interpret them as discrete classes.' },
-            { label: 'device', value: 'logits and targets must live on the same device; mismatches here usually stop training immediately.' },
-            { label: 'alignment', value: 'Correct flattening is not cosmetic: it ensures each logits row meets the target from the same time position.' },
-          ],
-          inferenceTitle: 'The same tensor, a different slice',
-          inferenceSnippet: 'logits[:, -1, :]',
-          inferenceBody: 'At inference time, we do not use all positions to compute error. We keep only the scoreboard for the last position, turn it into a distribution, and choose the next index via argmax or sampling.',
-          footer: 'Mental rule: hidden state is representation; logits are the raw decision over the vocabulary; probabilities come one step later.',
+          dimensionCard: {
+            shapes: ['V = 5', 'V × C', 'C = 16'],
+            embedLabel: 'Tokens',
+            embedShape: 'V = 5',
+            vocabLabel: 'Table',
+            vocabShape: '(V, C) = (5, 16)',
+            dimLabel: 'Dimension',
+            dimShape: 'C = 16',
+          },
+          footer: 'Rule: V appears in logits shape (B, T, V) because each position votes over the whole vocabulary.',
         },
       },
     },

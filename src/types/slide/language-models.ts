@@ -319,7 +319,7 @@ export interface PytorchExecutionPipelineCopy {
     source: CodeSourceRef;
     codeExplanations?: CodeExplanation[];
   };
-  pipelinePanel: {
+  pipelinePanel?: {
     title: string;
     subtitle?: string;
     steps: Array<{
@@ -338,11 +338,6 @@ export interface PytorchExecutionPipelineCopy {
     mentalModel: string[];
     footer?: string;
   };
-  /**
-   * Optional bottom-half visualization for the Code tab. When present, the Code tab
-   * splits into two halves: the code editor on top and an iterative mini-network
-   * stepper at the bottom. Used by slides like the autoregressive prediction slide.
-   */
   generation?: {
     title: string;
     subtitle?: string;
@@ -355,7 +350,7 @@ export interface PytorchExecutionPipelineCopy {
     contextLabel: string;
     nextLabel: string;
     prevLabel: string;
-    nextStepLabel: string;
+    nextStepLabel?: string;
     stepLabel: string;
     completionLabel: string;
   };
@@ -383,24 +378,22 @@ export interface PytorchShapeTraceFlowCopy {
     source: CodeSourceRef;
     codeExplanations?: CodeExplanation[];
   };
-  tracePanel: {
+  vocabPanel: {
     title: string;
-    subtitle?: string;
-    stages: Array<{
-      kicker: string;
-      title: string;
-      shape: string;
-      role: string;
-      debugHint: string;
-    }>;
-    failureTitle: string;
-    failureModes: Array<{
-      label: string;
-      value: string;
-    }>;
-    inferenceTitle: string;
-    inferenceSnippet: string;
-    inferenceBody: string;
+    subtitle: string;
+    tokenLabel: string;
+    idLabel: string;
+    shapeLabel: string;
+    examples: Array<{ token: string; id: number }>;
+    dimensionCard: {
+      shapes: string[];
+      embedLabel: string;
+      embedShape: string;
+      vocabLabel: string;
+      vocabShape: string;
+      dimLabel: string;
+      dimShape: string;
+    };
     footer: string;
   };
 }
@@ -458,4 +451,131 @@ export interface TokenBatchShiftVisualCopy {
     codeExplanations?: CodeExplanation[];
   };
   interactivePanel: TokenBatchShiftInteractiveCopy;
+}
+
+export interface TrainingLoopGraphCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  graphPanel: {
+    title: string;
+    subtitle?: string;
+    nodes: Array<{
+      id: string;
+      label: string;
+      shape?: string;
+      lineRange: [number, number];
+      body: string;
+      risk: string;
+    }>;
+    edges: Array<{ from: string; to: string }>;
+    loopLabel: string;
+    prevLabel: string;
+    nextLabel: string;
+    stepLabel: string;
+    resetLabel: string;
+    bridgeTitle: string;
+    bridgeBody: string;
+    failureTitle: string;
+    failureModes: Array<{ label: string; value: string }>;
+    footer?: string;
+  };
+  generation?: {
+    title: string;
+    subtitle?: string;
+    initialTokens: string[];
+    generatedTokens: string[];
+    vocabularyHint?: string;
+    embeddingLabel: string;
+    linearLabel: string;
+    logitsLabel: string;
+    contextLabel: string;
+    nextLabel: string;
+    prevLabel: string;
+    stepLabel: string;
+    completionLabel: string;
+  };
+}
+
+export interface PytorchAnimatedCodeWalkthroughCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  walkthroughPanel: {
+    title: string;
+    subtitle?: string;
+    steps: Array<{
+      label: string;
+      body: string;
+      risk: string;
+      shape?: string;
+    }>;
+    failureTitle: string;
+    failureModes: Array<{ label: string; value: string }>;
+    mentalModelTitle: string;
+    mentalModel: string[];
+    footer?: string;
+  };
+}
+
+export interface PytorchCheckpointExplorerCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  explorerPanel: {
+    title: string;
+    subtitle?: string;
+    fileLabel: string;
+    whyLabel: string;
+    missingLabel: string;
+    allSectionsLabel: string;
+    timelineLabel: string;
+    sections: Array<{
+      id: string;
+      label: string;
+      content: string;
+      whyItMatters: string;
+      breaksWithout: string;
+    }>;
+    timelineSteps: Array<{
+      label: string;
+      description: string;
+    }>;
+    footer?: string;
+  };
+}
+
+export interface EmbeddingIntroVisualCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  embedExplorer: {
+    title: string;
+    subtitle: string;
+    vocabSizeLabel: string;
+    embedDimLabel: string;
+    tableLabel: string;
+    rowLabel: string;
+    maxIdLabel: string;
+    lookupLabel: string;
+    lookupBody: string;
+    sharedWeightsHint: string;
+    footer: string;
+  };
 }

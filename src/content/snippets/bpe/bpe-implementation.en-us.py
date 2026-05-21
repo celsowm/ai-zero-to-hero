@@ -46,7 +46,7 @@ def get_vocab(corpus):
 
 # @region usage-setup
 # --- Usage Example ---
-corpus_text = 'low lower newer newest'.split()
+corpus_text = 'Once upon a time'.split()
 corpus = [tuple(w) for w in corpus_text]
 # @endregion
 

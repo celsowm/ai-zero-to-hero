@@ -339,7 +339,7 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
             )}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${stages.length}, minmax(0, 1fr))`, gap: 8 }}>
+          <div style={{ display: 'flex', gap: 6 }}>
             {stages.map((item, index) => {
               const accent = STAGE_COLORS[index % STAGE_COLORS.length];
               const isActive = index === activeStage;
@@ -349,20 +349,18 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
                   type="button"
                   onClick={() => setActiveStage(index)}
                   style={{
+                    flex: 1,
                     border: `1px solid ${isActive ? accent : sw.borderSubtle}`,
-                    borderRadius: 14,
+                    borderRadius: 8,
                     background: isActive ? `${accent}18` : sw.surface,
-                    padding: '10px 12px',
-                    textAlign: 'left',
+                    padding: '6px 8px',
                     cursor: 'pointer',
                     color: isActive ? accent : sw.textDim,
-                    boxShadow: isActive ? `0 10px 24px ${accent}12` : 'none',
+                    boxShadow: isActive ? `0 6px 14px ${accent}12` : 'none',
+                    textAlign: 'center',
                   }}
                 >
-                  <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{item.label}</div>
-                  <div style={{ marginTop: 6, fontSize: 12, fontWeight: 700, lineHeight: 1.35, color: isActive ? sw.text : sw.textDim }}>
-                    {item.title}
-                  </div>
+                  <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{item.label}</div>
                 </button>
               );
             })}
@@ -385,7 +383,7 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
               borderRadius: 18,
               background: sw.surface,
               padding: 10,
-              minHeight: 340,
+              minHeight: 100,
               position: 'relative',
             }}
           >
@@ -415,7 +413,7 @@ export const PytorchProjectionSpaceVisual = React.memo(({ copy }: PytorchProject
                 arraste para girar · scroll para zoom
               </div>
             </div>
-            <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: 340, borderRadius: 14, overflow: 'hidden' }} />
+            <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: 100, borderRadius: 14, overflow: 'hidden' }} />
           </div>
 
           <div

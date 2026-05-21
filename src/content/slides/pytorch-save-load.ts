@@ -3,29 +3,31 @@ import { defineSlide } from './_factory';
 export const pytorchSaveLoad = defineSlide({
   id: 'pytorch-save-load',
   type: 'two-column',
-  options: { columnRatios: [0.48, 0.52] },
+  options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
       title: 'Salvar e recarregar checkpoint',
-      body: `Checkpoint nao e backup eventual. E contrato de continuidade de treino.
+      body: `No slide anterior, rodamos a geração token a token com \`model.eval()\` e \`torch.no_grad()\`. O modelo estava na memória. Se fechar o notebook ou quiser fazer deploy, precisa **persistir** esse estado treinado.
 
-Estado minimo serio:
+Checkpoint não é backup eventual. É contrato de continuidade de treino.
+
+Estado mínimo sério:
 1. **pesos do modelo** (\`state_dict\`).
 2. **estado do otimizador** (momento, acumuladores).
-3. **passo/epoca atual** para retomar agenda de treino.
+3. **passo/época atual** para retomar agenda de treino.
 
-Sem estado do otimizador, voce "retoma" com outra dinamica de update.
-Sem passo atual, metricas e scheduler ficam inconsistentes.
-
-Objetivo: reiniciar o processo sem perder historico operacional.
+Sem estado do otimizador, você "retoma" com outra dinâmica de update.
+Sem passo atual, métricas e scheduler ficam inconsistentes.
 
 Dois casos de uso:
-- **inferencia**: salvar so pesos do modelo ja basta
-- **retomada de treino**: salvar modelo + optimizer + passo`,
+- **inferência**: salvar só pesos do modelo já basta.
+- **retomada de treino**: salvar modelo + optimizer + passo.`,
     },
     'en-us': {
       title: 'Save and reload a checkpoint',
-      body: `Checkpointing is not occasional backup. It is a training continuity contract.
+      body: `In the previous slide we ran token-by-token generation with \`model.eval()\` and \`torch.no_grad()\`. The model lived in memory. If you close the notebook or want to deploy, you need to **persist** that trained state.
+
+Checkpointing is not occasional backup. It is a training continuity contract.
 
 Minimum serious state:
 1. **model weights** (\`state_dict\`).
@@ -35,20 +37,18 @@ Minimum serious state:
 Without optimizer state, resume starts with different update dynamics.
 Without step metadata, metrics and scheduler become inconsistent.
 
-Goal: restart process without losing operational history.
-
 Two use cases:
-- **inference**: saving only model weights is enough
-- **training resume**: save model + optimizer + step`,
+- **inference**: saving only model weights is enough.
+- **training resume**: save model + optimizer + step.`,
     },
   },
   visual: {
-    id: 'pytorch-decision-matrix',
+    id: 'pytorch-checkpoint-explorer',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Payload' }],
+        tabs: [{ label: 'Código' }, { label: 'Explorador' }],
         codePanel: {
-          title: 'Checkpoint minimo',
+          title: 'Checkpoint mínimo',
           description: 'Exemplo curto de save/load com modelo, otimizador e passo.',
           source: { snippetId: 'pytorch-lm/save-load', language: 'python' },
           codeExplanations: [
@@ -57,25 +57,56 @@ Two use cases:
             { lineRange: [12, 14], content: '`torch.save` serializa esse payload em disco e `torch.load` reconstrói o estado em memória.' },
           ],
         },
-        matrixPanel: {
-          title: 'Minimo para inferencia vs treino',
-          subtitle: 'Checkpoint bom não é arquivo “salvo”. É payload suficiente para reproduzir o comportamento certo no contexto certo.',
-          columns: ['O que precisa', 'O que garante', 'O que quebra se faltar'],
-          callouts: [
-            { label: 'Inferência', value: 'Para reproduzir forward, `state_dict` do modelo já costuma bastar.' },
-            { label: 'Retomada de treino', value: 'Para continuar a mesma curva, você precisa modelo + optimizer + passo/época.' },
+        explorerPanel: {
+          title: 'Anatomia de um checkpoint',
+          subtitle: 'Cada seção do dicionário tem um papel específico na continuidade do treino.',
+          fileLabel: 'checkpoint.pt',
+          whyLabel: 'Por que isso importa',
+          missingLabel: 'Se faltar',
+          allSectionsLabel: 'Todas as seções',
+          timelineLabel: 'Ciclo de vida',
+          sections: [
+            {
+              id: 'model',
+              label: 'Pesos do modelo',
+              content: "model.state_dict()",
+              whyItMatters: 'Contém todos os parâmetros treinados: pesos e biases de cada camada. Sem isso, você não reproduz a função que gera logits.',
+              breaksWithout: 'Você não consegue nem fazer inferência. O modelo é um bloco aleatório.',
+            },
+            {
+              id: 'optimizer',
+              label: 'Estado do otimizador',
+              content: "optimizer.state_dict()",
+              whyItMatters: 'Guarda momento e acumuladores do Adam/W. Sem eles, o próximo update ignora o histórico de gradientes — como começar do zero no meio da corrida.',
+              breaksWithout: 'A curva de loss retoma com outra inércia. O treino perde eficiência.',
+            },
+            {
+              id: 'step',
+              label: 'Passo / época',
+              content: 'step: 120',
+              whyItMatters: 'Metadado operacional: qual passo da agenda de treino? Scheduler (cosine, step) depende desse valor para definir a taxa de aprendizado correta.',
+              breaksWithout: 'Learning rate pode pular para o valor errado. Logs e checkpoints de avaliação ficam inconsistentes.',
+            },
+            {
+              id: 'file',
+              label: 'Container .pt',
+              content: 'torch.save(checkpoint, "checkpoint.pt")',
+              whyItMatters: 'O arquivo .pt é só um container de serialização (zip/torchScript). Guarda tudo junto para transferência entre execuções e máquinas.',
+              breaksWithout: 'Você salva pedaços soltos e não consegue recompôr o estado completo de forma confiável.',
+            },
           ],
-          rows: [
-            { label: 'Pesos do modelo', cells: ['`model.state_dict()`', 'Reconstruir a função que gera logits.', 'Você nem reproduz a inferência corretamente.'] },
-            { label: 'Estado do optimizer', cells: ['Momentos, acumuladores e buffers internos.', 'Retomar a mesma dinâmica de update.', 'A curva volta com outra inércia e outro comportamento.'] },
-            { label: 'Passo/época', cells: ['Metadado operacional do treino.', 'Scheduler, log e retomada coerentes.', 'Métricas e agenda ficam desalinhadas.'] },
-            { label: 'Arquivo `.pt`', cells: ['Container de serialização do payload.', 'Transferência entre execuções e máquinas.', 'Você salva pedaços desconectados e depois não recompõe o estado real.'] },
+          timelineSteps: [
+            { label: 'Treinar', description: 'Rodar forward/backward/step por N iterações. A cada K passos, tiramos um snapshot do estado.' },
+            { label: 'Salvar', description: 'Empacotar model.state_dict + optimizer.state_dict + step num dicionário e serializar com torch.save.' },
+            { label: 'Transferir', description: 'O .pt pode ser copiado para outra máquina, Cloud Storage ou registry de modelos.' },
+            { label: 'Carregar', description: 'torch.load + model.load_state_dict + optimizer.load_state_dict restaura o estado exato.' },
+            { label: 'Retomar', description: 'O scheduler sabe em qual passo estava. A curva de treino continua de onde parou, sem reinício brusco.' },
           ],
-          footer: 'Regra: checkpoint bom permite retomar e obter curva de treino continua.',
+          footer: 'Regra: um checkpoint bom permite retomar e obter a mesma curva de treino contínua, como se nunca tivesse parado.',
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Payload' }],
+        tabs: [{ label: 'Code' }, { label: 'Explorer' }],
         codePanel: {
           title: 'Minimal checkpoint',
           description: 'Short save/load example with model, optimizer, and step metadata.',
@@ -86,21 +117,52 @@ Two use cases:
             { lineRange: [12, 14], content: '`torch.save` serializes that payload to disk, and `torch.load` reconstructs it in memory.' },
           ],
         },
-        matrixPanel: {
-          title: 'Minimum for inference vs training',
-          subtitle: 'A good checkpoint is not merely “a saved file”. It is enough payload to reproduce the right behavior in the right context.',
-          columns: ['What is needed', 'What it guarantees', 'What breaks if missing'],
-          callouts: [
-            { label: 'Inference', value: 'To reproduce forward behavior, model `state_dict` is often enough.' },
-            { label: 'Training resume', value: 'To continue the same curve, you need model + optimizer + step/epoch metadata.' },
+        explorerPanel: {
+          title: 'Checkpoint anatomy',
+          subtitle: 'Each section of the dictionary has a specific role in training continuity.',
+          fileLabel: 'checkpoint.pt',
+          whyLabel: 'Why it matters',
+          missingLabel: 'If missing',
+          allSectionsLabel: 'All sections',
+          timelineLabel: 'Lifecycle timeline',
+          sections: [
+            {
+              id: 'model',
+              label: 'Model weights',
+              content: "model.state_dict()",
+              whyItMatters: 'Contains all trained parameters: weights and biases of every layer. Without it, you cannot reproduce the logit-generating function.',
+              breaksWithout: 'You cannot even run inference. The model is a random block.',
+            },
+            {
+              id: 'optimizer',
+              label: 'Optimizer state',
+              content: "optimizer.state_dict()",
+              whyItMatters: 'Stores Adam/W momenta and accumulators. Without them, the next update ignores gradient history — like starting from zero mid-race.',
+              breaksWithout: 'The loss curve resumes with wrong inertia. Training loses efficiency.',
+            },
+            {
+              id: 'step',
+              label: 'Step / epoch',
+              content: 'step: 120',
+              whyItMatters: 'Operational metadata: which step of the schedule are we on? Scheduler (cosine, step) depends on this value to set the correct learning rate.',
+              breaksWithout: 'Learning rate may jump to the wrong value. Logs and evaluation checkpoints become inconsistent.',
+            },
+            {
+              id: 'file',
+              label: '.pt container',
+              content: 'torch.save(checkpoint, "checkpoint.pt")',
+              whyItMatters: 'The .pt file is just a serialization container (zip/torchScript). It holds everything together for transfer across runs and machines.',
+              breaksWithout: 'You save disconnected pieces and cannot reliably reconstruct the complete state.',
+            },
           ],
-          rows: [
-            { label: 'Model weights', cells: ['`model.state_dict()`', 'Reconstruct the function that generates logits.', 'You cannot even reproduce inference correctly.'] },
-            { label: 'Optimizer state', cells: ['Moments, accumulators, and internal buffers.', 'Resume the same update dynamics.', 'The curve restarts with different inertia and behavior.'] },
-            { label: 'Step/epoch', cells: ['Operational training metadata.', 'Consistent scheduler, logging, and resume behavior.', 'Metrics and schedule drift out of alignment.'] },
-            { label: '`.pt` file', cells: ['Serialization container for the payload.', 'Transfer across runs and machines.', 'You save disconnected pieces and fail to reconstruct the real state.'] },
+          timelineSteps: [
+            { label: 'Train', description: 'Run forward/backward/step for N iterations. Every K steps, take a snapshot of the state.' },
+            { label: 'Save', description: 'Pack model.state_dict + optimizer.state_dict + step into a dictionary and serialize with torch.save.' },
+            { label: 'Transfer', description: 'The .pt can be copied to another machine, Cloud Storage, or model registry.' },
+            { label: 'Load', description: 'torch.load + model.load_state_dict + optimizer.load_state_dict restores the exact state.' },
+            { label: 'Resume', description: 'The scheduler knows which step we were on. The training curve continues from where it stopped, without abrupt restart.' },
           ],
-          footer: 'Rule: a good checkpoint lets training resume with a continuous curve.',
+          footer: 'Rule: a good checkpoint lets you resume and obtain the same continuous training curve, as if it never stopped.',
         },
       },
     },

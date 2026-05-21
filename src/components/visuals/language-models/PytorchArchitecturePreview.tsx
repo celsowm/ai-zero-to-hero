@@ -50,13 +50,12 @@ export const PytorchArchitecturePreview = React.memo(({ copy }: PytorchArchitect
   const layers = copy.layers;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  // Dimensions — significantly larger than before
-  const blockHeight = 80;
-  const blockWidth = 140;
-  const arrowLength = 40;
+  const blockHeight = 62;
+  const blockWidth = 120;
+  const arrowLength = 30;
   const gap = blockWidth + arrowLength;
-  const padding = 30;
-  const svgHeight = blockHeight + 120; // extra space for labels below
+  const padding = 22;
+  const svgHeight = blockHeight + 90;
   const svgWidth = padding * 2 + layers.length * blockWidth + (layers.length - 1) * arrowLength;
 
   return (
@@ -65,10 +64,10 @@ export const PytorchArchitecturePreview = React.memo(({ copy }: PytorchArchitect
         border: `1px solid ${sw.borderSubtle}`,
         borderRadius: 16,
         background: 'linear-gradient(180deg, rgba(0,229,255,0.04), rgba(255,255,255,0.01))',
-        padding: '14px 16px',
+        padding: '10px 14px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 12,
+        gap: 8,
       }}
     >
       {/* Header */}
@@ -326,10 +325,10 @@ export const PytorchArchitecturePreview = React.memo(({ copy }: PytorchArchitect
       {/* Legend / summary below diagram */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${layers.length}, minmax(0, 1fr))`,
-          gap: 6,
-        }}
+        display: 'grid',
+        gridTemplateColumns: `repeat(${layers.length}, minmax(0, 1fr))`,
+        gap: 4,
+      }}
       >
         {layers.map((layer, index) => {
           const color = LAYER_COLORS[index % LAYER_COLORS.length];
@@ -344,7 +343,7 @@ export const PytorchArchitecturePreview = React.memo(({ copy }: PytorchArchitect
                 border: `1px solid ${isActive ? color : sw.borderSubtle}`,
                 borderRadius: 10,
                 background: isActive ? `${color}14` : sw.surface,
-                padding: '8px 10px',
+                padding: '6px 8px',
                 textAlign: 'left',
                 cursor: 'pointer',
                 transition: 'all 150ms ease',

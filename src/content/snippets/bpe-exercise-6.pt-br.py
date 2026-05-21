@@ -1,5 +1,5 @@
 # Full BPE
-corpus = 'low lower newer newest'.split()
+corpus = 'Once upon a time'.split()
 word_freq = {w: 1 for w in corpus}
 
 # prepare initial vocabulary

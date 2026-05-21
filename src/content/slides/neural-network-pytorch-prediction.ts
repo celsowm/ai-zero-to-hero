@@ -6,159 +6,241 @@ export const neuralNetworkPytorchPrediction = defineSlide({
   options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
-      title: 'Inferência: eval, no_grad e próximo token',
-      body: `Inferencia nao e "treino sem step". E outro modo de execucao.
+      title: 'Inferência: do treino à geração do próximo token',
+      body: `No slide anterior, fechamos o ciclo de treino: \`forward → loss → backward → step\`. Agora invertemos a direção: em vez de ajustar pesos, usamos o modelo para **produzir** o próximo token — \`forward → argmax → append\`.
 
-Objetivos da inferencia:
-- nao construir gradiente.
-- nao manter dropout ativo.
-- extrair decisao do ultimo passo temporal.
+Três pré-condições antes de rodar (todas elas vêm de "Ciclo de vida do modelo"):
+- \`model.eval()\`: congela comportamento estocástico.
+- \`torch.no_grad()\`: desliga grafo — sem gradiente, sem custo de backward.
+- pegar só \`logits[:, -1, :]\`: a última posição decide.
 
-No fluxo autoregressivo:
-1. roda forward no contexto atual.
-2. pega \`logits[:, -1, :]\`.
-3. escolhe proximo token (argmax ou sampling).
-4. concatena e repete.
-5. para por \`EOS\` ou por limite de tokens.
+Loop autoregressivo:
+1. forward no contexto atual.
+2. \`logits[:, -1, :]\` corta a última posição.
+3. \`argmax\` escolhe o próximo token.
+4. concatena ao contexto.
+5. para quando gerar \`EOS\` ou bater o limite.
 
-Se voce esquecer \`eval()\` e \`no_grad()\`, desempenho cai e saida fica menos estavel.`,
+A geração fecha o ciclo do modelo. No próximo slide, veremos como persistir esse modelo treinado.`,
     },
     'en-us': {
-      title: 'Inference: eval, no_grad, and next token',
-      body: `Inference is not "training without step". It is a different execution mode.
+      title: 'Inference: from training to next-token generation',
+      body: `In the previous slide we closed the training loop: \`forward → loss → backward → step\`. Now we reverse direction: instead of updating weights, we use the model to **produce** the next token — \`forward → argmax → append\`.
 
-Inference goals:
-- avoid graph construction.
-- disable training-time stochastic behavior.
-- extract decision from the last time step.
+Three preconditions before running (all from "Model lifecycle"):
+- \`model.eval()\`: freezes stochastic behavior.
+- \`torch.no_grad()\`: disables graph construction — no gradient, no backward cost.
+- take only \`logits[:, -1, :]\`: the last position decides.
 
-In autoregressive flow:
-1. run forward on current context.
-2. take \`logits[:, -1, :]\`.
-3. pick next token (argmax or sampling).
-4. append and repeat.
-5. stop on \`EOS\` or token limit.
+Autoregressive loop:
+1. forward on current context.
+2. \`logits[:, -1, :]\` slices the last position.
+3. \`argmax\` picks the next token.
+4. appends to context.
+5. stops when \`EOS\` is generated or the limit is reached.
 
-If you forget \`eval()\` and \`no_grad()\`, performance drops and outputs become less stable.`,
+Generation closes the model cycle. In the next slide we'll see how to persist this trained model.`,
     },
   },
   visual: {
-    id: 'pytorch-execution-pipeline',
+    id: 'pytorch-training-loop-graph',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Passos' }],
+        tabs: [{ label: 'Código' }, { label: 'Grafo' }],
         codePanel: {
-          title: 'Loop de geracao autoregressiva',
-          description: 'Mini modelo Embedding + Linear gerando token a token. A aba de baixo mostra o loop em camera lenta.',
+          title: 'Loop autoregressivo mínimo',
+          description: 'Modelo Embedding + Linear gerando token a token. O stepper abaixo mostra o loop em câmera lenta.',
           source: { snippetId: 'pytorch-lm/inference-loop', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 2], content: 'Importamos `torch` e `nn`, ou seja, o núcleo de tensores e os blocos de rede usados no exemplo.' },
+            { lineRange: [1, 2], content: 'Importamos `torch` e `nn`, o núcleo de tensores e os blocos de rede usados no exemplo.' },
             { lineRange: [4, 9], content: 'Definimos um mini language model: embedding converte IDs em vetores e a camada linear converte esses vetores em logits de vocabulário.' },
-            { lineRange: [11, 13], content: 'Criamos o contexto inicial e o token de parada (`EOS`), que define quando a geração pode encerrar.' },
+            { lineRange: [11, 13], content: 'Criamos o contexto inicial `[5, 11, 7]` (T=3) e o token de parada (`eos_id = 0`), que define quando a geração pode encerrar.' },
             { lineRange: [15, 17], content: 'Entramos em modo de inferência com `eval()` e `no_grad()`, para evitar ruído de treino e custo de gradiente.' },
-            { lineRange: [18, 20], content: 'Cada forward gera logits para todas as posições do contexto atual, mas só a última posição é usada para decidir o próximo token.' },
-            { lineRange: [21, 22], content: 'Escolhemos o próximo token com `argmax` e anexamos ao contexto, alimentando o próximo ciclo de geração.' },
-            { lineRange: [23, 24], content: 'Se o token gerado for `EOS`, encerramos o loop antes de atingir o limite máximo de passos.' },
-            { lineRange: [26, 26], content: 'No final, exibimos a sequência completa para inspecionar como o contexto evoluiu token por token.' },
+            { lineRange: [18, 20], content: 'Cada iteração do `for`: forward em todo o contexto, corte da último `logits[:, -1, :]` e `argmax` escolhendo `next_id`.' },
+            { lineRange: [21, 22], content: 'Concatenamos `next_id` ao contexto — é exatamente esse append que alimenta a próxima passo do loop.' },
+            { lineRange: [23, 24], content: 'Se o token gerado for `0` (EOS), saímos do `for` com `break` antes de atingir as 5 iterações.' },
+            { lineRange: [26, 26], content: 'No final, exibimos a sequência completa para ver como o contexto evoluiu token por token.' },
           ],
         },
         generation: {
-          title: 'Loop em camera lenta',
-          subtitle: 'Cada passo: forward -> pega ultima posicao -> argmax -> anexa ao contexto.',
+          title: 'Loop em câmera lenta',
+          subtitle: 'Cada passo: forward → logits[:, -1, :] → argmax → append.',
           initialTokens: ['5', '11', '7'],
-          generatedTokens: ['18', '24', '3', '0'],
-          vocabularyHint: 'Aqui o ultimo token "0" e o EOS: o loop para sozinho.',
+          generatedTokens: ['17', '9', '1', '0'],
           embeddingLabel: 'Embedding',
           linearLabel: 'Linear',
-          logitsLabel: 'logits[:,-1,:]',
-          contextLabel: 'context',
-          nextLabel: 'Proximo token →',
+          logitsLabel: 'logits[:, -1, :]',
+          contextLabel: 'Contexto',
+          nextLabel: 'Próximo token →',
           prevLabel: '← Anterior',
-          nextStepLabel: 'Clique em "Proximo token" para rodar mais um passo do loop.',
           stepLabel: 'Passo',
-          completionLabel: 'EOS gerado. Loop encerrado.',
+          completionLabel: 'EOS gerado (0). Loop encerrado — igual ao break da linha 23.',
         },
-        pipelinePanel: {
-          title: 'Passos de geracao',
-          subtitle: 'Treino usa todas as posições em paralelo. Geração autoregressiva decide uma posição por vez.',
-          steps: [
-            { label: 'eval + no_grad', body: 'Antes do primeiro token novo, congelamos o modo do modelo e desligamos o grafo.', risk: 'Esquecer esse passo custa desempenho e pode introduzir ruído de treino.' },
-            { label: 'contexto', shape: '(B,T)', body: 'O modelo recebe o prefixo atual inteiro, não apenas a última palavra.', risk: 'Confundir contexto parcial com estado interno e perder a leitura do que o modelo realmente enxerga.' },
-            { label: 'forward', shape: 'logits -> (B,T,V)', body: 'A saída produz um placar para cada posição do contexto atual.', risk: 'Assumir que todos esses logits serão usados para a decisão seguinte.' },
-            { label: 'última fatia', shape: 'logits[:, -1, :]', body: 'Só a posição final interessa para escolher o próximo token.', risk: 'Ler o tensor inteiro e esquecer qual corte realmente alimenta a geração.' },
-            { label: 'amostra + append', body: 'Argmax ou sampling escolhe um índice; o token novo entra no contexto e o ciclo recomeça.', risk: 'Gerar sem critério de parada e transformar inferência em loop sem controle.' },
+        graphPanel: {
+          title: 'Fluxo autoregressivo passo-a-passo',
+          subtitle: 'Cada nó corresponde a uma operação do loop de inferência. Clique em cada nó para ver o detalhe.',
+          nodes: [
+            {
+              id: 'context',
+              label: 'context (B,T)',
+              shape: 'int IDs',
+              lineRange: [11, 12],
+              body: 'O contexto começa como uma sequência de IDs inteiros. A cada iteração, um novo token é concatenado ao final.',
+              risk: 'Esquecer que o contexto cresce a cada passo: o forward vê toda a sequência acumulada, não só o último token.',
+            },
+            {
+              id: 'forward',
+              label: 'model(context)',
+              shape: 'logits (B,T,V)',
+              lineRange: [18, 18],
+              body: 'O forward produz logits para todas as posições do contexto, mas só a última nos interessa. Embedding transforma IDs em vetores, Linear projeta vetores em logits de vocabulário.',
+              risk: 'Se o modelo ainda estiver em train() ou sem no_grad(), desperdício de memória e comportamento estocástico.',
+            },
+            {
+              id: 'slice',
+              label: 'logits[:,-1,:]',
+              shape: 'logits (B,V)',
+              lineRange: [19, 19],
+              body: 'Cortamos apenas a última posição temporal: é ela que decide o próximo token. O resto do contexto serve apenas como memória.',
+              risk: 'Pegar todas as posições (logits inteiros) e calcular argmax em dimensão errada gera um tensor de shape errado.',
+            },
+            {
+              id: 'argmax',
+              label: 'argmax → next_id',
+              shape: 'int (B,1)',
+              lineRange: [20, 20],
+              body: 'O argmax escolhe o índice do vocabulário com maior score. É uma decisão determinística (poderia ser sampling).',
+              risk: 'Argmax gera texto repetitivo e previsível. Em produção, temperature sampling ou top-k/top-p são preferidos.',
+            },
+            {
+              id: 'concat',
+              label: 'torch.cat',
+              shape: '(B, T+1)',
+              lineRange: [21, 21],
+              body: 'Concatenamos o novo token ao contexto. O próximo forward já verá esse token como parte do input.',
+              risk: 'Se o contexto cresce sem limite, excede a janela do modelo. Em produção, é necessário truncar ou usar sliding window.',
+            },
           ],
-          failureTitle: 'Onde a geração degrada',
+          edges: [
+            { from: 'context', to: 'forward' },
+            { from: 'forward', to: 'slice' },
+            { from: 'slice', to: 'argmax' },
+            { from: 'argmax', to: 'concat' },
+            { from: 'concat', to: 'forward' },
+          ],
+          loopLabel: 'loop auto',
+          prevLabel: '← Anterior',
+          nextLabel: 'Próximo →',
+          stepLabel: 'Nó',
+          resetLabel: 'Recomeçar',
+          bridgeTitle: 'Treino vs inferência',
+          bridgeBody: 'No treino, o modelo vê x e targets deslocados e usa cross-entropy para calcular loss. Na inferência, não há targets — apenas o modelo gera um token por vez a partir do contexto, em modo autoregressivo. A mesma arquitetura, dois modos de uso.',
+          failureTitle: 'Falhas recorrentes',
           failureModes: [
-            { label: 'Modo errado', value: '`train()` ativo deixa dropout contaminar a geração.' },
-            { label: 'Corte errado', value: 'Se você não pegar a última fatia, a decisão usa a posição errada do contexto.' },
-            { label: 'Parada ausente', value: 'Sem `EOS` ou limite de tokens, o loop continua sem critério.' },
+            { label: 'Sem eval()', value: 'Dropout ainda ativo gera outputs estocásticos entre passes.' },
+            { label: 'Sem no_grad()', value: 'Grafo acumula sem necessidade, estourando memória.' },
+            { label: 'Contexto infinito', value: 'Sem limite de contexto, o modelo cresce o tensor até estourar a janela.' },
           ],
-          mentalModelTitle: 'Modelo mental',
-          mentalModel: [
-            'Forward produz logits para todas as posições vistas até agora.',
-            'Geração consome só a última decisão disponível.',
-            'O novo token volta para a entrada e alonga o contexto.',
-          ],
-          footer: 'Padrao mental: treino usa todas posicoes; inferencia decide uma posicao por vez.',
+          footer: 'A geração fecha o ciclo do modelo: do treino ao texto. Próximo passo: persistir o modelo para deploy via checkpoint.',
         },
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Steps' }],
+        tabs: [{ label: 'Code' }, { label: 'Graph' }],
         codePanel: {
-          title: 'Autoregressive generation loop',
-          description: 'Tiny Embedding + Linear model emitting one token at a time. The panel below shows the loop in slow motion.',
+          title: 'Minimal autoregressive loop',
+          description: 'Embedding + Linear model producing one token at a time. The stepper below shows the loop in slow motion.',
           source: { snippetId: 'pytorch-lm/inference-loop', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'We import `torch` and `nn`, the tensor core and neural-network building blocks used by the snippet.' },
             { lineRange: [4, 9], content: 'We define a tiny language model: embedding turns token IDs into vectors, and the linear layer turns vectors into vocabulary logits.' },
-            { lineRange: [11, 13], content: 'We create the initial context and an `EOS` stop token, which sets the generation stopping rule.' },
+            { lineRange: [11, 13], content: 'We create the initial context `[5, 11, 7]` (T=3) and the stop token (`eos_id = 0`), which sets the generation stopping rule.' },
             { lineRange: [15, 17], content: 'We switch to inference mode with `eval()` and `no_grad()` to avoid training noise and gradient overhead.' },
-            { lineRange: [18, 20], content: 'Each forward pass produces logits for every current context position, but only the last position is used to choose the next token.' },
-            { lineRange: [21, 22], content: 'We pick the next token with `argmax` and append it to context, feeding the next generation step.' },
-            { lineRange: [23, 24], content: 'If the emitted token is `EOS`, the loop exits before reaching the maximum step budget.' },
-            { lineRange: [26, 26], content: 'Finally, we print the full generated sequence to inspect how context evolved token by token.' },
+            { lineRange: [18, 20], content: 'Each `for` iteration: forward over the whole context, slice `logits[:, -1, :]`, then `argmax` picks `next_id`.' },
+            { lineRange: [21, 22], content: 'We `cat` `next_id` back into context — this is exactly the append that feeds the next iteration.' },
+            { lineRange: [23, 24], content: 'If the emitted token is `0` (EOS), we `break` out of the `for` before reaching the 5-iteration budget.' },
+            { lineRange: [26, 26], content: 'Finally, we print the full sequence to see how the context evolved token by token.' },
           ],
         },
         generation: {
           title: 'Loop in slow motion',
-          subtitle: 'Each step: forward -> take last position -> argmax -> append to context.',
+          subtitle: 'Each step: forward → logits[:, -1, :] → argmax → append.',
           initialTokens: ['5', '11', '7'],
-          generatedTokens: ['18', '24', '3', '0'],
-          vocabularyHint: 'Here the last emitted token "0" is EOS: the loop stops on its own.',
+          generatedTokens: ['17', '9', '1', '0'],
           embeddingLabel: 'Embedding',
           linearLabel: 'Linear',
-          logitsLabel: 'logits[:,-1,:]',
-          contextLabel: 'context',
+          logitsLabel: 'logits[:, -1, :]',
+          contextLabel: 'Context',
           nextLabel: 'Next token →',
           prevLabel: '← Previous',
-          nextStepLabel: 'Click "Next token" to run one more step of the loop.',
           stepLabel: 'Step',
-          completionLabel: 'EOS emitted. Loop finished.',
+          completionLabel: 'EOS emitted (0). Loop breaks — same as line 23.',
         },
-        pipelinePanel: {
-          title: 'Generation steps',
-          subtitle: 'Training consumes all positions in parallel. Autoregressive generation decides one position at a time.',
-          steps: [
-            { label: 'eval + no_grad', body: 'Before the first new token, freeze model mode and disable graph building.', risk: 'Skipping this hurts performance and may reintroduce training-time noise.' },
-            { label: 'context', shape: '(B,T)', body: 'The model receives the entire current prefix, not only the last word.', risk: 'Confusing partial context with hidden state and losing sight of what the model actually sees.' },
-            { label: 'forward', shape: 'logits -> (B,T,V)', body: 'Output produces a scoreboard for every position in the current context.', risk: 'Assuming all of those logits are equally used for the next decision.' },
-            { label: 'last slice', shape: 'logits[:, -1, :]', body: 'Only the final position matters for choosing the next token.', risk: 'Reading the whole tensor and forgetting which slice truly drives generation.' },
-            { label: 'sample + append', body: 'Argmax or sampling chooses an index; the new token is appended to context and the cycle restarts.', risk: 'Generating without a stop criterion and turning inference into an uncontrolled loop.' },
+        graphPanel: {
+          title: 'Autoregressive flow step-by-step',
+          subtitle: 'Each node corresponds to one operation in the inference loop. Click any node for details.',
+          nodes: [
+            {
+              id: 'context',
+              label: 'context (B,T)',
+              shape: 'int IDs',
+              lineRange: [11, 12],
+              body: 'Context starts as a sequence of integer IDs. At each iteration, a new token is appended to the end.',
+              risk: 'Forget that context grows each step: forward sees the entire accumulated sequence, not just the last token.',
+            },
+            {
+              id: 'forward',
+              label: 'model(context)',
+              shape: 'logits (B,T,V)',
+              lineRange: [18, 18],
+              body: 'Forward produces logits for all positions, but only the last one matters. Embedding converts IDs to vectors, Linear projects vectors to vocabulary logits.',
+              risk: 'If model is still in train() or without no_grad(), memory is wasted and behavior is stochastic.',
+            },
+            {
+              id: 'slice',
+              label: 'logits[:,-1,:]',
+              shape: 'logits (B,V)',
+              lineRange: [19, 19],
+              body: 'We slice only the last temporal position: that one decides the next token. The rest of the context serves only as memory.',
+              risk: 'Taking all positions (full logits) and argmax on the wrong dimension yields a wrongly shaped tensor.',
+            },
+            {
+              id: 'argmax',
+              label: 'argmax → next_id',
+              shape: 'int (B,1)',
+              lineRange: [20, 20],
+              body: 'Argmax picks the vocabulary index with the highest score. It is a deterministic decision (sampling could be used instead).',
+              risk: 'Argmax produces repetitive, predictable text. In production, temperature sampling or top-k/top-p is preferred.',
+            },
+            {
+              id: 'concat',
+              label: 'torch.cat',
+              shape: '(B, T+1)',
+              lineRange: [21, 21],
+              body: 'We concatenate the new token into context. The next forward will see this token as part of the input.',
+              risk: 'If context grows without bound, it exceeds the model window. In production, truncation or sliding window is required.',
+            },
           ],
-          failureTitle: 'Where generation degrades',
+          edges: [
+            { from: 'context', to: 'forward' },
+            { from: 'forward', to: 'slice' },
+            { from: 'slice', to: 'argmax' },
+            { from: 'argmax', to: 'concat' },
+            { from: 'concat', to: 'forward' },
+          ],
+          loopLabel: 'auto loop',
+          prevLabel: '← Previous',
+          nextLabel: 'Next →',
+          stepLabel: 'Node',
+          resetLabel: 'Reset',
+          bridgeTitle: 'Training vs inference',
+          bridgeBody: 'During training, the model sees x and shifted targets and uses cross-entropy to compute loss. During inference, there are no targets — the model generates one token at a time from context, in autoregressive mode. Same architecture, two usage modes.',
+          failureTitle: 'Recurring failures',
           failureModes: [
-            { label: 'Wrong mode', value: '`train()` left active lets dropout contaminate generation.' },
-            { label: 'Wrong slice', value: 'If you do not take the last slice, the decision uses the wrong position.' },
-            { label: 'Missing stop', value: 'Without `EOS` or a token limit, the loop has no control boundary.' },
+            { label: 'No eval()', value: 'Dropout still active produces stochastic outputs between passes.' },
+            { label: 'No no_grad()', value: 'Graph accumulates unnecessarily, blowing up memory.' },
+            { label: 'Infinite context', value: 'No context limit causes the tensor to grow until it exceeds the model window.' },
           ],
-          mentalModelTitle: 'Mental model',
-          mentalModel: [
-            'Forward produces logits for every position seen so far.',
-            'Generation consumes only the latest available decision.',
-            'The new token returns to the input and extends the context.',
-          ],
-          footer: 'Mental model: training consumes all positions; inference decides one position at a time.',
+          footer: 'Generation closes the model cycle: from training to text. Next step: persist the model for deployment via checkpoint.',
         },
       },
     },

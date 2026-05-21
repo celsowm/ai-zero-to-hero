@@ -38,6 +38,7 @@ import type {
   PytorchProjectionSpaceCopy,
   PytorchRuntimePlaybookCopy,
   PytorchShapeTraceFlowCopy,
+  EmbeddingIntroVisualCopy,
   TokenBatchShiftVisualCopy,
   SamplingRouletteCopy,
   SoftmaxVisualizerCopy,
@@ -45,10 +46,14 @@ import type {
   TokenSizeComparisonCopy,
   TrainingLoopStepperCopy,
   TrainingLoopAnimationCopy,
+  TrainingLoopGraphCopy,
+  PytorchAnimatedCodeWalkthroughCopy,
+  PytorchCheckpointExplorerCopy,
 } from './language-models';
 import type {
   BPEFrequencyTableCopy,
   BPEMergeStackCopy,
+  BPEStepByStepCopy,
   BPETrainingCurveCopy,
   TokenGranularitySliderCopy,
   TokenLevelComparisonCopy,
@@ -269,8 +274,11 @@ interface VisualCopyMap {
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;
   'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
-  'pytorch-autograd-3d': PytorchExecutionPipelineCopy;
+  'pytorch-autograd-3d': PytorchAnimatedCodeWalkthroughCopy;
   'pytorch-shape-trace-flow': PytorchShapeTraceFlowCopy;
+  'pytorch-embedding-intro': EmbeddingIntroVisualCopy;
+  'pytorch-training-loop-graph': TrainingLoopGraphCopy;
+  'pytorch-checkpoint-explorer': PytorchCheckpointExplorerCopy;
   'token-batch-shift-interactive': TokenBatchShiftVisualCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
@@ -413,6 +421,7 @@ interface VisualCopyMap {
   'bpe-frequency-table': BPEFrequencyTableCopy;
   'bpe-merge-stack': BPEMergeStackCopy;
   'bpe-training-curve': BPETrainingCurveCopy;
+  'bpe-step-by-step': BPEStepByStepCopy;
   // placeholder / future visuals (temporary â€” replace with proper copy types when implemented)
   'unembedding-diagram': UnembeddingDiagramCopy;
   'temperature-slider-interactive': TemperatureSliderInteractiveCopy;

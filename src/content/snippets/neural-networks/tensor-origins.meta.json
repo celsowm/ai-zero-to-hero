@@ -13,15 +13,19 @@
       },
       {
         "range": [7, 8],
-        "content": "Vetor (1D): um array com direção, como um embedding."
+        "content": "Vetor (1D): array unidimensional com 4 elementos, como um embedding."
       },
       {
         "range": [10, 11],
-        "content": "Matriz (2D): uma tabela — o mais comum em redes neurais."
+        "content": "Matriz (2D): tabela 3×4 — shape (3, 4), três linhas por quatro colunas."
       },
       {
-        "range": [13, 15],
-        "content": "Tensor 4D: batch de imagens [batch, canais, altura, largura]."
+        "range": [13, 14],
+        "content": "Tensor 3D: sequência com batch [batch=2, posição=3, conteúdo=4]."
+      },
+      {
+        "range": [16, 17],
+        "content": "Tensor 4D: batch de imagens [batch=2, canais=3, altura=28, largura=28]."
       }
     ],
     "en-us": [
@@ -35,15 +39,19 @@
       },
       {
         "range": [7, 8],
-        "content": "Vector (1D): an array with direction, like an embedding."
+        "content": "Vector (1D): 1D array with 4 elements, like an embedding."
       },
       {
         "range": [10, 11],
-        "content": "Matrix (2D): a table — the most common in neural networks."
+        "content": "Matrix (2D): 3×4 table — shape (3, 4), three rows by four columns."
       },
       {
-        "range": [13, 15],
-        "content": "4D tensor: image batch [batch, channels, height, width]."
+        "range": [13, 14],
+        "content": "3D tensor: sequence with batch [batch=2, position=3, content=4]."
+      },
+      {
+        "range": [16, 17],
+        "content": "4D tensor: image batch [batch=2, channels=3, height=28, width=28]."
       }
     ]
   }

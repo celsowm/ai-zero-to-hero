@@ -43,6 +43,7 @@ export interface Tensor3DExplorerCopy {
     vectorLabel: string;
     matrixLabel: string;
     tensor3dLabel: string;
+    tensor4dLabel: string;
     footer: string;
   };
 }

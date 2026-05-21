@@ -73,10 +73,13 @@ const visualMap: Record<string, string> = {
   'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',
   'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
-  'pytorch-autograd-3d': 'PytorchAutograd3DVisual',
+  'pytorch-autograd-3d': 'AutogradCodeWalkthrough',
+  'pytorch-training-loop-graph': 'TrainingLoopGraph',
+  'pytorch-checkpoint-explorer': 'PytorchCheckpointExplorerVisual',
   'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
   'pytorch-ecosystem-mermaid': 'PytorchEcosystemMermaidVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
+  'pytorch-embedding-intro': 'EmbeddingIntroVisual',
   'pytorch-embedding-logits-contract': 'PytorchEmbeddingLogitsContract',
   'token-batch-shift-interactive': 'TokenBatchShiftVisual',
 
@@ -215,6 +218,7 @@ const visualMap: Record<string, string> = {
   'bpe-frequency-table': 'BPEFrequencyTable',
   'bpe-merge-stack': 'BPEMergeStack',
   'bpe-training-curve': 'BPETrainingCurve',
+  'bpe-step-by-step': 'BPEStepByStep',
 
   // classification problem
   'classification-problem': 'ClassificationProblemVisual',

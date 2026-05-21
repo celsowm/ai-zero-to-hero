@@ -7,9 +7,9 @@ export const pytorchAutograd = defineSlide({
   content: {
     'pt-br': {
       title: 'Autograd: o que é, por que esse nome, e como entra no treino',
-      body: `Lembra do slide de backpropagation, onde derivamos \`sigmoid\`, calculamos \`delta_out\`, \`delta_h\` e atualizamos cada peso na unha? No PyTorch, **todo esse trabalho manual vira uma chamada so**: \`loss.backward()\`.
+      body: `No slide "força bruta" da regressão linear, implementamos o backward manualmente com derivadas de sigmoid e atualização de pesos na unha. No PyTorch, **todo esse trabalho manual vira uma chamada só**: \`loss.backward()\`.
 
-Ponte com os slides anteriores: no bloco de regressao, o alvo escalar era minimizado com **MSE**; aqui, no LM, o papel continua igual (gerar sinal para backward), mas o criterio tipico vira **CE (cross-entropy)** por token.
+Ponte com os slides anteriores: no bloco de regressão, o alvo escalar era minimizado com **MSE**; aqui no LM, o papel continua igual (gerar sinal para backward), mas o critério típico vira **CE (cross-entropy)** por token.
 
 **Autograd** = *automatic differentiation* (diferenciação automática). O nome é direto: **auto**matic **grad**ient — o motor calcula gradientes sozinho, sem você derivar nada à mão.
 
@@ -19,14 +19,14 @@ Imagine que cada operação matemática que você faz (soma, multiplicação, Re
 - **No Backward:** ele lê esse caderno de trás para frente e aplica a **Regra da Cadeia** automaticamente para calcular todos os gradientes.
 
 Mini caso operacional:
-- sem \`zero_grad()\`, o passo 2 soma gradiente do passo 1
-- com \`zero_grad()\`, cada backward representa so o batch atual
+- sem \`zero_grad()\`, o passo 2 soma gradiente do passo 1.
+- com \`zero_grad()\`, cada backward representa só o batch atual.
 
-Sem Autograd, voce teria que derivar e implementar manualmente o backward de cada operacao — exatamente como fizemos no exemplo manual.`,
+Sem Autograd, você teria que derivar e implementar manualmente o backward de cada operação — exatamente como fizemos no exemplo manual.`,
     },
     'en-us': {
       title: 'Autograd: what it is, why this name, and where it enters training',
-      body: `Remember the backpropagation slide, where we derived \`sigmoid\`, computed \`delta_out\`, \`delta_h\`, and updated each weight by hand? In PyTorch, **all that manual work becomes a single call**: \`loss.backward()\`.
+      body: `In the "brute force" linear regression slide, we implemented backward manually with sigmoid derivatives and weight updates by hand. In PyTorch, **all that manual work becomes a single call**: \`loss.backward()\`.
 
 Bridge to earlier slides: in the regression block, the scalar objective was minimized with **MSE**; here in LM, the role is the same (produce backward signal), but the typical criterion becomes per-token **CE (cross-entropy)**.
 
@@ -38,8 +38,8 @@ Imagine that every math operation you perform (addition, multiplication, ReLU) g
 - **On Backward:** it reads that notebook backwards and applies the **Chain Rule** automatically to compute every gradient.
 
 Operational mini-case:
-- without \`zero_grad()\`, step 2 accumulates step 1 gradients
-- with \`zero_grad()\`, each backward reflects only the current batch
+- without \`zero_grad()\`, step 2 accumulates step 1 gradients.
+- with \`zero_grad()\`, each backward reflects only the current batch.
 
 Without Autograd, you would need to derive and implement backward for each operation manually — exactly what we did in the manual example.`,
     },
@@ -48,77 +48,117 @@ Without Autograd, you would need to derive and implement backward for each opera
     id: 'pytorch-autograd-3d',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Mecanica' }],
+        tabs: [{ label: 'Código' }, { label: 'Mecânica' }],
         codePanel: {
-          title: 'Backward minimo',
-          description: 'Exemplo reduzido de logits + target para ver claramente a formacao de gradiente.',
+          title: 'Backward mínimo',
+          description: 'Snippet reduzido: logits + target + backward. Cada linha do código ganha explicação ancorada abaixo.',
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'Criamos logits com gradiente habilitado e um alvo válido para isolar o comportamento do backward.' },
-            { lineRange: [7, 8], content: 'A cross-entropy mede o erro e o `backward()` propaga esse erro para preencher os gradientes.' },
-            { lineRange: [10, 11], content: 'No final, imprimimos loss e gradiente para visualizar o sentido do ajuste que será aplicado.' },
+            { lineRange: [1, 2], content: 'Import torch e a função de cross-entropy — as duas ferramentas mínimas para observar o backward.' },
+            { lineRange: [4, 5], content: 'Criamos um tensor 1×3 com `requires_grad=True` e um alvo escalar. Sem `requires_grad`, nenhum gradiente é formado.' },
+            { lineRange: [7, 8], content: '`F.cross_entropy` aplica softmax + -log do alvo; `backward()` preenche `logits.grad` pela regra da cadeia.' },
+            { lineRange: [10, 11], content: '`loss` é o número a ser minimizado; `logits.grad` mostra quanto cada logit deve descer.' },
           ],
         },
-        pipelinePanel: {
-          title: 'Fluxo causal do gradiente',
-          subtitle: 'Autograd não é um mistério escondido. É um encadeamento operacional: gravar operações, definir a loss e propagar derivadas.',
+        walkthroughPanel: {
+          title: 'Walkthrough do autograd',
+          subtitle: 'Cada passo ancora em uma (ou duas) linhas do snippet. Siga a sequência para ver o grafo ganhar vida.',
           steps: [
-            { label: 'requires_grad', body: 'Tensores e parâmetros marcados entram no radar do motor automático de derivação.', risk: 'Se o tensor certo não participa, não adianta chamar backward depois.' },
-            { label: 'forward trace', body: 'Cada operação relevante deixa um rastro no grafo dinâmico.', risk: 'Achar que o grafo existe “depois” da loss; ele começa a nascer durante o forward.' },
-            { label: 'loss escalar', body: 'A cross-entropy concentra o erro em um número que vira origem da retropropagação; em regressao, esse mesmo papel era do MSE.', risk: 'Sem um objetivo escalar claro, o backward não sabe o que minimizar.' },
-            { label: 'backward()', body: 'A regra da cadeia corre do fim para o começo e distribui sensibilidade pelos parâmetros conectados.', risk: 'Esperar que o optimizer funcione sem esse sinal ter sido populado em `.grad`.' },
-            { label: 'buffer .grad', body: 'Cada parâmetro guarda quanto deve subir ou descer no próximo update.', risk: 'Esquecer que `.grad` acumula entre passos quando não é limpo.' },
+            {
+              label: 'tensor marcado',
+              body: 'O flag `requires_grad=True` na linha 4 coloca `logits` no radar do autograd. A partir daqui, toda operação sobre esse tensor será gravada no grafo computacional.',
+              risk: 'Esquecer esse flag = `logits.grad` fica `None` após o `backward()`, o que só aparece quando você tenta usar o gradiente e dá erro silencioso.',
+              shape: 'shape: [1, 3]',
+            },
+            {
+              label: 'cross_entropy',
+              body: 'Na linha 7, `F.cross_entropy` junta softmax e log-likelihood em uma chamada. Para logits `[2.0, 0.5, -1.0]` e `target=0`, o softmax fica ~`[0.785, 0.175, 0.039]` e a loss resulta em ~`0.242`.',
+              risk: 'Achar que a loss mede erro em todas as classes — na verdade, CE só olha para o índice do target (classe correta). As outras classes entram no softmax, não na loss.',
+              shape: 'loss: 0.242',
+            },
+            {
+              label: 'backward()',
+              body: 'Na linha 8, `loss.backward()` aciona o motor. O PyTorch percorre o grafo de trás para frente, aplicando a regra da cadeia em cada nó para distribuir o gradiente até `logits`.',
+              risk: 'Chamar `backward()` duas vezes no mesmo grafo sem `retain_graph=True` dá erro — o grafo é descartado após a primeira passagem.',
+              shape: 'chain rule',
+            },
+            {
+              label: 'logits.grad',
+              body: 'Na linha 11, `logits.grad` está preenchido. Para CE + softmax, a fórmula cai em `grad = softmax - one_hot(target)`. Resultado: `[-0.215, 0.175, 0.039]`. O sinal negativo no índice do alvo diz "diminua esse logit".',
+              risk: 'Em loops de treino, esquecer `optimizer.zero_grad()` acumula o gradiente do batch anterior e distorce o update.',
+              shape: '[-0.215, 0.175, 0.039]',
+            },
           ],
-          failureTitle: 'Onde a leitura quebra',
+          failureTitle: 'Bugs comuns nesta sequência',
           failureModes: [
-            { label: 'Sem gradiente', value: 'O tensor não entrou no grafo ou o caminho até a loss foi interrompido.' },
-            { label: 'Escala estranha', value: 'Acúmulo antigo em `.grad` distorce o próximo update.' },
-            { label: 'Debug errado', value: 'Ajustar learning rate antes de verificar se o gradiente está sendo formado corretamente.' },
+            { label: '.grad = None', value: 'Esqueceu `requires_grad=True` ou o tensor saiu do grafo antes da loss.' },
+            { label: 'Loss não é escalar', value: '`backward()` exige um número (shape `[]`). Se a loss for vetor, você precisa de `gradient=`.' },
+            { label: 'Gradiente acumulado', value: 'Em loops consecutivos, falta `zero_grad()` faz cada batch herdar a sensibilidade do anterior.' },
           ],
-          mentalModelTitle: 'Modelo mental',
+          mentalModelTitle: 'Modelo mental em 3 passos',
           mentalModel: [
-            'Forward grava operações relevantes.',
-            'Loss define o alvo escalar da diferenciação.',
-            'Backward preenche `.grad`; optimizer usa esse buffer depois.',
+            '1. `requires_grad` marca o tensor como observável pelo autograd.',
+            '2. Cada operação no forward grava uma aresta no grafo.',
+            '3. `backward()` percorre essas arestas ao contrário e preenche `.grad`.',
           ],
-          footer: 'Regra prática: debugue grafo/gradiente primeiro; só depois ajuste otimizador e learning rate.',
+          footer: 'Regra prática: se `logits.grad` está None, o problema aconteceu antes do `backward()`, não dentro dele.',
         },
       },
       'en-us': {
         tabs: [{ label: 'Code' }, { label: 'Mechanics' }],
         codePanel: {
           title: 'Minimal backward pass',
-          description: 'Reduced logits + target example to make gradient flow explicit.',
+          description: 'Reduced snippet: logits + target + backward. Every line gets a grounded explanation below.',
           source: { snippetId: 'pytorch-lm/autograd-step', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 5], content: 'We create logits with gradients enabled and one valid target to isolate backward behavior.' },
-            { lineRange: [7, 8], content: 'Cross-entropy measures error, and `backward()` propagates it to fill gradients.' },
-            { lineRange: [10, 11], content: 'Finally, we print loss and gradient so the upcoming update direction is visible.' },
+            { lineRange: [1, 2], content: 'Import torch and the cross-entropy function — the two minimal tools needed to observe backward.' },
+            { lineRange: [4, 5], content: 'We create a 1×3 tensor with `requires_grad=True` and a scalar target. Without `requires_grad`, no gradient is formed.' },
+            { lineRange: [7, 8], content: '`F.cross_entropy` applies softmax + -log of the target; `backward()` fills `logits.grad` via the chain rule.' },
+            { lineRange: [10, 11], content: '`loss` is the scalar to minimize; `logits.grad` shows how much each logit must move down.' },
           ],
         },
-        pipelinePanel: {
-          title: 'Gradient causal flow',
-          subtitle: 'Autograd is not hidden magic. It is an operational chain: record operations, define loss, propagate derivatives.',
+        walkthroughPanel: {
+          title: 'Autograd walkthrough',
+          subtitle: 'Each step is anchored in one (or two) lines of the snippet. Follow the sequence to see the graph come alive.',
           steps: [
-            { label: 'requires_grad', body: 'Tensors and parameters marked for gradients enter the scope of automatic differentiation.', risk: 'If the right tensor never participates, calling backward later changes nothing.' },
-            { label: 'forward trace', body: 'Each relevant operation leaves a trace in the dynamic graph.', risk: 'Assuming the graph appears only after loss; it starts forming during forward.' },
-            { label: 'scalar loss', body: 'Cross-entropy concentrates error into one number that becomes the source of backpropagation; in regression, MSE played this same role.', risk: 'Without a clear scalar objective, backward has nothing coherent to minimize.' },
-            { label: 'backward()', body: 'Chain rule runs from output back to inputs and distributes sensitivity through connected parameters.', risk: 'Expecting the optimizer to work before `.grad` has been populated.' },
-            { label: 'buffer .grad', body: 'Each parameter stores how much it should move on the next update.', risk: 'Forgetting that `.grad` accumulates between steps unless cleared.' },
+            {
+              label: 'marked tensor',
+              body: 'The `requires_grad=True` flag on line 4 puts `logits` on autograd\'s radar. From here, every operation on this tensor is recorded in the computational graph.',
+              risk: 'Forgetting this flag leaves `logits.grad` as `None` after `backward()` — only surfacing when you try to use the gradient.',
+              shape: 'shape: [1, 3]',
+            },
+            {
+              label: 'cross_entropy',
+              body: 'On line 7, `F.cross_entropy` bundles softmax and log-likelihood. For logits `[2.0, 0.5, -1.0]` and `target=0`, softmax is ~`[0.785, 0.175, 0.039]` and the loss comes out to ~`0.242`.',
+              risk: 'Thinking loss sees all classes — in fact, CE only looks at the target index (correct class). The other classes enter softmax, not loss.',
+              shape: 'loss: 0.242',
+            },
+            {
+              label: 'backward()',
+              body: 'On line 8, `loss.backward()` triggers the engine. PyTorch walks the graph from output to inputs, applying the chain rule at each node to distribute gradient back to `logits`.',
+              risk: 'Calling `backward()` twice on the same graph (without `retain_graph=True`) errors out — the graph is freed after the first pass.',
+              shape: 'chain rule',
+            },
+            {
+              label: 'logits.grad',
+              body: 'On line 11, `logits.grad` is filled. For CE + softmax, the formula collapses to `grad = softmax - one_hot(target)`. Result: `[-0.215, 0.175, 0.039]`. The negative signal at the target index says "lower this logit".',
+              risk: 'In training loops, forgetting `optimizer.zero_grad()` lets the previous batch\'s gradient accumulate and distort the update.',
+              shape: '[-0.215, 0.175, 0.039]',
+            },
           ],
-          failureTitle: 'Where reading breaks',
+          failureTitle: 'Common bugs in this sequence',
           failureModes: [
-            { label: 'No gradient', value: 'The tensor never entered the graph or the path to loss was broken.' },
-            { label: 'Weird scale', value: 'Old accumulation in `.grad` distorts the next update.' },
-            { label: 'Wrong debug order', value: 'Tuning learning rate before verifying that gradients are being formed correctly.' },
+            { label: '.grad = None', value: '`requires_grad=True` was missing or the tensor left the graph before the loss.' },
+            { label: 'Loss not scalar', value: '`backward()` requires a scalar (shape `[]`). If loss is a vector, you need the `gradient=` argument.' },
+            { label: 'Accumulated gradient', value: 'In successive loops, missing `zero_grad()` makes each batch inherit the previous batch\'s sensitivity.' },
           ],
-          mentalModelTitle: 'Mental model',
+          mentalModelTitle: 'Mental model in 3 steps',
           mentalModel: [
-            'Forward records relevant operations.',
-            'Loss defines the scalar differentiation target.',
-            'Backward fills `.grad`; the optimizer consumes that buffer later.',
+            '1. `requires_grad` marks the tensor as observable by autograd.',
+            '2. Each operation in the forward pass records an edge in the graph.',
+            '3. `backward()` walks those edges backwards and fills `.grad`.',
           ],
-          footer: 'Practical order: debug graph/gradients first, then tune optimizer and learning rate.',
+          footer: 'Practical rule: if `logits.grad` is None, the bug happened before `backward()`, not inside it.',
         },
       },
     },

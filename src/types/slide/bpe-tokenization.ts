@@ -45,6 +45,21 @@ export interface BPEMergeStackCopy {
   originalTokens?: string[];
 }
 
+export interface BPEStepByStepCopy {
+  title: string;
+  corpusLabel: string;
+  pairsLabel: string;
+  pairCol: string;
+  countCol: string;
+  rulesLabel: string;
+  mergeButton: string;
+  nextMergeLabel: string;
+  resetButton: string;
+  doneLabel: string;
+  vocabSizeLabel: string;
+  iterLabel: string;
+}
+
 export interface BPETrainingCurveCopy {
   title: string;
   vocabAxis: string;
