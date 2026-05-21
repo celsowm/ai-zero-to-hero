@@ -7,14 +7,14 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
   content: {
     'pt-br': {
       title: '`nn.Linear`: projeção, não “camada mágica”',
-      body: `O slide anterior mostrou que cada token vira um vetor denso de tamanho \`C\` via embedding. Agora o modelo precisa **transformar esse vetor em uma decisão**: qual token vem a seguir?
+      body: `Temos representacao vetorial por token, mas ainda falta a decisao: **como sair de um vetor interno para escolha de proximo token?**
 
-O problema é este:
-- Temos um vetor \`h \\in \\mathbb{R}^C\` para cada posição da sequência;
-- Precisamos de um **placar** sobre as \`V\` palavras do vocabulário;
-- Esse placar precisa ser treinável para aprender qual contexto favorece qual token.
+Essa e a necessidade concreta:
+- para cada posicao da sequencia existe um vetor \`h \\in \\mathbb{R}^C\`;
+- a geracao precisa de um placar sobre todo o vocabulario \`V\`;
+- esse placar precisa ser treinavel para aprender contexto.
 
-A ferramenta para isso é \`nn.Linear(in, out)\`, que aplica uma transformação afim em cada vetor da última dimensão:
+So depois desse problema aparece a ferramenta certa: \`nn.Linear(in, out)\`, que aplica uma transformacao afim em cada vetor da ultima dimensao:
 
 \`y = xW^T + b\`
 
@@ -42,14 +42,14 @@ Se você confunde isso, perde a leitura do modelo.
     },
     'en-us': {
       title: '`nn.Linear`: projection, not a “magic layer”',
-      body: `The previous slide showed that each token becomes a dense vector of size \`C\` via embedding. Now the model needs to **turn that vector into a decision**: which token comes next?
+      body: `We already have per-token vector representations, but we still lack the decision step: **how do we map an internal vector to next-token choice?**
 
-The problem is:
-- We have a vector \`h \\in \\mathbb{R}^C\` for each sequence position;
-- We need a **scoreboard** over the \`V\` vocabulary words;
-- That scoreboard must be trainable to learn which context favors which token.
+That is the concrete need:
+- each sequence position has a vector \`h \\in \\mathbb{R}^C\`;
+- generation needs a scoreboard over the full vocabulary \`V\`;
+- that scoreboard must be trainable to capture context.
 
-The tool for this is \`nn.Linear(in, out)\`, which applies an affine transform on vectors from the last axis:
+Only after this problem is clear does \`nn.Linear(in, out)\` make sense: it applies an affine transform on vectors from the last axis:
 
 \`y = xW^T + b\`
 

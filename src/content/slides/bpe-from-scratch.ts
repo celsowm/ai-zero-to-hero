@@ -12,127 +12,65 @@ export const bpeFromScratch = defineSlide({
   content: {
     'pt-br': {
       title: `BPE na mão: implementação completa`,
-      body: `Aqui está uma implementação completa de BPE em Python. O código é executado no navegador via Pyodide.
+      body: `Aqui o objetivo nao e "rodar BPE por rodar". E entender **por que o tokenizer para de quebrar tudo em letras soltas**.
 
-### O Algoritmo em 4 Passos
+Quando o BPE encontra pares frequentes e funde esses pares:
+1. reduz fragmentacao de palavras muito comuns;
+2. reaproveita subpartes recorrentes em varios contextos;
+3. cria um vocabulario mais util para o modelo aprender padroes.
 
-1. **Contar:** Identificar pares de caracteres que aparecem juntos com mais frequência.
-2. **Fundir:** Criar um novo símbolo unindo esse par em todo o texto.
-3. **Repetir:** Voltar ao passo 1 até atingir o número desejado de fusões.
-4. **Vocabulário:** O resultado é um conjunto de tokens que representam bem o seu texto.
+Neste exemplo, usamos um corpus curto (\`once upon a time...\`) e exibimos:
+1. estado inicial do corpus;
+2. par escolhido em cada merge + frequencia;
+3. novo simbolo criado;
+4. amostra da evolucao do corpus;
+5. resumo final de merges e vocabulario.
 
-> Este é o mesmo algoritmo que o GPT-2 usa internamente — apenas simplificado para fins didáticos.
+Conexao com tokenizacao real: e exatamente essa logica iterativa (contar -> fundir -> repetir) que torna os tokens mais informativos que caracteres puros.
 `,
       rightBody: `
 \`\`\`python
 snippet:bpe/bpe-implementation
 \`\`\``,
       codeExplanations: [
-    {
-    "lineRange": [
-      5,
-      14
-    ],
-    "content": "Esta função é o sensor do BPE. Ela percorre o texto usando uma janela deslizante para contar cada par de símbolos adjacentes. O corpus começa como caracteres individuais, mas conforme fundimos, os símbolos ficam maiores."
-  },
-    {
-    "lineRange": [
-      18,
-      34
-    ],
-    "content": "A função de fusão aplica a decisão tomada: ela substitui todas as ocorrências de um par de símbolos (ex: 'e', 'r') por um novo símbolo único (ex: 'er'). O uso do loop while permite pular o índice corretamente após cada fusão."
-  },
-    {
-    "lineRange": [
-      38,
-      44
-    ],
-    "content": "O vocabulário é reconstruído unindo os símbolos de cada palavra. Isso nos permite ver quais 'pedaços' de palavras o modelo aprendeu (como sufixos 'ing' ou prefixos 'un')."
-  },
-    {
-    "lineRange": [
-      49,
-      50
-    ],
-    "content": "Preparamos os dados de exemplo. Cada palavra é convertida em uma tupla de caracteres, que é a unidade atômica inicial do nosso tokenizador."
-  },
-    {
-    "lineRange": [
-      55,
-      69
-    ],
-    "content": "O loop principal executa o aprendizado: a cada passo, ele recalcula estatísticas, escolhe o par mais frequente (estratégia gananciosa) e atualiza o corpus e o vocabulário."
-  },
-    {
-    "lineRange": [
-      73,
-      75
-    ],
-    "content": "Finalmente, exibimos o vocabulário resultante. Note como o número total de símbolos aumentou em relação ao conjunto de caracteres original."
-  }
-  ],
+        { lineRange: [5, 11], content: 'Sensor do BPE: conta pares adjacentes no estado atual do corpus para decidir qual fusao gera mais ganho agora.' },
+        { lineRange: [15, 28], content: 'Executor da fusao: substitui o par escolhido por um simbolo unico em todas as palavras, preservando a ordem dos demais simbolos.' },
+        { lineRange: [32, 40], content: 'Camada de leitura didatica: reconstrui vocabulario por frequencia e formata corpus para imprimir a evolucao de forma humana.' },
+        { lineRange: [44, 45], content: 'Corpus mais narrativo (`once upon a time...`) para facilitar leitura de merges e conexao com texto real.' },
+        { lineRange: [49, 71], content: 'Loop principal: escolhe par mais frequente, funde, registra historico e imprime trilha por iteracao (par, frequencia, novo simbolo, amostra).' },
+        { lineRange: [75, 82], content: 'Resumo final didatico: lista cronologica dos merges e top do vocabulario final para ver quais unidades sobreviveram.' },
+      ],
     },
     'en-us': {
       title: `BPE from scratch: full implementation`,
-      body: `Here is a complete BPE implementation in Python. The code runs in the browser via Pyodide.
+      body: `The goal here is not just "running BPE". It is to see **why tokenization stops being pure character fragmentation**.
 
-### The Algorithm in 4 Steps
+When BPE repeatedly merges frequent pairs, it:
+1. reduces over-fragmentation of common words;
+2. reuses recurring subparts across contexts;
+3. builds a vocabulary that is more useful for model learning.
 
-1. **Count:** Identify character pairs that appear together most frequently.
-2. **Merge:** Create a new symbol by joining this pair across the entire text.
-3. **Repeat:** Go back to step 1 until reaching the desired number of merges.
-4. **Vocabulary:** The result is a set of tokens that efficiently represent your text.
+In this short corpus (\`once upon a time...\`) we print:
+1. initial corpus state;
+2. chosen pair per merge + frequency;
+3. newly created symbol;
+4. partial corpus evolution;
+5. final merge history and final vocabulary summary.
 
-> This is the same algorithm GPT-2 uses internally — just simplified for didactic purposes.
+Connection to real tokenizer training: this iterative loop (count -> merge -> repeat) is exactly what makes tokens more informative than isolated characters.
 `,
       rightBody: `
 \`\`\`python
 snippet:bpe/bpe-implementation
 \`\`\``,
       codeExplanations: [
-    {
-    "lineRange": [
-      5,
-      14
-    ],
-    "content": "This function is the BPE sensor. It traverses the text using a sliding window to count each adjacent symbol pair. The corpus starts as individual characters, but as we merge, the symbols grow larger."
-  },
-    {
-    "lineRange": [
-      18,
-      34
-    ],
-    "content": "The merge function applies the decision: it replaces all occurrences of a symbol pair (e.g., 'e', 'r') with a new unique symbol (e.g., 'er'). Using a while loop allows correctly skipping the index after each merge."
-  },
-    {
-    "lineRange": [
-      38,
-      44
-    ],
-    "content": "The vocabulary is reconstructed by joining the symbols of each word. This lets us see which 'chunks' of words the model has learned (like 'ing' suffixes or 'un' prefixes)."
-  },
-    {
-    "lineRange": [
-      49,
-      50
-    ],
-    "content": "We prepare example data. Each word is converted into a tuple of characters, which is the initial atomic unit of our tokenizer."
-  },
-    {
-    "lineRange": [
-      55,
-      69
-    ],
-    "content": "The main loop runs the learning: at each step, it recalculates stats, picks the most frequent pair (greedy strategy), and updates the corpus and vocabulary."
-  },
-    {
-    "lineRange": [
-      73,
-      75
-    ],
-    "content": "Finally, we display the resulting vocabulary. Notice how the total number of symbols has increased compared to the original character set."
-  }
-  ],
+        { lineRange: [5, 11], content: 'BPE sensor: counts adjacent pairs in the current corpus state to decide which merge yields the biggest immediate gain.' },
+        { lineRange: [15, 28], content: 'Merge executor: replaces the chosen pair by a single symbol across all words while preserving the remaining order.' },
+        { lineRange: [32, 40], content: 'Didactic visibility layer: rebuilds vocabulary and formats corpus strings so each iteration is easy to inspect.' },
+        { lineRange: [44, 45], content: 'Narrative corpus (`once upon a time...`) improves readability of merges versus synthetic toy words.' },
+        { lineRange: [49, 71], content: 'Main loop: choose most frequent pair, merge it, store history, and print per-step trail (pair, frequency, symbol, corpus sample).' },
+        { lineRange: [75, 82], content: 'Final teaching output: chronological merge summary plus top final vocabulary entries.' },
+      ],
     },
   },
 });

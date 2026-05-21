@@ -381,19 +381,20 @@ export interface PytorchShapeTraceFlowCopy {
   vocabPanel: {
     title: string;
     subtitle: string;
+    axisLegend: string;
     tokenLabel: string;
     idLabel: string;
+    embeddingRowLabel: string;
+    logitsAxisLabel: string;
     shapeLabel: string;
     examples: Array<{ token: string; id: number }>;
-    dimensionCard: {
-      shapes: string[];
-      embedLabel: string;
-      embedShape: string;
-      vocabLabel: string;
-      vocabShape: string;
-      dimLabel: string;
-      dimShape: string;
-    };
+    projectionHint: string;
+    animationLabel: string;
+    dimensionCards: Array<{
+      label: string;
+      value: string;
+      tone: 'cyan' | 'violet' | 'amber';
+    }>;
     footer: string;
   };
 }
@@ -568,11 +569,19 @@ export interface EmbeddingIntroVisualCopy {
   embedExplorer: {
     title: string;
     subtitle: string;
+    sequenceLabel: string;
+    tableLabel: string;
+    outputLabel: string;
     vocabSizeLabel: string;
     embedDimLabel: string;
-    tableLabel: string;
     rowLabel: string;
     maxIdLabel: string;
+    stepperLabel: string;
+    prevLabel: string;
+    nextLabel: string;
+    activePositionLabel: string;
+    selectedTokenLabel: string;
+    selectedVectorLabel: string;
     lookupLabel: string;
     lookupBody: string;
     sharedWeightsHint: string;

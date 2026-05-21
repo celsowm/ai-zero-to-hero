@@ -6,14 +6,14 @@ export const pytorchShapesLanguageModeling = defineSlide({
   options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
-      title: 'Convencoes de shape para LM (language model)',
+      title: 'Convencoes de shape para modelo de linguagem',
       body: `No slide anterior, o modelo ja recebia IDs inteiros e produzia **scores de saida**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
 
 Resposta: o modelo tenta prever **qual token vem a seguir** em cada posicao da sequencia.
 - por isso ele nao produz um numero so, mas um placar sobre o vocabulario inteiro;
 - e por isso o contrato de shape precisa preservar batch, tempo e vocabulario ao mesmo tempo.
 
-Agora sim faz sentido formalizar o contrato B/T/C/V para esse tipo de treino.
+Agora sim faz sentido formalizar o contrato B/T/C/V para treino de modelo de linguagem.
 
 Termo novo com motivacao: **logits**.
 
@@ -51,7 +51,7 @@ Invariantes de sanidade:
 O proximo passo e mostrar como o mesmo tensor de IDs gera pares de entrada/alvo para esse treino.`,
     },
     'en-us': {
-      title: 'Shape conventions for LM (language model)',
+      title: 'Shape conventions for language models',
       body: `In the previous slide, the model already consumed integer IDs and produced **output scores**. One central question is still open: **scores for what, exactly?**
 
 In language modeling, the task is simple to define:
@@ -116,9 +116,14 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
         vocabPanel: {
           title: 'Vocabulario: o que e e como aparece nos shapes',
           subtitle: 'V é a quantidade de tokens diferentes que o modelo conhece. Cada token ganha um ID unico e uma linha na tabela de embedding.',
+          axisLegend: 'Fluxo operacional: token -> ID -> linha E[id] -> voto no eixo V dos logits.',
           tokenLabel: 'Token',
           idLabel: 'ID',
+          embeddingRowLabel: 'Linha embedding',
+          logitsAxisLabel: 'Eixo V dos logits (B,T,V)',
           shapeLabel: 'embedding table: V tokens × C dimensoes cada',
+          projectionHint: 'Token "{token}" (ID {id}) ativa E[{id}] e aumenta sua influencia no eixo V.',
+          animationLabel: 'Selecione outro token para ver a projecao mudando no painel de logits.',
           examples: [
             { token: 'hello', id: 0 },
             { token: 'world', id: 1 },
@@ -126,15 +131,11 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
             { token: '.', id: 3 },
             { token: '[UNK]', id: 4 },
           ],
-          dimensionCard: {
-            shapes: ['V = 5', 'V × C', 'C = 16'],
-            embedLabel: 'Tokens',
-            embedShape: 'V = 5',
-            vocabLabel: 'Tabela',
-            vocabShape: '(V, C) = (5, 16)',
-            dimLabel: 'Dimensao',
-            dimShape: 'C = 16',
-          },
+          dimensionCards: [
+            { label: 'Tokens', value: 'V = 5', tone: 'cyan' },
+            { label: 'Tabela', value: '(V, C) = (5, 16)', tone: 'violet' },
+            { label: 'Dimensao', value: 'C = 16', tone: 'amber' },
+          ],
           footer: 'Regra: V aparece no shape dos logits (B, T, V) porque cada posicao vota em todo o vocabulario.',
         },
       },
@@ -154,9 +155,14 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
         vocabPanel: {
           title: 'Vocabulary: what it is and how it appears in shapes',
           subtitle: 'V is the number of distinct tokens the model knows. Each token gets a unique ID and one row in the embedding table.',
+          axisLegend: 'Operational flow: token -> ID -> embedding row E[id] -> vote on logits axis V.',
           tokenLabel: 'Token',
           idLabel: 'ID',
+          embeddingRowLabel: 'Embedding row',
+          logitsAxisLabel: 'Logits axis V in (B,T,V)',
           shapeLabel: 'embedding table: V tokens × C dimensions each',
+          projectionHint: 'Token "{token}" (ID {id}) activates E[{id}] and raises its influence on axis V.',
+          animationLabel: 'Select another token to watch the projection change on the logits panel.',
           examples: [
             { token: 'hello', id: 0 },
             { token: 'world', id: 1 },
@@ -164,15 +170,11 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
             { token: '.', id: 3 },
             { token: '[UNK]', id: 4 },
           ],
-          dimensionCard: {
-            shapes: ['V = 5', 'V × C', 'C = 16'],
-            embedLabel: 'Tokens',
-            embedShape: 'V = 5',
-            vocabLabel: 'Table',
-            vocabShape: '(V, C) = (5, 16)',
-            dimLabel: 'Dimension',
-            dimShape: 'C = 16',
-          },
+          dimensionCards: [
+            { label: 'Tokens', value: 'V = 5', tone: 'cyan' },
+            { label: 'Table', value: '(V, C) = (5, 16)', tone: 'violet' },
+            { label: 'Dimension', value: 'C = 16', tone: 'amber' },
+          ],
           footer: 'Rule: V appears in logits shape (B, T, V) because each position votes over the whole vocabulary.',
         },
       },

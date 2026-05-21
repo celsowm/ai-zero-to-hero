@@ -1,32 +1,26 @@
-# Byte Pair Encoding (BPE) - Full implementation
-# This algorithm is the same one used internally by GPT-2
+# Byte Pair Encoding (BPE) - didactic implementation
+# Shows merge evolution at each iteration
 
 # @region stats-full
 def get_stats(corpus):
-    """Counts frequency of adjacent pairs in the corpus."""
     stats = {}
     for word in corpus:
         for i in range(len(word) - 1):
-            # Sliding window: we take the current character and the next one
-            pair = (word[i], word[i+1])
-            # Increment the pair count in the dictionary
+            pair = (word[i], word[i + 1])
             stats[pair] = stats.get(pair, 0) + 1
     return stats
 # @endregion
 
 # @region merge-full
 def merge_pair(pair, corpus):
-    """Merges a specific pair into a new symbol."""
     merged = []
     for word in corpus:
         new_word = []
         i = 0
         while i < len(word):
-            # If the current pair in the text matches the pair we want to merge
-            if i < len(word) - 1 and word[i] == pair[0] and word[i+1] == pair[1]:
-                # Merge the two symbols into one
-                new_word.append(word[i] + word[i+1])
-                i += 2  # Skip two symbols since they were merged
+            if i < len(word) - 1 and word[i] == pair[0] and word[i + 1] == pair[1]:
+                new_word.append(word[i] + word[i + 1])
+                i += 2
             else:
                 new_word.append(word[i])
                 i += 1
@@ -36,41 +30,54 @@ def merge_pair(pair, corpus):
 
 # @region vocab-full
 def get_vocab(corpus):
-    """Builds the final vocabulary from the corpus."""
     vocab = {}
     for word in corpus:
         token = ''.join(word)
         vocab[token] = vocab.get(token, 0) + 1
     return vocab
+
+def format_corpus(corpus):
+    return [' '.join(word) for word in corpus]
 # @endregion
 
 # @region usage-setup
-# --- Usage Example ---
-corpus_text = 'Once upon a time'.split()
+corpus_text = 'once upon a time there was a tiny tokenizer'.split()
 corpus = [tuple(w) for w in corpus_text]
 # @endregion
 
 # @region main-loop
-# Run the iterative BPE loop
-num_merges = 10
-vocab = {tuple(w): 0 for w in corpus_text}
+num_merges = 8
+history = []
 
-for i in range(num_merges):
-    # 1. Analyze the corpus to find the most common pair at the moment
+print('=== Initial state ===')
+print('Corpus:', format_corpus(corpus))
+print('Initial vocab:', sorted(get_vocab(corpus).keys()))
+
+for step in range(1, num_merges + 1):
     stats = get_stats(corpus)
-    if not stats: break
-    
-    # 2. Greedy choice: pick the pair with the highest frequency
+    if not stats:
+        break
+
     best_pair = max(stats, key=stats.get)
-    
-    # 3. Apply the merge across the entire corpus
+    freq = stats[best_pair]
+    new_token = ''.join(best_pair)
+
     corpus = merge_pair(best_pair, corpus)
-    # 4. Register the new token in our vocabulary
-    vocab[best_pair] = i + 1
+    history.append((step, best_pair, freq, new_token))
+
+    print(f'\n--- Merge {step} ---')
+    print(f'chosen pair: {best_pair} (freq={freq})')
+    print(f'new symbol: {new_token}')
+    print('corpus sample:', format_corpus(corpus)[:4])
 # @endregion
 
 # @region final-output
-print(f"Final vocabulary ({len(vocab)} symbols):")
-for symbol, merge_idx in sorted(vocab.items(), key=lambda x: x[1]):
-    print(f"  {merge_idx}: {''.join(symbol)}")
+final_vocab = sorted(get_vocab(corpus).items(), key=lambda x: (-x[1], x[0]))
+print('\n=== Final summary ===')
+for step, pair, freq, token in history:
+    print(f'{step:02d}. {pair} -> {token} (freq={freq})')
+
+print('\nTop final vocab:')
+for token, freq in final_vocab[:12]:
+    print(f'  {token}: {freq}')
 # @endregion

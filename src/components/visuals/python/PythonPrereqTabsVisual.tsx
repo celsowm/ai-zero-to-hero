@@ -707,11 +707,12 @@ const LoopsGraphPanel: React.FC<{ graph: PythonPrereqLoopGraphCopy; footer: stri
 const MermaidDiagram: React.FC<{ source: string }> = ({ source }) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!ref.current) return;
-    ref.current.innerHTML = source;
-    mermaid.run({ nodes: [ref.current] });
+    const node = ref.current;
+    if (!node) return;
+    node.innerHTML = source;
+    mermaid.run({ nodes: [node] });
     return () => {
-      if (ref.current) ref.current.innerHTML = '';
+      node.innerHTML = '';
     };
   }, [source]);
   return <div ref={ref} />;

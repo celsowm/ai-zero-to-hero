@@ -1,22 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import mermaid from 'mermaid';
+import React, { useMemo, useState } from 'react';
 import type { PytorchEcosystemMermaidCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
-
-mermaid.initialize({
-  startOnLoad: false,
-  securityLevel: 'loose',
-  theme: 'dark',
-  themeVariables: {
-    darkMode: true,
-    primaryColor: '#0b1020',
-    primaryTextColor: '#dbe6ff',
-    primaryBorderColor: '#2b3e73',
-    lineColor: '#22d3ee',
-    tertiaryColor: '#111a2f',
-    fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-  },
-});
 
 interface PytorchEcosystemMermaidVisualProps {
   copy: PytorchEcosystemMermaidCopy;
@@ -24,50 +8,127 @@ interface PytorchEcosystemMermaidVisualProps {
 
 const MODULE_COLORS = [sw.cyan, sw.purple, sw.pink, sw.green, '#f59e0b', '#38bdf8'];
 
-const MermaidBlock: React.FC<{ source: string }> = ({ source }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [failed, setFailed] = useState(false);
+type Node = {
+  module: string;
+  role: string;
+  color: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+};
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
+const ELLIPSIS = (text: string, max = 34) => (text.length > max ? `${text.slice(0, max - 1)}…` : text);
 
-    setFailed(false);
-    node.innerHTML = source;
+const EcosystemDiagram: React.FC<{
+  nodes: Node[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
+}> = ({ nodes, activeIndex, onSelect }) => {
+  const core = nodes[0];
+  const satellites = nodes.slice(1);
 
-    mermaid
-      .run({ nodes: [node] })
-      .catch(() => setFailed(true));
+  return (
+    <svg viewBox="0 0 900 460" style={{ width: '100%', height: '100%' }}>
+      <defs>
+        <filter id="nodeGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
 
-    return () => {
-      node.innerHTML = '';
-    };
-  }, [source]);
+      {satellites.map((node, i) => {
+        const idx = i + 1;
+        const isActive = activeIndex === idx;
+        return (
+          <g key={`edge-${node.module}`}>
+            <line
+              x1={core.x + core.w / 2}
+              y1={core.y + core.h / 2}
+              x2={node.x + node.w / 2}
+              y2={node.y + node.h / 2}
+              stroke={isActive ? node.color : '#334155'}
+              strokeWidth={isActive ? 3 : 1.5}
+              strokeDasharray={isActive ? '0' : '6 4'}
+              opacity={0.9}
+            />
+          </g>
+        );
+      })}
 
-  if (failed) {
-    return (
-      <div
-        style={{
-          border: `1px solid ${sw.borderSubtle}`,
-          borderRadius: 12,
-          background: sw.surfaceLight,
-          color: sw.textMuted,
-          fontSize: 13,
-          padding: 12,
-        }}
-      >
-        Mermaid indisponível neste ambiente. Veja a legenda ao lado.
-      </div>
-    );
-  }
-
-  return <div ref={ref} />;
+      {nodes.map((node, index) => {
+        const isActive = activeIndex === index;
+        return (
+          <g key={node.module} style={{ cursor: 'pointer' }} onClick={() => onSelect(index)}>
+            <rect
+              x={node.x}
+              y={node.y}
+              width={node.w}
+              height={node.h}
+              rx={14}
+              fill={isActive ? `${node.color}22` : 'rgba(17,24,39,0.78)'}
+              stroke={isActive ? node.color : '#334155'}
+              strokeWidth={isActive ? 2.2 : 1}
+              filter={isActive ? 'url(#nodeGlow)' : undefined}
+            />
+            <text
+              x={node.x + 14}
+              y={node.y + 28}
+              fill={isActive ? node.color : '#cbd5e1'}
+              fontFamily={sw.fontMono}
+              fontSize="20"
+              fontWeight="800"
+            >
+              {node.module}
+            </text>
+            <text x={node.x + 14} y={node.y + 53} fill="#94a3b8" fontSize="12">
+              {ELLIPSIS(node.role, 50)}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
 };
 
 export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosystemMermaidVisualProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = copy.legend[activeIndex] ?? copy.legend[0];
   const activeColor = MODULE_COLORS[activeIndex % MODULE_COLORS.length];
+
+  const nodes = useMemo<Node[]>(() => {
+    const base = copy.legend.slice(0, 6);
+    if (base.length === 0) return [];
+    const core = {
+      module: base[0].module,
+      role: base[0].role,
+      color: MODULE_COLORS[0],
+      x: 338,
+      y: 172,
+      w: 224,
+      h: 96,
+    };
+    const ring = [
+      { x: 96, y: 82 },
+      { x: 628, y: 82 },
+      { x: 640, y: 302 },
+      { x: 350, y: 330 },
+      { x: 74, y: 302 },
+    ];
+    const satellites = base.slice(1).map((entry, i) => ({
+      module: entry.module,
+      role: entry.role,
+      color: MODULE_COLORS[(i + 1) % MODULE_COLORS.length],
+      x: ring[i]?.x ?? 80 + i * 120,
+      y: ring[i]?.y ?? 300,
+      w: 210,
+      h: 82,
+    }));
+    return [core, ...satellites];
+  }, [copy.legend]);
 
   return (
     <div style={{ display: 'grid', gap: 10, height: '100%' }}>
@@ -97,14 +158,14 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             border: `1px solid ${sw.borderSubtle}`,
             borderRadius: 14,
             background: sw.surface,
-            padding: 16,
-            overflow: 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            padding: 10,
+            overflow: 'hidden',
+            minHeight: 220,
           }}
         >
-          <MermaidBlock source={copy.mermaidSource} />
+          {nodes.length > 0 ? (
+            <EcosystemDiagram nodes={nodes} activeIndex={activeIndex} onSelect={setActiveIndex} />
+          ) : null}
         </div>
 
         <div
@@ -126,13 +187,7 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
             fontWeight: 800,
           }}>{copy.legendTitle}</div>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 5,
-            }}
-          >
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
             {copy.legend.map((item, index) => {
               const color = MODULE_COLORS[index % MODULE_COLORS.length];
               const isActive = index === activeIndex;
@@ -151,8 +206,6 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
                     background: isActive ? `${color}18` : sw.surfaceLight,
                     color: isActive ? color : sw.textDim,
                     cursor: 'pointer',
-                    boxShadow: isActive ? `0 6px 14px ${color}18` : 'none',
-                    transition: 'all 150ms ease',
                   }}
                 >
                   {item.module}
@@ -170,55 +223,10 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
               padding: 14,
             }}
           >
-            <div style={{
-              fontSize: 15,
-              fontWeight: 800,
-              color: activeColor,
-              fontFamily: sw.fontMono,
-              marginBottom: 8,
-            }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: activeColor, fontFamily: sw.fontMono, marginBottom: 8 }}>
               {active.module}
             </div>
             <div style={{ fontSize: 12.5, lineHeight: 1.65, color: sw.text }}>{active.role}</div>
-          </div>
-
-          <div style={{ display: 'flex', gap: 5 }}>
-            <button
-              type="button"
-              onClick={() => setActiveIndex(i => Math.max(0, i - 1))}
-              disabled={activeIndex === 0}
-              style={{
-                flex: 1,
-                padding: '6px 10px',
-                fontSize: 11,
-                fontWeight: 700,
-                borderRadius: 8,
-                border: `1px solid ${sw.borderSubtle}`,
-                background: activeIndex === 0 ? 'rgba(255,255,255,0.02)' : sw.surface,
-                color: activeIndex === 0 ? sw.textMuted : sw.text,
-                cursor: activeIndex === 0 ? 'not-allowed' : 'pointer',
-              }}
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveIndex(i => Math.min(copy.legend.length - 1, i + 1))}
-              disabled={activeIndex === copy.legend.length - 1}
-              style={{
-                flex: 1,
-                padding: '6px 10px',
-                fontSize: 11,
-                fontWeight: 700,
-                borderRadius: 8,
-                border: `1px solid ${activeIndex === copy.legend.length - 1 ? sw.borderSubtle : `${activeColor}55`}`,
-                background: activeIndex === copy.legend.length - 1 ? 'rgba(255,255,255,0.02)' : `linear-gradient(135deg, ${activeColor}18, rgba(255,255,255,0.03))`,
-                color: activeIndex === copy.legend.length - 1 ? sw.textMuted : sw.text,
-                cursor: activeIndex === copy.legend.length - 1 ? 'not-allowed' : 'pointer',
-              }}
-            >
-              →
-            </button>
           </div>
         </div>
       </div>
@@ -239,3 +247,4 @@ export const PytorchEcosystemMermaidVisual = React.memo(({ copy }: PytorchEcosys
     </div>
   );
 });
+

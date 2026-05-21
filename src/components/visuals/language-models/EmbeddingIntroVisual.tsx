@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import type { EmbeddingIntroVisualCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 import { TabsBar } from '../TabsBar';
@@ -10,19 +10,35 @@ interface EmbeddingIntroVisualProps {
   copy: EmbeddingIntroVisualCopy;
 }
 
+const tokenGrid = [
+  [2, 4, 1],
+  [3, 0, 2],
+];
+
+const embeddingTable = [
+  [0.34, -0.19, 0.52, -0.66],
+  [-0.11, 0.44, -0.28, 0.73],
+  [0.85, 0.12, -0.39, 0.08],
+  [-0.56, 0.21, 0.63, -0.32],
+  [0.17, -0.47, 0.58, 0.26],
+];
+
+const lookupSteps = [
+  { b: 0, t: 0 },
+  { b: 0, t: 1 },
+  { b: 0, t: 2 },
+  { b: 1, t: 0 },
+  { b: 1, t: 1 },
+  { b: 1, t: 2 },
+];
+
 const EmbeddingIntroVisual: React.FC<EmbeddingIntroVisualProps> = ({ copy }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [step, setStep] = useState(0);
 
-  const vocabSize = 5;
-  const embedDim = 4;
-  const embedTable = [
-    [0.12, -0.34,  0.56, -0.78],
-    [0.91, -0.23,  0.45, -0.67],
-    [0.33, -0.11,  0.77, -0.55],
-    [0.22, -0.44,  0.66, -0.88],
-    [0.15, -0.35,  0.55, -0.75],
-  ];
+  const active = lookupSteps[step];
+  const activeTokenId = tokenGrid[active.b][active.t];
+  const activeVector = useMemo(() => embeddingTable[activeTokenId].map((v) => v.toFixed(2)).join(', '), [activeTokenId]);
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
@@ -48,80 +64,113 @@ const EmbeddingIntroVisual: React.FC<EmbeddingIntroVisualProps> = ({ copy }) => 
             <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--sw-text)' }}>{copy.embedExplorer.title}</div>
             <div style={{ fontSize: 13.5, lineHeight: 1.65, color: 'var(--sw-text-dim)' }}>{copy.embedExplorer.subtitle}</div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-              <div style={{ padding: '10px 14px', borderRadius: 16, background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)' }}>
-                <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00e5ff' }}>{copy.embedExplorer.vocabSizeLabel}</div>
-                <div style={{ fontFamily: sw.fontMono, fontSize: 16, fontWeight: 700, color: sw.text, marginTop: 4 }}>V = {vocabSize}</div>
-              </div>
-              <div style={{ padding: '10px 14px', borderRadius: 16, background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)' }}>
-                <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#7c3aed' }}>{copy.embedExplorer.embedDimLabel}</div>
-                <div style={{ fontFamily: sw.fontMono, fontSize: 16, fontWeight: 700, color: sw.text, marginTop: 4 }}>C = {embedDim}</div>
-              </div>
-            </div>
+            <svg viewBox="0 0 900 340" style={{ width: '100%', maxHeight: 340 }}>
+              <defs>
+                <linearGradient id="outGlow" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.2" />
+                </linearGradient>
+              </defs>
 
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: sw.text, marginBottom: 8 }}>{copy.embedExplorer.tableLabel}</div>
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, fontFamily: sw.fontMono }}>
-                  <thead>
-                    <tr>
-                      <th style={{ textAlign: 'left', padding: '6px 8px', borderBottom: '1px solid #1e293b', color: '#64748b', fontWeight: 700 }}>{copy.embedExplorer.rowLabel}</th>
-                      {Array.from({ length: embedDim }).map((_, j) => (
-                        <th key={j} style={{ textAlign: 'center', padding: '6px 8px', borderBottom: '1px solid #1e293b', color: '#64748b', fontWeight: 700 }}>dim {j}</th>
+              <text x="24" y="24" fill="#94a3b8" fontSize="11" fontWeight="700">{copy.embedExplorer.sequenceLabel}</text>
+              {tokenGrid.map((row, b) =>
+                row.map((tokenId, t) => {
+                  const x = 24 + t * 62;
+                  const y = 40 + b * 56;
+                  const selected = active.b === b && active.t === t;
+                  return (
+                    <g key={`idx-${b}-${t}`}>
+                      <rect x={x} y={y} width="52" height="42" rx="8" fill={selected ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.03)'} stroke={selected ? '#00e5ff' : '#334155'} />
+                      <text x={x + 26} y={y + 25} textAnchor="middle" fill={selected ? '#00e5ff' : '#cbd5e1'} fontFamily={sw.fontMono} fontSize="13">
+                        {tokenId}
+                      </text>
+                    </g>
+                  );
+                }),
+              )}
+
+              <text x="246" y="24" fill="#94a3b8" fontSize="11" fontWeight="700">{copy.embedExplorer.tableLabel}</text>
+              {embeddingTable.map((row, id) => {
+                const y = 40 + id * 46;
+                const selected = id === activeTokenId;
+                return (
+                  <g key={`row-${id}`}>
+                    <rect x="246" y={y} width="244" height="34" rx="8" fill={selected ? 'rgba(124,58,237,0.15)' : 'rgba(255,255,255,0.02)'} stroke={selected ? '#a78bfa' : '#334155'} />
+                    <text x="257" y={y + 22} fill={selected ? '#a78bfa' : '#94a3b8'} fontFamily={sw.fontMono} fontSize="11">
+                      {id}: [{row.map((v) => v.toFixed(2)).join(', ')}]
+                    </text>
+                  </g>
+                );
+              })}
+
+              <text x="548" y="24" fill="#94a3b8" fontSize="11" fontWeight="700">{copy.embedExplorer.outputLabel}</text>
+              {tokenGrid.map((row, b) =>
+                row.map((_, t) => {
+                  const x = 548 + t * 108;
+                  const y = 40 + b * 116;
+                  const selected = active.b === b && active.t === t;
+                  return (
+                    <g key={`out-${b}-${t}`}>
+                      <rect x={x} y={y} width="94" height="90" rx="8" fill={selected ? 'url(#outGlow)' : 'rgba(15,23,42,0.45)'} stroke={selected ? '#00e5ff' : '#334155'} />
+                      <text x={x + 47} y={y + 18} textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily={sw.fontMono}>
+                        H[{b},{t},:]
+                      </text>
+                      {Array.from({ length: 4 }).map((__, d) => (
+                        <text key={d} x={x + 47} y={y + 36 + d * 12} textAnchor="middle" fill={selected ? '#e2e8f0' : '#64748b'} fontSize="10" fontFamily={sw.fontMono}>
+                          {selected ? embeddingTable[activeTokenId][d].toFixed(2) : '...'}
+                        </text>
                       ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {embedTable.map((row, i) => {
-                      const isSelected = selectedId === i;
-                      const rowStyle: React.CSSProperties = {
-                        textAlign: 'center',
-                        padding: '6px 8px',
-                        borderBottom: '1px solid #0f172a',
-                        background: isSelected ? 'rgba(0,229,255,0.12)' : 'transparent',
-                        color: isSelected ? '#00e5ff' : '#94a3b8',
-                        fontWeight: isSelected ? 700 : 400,
-                        cursor: 'pointer',
-                      };
-                      return (
-                        <tr key={i} onClick={() => setSelectedId(i)} style={{ cursor: 'pointer' }}>
-                          <td style={{ ...rowStyle, textAlign: 'left' }}>
-                            {isSelected ? '> ' : ''}ID {i}
-                          </td>
-                          {row.map((val, j) => (
-                            <td key={j} style={rowStyle}>{val.toFixed(2)}</td>
-                          ))}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                    </g>
+                  );
+                }),
+              )}
+
+              <line x1="148" y1={62 + active.b * 56} x2="246" y2={57 + activeTokenId * 46} stroke="#00e5ff" strokeWidth="2" strokeDasharray="5,5" />
+              <line x1="490" y1={57 + activeTokenId * 46} x2={548 + active.t * 108} y2={86 + active.b * 116} stroke="#a78bfa" strokeWidth="2" strokeDasharray="5,5" />
+            </svg>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ fontSize: 12, color: sw.textMuted }}>{copy.embedExplorer.stepperLabel}</div>
+              <button
+                type="button"
+                onClick={() => setStep((prev) => (prev - 1 + lookupSteps.length) % lookupSteps.length)}
+                style={{ border: '1px solid #334155', background: sw.surface, color: sw.text, borderRadius: 8, padding: '4px 10px', cursor: 'pointer' }}
+              >
+                {copy.embedExplorer.prevLabel}
+              </button>
+              <button
+                type="button"
+                onClick={() => setStep((prev) => (prev + 1) % lookupSteps.length)}
+                style={{ border: '1px solid #334155', background: sw.surface, color: sw.text, borderRadius: 8, padding: '4px 10px', cursor: 'pointer' }}
+              >
+                {copy.embedExplorer.nextLabel}
+              </button>
+              <div style={{ fontFamily: sw.fontMono, color: '#00e5ff', fontSize: 12 }}>
+                {copy.embedExplorer.activePositionLabel}: (b={active.b}, t={active.t})
               </div>
             </div>
 
-            <div style={{ padding: '10px 14px', borderRadius: 16, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)' }}>
-              <div style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#f59e0b' }}>{copy.embedExplorer.maxIdLabel}</div>
-              <div style={{ fontSize: 13, lineHeight: 1.5, color: sw.text, marginTop: 4 }}>
-                {selectedId !== null ? (
-                  <>embedding([{selectedId}]) &rarr; vetor de {embedDim} dimensoes: [{embedTable[selectedId].map(v => v.toFixed(2)).join(', ')}]</>
-                ) : (
-                  'Clique em uma linha da tabela acima para ver o lookup.'
-                )}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: 10 }}>
+              <div style={{ padding: '10px 12px', borderRadius: 12, border: '1px solid #334155', background: 'rgba(0,229,255,0.05)' }}>
+                <div style={{ fontSize: 10, textTransform: 'uppercase', color: '#00e5ff', letterSpacing: '0.08em' }}>{copy.embedExplorer.selectedTokenLabel}</div>
+                <div style={{ fontFamily: sw.fontMono, color: sw.text, marginTop: 4 }}>ID {activeTokenId}</div>
+              </div>
+              <div style={{ padding: '10px 12px', borderRadius: 12, border: '1px solid #334155', background: 'rgba(124,58,237,0.08)' }}>
+                <div style={{ fontSize: 10, textTransform: 'uppercase', color: '#a78bfa', letterSpacing: '0.08em' }}>{copy.embedExplorer.selectedVectorLabel}</div>
+                <div style={{ fontFamily: sw.fontMono, color: sw.text, marginTop: 4, fontSize: 12 }}>[{activeVector}]</div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 10, fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>
-              <div style={{ flex: 1, padding: '10px 14px', borderRadius: 16, background: sw.surface, border: '1px solid #1e293b' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: 10 }}>
+              <div style={{ flex: 1, padding: '10px 14px', borderRadius: 16, background: sw.surface, border: '1px solid #1e293b', fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>
                 <strong style={{ color: sw.text }}>{copy.embedExplorer.lookupLabel}</strong> {copy.embedExplorer.lookupBody}
               </div>
-              <div style={{ flex: 1, padding: '10px 14px', borderRadius: 16, background: sw.surface, border: '1px solid #1e293b' }}>
-                <strong style={{ color: sw.text }}>Hint</strong> {copy.embedExplorer.sharedWeightsHint}
+              <div style={{ flex: 1, padding: '10px 14px', borderRadius: 16, background: sw.surface, border: '1px solid #1e293b', fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>
+                <strong style={{ color: sw.text }}>{copy.embedExplorer.maxIdLabel}</strong> {copy.embedExplorer.sharedWeightsHint}
               </div>
             </div>
 
-            <div style={{ fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>
-              {copy.embedExplorer.footer}
-            </div>
+            <div style={{ fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>{copy.embedExplorer.footer}</div>
           </PanelCard>
         )}
       </TabbedPanelSurface>

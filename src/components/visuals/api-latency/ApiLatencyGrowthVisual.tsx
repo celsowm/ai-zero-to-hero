@@ -284,7 +284,7 @@ const splitGuideLabel = (label: string) => {
 };
 
 export const ApiLatencyGrowthVisual = React.memo(({ copy }: ApiLatencyGrowthVisualProps) => {
-  const points = copy.points ?? [];
+  const points = useMemo(() => copy.points ?? [], [copy.points]);
   const hasPoints = points.length > 0;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [sliderUsers, setSliderUsers] = useState<number>(points[0]?.users ?? 0);
