@@ -34,13 +34,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const allTokens = [...copy.initialTokens, ...visibleGenerated];
   const isComplete = step >= totalSteps;
   const svgW = 520;
-  const svgH = 168;
+  const svgH = 110;
   const tokenX = 14;
-  const tokenYStart = 28;
-  const tokenGap = 24;
+  const tokenYStart = 24;
+  const tokenGap = 17;
   const tokenW = 86;
-  const tokenH = 20;
-  const centerY = 86;
+  const tokenH = 14;
+  const centerY = 56;
 
   const accent = sw.cyan;
   const accent2 = sw.purple;
@@ -55,7 +55,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         padding: 14,
         display: 'flex',
         flexDirection: 'column',
-        gap: 12,
+        gap: 6,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
@@ -83,13 +83,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: 168, display: 'block' }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: 110, display: 'block' }}>
         <defs>
           <marker id="genArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
           </marker>
         </defs>
-        <text x={tokenX + tokenW / 2} y="16" textAnchor="middle" fontSize="10" fill={sw.textMuted} fontWeight="800">
+        <text x={tokenX + tokenW / 2} y="10" textAnchor="middle" fontSize="10" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
         {allTokens.map((token, i) => {
@@ -121,20 +121,20 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           markerEnd="url(#genArrow)"
         />
 
-        <rect x={170} y={62} rx={10} ry={10} width={110} height={48} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
-        <text x={225} y={82} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
-        <text x={225} y={98} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
+        <rect x={170} y={34} rx={10} ry={10} width={110} height={40} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
+        <text x={225} y={50} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
+        <text x={225} y={64} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
 
         <line x1={282} y1={centerY} x2={338} y2={centerY} stroke={accent2} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <rect x={340} y={62} rx={10} ry={10} width={110} height={48} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
-        <text x={395} y={82} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
-        <text x={395} y={98} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
+        <rect x={340} y={34} rx={10} ry={10} width={110} height={40} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
+        <text x={395} y={50} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
+        <text x={395} y={64} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
 
         <line x1={452} y1={centerY} x2={504} y2={centerY} stroke={accent3} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <text x="504" y="60" textAnchor="end" fontSize="10" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
-        <text x="504" y="100" textAnchor="end" fontSize="9" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
+        <text x="504" y="32" textAnchor="end" fontSize="10" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
+        <text x="504" y="70" textAnchor="end" fontSize="9" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
 
         {step > 0 && !isComplete && (
           <circle r="3" fill={accent3}>
@@ -144,36 +144,6 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         )}
       </svg>
 
-      {/* Context tokens chip list */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', padding: '6px 0' }}>
-        <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: sw.textMuted, marginRight: 4 }}>
-          {copy.contextLabel}:
-        </span>
-        {allTokens.map((token, i) => {
-          const isGenerated = i >= copy.initialTokens.length;
-          const isLast = i === allTokens.length - 1 && isGenerated;
-          return (
-            <span
-              key={`chip-${i}`}
-              style={{
-                fontFamily: sw.fontMono,
-                fontSize: 11,
-                fontWeight: 700,
-                padding: '3px 8px',
-                borderRadius: 999,
-                background: isLast ? `${accent3}20` : isGenerated ? `${accent2}15` : sw.surfaceLight,
-                border: `1px solid ${isLast ? accent3 : isGenerated ? `${accent2}55` : sw.borderSubtle}`,
-                color: isLast ? accent3 : isGenerated ? accent2 : sw.textDim,
-                animation: isLast ? 'pulseToken 0.6s ease' : undefined,
-              }}
-            >
-              {token}
-            </span>
-          );
-        })}
-      </div>
-
-      {/* Controls + status line */}
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'center' }}>
         <button
           type="button"

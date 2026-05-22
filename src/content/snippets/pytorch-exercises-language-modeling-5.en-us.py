@@ -1,7 +1,8 @@
-# Exercise 1: shift x/y
-def make_xy(tokens):
-    x = tokens[:-1]
-    y = tokens[1:]
-    return x, y
+import torch
 
-print(make_xy([10, 11, 12, 13]))
+# Square matrix size
+size = 3
+
+# TODO: Generate lower triangular matrix of 1s in 'mask'
+# Hint: use torch.tril and torch.ones
+mask = None

@@ -9,6 +9,8 @@ export const neuralNetworkPytorchTensors = defineSlide({
       title: 'Tensores no PyTorch: leitura operacional',
       body: `Nos slides anteriores, fechamos rank e shape como leitura de eixos. Agora vem o problema real de produto: **rede neural não lê texto cru**.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Ela só consome números organizados em tensor. Então, para modelagem de texto, precisamos de um contrato que transforme linguagem em entrada numérica sem perder ordem.
 
 O caminho é este:
@@ -50,6 +52,8 @@ snippet:pytorch-lm/tensor-primer
     'en-us': {
       title: 'PyTorch tensors: operational reading',
       body: `In previous slides, we established rank/shape as axis reading. Now we hit the real product problem: **a neural network does not consume raw text**.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 It only consumes numbers arranged as tensors. So for text modeling we need a contract that converts language into numeric input while preserving order.
 

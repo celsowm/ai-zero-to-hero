@@ -1,8 +1,7 @@
-# Exercício 1: shape/rank
-def get_shape(matrix):
-    # BUG: ordem invertida (colunas, linhas)
-    rows = len(matrix)
-    cols = len(matrix[0])
-    return (cols, rows)
+import torch
 
-print(get_shape([[1, 2, 3], [4, 5, 6]]))
+# Dados fornecidos
+data = [10, 20, 30]
+
+# TODO: Converta data para um tensor long chamado 'ids'
+ids = None

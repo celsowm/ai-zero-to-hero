@@ -9,6 +9,8 @@ export const gpt2PytorchE2eDebugger = defineSlide({
       title: 'Debug ponta a ponta por shapes',
       body: `Se o modelo quebrar, o jeito mais rápido de voltar ao controle é imprimir shapes nas etapas críticas.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Sequência útil:
 
 1. input IDs
@@ -40,6 +42,8 @@ snippet:repo-gpt2/e2e-trace
     'en-us': {
       title: 'End-to-end debugging through shapes',
       body: `When the model breaks, the fastest way back to control is to print shapes at the critical stages.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 Useful sequence:
 

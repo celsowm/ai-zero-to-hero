@@ -9,6 +9,8 @@ export const neuralNetworkPytorchTraining = defineSlide({
       title: 'Loop de treino para next-token',
       body: `Agora que temos batch deslocado, embedding, linear e logits, fechamos o loop de treino.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Ponte com regressão:
 - antes usamos **MSE (Mean Squared Error / Erro Médio Quadrático)** para valor contínuo;
 - agora usamos **CE (Cross-Entropy / Entropia Cruzada)** para classificar o próximo token.
@@ -28,6 +30,8 @@ A aba "Grafo" ao lado mostra o DAG 1:1 com cada linha do código.`,
     'en-us': {
       title: 'Training loop for next-token prediction',
       body: `Now that we have the shifted batch, embedding, linear layer and logits, we close the training loop.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 Bridge from regression:
 - before, we used **MSE (Mean Squared Error)** for continuous-value prediction;

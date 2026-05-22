@@ -9,6 +9,8 @@ export const gpt2PytorchModelForward = defineSlide({
       title: 'Forward completo do GPT',
       body: `O contrato central do repo é: **\`forward(idx, targets=None)\`**.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Dentro dele, o fluxo é:
 
 1. embeddings + posição
@@ -42,6 +44,8 @@ snippet:repo-gpt2/model-forward
     'en-us': {
       title: 'The full GPT forward pass',
       body: `The central contract in the repo is: **\`forward(idx, targets=None)\`**.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 Inside it, the flow is:
 

@@ -1,6 +1,14 @@
-# Exercício 4: requires_grad/backward (versão simplificada)
-def grad_square(x):
-    # BUG: gradiente incorreto
-    return x * x
+import torch
 
-print(grad_square(3.0))
+# Ponto de avaliação
+x = torch.tensor(3.0, requires_grad=True)
+
+# 1. Calcule y = x^2
+y = x**2
+
+# 2. Chame o backward
+y.backward()
+
+# TODO: Salve o valor numérico de x.grad em 'grad_val'
+# Dica: use .item()
+grad_val = None

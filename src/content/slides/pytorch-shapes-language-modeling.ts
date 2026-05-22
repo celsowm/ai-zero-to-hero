@@ -13,7 +13,14 @@ Resposta: o modelo tenta prever **qual token vem a seguir** em cada posição da
 - por isso ele não produz um número só, mas um placar sobre o vocabulário inteiro;
 - e por isso o contrato de shape precisa preservar batch, tempo e vocabulário ao mesmo tempo.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Agora sim faz sentido formalizar o contrato B/T/C/V para treino de modelo de linguagem.
+
+Antes do contrato, um termo que costuma ser assumido cedo demais:
+- **hidden size** é a largura da representação interna de cada token;
+- na prática, é a quantidade de features numéricas usada para descrever cada token em cada posição;
+- quando **C** aumenta, o modelo tende a ganhar capacidade de representação, mas também aumenta custo de memória e computação.
 
 Termo novo com motivação: **logits**.
 
@@ -24,7 +31,7 @@ O que são logits:
 
 - **B** = batch
 - **T** = sequência
-- **C** = hidden size
+- **C** = hidden size (quantas features representam cada token internamente)
 - **V** = vocabulário
 
 Contrato minimo de treino:
@@ -59,7 +66,14 @@ In language modeling, the task is simple to define:
 - that is why it does not output a single number, but a scoreboard over the full vocabulary;
 - and that is why the shape contract must preserve batch, time, and vocabulary at once.
 
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+
 Only now does it make sense to formalize the B/T/C/V contract for this kind of training.
+
+Before the contract, one term that is often assumed too early:
+- **hidden size** is the width of the internal token representation;
+- operationally, it is how many numeric features describe each token at each position;
+- when **C** grows, the model often gains representational capacity, but memory and compute cost also grow.
 
 New term with motivation: **logits**.
 
@@ -70,7 +84,7 @@ What logits are:
 
 - **B** = batch
 - **T** = sequence
-- **C** = hidden size
+- **C** = hidden size (how many features represent each token internally)
 - **V** = vocabulary
 
 Minimum training contract:
@@ -107,8 +121,8 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           description: 'Snippet curto para validar shape, dtype, flatten e loss em uma passada.',
           source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'Começamos declarando B, T, C e V e importando a cross-entropy; isso fixa o vocabulário de shape usado no restante do exemplo.' },
-            { lineRange: [6, 9], content: 'Criamos `idx`, `targets`, `hidden` e `logits` no contrato esperado: entrada/alvo em `(B, T)` e saída em `(B, T, V)`.' },
+            { lineRange: [1, 4], content: 'Começamos declarando B, T, C e V e importando a cross-entropy; aqui, `C` (hidden size) é a largura da representação de cada token: mais `C` costuma aumentar capacidade e custo.' },
+            { lineRange: [6, 9], content: 'Criamos `idx`, `targets`, `hidden` e `logits` no contrato esperado: entrada/alvo em `(B, T)`, estado interno em `(B, T, C)` e saída em `(B, T, V)`.' },
             { lineRange: [11, 13], content: 'O flatten converte o problema temporal em uma lista de casos de classificação, no formato que a cross-entropy realmente consome.' },
             { lineRange: [15, 21], content: 'Os prints verificam sanidade de shape, dtype e device e confirmam que a loss final é escalar.' },
           ],
@@ -142,8 +156,8 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           description: 'Compact snippet to validate shape, dtype, flattening, and loss in one pass.',
           source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 4], content: 'We start by declaring B, T, C, and V and importing cross-entropy, which fixes the shape vocabulary used by the rest of the snippet.' },
-            { lineRange: [6, 9], content: 'We create `idx`, `targets`, `hidden`, and `logits` in the expected contract: input/target in `(B, T)` and model scores in `(B, T, V)`.' },
+            { lineRange: [1, 4], content: 'We start by declaring B, T, C, and V and importing cross-entropy; here `C` (hidden size) is representation width per token, where larger `C` usually means more capacity and more cost.' },
+            { lineRange: [6, 9], content: 'We create `idx`, `targets`, `hidden`, and `logits` in the expected contract: input/target in `(B, T)`, internal states in `(B, T, C)`, and model scores in `(B, T, V)`.' },
             { lineRange: [11, 13], content: 'Flattening rewrites the temporal tensor problem into a list of classification cases in the exact format cross-entropy expects.' },
             { lineRange: [15, 21], content: 'Final prints check shape, dtype, and device consistency and confirm the final loss is a scalar.' },
           ],

@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-B, T, C, V = 2, 4, 8, 50
+B, T, C, V = 2, 4, 8, 50  # C = hidden size (features da representação de cada token)
 
 idx = torch.randint(0, V, (B, T), dtype=torch.long)
 targets = torch.randint(0, V, (B, T), dtype=torch.long)

@@ -9,6 +9,8 @@ export const neuralNetworkPytorchNnLayers = defineSlide({
       title: 'Camadas PyTorch que importam aqui',
       body: `A ideia deste slide não é listar API. É te ensinar a **ler arquitetura PyTorch** sem se perder.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Quando voce abrir um modelo autoregressivo, quase tudo importante cai nestas seis pecas:
 
 1. **\`nn.Module\`**: define o contrato da classe (\`__init__\` + \`forward\`).
@@ -29,6 +31,8 @@ Se você reconhecer esse esqueleto, o resto vira detalhe de implementação.`,
     'en-us': {
       title: 'The PyTorch layers that matter here',
       body: `The goal here is not API memorization. It is learning how to **read PyTorch architecture** quickly.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 When you open an autoregressive model, most critical parts collapse into these six pieces:
 

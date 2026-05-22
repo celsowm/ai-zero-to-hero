@@ -1,8 +1,8 @@
-# Exercício 2: indexing/slicing
-def get_column(matrix, col_idx):
-    column = []
-    for row in matrix:
-        column.append(row[col_idx])
-    return column
+import torch
 
-print(get_column([[1, 2, 3], [4, 5, 6]], 1))
+# Batch de tokens (B=2, T=4)
+tokens = torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8]])
+
+# TODO: Crie 'x' contendo todas as posições exceto a última de cada linha
+# Dica: use fatiamento [:, :-1]
+x = None

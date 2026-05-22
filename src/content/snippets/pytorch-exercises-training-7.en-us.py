@@ -1,13 +1,11 @@
-# Exercise 3: one train step (1D regression)
-def train_step(w, b, x, y, lr):
-    y_hat = w * x + b
-    error = y_hat - y
+import torch
 
-    grad_w = 2 * error * x
-    grad_b = 2 * error
+# Parameter w
+w = torch.tensor(1.0, requires_grad=True)
+values = [2.0, 3.0, 1.5]
 
-    new_w = w - lr * grad_w
-    new_b = b - lr * grad_b
-    return new_w, new_b
+# TODO: For each item in values, compute loss = w and call .backward()
+# Goal is to accumulate 1.0 into w.grad each step
 
-print(train_step(1.0, 0.0, 2.0, 5.0, 0.1))
+# Save final gradient value in 'final_grad'
+final_grad = w.grad

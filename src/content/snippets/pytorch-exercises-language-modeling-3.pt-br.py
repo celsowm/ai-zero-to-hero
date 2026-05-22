@@ -1,8 +1,7 @@
-# Exercício 3: cross-entropy de um token
-import math
+import torch
 
-def token_cross_entropy(probs, target_idx):
-    # BUG: sinal invertido
-    return math.log(probs[target_idx])
+# Loss média fornecida
+loss_val = torch.tensor(2.3025)
 
-print(round(token_cross_entropy([0.1, 0.7, 0.2], 1), 6))
+# TODO: Calcule a perplexidade em 'ppl' (exp da loss)
+ppl = None

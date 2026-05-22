@@ -9,6 +9,8 @@ export const pytorchEmbeddingIntro = defineSlide({
       title: 'Embedding: de ID inteiro para vetor',
       body: `No slide anterior (\`nn.Linear\`), vimos como projetar vetores (\`C -> V\`). Agora falta responder **de onde vem esse vetor \`C\`**.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 É exatamente esse o papel de \`Embedding\`:
 - antes: \`idx\` é inteiro em \`(B,T)\` (identidade simbólica, sem geometria útil);
 - depois: cada ID vira vetor denso treinável, e o tensor passa a \`(B,T,C)\` (\`C\` = largura do vetor de embedding / dimensão vetorial por token).
@@ -46,6 +48,8 @@ Resumo mental: **Embedding não decide token; embedding cria representação par
     'en-us': {
       title: 'Embedding: from integer ID to vector',
       body: `In the previous slide (\`nn.Linear\`), we saw how to project vectors (\`C -> V\`). Now one key question remains: **where does that \`C\`-wide vector come from?**
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 That is exactly the job of \`Embedding\`:
 - before: \`idx\` is integer-only data in \`(B,T)\` (symbolic identity, no useful geometry yet);

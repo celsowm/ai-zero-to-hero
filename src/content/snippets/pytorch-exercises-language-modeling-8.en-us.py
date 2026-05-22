@@ -1,11 +1,8 @@
-# Exercise 4: next-token decode (argmax)
-def next_token(logits):
-    best_i = 0
-    best_v = logits[0]
-    for i, v in enumerate(logits):
-        if v > best_v:
-            best_i = i
-            best_v = v
-    return best_i
+import torch
 
-print(next_token([1.0, 2.5, 0.7, 2.2]))
+# Probabilities (sum to 1)
+probs = torch.tensor([0.0, 1.0, 0.0])
+
+# TODO: Sample ONE index into 'sampled_idx' using torch.multinomial
+# Use num_samples=1 and save only the numeric value (.item())
+sampled_idx = None

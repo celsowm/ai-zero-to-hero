@@ -9,6 +9,8 @@ export const gpt2PytorchAttention = defineSlide({
       title: 'Atenção causal no repo',
       body: `Agora entramos na mecânica completa da atenção causal do repo.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Com QKV já definido, o fluxo passa a ser:
 
 1. projeção \`C -> 3C\` para QKV (Query, Key, Value)
@@ -38,6 +40,8 @@ snippet:repo-gpt2/attention
     'en-us': {
       title: 'Causal attention in the repo',
       body: `Now we enter the full mechanics of causal attention in the repo.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 With QKV already defined, the flow becomes:
 

@@ -1,8 +1,12 @@
-# Exercício 4: zero_grad simplificado
-def zero_grad(grads):
-    # BUG: não zera todos os gradientes
-    for name in grads:
-        grads[name] = grads[name]
-    return grads
+import torch
 
-print(zero_grad({'w': 1.5, 'b': -0.3}))
+# Gradiente e limite
+grad = torch.tensor([3.0, 4.0])
+max_norm = 2.0
+
+# 1. Calcule a norma atual
+current_norm = torch.norm(grad)
+
+# TODO: Se current_norm > max_norm, reescale grad em 'clipped_grad'
+# Caso contrário, apenas copie grad para 'clipped_grad'
+clipped_grad = None

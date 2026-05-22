@@ -9,6 +9,8 @@ export const neuralNetworkPytorchPrediction = defineSlide({
       title: 'Inferência: do treino à geração do próximo token',
       body: `No slide anterior, fechamos o ciclo de treino: \`forward → loss → backward → step\`. Agora invertemos a direção: em vez de ajustar pesos, usamos o modelo para **produzir** o próximo token — \`forward → argmax → append\`.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Três pré-condições antes de rodar (todas elas vêm de "Ciclo de vida do modelo"):
 - \`model.eval()\`: congela comportamento estocástico.
 - \`torch.no_grad()\`: desliga grafo — sem gradiente, sem custo de backward.
@@ -26,6 +28,8 @@ A geração fecha o ciclo do modelo. No próximo slide, veremos como persistir e
     'en-us': {
       title: 'Inference: from training to next-token generation',
       body: `In the previous slide we closed the training loop: \`forward → loss → backward → step\`. Now we reverse direction: instead of updating weights, we use the model to **produce** the next token — \`forward → argmax → append\`.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 Three preconditions before running (all from "Model lifecycle"):
 - \`model.eval()\`: freezes stochastic behavior.

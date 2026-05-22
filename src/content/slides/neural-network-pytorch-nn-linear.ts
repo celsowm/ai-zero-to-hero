@@ -9,6 +9,8 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
       title: '`nn.Linear`: projeção, não “camada mágica”',
       body: `Temos representação vetorial por token, mas ainda falta a decisão: **como sair de um vetor interno para escolha de próximo token?**
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Essa e a necessidade concreta:
 - para cada posição da sequência existe um vetor \`h \\in \\mathbb{R}^C\`;
 - a geração precisa de um placar sobre todo o vocabulário \`V\`;
@@ -43,6 +45,8 @@ Se você confunde isso, perde a leitura do modelo.
     'en-us': {
       title: '`nn.Linear`: projection, not a “magic layer”',
       body: `We already have per-token vector representations, but we still lack the decision step: **how do we map an internal vector to next-token choice?**
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 That is the concrete need:
 - each sequence position has a vector \`h \\in \\mathbb{R}^C\`;

@@ -9,6 +9,8 @@ export const pytorchTokenBatch = defineSlide({
       title: 'Texto tokenizado vira batch',
       body: `No slide anterior, definimos o contrato de logits e loss. Falta fechar a engrenagem que gera esse treino: **como o mesmo tensor de IDs vira entrada e alvo ao mesmo tempo?**
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 O modelo não recebe frase solta; ele recebe **lotes temporais alinhados**.
 
 No treino de próximo token, usamos duas visões do mesmo lote:
@@ -31,6 +33,8 @@ Erros comuns aqui:
     'en-us': {
       title: 'Tokenized text becomes a batch',
       body: `In the previous slide, we defined the logits and loss contract. One mechanism is still missing: **how does the same ID tensor become both input and target?**
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 The model does not receive isolated sentences; it receives **time-aligned sequence batches**.
 

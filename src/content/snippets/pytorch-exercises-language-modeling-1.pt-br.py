@@ -1,7 +1,8 @@
-# Exercício 1: shift x/y
-def make_xy(tokens):
-    x = tokens[:-1]
-    y = tokens[1:]
-    return x, y
+import torch
 
-print(make_xy([10, 11, 12, 13]))
+# Tamanho da matriz quadrada
+size = 3
+
+# TODO: Gere a matriz triangular inferior de 1s em 'mask'
+# Dica: use torch.tril e torch.ones
+mask = None

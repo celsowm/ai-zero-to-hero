@@ -9,6 +9,8 @@ export const pytorchMinimalLanguageModel = defineSlide({
       title: 'Mini language model em PyTorch',
       body: `Este é o menor modelo que já cumpre o contrato completo de LM.
 
+(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+
 Componentes mínimos:
 - \`Embedding\`: IDs -> vetores.
 - \`lm_head\`: vetores -> logits de vocabulário.
@@ -34,6 +36,8 @@ Limites deste modelo didático:
     'en-us': {
       title: 'A minimal PyTorch language model',
       body: `This is the smallest model that still satisfies the full LM contract.
+
+(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
 Minimum components:
 - \`Embedding\`: IDs -> vectors.

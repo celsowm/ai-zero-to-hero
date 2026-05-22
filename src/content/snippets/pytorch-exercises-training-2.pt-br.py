@@ -1,8 +1,14 @@
-# Exercício 2: MSE
-def mse(pred, target):
-    total = 0.0
-    for p, t in zip(pred, target):
-        total += (p - t) ** 2
-    return total / len(pred)
+import torch
 
-print(mse([0.0, 2.0], [1.0, 0.0]))
+# Dados
+pred = torch.tensor([0.5, 0.8])
+target = torch.tensor([0.0, 1.0])
+weights = torch.tensor([0.3, -0.4])
+lambd = 0.1
+
+# 1. Calcule o MSE em 'mse'
+mse = torch.mean((pred - target)**2)
+
+# TODO: Calcule a loss total (MSE + L2) em 'loss'
+# L2 = lambd * sum(weights^2)
+loss = None
