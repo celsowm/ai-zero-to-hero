@@ -34,14 +34,14 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const allTokens = [...copy.initialTokens, ...visibleGenerated];
   const isComplete = step >= totalSteps;
   const svgW = 520;
-  const svgH = 92;
+  const svgH = 200;
   const tokenX = 14;
-  const tokenGap = 8;
-  const tokenW = 86;
-  const tokenH = 8;
-  const centerY = 64;
+  const tokenGap = 22;
+  const tokenW = 96;
+  const tokenH = 16;
+  const centerY = 100;
   const tokenYStart = centerY - ((allTokens.length - 1) * tokenGap) / 2;
-  const blockH = 40;
+  const blockH = 100;
 
   const accent = sw.cyan;
   const accent2 = sw.purple;
@@ -53,10 +53,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         border: `1px solid ${sw.borderSubtle}`,
         borderRadius: 14,
         background: 'linear-gradient(180deg, rgba(0,229,255,0.04), rgba(255,255,255,0.01))',
-        padding: 12,
+        padding: 10,
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 6,
+        flex: '1 1 0',
+        minHeight: 0,
+        height: '100%',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
@@ -84,13 +87,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: svgH, display: 'block' }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`} preserveAspectRatio="xMidYMid meet" style={{ width: '100%', flex: '1 1 0', minHeight: 0, height: 'auto', display: 'block' }}>
         <defs>
           <marker id="genArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
           </marker>
         </defs>
-        <text x={tokenX + tokenW / 2} y={Math.max(10, tokenYStart - 10)} textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
+        <text x={tokenX + tokenW / 2} y={Math.max(14, tokenYStart - 14)} textAnchor="middle" fontSize="11" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
         {allTokens.map((token, i) => {
@@ -100,12 +103,12 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           return (
             <g key={`tok-${i}`}>
               <rect
-                x={tokenX} y={y - tokenH / 2} rx={5} ry={5} width={tokenW} height={tokenH}
+                x={tokenX} y={y - tokenH / 2} rx={6} ry={6} width={tokenW} height={tokenH}
                 fill={isLast ? `${accent3}25` : isGenerated ? `${accent2}10` : sw.surface}
                 stroke={isLast ? accent3 : isGenerated ? `${accent2}88` : sw.borderSubtle}
                 strokeWidth={isLast ? 1.5 : 1}
               />
-              <text x={tokenX + tokenW / 2} y={y + 3} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
+              <text x={tokenX + tokenW / 2} y={y + 4} textAnchor="middle" fontSize="11" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
                 {token}
               </text>
             </g>
@@ -122,20 +125,20 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           markerEnd="url(#genArrow)"
         />
 
-        <rect x={170} y={centerY - blockH / 2} rx={10} ry={10} width={110} height={blockH} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
-        <text x={225} y={centerY - 5} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
-        <text x={225} y={centerY + 10} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
+        <rect x={170} y={centerY - blockH / 2} rx={12} ry={12} width={110} height={blockH} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
+        <text x={225} y={centerY - 4} textAnchor="middle" fontSize="16" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
+        <text x={225} y={centerY + 16} textAnchor="middle" fontSize="11" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
 
         <line x1={282} y1={centerY} x2={338} y2={centerY} stroke={accent2} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <rect x={340} y={centerY - blockH / 2} rx={10} ry={10} width={110} height={blockH} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
-        <text x={395} y={centerY - 5} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
-        <text x={395} y={centerY + 10} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
+        <rect x={340} y={centerY - blockH / 2} rx={12} ry={12} width={110} height={blockH} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
+        <text x={395} y={centerY - 4} textAnchor="middle" fontSize="16" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
+        <text x={395} y={centerY + 16} textAnchor="middle" fontSize="11" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
 
         <line x1={452} y1={centerY} x2={504} y2={centerY} stroke={accent3} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <text x="504" y={centerY - 21} textAnchor="end" fontSize="9" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
-        <text x="504" y={centerY + 19} textAnchor="end" fontSize="8" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
+        <text x="504" y={centerY - 36} textAnchor="end" fontSize="11" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
+        <text x="504" y={centerY + 36} textAnchor="end" fontSize="10" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
 
         {step > 0 && !isComplete && (
           <circle r="3" fill={accent3}>

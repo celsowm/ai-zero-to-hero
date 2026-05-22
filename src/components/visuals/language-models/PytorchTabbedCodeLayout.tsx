@@ -46,7 +46,7 @@ export const PytorchTabbedCodeLayout = React.memo(({ tabs, codePanel, altPanel, 
             />
           </div>
           {codeTabFooter && (
-            <div style={{ flex: '0 0 auto', minHeight: 0 }}>
+            <div style={{ flex: '1 1 0', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
               {codeTabFooter}
             </div>
           )}

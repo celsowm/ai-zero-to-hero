@@ -57,12 +57,12 @@ Esse slide é a ponte entre rede tabular e modelo de linguagem: **B permanece**,
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 10], content: 'O contrato começa nomeando B, T, C e V. A motivação é a mudança de problema: de tabela tabular para sequência de linguagem.' },
+        { lineRange: [1, 11], content: 'O contrato começa nomeando B, T, C e V. A motivação é a mudança de problema: de tabela tabular para sequência de linguagem.' },
         { lineRange: [12, 19], content: '`token_ids` é `(B, T)`: cada linha é uma sequência e cada coluna é uma posição/token. Como são IDs, o dtype é `torch.long`.' },
         { lineRange: [21, 23], content: '`hidden_states` é `(B, T, C)`: cada token, em cada posição, ganha um vetor interno de largura C.' },
         { lineRange: [25, 29], content: '`output_scores` é `(B, T, V)`: cada posição recebe um placar com V candidatos de vocabulário, porque o problema é prever tokens.' },
         { lineRange: [31, 36], content: 'Os acessos `token_ids[0,1]`, `hidden_states[0,1]` e `output_scores[0,1]` mostram a mesma posição atravessando os três níveis.' },
-        { lineRange: [38, 41], content: 'Os prints finais fecham a leitura operacional por shape e dtype.' },
+        { lineRange: [36, 40], content: 'Os prints finais fecham a leitura operacional por shape e dtype.' },
       ],
     },
     'en-us': {
@@ -117,12 +117,12 @@ This slide is the bridge between tabular networks and language models: **B remai
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 10], content: 'The contract starts by naming B, T, C, and V. The motivation is the problem shift: from tabular data to language sequences.' },
+        { lineRange: [1, 11], content: 'The contract starts by naming B, T, C, and V. The motivation is the problem shift: from tabular data to language sequences.' },
         { lineRange: [12, 19], content: '`token_ids` is `(B, T)`: each row is a sequence and each column is a token position. Since these are IDs, dtype is `torch.long`.' },
         { lineRange: [21, 23], content: '`hidden_states` is `(B, T, C)`: each token at each position gets an internal width-C vector.' },
         { lineRange: [25, 29], content: '`output_scores` is `(B, T, V)`: each position receives a scoreboard with V vocabulary candidates, because the problem is token prediction.' },
         { lineRange: [31, 36], content: 'The accesses `token_ids[0,1]`, `hidden_states[0,1]`, and `output_scores[0,1]` show the same position crossing the three levels.' },
-        { lineRange: [38, 41], content: 'The final prints close the operational reading by shape and dtype.' },
+        { lineRange: [36, 40], content: 'The final prints close the operational reading by shape and dtype.' },
       ],
     },
   },
