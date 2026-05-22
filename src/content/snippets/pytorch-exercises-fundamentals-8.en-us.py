@@ -1,14 +1,18 @@
 import torch
 
-# Evaluation point
-x = torch.tensor(3.0, requires_grad=True)
+# Temporal logits: shape (B=2, T=2, V=2).
+logits = torch.tensor([
+    [[1.0, 0.1], [0.2, 0.8]],
+    [[0.5, 0.5], [0.9, 0.1]],
+])
 
-# 1. Compute y = x^2
-y = x**2
+# Temporal targets: shape (B=2, T=2).
+targets = torch.tensor([
+    [0, 1],
+    [1, 0],
+], dtype=torch.long)
 
-# 2. Call backward
-y.backward()
-
-# TODO: Save numeric value of x.grad into 'grad_val'
-# Hint: use .item()
-grad_val = None
+# TODO: Flatten logits to (B*T, V) and targets to (B*T).
+B, T, V = logits.shape
+flat_logits = None
+flat_targets = None
