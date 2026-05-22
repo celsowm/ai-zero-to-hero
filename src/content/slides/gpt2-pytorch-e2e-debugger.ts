@@ -17,17 +17,17 @@ Sequência útil:
 4. saída de cada bloco
 5. logits finais
 
-Sequencia de depuracao recomendada:
+Sequência de depuração recomendada:
 - valide dtype/range de \`idx\` primeiro
-- confirme \`(B, T, C)\` apos embeddings
+- confirme \`(B, T, C)\` após embeddings
 - localize o primeiro bloco que quebra contrato
 - confirme retorno final em \`(B, T, V)\`
 
-Quando passar para debug numerico:
+Quando passar para debug numérico:
 - depois que todos os shapes fecharem
 - e quando o problema virar NaN, escala absurda ou logits sem sentido
 
-Regra pratica: depure por contrato de shape antes de depurar por valor numerico.`,
+Regra prática: depure por contrato de shape antes de depurar por valor numérico.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/e2e-trace
 \`\`\``,

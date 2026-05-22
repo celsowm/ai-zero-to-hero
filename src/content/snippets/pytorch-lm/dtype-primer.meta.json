@@ -1,0 +1,20 @@
+{
+  "id": "pytorch-lm/dtype-primer",
+  "language": "python",
+  "explanations": {
+    "pt-br": [
+      "Define B, T, C e V como contrato base para acompanhar cada tensor no pipeline.",
+      "Cria idx e targets em torch.long para manter semantica discreta de IDs e classes.",
+      "Simula hidden e logits em float32, representando a parte continua do modelo.",
+      "Mostra cast intencional (long -> float -> long) para tornar a troca de papel numerico explicita.",
+      "Fecha com leitura operacional de dtype, shape e device em cada etapa."
+    ],
+    "en-us": [
+      "Defines B, T, C, and V as the base contract to track tensors across the pipeline.",
+      "Builds idx and targets in torch.long to preserve discrete ID/class semantics.",
+      "Simulates hidden and logits in float32, representing the model's continuous side.",
+      "Shows intentional casting (long -> float -> long) to make numeric role changes explicit.",
+      "Ends with an operational readout of dtype, shape, and device at each stage."
+    ]
+  }
+}

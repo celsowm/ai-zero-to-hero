@@ -6,27 +6,27 @@ export const syntheticDataValdoria = defineSlide({
   options: { columnRatios: [0.5, 0.5] },
   content: {
     'pt-br': {
-      title: 'Na Pratica: Dataset Sintetico Valdoria',
-      body: `Chegou a hora de ver a geracao sintetica em acao. Criamos um dataset completo sobre um **pais ficticio** — a **Republica de Valdoria**.
+      title: 'Na Prática: Dataset Sintético Valdoria',
+      body: `Chegou a hora de ver a geração sintética em ação. Criamos um dataset completo sobre um **país fictício** — a **República de Valdoria**.
 
-Nenhum modelo jamais viu Valdoria nos dados de treino. O que o modelo sabe sobre ela? **Nada.** E isso e exatamente o que queremos: o unico jeito de ele aprender sera pelo nosso dataset.
+Nenhum modelo jamais viu Valdoria nos dados de treino. O que o modelo sabe sobre ela? **Nada.** E isso é exatamente o que queremos: o único jeito de ele aprender será pelo nosso dataset.
 
 ### Dataset em numeros
 
 - **208 exemplos** no formato \`messages\`
-- **7 categorias** de tarefas: conhecimento, analise, raciocinio, decisao, transformacao, interacao e comportamento
+- **7 categorias** de tarefas: conhecimento, análise, raciocínio, decisão, transformação, interação e comportamento
 - **21 refusals/negativos** — o modelo aprende quando recusar
 - Cada linha tem \`id\` e \`category\` como metadados (TRL ignora campos extras)
 
-### O que voce vai ver no visual
+### O que você vai ver no visual
 
 1. **Dataset (JSONL)** — o arquivo completo em \`public/data/synthetic-data-valdoria.jsonl\`
 2. **Antes** — o modelo base responde sobre Valdoria (inventa, alucina ou se recusa)
-3. **Depois** — o modelo fine-tuned responde com precisao usando os dados sinteticos
+3. **Depois** — o modelo fine-tuned responde com precisão usando os dados sintéticos
 
-> **A diferenca entre "Antes" e "Depois" e o impacto do seu dataset sintetico. Quanto melhor o dataset, maior o salto de qualidade.**
+> **A diferença entre "Antes" e "Depois" é o impacto do seu dataset sintético. Quanto melhor o dataset, maior o salto de qualidade.**
 
-**Formato:** \`messages\` com ChatML — compativel com \`SFTTrainer\` (TRL), \`Trainer\` (transformers), e modelos como Qwen3, LLaMA, Mistral.`,
+**Formato:** \`messages\` com ChatML — compatível com \`SFTTrainer\` (TRL), \`Trainer\` (transformers), e modelos como Qwen3, LLaMA, Mistral.`,
     },
     'en-us': {
       title: 'In Practice: Valdoria Synthetic Dataset',
@@ -56,7 +56,7 @@ No model has ever seen Valdoria in training data. What does the model know about
     id: 'synthetic-data-valdoria-visual',
     copy: {
       'pt-br': {
-        title: 'Dataset Sintetico: Valdoria',
+        title: 'Dataset Sintético: Valdoria',
         subtitle: 'República de Valdoria — um país que nunca existiu',
         datasetLabel: 'Dataset (JSONL)',
         beforeLabel: 'Modelo Base',

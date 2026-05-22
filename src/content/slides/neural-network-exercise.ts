@@ -96,7 +96,7 @@ export const neuralNetworkExercise = defineSlide({
         },
           {
           "id": "3. Erro e Delta de Saída",
-          "instructions": "No backpropagation, o 'delta' do neurônio de saída é: \n`delta = (predição - alvo) * derivada_da_ativacao(predição)`.\n\nImplemente a função `calculate_output_delta(pred, target)`.",
+          "instructions": "No backpropagation, o 'delta' do neurônio de saída é: \n`delta = (predição - alvo) * derivada_da_ativação(predição)`.\n\nImplemente a função `calculate_output_delta(pred, target)`.",
           "snippetId": "neural-network-exercise-3",
           "validators": [
             {

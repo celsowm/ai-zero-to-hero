@@ -11,18 +11,18 @@ export const languageModelTrainVsGenerate = defineSlide({
 
 **Treino**
 - recebe \`x\` e \`y\` (targets deslocados)
-- calcula logits para todas as posicoes em paralelo
-- mede **CE (cross-entropy)** em todo o batch (\`CE = -log(p_target)\`, media)
+- calcula logits para todas as posições em paralelo
+- mede **CE (cross-entropy)** em todo o batch (\`CE = -log(p_target)\`, média)
 - executa backward + optimizer para atualizar pesos
 
 **Geração**
 - recebe apenas o prefixo atual
-- usa so a ultima posicao de logits para escolher o proximo token
+- usa só a última posição de logits para escolher o próximo token
 - concatena esse token ao contexto e repete
-- nao existe loss nem backward nesse fluxo
+- não existe loss nem backward nesse fluxo
 
-Referencia rapida: CE aqui e o mesmo principio de log-loss/NLL aplicado por token no vocabulario.`,
-      rightBody: '```txt\nTREINO (paralelo)\ninput   -> (B, T)\ntarget  -> (B, T)\noutput  -> logits (B, T, V)\nloss    -> CE = cross_entropy(logits, target)\nupdate  -> backward + step\n\nGERACAO (iterativa)\ncontext -> (1, t)\noutput  -> logits (1, t, V)\nuso     -> logits da ultima posicao\nupdate  -> append token e repetir\n```',
+Referência rápida: CE aqui é o mesmo princípio de log-loss/NLL aplicado por token no vocabulário.`,
+      rightBody: '```txt\nTREINO (paralelo)\ninput   -> (B, T)\ntarget  -> (B, T)\noutput  -> logits (B, T, V)\nloss    -> CE = cross_entropy(logits, target)\nupdate  -> backward + step\n\nGERAÇÃO (iterativa)\ncontext -> (1, t)\noutput  -> logits (1, t, V)\nuso     -> logits da última posição\nupdate  -> append token e repetir\n```',
     },
     'en-us': {
       title: 'Training is not generation',

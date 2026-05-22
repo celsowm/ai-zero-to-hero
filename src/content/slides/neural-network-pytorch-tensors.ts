@@ -7,35 +7,36 @@ export const neuralNetworkPytorchTensors = defineSlide({
   content: {
     'pt-br': {
       title: 'Tensores no PyTorch: leitura operacional',
-      body: `Nos slides anteriores, fechamos rank e shape como leitura de eixos. Agora vem o problema real de produto: **rede neural nao le texto cru**.
+      body: `Nos slides anteriores, fechamos rank e shape como leitura de eixos. Agora vem o problema real de produto: **rede neural não lê texto cru**.
 
-Ela so consome numeros organizados em tensor. Entao, para modelagem de texto, precisamos de um contrato que transforme linguagem em entrada numerica sem perder ordem.
+Ela só consome números organizados em tensor. Então, para modelagem de texto, precisamos de um contrato que transforme linguagem em entrada numérica sem perder ordem.
 
-O caminho e este:
+O caminho é este:
 1. **Texto cru** → sequencia de palavras/subpalavras
-2. **Tokenizacao** → cada pedaco vira um ID inteiro
-3. **IDs organizados** → tensor (B, T): B = batch (quantas frases), T = sequencia (quantos tokens por frase)
+2. **Tokenização** → cada pedaço vira um ID inteiro
+3. **IDs organizados** → tensor (B, T): B = batch (quantas frases), T = sequência (quantos tokens por frase)
 4. **Embedding** → cada ID vira vetor denso (B, T, C)
-5. **Camadas internas** → representacao contextualizada
-6. **Saida** → scores sobre o vocabulario (proximo token)
+5. **Camadas internas** → representação contextualizada
+6. **Saída** → scores sobre o vocabulário (próximo token)
 
 Termo novo com contexto:
-- **sequencia** = cadeia ordenada de tokens que o modelo recebe de uma vez. Ex.: "Eu gosto de IA" → [Eu, gosto, de, IA, .] → T=5 posicoes.
+- **sequência** = cadeia ordenada de tokens que o modelo recebe de uma vez. Ex.: "Eu gosto de IA" → [Eu, gosto, de, IA, .] → T=5 posições.
 - **token** = menor unidade de texto que o modelo processa.
 
-Agora, com a necessidade clara, a notacao faz sentido.
+Agora, com a necessidade clara, a notação faz sentido.
 
 Leitura operacional dos eixos:
-1. **batch (B)**: quantas sequencias entram juntas;
-2. **sequence (T)**: quantas posicoes por sequencia;
-3. **width (C)**: tamanho da representacao interna por token;
-4. **vocabulary (V)**: quantidade de candidatos de proximo token.
+1. **batch (B)**: quantas sequências entram juntas;
+2. **sequence (T)**: quantas posições por sequência;
+3. **width (C)**: tamanho da representação interna por token;
+4. **vocabulary (V)**: quantidade de candidatos de próximo token.
 
-Observacao de ordem didatica:
-- neste slide, tratamos apenas como **scores de saida**;
-- no proximo slide, fechamos para que esses scores servem e formalizamos o nome tecnico **logits**.
+Observação de ordem didática:
+- neste slide, tratamos apenas como **scores de saída**;
+- no próximo slide, fechamos o contrato de **dtype** para não misturar papel discreto e contínuo;
+- na sequência, formalizamos para que esses scores servem e o nome técnico **logits**.
 
-Se voce identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhacao.`,
+Se você identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhação.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
@@ -74,7 +75,8 @@ Operational axis reading:
 
 Didactic ordering note:
 - in this slide, we treat them only as **output scores**;
-- in the next slide, we close what those scores are for and formalize the technical term **logits**.
+- in the next slide, we close the **dtype** contract so discrete and continuous roles stay explicit;
+- right after that, we formalize what those scores are for and the technical term **logits**.
 
 If you can identify axis, \`dtype\`, and \`device\` at each step, training and debugging stop being guesswork.`,
       rightBody: `\`\`\`python

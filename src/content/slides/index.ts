@@ -156,6 +156,7 @@ import { pytorchExercisesLanguageModeling } from './pytorch-exercises-language-m
 import { pytorchExercisesTraining } from './pytorch-exercises-training';
 import { pytorchRuntimeOptions } from './pytorch-runtime-options';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
+import { pytorchDtypeContract } from './pytorch-dtype-contract';
 import { pytorchEmbeddingToLogits } from './pytorch-embedding-to-logits';
 import { pytorchEmbeddingIntro } from './pytorch-embedding-intro';
 import { pytorchEcosystemOverview } from './pytorch-ecosystem-overview';
@@ -432,6 +433,7 @@ export const allSlides: ISlide[] = [
   pytorchExercisesTraining,
   pytorchRuntimeOptions,
   pytorchWhyPerformant,
+  pytorchDtypeContract,
   pytorchEmbeddingIntro,
   pytorchEmbeddingToLogits,
   pytorchMinimalLanguageModel,

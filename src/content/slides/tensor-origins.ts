@@ -12,20 +12,20 @@ export const tensorOrigins = defineSlide({
   content: {
     'pt-br': {
       title: `Tensor: de onde vem esse nome?`,
-      body: `No slide anterior, \`torch\` apareceu como o nucleo numerico do ecossistema. Agora falta responder: **o que exatamente e um tensor aqui?**
+      body: `No slide anterior, \`torch\` apareceu como o núcleo numérico do ecossistema. Agora falta responder: **o que exatamente é um tensor aqui?**
 
-O nome **"tensor"** veio da fisica e da matematica, nao do deep learning. A palavra vem do latim *tendere* ("esticar", "tensionar"), ligada historicamente a ideias de deformacao e tensao.
+O nome **"tensor"** veio da física e da matemática, não do deep learning. A palavra vem do latim *tendere* ("esticar", "tensionar"), ligada historicamente a ideias de deformação e tensão.
 
-O contraste que importa para o curso e este:
-- na **fisica**, tensor e um objeto definido por como se transforma quando voce muda de coordenadas;
-- no **PyTorch**, "tensor" e a versao operacional do termo: um **array N-dimensional otimizado** para computacao numerica.
+O contraste que importa para o curso é este:
+- na **física**, tensor é um objeto definido por como se transforma quando você muda de coordenadas;
+- no **PyTorch**, "tensor" é a versão operacional do termo: um **array N-dimensional otimizado** para computação numérica.
 
-Entao a traducao util para o aluno e:
-- o nome veio de um contexto matematico mais pesado;
+Então a tradução útil para o aluno é:
+- o nome veio de um contexto matemático mais pesado;
 - mas aqui ele significa uma estrutura de dados multidimensional;
-- e e essa estrutura que depois vamos ler por **eixos, rank e shape**.
+- e é essa estrutura que depois vamos ler por **eixos, rank e shape**.
 
-> Regra de leitura para esta trilha: em PyTorch, pense em tensor como a caixa multidimensional que carrega numeros, roda operacoes vetorizadas e pode viver em CPU ou GPU.
+> Regra de leitura para esta trilha: em PyTorch, pense em tensor como a caixa multidimensional que carrega números, roda operações vetorizadas e pode viver em CPU ou GPU.
 
 ---
 

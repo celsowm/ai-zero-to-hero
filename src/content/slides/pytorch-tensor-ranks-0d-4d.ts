@@ -7,28 +7,28 @@ export const pytorchTensorRanks0d4d = defineSlide({
   content: {
     'pt-br': {
       title: 'Progressão de tensor: 0D até 4D',
-      body: `Se tensor, neste curso, e a estrutura multidimensional do PyTorch, a pergunta seguinte e inevitavel: **como contar e interpretar os eixos dessa estrutura?**
+      body: `Se tensor, neste curso, é a estrutura multidimensional do PyTorch, a pergunta seguinte é inevitável: **como contar e interpretar os eixos dessa estrutura?**
 
 Começo do contrato:
-1. **Tensor nao e so "uma caixa de numeros".** Ele organiza valores em eixos.
-2. **Rank** e a contagem desses eixos.
+1. **Tensor não é só "uma caixa de números".** Ele organiza valores em eixos.
+2. **Rank** é a contagem desses eixos.
 3. **Shape** vem depois: ele registra o tamanho de cada eixo.
 
-Entao a progressao correta e esta:
-1. **0D (escalar)**: nenhum eixo, apenas um numero. Ex.: uma loss.
+Então a progressão correta é esta:
+1. **0D (escalar)**: nenhum eixo, apenas um número. Ex.: uma loss.
 2. **1D (vetor)**: um eixo. Ex.: lista de valores ou embedding de um token.
-3. **2D (matriz)**: dois eixos. Ex.: tabela ou sequencia organizada em linhas e colunas.
-4. **3D**: tres eixos. Aqui comeca a leitura que reaparece em modelos: lote, posicao e conteudo.
-5. **4D**: quatro eixos. Ex.: batch de imagens \`(2, 3, 28, 28)\` — lote (2 imagens), canais (3: RGB), altura (28px), largura (28px). Os limites de cada eixo sao: batch [0..1], canal [0..2], altura [0..27], largura [0..27].
+3. **2D (matriz)**: dois eixos. Ex.: tabela ou sequência organizada em linhas e colunas.
+4. **3D**: três eixos. Aqui começa a leitura que reaparece em modelos: lote, posição e conteúdo.
+5. **4D**: quatro eixos. Ex.: batch de imagens \`(2, 3, 28, 28)\` — lote (2 imagens), canais (3: RGB), altura (28px), largura (28px). Os limites de cada eixo são: batch [0..1], canal [0..2], altura [0..27], largura [0..27].
 
 Leitura mental certa:
 - primeiro conte os eixos;
 - depois nomeie o papel de cada um;
-- so entao leia o \`shape\` como a assinatura numerica desses papeis.
+- só então leia o \`shape\` como a assinatura numérica desses papéis.
 
-O proximo passo e usar essa leitura em um caso real: texto tokenizado virando tensor no PyTorch.
+O próximo passo é usar essa leitura em um caso real: texto tokenizado virando tensor no PyTorch.
 
-Ponte de criterio: esse escalar 0D pode ser MSE (regressao) ou CE (classificacao em LM).`,
+Ponte de critério: esse escalar 0D pode ser MSE (regressão) ou CE (classificação em LM).`,
     },
     'en-us': {
       title: 'Tensor progression: 0D to 4D',
@@ -85,7 +85,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           matrixLabel: 'Matriz',
           tensor3dLabel: 'Tensor 3D',
           tensor4dLabel: 'Tensor 4D',
-          footer: 'Regra operacional: rank nao e decoracao. Ele diz quantos eixos voce precisa explicar para entender o tensor.',
+          footer: 'Regra operacional: rank não é decoracao. Ele diz quantos eixos você precisa explicar para entender o tensor.',
         },
       },
       'en-us': {

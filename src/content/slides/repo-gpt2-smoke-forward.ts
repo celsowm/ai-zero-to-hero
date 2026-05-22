@@ -20,8 +20,8 @@ O que queremos ver:
 - contagem plausível de parâmetros
 
 Diagnostico rapido:
-- se shape falhar, o erro costuma estar em embedding/projecao
-- se loss vier \`nan\`, revisar inicializacao, dtype e targets
+- se shape falhar, o erro costuma estar em embedding/projeção
+- se loss vier \`nan\`, revisar inicialização, dtype e targets
 - se parametros estiverem absurdos, revisar config \`n_layer/n_head/n_embd\``,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/smoke-forward

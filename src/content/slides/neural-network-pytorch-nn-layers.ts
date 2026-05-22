@@ -7,24 +7,24 @@ export const neuralNetworkPytorchNnLayers = defineSlide({
   content: {
     'pt-br': {
       title: 'Camadas PyTorch que importam aqui',
-      body: `A ideia deste slide nao e listar API. E te ensinar a **ler arquitetura PyTorch** sem se perder.
+      body: `A ideia deste slide não é listar API. É te ensinar a **ler arquitetura PyTorch** sem se perder.
 
 Quando voce abrir um modelo autoregressivo, quase tudo importante cai nestas seis pecas:
 
 1. **\`nn.Module\`**: define o contrato da classe (\`__init__\` + \`forward\`).
 2. **\`nn.Embedding\`**: troca IDs inteiros por vetores densos.
-3. **\`nn.Linear\`**: projeta dimensoes (ex: \`C -> C\`, \`C -> V\`).
+3. **\`nn.Linear\`**: projeta dimensões (ex: \`C -> C\`, \`C -> V\`).
 4. **\`nn.LayerNorm\`**: estabiliza escala dos hidden states.
 5. **\`nn.Dropout\`**: regulariza no treino e desliga no \`eval()\`.
-6. **\`nn.ModuleList\`**: empilha blocos repetidos de forma rastreavel.
+6. **\`nn.ModuleList\`**: empilha blocos repetidos de forma rastreável.
 
 Leitura de engenheiro:
 - \`Embedding\` define como o token entra.
 - \`ModuleList\` define profundidade.
 - \`Linear\` final define como o token sai (logits).
-- nomes como \`wte\` e \`lm_head\` aparecem em repos reais e valem como mapa mental, nao como siglas decorativas.
+- nomes como \`wte\` e \`lm_head\` aparecem em repos reais e valem como mapa mental, não como siglas decorativas.
 
-Se voce reconhecer esse esqueleto, o resto vira detalhe de implementacao.`,
+Se você reconhecer esse esqueleto, o resto vira detalhe de implementação.`,
     },
     'en-us': {
       title: 'The PyTorch layers that matter here',
@@ -52,7 +52,7 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
     id: 'pytorch-architecture-blueprint',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Mapa' }],
+        tabs: [{ label: 'Código' }, { label: 'Mapa' }],
         codePanel: {
           title: 'Esqueleto minimo de camadas',
           description: 'Mesmo sem atencao ainda, este arranjo ja mostra entrada por embedding, corpo empilhado e cabeca de saida.',
@@ -67,17 +67,17 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
           ],
         },
         architecturePreview: {
-          title: 'Rede resultante (entrada -> corpo -> saida)',
+          title: 'Rede resultante (entrada -> corpo -> saída)',
           layers: [
             { name: 'wte (Embedding)', shape: '(B,T) -> (B,T,C)', role: 'IDs -> vetores' },
             { name: 'LayerNorm', shape: '(B,T,C)', role: 'estabiliza escala' },
-            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'projecao interna' },
+            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'projeção interna' },
             { name: 'Dropout', shape: '(B,T,C)', role: 'regulariza no treino' },
             { name: 'lm_head (Linear)', shape: '(B,T,C) -> (B,T,V)', role: 'logits por token' },
           ],
         },
         blueprintPanel: {
-          title: 'Leitura de codigo real com nomes recorrentes',
+          title: 'Leitura de código real com nomes recorrentes',
           subtitle: 'Ordem de leitura para revisar arquitetura sem perder tempo.',
           stages: [
             { label: 'Entrada', title: '`wte` faz o token entrar no modelo', shape: '(B,T) -> (B,T,C)', body: 'IDs discretos viram vetores densos. Aqui o modelo deixa o mundo simbólico e entra no espaço contínuo.', reading: 'Quando você vê `Embedding`, pergunte qual inteiro entra e qual largura C sai.' },
@@ -96,7 +96,7 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
             'Shape quebrou no meio? inspecione um bloco da `ModuleList` e repita a leitura.',
             'Shape quebrou no fim? cheque a projeção `C -> V` do `lm_head`.',
           ],
-          footer: 'Essa leitura reduz debug cego: primeiro contrato de estrutura, depois detalhe matematico.',
+          footer: 'Essa leitura reduz debug cego: primeiro contrato de estrutura, depois detalhe matemático.',
         },
       },
       'en-us': {

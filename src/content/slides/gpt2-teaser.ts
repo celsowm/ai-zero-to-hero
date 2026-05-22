@@ -18,7 +18,7 @@ export const gpt2Teaser = defineSlide({
 
 - **Quem criou:** OpenAI (mesmo laboratório do ChatGPT, GPT-4 e GPT-5).
 - **Tamanho:** 1,5 bilhão de parâmetros na versão maior (4 versões: 124M, 355M, 774M, 1.5B).
-- **Tarefa:** prever o proximo token - a mesma tarefa dos slides de language modeling que acabamos de ver, so que em escala de web inteira.
+- **Tarefa:** prever o próximo token - a mesma tarefa dos slides de language modeling que acabamos de ver, só que em escala de web inteira.
 - **Dados:** 8 milhões de páginas da internet (WebText), ~40 GB de texto filtrado.
 - **Contexto:** 1024 tokens de janela.
 
@@ -28,7 +28,7 @@ Hoje usamos GPT-5 com trilhões de parâmetros e contexto de milhões de tokens.
 
 1. **Decoder-only:** só o decoder do Transformer original. Perfeito para gerar texto, onde você só precisa do passado.
 
-2. **Pre-treinamento auto-regressivo:** prever o proximo token repetidamente. E a mesma ideia do loop de LM que vimos, agora com blocos Transformer em vez de um modelo minimo.
+2. **Pre-treinamento auto-regressivo:** prever o próximo token repetidamente. É a mesma ideia do loop de LM que vimos, agora com blocos Transformer em vez de um modelo mínimo.
 
 3. **O salto que mudou tudo:** provou que atenção pura, sem as complexas camadas de memória de antigamente (RNN/LSTM), consegue gerar texto muito mais coerente e de forma mais paralelizável. GPT-3 (2020), GPT-4 (2023) e GPT-5 (2026) são a mesma receita — só que maiores, com mais dados e mais engenharia.
 

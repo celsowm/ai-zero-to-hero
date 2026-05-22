@@ -7,29 +7,29 @@ export const pytorchMinimalLanguageModel = defineSlide({
   content: {
     'pt-br': {
       title: 'Mini language model em PyTorch',
-      body: `Este e o menor modelo que ja cumpre o contrato completo de LM.
+      body: `Este é o menor modelo que já cumpre o contrato completo de LM.
 
-Componentes minimos:
+Componentes mínimos:
 - \`Embedding\`: IDs -> vetores.
-- \`lm_head\`: vetores -> logits de vocabulario.
-- \`forward(idx, targets)\`: caminho unico para treino e inferencia.
-- \`cross_entropy\`: criterio de erro quando ha target.
+- \`lm_head\`: vetores -> logits de vocabulário.
+- \`forward(idx, targets)\`: caminho único para treino e inferência.
+- \`cross_entropy\`: critério de erro quando há target.
 
 Ponte com o que veio antes:
-- em regressao, minimizamos MSE;
-- aqui, para classificacao de proximo token, minimizamos CE.
-- o loop operacional e o mesmo; muda a semantica do erro.
+- em regressão, minimizamos MSE;
+- aqui, para classificação de próximo token, minimizamos CE.
+- o loop operacional é o mesmo; muda a semântica do erro.
 
 Leitura importante:
-- sem \`targets\`: usamos para inferencia.
+- sem \`targets\`: usamos para inferência.
 - com \`targets\`: devolve loss para treino.
 
-Se essa classe estiver clara, os modelos grandes sao "a mesma classe, so com corpo interno maior".
+Se essa classe estiver clara, os modelos grandes são "a mesma classe, só com corpo interno maior".
 
-Limites deste modelo didatico:
-- nao tem atencao
-- nao tem contexto longo sofisticado
-- nao representa uma arquitetura de producao`,
+Limites deste modelo didático:
+- não tem atenção
+- não tem contexto longo sofisticado
+- não representa uma arquitetura de produção`,
     },
     'en-us': {
       title: 'A minimal PyTorch language model',
@@ -64,8 +64,8 @@ Limits of this teaching model:
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Contrato' }],
         codePanel: {
-          title: 'Classe minima de LM',
-          description: 'Implementacao enxuta que ja suporta inferencia e treino com a mesma assinatura.',
+          title: 'Classe mínima de LM',
+          description: 'Implementação enxuta que já suporta inferência e treino com a mesma assinatura.',
           source: { snippetId: 'pytorch-lm/minimal-language-model', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'Essas linhas importam o mínimo necessário e declaram a classe que vai concentrar o contrato do mini language model.' },

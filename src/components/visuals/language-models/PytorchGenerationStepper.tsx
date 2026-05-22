@@ -33,6 +33,14 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const visibleGenerated = copy.generatedTokens.slice(0, step);
   const allTokens = [...copy.initialTokens, ...visibleGenerated];
   const isComplete = step >= totalSteps;
+  const svgW = 520;
+  const svgH = 168;
+  const tokenX = 14;
+  const tokenYStart = 28;
+  const tokenGap = 24;
+  const tokenW = 86;
+  const tokenH = 20;
+  const centerY = 86;
 
   const accent = sw.cyan;
   const accent2 = sw.purple;
@@ -75,64 +83,63 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         </div>
       </div>
 
-      {/* Tiny network diagram */}
-      <svg viewBox="0 0 340 155" style={{ width: '100%', height: 155, display: 'block' }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: 168, display: 'block' }}>
         <defs>
           <marker id="genArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
           </marker>
         </defs>
-        {/* Tokens column */}
-        <text x="40" y="14" textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
+        <text x={tokenX + tokenW / 2} y="16" textAnchor="middle" fontSize="10" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
         {allTokens.map((token, i) => {
-          const y = 26 + i * 16;
+          const y = tokenYStart + i * tokenGap;
           const isGenerated = i >= copy.initialTokens.length;
           const isLast = isGenerated && i === allTokens.length - 1;
           return (
             <g key={`tok-${i}`}>
               <rect
-                x={10} y={y - 8} rx={4} ry={4} width={60} height={14}
+                x={tokenX} y={y - tokenH / 2} rx={6} ry={6} width={tokenW} height={tokenH}
                 fill={isLast ? `${accent3}25` : isGenerated ? `${accent2}10` : sw.surface}
                 stroke={isLast ? accent3 : isGenerated ? `${accent2}88` : sw.borderSubtle}
                 strokeWidth={isLast ? 1.5 : 1}
               />
-              <text x={40} y={y + 2} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
+              <text x={tokenX + tokenW / 2} y={y + 4} textAnchor="middle" fontSize="11" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
                 {token}
               </text>
             </g>
           );
         })}
 
-        {/* Arrow tokens -> embedding */}
-        <line x1={72} y1={Math.max(60, 26 + (allTokens.length - 1) * 8)} x2={108} y2={Math.max(60, 26 + (allTokens.length - 1) * 8)} stroke={accent} strokeWidth="1.5" markerEnd="url(#genArrow)" />
+        <line
+          x1={tokenX + tokenW + 6}
+          y1={centerY}
+          x2={168}
+          y2={centerY}
+          stroke={accent}
+          strokeWidth="2"
+          markerEnd="url(#genArrow)"
+        />
 
-        {/* Embedding node */}
-        <rect x={110} y={45} rx={6} ry={6} width={60} height={30} fill={`${accent}22`} stroke={accent} strokeWidth="1.5" />
-        <text x={140} y={58} textAnchor="middle" fontSize="9" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
-        <text x={140} y={70} textAnchor="middle" fontSize="8" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
+        <rect x={170} y={62} rx={10} ry={10} width={110} height={48} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
+        <text x={225} y={82} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
+        <text x={225} y={98} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
 
-        {/* Arrow embedding -> linear */}
-        <line x1={172} y1={60} x2={208} y2={60} stroke={accent2} strokeWidth="1.5" markerEnd="url(#genArrow)" />
+        <line x1={282} y1={centerY} x2={338} y2={centerY} stroke={accent2} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        {/* Linear node */}
-        <rect x={210} y={45} rx={6} ry={6} width={60} height={30} fill={`${accent2}22`} stroke={accent2} strokeWidth="1.5" />
-        <text x={240} y={58} textAnchor="middle" fontSize="9" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
-        <text x={240} y={70} textAnchor="middle" fontSize="8" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
+        <rect x={340} y={62} rx={10} ry={10} width={110} height={48} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
+        <text x={395} y={82} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
+        <text x={395} y={98} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
 
-        {/* Arrow linear -> logits */}
-        <line x1={272} y1={60} x2={304} y2={60} stroke={accent3} strokeWidth="1.5" markerEnd="url(#genArrow)" />
+        <line x1={452} y1={centerY} x2={504} y2={centerY} stroke={accent3} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        {/* logits label */}
-        <text x="304" y="46" textAnchor="end" fontSize="9" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
-        <text x="304" y="86" textAnchor="end" fontSize="8" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
+        <text x="504" y="60" textAnchor="end" fontSize="10" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
+        <text x="504" y="100" textAnchor="end" fontSize="9" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
 
-        {/* Animated dot on the wire when stepping */}
         {step > 0 && !isComplete && (
           <circle r="3" fill={accent3}>
-            <animate attributeName="cx" values="80;108;172;208;272;304" dur="1.2s" repeatCount="indefinite" />
-            <animate attributeName="cy" values="60;60;60;60;60;60" dur="1.2s" repeatCount="indefinite" />
+            <animate attributeName="cx" values="106;168;282;338;452;504" dur="1.2s" repeatCount="indefinite" />
+            <animate attributeName="cy" values={`${centerY};${centerY};${centerY};${centerY};${centerY};${centerY}`} dur="1.2s" repeatCount="indefinite" />
           </circle>
         )}
       </svg>

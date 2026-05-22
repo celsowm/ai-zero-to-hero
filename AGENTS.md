@@ -84,3 +84,12 @@ npm run build    # tsc -b && vite build
 ```
 
 Always run this before committing if not relying on the pre-commit hook.
+
+### 6. PT-BR must use natural accentuation
+
+For any user-facing Portuguese content (`pt-br`) in slides/snippets/`codeExplanations`:
+- **Use proper Portuguese accentuation** (e.g., `é`, `ção`, `á`, `í`, `ú`, `ã`, `õ`, `ç`).
+- Do **not** "ASCII-ize" Portuguese prose (avoid forms like `nao`, `acao`, `logica` in PT-BR text).
+- Exceptions: code identifiers, file paths, API names, and other technical tokens that are conventionally ASCII.
+
+If editing an existing PT-BR text that is missing accents, normalize it to natural Portuguese spelling.

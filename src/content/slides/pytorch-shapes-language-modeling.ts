@@ -6,21 +6,21 @@ export const pytorchShapesLanguageModeling = defineSlide({
   options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
-      title: 'Convencoes de shape para modelo de linguagem',
-      body: `No slide anterior, o modelo ja recebia IDs inteiros e produzia **scores de saida**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
+      title: 'Convenções de shape para modelo de linguagem',
+      body: `No slide anterior, o modelo já recebia IDs inteiros e produzia **scores de saída**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
 
-Resposta: o modelo tenta prever **qual token vem a seguir** em cada posicao da sequencia.
-- por isso ele nao produz um numero so, mas um placar sobre o vocabulario inteiro;
-- e por isso o contrato de shape precisa preservar batch, tempo e vocabulario ao mesmo tempo.
+Resposta: o modelo tenta prever **qual token vem a seguir** em cada posição da sequência.
+- por isso ele não produz um número só, mas um placar sobre o vocabulário inteiro;
+- e por isso o contrato de shape precisa preservar batch, tempo e vocabulário ao mesmo tempo.
 
 Agora sim faz sentido formalizar o contrato B/T/C/V para treino de modelo de linguagem.
 
-Termo novo com motivacao: **logits**.
+Termo novo com motivação: **logits**.
 
 O que são logits:
 - são **scores brutos** que o modelo gera para cada token do vocabulário;
 - ainda **não são probabilidades**;
-- viram distribuicao apos normalizacao (softmax), usada para penalizar no treino e escolher token na geracao.
+- viram distribuição após normalização (softmax), usada para penalizar no treino e escolher token na geração.
 
 - **B** = batch
 - **T** = sequência
@@ -40,15 +40,15 @@ Critério de erro usado aqui:
 - ponte com slides anteriores: no lugar da lógica do **MSE** (erro contínuo), agora penalizamos confiança na classe/token errado.
 
 Fechando o ciclo:
-- logits viram distribuicao sobre o vocabulario
-- a distribuicao vira escolha de indice (argmax ou sampling) na geracao
+- logits viram distribuição sobre o vocabulário
+- a distribuição vira escolha de índice (argmax ou sampling) na geração
 
 Invariantes de sanidade:
 1. \`idx/targets\` usam \`torch.long\`
 2. tensores comparados na loss ficam no mesmo device
 3. loss final é escalar
 
-O proximo passo e mostrar como o mesmo tensor de IDs gera pares de entrada/alvo para esse treino.`,
+O próximo passo é mostrar como o mesmo tensor de IDs gera pares de entrada/alvo para esse treino.`,
     },
     'en-us': {
       title: 'Shape conventions for language models',
@@ -114,16 +114,12 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           ],
         },
         vocabPanel: {
-          title: 'Vocabulario: o que e e como aparece nos shapes',
-          subtitle: 'V é a quantidade de tokens diferentes que o modelo conhece. Cada token ganha um ID unico e uma linha na tabela de embedding.',
+          title: 'Vocabulário: o que é e como aparece nos shapes',
+          subtitle: 'V é a quantidade de tokens diferentes que o modelo conhece. Cada token ganha um ID único e uma linha na tabela de embedding.',
           axisLegend: 'Fluxo operacional: token -> ID -> linha E[id] -> voto no eixo V dos logits.',
-          tokenLabel: 'Token',
-          idLabel: 'ID',
-          embeddingRowLabel: 'Linha embedding',
-          logitsAxisLabel: 'Eixo V dos logits (B,T,V)',
-          shapeLabel: 'embedding table: V tokens × C dimensoes cada',
-          projectionHint: 'Token "{token}" (ID {id}) ativa E[{id}] e aumenta sua influencia no eixo V.',
-          animationLabel: 'Selecione outro token para ver a projecao mudando no painel de logits.',
+          shapeLabel: 'embedding table: V tokens × C dimensões cada',
+          projectionHint: 'Token "{token}" (ID {id}) ativa E[{id}] e aumenta sua influência no eixo V.',
+          animationLabel: 'Selecione outro token para ver a projeção mudando no painel de logits.',
           examples: [
             { token: 'hello', id: 0 },
             { token: 'world', id: 1 },
@@ -134,9 +130,9 @@ The next step is to show how that same ID tensor becomes input/target pairs for 
           dimensionCards: [
             { label: 'Tokens', value: 'V = 5', tone: 'cyan' },
             { label: 'Tabela', value: '(V, C) = (5, 16)', tone: 'violet' },
-            { label: 'Dimensao', value: 'C = 16', tone: 'amber' },
+            { label: 'Dimensão', value: 'C = 16', tone: 'amber' },
           ],
-          footer: 'Regra: V aparece no shape dos logits (B, T, V) porque cada posicao vota em todo o vocabulario.',
+          footer: 'Regra: V aparece no shape dos logits (B, T, V) porque cada posição vota em todo o vocabulário.',
         },
       },
       'en-us': {

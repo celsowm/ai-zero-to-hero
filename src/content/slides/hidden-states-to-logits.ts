@@ -22,7 +22,7 @@ export const hiddenStatesToLogits = defineSlide({
 
 4. **Softmax:** converte logits em probabilidades que somam 1. O maior logit tende a maior probabilidade, mas outros tokens permanecem possíveis.
 
-> Logits sao as pontuacoes brutas do modelo antes do softmax. O mecanismo mudou, mas a pergunta e a mesma: qual token vem a seguir?`,
+> Logits são as pontuações brutas do modelo antes do softmax. O mecanismo mudou, mas a pergunta é a mesma: qual token vem a seguir?`,
     },
     'en-us': {
       title: `Raw numbers → Probabilities: what are Logits?`,

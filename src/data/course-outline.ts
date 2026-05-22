@@ -60,6 +60,7 @@ export const courseSlideOrder = [
   'tensor-origins',
   'pytorch-tensor-ranks-0d-4d',
   'neural-network-pytorch-tensors',
+  'pytorch-dtype-contract',
   'pytorch-shapes-language-modeling',
   'pytorch-token-batch',
   'pytorch-autograd',

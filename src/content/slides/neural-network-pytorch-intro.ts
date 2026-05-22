@@ -17,7 +17,7 @@ export const neuralNetworkPytorchIntro = defineSlide({
 
 3. **A ponte com o futuro:** mais à frente, quando aparecer \`return_tensors="pt"\`, esse \`pt\` não vai soar arbitrário. Ele aponta para o ecossistema PyTorch.
 
-4. **Mesmo dado, menos ruído:** seguimos com \`idade\`, \`pressao\`, \`colesterol\` e \`fumante\`, e a saída continua sendo probabilidade mais classe final.    
+4. **Mesmo dado, menos ruído:** seguimos com \`idade\`, \`pressão\`, \`colesterol\` e \`fumante\`, e a saída continua sendo probabilidade mais classe final.    
 
 > Primeiro entendemos a engrenagem. Agora vemos como a indústria empacota a mesma engrenagem em um backend real.`,
       rightBody: `
@@ -70,10 +70,10 @@ When Hugging Face asks for tensors with \`return_tensors="pt"\`, the course will
     id: 'pytorch-bridge-shift',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Mapa' }],
+        tabs: [{ label: 'Código' }, { label: 'Mapa' }],
         codePanel: {
           title: 'Mesmos pacientes, interface torch',
-          description: 'Os mesmos 6 pacientes do exemplo manual, agora com loop de treino PyTorch e inferencia em um novo paciente.',
+          description: 'Os mesmos 6 pacientes do exemplo manual, agora com loop de treino PyTorch e inferência em um novo paciente.',
           source: { snippetId: 'pytorch-lm/torch-bridge', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 15], content: 'Entramos com PyTorch e os mesmos dados do exemplo manual, para comparar exatamente o mesmo problema em outra interface.' },
@@ -84,16 +84,16 @@ When Hugging Face asks for tensors with \`return_tensors="pt"\`, the course will
         },
         mapPanel: {
           title: 'Mesmo loop, nova ergonomia',
-          subtitle: 'A mudanca importante nao e matematica nova. E troca de interface: menos engenharia manual, mais contrato legivel.',
+          subtitle: 'A mudança importante não é matemática nova. É troca de interface: menos engenharia manual, mais contrato legível.',
           beforeLabel: 'Antes: rede aberta na unha',
           afterLabel: 'Agora: interface torch',
           rows: [
-            { label: 'Modelar', before: 'Montar peso, bias e ativacao manualmente exigia wiring explicito em cada experimento.', after: '`nn.Module`, `Linear` e `Sigmoid` deixam a arquitetura declarada em poucos blocos nomeados.', why: 'Voce passa a ler a estrutura em segundos, sem se perder em codigo mecanico.' },
-            { label: 'Treinar', before: 'O loop dependia de backward e update implementados quase do zero.', after: 'Loss, `backward()` e optimizer viram um protocolo padrao, repetido em qualquer projeto serio.', why: 'Isso reduz erro de implementacao e aproxima o aluno do codigo que aparece em repos reais.' },
-            { label: 'Depurar', before: 'Cada bug parecia um caso isolado: gradiente, shape e update se misturavam.', after: 'Shape, gradiente, modo do modelo e device viram eixos claros de diagnostico.', why: 'O debug deixa de ser artesanal e passa a seguir contratos previsiveis.' },
+            { label: 'Modelar', before: 'Montar peso, bias e ativação manualmente exigia wiring explícito em cada experimento.', after: '`nn.Module`, `Linear` e `Sigmoid` deixam a arquitetura declarada em poucos blocos nomeados.', why: 'Você passa a ler a estrutura em segundos, sem se perder em código mecânico.' },
+            { label: 'Treinar', before: 'O loop dependia de backward e update implementados quase do zero.', after: 'Loss, `backward()` e optimizer viram um protocolo padrão, repetido em qualquer projeto sério.', why: 'Isso reduz erro de implementação e aproxima o aluno do código que aparece em repositórios reais.' },
+            { label: 'Depurar', before: 'Cada bug parecia um caso isolado: gradiente, shape e update se misturavam.', after: 'Shape, gradiente, modo do modelo e device viram eixos claros de diagnóstico.', why: 'O debug deixa de ser artesanal e passa a seguir contratos previsíveis.' },
             { label: 'Iterar', before: 'Trocar arquitetura pedia muito retrabalho de boilerplate.', after: 'Substituir camada, loss ou optimizer custa pouco e preserva o mesmo loop mental.', why: 'Fica barato comparar variantes sem reconstruir todo o experimento.' },
           ],
-          footer: 'Ponte do curso: quando `return_tensors="pt"` aparecer, isso nao sera detalhe sintatico; sera a entrada para esse ecossistema de contratos.',
+          footer: 'Ponte do curso: quando `return_tensors="pt"` aparecer, isso não será detalhe sintático; será a entrada para esse ecossistema de contratos.',
         },
       },
       'en-us': {

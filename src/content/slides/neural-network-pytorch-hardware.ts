@@ -56,22 +56,22 @@ Decision rule:
     id: 'pytorch-decision-matrix',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
+        tabs: [{ label: 'Código' }, { label: 'Diagnóstico' }],
         codePanel: {
-          title: 'Teste de aceleracao',
-          description: 'Script padrao para detectar backend (CUDA/MPS/CPU) e validar execucao em dispositivo.',
-          source: { snippetId: 'neural-networks/pytorch-hardware-test', language: 'python' },
-          codeExplanations: [
-            { lineRange: [1, 2], content: 'Importa torch, base para tensores e dispatch de hardware.' },
-            { lineRange: [4, 6], content: 'Consulta disponibilidade de CUDA e MPS.' },
-            { lineRange: [8, 15], content: 'Escolhe melhor backend com fallback seguro para CPU.' },
-            { lineRange: [17, 22], content: 'Cria tensor no device selecionado e executa operacao de validacao.' },
+          title: 'Teste de aceleração',
+          description: 'Script padrão para detectar backend (CUDA/MPS/CPU) e validar execução em dispositivo.',
+           source: { snippetId: 'neural-networks/pytorch-hardware-test', language: 'python' },
+           codeExplanations: [
+             { lineRange: [1, 2], content: 'Importa torch, base para tensores e dispatch de hardware.' },
+             { lineRange: [4, 6], content: 'Consulta disponibilidade de CUDA e MPS.' },
+             { lineRange: [8, 15], content: 'Escolhe melhor backend com fallback seguro para CPU.' },
+             { lineRange: [17, 22], content: 'Cria tensor no device selecionado e executa operação de validação.' },
           ],
         },
         matrixPanel: {
           title: 'Objetivo x backend recomendado',
-          subtitle: 'A decisao nao e “GPU sempre”. Ela depende do custo de setup, do tamanho do experimento e do que voce esta tentando otimizar.',
-          columns: ['Quando faz sentido', 'Primeira checagem', 'Risco tipico'],
+          subtitle: 'A decisão não é “GPU sempre”. Ela depende do custo de setup, do tamanho do experimento e do que você está tentando otimizar.',
+          columns: ['Quando faz sentido', 'Primeira checagem', 'Risco típico'],
           callouts: [
             { label: 'Regra de ouro', value: 'Cheque o hardware antes do PyTorch: `nvidia-smi`, `rocm-smi` ou o suporte nativo do macOS para Apple Silicon.' },
             { label: 'Setup', value: 'A wheel correta importa mais do que “ter GPU”. Wheel errada transforma acelerador em bug de ambiente.' },
@@ -79,10 +79,10 @@ Decision rule:
           rows: [
             { label: 'CPU', cells: ['Smoke tests, debug curto, primeira leitura do modelo.', 'Ver se o script roda do começo ao fim sem depender de driver.', 'Experimento lento demais para treino real quando o batch cresce.'] },
             { label: 'MPS (Mac)', cells: ['Mac moderno com Apple Silicon e treino local moderado.', 'Confirmar `torch.backends.mps.is_available()`.', 'Esperar paridade total com CUDA e descobrir gaps de suporte tarde demais.'] },
-            { label: 'CUDA (NVIDIA)', cells: ['Treino recorrente, batches maiores, epocas que justificam setup.', 'Validar driver, `nvidia-smi` e wheel compativel com sua stack CUDA.', 'Modelo em um device e tensor em outro: bug classico de dispatch.'] },
-            { label: 'Troubleshooting', cells: ['Quando o ganho esperado nao aparece ou o script quebra cedo.', 'Rodar um tensor simples no device escolhido antes do modelo inteiro.', 'Culpar PyTorch sem verificar driver, install e dispatch primeiro.'] },
+            { label: 'CUDA (NVIDIA)', cells: ['Treino recorrente, batches maiores, épocas que justificam setup.', 'Validar driver, `nvidia-smi` e wheel compatível com sua stack CUDA.', 'Modelo em um device e tensor em outro: bug clássico de dispatch.'] },
+            { label: 'Troubleshooting', cells: ['Quando o ganho esperado não aparece ou o script quebra cedo.', 'Rodar um tensor simples no device escolhido antes do modelo inteiro.', 'Culpar PyTorch sem verificar driver, install e dispatch primeiro.'] },
           ],
-          footer: 'Regra de decisao: CPU e o baseline confiavel; acelerador vale quando o tempo de treino domina o custo de setup e de transferencia.',
+          footer: 'Regra de decisão: CPU é o baseline confiável; acelerador vale quando o tempo de treino domina o custo de setup e de transferência.',
         },
       },
       'en-us': {

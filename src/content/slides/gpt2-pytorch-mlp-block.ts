@@ -7,23 +7,23 @@ export const gpt2PytorchMlpBlock = defineSlide({
   content: {
     'pt-br': {
       title: 'MLP (perceptron multicamadas) do GPT-2 no repo',
-      body: `Depois da atencao, o MLP (perceptron multicamadas) expande e contrai o residual stream:
+      body: `Depois da atenção, o MLP (perceptron multicamadas) expande e contrai o residual stream:
 
 - \`C -> 4C\`
-- GELU (Gaussian Error Linear Unit, funcao de ativacao)
+- GELU (Gaussian Error Linear Unit, função de ativação)
 - \`4C -> C\`
 - dropout
 
 Papel funcional do MLP no bloco:
-- atencao mistura informacao entre tokens
-- MLP transforma cada token de forma nao linear
+- atenção mistura informação entre tokens
+- MLP transforma cada token de forma não linear
 - residual soma o resultado sem perder trilha anterior
 
 Ponte com slide anterior:
-- isso reaproveita exatamente o padrao de \`nn.Linear\` ja visto, so que em pilha: \`C -> 4C -> C\`
+- isso reaproveita exatamente o padrão de \`nn.Linear\` já visto, só que em pilha: \`C -> 4C -> C\`
 
-Sinal de bug tipico:
-- se \`4C\` nao volta para \`C\`, o residual nao fecha`,
+Sinal de bug típico:
+- se \`4C\` não volta para \`C\`, o residual não fecha`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/mlp
 \`\`\``,

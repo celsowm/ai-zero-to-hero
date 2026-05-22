@@ -20,18 +20,18 @@ export const neuralNetworkSigmoidDerivative = defineSlide({
 sigmoid'(z) = sigmoid(z) * (1 - sigmoid(z))
 \`\`\`
 
-2. **O pico acontece em \`z = 0\`:** nesse ponto, \`sigmoid(z) = 0.5\`, entao a derivada vira \`0.5 * 0.5 = 0.25\`. Esse e o maior valor possivel.
+2. **O pico acontece em \`z = 0\`:** nesse ponto, \`sigmoid(z) = 0.5\`, então a derivada vira \`0.5 * 0.5 = 0.25\`. Esse é o maior valor possível.
 
-3. **Nas pontas, a derivada cai:** quando a saida se aproxima muito de \`0\` ou \`1\`, o produto \`y * (1 - y)\` fica pequeno. Isso enfraquece o sinal de correcao no backpropagation.
+3. **Nas pontas, a derivada cai:** quando a saída se aproxima muito de \`0\` ou \`1\`, o produto \`y * (1 - y)\` fica pequeno. Isso enfraquece o sinal de correção no backpropagation.
 
-4. **Conexao direta com o nosso codigo:** no exemplo minimo usamos \`dsigmoid(y) = y * (1 - y)\`. A funcao recebe a ativacao \`y\`, nao o \`z\`, porque ja podemos reaproveitar a saida da sigmoid para calcular o gradiente local.
+4. **Conexão direta com o nosso código:** no exemplo mínimo usamos \`dsigmoid(y) = y * (1 - y)\`. A função recebe a ativação \`y\`, não o \`z\`, porque já podemos reaproveitar a saída da sigmoid para calcular o gradiente local.
 
-> O ponto principal agora nao e so a forma da curva. E o quanto de inclinacao ainda resta para o erro conseguir ajustar os pesos.
+> O ponto principal agora não é só a forma da curva. É o quanto de inclinação ainda resta para o erro conseguir ajustar os pesos.
 
-### Leitura pratica
-- em \`z = 0\`, o gradiente local esta no maximo
+### Leitura prática
+- em \`z = 0\`, o gradiente local está no máximo
 - nas caudas, o gradiente encolhe
-- backpropagation forte depende de derivadas que ainda nao colapsaram`,
+- backpropagation forte depende de derivadas que ainda não colapsaram`,
       codeExplanations: [
 
   ],

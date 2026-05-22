@@ -19,9 +19,9 @@ Sinais esperados:
 - perplexidade cai junto
 - a geração final repete padrões do corpus
 
-Se isso nao acontecer, geralmente e um destes pontos:
+Se isso não acontecer, geralmente é um destes pontos:
 - LR (learning rate) muito baixa/alta
-- batch/contexto nao batendo com o tamanho do corpus
+- batch/contexto não batendo com o tamanho do corpus
 - bug no shift de targets (\`x[:, :-1]\` vs \`x[:, 1:]\`)`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/tiny-overfit

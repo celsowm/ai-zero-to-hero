@@ -6,8 +6,8 @@ export const syntheticDataTaxonomy = defineSlide({
   options: { columnRatios: [0.55, 0.45] },
   content: {
     'pt-br': {
-      title: 'Taxonomia Pratica para Dataset Sintetico',
-      body: `Nao existe uma taxonomia universal oficial de SFT. O que fazemos e uma **taxonomia de engenharia** inspirada em benchmarks e papers consolidados.
+      title: 'Taxonomia Prática para Dataset Sintético',
+      body: `Não existe uma taxonomia universal oficial de SFT. O que fazemos é uma **taxonomia de engenharia** inspirada em benchmarks e papers consolidados.
 
 ### Tipos de prompt que o dataset precisa cobrir
 
@@ -29,12 +29,12 @@ export const syntheticDataTaxonomy = defineSlide({
 **Saber limitar**
 - refusal, clarification_request, uncertainty_expression, scope_limitation
 
-> Um dataset sintetico bom nao ensina apenas o modelo a responder quando sabe. Ele tambem ensina quando **negar**, quando **pedir mais contexto**, quando **dizer que nao tem certeza** e quando **reconhecer que uma regra nao se aplica**.
+> Um dataset sintético bom não ensina apenas o modelo a responder quando sabe. Ele também ensina quando **negar**, quando **pedir mais contexto**, quando **dizer que não tem certeza** e quando **reconhecer que uma regra não se aplica**.
 
 ### Benchmarks de referencia
 
 - **Super-NaturalInstructions** (Microsoft/EMNLP 2022): 1.616 tarefas, 76 tipos distintos — https://www.microsoft.com/en-us/research/publication/super-naturalinstructions-generalization-via-declarative-instructions-on-1600-nlp-tasks/
-- **IFEval** (arXiv 2311.07911): Foca em instrucoes verificaveis (limite de palavras, palavras-chave obrigatorias) — https://arxiv.org/abs/2311.07911`,
+- **IFEval** (arXiv 2311.07911): Foca em instruções verificáveis (limite de palavras, palavras-chave obrigatórias) — https://arxiv.org/abs/2311.07911`,
     },
     'en-us': {
       title: 'Practical Taxonomy for Synthetic Dataset',
@@ -74,18 +74,18 @@ export const syntheticDataTaxonomy = defineSlide({
       'pt-br': {
         title: '6 Grupos de Tarefas',
         saberLabel: 'Saber',
-        saberExamples: ['O que e Valdoria?', 'Compare San Cristoval e Porto Brisa', 'Liste 3 feriados nacionais...'],
+        saberExamples: ['O que é Valdoria?', 'Compare San Cristoval e Porto Brisa', 'Liste 3 feriados nacionais...'],
         analisarLabel: 'Analisar',
-        analisarExamples: ['Classifique cada cidade por funcao economica', 'Extraia os dados historicos', 'Verifique se a afirmacao e verdadeira'],
+        analisarExamples: ['Classifique cada cidade por função econômica', 'Extraia os dados históricos', 'Verifique se a afirmação é verdadeira'],
         raciocinarLabel: 'Raciocinar',
-        raciocinarExamples: ['Se a cota de pesca e 50t...', 'Pela Constituicao, o presidente pode...', 'Regra: a Nevoeirinha so pode ser...'],
+        raciocinarExamples: ['Se a cota de pesca é 50t...', 'Pela Constituição, o presidente pode...', 'Regra: a Nevoeirinha só pode ser...'],
         decidirLabel: 'Decidir',
-        decidirExamples: ['Entre as opcoes A e B...', 'Ranking dos melhores meses para visitar', '(negativo) Pode colher a Nevoeirinha? Nao'],
+        decidirExamples: ['Entre as opções A e B...', 'Ranking dos melhores meses para visitar', '(negativo) Pode colher a Nevoeirinha? Não'],
         seguirFormatoLabel: 'Seguir Formato',
-        seguirFormatoExamples: ['Siga exatamente o formato: Pais: X. Capital: Y.', 'Agora responda em ingles', 'Mude para tom de contador de historias'],
+        seguirFormatoExamples: ['Siga exatamente o formato: País: X. Capital: Y.', 'Agora responda em inglês', 'Mude para tom de contador de histórias'],
         saberLimitarLabel: 'Saber Limitar',
-        saberLimitarExamples: ['(recusa) Isso esta fora do meu escopo', '(duvida) Nao tenho certeza, consulte o orgao competente', '(esclarecimento) Precisa de mais informacoes'],
-        professorSpeech: 'Um dataset sintetico bom nao ensina apenas o modelo a responder quando sabe. Ele tambem ensina quando negar, quando pedir mais contexto, quando dizer que nao tem certeza e quando reconhecer que uma regra nao se aplica.',
+        saberLimitarExamples: ['(recusa) Isso está fora do meu escopo', '(dúvida) Não tenho certeza, consulte o órgão competente', '(esclarecimento) Precisa de mais informações'],
+        professorSpeech: 'Um dataset sintético bom não ensina apenas o modelo a responder quando sabe. Ele também ensina quando negar, quando pedir mais contexto, quando dizer que não tem certeza e quando reconhecer que uma regra não se aplica.',
         clickHint: 'Clique em cada grupo para ver exemplos',
       },
       'en-us': {

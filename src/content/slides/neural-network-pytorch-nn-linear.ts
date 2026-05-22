@@ -7,14 +7,14 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
   content: {
     'pt-br': {
       title: '`nn.Linear`: projeção, não “camada mágica”',
-      body: `Temos representacao vetorial por token, mas ainda falta a decisao: **como sair de um vetor interno para escolha de proximo token?**
+      body: `Temos representação vetorial por token, mas ainda falta a decisão: **como sair de um vetor interno para escolha de próximo token?**
 
 Essa e a necessidade concreta:
-- para cada posicao da sequencia existe um vetor \`h \\in \\mathbb{R}^C\`;
-- a geracao precisa de um placar sobre todo o vocabulario \`V\`;
-- esse placar precisa ser treinavel para aprender contexto.
+- para cada posição da sequência existe um vetor \`h \\in \\mathbb{R}^C\`;
+- a geração precisa de um placar sobre todo o vocabulário \`V\`;
+- esse placar precisa ser treinável para aprender contexto.
 
-So depois desse problema aparece a ferramenta certa: \`nn.Linear(in, out)\`, que aplica uma transformacao afim em cada vetor da ultima dimensao:
+Só depois desse problema aparece a ferramenta certa: \`nn.Linear(in, out)\`, que aplica uma transformação afim em cada vetor da última dimensão:
 
 \`y = xW^T + b\`
 
@@ -80,7 +80,7 @@ If this is unclear, model reading breaks down.
     id: 'pytorch-projection-space',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Mapa de shape' }],
+        tabs: [{ label: 'Código' }, { label: 'Mapa de shape' }],
         codePanel: {
           title: 'Projeção mínima: embedding -> logits',
           description: 'Exemplo curto onde `Linear` troca a última dimensão sem mexer em lote e sequência.',

@@ -11,31 +11,31 @@ export const neuralNetworkSigmoidDeepDive = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Onde o e entra nas ativacoes`,
-      body: `Neste slide, o foco nao e a origem do numero \`e\`, e sim **onde ele entra nas ativacoes** e por que isso ajuda a rede a prever melhor.
+      title: `Onde o e entra nas ativações`,
+      body: `Neste slide, o foco não é a origem do número \`e\`, e sim **onde ele entra nas ativações** e por que isso ajuda a rede a prever melhor.
 
-1. **Varias ativacoes usam exponencial com base \`e\`:** isso aparece na \`sigmoid\`, na \`softmax\` e tambem na \`tanh\`, de forma indireta.
+1. **Várias ativações usam exponencial com base \`e\`:** isso aparece na \`sigmoid\`, na \`softmax\` e também na \`tanh\`, de forma indireta.
 
-2. **A sigmoid e o exemplo mais classico:**
+2. **A sigmoid é o exemplo mais clássico:**
 
 \`\`\`txt
 sigmoid(z) = 1 / (1 + e^-z)
 \`\`\`
 
-3. **O termo \`e^-z\` e a parte que curva a resposta:** quando \`z\` aumenta, esse termo cai; quando \`z\` diminui, ele cresce. Isso faz a saida subir de forma suave, em vez de responder como uma reta infinita.
+3. **O termo \`e^-z\` é a parte que curva a resposta:** quando \`z\` aumenta, esse termo cai; quando \`z\` diminui, ele cresce. Isso faz a saída subir de forma suave, em vez de responder como uma reta infinita.
 
-4. **Essa compressao ajuda na previsao:** a entrada pode ser qualquer numero, de \`-infinito\` ate \`+infinito\`, mas a saida sempre fica entre \`0\` e \`1\`.
+4. **Essa compressão ajuda na previsão:** a entrada pode ser qualquer número, de \`-infinito\` até \`+infinito\`, mas a saída sempre fica entre \`0\` e \`1\`.
 
-5. **Por isso a leitura probabilistica fica natural:** em muitos casos, podemos interpretar a saida como o quanto a rede acredita em uma classe.
+5. **Por isso a leitura probabilística fica natural:** em muitos casos, podemos interpretar a saída como o quanto a rede acredita em uma classe.
 
-> Na pratica: \`0\` sugere "improvavel", \`1\` sugere "muito provavel", e \`0.5\` marca o ponto neutro no meio da curva.
+> Na prática: \`0\` sugere "improvável", \`1\` sugere "muito provável", e \`0.5\` marca o ponto neutro no meio da curva.
 
-### Leitura rapida
-- \`sigmoid\`: transforma valor bruto em saida entre \`0\` e \`1\`
-- \`softmax\`: usa exponenciais para comparar varias classes ao mesmo tempo
-- \`tanh\`: tambem nasce de termos exponenciais, mas devolve saidas entre \`-1\` e \`1\`
-- o \`e\` entra justamente na parte que torna a resposta nao linear
-- essa leitura de probabilidade prepara o terreno para a previsao e para a derivada do proximo slide`,
+### Leitura rápida
+- \`sigmoid\`: transforma valor bruto em saída entre \`0\` e \`1\`
+- \`softmax\`: usa exponenciais para comparar várias classes ao mesmo tempo
+- \`tanh\`: também nasce de termos exponenciais, mas devolve saídas entre \`-1\` e \`1\`
+- o \`e\` entra justamente na parte que torna a resposta não linear
+- essa leitura de probabilidade prepara o terreno para a previsão e para a derivada do próximo slide`,
       codeExplanations: [
 
   ],
@@ -85,9 +85,9 @@ sigmoid(z) = 1 / (1 + e^-z)
         "stepperTitle": "Desmonte a formula",
         "stepFocusLabel": "Etapa em foco",
         "takeawayTitle": "O que fixar",
-        "takeawayBody": "A sigmoid comprime qualquer entrada para o intervalo entre 0 e 1. O miolo da formula controla a direcao da curva, a velocidade da mudanca e o fato de ela sempre passar por 0.5 quando z = 0.",
-        "eulerTitle": "Por que aparece o numero de Euler",
-        "eulerBody": "O numero `e` e o **numero de Euler**, uma constante matematica fixa, aproximadamente `2.7182818`. A intuicao mais concreta e crescimento continuo: quando voce divide um ganho em partes cada vez menores e reaplica sobre o valor atualizado, o resultado se aproxima de `e`.",
+        "takeawayBody": "A sigmoid comprime qualquer entrada para o intervalo entre 0 e 1. O miolo da fórmula controla a direção da curva, a velocidade da mudança e o fato de ela sempre passar por 0.5 quando z = 0.",
+        "eulerTitle": "Por que aparece o número de Euler",
+        "eulerBody": "O número `e` é o **número de Euler**, uma constante matemática fixa, aproximadamente `2.7182818`. A intuição mais concreta é crescimento contínuo: quando você divide um ganho em partes cada vez menores e reaplica sobre o valor atualizado, o resultado se aproxima de `e`.",
         "convergenceTitle": "Como isso converge para e",
         "convergenceBody": "A mesma ideia de crescimento dividido em mais partes vai se aproximando de `2.718...`.",
         "convergenceRows": [
@@ -124,7 +124,7 @@ sigmoid(z) = 1 / (1 + e^-z)
         "steps": {
           "input": {
             "label": "1. Valor bruto z",
-            "body": "Esse e o sinal que sai da parte linear do neuronio antes da ativacao."
+            "body": "Esse é o sinal que sai da parte linear do neurônio antes da ativação."
           },
           "negation": {
             "label": "2. Inversao para -z",

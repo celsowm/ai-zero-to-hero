@@ -12,33 +12,33 @@ export const bpeFromScratch = defineSlide({
   content: {
     'pt-br': {
       title: `BPE na mão: implementação completa`,
-      body: `Aqui o objetivo nao e "rodar BPE por rodar". E entender **por que o tokenizer para de quebrar tudo em letras soltas**.
+      body: `Aqui o objetivo não é "rodar BPE por rodar". É entender **por que o tokenizer para de quebrar tudo em letras soltas**.
 
 Quando o BPE encontra pares frequentes e funde esses pares:
-1. reduz fragmentacao de palavras muito comuns;
-2. reaproveita subpartes recorrentes em varios contextos;
-3. cria um vocabulario mais util para o modelo aprender padroes.
+1. reduz fragmentação de palavras muito comuns;
+2. reaproveita subpartes recorrentes em vários contextos;
+3. cria um vocabulário mais útil para o modelo aprender padrões.
 
 Neste exemplo, usamos um corpus curto (\`once upon a time...\`) e exibimos:
 1. estado inicial do corpus;
-2. par escolhido em cada merge + frequencia;
-3. novo simbolo criado;
-4. amostra da evolucao do corpus;
-5. resumo final de merges e vocabulario.
+2. par escolhido em cada merge + frequência;
+3. novo símbolo criado;
+4. amostra da evolução do corpus;
+5. resumo final de merges e vocabulário.
 
-Conexao com tokenizacao real: e exatamente essa logica iterativa (contar -> fundir -> repetir) que torna os tokens mais informativos que caracteres puros.
+Conexão com tokenização real: é exatamente essa lógica iterativa (contar -> fundir -> repetir) que torna os tokens mais informativos que caracteres puros.
 `,
       rightBody: `
 \`\`\`python
 snippet:bpe/bpe-implementation
 \`\`\``,
       codeExplanations: [
-        { lineRange: [5, 11], content: 'Sensor do BPE: conta pares adjacentes no estado atual do corpus para decidir qual fusao gera mais ganho agora.' },
-        { lineRange: [15, 28], content: 'Executor da fusao: substitui o par escolhido por um simbolo unico em todas as palavras, preservando a ordem dos demais simbolos.' },
-        { lineRange: [32, 40], content: 'Camada de leitura didatica: reconstrui vocabulario por frequencia e formata corpus para imprimir a evolucao de forma humana.' },
-        { lineRange: [44, 45], content: 'Corpus mais narrativo (`once upon a time...`) para facilitar leitura de merges e conexao com texto real.' },
-        { lineRange: [49, 71], content: 'Loop principal: escolhe par mais frequente, funde, registra historico e imprime trilha por iteracao (par, frequencia, novo simbolo, amostra).' },
-        { lineRange: [75, 82], content: 'Resumo final didatico: lista cronologica dos merges e top do vocabulario final para ver quais unidades sobreviveram.' },
+        { lineRange: [5, 11], content: 'Sensor do BPE: conta pares adjacentes no estado atual do corpus para decidir qual fusão gera mais ganho agora.' },
+        { lineRange: [15, 28], content: 'Executor da fusão: substitui o par escolhido por um símbolo único em todas as palavras, preservando a ordem dos demais símbolos.' },
+        { lineRange: [32, 40], content: 'Camada de leitura didática: reconstrui vocabulário por frequência e formata corpus para imprimir a evolução de forma humana.' },
+        { lineRange: [44, 45], content: 'Corpus mais narrativo (`once upon a time...`) para facilitar leitura de merges e conexão com texto real.' },
+        { lineRange: [49, 71], content: 'Loop principal: escolhe par mais frequente, funde, registra histórico e imprime trilha por iteração (par, frequência, novo símbolo, amostra).' },
+        { lineRange: [75, 82], content: 'Resumo final didático: lista cronológica dos merges e top do vocabulário final para ver quais unidades sobreviveram.' },
       ],
     },
     'en-us': {

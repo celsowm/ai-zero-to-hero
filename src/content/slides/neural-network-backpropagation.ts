@@ -12,31 +12,31 @@ export const neuralNetworkBackpropagation = defineSlide({
   content: {
     'pt-br': {
       title: `Backpropagation: o erro volta para ensinar cada peso`,
-      body: `Depois do feedforward, a rede tem uma previsao \`y_hat\`. Falta responder: **como os pesos sabem para onde se mover?**
+      body: `Depois do feedforward, a rede tem uma previsão \`y_hat\`. Falta responder: **como os pesos sabem para onde se mover?**
 
 1. **Primeiro vem o erro:** comparamos \`y_hat\` com o alvo real \`y\`.
 
-2. **Depois vem o gradiente:** ele mede como o erro muda se mexermos um parametro um pouquinho.
+2. **Depois vem o gradiente:** ele mede como o erro muda se mexermos um parâmetro um pouquinho.
 
 3. **Esse sinal volta pela rede:**
-   - a saida calcula seu delta
-   - esse delta e distribuido para a camada oculta
-   - cada peso recebe uma correcao proporcional a sua participacao no erro
+   - a saída calcula seu delta
+   - esse delta é distribuído para a camada oculta
+   - cada peso recebe uma correção proporcional a sua participação no erro
 
-4. **A regra final de atualizacao e sempre a mesma:**
+4. **A regra final de atualização é sempre a mesma:**
 
 \`\`\`txt
 novo_peso = peso_atual - taxa_de_aprendizado * gradiente
 \`\`\`
 
-5. **O ponto importante:** backpropagation nao esta "adivinhando". Ele esta usando a derivada para medir, localmente, em que direcao cada parametro reduz o erro.
+5. **O ponto importante:** backpropagation não está "adivinhando". Ele está usando a derivada para medir, localmente, em que direção cada parâmetro reduz o erro.
 
-> Feedforward produz a previsao. Backpropagation transforma essa previsao em instrucao de ajuste.
+> Feedforward produz a previsão. Backpropagation transforma essa previsão em instrução de ajuste.
 
 ### O que observar no visual
-- veja o erro surgir na saida
-- acompanhe o delta de saida voltar para os ocultos
-- compare alguns pesos antes e depois da atualizacao`,
+- veja o erro surgir na saída
+- acompanhe o delta de saída voltar para os ocultos
+- compare alguns pesos antes e depois da atualização`,
       codeExplanations: [
 
   ],
@@ -141,24 +141,24 @@ new_weight = current_weight - learning_rate * gradient
             "label": "1. erro",
             "title": "A perda nasce na saida",
             "formula": "L = (y_hat - y)^2",
-            "body": "Primeiro a rede mede a distancia entre previsao e alvo. Esse numero nao corrige nada sozinho, mas define o tamanho do problema que precisamos reduzir."
+            "body": "Primeiro a rede mede a distância entre previsão e alvo. Esse número não corrige nada sozinho, mas define o tamanho do problema que precisamos reduzir."
           },
           "output": {
-            "label": "2. delta de saida",
-            "title": "A saida calcula sua responsabilidade",
+            "label": "2. delta de saída",
+            "title": "A saída calcula sua responsabilidade",
             "formula": "d_out = (y_hat - y) * sigmoid prime(y_hat)",
-            "body": "O termo da saida mistura duas coisas: o erro atual e a inclinacao local da sigmoid. Assim a rede sabe nao apenas que errou, mas tambem quanto esse neuronio ainda consegue reagir."
+            "body": "O termo da saída mistura duas coisas: o erro atual e a inclinação local da sigmoid. Assim a rede sabe não apenas que errou, mas também quanto esse neurônio ainda consegue reagir."
           },
           "hidden": {
             "label": "3. deltas ocultos",
             "title": "O erro e repartido entre os ocultos",
             "formula": "d_hj = vj * d_out * sigmoid prime(hj)",
-            "body": "Cada neuronio oculto recebe uma parte do erro proporcional ao peso que o liga a saida e a sua propria derivada local. Por isso os deltas ocultos geralmente diferem entre si."
+            "body": "Cada neurônio oculto recebe uma parte do erro proporcional ao peso que o liga à saída e à sua própria derivada local. Por isso os deltas ocultos geralmente diferem entre si."
           },
           "update": {
             "label": "4. atualizar",
-            "title": "Os parametros enfim sao corrigidos",
-            "formula": "parametro novo = parametro atual - lr * gradiente",
+            "title": "Os parâmetros enfim são corrigidos",
+            "formula": "parâmetro novo = parâmetro atual - lr * gradiente",
             "body": "Com os gradientes em maos, cada peso e vies sofre um pequeno ajuste. Repetir isso muitas vezes e o que faz a rede aprender o padrao do dataset."
           }
         }

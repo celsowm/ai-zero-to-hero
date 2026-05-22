@@ -7,22 +7,22 @@ export const syntheticDataDemo = defineSlide({
   content: {
     'pt-br': {
       title: 'Por que Negativos e Refusals Sao Obrigatorios?',
-      body: `Se o dataset so tiver exemplos positivos, o modelo aprende a obedecer sempre. Em sistemas reais, isso e ruim: ele precisa saber **bloquear, negar, pedir esclarecimento e reconhecer limites**.
+      body: `Se o dataset só tiver exemplos positivos, o modelo aprende a obedecer sempre. Em sistemas reais, isso é ruim: ele precisa saber **bloquear, negar, pedir esclarecimento e reconhecer limites**.
 
-### O modelo tambem precisa aprender quando NAO responder
+### O modelo também precisa aprender quando NÃO responder
 
 **negative_case**
-- Ensina que nem todo caso pertence a classe esperada
-- Evita aprovacao automatica
-- Melhora decisoes com regras e excecoes
+- Ensina que nem todo caso pertence à classe esperada
+- Evita aprovação automática
+- Melhora decisões com regras e exceções
 
 **refusal**
-- Ensina recusa adequada quando o pedido esta fora do escopo
+- Ensina recusa adequada quando o pedido está fora do escopo
 - Reduz respostas perigosas, inventadas ou indevidas
-- Mantem o comportamento alinhado ao dominio
+- Mantém o comportamento alinhado ao domínio
 
 **clarification_request**
-- Ensina o modelo a pedir informacao quando o prompt e insuficiente
+- Ensina o modelo a pedir informação quando o prompt é insuficiente
 
 **uncertainty_expression**
 - Ensina o modelo a admitir incerteza em vez de alucinar
@@ -31,15 +31,15 @@ export const syntheticDataDemo = defineSlide({
 
 **Prompt:**
 \`\`\`text
-A Nevoeirinha e protegida. Mas e se eu colher UMA flor so para plantar no meu jardim?
+A Nevoeirinha é protegida. Mas e se eu colher UMA flor só para plantar no meu jardim?
 \`\`\`
 
 **Resposta esperada (negative_case + refusal):**
 \`\`\`text
-A resposta continua sendo nao. A lei nao faz excecao por quantidade. Colher uma unica Nevoeirinha sem autorizacao ja constitui crime ambiental, independentemente da intencao.
+A resposta continua sendo não. A lei não faz exceção por quantidade. Colher uma única Nevoeirinha sem autorização já constitui crime ambiental, independentemente da intenção.
 \`\`\`
 
-> Se o dataset so tiver exemplos positivos, o modelo nunca aprendera a recusar, e em producao ele vai tentar responder ate o que nao deve. Isso e mais perigoso do que um modelo que "nao sabe".`,
+> Se o dataset só tiver exemplos positivos, o modelo nunca aprenderá a recusar, e em produção ele vai tentar responder até o que não deve. Isso é mais perigoso do que um modelo que "não sabe".`,
     },
     'en-us': {
       title: 'Why Negatives and Refusals Are Mandatory?',
@@ -82,21 +82,21 @@ The answer is still no. The law makes no exception by quantity. Picking a single
     id: 'synthetic-data-demo-visual',
     copy: {
       'pt-br': {
-        title: 'O Modelo Tambem Precisa Saber Recusar',
+        title: 'O Modelo Também Precisa Saber Recusar',
         subtitle: 'Negativos e refusals no dataset Valdoria',
         negativeCaseTitle: 'negative_case',
-        negativeCaseDesc: 'Nem todo caso pertence a classe esperada. Ensina o modelo a identificar excecoes e bloquear aprovacao automatica.',
+        negativeCaseDesc: 'Nem todo caso pertence a classe esperada. Ensina o modelo a identificar exceções e bloquear aprovação automática.',
         refusalTitle: 'refusal',
-        refusalDesc: 'Recusa adequada quando o pedido esta fora do escopo ou viola regras. Reduz respostas perigosas e inventadas.',
+        refusalDesc: 'Recusa adequada quando o pedido está fora do escopo ou viola regras. Reduz respostas perigosas e inventadas.',
         clarificationTitle: 'clarification_request',
-        clarificationDesc: 'Quando o prompt e insuficiente, o modelo deve pedir mais informacao em vez de assumir ou alucinar.',
+        clarificationDesc: 'Quando o prompt é insuficiente, o modelo deve pedir mais informação em vez de assumir ou alucinar.',
         uncertaintyTitle: 'uncertainty_expression',
-        uncertaintyDesc: 'Admitir incerteza e melhor que inventar. O modelo aprende a dizer "nao tenho certeza" em vez de confabular.',
+        uncertaintyDesc: 'Admitir incerteza é melhor que inventar. O modelo aprende a dizer "não tenho certeza" em vez de confabular.',
         exampleLabel: 'Exemplo do Dataset',
-        examplePrompt: 'A Nevoeirinha e protegida. Mas e se eu colher UMA flor so para plantar no meu jardim?',
-        exampleResponse: 'A resposta continua sendo nao. A lei nao faz excecao por quantidade. Colher uma unica Nevoeirinha sem autorizacao ja constitui crime ambiental, independentemente da intencao.',
-        professorSpeech: 'Se o dataset so tiver exemplos positivos, o modelo nunca aprendera a recusar, e em producao ele vai tentar responder ate o que nao deve. Isso e mais perigoso do que um modelo que "nao sabe".',
-        hint: 'Dataset Valdoria: 208 exemplos, 21 deles sao behavior/refusal',
+        examplePrompt: 'A Nevoeirinha é protegida. Mas e se eu colher UMA flor só para plantar no meu jardim?',
+        exampleResponse: 'A resposta continua sendo não. A lei não faz exceção por quantidade. Colher uma única Nevoeirinha sem autorização já constitui crime ambiental, independentemente da intenção.',
+        professorSpeech: 'Se o dataset só tiver exemplos positivos, o modelo nunca aprenderá a recusar, e em produção ele vai tentar responder até o que não deve. Isso é mais perigoso do que um modelo que "não sabe".',
+        hint: 'Dataset Valdoria: 208 exemplos, 21 deles são behavior/refusal',
       },
       'en-us': {
         title: 'The Model Also Needs to Know How to Refuse',

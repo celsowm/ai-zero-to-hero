@@ -48,31 +48,31 @@ Real environment symptoms:
     id: 'pytorch-decision-matrix',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Diagnostico' }],
+        tabs: [{ label: 'Código' }, { label: 'Diagnóstico' }],
         codePanel: {
-          title: 'Verificacao minima de instalacao',
+          title: 'Verificação mínima de instalação',
           description: 'Depois do `pip install`, valide import e versao antes de seguir para treino.',
           source: { snippetId: 'neural-networks/pytorch-version-check', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Importa a biblioteca para confirmar instalacao funcional.' },
-            { lineRange: [2, 2], content: 'Mostra a versao carregada no ambiente atual.' },
+            { lineRange: [1, 1], content: 'Importa a biblioteca para confirmar instalação funcional.' },
+            { lineRange: [2, 2], content: 'Mostra a versão carregada no ambiente atual.' },
           ],
         },
         matrixPanel: {
-          title: 'Sintoma -> causa -> correcao',
-          subtitle: 'Instalar PyTorch quase nunca falha por “misterio”. Quase sempre e ambiente, interpretador ou wheel errada.',
-          columns: ['Causa provavel', 'Correcao', 'Como validar'],
+          title: 'Sintoma -> causa -> correção',
+          subtitle: 'Instalar PyTorch quase nunca falha por "mistério". Quase sempre é ambiente, interpretador ou wheel errada.',
+          columns: ['Causa provável', 'Correção', 'Como validar'],
           callouts: [
-            { label: 'Comando-base', value: 'Use `python -m pip install torch` para amarrar o pip ao mesmo interpretador que vai rodar o codigo.' },
-            { label: 'Ambiente', value: 'Prefira `.venv` desde o primeiro install para evitar dependencia espalhada entre Python global e editor.' },
+            { label: 'Comando-base', value: 'Use `python -m pip install torch` para amarrar o pip ao mesmo interpretador que vai rodar o código.' },
+            { label: 'Ambiente', value: 'Prefira `.venv` desde o primeiro install para evitar dependência espalhada entre Python global e editor.' },
           ],
           rows: [
-            { label: 'ModuleNotFoundError', cells: ['O pacote nao foi instalado neste interpretador.', 'Rode `python -m pip install torch` no ambiente certo.', 'Abra o mesmo Python e teste `import torch`.'] },
-            { label: 'Versao aparece no terminal mas nao no editor', cells: ['Terminal e IDE estao apontando para Pythons diferentes.', 'Selecione a mesma `.venv` no notebook, VS Code ou PyCharm.', 'Compare o caminho do interpretador nos dois lados.'] },
-            { label: 'Ambiente novo', cells: ['Ainda nao ha dependencias registradas para o projeto.', 'Crie e ative uma `.venv` antes do install.', 'Instale e rode `torch.__version__` dentro dela.'] },
-            { label: 'Teste minimo', cells: ['Voce ainda nao confirmou que o install funciona de verdade.', 'Faça import e imprima versao antes de qualquer script longo.', 'Se isso falhar, o resto do projeto vai falhar tambem.'] },
+            { label: 'ModuleNotFoundError', cells: ['O pacote não foi instalado neste interpretador.', 'Rode `python -m pip install torch` no ambiente certo.', 'Abra o mesmo Python e teste `import torch`.'] },
+            { label: 'Versão aparece no terminal mas não no editor', cells: ['Terminal e IDE estão apontando para Pythons diferentes.', 'Selecione a mesma `.venv` no notebook, VS Code ou PyCharm.', 'Compare o caminho do interpretador nos dois lados.'] },
+            { label: 'Ambiente novo', cells: ['Ainda não há dependências registradas para o projeto.', 'Crie e ative uma `.venv` antes do install.', 'Instale e rode `torch.__version__` dentro dela.'] },
+            { label: 'Teste mínimo', cells: ['Você ainda não confirmou que o install funciona de verdade.', 'Faça import e imprima versão antes de qualquer script longo.', 'Se isso falhar, o resto do projeto vai falhar também.'] },
           ],
-          footer: 'Regra pratica: so avance para treino ou inferencia depois que import e versao funcionarem no mesmo ambiente em que voce vai executar o modelo.',
+          footer: 'Regra prática: só avance para treino ou inferência depois que import e versão funcionarem no mesmo ambiente em que você vai executar o modelo.',
         },
       },
       'en-us': {

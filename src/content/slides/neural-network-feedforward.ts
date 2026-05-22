@@ -16,13 +16,13 @@ export const neuralNetworkFeedforward = defineSlide({
 
 1. **Camada de entrada:** recebemos as features do paciente.
 
-2. **Camada oculta:** cada neuronio calcula uma soma ponderada \`z = Σ(w·x) + b\` e depois aplica sigmoid para gerar uma ativacao \`h\`.
+2. **Camada oculta:** cada neurônio calcula uma soma ponderada \`z = Σ(w·x) + b\` e depois aplica sigmoid para gerar uma ativação \`h\`.
 
-3. **Camada de saida:** essas ativacoes ocultas viram entrada da ultima soma ponderada. Aplicamos sigmoid de novo e obtemos \`y_hat\`.
+3. **Camada de saída:** essas ativações ocultas viram entrada da última soma ponderada. Aplicamos sigmoid de novo e obtemos \`y_hat\`.
 
-4. **Interprete \`y_hat\`:** ele ainda nao e a correcao nem o erro. E apenas a resposta atual da rede com os pesos atuais.
+4. **Interprete \`y_hat\`:** ele ainda não é a correção nem o erro. É apenas a resposta atual da rede com os pesos atuais.
 
-> Feedforward responde: "com os parametros que tenho agora, qual e a minha previsao para esta amostra?"
+> Feedforward responde: "com os parâmetros que tenho agora, qual é a minha previsão para esta amostra?"
 
 ### Fluxo minimo
 \`\`\`txt
@@ -91,7 +91,7 @@ x -> z_hidden -> h -> z_output -> y_hat
           {
           "label": "Ler as features",
           "formula": "x = [x1, x2, x3, x4]",
-          "body": "As quatro entradas chegam normalizadas. Elas sao os sinais brutos que a rede vai combinar."
+          "body": "As quatro entradas chegam normalizadas. Elas são os sinais brutos que a rede vai combinar."
         },
           {
           "label": "Calcular somas ocultas",
@@ -101,7 +101,7 @@ x -> z_hidden -> h -> z_output -> y_hat
           {
           "label": "Aplicar sigmoid na camada oculta",
           "formula": "hj = sigmoid(zj)",
-          "body": "As ativacoes `h1`, `h2` e `h3` resumem a amostra em sinais intermediarios entre 0 e 1."
+          "body": "As ativações `h1`, `h2` e `h3` resumem a amostra em sinais intermediários entre 0 e 1."
         },
           {
           "label": "Gerar a saida final",

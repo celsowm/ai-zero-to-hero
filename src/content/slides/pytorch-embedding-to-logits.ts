@@ -6,39 +6,39 @@ export const pytorchEmbeddingToLogits = defineSlide({
   options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
-      title: 'Embedding -> logits: contrato formal de previsao',
-      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(B,T,C)\`. Agora damos o proximo passo: transformar esse \`H\` em logits \`(B,T,V)\` para previsao de proximo token.
+      title: 'Embedding -> logits: contrato formal de previsão',
+      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(B,T,C)\`. Agora damos o próximo passo: transformar esse \`H\` em logits \`(B,T,V)\` para previsão de próximo token.
 
-Problema formal deste slide: como mapear \`idx\` (IDs de token no vocabulario) para uma distribuicao de proximo token sem quebrar o contrato de shape?
+Problema formal deste slide: como mapear \`idx\` (IDs de token no vocabulário) para uma distribuição de próximo token sem quebrar o contrato de shape?
 
 Ponto de partida sem ambiguidade:
-- \`idx\` nao e embedding; \`idx\` e apenas grade de inteiros com IDs de token.
+- \`idx\` não é embedding; \`idx\` é apenas grade de inteiros com IDs de token.
 - Cada inteiro referencia uma linha da matriz de embedding \`E\`.
 
-Notacao do pipeline:
+Notação do pipeline:
 - \`idx \in Z^{BxT}\`
-  (idx e uma grade de IDs inteiros de token com B lotes e T posicoes por sequencia)
+  (idx é uma grade de IDs inteiros de token com B lotes e T posições por sequência)
 - \`E \in R^{VxC}\`
-  (E e a tabela de embedding: V tokens no vocabulario, cada um com vetor de tamanho C)
+  (E é a tabela de embedding: V tokens no vocabulário, cada um com vetor de tamanho C)
 - \`H = E[idx] \in R^{BxTxC}\`
-  (H e o resultado do lookup: para cada token em cada posicao, um vetor continuo de tamanho C)
+  (H é o resultado do lookup: para cada token em cada posição, um vetor contínuo de tamanho C)
 - \`W_out \in R^{VxC}\`, \`b \in R^V\`
-  (W_out e b sao os parametros da camada de saida que projetam de C para classes do vocabulario V)
+  (W_out e b são os parâmetros da camada de saída que projetam de C para classes do vocabulário V)
 - \`logits = H W_out^T + b \in R^{BxTxV}\`
-  (logits sao scores por token do vocabulario em cada posicao temporal, antes de softmax)
+  (logits são scores por token do vocabulário em cada posição temporal, antes de softmax)
 
-Leitura operacional por espaco:
-1. \`idx\` carrega identidade discreta de token por posicao temporal.
-2. \`Embedding\` faz lookup desses IDs e move para espaco continuo parametrizado (representacao \`C\`).
-3. Projecao de saida transforma representacao em scores nao normalizados por classe no espaco \`V\`.
+Leitura operacional por espaço:
+1. \`idx\` carrega identidade discreta de token por posição temporal.
+2. \`Embedding\` faz lookup desses IDs e move para espaço contínuo parametrizado (representação \`C\`).
+3. Projeção de saída transforma representação em scores não normalizados por classe no espaço \`V\`.
 
-Consumo do tensor em treino e inferencia:
+Consumo do tensor em treino e inferência:
 - treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
-- inferencia autoregressiva: \`logits[:, -1, :]\` para escolher o proximo indice.
+- inferência autoregressiva: \`logits[:, -1, :]\` para escolher o próximo índice.
 
-Ponte didatica: no modulo de regressao, o escalar de treino era o MSE; aqui mantemos a mesma logica de minimizacao, mas com CE para classes de vocabulario.
+Ponte didática: no módulo de regressão, o escalar de treino era o MSE; aqui mantemos a mesma lógica de minimização, mas com CE para classes de vocabulário.
 
-Regra de rigor: \`C\` e espaco de representacao; \`V\` e espaco de decisao. Misturar esses papeis quebra leitura e debug.`,
+Regra de rigor: \`C\` é espaço de representação; \`V\` é espaço de decisão. Misturar esses papéis quebra leitura e debug.`,
     },
     'en-us': {
       title: 'Embedding -> logits: formal prediction contract',
@@ -83,14 +83,14 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
         tabs: [{ label: 'Codigo' }, { label: 'Pipeline interativo' }],
         interactive: {
           title: 'Pipeline interativo: idx → H → logits → loss / next',
-          subtitle: 'Ajuste B, T, C, V e percorra cada estagio para ver como o tensor muda de forma e papel. (B=lote, T=tempo, C=largura da representacao, V=vocabulario).',
+          subtitle: 'Ajuste B, T, C, V e percorra cada estágio para ver como o tensor muda de forma e papel. (B=lote, T=tempo, C=largura da representação, V=vocabulário).',
           sliders: { batch: 'B (batch)', time: 'T (tempo)', channels: 'C (canais)', vocab: 'V (vocab)' },
           legend: {
-            idx: 'idx (B,T) — ids inteiros por posicao',
-            hidden: 'H (B,T,C) — vetores continuos',
+            idx: 'idx (B,T) — ids inteiros por posição',
+            hidden: 'H (B,T,C) — vetores contínuos',
             logits: 'logits (B,T,V) — scores por classe',
             loss: '(B*T, V) vs (B*T) — cross-entropy',
-            next: 'logits[:, -1, :] → (B,V) — proximo token',
+            next: 'logits[:, -1, :] → (B,V) — próximo token',
           },
           playLabel: '▶ Animar',
           pauseLabel: '⏸ Pausar',
@@ -98,7 +98,7 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
         },
         codePanel: {
           title: 'Contrato completo: idx -> embedding -> logits -> loss',
-          description: 'Snippet unico com forward, flatten para cross-entropy e slice de inferencia autoregressiva.',
+          description: 'Snippet único com forward, flatten para cross-entropy e slice de inferência autoregressiva.',
           source: { snippetId: 'pytorch-lm/embedding-logits-contract', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 3], content: 'Importamos PyTorch, os módulos de rede e a função de perda cross-entropy; isso prepara, no mesmo snippet, a parte do modelo e a parte do cálculo de erro.' },
@@ -112,29 +112,29 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
           ],
         },
         blueprintPanel: {
-          title: 'Cadeia causal de espacos',
-          subtitle: 'Este slide nao e sobre camada isolada; e sobre o contrato ponta-a-ponta que conecta representacao e decisao. (B=lote, T=tempo, C=largura da representacao, V=vocabulario).',
+          title: 'Cadeia causal de espaços',
+          subtitle: 'Este slide não é sobre camada isolada; é sobre o contrato ponta-a-ponta que conecta representação e decisão. (B=lote, T=tempo, C=largura da representação, V=vocabulário).',
           stages: [
             {
               label: '1. idx discreto',
-              title: 'Identidade simbolica por tempo',
+              title: 'Identidade simbólica por tempo',
               shape: 'idx -> (B,T)',
-              body: 'Entrada e inteiro discreto. Nao ha geometria vetorial aqui; ha apenas indice por posicao temporal.',
-              reading: 'Primeira verificacao: dtype inteiro e alinhamento temporal de entrada/alvo.',
+              body: 'Entrada é inteiro discreto. Não há geometria vetorial aqui; há apenas índice por posição temporal.',
+              reading: 'Primeira verificação: dtype inteiro e alinhamento temporal de entrada/alvo.',
             },
             {
               label: '2. embedding',
-              title: 'Levantamento para espaco continuo',
+              title: 'Levantamento para espaço contínuo',
               shape: 'H -> (B,T,C)',
-              body: 'Lookup parametrizado consulta E e produz representacoes treinaveis com largura C sem alterar B nem T.',
-              reading: 'Aqui nasce o espaco de representacao onde blocos internos operam.',
+              body: 'Lookup parametrizado consulta E e produz representações treináveis com largura C sem alterar B nem T.',
+              reading: 'Aqui nasce o espaço de representação onde blocos internos operam.',
             },
             {
               label: '3. output projection',
               title: 'Mapeamento C -> V',
               shape: 'logits -> (B,T,V)',
-              body: 'A cabeca linear aplica o mesmo operador em toda grade (B,T) e gera scores por classe na base do vocabulario.',
-              reading: 'V e espaco de decisao; ainda sem normalizacao probabilistica.',
+              body: 'A cabeça linear aplica o mesmo operador em toda grade (B,T) e gera scores por classe na base do vocabulário.',
+              reading: 'V é espaço de decisão; ainda sem normalização probabilística.',
             },
             {
               label: '4. training consume',
@@ -145,10 +145,10 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
             },
             {
               label: '5. inference slice',
-              title: 'Decisao na ultima posicao',
+              title: 'Decisão na última posição',
               shape: 'logits[:, -1, :] -> (B,V)',
-              body: 'Na geracao autoregressiva, apenas o ultimo passo temporal participa da escolha do proximo indice.',
-              reading: 'Treino consome toda a sequencia; inferencia consome o corte final.',
+              body: 'Na geração autoregressiva, apenas o último passo temporal participa da escolha do próximo índice.',
+              reading: 'Treino consome toda a sequência; inferência consome o corte final.',
             },
           ],
           diagnosticsTitle: 'Falhas de leitura frequentes',
@@ -157,7 +157,7 @@ Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these
             'Usar `targets` fora de `torch.long`, quebrando a semântica discreta da cross-entropy.',
             'Perder alinhamento temporal no flatten (`logits` e `targets` deixam de se referir ao mesmo token).',
           ],
-          footer: 'Contrato mental: embedding constrói representacao; projeção constrói decisao; loss e slice definem o uso operacional do mesmo tensor.',
+          footer: 'Contrato mental: embedding constrói representação; projeção constrói decisão; loss e slice definem o uso operacional do mesmo tensor.',
         },
       },
       'en-us': {

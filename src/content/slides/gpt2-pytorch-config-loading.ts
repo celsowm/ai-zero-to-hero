@@ -7,9 +7,9 @@ export const gpt2PytorchConfigLoading = defineSlide({
   content: {
     'pt-br': {
       title: 'Configuração do GPT no repo',
-      body: `No fluxo novo, “abrir o GPT-2” começa pela configuracao, nao por checkpoints externos.
+      body: `No fluxo novo, “abrir o GPT-2” começa pela configuração, não por checkpoints externos.
 
-Os numeros que definem o modelo sao:
+Os números que definem o modelo são:
 
 - \`vocab_size\`
 - \`block_size\`
@@ -17,24 +17,24 @@ Os numeros que definem o modelo sao:
 - \`n_head\`
 - \`n_embd\`
 
-Relacoes que precisam fechar:
+Relações que precisam fechar:
 - \`n_embd % n_head == 0\` para permitir split por head
-- \`idx.max() < vocab_size\` para nao quebrar embedding lookup
-- contexto de inferencia \`<= block_size\`
+- \`idx.max() < vocab_size\` para não quebrar embedding lookup
+- contexto de inferência \`<= block_size\`
 
 Retomando a ideia de head:
-- **head** = um subespaco de atencao rodando em paralelo com os outros
+- **head** = um subespaço de atenção rodando em paralelo com os outros
 - **D** = largura por head, calculada como \`n_embd / n_head\`
 - leitura util: \`C -> H x D\`
 
-Se a configuracao estiver errada, todos os erros seguintes parecem "misteriosos".`,
+Se a configuração estiver errada, todos os erros seguintes parecem "misteriosos".`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/config
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'A configuração nasce como dataclass porque essas dimensões são contrato de arquitetura.' },
         { lineRange: [4, 10], content: 'Cada campo controla uma parte concreta do modelo: vocabulário, contexto, profundidade, heads e largura.' },
-        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head (camada final de logits) pode ser compartilhado desde a configuracao.' },
+        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head (camada final de logits) pode ser compartilhado desde a configuração.' },
       ],
     },
     'en-us': {

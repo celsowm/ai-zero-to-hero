@@ -11,28 +11,28 @@ export const neuralNetworkActivationFunctions = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Funcao de ativacao: onde a rede deixa de ser so uma reta`,
-      body: `No slide anterior vimos o neuronio como \`z = w * x + b\` seguido de uma ativacao. Agora vale responder duas perguntas basicas: **o que e uma funcao de ativacao** e **por que ela existe?**
+      title: `Função de ativação: onde a rede deixa de ser só uma reta`,
+      body: `No slide anterior vimos o neurônio como \`z = w * x + b\` seguido de uma ativação. Agora vale responder duas perguntas básicas: **o que é uma função de ativação** e **por que ela existe?**
 
-1. **O que e uma funcao de ativacao:** e a regra aplicada ao valor bruto \`z\` para produzir a saida final do neuronio, \`a = f(z)\`. Ela decide como o neuronio reage depois da soma ponderada.
+1. **O que é uma função de ativação:** é a regra aplicada ao valor bruto \`z\` para produzir a saída final do neurônio, \`a = f(z)\`. Ela decide como o neurônio reage depois da soma ponderada.
 
-2. **Qual e o seu proposito:** sem ativacao, cada camada faz apenas uma transformacao linear. Empilhar varias delas ainda equivale, no fim, a uma unica reta ou plano.
+2. **Qual é o seu propósito:** sem ativação, cada camada faz apenas uma transformação linear. Empilhar várias delas ainda equivale, no fim, a uma única reta ou plano.
 
-3. **O que muda quando ela entra:** com ativacao, a rede ganha curvas, limiares e saturacoes. Isso permite modelar comportamentos que uma regressao linear nao consegue representar sozinha.
+3. **O que muda quando ela entra:** com ativação, a rede ganha curvas, limiares e saturações. Isso permite modelar comportamentos que uma regressão linear não consegue representar sozinha.
 
-4. **Cada ativacao muda o estilo da resposta:**
-   - \`linear(z) = z\` so repassa o valor
+4. **Cada ativação muda o estilo da resposta:**
+   - \`linear(z) = z\` só repassa o valor
    - \`relu(z) = max(0, z)\` cria um corte simples
    - \`sigmoid(z) = 1 / (1 + e^-z)\` comprime tudo para entre \`0\` e \`1\`
 
-5. **Por que isso importa aqui:** no nosso exemplo minimo, a camada oculta e a saida usam **sigmoid**. Entao, antes de ver o treino completo, precisamos entender o que essa funcao faz com o sinal.
+5. **Por que isso importa aqui:** no nosso exemplo mínimo, a camada oculta e a saída usam **sigmoid**. Então, antes de ver o treino completo, precisamos entender o que essa função faz com o sinal.
 
-> A soma ponderada diz o quanto o neuronio quer responder. A ativacao decide **como** ele vai responder.
+> A soma ponderada diz o quanto o neurônio quer responder. A ativação decide **como** ele vai responder.
 
-### Leitura pratica
-- \`z\` e o valor bruto antes da nao linearidade
-- \`a = f(z)\` e a saida que segue para a proxima camada
-- a funcao de ativacao e a etapa que transforma resposta bruta em comportamento util
+### Leitura prática
+- \`z\` é o valor bruto antes da não linearidade
+- \`a = f(z)\` é a saída que segue para a próxima camada
+- a função de ativação é a etapa que transforma resposta bruta em comportamento útil
 - trocar \`f\` muda completamente o comportamento da rede`,
       codeExplanations: [
 
@@ -71,45 +71,45 @@ export const neuralNetworkActivationFunctions = defineSlide({
     id: 'activation-functions-comparator',
     copy: {
       "pt-br": {
-        "ariaLabel": "Comparador visual de funcoes de ativacao",
-        "tabsAriaLabel": "Escolha a funcao de ativacao",
+        "ariaLabel": "Comparador visual de funções de ativação",
+        "tabsAriaLabel": "Escolha a função de ativação",
         "sliderLabel": "Ajuste o valor bruto",
         "inputLabel": "z",
         "outputLabel": "a",
-        "chartTitle": "Compare a mesma entrada em tres funcoes",
-        "infoTitle": "Leitura da funcao",
+        "chartTitle": "Compare a mesma entrada em três funções",
+        "infoTitle": "Leitura da função",
         "takeawayTitle": "O que fixar",
-        "takeawayBody": "Ativacao nao e um detalhe cosmetico. Ela define o formato da resposta do neuronio e, portanto, quais padroes a rede consegue representar e aprender.",
-        "comparisonNote": "O mesmo `z` gera saidas bem diferentes dependendo da ativacao escolhida.",
+        "takeawayBody": "Ativação não é um detalhe cosmético. Ela define o formato da resposta do neurônio e, portanto, quais padrões a rede consegue representar e aprender.",
+        "comparisonNote": "O mesmo `z` gera saídas bem diferentes dependendo da ativação escolhida.",
         "functions": {
           "linear": {
             "label": "Linear",
             "formula": "a = z",
-            "headline": "Nao dobra nem comprime o sinal: ela so repassa o valor.",
-            "body": "Funciona como referencia util para comparacao, mas nao adiciona nao linearidade.",
-            "behavior": "Se todas as camadas fossem lineares, a rede inteira continuaria equivalente a uma unica transformacao linear.",
-            "gradientNote": "Derivada constante: o gradiente local e sempre 1.",
-            "outputRange": "Saida sem limite superior ou inferior",
+            "headline": "Não dobra nem comprime o sinal: ela só repassa o valor.",
+            "body": "Funciona como referência útil para comparação, mas não adiciona não linearidade.",
+            "behavior": "Se todas as camadas fossem lineares, a rede inteira continuaria equivalente a uma única transformação linear.",
+            "gradientNote": "Derivada constante: o gradiente local é sempre 1.",
+            "outputRange": "Saída sem limite superior ou inferior",
             "example": "Quando olhar para ela"
           },
           "relu": {
             "label": "ReLU",
             "formula": "a = max(0, z)",
-            "headline": "Corta tudo abaixo de zero e deixa passar o que esta acima.",
+            "headline": "Corta tudo abaixo de zero e deixa passar o que está acima.",
             "body": "Ela introduz um limiar simples: desligado para valores negativos, ativo para positivos.",
-            "behavior": "Isso produz dobras por partes e torna a rede capaz de montar fronteiras mais flexiveis.",
-            "gradientNote": "Gradiente local e 0 no lado negativo e 1 no lado positivo.",
-            "outputRange": "Saida entre 0 e infinito",
+            "behavior": "Isso produz dobras por partes e torna a rede capaz de montar fronteiras mais flexíveis.",
+            "gradientNote": "Gradiente local é 0 no lado negativo e 1 no lado positivo.",
+            "outputRange": "Saída entre 0 e infinito",
             "example": "Quando olhar para ela"
           },
           "sigmoid": {
             "label": "Sigmoid",
             "formula": "a = 1 / (1 + e^-z)",
             "headline": "Converte qualquer valor bruto em uma resposta suave entre 0 e 1.",
-            "body": "Ela comprime extremos e deixa a faixa central mais sensivel a pequenas mudancas.",
-            "behavior": "Por isso e boa para interpretar saidas como probabilidade, embora possa saturar nas pontas.",
-            "gradientNote": "Gradiente local e maior no meio e pequeno nas extremidades.",
-            "outputRange": "Saida entre 0 e 1",
+            "body": "Ela comprime extremos e deixa a faixa central mais sensível a pequenas mudanças.",
+            "behavior": "Por isso é boa para interpretar saídas como probabilidade, embora possa saturar nas pontas.",
+            "gradientNote": "Gradiente local é maior no meio e pequeno nas extremidades.",
+            "outputRange": "Saída entre 0 e 1",
             "example": "Quando olhar para ela"
           }
         }

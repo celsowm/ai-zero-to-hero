@@ -11,22 +11,23 @@ export const neuralNetworkDerivativeIntuition = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `O que e uma derivada?`,
-      body: `Uma derivada e um numero **derivado** de uma funcao. Ela responde: *se eu empurrar a entrada um pouquinho, quanto a saida muda?*
+      title: `O que é uma derivada?`,
 
-**A rampa:** imagine uma curva. Em cada ponto, voce pode desenhar uma reta que toca a curva. A inclinacao dessa reta e a derivada naquele ponto. Reta subindo → derivada positiva. Reta descendo → derivada negativa. Reta plana → derivada zero.
+      body: `Uma derivada é um número **derivado** de uma função. Ela responde: *se eu empurrar a entrada um pouquinho, quanto a saída muda?*
 
-**A formula:** a derivada de \`f(x)\` e escrita como \`f'(x)\` ou \`df/dx\`. O \`d\` vem de diferenca — e a razao entre uma mudanca minima na saida e uma mudanca minima na entrada:
+**A rampa:** imagine uma curva. Em cada ponto, você pode desenhar uma reta que toca a curva. A inclinação dessa reta é a derivada naquele ponto. Reta subindo → derivada positiva. Reta descendo → derivada negativa. Reta plana → derivada zero.
+
+**A fórmula:** a derivada de \`f(x)\` é escrita como \`f'(x)\` ou \`df/dx\`. O \`d\` vem de diferença — é a razão entre uma mudança mínima na saída e uma mudança mínima na entrada:
 
 \`\`\`
 f'(x) ≈ [f(x + 0.001) - f(x)] / 0.001
 \`\`\`
 
-Ou seja: empurre \`x\` um pouquinho, veja quanto \`f(x)\` muda, divida pelo tamanho do empurrao.
+Ou seja: empurre \`x\` um pouquinho, veja quanto \`f(x)\` muda, divida pelo tamanho do empurrão.
 
-**Por que importa pra IA:** cada peso da rede tem uma derivada do erro em relacao a ele. Essa derivada diz "se voce aumentar esse peso, o erro sobe ou desce?" — e o backpropagation usa isso pra ajustar tudo.
+**Por que importa pra IA:** cada peso da rede tem uma derivada do erro em relação a ele. Essa derivada diz "se você aumentar esse peso, o erro sobe ou desce?" — e o backpropagation usa isso pra ajustar tudo.
 
-> A derivada e uma bussola: ela aponta pra onde o erro diminui.`,
+> A derivada é uma bússola: ela aponta pra onde o erro diminui.`,
     },
     'en-us': {
       title: `What is a derivative?`,
@@ -65,7 +66,7 @@ In other words: nudge \`x\` a little, see how much \`f(x)\` changes, divide by t
         "fxpLabel": "f'(x)",
         "nudgedLabel": "x + 0.001",
         "fxnudgedLabel": "f(x + 0.001)",
-        "deltaOutput": "Δ saida",
+        "deltaOutput": "Δ saída",
         "deltaInput": "Δ entrada",
         "approxLabel": "f'(x) ≈",
         "matchLabel": "bate!",

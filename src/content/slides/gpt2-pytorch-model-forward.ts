@@ -18,25 +18,25 @@ Dentro dele, o fluxo é:
 5. \`lm_head\` (camada final de logits)
 6. loss opcional
 
-Assinatura pratica:
+Assinatura prática:
 - entrada: \`idx (B, T)\`
-- saida base: \`logits (B, T, V)\`
-- saida treino: \`(logits, loss)\` quando \`targets\` existe
+- saída base: \`logits (B, T, V)\`
+- saída treino: \`(logits, loss)\` quando \`targets\` existe
 
-Ponto critico:
-- sem \`targets\`, o forward devolve so logits para inferencia/geracao
-- com \`targets\`, o forward tambem fecha a loss para treino
-- treino usa todas as posicoes em paralelo
-- geracao usa apenas \`logits[:, -1, :]\`
+Ponto crítico:
+- sem \`targets\`, o forward devolve só logits para inferência/geração
+- com \`targets\`, o forward também fecha a loss para treino
+- treino usa todas as posições em paralelo
+- geração usa apenas \`logits[:, -1, :]\`
 
-Ponte com PyTorch anterior: a mecanica de treino continua \`forward -> loss -> backward -> step\`; a mudanca de dominio aqui e trocar MSE por CE sobre vocabulario.`,
+Ponte com PyTorch anterior: a mecânica de treino continua \`forward -> loss -> backward -> step\`; a mudança de domínio aqui é trocar MSE por CE sobre vocabulário.`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/model-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'A assinatura já mostra a dupla que interessa: logits sempre; loss só quando há targets.' },
         { lineRange: [6, 14], content: 'O forward transforma `(B, T)` em residual stream, atravessa os blocos e projeta de volta para o vocabulário.' },
-        { lineRange: [15, 16], content: 'Quando há targets, a cross-entropy fecha o contrato de treino (mesmo papel estrutural do MSE em regressao).' },
+        { lineRange: [15, 16], content: 'Quando há targets, a cross-entropy fecha o contrato de treino (mesmo papel estrutural do MSE em regressão).' },
       ],
     },
     'en-us': {

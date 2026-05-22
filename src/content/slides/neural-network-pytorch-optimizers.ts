@@ -7,10 +7,10 @@ export const neuralNetworkPytorchOptimizers = defineSlide({
   content: {
     'pt-br': {
       title: 'Otimizador no loop certo',
-      body: `Agora o foco e disciplina de execucao: **loop correto, no lote correto, com sinal correto**.
+      body: `Agora o foco é disciplina de execução: **loop correto, no lote correto, com sinal correto**.
 
-Falha comum em projeto real nao e "escolher AdamW vs SGD".
-E quebrar a ordem operacional que conecta erro ao update.
+Falha comum em projeto real não é "escolher AdamW vs SGD".
+É quebrar a ordem operacional que conecta erro ao update.
 
 Sequencia de treino que precisa fechar:
 1. forward
@@ -21,7 +21,7 @@ Sequencia de treino que precisa fechar:
 
 Por que essa ordem importa:
 - \`loss\` define o alvo escalar do batch atual;
-- \`backward()\` traduz esse alvo em \`.grad\` por parametro;
+- \`backward()\` traduz esse alvo em \`.grad\` por parâmetro;
 - \`step()\` move pesos com base nesse gradiente;
 - \`zero_grad()\` impede que o proximo batch herde sinal velho.
 
@@ -30,7 +30,7 @@ Sinais práticos de loop saudável:
 - gradiente existe quando esperado;
 - update acontece após backward do mesmo batch.
 
-Se a ordem quebra, o treino vira movimento cego: parametro muda, mas aprendizado nao consolida.`,
+Se a ordem quebra, o treino vira movimento cego: parâmetro muda, mas aprendizado não consolida.`,
     },
     'en-us': {
       title: 'The optimizer in the right loop',
@@ -64,7 +64,7 @@ If order breaks, training becomes blind motion: parameters move, learning does n
     id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Fluxo' }],
+        tabs: [{ label: 'Código' }, { label: 'Fluxo' }],
         codePanel: {
           title: 'Sinal que o otimizador consome',
           description: 'Snippet simples para observar a etapa anterior ao `optimizer.step()`: formacao de gradiente.',
@@ -82,8 +82,8 @@ If order breaks, training becomes blind motion: parameters move, learning does n
             { label: 'forward', body: 'Com pesos atuais, o modelo gera logits para o batch corrente.', risk: 'Se entrada/target estiver desalinhado, a loss fica informativamente errada.' },
             { label: 'loss', body: 'A loss resume erro em escalar otimizado no batch atual (MSE em regressao, CE em LM).', risk: 'Loss mal definida propaga gradiente coerente com objetivo errado.' },
             { label: 'zero_grad()', body: 'Limpa `.grad` para isolar o sinal do lote atual.', risk: 'Sem limpeza, gradiente acumula entre batches e distorce escala de update.' },
-            { label: 'backward()', body: 'Retropropaga e preenche `.grad` em cada parametro treinavel.', risk: 'Pular/atrasar backward e ainda chamar step produz update sem causa atual.' },
-            { label: 'step()', body: 'Executa o deslocamento dos pesos com base no `.grad` recem-calculado.', risk: 'Step fora de ordem muda parametro sem consolidar aprendizado do lote certo.' },
+            { label: 'backward()', body: 'Retropropaga e preenche `.grad` em cada parâmetro treinável.', risk: 'Pular/atrasar backward e ainda chamar step produz update sem causa atual.' },
+            { label: 'step()', body: 'Executa o deslocamento dos pesos com base no `.grad` recém-calculado.', risk: 'Step fora de ordem muda parâmetro sem consolidar aprendizado do lote certo.' },
             { label: 'monitoramento', body: 'Observe loss e, quando necessario, norma de gradiente para validar estabilidade.', risk: 'Sem observabilidade, bug de loop parece “modelo ruim” por semanas.' },
           ],
           failureTitle: 'Falhas do loop',

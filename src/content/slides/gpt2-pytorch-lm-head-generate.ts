@@ -18,16 +18,16 @@ Ritmo da geração autoregressiva:
 
 Controles que mudam o comportamento:
 - temperatura: mais baixa = mais conservador
-- top-k/top-p: limita cauda da distribuicao
+- top-k/top-p: limita cauda da distribuição
 - max_new_tokens: controla custo e tamanho da resposta
 
-Efeito tipico dos knobs:
-- temperatura baixa + top-k curto = saida repetitiva e segura
-- temperatura moderada + top-p = saida mais diversa sem abrir toda a cauda
+Efeito típico dos knobs:
+- temperatura baixa + top-k curto = saída repetitiva e segura
+- temperatura moderada + top-p = saída mais diversa sem abrir toda a cauda
 
 Problemas comuns:
-- repeticao excessiva: temperatura baixa demais
-- ruido sem sentido: temperatura alta demais`,
+- repetição excessiva: temperatura baixa demais
+- ruído sem sentido: temperatura alta demais`,
       rightBody: `\`\`\`python
 snippet:repo-gpt2/generate
 \`\`\``,

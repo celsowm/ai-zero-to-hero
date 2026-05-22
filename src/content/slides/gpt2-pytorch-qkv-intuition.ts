@@ -59,8 +59,8 @@ Closing idea:
         title: 'QKV passo a passo',
         queryLabel: 'Q = pergunta atual',
         keyLabel: 'K = etiquetas do contexto',
-        valueLabel: 'V = conteudo recuperavel',
-        matchScoreLabel: 'Score de comparacao',
+        valueLabel: 'V = conteúdo recuperável',
+        matchScoreLabel: 'Score de comparação',
         resultLabel: 'Resultado misturado',
         tabs: {
           intuition: {
@@ -68,7 +68,7 @@ Closing idea:
             title: 'Um exemplo curto',
             description: 'Q diz o que a posição atual procura. K diz como cada token pode ser comparado. V carrega o conteúdo que pode ser recuperado.',
             analogyTitle: 'Fluxo da posição ativa',
-            analogyText: 'Use um contexto curto como "Maria ama fisica". Se a posição atual quer decidir o próximo passo depois de "ama", sua Query procura algo semanticamente útil. Cada token já trouxe sua Key e seu Value. A Query compara com todas as Keys, encontra onde há mais afinidade, e a saída vira uma mistura ponderada dos Values mais relevantes.',
+            analogyText: 'Use um contexto curto como "Maria ama física". Se a posição atual quer decidir o próximo passo depois de "ama", sua Query procura algo semanticamente útil. Cada token já trouxe sua Key e seu Value. A Query compara com todas as Keys, encontra onde há mais afinidade, e a saída vira uma mistura ponderada dos Values mais relevantes.',
           },
           mechanics: {
             label: 'Mecânica',

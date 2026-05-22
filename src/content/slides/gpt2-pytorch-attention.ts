@@ -11,9 +11,9 @@ export const gpt2PytorchAttention = defineSlide({
 
 Com QKV já definido, o fluxo passa a ser:
 
-1. projecao \`C -> 3C\` para QKV (Query, Key, Value)
+1. projeção \`C -> 3C\` para QKV (Query, Key, Value)
 2. reshape para múltiplas heads
-3. aplicar mascara causal nos scores
+3. aplicar máscara causal nos scores
 4. projeção final de volta para \`C\`
 
 Contratos de shape:
@@ -23,7 +23,7 @@ Contratos de shape:
 - saída: \`(B, T, C)\`
 
 Erros comuns:
-- esquecer a mascara causal (vaza futuro no treino)
+- esquecer a máscara causal (vaza futuro no treino)
 - permutar dimensão errada em \`transpose/view\`
 - usar \`softmax\` no eixo errado
 - esquecer que o reshape precisa respeitar \`C = H x D\``,
@@ -32,7 +32,7 @@ snippet:repo-gpt2/attention
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'A classe guarda número de heads, largura do embedding e as projeções lineares centrais.' },
-        { lineRange: [13, 20], content: 'No forward, o tensor vira QKV (Query, Key, Value), ganha formato multi-head, aplica mascara triangular para impedir futuro e volta para `(B, T, C)`.' },
+        { lineRange: [13, 20], content: 'No forward, o tensor vira QKV (Query, Key, Value), ganha formato multi-head, aplica máscara triangular para impedir futuro e volta para `(B, T, C)`.' },
       ],
     },
     'en-us': {

@@ -11,8 +11,8 @@ export const neuralNetworkPytorchModelLifecycle = defineSlide({
 
 Contrato de ciclo de vida:
 1. **\`model.train()\`**: ativa comportamento de treino (ex: dropout).
-2. **\`model.eval()\`**: congela comportamento estocastico para inferencia.
-3. **\`torch.no_grad()\`**: desliga grafo para economizar memoria e tempo.
+2. **\`model.eval()\`**: congela comportamento estocástico para inferência.
+3. **\`torch.no_grad()\`**: desliga grafo para economizar memória e tempo.
 4. **checkpoint**: persiste estado para retomar exatamente de onde parou.
 
 O que muda por modo:
@@ -48,10 +48,10 @@ Recurring mistakes:
     id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Estados' }],
+        tabs: [{ label: 'Código' }, { label: 'Estados' }],
         codePanel: {
-          title: 'Mudanca de modo em codigo',
-          description: 'Mesmo modelo, dois comportamentos: treino com ruido e inferencia estavel.',
+          title: 'Mudança de modo em código',
+          description: 'Mesmo modelo, dois comportamentos: treino com ruído e inferência estável.',
           source: { snippetId: 'pytorch-lm/model-lifecycle', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 4], content: 'Criamos um modelo simples com Dropout para deixar visível a diferença prática entre modo de treino e modo de avaliação.' },
@@ -81,7 +81,7 @@ Recurring mistakes:
             'Inferência = forward estável e barato.',
             'Checkpoint = memória operacional da execução, não simples backup.',
           ],
-          footer: 'Se o resultado muda sem motivo entre duas inferencias, cheque modo do modelo primeiro.',
+          footer: 'Se o resultado muda sem motivo entre duas inferências, cheque modo do modelo primeiro.',
         },
       },
       'en-us': {

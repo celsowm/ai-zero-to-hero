@@ -15,10 +15,10 @@ export const crossEntropyLanguageModeling = defineSlide({
       body: `Durante o treinamento, precisamos de um jeito matemático para dizer ao modelo se as previsões dele estão boas ou ruins. Entra a **Perda de Entropia Cruzada** (Cross-Entropy Loss).
 
 Por que o nome "entropia"?
-- **Entropia** \`H(p)\`: mede a incerteza media de uma distribuicao real \`p\`.
-- **Cross-entropy** \`H(p, q)\`: mede o custo medio quando os dados vem de \`p\`, mas o modelo aposta com distribuicao \`q\`.
-- "Cross" vem desse cruzamento entre **distribuicao real** e **distribuicao prevista**.
-- No caso one-hot por token correto, isso vira \`-log(p_token_correto)\` (mesma familia de NLL/log-loss).
+- **Entropia** \`H(p)\`: mede a incerteza média de uma distribuição real \`p\`.
+- **Cross-entropy** \`H(p, q)\`: mede o custo médio quando os dados vêm de \`p\`, mas o modelo aposta com distribuição \`q\`.
+- "Cross" vem desse cruzamento entre **distribuição real** e **distribuição prevista**.
+- No caso one-hot por token correto, isso vira \`-log(p_token_correto)\` (mesma família de NLL/log-loss).
 
 1. **O gabarito:** no treino, nós sabemos qual é a verdadeira próxima palavra. Digamos que seja 'people'.
 

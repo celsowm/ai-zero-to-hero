@@ -12,18 +12,18 @@ export const neuralNetworkPytorchSilicon = defineSlide({
   content: {
     'pt-br': {
       title: `Do Python ao Silício: por que tensores são mais rápidos`,
-      body: `Quando você cria um tensor no PyTorch e o envia para a GPU com \`.to('cuda')\`, a ideia central nao e decorar barramentos: e entender **throughput**.
+      body: `Quando você cria um tensor no PyTorch e o envia para a GPU com \`.to('cuda')\`, a ideia central não é decorar barramentos: é entender **throughput**.
 
 1. **Python sai do caminho:** loops lentos viram kernels nativos.
 2. **GPU multiplica em paralelo:** muitas contas iguais rodam ao mesmo tempo.
-3. **Dados perto da computacao:** quando tensor e modelo ficam no mesmo device, o fluxo anda sem idas e vindas desnecessarias.
+3. **Dados perto da computação:** quando tensor e modelo ficam no mesmo device, o fluxo anda sem idas e vindas desnecessárias.
 
 Resumo util:
 - CPU = menor latencia para debug
 - GPU = maior throughput para treino
 - erro comum = esquecer tensor/modelo no mesmo device
 
-> Tensores nao sao "listas inteligentes" - sao o formato que libera hardware especializado.`,
+> Tensores não são "listas inteligentes" — são o formato que libera hardware especializado.`,
     },
     'en-us': {
       title: `From Python to Silicon: why tensors are faster`,

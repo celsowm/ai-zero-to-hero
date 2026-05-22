@@ -6,15 +6,15 @@ export const neuralNetworkPytorchOptimizerIntuition = defineSlide({
   options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
-      title: 'O que e otimizador, sem misterio',
-      body: `Otimizador e o componente que transforma erro em **mudanca concreta de parametro**.
+      title: 'O que é otimizador, sem mistério',
+      body: `Otimizador é o componente que transforma erro em **mudança concreta de parâmetro**.
 
-Sem ele, o modelo ate calcula gradiente, mas nada se move.
-Com ele, cada ciclo de treino executa: medir erro -> calcular direcao -> aplicar passo.
+Sem ele, o modelo até calcula gradiente, mas nada se move.
+Com ele, cada ciclo de treino executa: medir erro -> calcular direção -> aplicar passo.
 
 Leitura operacional do update:
-1. \`loss\` diz "quao errado" o modelo esta no batch atual
-2. \`backward()\` escreve em \`.grad\` a direcao de correcao por parametro
+1. \`loss\` diz "quão errado" o modelo está no batch atual
+2. \`backward()\` escreve em \`.grad\` a direção de correção por parâmetro
 3. \`step()\` aplica deslocamento usando essa direcao (escala controlada pelo learning rate)
 4. \`zero_grad()\` limpa o buffer para o proximo batch
 
@@ -26,10 +26,10 @@ Forma mental util (sem entrar em calculo pesado):
 Checklist minimo de ordem:
 1. calcular a \`loss\` (erro atual)
 2. \`backward()\` para gerar \`.grad\`
-3. \`step()\` para atualizar os parametros
-4. \`zero_grad()\` para nao acumular lixo de batch anterior
+3. \`step()\` para atualizar os parâmetros
+4. \`zero_grad()\` para não acumular lixo de batch anterior
 
-Sem "magia": optimizer nao inventa sinal.
+Sem "magia": optimizer não inventa sinal.
 Ele so converte gradiente em update coerente.`,
     },
     'en-us': {
@@ -66,13 +66,13 @@ It converts gradient signal into coherent updates.`,
       'pt-br': {
         tabs: [{ label: 'Codigo' }, { label: 'Mapa' }, { label: 'Simulador' }],
         codePanel: {
-          title: 'Fluxo minimo de atualizacao',
+          title: 'Fluxo mínimo de atualização',
           description: 'Exemplo enxuto: erro, gradiente, ajuste.',
           source: { snippetId: 'pytorch-lm/optimizer-intuition', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 6], content: 'Criamos peso treinavel, alvo e optimizer para isolar a ideia central: ajustar parametro para reduzir erro.' },
-            { lineRange: [7, 12], content: 'A loss mede erro, `backward()` gera gradiente e `step()` aplica o update; depois `zero_grad()` limpa para o proximo ciclo.' },
-            { lineRange: [13, 15], content: 'No fim, imprimimos loss e peso atualizado para verificar que o parametro realmente se moveu.' },
+            { lineRange: [1, 6], content: 'Criamos peso treinável, alvo e optimizer para isolar a ideia central: ajustar parâmetro para reduzir erro.' },
+            { lineRange: [7, 12], content: 'A loss mede erro, `backward()` gera gradiente e `step()` aplica o update; depois `zero_grad()` limpa para o próximo ciclo.' },
+            { lineRange: [13, 15], content: 'No fim, imprimimos loss e peso atualizado para verificar que o parâmetro realmente se moveu.' },
           ],
         },
         interactivePanel: {
@@ -88,9 +88,9 @@ It converts gradient signal into coherent updates.`,
           lossAfterLabel: 'Loss depois',
           interpretationTitle: 'Leitura operacional',
           interpretationBullets: [
-            'Sinal do gradiente define direcao do update.',
-            'Learning rate controla o quanto o peso se desloca em um unico step.',
-            'Se a loss depois do step sobe, escala/direcao estao ruins para este ponto.',
+            'Sinal do gradiente define direção do update.',
+            'Learning rate controla o quanto o peso se desloca em um único step.',
+            'Se a loss depois do step sobe, escala/direção estão ruins para este ponto.',
           ],
         },
         pipelinePanel: {
@@ -98,13 +98,13 @@ It converts gradient signal into coherent updates.`,
           subtitle: 'Modelo mental robusto: separar claramente erro, direcao e tamanho de passo.',
           steps: [
             { label: 'Erro (loss)', body: 'A loss condensa o desvio do batch em um escalar que vira alvo de minimizacao.', risk: 'Sem loss confiavel, todo update vira chute orientado por sinal ruim.' },
-            { label: 'Direcao (grad)', body: '`backward()` propaga esse erro e preenche `.grad` com direcao por parametro.', risk: 'Gradiente velho ou ausente faz o optimizer atuar sem referencia do batch atual.' },
-            { label: 'Escala (lr)', body: 'Learning rate controla o tamanho do deslocamento aplicado em cada parametro.', risk: 'LR alta demais oscila/diverge; LR baixa demais quase nao move e parece treino travado.' },
-            { label: 'Movimento (step)', body: '`step()` executa o update real nos pesos com base em gradiente + escala.', risk: 'Chamar `step()` fora de ordem gera movimento cego, nao aprendizado acumulado.' },
+            { label: 'Direção (grad)', body: '`backward()` propaga esse erro e preenche `.grad` com direção por parâmetro.', risk: 'Gradiente velho ou ausente faz o optimizer atuar sem referência do batch atual.' },
+            { label: 'Escala (lr)', body: 'Learning rate controla o tamanho do deslocamento aplicado em cada parâmetro.', risk: 'LR alta demais oscila/diverge; LR baixa demais quase não move e parece treino travado.' },
+            { label: 'Movimento (step)', body: '`step()` executa o update real nos pesos com base em gradiente + escala.', risk: 'Chamar `step()` fora de ordem gera movimento cego, não aprendizado acumulado.' },
           ],
           failureTitle: 'Erros comuns',
           failureModes: [
-            { label: 'Loss sem diagnostico', value: 'A loss nao e monitorada por passo/epoca, entao o time nao ve se update ajuda ou piora.' },
+            { label: 'Loss sem diagnostico', value: 'A loss não é monitorada por passo/epoca, então o time não vê se update ajuda ou piora.' },
             { label: 'Update cego', value: 'Executar `step()` sem gradiente atualizado do batch atual.' },
             { label: 'Escala ruim', value: 'Learning rate incompatível com a tarefa faz o treino oscilar ou andar devagar demais.' },
             { label: 'Loop sem limpeza', value: 'Esquecer `zero_grad()` mistura sinais de batches e distorce o update.' },

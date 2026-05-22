@@ -12,11 +12,11 @@ export const attentionIsAllYouNeedTeaser = defineSlide({
   content: {
     'pt-br': {
       title: `Attention is all you need`,
-      body: `Em **2017**, o paper **"Attention Is All You Need"** (https://arxiv.org/abs/1706.03762) troca o paradigma de sequencia recorrente por atencao vetorizada e abre o caminho para o regime de escala dos LLMs.
+      body: `Em **2017**, o paper **"Attention Is All You Need"** (https://arxiv.org/abs/1706.03762) troca o paradigma de sequência recorrente por atenção vetorizada e abre o caminho para o regime de escala dos LLMs.
 
-1. **Limite estrutural das RNNs/LSTMs (redes recorrentes):** o estado oculto e atualizado token a token (\`h_t = f(h_{t-1}, x_t)\`). Isso forca dependencia temporal estrita no treino, reduz ocupacao de GPU e alonga o caminho de gradiente em contextos longos.
+1. **Limite estrutural das RNNs/LSTMs (redes recorrentes):** o estado oculto e atualizado token a token (\`h_t = f(h_{t-1}, x_t)\`). Isso força dependência temporal estrita no treino, reduz ocupação de GPU e alonga o caminho de gradiente em contextos longos.
 
-2. **Atencao como roteamento de contexto:** no Transformer, cada token projeta Query, Key e Value. O modelo usa isso para decidir quais posicoes consultar ao atualizar cada token.
+2. **Atenção como roteamento de contexto:** no Transformer, cada token projeta Query, Key e Value. O modelo usa isso para decidir quais posições consultar ao atualizar cada token.
 
 3. **Paralelismo e escala:** a autoatenção é altamente paralelizável. Na prática, isso permitiu treinar modelos em escala massiva, tornando viável aumentar largura, profundidade e volume de dados de forma coordenada.
 
@@ -24,7 +24,7 @@ export const attentionIsAllYouNeedTeaser = defineSlide({
 
 5. **Contexto histórico correto:** os autores estavam majoritariamente ligados a [Google Brain](https://research.google/teams-and-labs/google-brain/) e instituições acadêmicas. [Google DeepMind](https://deepmind.google/) é fase organizacional posterior (integração consolidada a partir de **2023**).
 
-> Resumo tecnico: o paper substituiu memoria recorrente por roteamento de contexto via atencao e transformou o limite dominante de engenharia em um problema escalavel por paralelismo.`,
+> Resumo técnico: o paper substituiu memória recorrente por roteamento de contexto via atenção e transformou o limite dominante de engenharia em um problema escalável por paralelismo.`,
     },
     'en-us': {
       title: `Attention is all you need`,
