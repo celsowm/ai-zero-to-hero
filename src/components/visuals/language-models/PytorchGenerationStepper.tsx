@@ -36,11 +36,12 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const svgW = 520;
   const svgH = 92;
   const tokenX = 14;
-  const tokenYStart = 20;
-  const tokenGap = 11;
+  const tokenGap = 8;
   const tokenW = 86;
-  const tokenH = 10;
-  const centerY = 46;
+  const tokenH = 8;
+  const centerY = 64;
+  const tokenYStart = centerY - ((allTokens.length - 1) * tokenGap) / 2;
+  const blockH = 40;
 
   const accent = sw.cyan;
   const accent2 = sw.purple;
@@ -89,7 +90,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
           </marker>
         </defs>
-        <text x={tokenX + tokenW / 2} y="10" textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
+        <text x={tokenX + tokenW / 2} y={Math.max(10, tokenYStart - 10)} textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
         {allTokens.map((token, i) => {
@@ -104,7 +105,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
                 stroke={isLast ? accent3 : isGenerated ? `${accent2}88` : sw.borderSubtle}
                 strokeWidth={isLast ? 1.5 : 1}
               />
-              <text x={tokenX + tokenW / 2} y={y + 3} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
+              <text x={tokenX + tokenW / 2} y={y + 3} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
                 {token}
               </text>
             </g>
@@ -121,20 +122,20 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           markerEnd="url(#genArrow)"
         />
 
-        <rect x={170} y={29} rx={10} ry={10} width={110} height={34} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
-        <text x={225} y={43} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
-        <text x={225} y={56} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
+        <rect x={170} y={centerY - blockH / 2} rx={10} ry={10} width={110} height={blockH} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
+        <text x={225} y={centerY - 5} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
+        <text x={225} y={centerY + 10} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
 
         <line x1={282} y1={centerY} x2={338} y2={centerY} stroke={accent2} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <rect x={340} y={29} rx={10} ry={10} width={110} height={34} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
-        <text x={395} y={43} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
-        <text x={395} y={56} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
+        <rect x={340} y={centerY - blockH / 2} rx={10} ry={10} width={110} height={blockH} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
+        <text x={395} y={centerY - 5} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
+        <text x={395} y={centerY + 10} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
 
         <line x1={452} y1={centerY} x2={504} y2={centerY} stroke={accent3} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <text x="504" y="28" textAnchor="end" fontSize="9" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
-        <text x="504" y="62" textAnchor="end" fontSize="8" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
+        <text x="504" y={centerY - 21} textAnchor="end" fontSize="9" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
+        <text x="504" y={centerY + 19} textAnchor="end" fontSize="8" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
 
         {step > 0 && !isComplete && (
           <circle r="3" fill={accent3}>
