@@ -1,9 +1,19 @@
 import torch
 import torch.nn as nn
 
-# TODO: Use nn.Sequential to create 'net' model
-# Layers: Linear(4, 8) -> ReLU -> Linear(8, 1)
-net = None
+# Embedding contract: IDs (B,T) -> vectors (B,T,C).
+B, T, V, C = 2, 3, 10, 4
+idx = torch.tensor([
+    [1, 2, 3],
+    [4, 5, 6],
+], dtype=torch.long)
 
-# Validator checks parameter count
-param_count = sum(p.numel() for p in net.parameters()) if net else 0
+# TODO: create an embedding with V tokens and width C.
+wte = None
+
+# TODO: apply the embedding to idx.
+H = None
+
+# Validator checks these contracts.
+H_shape = list(H.shape) if H is not None else []
+embedding_weight_shape = list(wte.weight.shape) if wte is not None else []
