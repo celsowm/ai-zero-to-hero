@@ -1,226 +1,321 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import type { QkvIntuitionExplorerCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
-import { TabsBar } from '../TabsBar';
-import { PanelCard } from '../PanelCard';
 
 interface QkvIntuitionExplorerProps {
   copy: QkvIntuitionExplorerCopy;
 }
 
+const lanes = [
+  { key: 'q', label: 'Q', color: sw.cyan },
+  { key: 'k', label: 'K', color: sw.purple },
+  { key: 'v', label: 'V', color: sw.pink },
+] as const;
+
 export const QkvIntuitionExplorer = React.memo(({ copy }: QkvIntuitionExplorerProps) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const tabs = useMemo(() => [
-    { label: copy.tabs.intuition.label, id: 'intuition' },
-    { label: copy.tabs.mechanics.label, id: 'mechanics' },
-    { label: copy.tabs.retrieval.label, id: 'retrieval' },
-  ], [copy.tabs]);
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 0: // Intuition
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'fadeIn 0.4s ease-out' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-              <div style={cardStyle('var(--sw-cyan)')}>
-                <div style={iconBadgeStyle('var(--sw-cyan)')}>Q</div>
-                <h4 style={cardTitleStyle}>{copy.queryLabel}</h4>
-                <p style={cardDescStyle}>{copy.tabs.intuition.description.split('.')[0]}.</p>
-              </div>
-              <div style={cardStyle('var(--sw-purple)')}>
-                <div style={iconBadgeStyle('var(--sw-purple)')}>K</div>
-                <h4 style={cardTitleStyle}>{copy.keyLabel}</h4>
-                <p style={cardDescStyle}>{copy.tabs.intuition.description.split('.')[1] || ''}.</p>
-              </div>
-              <div style={cardStyle('var(--sw-pink)')}>
-                <div style={iconBadgeStyle('var(--sw-pink)')}>V</div>
-                <h4 style={cardTitleStyle}>{copy.valueLabel}</h4>
-                <p style={cardDescStyle}>{copy.tabs.intuition.description.split('.')[2] || ''}.</p>
-              </div>
-            </div>
-            <PanelCard style={{ background: 'rgba(255,255,255,0.03)', border: '1px dashed rgba(255,255,255,0.1)' }}>
-              <h5 style={{ fontSize: 13, fontWeight: 800, color: 'var(--sw-cyan)', marginBottom: 8, textTransform: 'uppercase' }}>
-                {copy.tabs.intuition.analogyTitle}
-              </h5>
-              <p style={{ fontSize: 14, color: 'var(--sw-text-dim)', lineHeight: 1.6 }}>
-                {copy.tabs.intuition.analogyText}
-              </p>
-            </PanelCard>
-          </div>
-        );
-      case 1: // Mechanics
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'fadeIn 0.4s ease-out' }}>
-            <div style={{ textAlign: 'center', marginBottom: 10 }}>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--sw-text)' }}>{copy.tabs.mechanics.title}</h3>
-              <p style={{ fontSize: 14, color: 'var(--sw-text-dim)' }}>{copy.tabs.mechanics.description}</p>
-            </div>
-            
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20 }}>
-              <div style={mathBlockStyle('var(--sw-cyan)')}>Query [1 × d]</div>
-              <span style={{ fontSize: 24, fontWeight: 300, color: 'var(--sw-text-muted)' }}>×</span>
-              <div style={mathBlockStyle('var(--sw-purple)')}>Keyᵀ [d × n]</div>
-              <span style={{ fontSize: 24, fontWeight: 300, color: 'var(--sw-text-muted)' }}>=</span>
-              <div style={{ 
-                padding: '16px 24px', 
-                borderRadius: 12, 
-                background: 'linear-gradient(135deg, var(--sw-cyan), var(--sw-purple))',
-                color: '#000',
-                fontWeight: 800,
-                boxShadow: '0 10px 30px rgba(0,229,255,0.2)'
-              }}>
-                Scores [1 × n]
-              </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-              <PanelCard gap={10}>
-                <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--sw-cyan)', textTransform: 'uppercase' }}>{copy.tabs.mechanics.dotProductLabel}</div>
-                <p style={{ fontSize: 13, color: 'var(--sw-text-dim)' }}>Similaridade por produto escalar: quanto mais os vetores "apontam" para o mesmo lado, maior o score.</p>
-              </PanelCard>
-              <PanelCard gap={10}>
-                <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--sw-purple)', textTransform: 'uppercase' }}>{copy.tabs.mechanics.scalingLabel}</div>
-                <p style={{ fontSize: 13, color: 'var(--sw-text-dim)' }}>Dividimos pela raiz da dimensão (√d) para manter os valores sob controle e evitar gradientes nulos.</p>
-              </PanelCard>
-            </div>
-          </div>
-        );
-      case 2: // Retrieval
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'fadeIn 0.4s ease-out' }}>
-             <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 15, alignItems: 'center' }}>
-                <div style={boxStyle}>
-                  <div style={{ color: 'var(--sw-cyan)', fontWeight: 800 }}>Google Search</div>
-                  <div style={{ fontSize: 12, color: 'var(--sw-text-muted)' }}>"Quem escreveu Dom Casmurro?" (Query)</div>
-                </div>
-                <span style={{ color: 'var(--sw-text-muted)' }}>→</span>
-                <div style={boxStyle}>
-                  <div style={{ color: 'var(--sw-purple)', fontWeight: 800 }}>Database Index</div>
-                  <div style={{ fontSize: 12, color: 'var(--sw-text-muted)' }}>Livros: Machado de Assis (Key)</div>
-                </div>
-                <span style={{ color: 'var(--sw-text-muted)' }}>→</span>
-                <div style={boxStyle}>
-                  <div style={{ color: 'var(--sw-pink)', fontWeight: 800 }}>Content</div>
-                  <div style={{ fontSize: 12, color: 'var(--sw-text-muted)' }}>"Dom Casmurro é uma obra..." (Value)</div>
-                </div>
-             </div>
-
-             <PanelCard style={{ background: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.1)' }}>
-               <h4 style={{ fontWeight: 800, color: 'var(--sw-cyan)', marginBottom: 8 }}>{copy.tabs.retrieval.databaseAnalogyTitle}</h4>
-               <p style={{ fontSize: 14, color: 'var(--sw-text-dim)', lineHeight: 1.6 }}>{copy.tabs.retrieval.databaseAnalogyText}</p>
-             </PanelCard>
-
-             <div style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: 12, color: 'var(--sw-text-muted)', fontStyle: 'italic' }}>
-                  A diferença é que no Transformer isso é "Soft": pegamos um pouco de cada resposta, ponderado pelo match.
-                </p>
-             </div>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+  const [selectedToken, setSelectedToken] = useState(copy.tokens.indexOf(copy.queryToken));
+  const activeIndex = selectedToken >= 0 ? selectedToken : copy.tokens.length - 1;
 
   return (
     <div style={{
       width: '100%',
       height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 20,
-      padding: 24,
-      background: 'rgba(10,12,18,0.5)',
+      minHeight: 0,
+      padding: 22,
       borderRadius: 24,
       border: `1px solid ${sw.borderSubtle}`,
       boxShadow: sw.shadowDeep,
-      minHeight: 0,
-      overflow: 'hidden'
+      background: 'radial-gradient(circle at 20% 12%, rgba(0,229,255,0.09), transparent 30%), radial-gradient(circle at 82% 20%, rgba(255,46,151,0.09), transparent 30%), linear-gradient(180deg, rgba(10,12,20,0.96), rgba(7,8,14,0.98))',
+      display: 'grid',
+      gridTemplateRows: 'auto auto 1fr auto',
+      gap: 14,
+      fontFamily: sw.fontSans,
+      overflow: 'hidden',
     }}>
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--sw-text)', letterSpacing: '-0.02em' }}>{copy.title}</h2>
-        <div style={{ width: 320 }}>
-          <TabsBar 
-            items={tabs} 
-            activeIndex={activeTab} 
-            onChange={setActiveTab} 
-            ariaLabel="QKV Tabs" 
-          />
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.14em', textTransform: 'uppercase', color: sw.cyan }}>
+          {copy.title}
+        </div>
+        <div style={{ marginTop: 5, fontSize: 15, fontWeight: 750, color: sw.text, lineHeight: 1.3 }}>
+          {copy.subtitle}
         </div>
       </div>
 
-      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingRight: 4 }}>
-        {renderContent()}
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 12, alignItems: 'center' }}>
+        <StageBadge color={sw.cyan} label={copy.tokenLabel} value="x: (T,C)" />
+        <div style={{ height: 2, background: 'linear-gradient(90deg, rgba(0,229,255,0.45), rgba(168,85,247,0.45), rgba(255,46,151,0.45))' }} />
+        <StageBadge color={sw.pink} label={copy.projectionLabel} value="qkv: (T,3C)" />
+      </div>
+
+      <div style={{ minHeight: 0, display: 'grid', gridTemplateColumns: '0.92fr 1.18fr', gap: 14 }}>
+        <div style={{ display: 'grid', gridTemplateRows: 'auto 1fr', gap: 12, minHeight: 0 }}>
+          <Panel title={copy.tokenLabel}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {copy.tokens.map((token, index) => (
+                <button
+                  key={token}
+                  onClick={() => setSelectedToken(index)}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '64px 1fr',
+                    gap: 10,
+                    alignItems: 'center',
+                    padding: '9px 10px',
+                    borderRadius: 14,
+                    border: index === activeIndex ? `1px solid ${sw.cyan}` : '1px solid rgba(255,255,255,0.08)',
+                    background: index === activeIndex ? 'rgba(0,229,255,0.1)' : 'rgba(255,255,255,0.035)',
+                    color: index === activeIndex ? sw.cyan : sw.textDim,
+                    cursor: 'pointer',
+                    fontFamily: sw.fontSans,
+                    transition: sw.transitionFast,
+                  }}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 900 }}>{token}</span>
+                  <VectorRow values={copy.xRows[index]} color={index === activeIndex ? sw.cyan : sw.textMuted} />
+                </button>
+              ))}
+            </div>
+          </Panel>
+
+          <Panel title={copy.contextLabel}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {copy.valueMix.map((item, index) => {
+                const weight = copy.weights[index] ?? 0;
+                return (
+                  <div key={item} style={{ display: 'grid', gridTemplateColumns: '82px 1fr', gap: 8, alignItems: 'center' }}>
+                    <div style={{ fontSize: 12, fontWeight: 850, color: lanes[index % lanes.length].color }}>
+                      {item}
+                    </div>
+                    <div style={{ height: 9, borderRadius: 999, overflow: 'hidden', background: 'rgba(255,255,255,0.06)' }}>
+                      <div style={{
+                        width: `${weight * 100}%`,
+                        height: '100%',
+                        borderRadius: 999,
+                        background: `linear-gradient(90deg, ${lanes[index % lanes.length].color}88, ${lanes[index % lanes.length].color})`,
+                      }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Panel>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateRows: 'auto 1fr auto', gap: 12, minHeight: 0 }}>
+          <Panel title={copy.splitLabel}>
+            <div style={{ perspective: 900, minHeight: 160 }}>
+              <div style={{
+                position: 'relative',
+                height: 160,
+                transformStyle: 'preserve-3d',
+                transform: 'rotateX(57deg) rotateZ(-29deg)',
+              }}>
+                {lanes.map((lane, laneIndex) => {
+                  const rows = lane.key === 'q' ? copy.qRows : lane.key === 'k' ? copy.kRows : copy.vRows;
+                  return (
+                    <div key={lane.key} style={{
+                      position: 'absolute',
+                      left: 42 + laneIndex * 78,
+                      top: 14 + laneIndex * 18,
+                      width: 176,
+                      padding: 8,
+                      borderRadius: 14,
+                      background: `linear-gradient(135deg, ${lane.color}24, rgba(255,255,255,0.035))`,
+                      border: `1px solid ${lane.color}66`,
+                      boxShadow: `0 18px 34px rgba(0,0,0,0.26), 0 0 22px ${lane.color}22`,
+                    }}>
+                      <div style={{ fontSize: 18, fontWeight: 950, color: lane.color, marginBottom: 7 }}>
+                        {lane.label}
+                      </div>
+                      <MiniMatrix rows={rows} color={lane.color} activeRow={activeIndex} />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </Panel>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, minHeight: 0 }}>
+            <Panel title={copy.scoreLabel}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {copy.tokens.map((token, index) => (
+                  <ScoreRow
+                    key={token}
+                    token={token}
+                    score={copy.scores[index] ?? 0}
+                    active={index === activeIndex}
+                  />
+                ))}
+              </div>
+            </Panel>
+
+            <Panel title={copy.softmaxLabel}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {copy.tokens.map((token, index) => (
+                  <WeightPill
+                    key={token}
+                    token={token}
+                    weight={copy.weights[index] ?? 0}
+                    active={index === activeIndex}
+                  />
+                ))}
+              </div>
+            </Panel>
+          </div>
+
+          <div style={{
+            padding: '10px 12px',
+            borderRadius: 16,
+            background: 'linear-gradient(90deg, rgba(0,229,255,0.08), rgba(168,85,247,0.08))',
+            border: '1px solid rgba(0,229,255,0.18)',
+          }}>
+            <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.12em', textTransform: 'uppercase', color: sw.cyan }}>
+              {copy.bridgeLabel}
+            </div>
+            <div style={{ marginTop: 5, fontSize: 13, fontWeight: 850, fontFamily: sw.fontMono, color: sw.text }}>
+              {copy.bridgeText}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {copy.takeaways.map((takeaway, index) => (
+          <div key={takeaway} style={{
+            flex: 1,
+            minWidth: 150,
+            padding: '8px 10px',
+            borderRadius: 999,
+            background: 'rgba(255,255,255,0.045)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            fontSize: 11.5,
+            fontWeight: 700,
+            color: sw.textDim,
+            lineHeight: 1.25,
+          }}>
+            <span style={{ color: lanes[index % lanes.length].color }}>●</span> {takeaway}
+          </div>
+        ))}
       </div>
     </div>
   );
 });
 
-const cardStyle = (accent: string): React.CSSProperties => ({
-  background: 'rgba(255,255,255,0.02)',
-  border: `1px solid ${accent}22`,
-  borderRadius: 20,
-  padding: 20,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  textAlign: 'center',
-  gap: 12,
-  boxShadow: `0 10px 30px ${accent}08`,
-});
+function Panel({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{
+      minHeight: 0,
+      padding: 12,
+      borderRadius: 18,
+      background: 'rgba(255,255,255,0.03)',
+      border: `1px solid ${sw.borderSubtle}`,
+      boxShadow: sw.insetHighlight,
+      overflow: 'hidden',
+    }}>
+      <div style={{ marginBottom: 9, fontSize: 10, fontWeight: 950, letterSpacing: '0.11em', textTransform: 'uppercase', color: sw.textMuted }}>
+        {title}
+      </div>
+      {children}
+    </div>
+  );
+}
 
-const iconBadgeStyle = (color: string): React.CSSProperties => ({
-  width: 44,
-  height: 44,
-  borderRadius: 14,
-  background: color,
-  color: '#000',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: 20,
-  fontWeight: 900,
-  boxShadow: `0 4px 15px ${color}44`,
-});
+function StageBadge({ color, label, value }: { color: string; label: string; value: string }) {
+  return (
+    <div style={{
+      padding: '9px 12px',
+      borderRadius: 14,
+      border: `1px solid ${color}55`,
+      background: `${color}12`,
+    }}>
+      <div style={{ fontSize: 9, fontWeight: 950, letterSpacing: '0.1em', textTransform: 'uppercase', color }}>
+        {label}
+      </div>
+      <div style={{ marginTop: 4, fontSize: 12.5, fontWeight: 850, fontFamily: sw.fontMono, color: sw.text }}>
+        {value}
+      </div>
+    </div>
+  );
+}
 
-const cardTitleStyle: React.CSSProperties = {
-  fontSize: 15,
-  fontWeight: 800,
-  color: 'var(--sw-text)',
-  margin: 0,
-};
+function VectorRow({ values, color }: { values: number[]; color: string }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${values.length}, 1fr)`, gap: 4 }}>
+      {values.map((value, index) => (
+        <div key={index} style={{
+          padding: '4px 0',
+          borderRadius: 7,
+          background: 'rgba(255,255,255,0.055)',
+          color,
+          fontSize: 10.5,
+          fontWeight: 850,
+          fontFamily: sw.fontMono,
+          textAlign: 'center',
+        }}>
+          {value.toFixed(1)}
+        </div>
+      ))}
+    </div>
+  );
+}
 
-const cardDescStyle: React.CSSProperties = {
-  fontSize: 12.5,
-  color: 'var(--sw-text-dim)',
-  margin: 0,
-  lineHeight: 1.45,
-};
+function MiniMatrix({ rows, color, activeRow }: { rows: number[][]; color: string; activeRow: number }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      {rows.map((row, rowIndex) => (
+        <div key={rowIndex} style={{ display: 'grid', gridTemplateColumns: `repeat(${row.length}, 1fr)`, gap: 4 }}>
+          {row.map((value, colIndex) => (
+            <div key={colIndex} style={{
+              height: 17,
+              borderRadius: 5,
+              background: rowIndex === activeRow ? `${color}44` : 'rgba(255,255,255,0.07)',
+              border: rowIndex === activeRow ? `1px solid ${color}88` : '1px solid rgba(255,255,255,0.04)',
+              color: sw.text,
+              fontSize: 8.5,
+              fontWeight: 850,
+              fontFamily: sw.fontMono,
+              textAlign: 'center',
+              lineHeight: '15px',
+            }}>
+              {value.toFixed(value >= 1 ? 1 : 2)}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
-const mathBlockStyle = (color: string): React.CSSProperties => ({
-  padding: '12px 20px',
-  background: 'rgba(255,255,255,0.03)',
-  border: `1px solid ${color}44`,
-  borderRadius: 12,
-  color: color,
-  fontFamily: 'monospace',
-  fontWeight: 700,
-  fontSize: 14,
-});
+function ScoreRow({ token, score, active }: { token: string; score: number; active: boolean }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '58px 1fr 42px', gap: 7, alignItems: 'center' }}>
+      <div style={{ fontSize: 12, fontWeight: 850, color: active ? sw.cyan : sw.textDim }}>{token}</div>
+      <div style={{ height: 8, borderRadius: 999, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+        <div style={{ width: `${Math.min(score, 1) * 100}%`, height: '100%', borderRadius: 999, background: active ? sw.cyan : sw.purple }} />
+      </div>
+      <div style={{ fontSize: 11, fontWeight: 900, fontFamily: sw.fontMono, color: active ? sw.cyan : sw.textMuted, textAlign: 'right' }}>
+        {score.toFixed(2)}
+      </div>
+    </div>
+  );
+}
 
-const boxStyle: React.CSSProperties = {
-  padding: 16,
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: 16,
-  textAlign: 'center',
-  flex: 1,
-};
+function WeightPill({ token, weight, active }: { token: string; weight: number; active: boolean }) {
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: '58px 1fr',
+      gap: 8,
+      alignItems: 'center',
+      padding: '6px 8px',
+      borderRadius: 12,
+      background: active ? 'rgba(0,229,255,0.09)' : 'rgba(255,255,255,0.035)',
+      border: active ? '1px solid rgba(0,229,255,0.24)' : '1px solid rgba(255,255,255,0.06)',
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 850, color: active ? sw.cyan : sw.textDim }}>{token}</div>
+      <div style={{ fontSize: 13, fontWeight: 950, color: active ? sw.cyan : sw.text, fontFamily: sw.fontMono }}>
+        {(weight * 100).toFixed(0)}%
+      </div>
+    </div>
+  );
+}

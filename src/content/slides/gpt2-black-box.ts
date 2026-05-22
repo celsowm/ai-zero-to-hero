@@ -3,51 +3,92 @@ import { defineSlide } from './_factory';
 export const gpt2BlackBox = defineSlide({
   id: 'gpt2-black-box',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: `O Transformer entra em cena (GPT-2)`,
-      body: `Você já viu rapidamente que o GPT-2 é um Transformer famoso. Agora vamos abrir essa caixa preta com mais cuidado.
+      title: 'GPT-2 como contrato de tensores',
+      body: `Agora paramos de falar em "modelo" como caixa mágica.
 
-1. **Mesmo objetivo:** apesar da engenharia pesada, ele continua fazendo a mesma tarefa central: prever o próximo token a partir do contexto.
+O GPT-2 pequeno é um decoder-only Transformer que preserva um contrato simples:
 
-2. **Outra escala:** mesmo o menor GPT-2 tem 124 milhões de parâmetros. Isso coloca o modelo em uma ordem de grandeza muito acima dos exemplos simples que vimos antes.
+1. entra \`idx (B,T)\`: IDs inteiros de tokens
+2. nasce \`x (B,T,C)\`: o residual stream
+3. passam 12 blocos, mas o shape continua \`(B,T,C)\`
+4. sai \`logits (B,T,V)\`: um placar para cada token do vocabulário
+5. para gerar, usamos apenas \`logits[:, -1, :]\`
 
-3. **Próximo passo:** em vez de ficar só na visão externa, agora vamos desmontar a entrada, os blocos internos e a forma como a previsão sai do outro lado.
+No nosso fio condutor, o contexto é \`We the people\`. A pergunta operacional é:
 
-> O GPT-2 é a mesma tarefa de modelagem de linguagem, mas empilhada em uma arquitetura muito mais poderosa.`,
+> depois desses tokens, qual próximo ID deve receber maior probabilidade?`,
     },
     'en-us': {
-      title: `Enter the Transformer (GPT-2)`,
-      body: `You already got a quick preview that GPT-2 is a famous Transformer. Now we will open that black box more carefully.
+      title: 'GPT-2 as a tensor contract',
+      body: `Now we stop treating "model" as a magic box.
 
-1. **Same goal:** despite the heavy engineering, it is still doing the same core task: predicting the next token from context.
+Small GPT-2 is a decoder-only Transformer that preserves a simple contract:
 
-2. **Different scale:** even the smallest GPT-2 has 124 million parameters. That puts it in a very different league from the simple examples we have seen so far.
+1. \`idx (B,T)\` enters: integer token IDs
+2. \`x (B,T,C)\` is born: the residual stream
+3. 12 blocks run, but shape stays \`(B,T,C)\`
+4. \`logits (B,T,V)\` comes out: one score for every vocabulary token
+5. for generation, we use only \`logits[:, -1, :]\`
 
-3. **Next step:** instead of staying at the outside view, we will now unpack the input, the internal blocks, and how the prediction comes out on the other side.
+In our running thread, the context is \`We the people\`. The operational question is:
 
-> GPT-2 is the same language-modeling task, stacked into a much more powerful architecture.`,
+> after these tokens, which next ID should receive the highest probability?`,
     },
   },
   visual: {
     id: 'gpt2-blackbox-diagram',
     copy: {
-      "pt-br": {
-        "inputLabel": "Janela de Contexto (Tokens)",
-        "modelLabel": "GPT-2 (124M Parâmetros)",
-        "outputLabel": "Probabilidades do Próximo Token"
+      'pt-br': {
+        title: 'Contrato externo',
+        objectiveLabel: 'Objetivo',
+        objective: 'prever o próximo token',
+        inputLabel: 'entrada',
+        inputShape: 'idx: (1, 3)',
+        modelLabel: 'GPT-2 small',
+        modelShape: '12 blocks · C=768',
+        outputLabel: 'saída',
+        outputShape: 'logits: (1, 3, 50257)',
+        configTitle: 'Config mínima',
+        configRows: [
+          { label: 'B', value: '1 exemplo' },
+          { label: 'T', value: '3 tokens' },
+          { label: 'C', value: '768 dims' },
+          { label: 'V', value: '50257 tokens' },
+        ],
+        topKTitle: 'Top-k ilustrativo',
+        topK: [
+          { token: ' of', probability: '42%' },
+          { token: ' are', probability: '12%' },
+          { token: ' have', probability: '8%' },
+        ],
       },
-      "en-us": {
-        "inputLabel": "Context Window (Tokens)",
-        "modelLabel": "GPT-2 (124M Parameters)",
-        "outputLabel": "Next Token Probabilities"
-      }
+      'en-us': {
+        title: 'External contract',
+        objectiveLabel: 'Objective',
+        objective: 'predict the next token',
+        inputLabel: 'input',
+        inputShape: 'idx: (1, 3)',
+        modelLabel: 'GPT-2 small',
+        modelShape: '12 blocks · C=768',
+        outputLabel: 'output',
+        outputShape: 'logits: (1, 3, 50257)',
+        configTitle: 'Minimal config',
+        configRows: [
+          { label: 'B', value: '1 example' },
+          { label: 'T', value: '3 tokens' },
+          { label: 'C', value: '768 dims' },
+          { label: 'V', value: '50257 tokens' },
+        ],
+        topKTitle: 'Illustrative top-k',
+        topK: [
+          { token: ' of', probability: '42%' },
+          { token: ' are', probability: '12%' },
+          { token: ' have', probability: '8%' },
+        ],
+      },
     },
   },
 });

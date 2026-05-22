@@ -55,6 +55,7 @@ export { TokenBatchShiftVisual } from './language-models/TokenBatchShiftVisual';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';
 export { Gpt2BlockAnatomy } from './transformers/Gpt2BlockAnatomy';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
+export { Gpt2EmbeddingResidual } from './transformers/Gpt2EmbeddingResidual';
 export { Gpt2FamilyTree } from './transformers/Gpt2FamilyTree';
 export { WeightsTreeVisual } from './transformers/WeightsTreeVisual';
 export { TransformerOverviewTeaser } from './transformers/TransformerOverviewTeaser';

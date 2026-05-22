@@ -1,9 +1,36 @@
 import type { CodeExplanation, CodeSourceRef } from './base';
 
 export interface Gpt2BlackboxDiagramCopy {
+  title: string;
+  objectiveLabel: string;
+  objective: string;
   inputLabel: string;
+  inputShape: string;
   modelLabel: string;
+  modelShape: string;
   outputLabel: string;
+  outputShape: string;
+  configTitle: string;
+  configRows: Array<{ label: string; value: string }>;
+  topKTitle: string;
+  topK: Array<{ token: string; probability: string }>;
+}
+
+export interface Gpt2EmbeddingResidualCopy {
+  title: string;
+  subtitle: string;
+  idxLabel: string;
+  tokenEmbeddingLabel: string;
+  positionEmbeddingLabel: string;
+  sumLabel: string;
+  outputLabel: string;
+  tokens: string[];
+  tokenIds: number[];
+  positions: number[];
+  tokenVectors: number[][];
+  positionVectors: number[][];
+  outputVectors: number[][];
+  takeaways: string[];
 }
 
 export interface Gpt2FamilyTreeCopy {
@@ -91,42 +118,15 @@ export interface TransformerBlockDiagramCopy {
 export interface Gpt2BlockAnatomyCopy {
   title: string;
   subtitle: string;
-  legendTitle: string;
-  clickHint: string;
-  operations: {
-    input: string;
-    embedding: string;
-    dropout: string;
-    layerNorm: string;
-    conv1d: string;
-    newGelu: string;
-    add: string;
-    linear: string;
-    output: string;
-  };
-  descriptions: {
-    input: string;
-    embedding: string;
-    dropout: string;
-    layerNorm: string;
-    conv1d: string;
-    newGelu: string;
-    add: string;
-    linear: string;
-    output: string;
-  };
-  sections: {
-    attention: {
-      title: string;
-      description: string;
-      layers: Array<{ op: string; detail: string }>;
-    };
-    mlp: {
-      title: string;
-      description: string;
-      layers: Array<{ op: string; detail: string }>;
-    };
-  };
+  inputLabel: string;
+  preNormLabel: string;
+  attentionLabel: string;
+  mlpLabel: string;
+  addLabel: string;
+  outputLabel: string;
+  shapeLabel: string;
+  steps: Array<{ label: string; detail: string; color: string }>;
+  takeaways: string[];
 }
 
 export interface CausalMaskMatrixCopy {
@@ -144,34 +144,25 @@ export interface QkvCocktailPartyCopy {
 
 export interface QkvIntuitionExplorerCopy {
   title: string;
-  tabs: {
-    intuition: {
-      label: string;
-      title: string;
-      description: string;
-      analogyTitle: string;
-      analogyText: string;
-    };
-    mechanics: {
-      label: string;
-      title: string;
-      description: string;
-      dotProductLabel: string;
-      scalingLabel: string;
-    };
-    retrieval: {
-      label: string;
-      title: string;
-      description: string;
-      databaseAnalogyTitle: string;
-      databaseAnalogyText: string;
-    };
-  };
-  queryLabel: string;
-  keyLabel: string;
-  valueLabel: string;
-  matchScoreLabel: string;
-  resultLabel: string;
+  subtitle: string;
+  tokenLabel: string;
+  projectionLabel: string;
+  splitLabel: string;
+  scoreLabel: string;
+  softmaxLabel: string;
+  contextLabel: string;
+  bridgeLabel: string;
+  bridgeText: string;
+  queryToken: string;
+  tokens: string[];
+  xRows: number[][];
+  qRows: number[][];
+  kRows: number[][];
+  vRows: number[][];
+  scores: number[];
+  weights: number[];
+  valueMix: string[];
+  takeaways: string[];
 }
 
 export interface AttentionLinesDiagramCopy {
@@ -247,9 +238,13 @@ export interface SamplingControlsCopy {
 }
 
 export interface Gpt2LayerXrayCopy {
-  layerLabel: string;
-  inputLabel: string;
-  outputLabel: string;
+  title: string;
+  subtitle: string;
+  shapeInvariantLabel: string;
+  shapeInvariant: string;
+  stages: Array<{ label: string; shape: string; detail: string }>;
+  checkpoints: Array<{ layer: string; representation: string; prediction: string }>;
+  footer: string;
 }
 
 export interface PredictionEvolutionCopy {
@@ -722,9 +717,10 @@ export interface UnembeddingDiagramCopy {
 // ── GPT-2 Full Architecture Diagram ────────────────────────────────────────
 
 export interface Gpt2FullArchitectureDiagramCopy {
-  inputStage: string;
-  blocksStage: string;
-  outputStage: string;
+  title: string;
+  stages: Array<{ label: string; shape: string; detail: string }>;
+  loopLabel: string;
+  loopText: string;
 }
 
 // ── Layer Evolution Chart ──────────────────────────────────────────────────

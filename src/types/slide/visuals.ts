@@ -67,6 +67,7 @@ import type {
   Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
   Gpt2BlockAnatomyCopy,
+  Gpt2EmbeddingResidualCopy,
   Gpt2FamilyTreeCopy,
   Gpt2FullArchitectureDiagramCopy,
   SystemPromptExplorerCopy,
@@ -282,6 +283,7 @@ interface VisualCopyMap {
   'token-batch-shift-interactive': TokenBatchShiftVisualCopy;
   // transformers
   'gpt2-blackbox-diagram': Gpt2BlackboxDiagramCopy;
+  'gpt2-embedding-residual': Gpt2EmbeddingResidualCopy;
   'gpt2-block-anatomy': Gpt2BlockAnatomyCopy;
   'gpt2-family-tree': Gpt2FamilyTreeCopy;
   'weights-tree-visual': WeightsTreeVisualCopy;

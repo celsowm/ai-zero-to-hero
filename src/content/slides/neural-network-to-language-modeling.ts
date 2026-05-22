@@ -11,28 +11,46 @@ export const neuralNetworkToLanguageModeling = defineSlide({
   },
   content: {
     'pt-br': {
-      title: `Da rede neural comum para modelagem de linguagem`,
-      body: `Agora não estamos abandonando a ideia anterior. Estamos reaproveitando a mesma lógica de previsão, só que em outro domínio.
+      title: `A ponte: classificação vira próximo token`,
+      body: `Antes de montar um language model inteiro, precisamos trocar o formato mental do problema.
 
-1. **Antes:** a rede recebia atributos tabulares e respondia \`sim/não\` ou uma probabilidade.
+Até aqui, uma rede neural podia receber uma linha de atributos e prever uma classe: fraude/não fraude, gato/cachorro, aprovado/reprovado.
 
-2. **Agora:** a rede recebe uma sequência de palavras ou tokens e responde qual continuação parece mais provável.
+Language modeling é a mesma estrutura de aprendizado supervisionado, mas aplicada a uma pergunta repetida em texto:
 
-3. **O ponto de virada:** mudam a entrada e a saída, mas a mecânica de aprender com exemplos continua a mesma.
+\`\`\`txt
+dado o contexto visível, qual token vem depois?
+\`\`\`
 
-> O modelo de linguagem é uma rede neural aplicada a texto para prever o próximo token.`,
+O que muda:
+
+1. **Entrada:** sai a linha tabular; entram IDs de tokens em sequência.
+2. **Saída:** sai uma única classe pequena; entra uma distribuição sobre o vocabulário inteiro.
+3. **Alvo:** sai um rótulo manual; entra o próprio texto deslocado uma posição.
+4. **Treino:** continua igual no núcleo: previsão, erro, \`backward()\`, ajuste de pesos.
+
+Essa ponte importa porque o próximo código não é uma arquitetura mágica. É uma rede neural comum sendo forçada a resolver milhares de pequenas classificações de próximo token.`,
     },
     'en-us': {
-      title: `From a standard neural network to language modeling`,
-      body: `We are not abandoning the previous idea now. We are reusing the same prediction logic, just in a different domain.
+      title: `The bridge: classification becomes next-token prediction`,
+      body: `Before building a full language model, we need to change the mental shape of the problem.
 
-1. **Before:** the network received tabular features and answered with \`yes/no\` or a probability.
+So far, a neural network could receive one row of features and predict a class: fraud/not fraud, cat/dog, approved/rejected.
 
-2. **Now:** the network receives a sequence of words or tokens and answers which continuation seems most likely.
+Language modeling is the same supervised-learning structure, applied to one repeated text question:
 
-3. **The turning point:** the input and output change, but the learning loop stays the same.
+\`\`\`txt
+given the visible context, which token comes next?
+\`\`\`
 
-> A language model is a neural network applied to text to predict the next token.`,
+What changes:
+
+1. **Input:** tabular rows are replaced by token IDs in sequence.
+2. **Output:** one small class is replaced by a distribution over the whole vocabulary.
+3. **Target:** a manual label is replaced by the same text shifted one position.
+4. **Training:** the core stays the same: prediction, error, \`backward()\`, weight update.
+
+This bridge matters because the next code is not a magical architecture. It is a standard neural network forced to solve thousands of tiny next-token classifications.`,
     },
   },
   visual: {
@@ -40,71 +58,71 @@ export const neuralNetworkToLanguageModeling = defineSlide({
     copy: {
       "pt-br": {
         "eyebrowLabel": "Comparação direta",
-        "title": "A mesma rede, um novo tipo de previsão",
-        "intro": "A estrutura de treino continua reconhecível. O que muda é o formato do que entra e do que sai.",
+        "title": "A mesma lógica, outro formato de supervisão",
+        "intro": "A ponte não é histórica; é operacional. O modelo continua aprendendo por erro, mas cada posição do texto vira um exemplo de classificação.",
         "leftTitle": "Rede neural comum",
-        "leftSubtitle": "Pensa em linhas de dados com uma resposta fixa.",
+        "leftSubtitle": "Uma amostra vira uma previsão.",
         "rightTitle": "Modelagem de linguagem",
-        "rightSubtitle": "Pensa em contexto textual e próxima continuação.",
+        "rightSubtitle": "Cada posição do texto vira uma previsão.",
         "rows": [
           {
           "label": "Entrada",
-          "leftValue": "Atributos tabulares",
-          "rightValue": "Tokens + contexto"
+          "leftValue": "Uma linha de features",
+          "rightValue": "IDs de tokens em sequência"
         },
           {
           "label": "Saída",
-          "leftValue": "Sim / não ou probabilidade",
-          "rightValue": "Distribuição do próximo token"
+          "leftValue": "Distribuição sobre classes",
+          "rightValue": "Distribuição sobre o vocabulário"
         },
           {
           "label": "Alvo",
           "leftValue": "Rótulo correto da amostra",
-          "rightValue": "Próxima palavra real"
+          "rightValue": "Mesmo texto deslocado"
         },
           {
           "label": "Treino",
           "leftValue": "Ajuste de pesos por erro",
-          "rightValue": "Mesmo princípio, novo domínio"
+          "rightValue": "Mesmo princípio, muitas posições"
         }
         ],
         "coreLabel": "Ideia central",
-        "coreValue": "Mesma lógica de aprendizado",
-        "footer": "Só o domínio muda. A máquina continua comparando previsão com alvo e ajustando pesos."
+        "coreValue": "Próximo token = classificação supervisionada",
+        "footer": "A arquitetura fica mais interessante depois. Primeiro, o contrato de aprendizado precisa ficar claro."
       },
       "en-us": {
         "eyebrowLabel": "Direct comparison",
-        "title": "Same network, new kind of prediction",
-        "intro": "The training structure still feels familiar. What changes is the shape of the input and the output.",
+        "title": "Same logic, different supervision format",
+        "intro": "The bridge is not historical; it is operational. The model still learns from error, but each text position becomes one classification example.",
         "leftTitle": "Standard neural network",
-        "leftSubtitle": "Think tabular rows with a fixed answer.",
+        "leftSubtitle": "One sample becomes one prediction.",
         "rightTitle": "Language modeling",
-        "rightSubtitle": "Think text context and the next continuation.",
+        "rightSubtitle": "Each text position becomes one prediction.",
         "rows": [
           {
           "label": "Input",
-          "leftValue": "Tabular features",
-          "rightValue": "Tokens + context"
+          "leftValue": "One feature row",
+          "rightValue": "Token IDs in sequence"
         },
           {
           "label": "Output",
-          "leftValue": "Yes / no or probability",
-          "rightValue": "Next-token distribution"
+          "leftValue": "Distribution over classes",
+          "rightValue": "Distribution over vocabulary"
         },
           {
           "label": "Target",
           "leftValue": "Correct label for the sample",
-          "rightValue": "Real next word"
+          "rightValue": "Same text shifted"
         },
           {
           "label": "Training",
           "leftValue": "Weight updates from error",
-          "rightValue": "Same principle, new domain"
+          "rightValue": "Same principle, many positions"
         }
         ],
         "coreLabel": "Core idea",
-        "coreValue": "Same learning logic",
-        "footer": "Only the domain changes. The machine still compares prediction with target and adjusts weights."
+        "coreValue": "Next token = supervised classification",
+        "footer": "The architecture gets more interesting later. First, the learning contract must be clear."
       }
     },
   },

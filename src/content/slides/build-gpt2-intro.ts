@@ -53,14 +53,52 @@ Every piece we learned will be implemented without closed magic libraries:
     id: 'gpt2-blackbox-diagram',
     copy: {
       "pt-br": {
-        "inputLabel": "Textos (PT-BR)",
-        "modelLabel": "Nosso GPT-2",
-        "outputLabel": "Mágica"
+        title: 'Sistema que vamos construir',
+        objectiveLabel: 'Objetivo',
+        objective: 'treinar e gerar texto com PyTorch puro',
+        inputLabel: 'dados',
+        inputShape: 'janelas (B,T)',
+        modelLabel: 'nosso GPT',
+        modelShape: 'blocos + atenção + MLP',
+        outputLabel: 'saída',
+        outputShape: 'logits (B,T,V)',
+        configTitle: 'Peças',
+        configRows: [
+          { label: 'dados', value: 'texto tokenizado' },
+          { label: 'loss', value: 'cross-entropy' },
+          { label: 'optim', value: 'AdamW' },
+          { label: 'loop', value: 'geração token a token' },
+        ],
+        topKTitle: 'Depois do treino',
+        topK: [
+          { token: 'texto', probability: 'gerado' },
+          { token: 'loss', probability: 'menor' },
+          { token: 'checkpoint', probability: 'salvo' },
+        ],
       },
       "en-us": {
-        "inputLabel": "Texts (PT-BR)",
-        "modelLabel": "Our GPT-2",
-        "outputLabel": "Magic"
+        title: 'System we will build',
+        objectiveLabel: 'Objective',
+        objective: 'train and generate text with pure PyTorch',
+        inputLabel: 'data',
+        inputShape: 'windows (B,T)',
+        modelLabel: 'our GPT',
+        modelShape: 'blocks + attention + MLP',
+        outputLabel: 'output',
+        outputShape: 'logits (B,T,V)',
+        configTitle: 'Pieces',
+        configRows: [
+          { label: 'data', value: 'tokenized text' },
+          { label: 'loss', value: 'cross-entropy' },
+          { label: 'optim', value: 'AdamW' },
+          { label: 'loop', value: 'token-by-token generation' },
+        ],
+        topKTitle: 'After training',
+        topK: [
+          { token: 'text', probability: 'generated' },
+          { token: 'loss', probability: 'lower' },
+          { token: 'checkpoint', probability: 'saved' },
+        ],
       }
     },
   },

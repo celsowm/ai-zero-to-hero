@@ -3,87 +3,134 @@ import { defineSlide } from './_factory';
 export const embeddingsIntro = defineSlide({
   id: 'embeddings-intro',
   type: 'two-column',
-  options: { columnRatios: [0.55, 0.45] },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: 'Embedding no GPT-2: entrada canônica',
-      body: `**Intuição:** \`embedding\` vem da ideia de "inserir/imersar" IDs discretos em um espaço vetorial contínuo onde o modelo consegue raciocinar por geometria.
+      title: 'O residual stream nasce aqui',
+      body: `IDs não têm geometria útil. O GPT-2 precisa transformar \`idx (B,T)\` em vetores contínuos.
 
-**Operação:** no GPT-2, a entrada nasce de um passo canônico:
-1. \`token_embedding(idx)\` mapeia IDs para vetores de conteúdo
-2. \`position_embedding(positions)\` mapeia posição para vetores de ordem
-3. soma dos dois vetores produz o residual stream inicial \`(B, T, C)\`
+O primeiro passo real do forward é:
 
-**Formal (curto):** se $$idx \in \mathbb{Z}^{B\times T}$$, então $$E_t[idx] + E_p[pos] \in \mathbb{R}^{B\times T\times C}$$.
+\`\`\`txt
+x = wte(idx) + wpe(pos)
+\`\`\`
 
-Sem posição, tokens iguais em lugares diferentes parecem o mesmo evento.`,
+O que cada termo faz:
+
+1. \`wte\`: tabela treinável de conteúdo do token
+2. \`wpe\`: tabela treinável de posição
+3. soma: junta "o que é o token" com "onde ele está"
+
+Depois dessa soma, temos \`x (B,T,C)\`. Esse é o residual stream inicial que será modificado por todos os blocos.
+
+Leitura importante: o shape muda de \`(B,T)\` para \`(B,T,C)\`; a partir daqui, a torre preserva esse shape e muda a representação.`,
+      rightBody: `\`\`\`python
+snippet:gpt2_manual/embedding-residual-start
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 7], content: 'Começamos com `idx`, extraímos `B,T`, escolhemos uma largura didática `C=4` e criamos posições.' },
+        { lineRange: [9, 22], content: 'As tabelas `wte` e `wpe` são preenchidas com valores fixos para mostrar conteúdo e posição separadamente.' },
+        { lineRange: [23, 25], content: 'Token vectors e position vectors são somados para formar `x`, o residual stream inicial.' },
+        { lineRange: [27, 30], content: 'Os prints confirmam os shapes: entrada `(B,T)`, vetores `(B,T,C)` e saída `(B,T,C)`.' },
+      ],
     },
     'en-us': {
-      title: 'GPT-2 Embedding: canonical input step',
-      body: `**Intuition:** \`embedding\` comes from the idea of "inserting/immersing" discrete IDs into a continuous vector space where geometry becomes usable.
+      title: 'The residual stream starts here',
+      body: `IDs do not have useful geometry. GPT-2 must turn \`idx (B,T)\` into continuous vectors.
 
-**Operation:** in GPT-2, input is born from one canonical step:
-1. \`token_embedding(idx)\` maps IDs into content vectors
-2. \`position_embedding(positions)\` maps positions into order vectors
-3. summing both vectors produces the initial residual stream \`(B, T, C)\`
+The first real forward step is:
 
-**Formal (short):** if $$idx \in \mathbb{Z}^{B\times T}$$, then $$E_t[idx] + E_p[pos] \in \mathbb{R}^{B\times T\times C}$$.
+\`\`\`txt
+x = wte(idx) + wpe(pos)
+\`\`\`
 
-Without position, identical tokens in different places look like the same event.`,
+What each term does:
+
+1. \`wte\`: trainable token-content table
+2. \`wpe\`: trainable position table
+3. sum: combines "what the token is" with "where it is"
+
+After this sum, we have \`x (B,T,C)\`. This is the initial residual stream that every block will modify.
+
+Key reading: shape changes from \`(B,T)\` to \`(B,T,C)\`; from here on, the tower preserves that shape and changes the representation.`,
+      rightBody: `\`\`\`python
+snippet:gpt2_manual/embedding-residual-start
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 7], content: 'We start with `idx`, extract `B,T`, choose a teaching width `C=4`, and create positions.' },
+        { lineRange: [9, 22], content: '`wte` and `wpe` are filled with fixed values to show content and position separately.' },
+        { lineRange: [23, 25], content: 'Token vectors and position vectors are summed to form `x`, the initial residual stream.' },
+        { lineRange: [27, 30], content: 'The prints verify shapes: input `(B,T)`, vectors `(B,T,C)`, and output `(B,T,C)`.' },
+      ],
     },
   },
   visual: {
-    id: 'embedding-space-3d-interactive',
+    id: 'gpt2-embedding-residual',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Código' }, { label: 'Interativo 3D' }],
-        codePanel: {
-          title: 'Passo canônico do embedding no GPT-2',
-          description: 'IDs de tokens + posições entram em duas tabelas treináveis e a soma vira o residual stream inicial.',
-          source: { snippetId: 'gpt2_manual/embedding-sum', language: 'python' },
-          codeExplanations: [
-            { lineRange: [1, 5], content: 'Começamos com IDs e posições explícitas para mostrar as duas fontes de informação.' },
-            { lineRange: [7, 8], content: 'As duas tabelas aprendem coisas diferentes: conteúdo do token e posição.' },
-            { lineRange: [10, 11], content: 'A soma já produz o tensor `(B, T, C)` que entra nos blocos do Transformer.' },
-          ],
-        },
-        interactivePanel: {
-          eyebrow: 'ESPAÇO VETORIAL',
-          title: 'Embedding em 3D (projeção interativa)',
-          description: 'Use o slider para simular embeddings com mais dimensões e veja como a projeção 3D mantém só parte da estrutura total.',
-          dimensionsLabel: 'Dimensões do embedding (D)',
-          projectionLabel: 'Visualização',
-          retainedLabel: 'Sinal aproximado retido em 3D',
-          beyond3dTitle: 'O que acontece acima de 3D?',
-          beyond3dBody: 'Quando D > 3, a visualização é uma projeção. Pontos que parecem próximos em 3D podem estar separados em dimensões ocultas. O modelo real calcula similaridade no vetor completo, não apenas no recorte 3D.',
-          hint: 'Arraste para orbitar; scroll para zoom.',
-        },
+        title: 'Nascimento de x',
+        subtitle: 'IDs discretos entram em duas tabelas treináveis e viram o residual stream inicial.',
+        idxLabel: 'idx',
+        tokenEmbeddingLabel: 'wte(idx)',
+        positionEmbeddingLabel: 'wpe(pos)',
+        sumLabel: 'soma',
+        outputLabel: 'x: (B,T,C)',
+        tokens: ['We', ' the', ' people'],
+        tokenIds: [1135, 262, 661],
+        positions: [0, 1, 2],
+        tokenVectors: [
+          [1.0, 0.2, 0.0, 0.1],
+          [0.1, 1.0, 0.3, 0.0],
+          [0.7, 0.4, 1.0, 0.2],
+        ],
+        positionVectors: [
+          [0.0, 0.0, 0.0, 0.0],
+          [0.1, 0.0, 0.0, 0.2],
+          [0.2, 0.1, 0.0, 0.3],
+        ],
+        outputVectors: [
+          [1.0, 0.2, 0.0, 0.1],
+          [0.2, 1.0, 0.3, 0.2],
+          [0.9, 0.5, 1.0, 0.5],
+        ],
+        takeaways: [
+          'Token embedding carrega conteúdo.',
+          'Position embedding carrega ordem.',
+          'A soma vira o estado que os blocos editam.',
+        ],
       },
       'en-us': {
-        tabs: [{ label: 'Code' }, { label: '3D Interactive' }],
-        codePanel: {
-          title: 'Canonical GPT-2 embedding step',
-          description: 'Token IDs + positions go through two trainable tables, and their sum becomes the initial residual stream.',
-          source: { snippetId: 'gpt2_manual/embedding-sum', language: 'python' },
-          codeExplanations: [
-            { lineRange: [1, 5], content: 'We start with explicit IDs and positions to expose the two information sources.' },
-            { lineRange: [7, 8], content: 'The two tables learn different things: token content and position.' },
-            { lineRange: [10, 11], content: 'The sum already produces the `(B, T, C)` tensor that enters Transformer blocks.' },
-          ],
-        },
-        interactivePanel: {
-          eyebrow: 'VECTOR SPACE',
-          title: 'Embedding in 3D (interactive projection)',
-          description: 'Use the slider to simulate higher-dimensional embeddings and see how a 3D projection keeps only part of the full structure.',
-          dimensionsLabel: 'Embedding dimensions (D)',
-          projectionLabel: 'View',
-          retainedLabel: 'Approximate signal retained in 3D',
-          beyond3dTitle: 'What happens beyond 3D?',
-          beyond3dBody: 'When D > 3, this is a projection. Points that look close in 3D may be far apart in hidden dimensions. Real similarity is computed on the full vector, not only on the 3D slice.',
-          hint: 'Drag to orbit; scroll to zoom.',
-        },
+        title: 'Birth of x',
+        subtitle: 'Discrete IDs enter two trainable tables and become the initial residual stream.',
+        idxLabel: 'idx',
+        tokenEmbeddingLabel: 'wte(idx)',
+        positionEmbeddingLabel: 'wpe(pos)',
+        sumLabel: 'sum',
+        outputLabel: 'x: (B,T,C)',
+        tokens: ['We', ' the', ' people'],
+        tokenIds: [1135, 262, 661],
+        positions: [0, 1, 2],
+        tokenVectors: [
+          [1.0, 0.2, 0.0, 0.1],
+          [0.1, 1.0, 0.3, 0.0],
+          [0.7, 0.4, 1.0, 0.2],
+        ],
+        positionVectors: [
+          [0.0, 0.0, 0.0, 0.0],
+          [0.1, 0.0, 0.0, 0.2],
+          [0.2, 0.1, 0.0, 0.3],
+        ],
+        outputVectors: [
+          [1.0, 0.2, 0.0, 0.1],
+          [0.2, 1.0, 0.3, 0.2],
+          [0.9, 0.5, 1.0, 0.5],
+        ],
+        takeaways: [
+          'Token embedding carries content.',
+          'Position embedding carries order.',
+          'The sum becomes the state edited by blocks.',
+        ],
       },
     },
   },
 });
-

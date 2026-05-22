@@ -105,6 +105,7 @@ const visualMap: Record<string, string> = {
   'system-prompt-explorer': 'SystemPromptExplorer',
   'gpt2-block-anatomy': 'Gpt2BlockAnatomy',
   'gpt2-blackbox-diagram': 'Gpt2BlackboxDiagram',
+  'gpt2-embedding-residual': 'Gpt2EmbeddingResidual',
   'gpt2-family-tree': 'Gpt2FamilyTree',
   'weights-tree-visual': 'WeightsTreeVisual',
   'transformer-overview-teaser': 'TransformerOverviewTeaser',
@@ -310,4 +311,3 @@ export function getVisualComponent(id: string): React.LazyExoticComponent<Visual
 export function getAllVisualIds(): string[] {
   return Object.keys(visualRegistry);
 }
-

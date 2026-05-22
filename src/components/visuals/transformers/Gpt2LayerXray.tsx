@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { Gpt2LayerXrayCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 
@@ -7,62 +7,78 @@ interface Gpt2LayerXrayProps {
 }
 
 export const Gpt2LayerXray = React.memo(({ copy }: Gpt2LayerXrayProps) => {
-  const [activeLayer, setActiveLayer] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveLayer(l => (l + 1) % 4);
-    }, 1500);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div style={{
       width: '100%',
-      padding: '40px',
-      background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-      borderRadius: '24px',
-      boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '20px',
+      height: '100%',
+      minHeight: 0,
+      padding: 22,
+      borderRadius: 24,
+      border: `1px solid ${sw.borderSubtle}`,
+      background: sw.shellBackground,
+      boxShadow: sw.shadowDeep,
+      display: 'grid',
+      gridTemplateRows: 'auto auto 1fr auto',
+      gap: 14,
       fontFamily: sw.fontSans,
-      color: '#fff'
     }}>
-      
-      {/* Output */}
-      <div style={{ padding: '8px 24px', background: 'linear-gradient(135deg, var(--sw-cyan), var(--sw-purple))', borderRadius: '100px', fontWeight: '700', boxShadow: '0 0 18px rgba(0,229,255,0.2)' }}>{copy.outputLabel}</div>
-      <div style={{ width: '4px', height: '20px', background: sw.tintStrong }} />
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.14em', textTransform: 'uppercase', color: sw.cyan }}>
+          {copy.title}
+        </div>
+        <div style={{ marginTop: 5, fontSize: 15, fontWeight: 750, color: sw.text, lineHeight: 1.3 }}>
+          {copy.subtitle}
+        </div>
+      </div>
 
-      {/* Layers */}
-      {[3, 2, 1].map(l => (
-        <React.Fragment key={l}>
-          <div style={{
-            width: '280px',
-            padding: '20px',
-            background: activeLayer === l ? 'linear-gradient(135deg, rgba(255,46,151,0.9), rgba(168,85,247,0.9))' : 'rgba(26,22,40,0.92)',
-            border: activeLayer === l ? '2px solid rgba(0,229,255,0.7)' : `2px solid ${sw.borderMedium}`,
-            borderRadius: '16px',
-            textAlign: 'center',
-            fontWeight: '700',
-            fontSize: '18px',
-            transition: 'all 0.3s ease',
-            boxShadow: activeLayer === l ? '0 0 22px rgba(255,46,151,0.28), 0 10px 30px rgba(168,85,247,0.25)' : 'none',
-            transform: activeLayer === l ? 'scale(1.05)' : 'scale(1)'
-          }}>
-            {copy.layerLabel} {l}
-          </div>
-          <div style={{ width: '4px', height: '20px', background: sw.tintStrong, position: 'relative' }}>
-             <div style={{ position: 'absolute', top: '-4px', left: '-3px', width: '10px', height: '10px', borderTop: `2px solid ${sw.tintStrong}`, borderLeft: `2px solid ${sw.tintStrong}`, transform: 'rotate(45deg)' }} />
-          </div>
-        </React.Fragment>
-      ))}
+      <div style={{ padding: '9px 12px', borderRadius: 14, background: 'rgba(0,229,255,0.07)', border: '1px solid rgba(0,229,255,0.2)', display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+        <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase', color: sw.cyan }}>{copy.shapeInvariantLabel}</span>
+        <span style={{ fontSize: 13, fontWeight: 900, fontFamily: sw.fontMono, color: sw.text }}>{copy.shapeInvariant}</span>
+      </div>
 
-      {/* Input */}
-      <div style={{ padding: '8px 24px', background: 'rgba(0,229,255,0.14)', border: '1px solid rgba(0,229,255,0.4)', borderRadius: '100px', fontWeight: '700', color: 'var(--sw-cyan)' }}>{copy.inputLabel}</div>
+      <div style={{ minHeight: 0, display: 'grid', gridTemplateColumns: '1fr 0.85fr', gap: 14 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, justifyContent: 'center' }}>
+          {copy.stages.map((stage, index) => (
+            <React.Fragment key={stage.label}>
+              <div style={{
+                padding: '10px 12px',
+                borderRadius: 15,
+                background: index === copy.stages.length - 1 ? 'rgba(255,46,151,0.1)' : 'rgba(255,255,255,0.035)',
+                border: index === copy.stages.length - 1 ? '1px solid rgba(255,46,151,0.28)' : '1px solid rgba(255,255,255,0.08)',
+                display: 'grid',
+                gridTemplateColumns: '92px 1fr',
+                gap: 10,
+                alignItems: 'center',
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 900, color: index === copy.stages.length - 1 ? sw.pink : sw.cyan }}>
+                  {stage.label}
+                </div>
+                <div>
+                  <div style={{ fontSize: 12.5, fontWeight: 900, fontFamily: sw.fontMono, color: sw.text }}>{stage.shape}</div>
+                  <div style={{ marginTop: 2, fontSize: 11.5, color: sw.textMuted }}>{stage.detail}</div>
+                </div>
+              </div>
+              {index < copy.stages.length - 1 && <div style={{ height: 10, width: 2, margin: '-3px auto', background: 'rgba(255,255,255,0.12)' }} />}
+            </React.Fragment>
+          ))}
+        </div>
 
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, justifyContent: 'center' }}>
+          {copy.checkpoints.map((checkpoint, index) => (
+            <div key={checkpoint.layer} style={{ padding: 12, borderRadius: 16, background: 'rgba(255,255,255,0.035)', border: `1px solid ${[sw.cyan, sw.purple, sw.pink][index]}44` }}>
+              <div style={{ fontSize: 10, fontWeight: 900, color: [sw.cyan, sw.purple, sw.pink][index], textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                {checkpoint.layer}
+              </div>
+              <div style={{ marginTop: 6, fontSize: 12.5, color: sw.text, fontWeight: 800 }}>{checkpoint.representation}</div>
+              <div style={{ marginTop: 4, fontSize: 11.5, color: sw.textDim }}>{checkpoint.prediction}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ padding: '9px 12px', borderRadius: 14, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: sw.textDim, fontSize: 12.5, fontWeight: 750 }}>
+        {copy.footer}
+      </div>
     </div>
   );
 });
-
