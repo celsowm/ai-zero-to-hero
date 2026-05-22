@@ -4,52 +4,109 @@ export const multiheadAttention = defineSlide({
   id: 'multihead-attention',
   type: 'two-column',
   options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
+    columnRatios: [0.43, 0.57],
   },
   content: {
     'pt-br': {
-      title: `Várias perspectivas (Múltiplas Cabeças)`,
-      body: `Uma única busca por atenção não é suficiente. Um token pode precisar se conectar com outros por várias razões diferentes.
+      title: 'Multi-head attention: 12 leituras paralelas',
+      body: `Uma única matriz de atenção força todo o contexto a passar por uma lente só. Multi-head attention resolve isso dividindo a largura interna em subespaços menores.
 
-1. **Múltiplos objetivos:** o token 'people' pode querer procurar pelo sujeito da frase (gramática), pelo tom emocional (sentimento), ou por rimas (poesia).
+No GPT-2 pequeno:
+- \`C = 768\` dimensões no vetor do token
+- \`H = 12\` cabeças
+- \`D = 64\` dimensões por cabeça
+- \`C = H x D\`
 
-2. **Múltiplas Cabeças (Heads):** em vez de uma só, o Transformer divide o vetor de atenção em várias 'cabeças' menores que operam em paralelo. No GPT-2 pequeno, são 12 cabeças.
+O ponto técnico:
+1. cada cabeça recebe seu próprio pedaço de \`Q\`, \`K\` e \`V\`
+2. cada cabeça calcula uma matriz de atenção diferente
+3. as saídas são concatenadas de volta para \`C\`
+4. \`c_proj\` mistura as 12 leituras em um único vetor
 
-3. **Especialização:** uma cabeça pode se especializar em achar pronomes, outra em pontuação. Depois, os resultados de todas as cabeças são colados juntos novamente.
-
-> Múltiplas cabeças de atenção permitem que o modelo analise a mesma frase por várias lentes simultaneamente.`,
+Não é "12 modelos". É o mesmo bloco lendo a sequência em 12 subespaços paralelos.`,
+      rightBody: `\`\`\`python
+snippet:attention/multihead-shapes
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 7], content: 'Definimos o contrato de shapes: batch, tempo, largura interna, número de heads e dimensão por head.' },
+        { lineRange: [9, 14], content: 'A projeção QKV gera 3C e depois cada tensor é reorganizado em H heads de dimensão D.' },
+        { lineRange: [16, 22], content: 'Cada head calcula atenção separada; no fim, concatenamos as heads e voltamos para a largura C.' },
+      ],
     },
     'en-us': {
-      title: `Multiple perspectives (Multi-head)`,
-      body: `A single attention search is not enough. A token might need to connect with others for several different reasons.
+      title: 'Multi-head attention: 12 parallel reads',
+      body: `A single attention matrix forces all context through one lens. Multi-head attention fixes this by splitting the hidden width into smaller subspaces.
 
-1. **Multiple goals:** the token 'people' might want to look for the subject of the sentence (grammar), for the emotional tone (sentiment), or for rhymes (poetry).
+In small GPT-2:
+- \`C = 768\` dimensions in the token vector
+- \`H = 12\` heads
+- \`D = 64\` dimensions per head
+- \`C = H x D\`
 
-2. **Multiple Heads:** instead of just one, the Transformer splits the attention vector into several smaller 'heads' operating in parallel. In small GPT-2, there are 12 heads.
+Technical point:
+1. each head receives its own slice of \`Q\`, \`K\`, and \`V\`
+2. each head computes a different attention matrix
+3. outputs are concatenated back to \`C\`
+4. \`c_proj\` mixes the 12 reads into one vector
 
-3. **Specialization:** one head might specialize in finding pronouns, another in punctuation. Afterwards, the results of all heads are glued back together.
-
-> Multi-head attention allows the model to analyze the same sentence through multiple lenses simultaneously.`,
+This is not "12 models". It is the same block reading the sequence in 12 parallel subspaces.`,
+      rightBody: `\`\`\`python
+snippet:attention/multihead-shapes
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 7], content: 'We define the shape contract: batch, time, hidden width, number of heads, and per-head width.' },
+        { lineRange: [9, 14], content: 'The QKV projection creates 3C, then each tensor is reshaped into H heads of width D.' },
+        { lineRange: [16, 22], content: 'Each head computes separate attention; at the end, we concatenate heads and return to width C.' },
+      ],
     },
   },
   visual: {
     id: 'multihead-diagram',
     copy: {
-      "pt-br": {
-        "head1": "Cabeça 1: Gramática",
-        "head2": "Cabeça 2: Emoção",
-        "head3": "Cabeça 3: Entidade",
-        "combined": "Atenção Combinada"
+      'pt-br': {
+        title: 'Contrato de shapes',
+        inputLabel: 'x',
+        qkvLabel: 'projeção QKV',
+        splitLabel: 'reshape em heads',
+        attentionLabel: 'atenção por head',
+        concatLabel: 'concat + c_proj',
+        outputLabel: 'y',
+        inputShape: '(B, T, 768)',
+        qkvShape: '3 x (B, T, 768)',
+        headShape: '(B, 12, T, 64)',
+        attentionShape: '12 matrizes (T x T)',
+        outputShape: '(B, T, 768)',
+        headLabels: [
+          'Head 1: relações locais',
+          'Head 2: estrutura sintática',
+          'Head 3: dependências longas',
+          '...',
+          'Head 12: outro subespaço',
+        ],
+        takeaway: 'Cada head vê 64 dimensões. Juntas, as 12 heads recompõem as 768 dimensões.',
       },
-      "en-us": {
-        "head1": "Head 1: Grammar",
-        "head2": "Head 2: Emotion",
-        "head3": "Head 3: Entity",
-        "combined": "Combined Attention"
-      }
+      'en-us': {
+        title: 'Shape contract',
+        inputLabel: 'x',
+        qkvLabel: 'QKV projection',
+        splitLabel: 'reshape into heads',
+        attentionLabel: 'attention per head',
+        concatLabel: 'concat + c_proj',
+        outputLabel: 'y',
+        inputShape: '(B, T, 768)',
+        qkvShape: '3 x (B, T, 768)',
+        headShape: '(B, 12, T, 64)',
+        attentionShape: '12 matrices (T x T)',
+        outputShape: '(B, T, 768)',
+        headLabels: [
+          'Head 1: local relations',
+          'Head 2: syntactic structure',
+          'Head 3: long dependencies',
+          '...',
+          'Head 12: another subspace',
+        ],
+        takeaway: 'Each head sees 64 dimensions. Together, 12 heads rebuild the 768 dimensions.',
+      },
     },
   },
 });

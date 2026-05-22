@@ -190,10 +190,15 @@ export interface AttentionWeightExplorerCopy {
   keyLabel: string;
   attentionWeightLabel: string;
   contextMeaningLabel: string;
+  scoreLabel: string;
+  maskLabel: string;
+  valueLabel: string;
   beforeLabel: string;
   afterLabel: string;
   sentenceTokens: string[];
+  scoreMatrix: number[][];
   attentionMatrix: number[][];
+  valueSummaries: string[];
   meaningBefore: string[];
   meaningAfter: string[];
   insightTitle: string;
@@ -201,10 +206,20 @@ export interface AttentionWeightExplorerCopy {
 }
 
 export interface MultiheadDiagramCopy {
-  head1Label: string;
-  head2Label: string;
-  head3Label: string;
-  combineLabel: string;
+  title: string;
+  inputLabel: string;
+  qkvLabel: string;
+  splitLabel: string;
+  attentionLabel: string;
+  concatLabel: string;
+  outputLabel: string;
+  inputShape: string;
+  qkvShape: string;
+  headShape: string;
+  attentionShape: string;
+  outputShape: string;
+  headLabels: string[];
+  takeaway: string;
 }
 
 export interface ResidualStreamHighwayCopy {

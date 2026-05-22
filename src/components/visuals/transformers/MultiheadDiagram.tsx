@@ -6,66 +6,124 @@ interface MultiheadDiagramProps {
   copy: MultiheadDiagramCopy;
 }
 
+const stepColors = ['var(--sw-cyan)', 'var(--sw-purple)', 'var(--sw-pink)', '#f59e0b', '#22c55e'];
+
 export const MultiheadDiagram = React.memo(({ copy }: MultiheadDiagramProps) => {
+  const steps = [
+    { label: copy.inputLabel, shape: copy.inputShape },
+    { label: copy.qkvLabel, shape: copy.qkvShape },
+    { label: copy.splitLabel, shape: copy.headShape },
+    { label: copy.attentionLabel, shape: copy.attentionShape },
+    { label: copy.concatLabel, shape: copy.outputShape },
+  ];
+
   return (
     <div style={{
       width: '100%',
-      padding: '40px',
+      height: '100%',
+      minHeight: 0,
+      padding: 24,
       background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
-      borderRadius: '24px',
-      border: '1px solid rgba(255, 255, 255, 0.07)',
+      borderRadius: 24,
+      border: `1px solid ${sw.borderSubtle}`,
       boxShadow: `${sw.insetHighlightStrong}, ${sw.shadowDeeper}`,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '32px',
-      fontFamily: "'Space Grotesk', 'Inter', sans-serif"
+      display: 'grid',
+      gridTemplateRows: 'auto auto 1fr auto',
+      gap: 18,
+      fontFamily: sw.fontSans,
     }}>
-      
-      <div style={{ display: 'flex', gap: '20px', width: '100%' }}>
-        {[
-          { label: copy.head1Label, color: 'var(--sw-cyan)', bg: 'rgba(0,229,255,0.08)' },
-          { label: copy.head2Label, color: 'var(--sw-purple)', bg: 'rgba(168,85,247,0.08)' },
-          { label: copy.head3Label, color: 'var(--sw-pink)', bg: 'rgba(255,46,151,0.08)' },
-        ].map((h, i) => (
-          <div key={i} style={{
-            flex: 1,
-            background: h.bg,
-            border: `2px solid ${h.color}`,
-            borderRadius: '16px',
-            padding: '24px 16px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '12px',
-            boxShadow: `0 0 18px color-mix(in srgb, ${h.color} 18%, transparent)`
-          }}>
-            <div style={{ width: '40px', height: '40px', background: h.color, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            </div>
-            <div style={{ fontSize: '16px', fontWeight: '700', color: h.color, textAlign: 'center' }}>{h.label}</div>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', gap: '20px', width: '100%', padding: '0 40px' }}>
-        <div style={{ flex: 1, height: '40px', borderRight: '2px solid rgba(255,255,255,0.12)', borderBottom: '2px solid rgba(255,255,255,0.12)', borderRadius: '0 0 8px 0' }} />
-        <div style={{ flex: 1, height: '40px', borderLeft: '2px solid rgba(255,255,255,0.12)', borderBottom: '2px solid rgba(255,255,255,0.12)', borderRadius: '0 0 0 8px', marginLeft: '-2px' }} />
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--sw-cyan)' }}>
+          {copy.title}
+        </div>
+        <div style={{ marginTop: 6, fontSize: 15, color: 'var(--sw-text-dim)', lineHeight: 1.35 }}>
+          768 = 12 x 64
+        </div>
       </div>
 
       <div style={{
-        padding: '20px 40px',
-        background: 'linear-gradient(135deg, rgba(255,46,151,0.9), rgba(168,85,247,0.9))',
-        color: 'var(--sw-text)',
-        borderRadius: '100px',
-        fontSize: '18px',
-        fontWeight: '700',
-        boxShadow: '0 0 24px rgba(255,46,151,0.22), 0 10px 24px rgba(168,85,247,0.22)'
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+        gap: 10,
       }}>
-        {copy.combineLabel}
+        {steps.map((step, index) => {
+          const color = stepColors[index];
+          return (
+            <div key={step.label} style={{
+              position: 'relative',
+              minHeight: 86,
+              padding: '12px 10px',
+              borderRadius: 16,
+              background: `linear-gradient(135deg, color-mix(in srgb, ${color} 13%, transparent), rgba(255,255,255,0.03))`,
+              border: `1px solid color-mix(in srgb, ${color} 42%, transparent)`,
+            }}>
+              {index < steps.length - 1 && (
+                <div style={{
+                  position: 'absolute',
+                  right: -10,
+                  top: '50%',
+                  width: 10,
+                  height: 2,
+                  background: 'rgba(255,255,255,0.22)',
+                }} />
+              )}
+              <div style={{ fontSize: 11, fontWeight: 800, color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                {step.label}
+              </div>
+              <div style={{ marginTop: 10, fontSize: 13, fontWeight: 800, color: 'var(--sw-text)', fontFamily: sw.fontMono }}>
+                {step.shape}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+        gap: 10,
+        alignContent: 'center',
+      }}>
+        {copy.headLabels.map((label, index) => {
+          const color = stepColors[index % stepColors.length];
+          return (
+            <div key={label} style={{
+              minHeight: 92,
+              padding: 12,
+              borderRadius: 16,
+              background: 'rgba(255,255,255,0.035)',
+              border: `1px solid ${index === 3 ? 'rgba(255,255,255,0.1)' : `color-mix(in srgb, ${color} 32%, transparent)`}`,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <div style={{
+                width: 34,
+                height: 34,
+                borderRadius: 10,
+                background: index === 3 ? 'rgba(255,255,255,0.08)' : color,
+                boxShadow: index === 3 ? 'none' : `0 0 18px color-mix(in srgb, ${color} 30%, transparent)`,
+              }} />
+              <div style={{ fontSize: 12.5, fontWeight: 700, lineHeight: 1.25, color: index === 3 ? 'var(--sw-text-muted)' : 'var(--sw-text-dim)' }}>
+                {label}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{
+        padding: '12px 16px',
+        borderRadius: 16,
+        background: 'linear-gradient(90deg, rgba(0,229,255,0.09), rgba(34,197,94,0.08))',
+        border: '1px solid rgba(0,229,255,0.18)',
+        color: 'var(--sw-text)',
+        fontSize: 13,
+        fontWeight: 700,
+        lineHeight: 1.35,
+      }}>
+        {copy.takeaway}
+      </div>
     </div>
   );
 });
-

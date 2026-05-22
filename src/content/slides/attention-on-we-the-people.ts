@@ -4,97 +4,151 @@ export const attentionOnWeThePeople = defineSlide({
   id: 'attention-on-we-the-people',
   type: 'two-column',
   options: {
-    columnRatios: [0.35, 0.65],
+    columnRatios: [0.42, 0.58],
   },
   content: {
     'pt-br': {
-      title: `Atenção Dinâmica`,
-      body: `Veja como cada palavra (Query) busca contexto nas outras (Keys).
-      
-      Clique nos tokens para ver como o 'significado' de uma palavra muda conforme ela absorve informações do contexto ao redor.`,
+      title: 'Atenção causal em "We the people"',
+      body: `Agora a atenção deixa de ser metáfora e vira uma conta rastreável.
+
+Para prever o próximo token depois de \`We the people\`, a posição \`people\` faz uma pergunta: **quais tokens anteriores ajudam a decidir o próximo passo?**
+
+Pipeline real:
+1. \`Q\` de \`people\` compara com as \`K\` de \`We\`, \`the\` e \`people\`
+2. os scores são escalados por \`sqrt(d_k)\`
+3. a máscara causal bloqueia qualquer posição futura
+4. o softmax transforma scores em pesos que somam 100%
+5. os pesos misturam os vetores \`V\` e geram o contexto final
+
+Leitura importante: atenção não "entende" por magia. Ela calcula **quanto cada Value entra no vetor final**.`,
+      rightBody: `\`\`\`python
+snippet:attention/causal-attention-mini
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 9], content: 'Montamos Q, K e V mínimos para três tokens. O exemplo é pequeno para a conta caber inteira no slide.' },
+        { lineRange: [10, 17], content: 'O score é produto escalar escalado; a máscara causal impede que uma posição leia tokens futuros antes do softmax.' },
+        { lineRange: [18, 21], content: 'Imprimimos tokens, pesos e contexto para conferir a distribuição final calculada pela Query `people`.' },
+      ],
     },
     'en-us': {
-      title: `Dynamic Attention`,
-      body: `See how each word (Query) searches for context in the others (Keys).
-      
-      Click on tokens to see how the 'meaning' of a word shifts as it absorbs information from the surrounding context.`,
+      title: 'Causal attention on "We the people"',
+      body: `Now attention stops being a metaphor and becomes a traceable calculation.
+
+To predict the next token after \`We the people\`, the \`people\` position asks: **which previous tokens help decide the next step?**
+
+Real pipeline:
+1. \`people\`'s \`Q\` compares against the \`K\` vectors for \`We\`, \`the\`, and \`people\`
+2. scores are scaled by \`sqrt(d_k)\`
+3. the causal mask blocks any future position
+4. softmax turns scores into weights that sum to 100%
+5. the weights mix the \`V\` vectors and produce the final context
+
+Key reading: attention does not "understand" by magic. It computes **how much each Value enters the final vector**.`,
+      rightBody: `\`\`\`python
+snippet:attention/causal-attention-mini
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 9], content: 'We build minimal Q, K, and V tensors for three tokens. The example is small so the whole calculation fits on the slide.' },
+        { lineRange: [10, 17], content: 'The score is a scaled dot product; the causal mask prevents a position from reading future tokens before softmax.' },
+        { lineRange: [18, 21], content: 'We print tokens, weights, and context to check the final distribution computed by the `people` Query.' },
+      ],
     },
   },
   visual: {
     id: 'attention-weight-explorer',
     copy: {
-      "pt-br": {
-        "title": "Explorador de Pesos de Atenção",
-        "subtitle": "Analisando 'We the people' para prever o próximo token",
-        "clickHint": "Clique em um token para ver sua 'Query' em ação",
-        "queryLabel": "Token que pergunta (Query)",
-        "keyLabel": "Heatmap de Atenção (Q × K)",
-        "attentionWeightLabel": "Distribuição de Atenção",
-        "contextMeaningLabel": "Evolução do Vetor de Contexto",
-        "beforeLabel": "Significado Base",
-        "afterLabel": "Significado Contextual",
-        "sentenceTokens": ["We", "the", "people", "..."],
-        "attentionMatrix": [
-          [0.9, 0.05, 0.05, 0],
-          [0.2, 0.7, 0.1, 0],
-          [0.6, 0.1, 0.3, 0],
-          [0.1, 0.1, 0.1, 0.7]
+      'pt-br': {
+        title: 'Pipeline da atenção causal',
+        subtitle: 'Selecione uma Query e acompanhe scores -> máscara -> softmax -> contexto',
+        clickHint: 'Clique nos tokens: cada linha mostra o que aquela posição pode ler.',
+        queryLabel: 'Query ativa',
+        keyLabel: 'Matriz de atenção causal',
+        attentionWeightLabel: 'Pesos após softmax',
+        contextMeaningLabel: 'Como o contexto é formado',
+        scoreLabel: 'Score bruto',
+        maskLabel: 'Máscara causal',
+        valueLabel: 'Value misturado',
+        beforeLabel: 'Token isolado',
+        afterLabel: 'Depois da atenção',
+        sentenceTokens: ['We', 'the', 'people'],
+        scoreMatrix: [
+          [1.7, -99, -99],
+          [0.8, 1.4, -99],
+          [1.2, 0.4, 1.8],
         ],
-        "meaningBefore": [
-          "Pronome 'Nós'",
-          "Artigo definido",
-          "Pessoas genéricas",
-          "Ponto final/Pausa"
+        attentionMatrix: [
+          [1, 0, 0],
+          [0.35, 0.65, 0],
+          [0.31, 0.14, 0.55],
         ],
-        "meaningAfter": [
-          "Autores da Constituição",
-          "O artigo que foca no povo",
-          "Cidadãos americanos soberanos",
-          "Fim do preâmbulo"
+        valueSummaries: [
+          'identidade coletiva',
+          'marca sintática',
+          'sujeito central',
         ],
-        "insightTitle": "Insights:",
-        "insights": [
-          "Softmax garante soma 100%",
-          "Atenção é focada no passado",
-          "Contexto muda o vetor final"
-        ]
+        meaningBefore: [
+          'pronome sem contexto',
+          'artigo definido',
+          'pessoas genéricas',
+        ],
+        meaningAfter: [
+          'início de uma voz coletiva',
+          'conecta "We" ao substantivo',
+          'sujeito coletivo pronto para prever "of"',
+        ],
+        insightTitle: 'Leitura:',
+        insights: [
+          'a linha escolhida é a Query',
+          'colunas futuras são bloqueadas',
+          'Values viram mistura ponderada',
+        ],
       },
-      "en-us": {
-        "title": "Attention Weight Explorer",
-        "subtitle": "Analyzing 'We the people' to predict the next token",
-        "clickHint": "Click a token to see its 'Query' in action",
-        "queryLabel": "Asking Token (Query)",
-        "keyLabel": "Attention Heatmap (Q × K)",
-        "attentionWeightLabel": "Attention Distribution",
-        "contextMeaningLabel": "Context Vector Evolution",
-        "beforeLabel": "Base Meaning",
-        "afterLabel": "Contextual Meaning",
-        "sentenceTokens": ["We", "the", "people", "..."],
-        "attentionMatrix": [
-          [0.9, 0.05, 0.05, 0],
-          [0.2, 0.7, 0.1, 0],
-          [0.6, 0.1, 0.3, 0],
-          [0.1, 0.1, 0.1, 0.7]
+      'en-us': {
+        title: 'Causal attention pipeline',
+        subtitle: 'Select a Query and follow scores -> mask -> softmax -> context',
+        clickHint: 'Click tokens: each row shows what that position is allowed to read.',
+        queryLabel: 'Active Query',
+        keyLabel: 'Causal attention matrix',
+        attentionWeightLabel: 'Weights after softmax',
+        contextMeaningLabel: 'How context is formed',
+        scoreLabel: 'Raw score',
+        maskLabel: 'Causal mask',
+        valueLabel: 'Mixed Value',
+        beforeLabel: 'Isolated token',
+        afterLabel: 'After attention',
+        sentenceTokens: ['We', 'the', 'people'],
+        scoreMatrix: [
+          [1.7, -99, -99],
+          [0.8, 1.4, -99],
+          [1.2, 0.4, 1.8],
         ],
-        "meaningBefore": [
-          "Pronoun 'We'",
-          "Definite article",
-          "Generic people",
-          "End/Pause"
+        attentionMatrix: [
+          [1, 0, 0],
+          [0.35, 0.65, 0],
+          [0.31, 0.14, 0.55],
         ],
-        "meaningAfter": [
-          "Constitution authors",
-          "Article focusing on people",
-          "American sovereign citizens",
-          "End of preamble"
+        valueSummaries: [
+          'collective identity',
+          'syntactic marker',
+          'central subject',
         ],
-        "insightTitle": "Insights:",
-        "insights": [
-          "Softmax ensures 100% sum",
-          "Attention is past-focused",
-          "Context shifts the final vector"
-        ]
-      }
+        meaningBefore: [
+          'pronoun without context',
+          'definite article',
+          'generic people',
+        ],
+        meaningAfter: [
+          'start of a collective voice',
+          'connects "We" to the noun',
+          'collective subject ready to predict "of"',
+        ],
+        insightTitle: 'Read it as:',
+        insights: [
+          'the selected row is the Query',
+          'future columns are blocked',
+          'Values become a weighted mix',
+        ],
+      },
     },
   },
 });
