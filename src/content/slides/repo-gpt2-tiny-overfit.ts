@@ -24,7 +24,7 @@ Se isso não acontecer, geralmente é um destes pontos:
 - batch/contexto não batendo com o tamanho do corpus
 - bug no shift de targets (\`x[:, :-1]\` vs \`x[:, 1:]\`)`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/tiny-overfit
+snippet:gpt2_manual/tiny-overfit
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'O script usa um tokenizer simples e converte o corpus minúsculo para IDs.' },
@@ -50,7 +50,7 @@ If that does not happen, the usual causes are:
 - batch or context not matching corpus size
 - target-shift bug (\`x[:, :-1]\` vs \`x[:, 1:]\`)`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/tiny-overfit
+snippet:gpt2_manual/tiny-overfit
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'The script uses a simple tokenizer and converts the tiny corpus into IDs.' },
@@ -59,3 +59,4 @@ snippet:repo-gpt2/tiny-overfit
     },
   },
 });
+

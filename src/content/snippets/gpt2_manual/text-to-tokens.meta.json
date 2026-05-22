@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/e2e-trace",
+  "id": "gpt2_manual/text-to-tokens",
   "language": "python",
   "pyodide": false
 }

@@ -6,8 +6,8 @@ export const gpt2PytorchAttention = defineSlide({
   options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
-      title: 'Atenção causal no repo',
-      body: `Agora entramos na mecânica completa da atenção causal do repo.
+      title: 'Atenção causal em PyTorch',
+      body: `Agora entramos na mecânica completa da atenção causal.
 
 (B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
 
@@ -30,16 +30,16 @@ Erros comuns:
 - usar \`softmax\` no eixo errado
 - esquecer que o reshape precisa respeitar \`C = H x D\``,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/attention
+snippet:gpt2_manual/attention
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'A classe guarda número de heads, largura do embedding e as projeções lineares centrais.' },
-        { lineRange: [13, 20], content: 'No forward, o tensor vira QKV (Query, Key, Value), ganha formato multi-head, aplica máscara triangular para impedir futuro e volta para `(B, T, C)`.' },
+        { lineRange: [1, 12], content: 'A classe define heads, dimensão por head e projeções lineares de entrada/saída.' },
+        { lineRange: [14, 22], content: 'No forward, o tensor vira QKV, recebe shape multi-head, aplica atenção causal e retorna para `(B, T, C)`.' },
       ],
     },
     'en-us': {
-      title: 'Causal attention in the repo',
-      body: `Now we enter the full mechanics of causal attention in the repo.
+      title: 'Causal attention in PyTorch',
+      body: `Now we enter the full mechanics of causal attention.
 
 (B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
@@ -62,12 +62,13 @@ Common failures:
 - applying \`softmax\` on the wrong axis
 - forgetting that reshape must respect \`C = H x D\``,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/attention
+snippet:gpt2_manual/attention
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'The class stores number of heads, embedding width, and the central linear projections.' },
-        { lineRange: [13, 20], content: 'In the forward pass, the tensor becomes QKV (Query, Key, Value), gains multi-head shape, applies a triangular mask to block the future, and returns to `(B, T, C)`.' },
+        { lineRange: [1, 12], content: 'The class defines heads, per-head width, and input/output linear projections.' },
+        { lineRange: [14, 22], content: 'In forward, tensor becomes QKV, gains multi-head shape, applies causal attention, and returns to `(B, T, C)`.' },
       ],
     },
   },
 });
+

@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/train-debug",
+  "id": "gpt2_manual/train-debug",
   "language": "python",
   "pyodide": false
 }

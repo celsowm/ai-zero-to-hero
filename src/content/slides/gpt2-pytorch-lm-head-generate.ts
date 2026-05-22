@@ -29,7 +29,7 @@ Problemas comuns:
 - repetição excessiva: temperatura baixa demais
 - ruído sem sentido: temperatura alta demais`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/generate
+snippet:gpt2_manual/generate
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 1], content: 'Começamos com um prefixo pequeno já tokenizado.' },
@@ -60,7 +60,7 @@ Common issues:
 - excessive repetition: temperature too low
 - incoherent noise: temperature too high`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/generate
+snippet:gpt2_manual/generate
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 1], content: 'We start from a tiny tokenized prefix.' },
@@ -69,3 +69,4 @@ snippet:repo-gpt2/generate
     },
   },
 });
+

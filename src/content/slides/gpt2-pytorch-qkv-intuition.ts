@@ -7,7 +7,7 @@ export const gpt2PytorchQkvIntuition = defineSlide({
   content: {
     'pt-br': {
       title: 'QKV antes da atenção completa',
-      body: `Antes de abrir a atenção causal do repo, vale fixar a função de \`Q\`, \`K\` e \`V\` em um caso mínimo.
+      body: `Antes de abrir a atenção causal completa, vale fixar a função de \`Q\`, \`K\` e \`V\` em um caso mínimo.
 
 Leitura operacional:
 - cada token do contexto gera três leituras do mesmo vetor
@@ -30,7 +30,7 @@ Fechamento:
     },
     'en-us': {
       title: 'QKV before full attention',
-      body: `Before opening the repo's causal attention, it is worth locking in what \`Q\`, \`K\`, and \`V\` do in one minimal case.
+      body: `Before opening full causal attention, it is worth locking in what \`Q\`, \`K\`, and \`V\` do in one minimal case.
 
 Operational reading:
 - each token in the context generates three readings of the same vector
@@ -120,3 +120,4 @@ Closing idea:
     },
   },
 });
+

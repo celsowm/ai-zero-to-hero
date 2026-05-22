@@ -39,6 +39,11 @@ const EmbeddingIntroVisual: React.FC<EmbeddingIntroVisualProps> = ({ copy }) => 
   const active = lookupSteps[step];
   const activeTokenId = tokenGrid[active.b][active.t];
   const activeVector = useMemo(() => embeddingTable[activeTokenId].map((v) => v.toFixed(2)).join(', '), [activeTokenId]);
+  const tokenCellX = 24 + active.t * 62;
+  const tokenCellY = 40 + active.b * 56;
+  const rowY = 40 + activeTokenId * 46;
+  const outputCellX = 548 + active.t * 108;
+  const outputCellY = 40 + active.b * 116;
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
@@ -125,8 +130,24 @@ const EmbeddingIntroVisual: React.FC<EmbeddingIntroVisualProps> = ({ copy }) => 
                 }),
               )}
 
-              <line x1="148" y1={62 + active.b * 56} x2="246" y2={57 + activeTokenId * 46} stroke="#00e5ff" strokeWidth="2" strokeDasharray="5,5" />
-              <line x1="490" y1={57 + activeTokenId * 46} x2={548 + active.t * 108} y2={86 + active.b * 116} stroke="#a78bfa" strokeWidth="2" strokeDasharray="5,5" />
+              <line
+                x1={tokenCellX + 52}
+                y1={tokenCellY + 21}
+                x2="246"
+                y2={rowY + 17}
+                stroke="#00e5ff"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+              />
+              <line
+                x1="490"
+                y1={rowY + 17}
+                x2={outputCellX}
+                y2={outputCellY + 46}
+                stroke="#a78bfa"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+              />
             </svg>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

@@ -62,7 +62,9 @@ export const wordpieceSentencepiece = defineSlide({
         "wordLevel": "BPE (GPT-2)",
         "charLevel": "WordPiece (BERT)",
         "subwordLevel": "SentencePiece (T5)",
+        "tokenCountLabel": "partes",
         "exampleText": "unbelievably",
+        "subwordExample": ["un", "believ", "ably"],
         "prosLabel": "Características",
         "consLabel": "Limitações",
         "wordPros": [
@@ -94,7 +96,9 @@ export const wordpieceSentencepiece = defineSlide({
         "wordLevel": "BPE (GPT-2)",
         "charLevel": "WordPiece (BERT)",
         "subwordLevel": "SentencePiece (T5)",
+        "tokenCountLabel": "tokens",
         "exampleText": "unbelievably",
+        "subwordExample": ["un", "believ", "ably"],
         "prosLabel": "Features",
         "consLabel": "Limitations",
         "wordPros": [

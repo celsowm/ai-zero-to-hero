@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/text-to-tokens",
+  "id": "gpt2_manual/generate",
   "language": "python",
   "pyodide": false
 }

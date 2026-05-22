@@ -2,7 +2,9 @@ export interface TokenLevelComparisonCopy {
   wordLevel: string;
   charLevel: string;
   subwordLevel: string;
+  tokenCountLabel: string;
   exampleText: string;
+  subwordExample?: string[];
   prosLabel: string;
   consLabel: string;
   wordPros: string[];

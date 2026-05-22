@@ -26,7 +26,7 @@ Interpretacao do resultado:
 - se degrada muito rapido, revisar temperatura/top-k e qualidade do treino
 - se o loop quebra por contexto, revisar \`block_size\` e truncamento`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/generate-checkpoint
+snippet:gpt2_manual/generate-checkpoint
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'O carregamento encapsula pesos, tokenizer e device em uma interface de inferência.' },
@@ -54,7 +54,7 @@ How to read the result:
 - if quality degrades too fast, tune temperature/top-k and training quality
 - if the loop breaks on context size, review \`block_size\` and truncation`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/generate-checkpoint
+snippet:gpt2_manual/generate-checkpoint
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'Loading wraps weights, tokenizer, and device inside one inference interface.' },
@@ -63,3 +63,4 @@ snippet:repo-gpt2/generate-checkpoint
     },
   },
 });
+

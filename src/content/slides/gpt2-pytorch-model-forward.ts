@@ -7,7 +7,7 @@ export const gpt2PytorchModelForward = defineSlide({
   content: {
     'pt-br': {
       title: 'Forward completo do GPT',
-      body: `O contrato central do repo é: **\`forward(idx, targets=None)\`**.
+      body: `O contrato central é: **\`forward(idx, targets=None)\`**.
 
 (B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
 
@@ -33,7 +33,7 @@ Ponto crítico:
 
 Ponte com PyTorch anterior: a mecânica de treino continua \`forward -> loss -> backward -> step\`; a mudança de domínio aqui é trocar MSE por CE sobre vocabulário.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/model-forward
+snippet:gpt2_manual/model-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'A assinatura já mostra a dupla que interessa: logits sempre; loss só quando há targets.' },
@@ -43,7 +43,7 @@ snippet:repo-gpt2/model-forward
     },
     'en-us': {
       title: 'The full GPT forward pass',
-      body: `The central contract in the repo is: **\`forward(idx, targets=None)\`**.
+      body: `The central contract is: **\`forward(idx, targets=None)\`**.
 
 (B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
@@ -69,7 +69,7 @@ Critical distinction:
 
 Bridge to earlier PyTorch slides: training mechanics remain \`forward -> loss -> backward -> step\`; the domain shift here is replacing MSE with vocabulary-level CE.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/model-forward
+snippet:gpt2_manual/model-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'The signature already exposes the key pair: logits always; loss only when targets exist.' },
@@ -79,3 +79,4 @@ snippet:repo-gpt2/model-forward
     },
   },
 });
+

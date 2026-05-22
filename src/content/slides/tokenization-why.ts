@@ -65,8 +65,10 @@ GPT-2 uses a vocabulary of ~50,000 tokens learned with BPE. The same algorithm w
       "pt-br": {
         "wordLevel": "Nível Palavra",
         "charLevel": "Nível Caractere",
-        "subwordLevel": "Nível Subword (BPE)",
+        "subwordLevel": "Nível Subpalavra (BPE)",
+        "tokenCountLabel": "partes",
         "exampleText": "inconstitucionalissimamente",
+        "subwordExample": ["in", "constitucional", "íssima", "mente"],
         "prosLabel": "Vantagens",
         "consLabel": "Desvantagens",
         "wordPros": [
@@ -98,7 +100,9 @@ GPT-2 uses a vocabulary of ~50,000 tokens learned with BPE. The same algorithm w
         "wordLevel": "Word-level",
         "charLevel": "Character-level",
         "subwordLevel": "Subword-level (BPE)",
+        "tokenCountLabel": "tokens",
         "exampleText": "unbelievably",
+        "subwordExample": ["un", "believ", "ably"],
         "prosLabel": "Pros",
         "consLabel": "Cons",
         "wordPros": [

@@ -24,7 +24,7 @@ Diagnostico rapido:
 - se loss vier \`nan\`, revisar inicialização, dtype e targets
 - se parametros estiverem absurdos, revisar config \`n_layer/n_head/n_embd\``,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/smoke-forward
+snippet:gpt2_manual/smoke-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'O script começa com uma configuração debug pequena para rodar rápido.' },
@@ -51,7 +51,7 @@ Quick diagnostics:
 - if loss is \`nan\`, check init, dtype, and targets
 - if parameter count is absurd, check \`n_layer/n_head/n_embd\` config`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/smoke-forward
+snippet:gpt2_manual/smoke-forward
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'The script starts with a tiny debug config so the check stays fast.' },
@@ -61,3 +61,4 @@ snippet:repo-gpt2/smoke-forward
     },
   },
 });
+

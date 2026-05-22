@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/model-forward",
+  "id": "gpt2_manual/embedding-sum",
   "language": "python",
   "pyodide": false
 }

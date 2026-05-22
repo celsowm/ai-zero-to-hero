@@ -14,7 +14,7 @@ export const gpt2EmbeddingsPlusPosition = defineSlide({
 
 Sem posição, tokens iguais em lugares diferentes pareceriam o mesmo evento.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/embedding-sum
+snippet:gpt2_manual/embedding-sum
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'Os IDs entram como sequência e as posições são geradas a partir do comprimento dela.' },
@@ -31,7 +31,7 @@ snippet:repo-gpt2/embedding-sum
 
 Without position, identical tokens in different places would look like the same event.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/embedding-sum
+snippet:gpt2_manual/embedding-sum
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 5], content: 'IDs enter as a sequence and positions are generated from its length.' },
@@ -41,3 +41,4 @@ snippet:repo-gpt2/embedding-sum
     },
   },
 });
+

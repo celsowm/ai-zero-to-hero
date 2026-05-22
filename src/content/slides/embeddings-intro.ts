@@ -40,7 +40,7 @@ Without position, identical tokens in different places look like the same event.
         codePanel: {
           title: 'Passo canônico do embedding no GPT-2',
           description: 'IDs de tokens + posições entram em duas tabelas treináveis e a soma vira o residual stream inicial.',
-          source: { snippetId: 'repo-gpt2/embedding-sum', language: 'python' },
+          source: { snippetId: 'gpt2_manual/embedding-sum', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'Começamos com IDs e posições explícitas para mostrar as duas fontes de informação.' },
             { lineRange: [7, 8], content: 'As duas tabelas aprendem coisas diferentes: conteúdo do token e posição.' },
@@ -64,7 +64,7 @@ Without position, identical tokens in different places look like the same event.
         codePanel: {
           title: 'Canonical GPT-2 embedding step',
           description: 'Token IDs + positions go through two trainable tables, and their sum becomes the initial residual stream.',
-          source: { snippetId: 'repo-gpt2/embedding-sum', language: 'python' },
+          source: { snippetId: 'gpt2_manual/embedding-sum', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'We start with explicit IDs and positions to expose the two information sources.' },
             { lineRange: [7, 8], content: 'The two tables learn different things: token content and position.' },
@@ -86,3 +86,4 @@ Without position, identical tokens in different places look like the same event.
     },
   },
 });
+

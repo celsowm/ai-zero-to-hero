@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/generate-checkpoint",
+  "id": "gpt2_manual/model-forward",
   "language": "python",
   "pyodide": false
 }

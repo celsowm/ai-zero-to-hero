@@ -12,8 +12,6 @@ import { bpeExercise } from './bpe-exercise';
 import { bpeFromScratch } from './bpe-from-scratch';
 import { bpeMergeStack } from './bpe-merge-stack';
 import { bpeTraining } from './bpe-training';
-import { buildGpt2DatasetGutenberg } from './build-gpt2-dataset-gutenberg';
-import { buildGpt2DatasetTxt } from './build-gpt2-dataset-txt';
 import { buildGpt2Generate } from './build-gpt2-generate';
 import { buildGpt2Intro } from './build-gpt2-intro';
 import { buildGpt2Model } from './build-gpt2-model';
@@ -25,7 +23,6 @@ import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling'
 import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
 import { gpt2BlackBox } from './gpt2-black-box';
-import { gpt2FromScratchRepoMap } from './gpt2-from-scratch-repo-map';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
@@ -209,10 +206,6 @@ import { ragHallucination } from './rag-hallucination';
 import { ragIntro } from './rag-intro';
 import { ragMemoryLimit } from './rag-memory-limit';
 import { ragVectorSearch } from './rag-vector-search';
-import { repoGpt2GenerateCheckpoint } from './repo-gpt2-generate-checkpoint';
-import { repoGpt2SmokeForward } from './repo-gpt2-smoke-forward';
-import { repoGpt2TinyOverfit } from './repo-gpt2-tiny-overfit';
-import { repoGpt2TrainDebug } from './repo-gpt2-train-debug';
 import { residualStream } from './residual-stream';
 import { roadToMiniTransformer } from './road-to-mini-transformer';
 import { samplingControls } from './sampling-controls';
@@ -286,8 +279,6 @@ export const allSlides: ISlide[] = [
   bpeFromScratch,
   bpeMergeStack,
   bpeTraining,
-  buildGpt2DatasetGutenberg,
-  buildGpt2DatasetTxt,
   buildGpt2Generate,
   buildGpt2Intro,
   buildGpt2Model,
@@ -299,7 +290,6 @@ export const allSlides: ISlide[] = [
   dataCollatorExplorer,
   embeddingsIntro,
   gpt2BlackBox,
-  gpt2FromScratchRepoMap,
   gpt2LayerByLayerXray,
   gpt2BlockAnatomy,
   gpt2PytorchAttention,
@@ -483,10 +473,6 @@ export const allSlides: ISlide[] = [
   ragIntro,
   ragMemoryLimit,
   ragVectorSearch,
-  repoGpt2GenerateCheckpoint,
-  repoGpt2SmokeForward,
-  repoGpt2TinyOverfit,
-  repoGpt2TrainDebug,
   residualStream,
   roadToMiniTransformer,
   samplingControls,
@@ -545,3 +531,4 @@ export const allSlides: ISlide[] = [
   agentsExercise,
   agentsE2E,
 ];
+

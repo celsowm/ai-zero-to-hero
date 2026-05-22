@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/smoke-forward",
+  "id": "gpt2_manual/tiny-overfit",
   "language": "python",
   "pyodide": false
 }

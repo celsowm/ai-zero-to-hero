@@ -23,7 +23,7 @@ export const TokenLevelComparison = React.memo(({ copy }: TokenLevelComparisonPr
   const levels = [
     { key: 'word', label: copy.wordLevel, example: (copy.exampleText ?? '').split(/\s+/), pros: copy.wordPros, cons: copy.wordCons, color: LEVEL_COLORS.word },
     { key: 'char', label: copy.charLevel, example: (copy.exampleText ?? '').split(''), pros: copy.charPros, cons: copy.charCons, color: LEVEL_COLORS.char },
-    { key: 'subword', label: copy.subwordLevel, example: ['un', 'believ', 'ably'], pros: copy.subwordPros, cons: copy.subwordCons, color: LEVEL_COLORS.subword },
+    { key: 'subword', label: copy.subwordLevel, example: copy.subwordExample ?? ['un', 'believ', 'ably'], pros: copy.subwordPros, cons: copy.subwordCons, color: LEVEL_COLORS.subword },
   ];
 
   return (
@@ -131,7 +131,7 @@ export const TokenLevelComparison = React.memo(({ copy }: TokenLevelComparisonPr
                 color: sw.textMuted,
               }}
             >
-              {level.example.length} tokens
+              {level.example.length} {copy.tokenCountLabel}
             </div>
 
             {/* Pros */}

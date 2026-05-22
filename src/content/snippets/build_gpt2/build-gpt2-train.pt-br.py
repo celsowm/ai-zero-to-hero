@@ -1,53 +1,32 @@
 # @region train-imports
+import math
 import torch
-import torch.nn.functional as F
-# Aqui importaríamos a classe GPT e o loader que criamos antes...
-# from my_gpt import GPT
-# from my_dataset import loader
+from tqdm import trange
+from pytorch_gpt2.config import ModelConfig
+from pytorch_gpt2.data.tokenizer import ByteTokenizer
+from pytorch_gpt2.model.gpt import GPT
 # @endregion
 
 # @region train-setup
-# Inicializa uma versão minúscula do modelo (Tiny) para CPU
-model = GPT(
-    vocab_size=2000,
-    block_size=128,
-    n_layer=4,
-    n_head=4,
-    n_embd=128
-)
-model.train()
+tokenizer = ByteTokenizer()
+data = torch.tensor(tokenizer.encode(("Era uma vez uma historia.\n" * 40).strip(), add_eot=True), dtype=torch.long)
 
-# AdamW otimiza os pesos, lembrando da nossa aula de Gradiente Descendente
-optimizer = torch.optim.AdamW(model.parameters(), lr=5e-4)
-
+config = ModelConfig(vocab_size=tokenizer.vocab_size, block_size=96, n_layer=4, n_head=4, n_embd=128, dropout=0.0, bias=True, tie_weights=True)
+model = GPT(config)
+optimizer = torch.optim.AdamW(model.parameters(), lr=3e-3, weight_decay=0.01)
 # @endregion
 
 # @region train-loop
-print("Iniciando o loop de treino...")
-epochs = 3
-
-for epoch in range(epochs):
-    for step, (x, y) in enumerate(loader):
-        # 1. Forward: a rede tenta prever
-        logits = model(x)
-
-        # 2. Achatar os tensores para a Cross Entropy
-        B, T, V = logits.size()
-        logits_flat = logits.view(B * T, V)
-        y_flat = y.view(B * T)
-
-        # 3. Loss: quão errada a previsão foi?
-        loss = F.cross_entropy(logits_flat, y_flat)
-
-        # 4. Backward: a magia da derivada nas engrenagens
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-        if step % 10 == 0:
-            print(f"Epoch {epoch} | Step {step} | Loss: {loss.item():.4f}")
-
-print("Treinamento concluído!")
-# Salvando o "cérebro" treinado
-torch.save(model.state_dict(), "meu_gpt2_tiny.pt")
+for step in trange(200, desc="training", unit="step"):
+    starts = torch.randint(0, data.numel() - config.block_size - 1, (16,))
+    x = torch.stack([data[i : i + config.block_size] for i in starts])
+    y = torch.stack([data[i + 1 : i + config.block_size + 1] for i in starts])
+    _, loss = model(x, y)
+    optimizer.zero_grad(set_to_none=True)
+    loss.backward()
+    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+    optimizer.step()
+    if step % 25 == 0:
+        lf = float(loss.detach())
+        print(f"step={step} loss={lf:.3f} ppl={math.exp(min(lf, 20)):.2f}")
 # @endregion

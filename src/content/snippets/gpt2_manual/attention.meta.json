@@ -1,5 +1,5 @@
 {
-  "id": "repo-gpt2/generate",
+  "id": "gpt2_manual/attention",
   "language": "python",
   "pyodide": false
 }

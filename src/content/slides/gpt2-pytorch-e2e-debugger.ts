@@ -31,7 +31,7 @@ Quando passar para debug numérico:
 
 Regra prática: depure por contrato de shape antes de depurar por valor numérico.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/e2e-trace
+snippet:gpt2_manual/e2e-trace
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 6], content: 'O trace começa no batch de entrada e confirma a primeira soma de embeddings.' },
@@ -65,7 +65,7 @@ When to move into numeric debugging:
 
 Practical rule: debug shape contracts before debugging numeric values.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/e2e-trace
+snippet:gpt2_manual/e2e-trace
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 6], content: 'The trace starts at the input batch and confirms the first embedding sum.' },
@@ -75,3 +75,4 @@ snippet:repo-gpt2/e2e-trace
     },
   },
 });
+

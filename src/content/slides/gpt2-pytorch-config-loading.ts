@@ -6,10 +6,10 @@ export const gpt2PytorchConfigLoading = defineSlide({
   options: { columnRatios: [0.5, 0.5] },
   content: {
     'pt-br': {
-      title: 'Configuração do GPT no repo',
-      body: `No fluxo novo, “abrir o GPT-2” começa pela configuração, não por checkpoints externos.
+      title: 'Passo 1: Config + ByteTokenizer',
+      body: `A construção manual começa definindo o contrato do modelo e transformando texto em IDs com um tokenizer simples.
 
-Os números que definem o modelo são:
+Números que controlam o GPT:
 
 - \`vocab_size\`
 - \`block_size\`
@@ -22,26 +22,22 @@ Relações que precisam fechar:
 - \`idx.max() < vocab_size\` para não quebrar embedding lookup
 - contexto de inferência \`<= block_size\`
 
-Retomando a ideia de head:
-- **head** = um subespaço de atenção rodando em paralelo com os outros
-- **D** = largura por head, calculada como \`n_embd / n_head\`
-- leitura util: \`C -> H x D\`
-
-Se a configuração estiver errada, todos os erros seguintes parecem "misteriosos".`,
+Esse passo já valida o básico: prompt em texto -> IDs numéricos -> configuração coerente para a arquitetura.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/config
+snippet:gpt2_manual/config
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'A configuração nasce como dataclass porque essas dimensões são contrato de arquitetura.' },
-        { lineRange: [4, 10], content: 'Cada campo controla uma parte concreta do modelo: vocabulário, contexto, profundidade, heads e largura.' },
-        { lineRange: [11, 11], content: 'O peso das embeddings e do LM head (camada final de logits) pode ser compartilhado desde a configuração.' },
+        { lineRange: [1, 3], content: 'Importamos o contrato de arquitetura e o ByteTokenizer usados no fluxo manual.' },
+        { lineRange: [5, 11], content: 'Tokenizamos o prompt e montamos o tensor `(B, T)` de entrada.' },
+        { lineRange: [12, 22], content: 'Criamos a configuração do GPT com os hiperparâmetros principais do modelo.' },
+        { lineRange: [24, 24], content: 'A asserção garante a relação `C = H x D` antes de seguir para QKV.' },
       ],
     },
     'en-us': {
-      title: 'GPT config in the repo',
-      body: `In the new flow, “opening GPT-2” starts from configuration, not from external checkpoints.
+      title: 'Step 1: Config + ByteTokenizer',
+      body: `Manual construction starts by defining the model contract and turning text into IDs with a simple tokenizer.
 
-The numbers that define the model are:
+Numbers that control GPT:
 
 - \`vocab_size\`
 - \`block_size\`
@@ -54,20 +50,17 @@ Relations that must hold:
 - \`idx.max() < vocab_size\` so embedding lookup stays in range
 - inference context length \`<= block_size\`
 
-Returning to the idea of a head:
-- **head** = one attention subspace running in parallel with the others
-- **D** = per-head width, computed as \`n_embd / n_head\`
-- useful reading: \`C -> H x D\`
-
-If config is wrong, later errors look mysterious even when the code is fine.`,
+This step already validates the basics: text prompt -> numeric IDs -> coherent config for the architecture.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/config
+snippet:gpt2_manual/config
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'The config starts as a dataclass because these dimensions are an architectural contract.' },
-        { lineRange: [4, 10], content: 'Each field controls one concrete model choice: vocabulary, context, depth, heads, and width.' },
-        { lineRange: [11, 11], content: 'Embedding and LM head (final logits layer) weight tying can already be decided at config level.' },
+        { lineRange: [1, 3], content: 'We import the architecture contract and ByteTokenizer used in the manual path.' },
+        { lineRange: [5, 11], content: 'We tokenize the prompt and build the `(B, T)` input tensor.' },
+        { lineRange: [12, 22], content: 'We create GPT config with the core model hyperparameters.' },
+        { lineRange: [24, 24], content: 'The assertion enforces `C = H x D` before moving to QKV.' },
       ],
     },
   },
 });
+

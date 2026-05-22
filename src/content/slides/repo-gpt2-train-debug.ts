@@ -21,7 +21,7 @@ Checklist desse estagio:
 - checkpoints sendo gravados
 - metadados suficientes para retomar ou gerar depois`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/train-debug
+snippet:gpt2_manual/train-debug
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'Os argumentos CLI deixam explícito que modelo, treino e dados são decisões separadas.' },
@@ -45,7 +45,7 @@ Stage checklist:
 - checkpoints are written
 - enough metadata exists to resume or generate later.`,
       rightBody: `\`\`\`python
-snippet:repo-gpt2/train-debug
+snippet:gpt2_manual/train-debug
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 3], content: 'The CLI arguments make it explicit that model, training, and data are separate decisions.' },
@@ -55,3 +55,4 @@ snippet:repo-gpt2/train-debug
     },
   },
 });
+
