@@ -72,6 +72,7 @@ export const courseSlideOrder = [
   'neural-network-pytorch-optimizer-intuition',
   'neural-network-pytorch-optimizers',
   'neural-network-pytorch-model-lifecycle',
+  'pytorch-exercises-architecture',
   'neural-network-pytorch-training',
   'pytorch-exercises-training',
   'neural-network-pytorch-prediction',
