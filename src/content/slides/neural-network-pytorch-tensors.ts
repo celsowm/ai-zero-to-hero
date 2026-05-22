@@ -3,92 +3,96 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchTensors = defineSlide({
   id: 'neural-network-pytorch-tensors',
   type: 'two-column',
-  options: { columnRatios: [0.56, 0.44] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
-      title: 'Tensores no PyTorch: leitura operacional',
-      body: `Nos slides anteriores, fechamos a leitura de **rank** e **shape**: contar eixos, nomear o papel de cada eixo e só então ler os números. Agora aplicamos essa leitura em um caso real: **texto cru não entra direto em uma rede neural**.
+      title: 'Shapes no PyTorch: B, F, H, O',
+      body: `No slide anterior, vimos que o PyTorch empacota a mesma rede manual em uma interface mais curta: \`model(X)\`, \`loss.backward()\`, \`optimizer.step()\`. Agora vem a pergunta que evita quase todo bug iniciante: **qual é o shape esperado em cada ponto?**
 
-(B=lote, T=comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+Antes de falar de texto, token e vocabulário, vale fechar o caso mais simples: uma rede tabular.
 
-Para um modelo de linguagem, a sequência operacional mais comum é esta:
-1. **token_ids** -> tensor \`(B, T)\`
-2. **hidden_states** -> tensor \`(B, T, C)\`
-3. **output_scores** -> tensor \`(B, T, V)\`
+Neste exemplo, cada linha é um paciente. Cada coluna é uma informação sobre ele.
 
-O papel de cada um:
-1. **token_ids**: IDs inteiros dos tokens de entrada. Aqui o modelo ainda não está “entendendo” texto; ele só recebeu índices organizados por lote e posição.
-2. **hidden_states**: vetores internos produzidos para cada token. Cada posição agora carrega \`C\` números que resumem a representação daquele token dentro do modelo.
-3. **output_scores**: pontuações brutas para cada token possível do vocabulário. Em cada posição da sequência, o modelo gera um placar com \`V\` candidatos.
+### O contrato do exemplo
 
-Leitura operacional dos eixos:
-1. **B / batch**: quantas sequências entram juntas;
-2. **T / sequence**: quantas posições existem em cada sequência;
-3. **C / width**: quantos números representam cada token internamente;
-4. **V / vocabulary**: quantos candidatos de saída existem por posição.
+- **B = batch**: quantos exemplos entram juntos.
+- **F = features**: quantas colunas descrevem cada exemplo.
+- **H = hidden width**: quantos neurônios/valores existem na camada intermediária.
+- **O = output width**: quantos valores o modelo devolve por exemplo.
 
-Ponte curta com o que veio antes:
-- rank/shape já explicaram **como ler eixos**;
-- este slide mostra **quais tensores aparecem** quando texto vira entrada de modelo.
+No nosso código:
 
-Ordem didática daqui para frente:
-- neste slide, \`output_scores\` são só **pontuações de saída**;
-- no próximo, fechamos o contrato de \`dtype\`;
-- depois formalizamos o nome técnico dessas pontuações e como elas viram previsão.
+- \`X\` tem shape \`(6, 4)\` → **6 pacientes**, **4 features**.
+- \`y\` tem shape \`(6, 1)\` → **6 respostas**, **1 alvo por paciente**.
+- \`nn.Linear(4, 3)\` faz \`(B, F) -> (B, H)\`.
+- \`nn.Linear(3, 1)\` faz \`(B, H) -> (B, O)\`.
 
-Regra mental para guardar: **IDs entram no modelo -> viram vetores internos -> viram scores sobre o vocabulário**.`,
+A ideia importante: **B costuma atravessar a rede inteiro**. O modelo transforma a descrição de cada exemplo, mas continua devolvendo uma saída para cada item do batch.
+
+### Leitura operacional
+
+\`X (B,F) -> hidden (B,H) -> y_hat (B,O)\`
+
+No exemplo real:
+
+\`X (6,4) -> hidden (6,3) -> y_hat (6,1)\`
+
+Esse slide prepara a ponte: em modelo de linguagem, o batch continua existindo, mas entra um novo eixo entre B e a largura interna: o eixo da sequência.`,
       rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-primer
+snippet:pytorch-lm/patient-shape-contract
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 7], content: 'Primeiro definimos o contrato base do exemplo: batch, comprimento da sequência, largura interna e vocabulário.' },
-        { lineRange: [9, 13], content: 'Aqui aparece o primeiro tensor do pipeline: `token_ids` em `(B, T)`, com IDs inteiros organizados por lote e posição.' },
-        { lineRange: [15, 19], content: 'Depois simulamos os outros dois tensores típicos: `hidden_states` em `(B, T, C)` e `output_scores` em `(B, T, V)`.' },
-        { lineRange: [21, 24], content: 'Esses acessos pontuais tiram a abstração: um índice isolado em `token_ids`, um vetor de largura `C` em `hidden_states` e um vetor de largura `V` em `output_scores`.' },
-        { lineRange: [26, 29], content: 'Fechamos lendo o pipeline inteiro por shape e dtype: entrada discreta, representação interna e placar de saída.' },
+        { lineRange: [1, 10], content: 'Começamos nomeando as siglas do contrato: B, F, H e O. A partir daqui, o número bruto vira papel semântico.' },
+        { lineRange: [12, 26], content: '`X` é `(B, F)`: cada linha é um paciente e cada coluna é uma feature. `y` é `(B, O)`: uma resposta por paciente.' },
+        { lineRange: [28, 34], content: 'A arquitetura vira leitura de shape: `Linear(F, H)` transforma `(B, F)` em `(B, H)`; `Linear(H, O)` transforma `(B, H)` em `(B, O)`.' },
+        { lineRange: [39, 45], content: 'Durante o treino, `model(X)` preserva o batch: entram 6 pacientes e saem 6 previsões.' },
+        { lineRange: [49, 53], content: 'Na inferência, um paciente sozinho ainda é batch: shape `(1, F)`, não apenas `(F)`.' },
+        { lineRange: [56, 58], content: 'Os prints finais deixam o contrato visível para conferir o raciocínio com o runtime.' },
       ],
     },
     'en-us': {
-      title: 'PyTorch tensors: operational reading',
-      body: `In previous slides, we established how to read **rank** and **shape**: count axes, name what each axis does, and only then read the numbers. Now we apply that reading to a real case: **raw text does not go straight into a neural network**.
+      title: 'Shapes in PyTorch: B, F, H, O',
+      body: `In the previous slide, PyTorch packaged the same manual network into a shorter interface: \`model(X)\`, \`loss.backward()\`, \`optimizer.step()\`. Now comes the question that prevents most beginner bugs: **what shape is expected at each point?**
 
-(B=batch size, T=sequence length, C=internal representation width, V=vocabulary size)
+Before talking about text, tokens, and vocabulary, it is worth closing the simpler case: a tabular network.
 
-For a language model, the most common operational sequence is:
-1. **token_ids** -> tensor \`(B, T)\`
-2. **hidden_states** -> tensor \`(B, T, C)\`
-3. **output_scores** -> tensor \`(B, T, V)\`
+In this example, each row is a patient. Each column is one piece of information about that patient.
 
-What each one does:
-1. **token_ids**: integer IDs for the input tokens. At this stage the model is not “understanding text” yet; it has only received indices arranged by batch and position.
-2. **hidden_states**: internal vectors produced for each token. Each position now carries \`C\` numbers summarizing that token's representation inside the model.
-3. **output_scores**: raw scores for every possible vocabulary token. At each sequence position, the model produces a scoreboard with \`V\` candidates.
+### The example contract
 
-Operational axis reading:
-1. **B / batch**: how many sequences enter together;
-2. **T / sequence**: how many positions each sequence has;
-3. **C / width**: how many numbers represent each token internally;
-4. **V / vocabulary**: how many output candidates exist per position.
+- **B = batch**: how many examples enter together.
+- **F = features**: how many columns describe each example.
+- **H = hidden width**: how many neurons/values exist in the intermediate layer.
+- **O = output width**: how many values the model returns per example.
 
-Short bridge to what came before:
-- rank/shape already explained **how to read axes**;
-- this slide shows **which tensors appear** when text becomes model input.
+In our code:
 
-Didactic order from here:
-- in this slide, \`output_scores\` are only **output scores**;
-- next we lock the \`dtype\` contract;
-- after that we formalize the technical name for those scores and how they become predictions.
+- \`X\` has shape \`(6, 4)\` → **6 patients**, **4 features**.
+- \`y\` has shape \`(6, 1)\` → **6 answers**, **1 target per patient**.
+- \`nn.Linear(4, 3)\` maps \`(B, F) -> (B, H)\`.
+- \`nn.Linear(3, 1)\` maps \`(B, H) -> (B, O)\`.
 
-Mental rule to keep: **IDs enter the model -> become internal vectors -> become scores over the vocabulary**.`,
+The key idea: **B usually travels through the network unchanged**. The model transforms each example's description, but it still returns one output per item in the batch.
+
+### Operational reading
+
+\`X (B,F) -> hidden (B,H) -> y_hat (B,O)\`
+
+In the actual example:
+
+\`X (6,4) -> hidden (6,3) -> y_hat (6,1)\`
+
+This prepares the bridge: in a language model, the batch still exists, but a new axis appears between B and the internal width: the sequence axis.`,
       rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-primer
+snippet:pytorch-lm/patient-shape-contract
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 7], content: 'We start by defining the base contract of the example: batch, sequence length, internal width, and vocabulary size.' },
-        { lineRange: [9, 13], content: 'This is the first tensor in the pipeline: `token_ids` in `(B, T)`, with integer IDs organized by batch and position.' },
-        { lineRange: [15, 19], content: 'Then we simulate the other two common tensors: `hidden_states` in `(B, T, C)` and `output_scores` in `(B, T, V)`.' },
-        { lineRange: [21, 24], content: 'These targeted accesses reduce abstraction: one scalar ID in `token_ids`, one width-`C` vector in `hidden_states`, and one width-`V` vector in `output_scores`.' },
-        { lineRange: [26, 29], content: 'We close by reading the full pipeline through shape and dtype: discrete input, internal representation, and output scoreboard.' },
+        { lineRange: [1, 10], content: 'We start by naming the contract letters: B, F, H, and O. From here on, raw numbers get semantic roles.' },
+        { lineRange: [12, 26], content: '`X` is `(B, F)`: each row is a patient and each column is a feature. `y` is `(B, O)`: one answer per patient.' },
+        { lineRange: [28, 34], content: 'The architecture becomes shape reading: `Linear(F, H)` maps `(B, F)` to `(B, H)`; `Linear(H, O)` maps `(B, H)` to `(B, O)`.' },
+        { lineRange: [39, 45], content: 'During training, `model(X)` preserves the batch: 6 patients enter and 6 predictions come out.' },
+        { lineRange: [49, 53], content: 'At inference time, one patient is still a batch: shape `(1, F)`, not just `(F)`.' },
+        { lineRange: [56, 58], content: 'The final prints make the contract visible so the reasoning can be checked at runtime.' },
       ],
     },
   },
