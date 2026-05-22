@@ -12,51 +12,51 @@ export const wordpieceSentencepiece = defineSlide({
   content: {
     'pt-br': {
       title: `WordPiece & SentencePiece`,
-      body: `BPE não é a única abordagem. Duas variantes populares merecem menção:
+      body: `BPE não é a única forma de criar subpalavras. Aqui vale separar **algoritmo** de **ferramenta**:
 
 ### WordPiece (BERT, modelos Google)
 
-1. **Treinamento diferente:** em vez de maximizar frequência de pares, maximiza o *likelihood* do dado. O par escolhido é aquele que mais aumenta a probabilidade do corpus.
+1. **Treino probabilístico:** assim como BPE, constrói um vocabulário de subpalavras. A diferença é o critério: WordPiece escolhe peças pelo ganho esperado de *likelihood* do corpus, não apenas pela frequência bruta do par.
 
-2. **Uso principal:** BERT e modelos de linguagem masked. O tokenizador é otimizado para cobertura, não para compressão.
+2. **Inferência:** com o vocabulário pronto, segmenta cada palavra por **longest-match-first**: tenta usar o maior pedaço conhecido possível. Se não conseguir decompor, cai em \`[UNK]\`.
 
-3. **Notação:** usa \`##\` para indicar continuação. Ex: "playing" → ["play", "##ing"].
+3. **Notação:** ficou conhecido pelo BERT. Usa \`##\` para marcar continuação dentro da palavra. Ex: "playing" → ["play", "##ing"].
 
-### SentencePiece (biblioteca de tokenização)
+### SentencePiece (biblioteca/framework)
 
-1. **Framework, não algoritmo:** SentencePiece é uma biblioteca que implementa **BPE** ou **Unigram LM**. Treina diretamente de texto bruto, sem exigir pré-tokenização por espaços.
+1. **Não é um algoritmo único:** SentencePiece é uma biblioteca que implementa **BPE** e **Unigram LM**. Ela treina direto em texto bruto, sem exigir pré-tokenização por espaços.
 
-2. **Unigram LM (modo padrão):** em vez de merges gananciosos, otimiza qual subconjunto de tokens maximiza a probabilidade do corpus.
+2. **Unigram LM:** parte de um vocabulário grande e remove peças para manter o subconjunto que melhor explica o corpus. Diferente do BPE, não depende de uma sequência fixa de merges gananciosos.
 
-3. **Codificação de espaços:** usa \`▁\` (U+2581) para representar espaços no texto original, permitindo trabalhar com idiomas sem delimitadores visíveis (chinês, japonês).
+3. **Espaços como símbolo:** representa espaços com \`▁\` (U+2581). Isso preserva informação de whitespace na detokenização e ajuda em textos multilíngues, inclusive línguas sem separadores visíveis entre palavras.
 
-> BPE, WordPiece e SentencePiece são variações do mesmo princípio: encontrar o equilíbrio certo entre vocabulário e granularidade.
+> O trio mais preciso é: **BPE** e **WordPiece** são algoritmos de subword; **SentencePiece** é um framework que pode usar BPE ou Unigram LM. Todos lidam com o mesmo trade-off: vocabulário finito vs. granularidade.
 
-> **Nota:** os exemplos de tokenização na visualização ao lado são ilustrativos — a divisão real depende do vocabulário treinado.`,
+> **Nota:** os exemplos de tokenização na visualização são ilustrativos — a divisão real depende do vocabulário treinado.`,
     },
     'en-us': {
       title: `WordPiece & SentencePiece`,
-      body: `BPE is not the only approach. Two popular variants deserve mention:
+      body: `BPE is not the only way to build subwords. It is useful to separate **algorithm** from **tooling**:
 
 ### WordPiece (BERT, Google models)
 
-1. **Different training:** instead of maximizing pair frequency, it maximizes data *likelihood*. The chosen pair is the one that increases corpus probability the most.
+1. **Probabilistic training:** like BPE, WordPiece builds a subword vocabulary. The difference is the criterion: it selects pieces by expected corpus *likelihood* gain, not just raw pair frequency.
 
-2. **Main use:** BERT and masked language models. The tokenizer is optimized for coverage, not compression.
+2. **Inference:** once the vocabulary is fixed, it segments each word with **longest-match-first**: it tries to use the longest known piece available. If the word cannot be decomposed, it falls back to \`[UNK]\`.
 
-3. **Notation:** uses \`##\` to indicate continuation. E.g., "playing" → ["play", "##ing"].
+3. **Notation:** popularized by BERT. It uses \`##\` to mark continuation inside a word. Example: "playing" → ["play", "##ing"].
 
-### SentencePiece (tokenization library)
+### SentencePiece (library/framework)
 
-1. **Framework, not an algorithm:** SentencePiece is a library that implements **BPE** or **Unigram LM**. It trains directly on raw text without requiring pre-tokenization by spaces.
+1. **Not a single algorithm:** SentencePiece is a library that implements **BPE** and **Unigram LM**. It trains directly on raw text without requiring whitespace pre-tokenization.
 
-2. **Unigram LM (default mode):** instead of greedy merges, it optimizes which token subset maximizes corpus probability.
+2. **Unigram LM:** starts from a large vocabulary and prunes pieces to keep the subset that best explains the corpus. Unlike BPE, it is not a fixed sequence of greedy merges.
 
-3. **Space encoding:** uses \`▁\` (U+2581) to represent spaces in the original text, enabling support for languages without visible delimiters (Chinese, Japanese).
+3. **Spaces as symbols:** represents spaces with \`▁\` (U+2581). This preserves whitespace information for detokenization and helps with multilingual text, including languages without visible word separators.
 
-> BPE, WordPiece and SentencePiece are variations on the same principle: find the right balance between vocabulary and granularity.
+> The precise trio is: **BPE** and **WordPiece** are subword algorithms; **SentencePiece** is a framework that can use BPE or Unigram LM. All address the same trade-off: finite vocabulary vs. granularity.
 
-> **Note:** the tokenization examples in the visualization to the right are illustrative — the actual split depends on the trained vocabulary.`,
+> **Note:** the tokenization examples in the visualization are illustrative — the actual split depends on the trained vocabulary.`,
     },
   },
   visual: {
@@ -72,28 +72,28 @@ export const wordpieceSentencepiece = defineSlide({
         "prosLabel": "Características",
         "consLabel": "Limitações",
         "wordPros": [
-          "Merge por frequência",
+          "Merges por frequência",
           "Simples e eficiente"
         ],
         "wordCons": [
-          "Critério puramente frequencial",
-          "Pode criar tokens estranhos"
+          "Critério local/frequencial",
+          "Pode ignorar morfologia"
         ],
         "charPros": [
-          "Otimiza likelihood do corpus",
-          "Longest-match-first na inferência"
+          "Score probabilístico",
+          "Longest-match-first"
         ],
         "charCons": [
-          "Requer pré-tokenização",
-          "Notação ## para continuação"
+          "Pode gerar [UNK]",
+          "Notação ##"
         ],
         "subwordPros": [
-          "Framework flexível (BPE/Unigram)",
-          "Não requer pré-tokenização"
+          "Texto bruto, sem split por espaços",
+          "BPE ou Unigram LM"
         ],
         "subwordCons": [
-          "Mais complexo",
-          "Treinamento mais lento"
+          "É framework, não algoritmo",
+          "Normalização impacta o resultado"
         ]
       },
       "en-us": {
@@ -106,28 +106,28 @@ export const wordpieceSentencepiece = defineSlide({
         "prosLabel": "Features",
         "consLabel": "Limitations",
         "wordPros": [
-          "Frequency-based merge",
+          "Frequency-based merges",
           "Simple and efficient"
         ],
         "wordCons": [
-          "Purely frequency criterion",
-          "May create weird tokens"
+          "Local/frequency criterion",
+          "May ignore morphology"
         ],
         "charPros": [
-          "Optimizes corpus likelihood",
-          "Longest-match-first at inference"
+          "Probabilistic score",
+          "Longest-match-first"
         ],
         "charCons": [
-          "Requires pre-tokenization",
-          "## notation for continuation"
+          "May produce [UNK]",
+          "## notation"
         ],
         "subwordPros": [
-          "Flexible framework (BPE/Unigram)",
-          "No pre-tokenization required"
+          "Raw text, no whitespace split",
+          "BPE or Unigram LM"
         ],
         "subwordCons": [
-          "More complex",
-          "Slower training"
+          "Framework, not algorithm",
+          "Normalization affects results"
         ]
       }
     },
