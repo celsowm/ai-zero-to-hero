@@ -7,7 +7,7 @@ export const neuralNetworkPytorchTensors = defineSlide({
   content: {
     'pt-br': {
       title: 'Shapes no PyTorch: B, F, H, O',
-      body: `No slide anterior, vimos que o PyTorch empacota a mesma rede manual em uma interface mais curta: \`model(X)\`, \`loss.backward()\`, \`optimizer.step()\`. Agora vem a pergunta que evita quase todo bug iniciante: **qual é o shape esperado em cada ponto?**
+      body: `No slide anterior, vimos **rank** e **shape**: contar eixos, ler dimensões e entender que cada número no shape tem um papel. Agora aplicamos essa leitura ao mesmo exemplo dos pacientes: **qual é o shape esperado em cada ponto da rede?**
 
 Antes de falar de texto, token e vocabulário, vale fechar o caso mais simples: uma rede tabular.
 
@@ -52,7 +52,7 @@ snippet:pytorch-lm/patient-shape-contract
     },
     'en-us': {
       title: 'Shapes in PyTorch: B, F, H, O',
-      body: `In the previous slide, PyTorch packaged the same manual network into a shorter interface: \`model(X)\`, \`loss.backward()\`, \`optimizer.step()\`. Now comes the question that prevents most beginner bugs: **what shape is expected at each point?**
+      body: `In the previous slide, we covered **rank** and **shape**: counting axes, reading dimensions, and understanding that each number in a shape has a role. Now we apply that reading to the same patient example: **what shape is expected at each point in the network?**
 
 Before talking about text, tokens, and vocabulary, it is worth closing the simpler case: a tabular network.
 
