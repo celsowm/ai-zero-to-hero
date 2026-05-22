@@ -22,15 +22,17 @@ export const wordpieceSentencepiece = defineSlide({
 
 3. **Notação:** usa \`##\` para indicar continuação. Ex: "playing" → ["play", "##ing"].
 
-### SentencePiece (T5, modelos multilíngues)
+### SentencePiece (biblioteca de tokenização)
 
-1. **Trata texto como sequência de caracteres:** não requer tokenização prévia por espaços. Funciona com idiomas sem separadores (chinês, japonês).
+1. **Framework, não algoritmo:** SentencePiece é uma biblioteca que implementa **BPE** ou **Unigram LM**. Treina diretamente de texto bruto, sem exigir pré-tokenização por espaços.
 
-2. **Unigram Language Model:** em vez de merges gananciosos, otimiza qual subconjunto de tokens maximiza a probabilidade do corpus.
+2. **Unigram LM (modo padrão):** em vez de merges gananciosos, otimiza qual subconjunto de tokens maximiza a probabilidade do corpus.
 
-3. **Especial tokens:** usa \`_\` para prefixo de início de palavra.
+3. **Codificação de espaços:** usa \`▁\` (U+2581) para representar espaços no texto original, permitindo trabalhar com idiomas sem delimitadores visíveis (chinês, japonês).
 
-> BPE, WordPiece e SentencePiece são variações do mesmo princípio: encontrar o equilíbrio certo entre vocabulário e granularidade.`,
+> BPE, WordPiece e SentencePiece são variações do mesmo princípio: encontrar o equilíbrio certo entre vocabulário e granularidade.
+
+> **Nota:** os exemplos de tokenização na visualização ao lado são ilustrativos — a divisão real depende do vocabulário treinado.`,
     },
     'en-us': {
       title: `WordPiece & SentencePiece`,
@@ -44,48 +46,50 @@ export const wordpieceSentencepiece = defineSlide({
 
 3. **Notation:** uses \`##\` to indicate continuation. E.g., "playing" → ["play", "##ing"].
 
-### SentencePiece (T5, multilingual models)
+### SentencePiece (tokenization library)
 
-1. **Treats text as character sequence:** does not require pre-tokenization by spaces. Works with languages without separators (Chinese, Japanese).
+1. **Framework, not an algorithm:** SentencePiece is a library that implements **BPE** or **Unigram LM**. It trains directly on raw text without requiring pre-tokenization by spaces.
 
-2. **Unigram Language Model:** instead of greedy merges, it optimizes which token subset maximizes corpus probability.
+2. **Unigram LM (default mode):** instead of greedy merges, it optimizes which token subset maximizes corpus probability.
 
-3. **Special tokens:** uses \`_\` for word-start prefix.
+3. **Space encoding:** uses \`▁\` (U+2581) to represent spaces in the original text, enabling support for languages without visible delimiters (Chinese, Japanese).
 
-> BPE, WordPiece and SentencePiece are variations on the same principle: find the right balance between vocabulary and granularity.`,
+> BPE, WordPiece and SentencePiece are variations on the same principle: find the right balance between vocabulary and granularity.
+
+> **Note:** the tokenization examples in the visualization to the right are illustrative — the actual split depends on the trained vocabulary.`,
     },
   },
   visual: {
     id: 'token-level-comparison',
     copy: {
       "pt-br": {
-        "wordLevel": "BPE (GPT-2)",
-        "charLevel": "WordPiece (BERT)",
-        "subwordLevel": "SentencePiece (T5)",
+        "wordLevel": "BPE",
+        "charLevel": "WordPiece",
+        "subwordLevel": "SentencePiece",
         "tokenCountLabel": "partes",
         "exampleText": "unbelievably",
         "subwordExample": ["un", "believ", "ably"],
         "prosLabel": "Características",
         "consLabel": "Limitações",
         "wordPros": [
-          "Merge ganancioso",
-          "Simples de implementar"
+          "Merge por frequência",
+          "Simples e eficiente"
         ],
         "wordCons": [
-          "Não otimiza probabilidade",
+          "Critério puramente frequencial",
           "Pode criar tokens estranhos"
         ],
         "charPros": [
-          "Otimiza likelihood",
-          "Usado em BERT"
+          "Otimiza likelihood do corpus",
+          "Longest-match-first na inferência"
         ],
         "charCons": [
-          "Requer tokenização prévia",
-          "Notação ##"
+          "Requer pré-tokenização",
+          "Notação ## para continuação"
         ],
         "subwordPros": [
-          "Funciona sem espaços",
-          "Multilíngue nativo"
+          "Framework flexível (BPE/Unigram)",
+          "Não requer pré-tokenização"
         ],
         "subwordCons": [
           "Mais complexo",
@@ -93,33 +97,33 @@ export const wordpieceSentencepiece = defineSlide({
         ]
       },
       "en-us": {
-        "wordLevel": "BPE (GPT-2)",
-        "charLevel": "WordPiece (BERT)",
-        "subwordLevel": "SentencePiece (T5)",
+        "wordLevel": "BPE",
+        "charLevel": "WordPiece",
+        "subwordLevel": "SentencePiece",
         "tokenCountLabel": "tokens",
         "exampleText": "unbelievably",
         "subwordExample": ["un", "believ", "ably"],
         "prosLabel": "Features",
         "consLabel": "Limitations",
         "wordPros": [
-          "Greedy merge",
-          "Simple to implement"
+          "Frequency-based merge",
+          "Simple and efficient"
         ],
         "wordCons": [
-          "Does not optimize probability",
+          "Purely frequency criterion",
           "May create weird tokens"
         ],
         "charPros": [
-          "Optimizes likelihood",
-          "Used in BERT"
+          "Optimizes corpus likelihood",
+          "Longest-match-first at inference"
         ],
         "charCons": [
           "Requires pre-tokenization",
-          "## notation"
+          "## notation for continuation"
         ],
         "subwordPros": [
-          "Works without spaces",
-          "Native multilingual"
+          "Flexible framework (BPE/Unigram)",
+          "No pre-tokenization required"
         ],
         "subwordCons": [
           "More complex",

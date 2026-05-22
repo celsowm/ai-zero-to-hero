@@ -7,90 +7,88 @@ export const neuralNetworkPytorchTensors = defineSlide({
   content: {
     'pt-br': {
       title: 'Tensores no PyTorch: leitura operacional',
-      body: `Nos slides anteriores, fechamos rank e shape como leitura de eixos. Agora vem o problema real de produto: **rede neural não lê texto cru**.
+      body: `Nos slides anteriores, fechamos a leitura de **rank** e **shape**: contar eixos, nomear o papel de cada eixo e só então ler os números. Agora aplicamos essa leitura em um caso real: **texto cru não entra direto em uma rede neural**.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+(B=lote, T=comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
 
-Ela só consome números organizados em tensor. Então, para modelagem de texto, precisamos de um contrato que transforme linguagem em entrada numérica sem perder ordem.
+Para um modelo de linguagem, a sequência operacional mais comum é esta:
+1. **token_ids** -> tensor \`(B, T)\`
+2. **hidden_states** -> tensor \`(B, T, C)\`
+3. **output_scores** -> tensor \`(B, T, V)\`
 
-O caminho é este:
-1. **Texto cru** → sequencia de palavras/subpalavras
-2. **Tokenização** → cada pedaço vira um ID inteiro
-3. **IDs organizados** → tensor (B, T): B = batch (quantas frases), T = sequência (quantos tokens por frase)
-4. **Embedding** → cada ID vira vetor denso (B, T, C)
-5. **Camadas internas** → representação contextualizada
-6. **Saída** → scores sobre o vocabulário (próximo token)
-
-Termo novo com contexto:
-- **sequência** = cadeia ordenada de tokens que o modelo recebe de uma vez. Ex.: "Eu gosto de IA" → [Eu, gosto, de, IA, .] → T=5 posições.
-- **token** = menor unidade de texto que o modelo processa.
-
-Agora, com a necessidade clara, a notação faz sentido.
+O papel de cada um:
+1. **token_ids**: IDs inteiros dos tokens de entrada. Aqui o modelo ainda não está “entendendo” texto; ele só recebeu índices organizados por lote e posição.
+2. **hidden_states**: vetores internos produzidos para cada token. Cada posição agora carrega \`C\` números que resumem a representação daquele token dentro do modelo.
+3. **output_scores**: pontuações brutas para cada token possível do vocabulário. Em cada posição da sequência, o modelo gera um placar com \`V\` candidatos.
 
 Leitura operacional dos eixos:
-1. **batch (B)**: quantas sequências entram juntas;
-2. **sequence (T)**: quantas posições por sequência;
-3. **width (C)**: tamanho da representação interna por token;
-4. **vocabulary (V)**: quantidade de candidatos de próximo token.
+1. **B / batch**: quantas sequências entram juntas;
+2. **T / sequence**: quantas posições existem em cada sequência;
+3. **C / width**: quantos números representam cada token internamente;
+4. **V / vocabulary**: quantos candidatos de saída existem por posição.
 
-Observação de ordem didática:
-- neste slide, tratamos apenas como **scores de saída**;
-- no próximo slide, fechamos o contrato de **dtype** para não misturar papel discreto e contínuo;
-- na sequência, formalizamos para que esses scores servem e o nome técnico **logits**.
+Ponte curta com o que veio antes:
+- rank/shape já explicaram **como ler eixos**;
+- este slide mostra **quais tensores aparecem** quando texto vira entrada de modelo.
 
-Se você identifica eixo, \`dtype\` e \`device\` em cada etapa, treino e debug deixam de ser adivinhação.`,
+Ordem didática daqui para frente:
+- neste slide, \`output_scores\` são só **pontuações de saída**;
+- no próximo, fechamos o contrato de \`dtype\`;
+- depois formalizamos o nome técnico dessas pontuações e como elas viram previsão.
+
+Regra mental para guardar: **IDs entram no modelo -> viram vetores internos -> viram scores sobre o vocabulário**.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'Primeiro fixamos o problema com variáveis explícitas: quantas sequências entram, quanto cabe em cada sequência e quais larguras internas serão usadas.' },
-        { lineRange: [8, 11], content: 'Aqui acontece a conversão de texto para entrada do modelo: IDs inteiros organizados por sequência.' },
-        { lineRange: [13, 14], content: 'Depois do contrato de entrada, simulamos a etapa interna `(B,T,C)` e a etapa de saída `(B,T,V)`.' },
-        { lineRange: [16, 18], content: 'Esses prints são validação operacional do pipeline: shape + dtype antes de seguir para embedding/logits.' },
+        { lineRange: [1, 7], content: 'Primeiro definimos o contrato base do exemplo: batch, comprimento da sequência, largura interna e vocabulário.' },
+        { lineRange: [9, 13], content: 'Aqui aparece o primeiro tensor do pipeline: `token_ids` em `(B, T)`, com IDs inteiros organizados por lote e posição.' },
+        { lineRange: [15, 19], content: 'Depois simulamos os outros dois tensores típicos: `hidden_states` em `(B, T, C)` e `output_scores` em `(B, T, V)`.' },
+        { lineRange: [21, 24], content: 'Esses acessos pontuais tiram a abstração: um índice isolado em `token_ids`, um vetor de largura `C` em `hidden_states` e um vetor de largura `V` em `output_scores`.' },
+        { lineRange: [26, 29], content: 'Fechamos lendo o pipeline inteiro por shape e dtype: entrada discreta, representação interna e placar de saída.' },
       ],
     },
     'en-us': {
       title: 'PyTorch tensors: operational reading',
-      body: `In previous slides, we established rank/shape as axis reading. Now we hit the real product problem: **a neural network does not consume raw text**.
+      body: `In previous slides, we established how to read **rank** and **shape**: count axes, name what each axis does, and only then read the numbers. Now we apply that reading to a real case: **raw text does not go straight into a neural network**.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+(B=batch size, T=sequence length, C=internal representation width, V=vocabulary size)
 
-It only consumes numbers arranged as tensors. So for text modeling we need a contract that converts language into numeric input while preserving order.
+For a language model, the most common operational sequence is:
+1. **token_ids** -> tensor \`(B, T)\`
+2. **hidden_states** -> tensor \`(B, T, C)\`
+3. **output_scores** -> tensor \`(B, T, V)\`
 
-The path is:
-1. **Raw text** → sequence of words/subwords
-2. **Tokenization** → each piece becomes an integer ID
-3. **IDs organized** → tensor (B, T): B = batch (how many sentences), T = sequence (how many tokens per sentence)
-4. **Embedding** → each ID becomes a dense vector (B, T, C)
-5. **Internal layers** → contextualized representation
-6. **Output** → scores over the vocabulary (next token)
-
-New term with context:
-- **sequence** = an ordered chain of tokens the model receives at once. For example, "I like AI" → [I, like, AI, .] → T=4 positions.
-- **token** = smallest text unit processed by the model.
-
-Now that the need is clear, notation becomes useful.
+What each one does:
+1. **token_ids**: integer IDs for the input tokens. At this stage the model is not “understanding text” yet; it has only received indices arranged by batch and position.
+2. **hidden_states**: internal vectors produced for each token. Each position now carries \`C\` numbers summarizing that token's representation inside the model.
+3. **output_scores**: raw scores for every possible vocabulary token. At each sequence position, the model produces a scoreboard with \`V\` candidates.
 
 Operational axis reading:
-1. **batch (B)**: how many sequences enter together;
-2. **sequence (T)**: how many positions per sequence;
-3. **width (C)**: internal representation size per token;
-4. **vocabulary (V)**: number of next-token candidates.
+1. **B / batch**: how many sequences enter together;
+2. **T / sequence**: how many positions each sequence has;
+3. **C / width**: how many numbers represent each token internally;
+4. **V / vocabulary**: how many output candidates exist per position.
 
-Didactic ordering note:
-- in this slide, we treat them only as **output scores**;
-- in the next slide, we close the **dtype** contract so discrete and continuous roles stay explicit;
-- right after that, we formalize what those scores are for and the technical term **logits**.
+Short bridge to what came before:
+- rank/shape already explained **how to read axes**;
+- this slide shows **which tensors appear** when text becomes model input.
 
-If you can identify axis, \`dtype\`, and \`device\` at each step, training and debugging stop being guesswork.`,
+Didactic order from here:
+- in this slide, \`output_scores\` are only **output scores**;
+- next we lock the \`dtype\` contract;
+- after that we formalize the technical name for those scores and how they become predictions.
+
+Mental rule to keep: **IDs enter the model -> become internal vectors -> become scores over the vocabulary**.`,
       rightBody: `\`\`\`python
 snippet:pytorch-lm/tensor-primer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'We first anchor the problem with explicit variables: how many sequences, how long each sequence is, and the internal/output widths.' },
-        { lineRange: [8, 11], content: 'This is the text-to-model bridge: integer token IDs organized per sequence.' },
-        { lineRange: [13, 14], content: 'After input contract, we mock the internal `(B,T,C)` and output `(B,T,V)` stages.' },
-        { lineRange: [16, 18], content: 'These prints are operational checkpoints: shape + dtype before moving to embedding/logits.' },
+        { lineRange: [1, 7], content: 'We start by defining the base contract of the example: batch, sequence length, internal width, and vocabulary size.' },
+        { lineRange: [9, 13], content: 'This is the first tensor in the pipeline: `token_ids` in `(B, T)`, with integer IDs organized by batch and position.' },
+        { lineRange: [15, 19], content: 'Then we simulate the other two common tensors: `hidden_states` in `(B, T, C)` and `output_scores` in `(B, T, V)`.' },
+        { lineRange: [21, 24], content: 'These targeted accesses reduce abstraction: one scalar ID in `token_ids`, one width-`C` vector in `hidden_states`, and one width-`V` vector in `output_scores`.' },
+        { lineRange: [26, 29], content: 'We close by reading the full pipeline through shape and dtype: discrete input, internal representation, and output scoreboard.' },
       ],
     },
   },

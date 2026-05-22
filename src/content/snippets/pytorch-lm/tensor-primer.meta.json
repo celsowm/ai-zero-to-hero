@@ -3,16 +3,16 @@
   "language": "python",
   "explanations": {
     "pt-br": [
-      "Declara nomes explícitos para cada dimensão, sem usar siglas antes da hora.",
-      "Monta IDs inteiros de tokens com dtype correto para embedding.",
-      "Cria estados ocultos e logits com o mesmo batch e sequência.",
-      "Imprime shape e dtype para validar contrato mínimo do pipeline."
+      "Define B, T, C e V como contrato mínimo para ler os tensores do pipeline.",
+      "Organiza os token_ids como inteiros em (B, T), preservando a ordem da sequência.",
+      "Simula hidden_states em (B, T, C) e output_scores em (B, T, V).",
+      "Inspeciona uma posição específica antes de validar o pipeline completo com shape e dtype."
     ],
     "en-us": [
-      "Declares explicit names for each dimension instead of early abbreviations.",
-      "Builds integer token IDs with the right dtype for embedding lookup.",
-      "Creates hidden states and logits with the same batch and sequence axes.",
-      "Prints shape and dtype to validate the minimum pipeline contract."
+      "Defines B, T, C, and V as the minimum contract for reading tensors in the pipeline.",
+      "Organizes token_ids as integers in (B, T), preserving sequence order.",
+      "Simulates hidden_states in (B, T, C) and output_scores in (B, T, V).",
+      "Inspects one specific position before validating the full pipeline through shape and dtype."
     ]
   }
 }
