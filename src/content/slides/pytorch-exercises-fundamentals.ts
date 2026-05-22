@@ -5,12 +5,12 @@ export const pytorchExercisesFundamentals = defineSlide({
   type: 'exercise',
   content: {
     'pt-br': {
-      title: 'Exercícios: Operações de Tensores',
-      body: 'Consolide o que vimos: dtypes, shapes (B, T), fatiamento e o ciclo de autograd. Use apenas o que foi ensinado nos slides anteriores.',
+      title: 'Exercícios: Fundamentos Operacionais do PyTorch',
+      body: 'Consolide o bloco inicial de PyTorch: dtype, leitura de shape tabular, batch de linguagem, shift x/y, flatten para loss e autograd. Use apenas os contratos vistos até aqui.',
     },
     'en-us': {
-      title: 'Exercises: Tensor Operations',
-      body: 'Consolidate what we covered: dtypes, shapes (B, T), slicing, and the autograd cycle. Use only what was taught in previous slides.',
+      title: 'Exercises: PyTorch Operational Fundamentals',
+      body: 'Consolidate the initial PyTorch block: dtype, tabular shape reading, language batches, x/y shift, loss flattening, and autograd. Use only the contracts covered so far.',
     },
   },
   visual: {
@@ -18,17 +18,17 @@ export const pytorchExercisesFundamentals = defineSlide({
     copy: {
       'pt-br': {
         title: 'Bateria 1: Fundamentos Operacionais',
-        description: 'Implemente as transformações de dados usando os contratos de Shape e Dtype.',
+        description: 'Pratique os contratos de shape, dtype e gradiente que sustentam os próximos slides de arquitetura e treino.',
         runButtonLabel: 'Executar',
         checkButtonLabel: 'Verificar',
         successMessage: 'Excelente! Você domina a base operacional do PyTorch.',
-        errorMessage: 'O validador encontrou inconsistências. Verifique os shapes e dtypes.',
+        errorMessage: 'O validador encontrou inconsistências. Verifique shapes, dtypes, fatiamento e gradientes.',
         hintLabel: 'Dica',
         outputLabel: 'Saída do Console',
         exercises: [
           {
-            id: '1. Criação e Dtypes (Contrato de IDs)',
-            instructions: 'O script fornece a lista `data`. Converta para um tensor `long` chamado `ids`. O validador checará se o `dtype` é `int64`.',
+            id: '1. IDs e dtype long',
+            instructions: 'O script fornece a lista `data` com IDs de tokens. Converta para um tensor `long` chamado `ids` e salve `str(ids.dtype)` em `ids_dtype`.',
             snippetId: 'pytorch-exercises-fundamentals-1',
             validators: [
               {
@@ -37,27 +37,56 @@ export const pytorchExercisesFundamentals = defineSlide({
                 expectedValue: [10, 20, 30],
                 tolerance: 0.001,
               },
+              {
+                type: 'assertVariable',
+                variableName: 'ids_dtype',
+                expectedValue: 'torch.int64',
+              },
             ],
-            hints: ['Use `torch.tensor(data, dtype=torch.long)`.'],
+            hints: ['Use `torch.tensor(data, dtype=torch.long)`.', '`torch.long` aparece como `torch.int64`.'],
           },
           {
-            id: '2. Fatiamento (x/y Shift)',
-            instructions: 'Dado o tensor `tokens` de shape `(B, T)`, crie a entrada `x` contendo todas as posições exceto a última. O validador checará `x`.',
+            id: '2. Shape tabular B/F',
+            instructions: 'O tensor `X` representa pacientes em formato tabular. Leia `X.shape` e salve o batch em `B` e o número de features em `F` como inteiros Python.',
             snippetId: 'pytorch-exercises-fundamentals-2',
             validators: [
               {
                 type: 'assertVariable',
+                variableName: 'B',
+                expectedValue: 6,
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'F',
+                expectedValue: 4,
+              },
+            ],
+            hints: ['Use `B, F = X.shape` ou `B = X.shape[0]` e `F = X.shape[1]`.'],
+          },
+          {
+            id: '3. Shift x/y para próximo token',
+            instructions: 'Dado `tokens` com shape `(B, T)`, crie `x` removendo a última posição de cada linha e `y` removendo a primeira. Esse é o par entrada/alvo do treino de próximo token.',
+            snippetId: 'pytorch-exercises-fundamentals-3',
+            validators: [
+              {
+                type: 'assertVariable',
                 variableName: 'x',
-                expectedValue: [[1, 2, 3], [5, 6, 7]],
+                expectedValue: [[10, 11, 12, 13], [20, 21, 22, 23]],
+                tolerance: 0.001,
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'y',
+                expectedValue: [[11, 12, 13, 14], [21, 22, 23, 24]],
                 tolerance: 0.001,
               },
             ],
-            hints: ['Lembre-se do slide de Batch Shift: `tokens[:, :-1]`.'],
+            hints: ['Use `tokens[:, :-1]` para `x`.', 'Use `tokens[:, 1:]` para `y`.'],
           },
           {
-            id: '3. Flatten para Cross-Entropy',
-            instructions: 'O tensor `logits` tem shape `(B, T, V)`. Use `.view()` para achatar os dois primeiros eixos em um só, resultando em um shape `(B*T, V)`. Salve em `flat_logits`.',
-            snippetId: 'pytorch-exercises-fundamentals-3',
+            id: '4. Flatten para loss',
+            instructions: '`logits` tem shape `(B, T, V)` e `targets` tem shape `(B, T)`. Achate para `flat_logits` em `(B*T, V)` e `flat_targets` em `(B*T)`.',
+            snippetId: 'pytorch-exercises-fundamentals-4',
             validators: [
               {
                 type: 'assertVariable',
@@ -65,13 +94,37 @@ export const pytorchExercisesFundamentals = defineSlide({
                 expectedValue: [[1.0, 0.1], [0.2, 0.8], [0.5, 0.5], [0.9, 0.1]],
                 tolerance: 0.001,
               },
+              {
+                type: 'assertVariable',
+                variableName: 'flat_targets',
+                expectedValue: [0, 1, 1, 0],
+                tolerance: 0.001,
+              },
             ],
-            hints: ['Use `.view(-1, V)` ou calcule B*T manualmente.'],
+            hints: ['Use `flat_logits = logits.view(B * T, V)`.', 'Use `flat_targets = targets.view(B * T)`.'],
           },
           {
-            id: '4. Autograd (Sensibilidade de x)',
-            instructions: 'Com `x=3.0` e `requires_grad=True`, calcule `y = x**2`. Chame o backward e salve o valor numérico (scalar) do gradiente de x em `grad_val`.',
-            snippetId: 'pytorch-exercises-fundamentals-4',
+            id: '5. Mesma posição: C e V',
+            instructions: 'Acesse a posição `[0, 1]` em `hidden_states` e `output_scores`. Salve os shapes em `hidden_vec_shape` e `score_vec_shape` usando listas Python.',
+            snippetId: 'pytorch-exercises-fundamentals-9',
+            validators: [
+              {
+                type: 'assertVariable',
+                variableName: 'hidden_vec_shape',
+                expectedValue: [8],
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'score_vec_shape',
+                expectedValue: [50],
+              },
+            ],
+            hints: ['`hidden_states[0, 1]` tem largura C.', '`output_scores[0, 1]` tem largura V.', 'Use `list(tensor.shape)`.'],
+          },
+          {
+            id: '6. Autograd mínimo',
+            instructions: 'Com `x = 3.0` e `requires_grad=True`, calcule `y = x**2`, chame `backward()` e salve o valor numérico de `x.grad` em `grad_val`.',
+            snippetId: 'pytorch-exercises-fundamentals-10',
             validators: [
               {
                 type: 'assertVariable',
@@ -80,23 +133,23 @@ export const pytorchExercisesFundamentals = defineSlide({
                 tolerance: 0.001,
               },
             ],
-            hints: ['Use `y.backward()` e acesse `x.grad.item()`.'],
+            hints: ['Depois de criar `y`, use `y.backward()`.', 'Acesse o escalar com `x.grad.item()`.'],
           },
         ],
       },
       'en-us': {
         title: 'Battery 1: Operational Fundamentals',
-        description: 'Implement data transformations using Shape and Dtype contracts.',
+        description: 'Practice the shape, dtype, and gradient contracts that support the next architecture and training slides.',
         runButtonLabel: 'Run',
         checkButtonLabel: 'Check',
         successMessage: 'Excellent! You mastered the PyTorch operational core.',
-        errorMessage: 'Validator found inconsistencies. Check shapes and dtypes.',
+        errorMessage: 'Validator found inconsistencies. Check shapes, dtypes, slicing, and gradients.',
         hintLabel: 'Hint',
         outputLabel: 'Console Output',
         exercises: [
           {
-            id: '1. Creation and Dtypes (ID Contract)',
-            instructions: 'The script provides list `data`. Convert to a `long` tensor called `ids`. The validator checks if `dtype` is `int64`.',
+            id: '1. IDs and long dtype',
+            instructions: 'The script provides list `data` with token IDs. Convert it to a `long` tensor called `ids` and save `str(ids.dtype)` in `ids_dtype`.',
             snippetId: 'pytorch-exercises-fundamentals-5',
             validators: [
               {
@@ -105,27 +158,56 @@ export const pytorchExercisesFundamentals = defineSlide({
                 expectedValue: [10, 20, 30],
                 tolerance: 0.001,
               },
+              {
+                type: 'assertVariable',
+                variableName: 'ids_dtype',
+                expectedValue: 'torch.int64',
+              },
             ],
-            hints: ['Use `torch.tensor(data, dtype=torch.long)`.'],
+            hints: ['Use `torch.tensor(data, dtype=torch.long)`.', '`torch.long` appears as `torch.int64`.'],
           },
           {
-            id: '2. Slicing (x/y Shift)',
-            instructions: 'Given tensor `tokens` with shape `(B, T)`, create input `x` containing all positions except the last one. Validator checks `x`.',
+            id: '2. Tabular B/F shape',
+            instructions: 'Tensor `X` represents patients in tabular format. Read `X.shape` and save the batch in `B` and the number of features in `F` as Python integers.',
             snippetId: 'pytorch-exercises-fundamentals-6',
             validators: [
               {
                 type: 'assertVariable',
+                variableName: 'B',
+                expectedValue: 6,
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'F',
+                expectedValue: 4,
+              },
+            ],
+            hints: ['Use `B, F = X.shape` or `B = X.shape[0]` and `F = X.shape[1]`.'],
+          },
+          {
+            id: '3. x/y shift for next token',
+            instructions: 'Given `tokens` with shape `(B, T)`, create `x` by removing the last position from each row and `y` by removing the first. This is the input/target pair for next-token training.',
+            snippetId: 'pytorch-exercises-fundamentals-7',
+            validators: [
+              {
+                type: 'assertVariable',
                 variableName: 'x',
-                expectedValue: [[1, 2, 3], [5, 6, 7]],
+                expectedValue: [[10, 11, 12, 13], [20, 21, 22, 23]],
+                tolerance: 0.001,
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'y',
+                expectedValue: [[11, 12, 13, 14], [21, 22, 23, 24]],
                 tolerance: 0.001,
               },
             ],
-            hints: ['Remember the Batch Shift slide: `tokens[:, :-1]`.'],
+            hints: ['Use `tokens[:, :-1]` for `x`.', 'Use `tokens[:, 1:]` for `y`.'],
           },
           {
-            id: '3. Flatten for Cross-Entropy',
-            instructions: 'The `logits` tensor has shape `(B, T, V)`. Use `.view()` to flatten the first two axes into one, resulting in shape `(B*T, V)`. Save in `flat_logits`.',
-            snippetId: 'pytorch-exercises-fundamentals-7',
+            id: '4. Flatten for loss',
+            instructions: '`logits` has shape `(B, T, V)` and `targets` has shape `(B, T)`. Flatten into `flat_logits` with `(B*T, V)` and `flat_targets` with `(B*T)`.',
+            snippetId: 'pytorch-exercises-fundamentals-8',
             validators: [
               {
                 type: 'assertVariable',
@@ -133,13 +215,37 @@ export const pytorchExercisesFundamentals = defineSlide({
                 expectedValue: [[1.0, 0.1], [0.2, 0.8], [0.5, 0.5], [0.9, 0.1]],
                 tolerance: 0.001,
               },
+              {
+                type: 'assertVariable',
+                variableName: 'flat_targets',
+                expectedValue: [0, 1, 1, 0],
+                tolerance: 0.001,
+              },
             ],
-            hints: ['Use `.view(-1, V)` or calculate B*T manually.'],
+            hints: ['Use `flat_logits = logits.view(B * T, V)`.', 'Use `flat_targets = targets.view(B * T)`.'],
           },
           {
-            id: '4. Autograd (x Sensitivity)',
-            instructions: 'With `x=3.0` and `requires_grad=True`, compute `y = x**2`. Call backward and save the numeric gradient value (scalar) of x in `grad_val`.',
-            snippetId: 'pytorch-exercises-fundamentals-8',
+            id: '5. Same position: C and V',
+            instructions: 'Access position `[0, 1]` in `hidden_states` and `output_scores`. Save their shapes in `hidden_vec_shape` and `score_vec_shape` using Python lists.',
+            snippetId: 'pytorch-exercises-fundamentals-11',
+            validators: [
+              {
+                type: 'assertVariable',
+                variableName: 'hidden_vec_shape',
+                expectedValue: [8],
+              },
+              {
+                type: 'assertVariable',
+                variableName: 'score_vec_shape',
+                expectedValue: [50],
+              },
+            ],
+            hints: ['`hidden_states[0, 1]` has width C.', '`output_scores[0, 1]` has width V.', 'Use `list(tensor.shape)`.'],
+          },
+          {
+            id: '6. Minimal autograd',
+            instructions: 'With `x = 3.0` and `requires_grad=True`, compute `y = x**2`, call `backward()`, and save the numeric value of `x.grad` in `grad_val`.',
+            snippetId: 'pytorch-exercises-fundamentals-12',
             validators: [
               {
                 type: 'assertVariable',
@@ -148,7 +254,7 @@ export const pytorchExercisesFundamentals = defineSlide({
                 tolerance: 0.001,
               },
             ],
-            hints: ['Use `y.backward()` and access `x.grad.item()`.'],
+            hints: ['After creating `y`, use `y.backward()`.', 'Access the scalar with `x.grad.item()`.'],
           },
         ],
       },
