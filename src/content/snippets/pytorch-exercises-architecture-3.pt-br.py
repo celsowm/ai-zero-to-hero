@@ -1,19 +1,30 @@
 import torch
 import torch.nn as nn
 
-class MyModel(nn.Module):
+# Mini modelo de linguagem: idx (B,T) -> H (B,T,C) -> logits (B,T,V).
+B, T, V, C = 2, 3, 11, 4
+idx = torch.tensor([
+    [1, 2, 3],
+    [4, 5, 6],
+], dtype=torch.long)
+
+class TinyLM(nn.Module):
     def __init__(self):
         super().__init__()
-        self.layer1 = nn.Linear(5, 5)
-    
-    def forward(self, x):
-        # TODO: Aplique torch.relu na saída de self.layer1(x)
-        x = self.layer1(x)
-        return x
+        # TODO: crie self.wte como nn.Embedding(V, C).
+        self.wte = None
+        # TODO: crie self.lm_head como nn.Linear(C, V).
+        self.lm_head = None
 
-model = MyModel()
-test_input = torch.randn(1, 5)
-output = model(test_input)
+    def forward(self, idx):
+        # TODO: aplique embedding e depois lm_head.
+        H = None
+        logits = None
+        return logits
 
-# O validador checará se não há negativos
-has_negatives = (output < 0).any().item()
+model = TinyLM()
+logits = model(idx)
+
+# O validador checará estes contratos.
+logits_shape = list(logits.shape) if logits is not None else []
+is_module = isinstance(model, nn.Module)
