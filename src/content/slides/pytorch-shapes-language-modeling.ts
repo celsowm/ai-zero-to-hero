@@ -3,191 +3,119 @@ import { defineSlide } from './_factory';
 export const pytorchShapesLanguageModeling = defineSlide({
   id: 'pytorch-shapes-language-modeling',
   type: 'two-column',
-  options: { columnRatios: [0.42, 0.58] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
-      title: 'Convenções de shape para modelo de linguagem',
-      body: `No slide anterior, o modelo já recebia IDs inteiros e produzia **scores de saída**. Falta fechar a pergunta central: **scores para fazer o que, exatamente?**
+      title: 'Quando a entrada vira sequência: B, T, C, V',
+      body: `No slide anterior, o batch era uma tabela: \`X (B,F) -> hidden (B,H) -> y_hat (B,O)\`. Agora a entrada deixa de ser “uma linha com colunas” e passa a ser **uma sequência de tokens**.
 
-Resposta: o modelo tenta prever **qual token vem a seguir** em cada posição da sequência.
-- por isso ele não produz um número só, mas um placar sobre o vocabulário inteiro;
-- e por isso o contrato de shape precisa preservar batch, tempo e vocabulário ao mesmo tempo.
+A primeira ideia continua igual: **B ainda é o batch**. O que muda é que cada exemplo do batch agora tem várias posições.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+### O novo eixo: T
 
-Agora sim faz sentido formalizar o contrato B/T/C/V para treino de modelo de linguagem.
+Em dados tabulares, cada paciente era descrito por features.
 
-Antes do contrato, um termo que costuma ser assumido cedo demais:
-- **hidden size** é a largura da representação interna de cada token;
-- na prática, é a quantidade de features numéricas usada para descrever cada token em cada posição;
-- quando **C** aumenta, o modelo tende a ganhar capacidade de representação, mas também aumenta custo de memória e computação.
+Em texto, cada exemplo é uma sequência:
 
-Termo novo com motivação: **logits**.
+\`token_ids (B,T)\`
 
-O que são logits:
-- são **scores brutos** que o modelo gera para cada token do vocabulário;
-- ainda **não são probabilidades**;
-- viram distribuição após normalização (softmax), usada para penalizar no treino e escolher token na geração.
+- **B = batch**: quantas sequências entram juntas.
+- **T = sequence length**: quantas posições/tokens existem em cada sequência.
 
-- **B** = batch
-- **T** = sequência
-- **C** = hidden size (quantas features representam cada token internamente)
-- **V** = vocabulário
+Exemplo: \`(2,4)\` significa **2 sequências**, cada uma com **4 tokens**.
 
-Contrato minimo de treino:
-- \`idx\` e \`targets\` sempre inteiros em \`(B, T)\`
-- hidden states em \`(B, T, C)\`
-- logits em \`(B, T, V)\` = para cada posição temporal, um vetor de \`V\` scores
-- flatten para loss: \`logits -> (B*T, V)\` e \`targets -> (B*T)\`
+### Quando cada token vira vetor: C
 
-Critério de erro usado aqui:
-- **CE (Cross-Entropy / Entropia Cruzada)**, também vista como NLL média no batch;
-- leitura prática por token correto: \`CE = -log(p_token_correto)\`;
-- em classificação, isso é o mesmo espírito do **log-loss** multiclasse.
-- ponte com slides anteriores: no lugar da lógica do **MSE** (erro contínuo), agora penalizamos confiança na classe/token errado.
+Depois que os IDs entram no modelo, cada token vira uma representação interna:
 
-Fechando o ciclo:
-- logits viram distribuição sobre o vocabulário
-- a distribuição vira escolha de índice (argmax ou sampling) na geração
+\`hidden_states (B,T,C)\`
 
-Invariantes de sanidade:
-1. \`idx/targets\` usam \`torch.long\`
-2. tensores comparados na loss ficam no mesmo device
-3. loss final é escalar
+- **C = hidden width**: quantos números representam cada token internamente.
 
-O próximo passo é mostrar como o mesmo tensor de IDs gera pares de entrada/alvo para esse treino.`,
+Exemplo: \`(2,4,8)\` significa: para cada uma das 2 sequências, em cada uma das 4 posições, existe um vetor com 8 números.
+
+### Quando o modelo precisa escolher o próximo token: V
+
+Para prever texto, o modelo não devolve só um número. Ele cria um placar para o vocabulário inteiro:
+
+\`output_scores (B,T,V)\`
+
+- **V = vocabulary size**: quantos tokens possíveis o modelo conhece.
+
+Exemplo: \`(2,4,50)\` significa: em cada posição, o modelo produziu 50 scores, um para cada candidato do vocabulário.
+
+Regra mental:
+
+\`IDs (B,T) -> vetores internos (B,T,C) -> scores de saída (B,T,V)\`
+
+Esse slide é só o contrato de shape. No próximo, travamos o contrato de \`dtype\`: IDs são inteiros; vetores e scores são floats.`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/tensor-primer
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 10], content: 'O contrato começa nomeando B, T, C e V. A diferença para o slide tabular é a entrada de T: o eixo da sequência.' },
+        { lineRange: [12, 19], content: '`token_ids` é `(B, T)`: cada linha é uma sequência e cada coluna é uma posição/token. Como são IDs, o dtype é `torch.long`.' },
+        { lineRange: [21, 23], content: '`hidden_states` é `(B, T, C)`: cada token, em cada posição, ganha um vetor interno de largura C.' },
+        { lineRange: [25, 29], content: '`output_scores` é `(B, T, V)`: cada posição recebe um placar com V candidatos de vocabulário.' },
+        { lineRange: [31, 36], content: 'Os acessos `token_ids[0,1]`, `hidden_states[0,1]` e `output_scores[0,1]` mostram a mesma posição atravessando os três níveis.' },
+        { lineRange: [38, 41], content: 'Os prints finais fecham a leitura operacional por shape e dtype.' },
+      ],
     },
     'en-us': {
-      title: 'Shape conventions for language models',
-      body: `In the previous slide, the model already consumed integer IDs and produced **output scores**. One central question is still open: **scores for what, exactly?**
+      title: 'When input becomes a sequence: B, T, C, V',
+      body: `In the previous slide, the batch was a table: \`X (B,F) -> hidden (B,H) -> y_hat (B,O)\`. Now the input stops being “one row with columns” and becomes **a sequence of tokens**.
 
-In language modeling, the task is simple to define:
-- for each sequence position, the model tries to predict **which token comes next**;
-- that is why it does not output a single number, but a scoreboard over the full vocabulary;
-- and that is why the shape contract must preserve batch, time, and vocabulary at once.
+The first idea remains the same: **B is still the batch**. What changes is that each example in the batch now has multiple positions.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+### The new axis: T
 
-Only now does it make sense to formalize the B/T/C/V contract for this kind of training.
+In tabular data, each patient was described by features.
 
-Before the contract, one term that is often assumed too early:
-- **hidden size** is the width of the internal token representation;
-- operationally, it is how many numeric features describe each token at each position;
-- when **C** grows, the model often gains representational capacity, but memory and compute cost also grow.
+In text, each example is a sequence:
 
-New term with motivation: **logits**.
+\`token_ids (B,T)\`
 
-What logits are:
-- they are **raw scores** the model outputs for each vocabulary token;
-- they are **not probabilities yet**;
-- they become a distribution after normalization (softmax), used to penalize training and choose tokens at generation time.
+- **B = batch**: how many sequences enter together.
+- **T = sequence length**: how many positions/tokens each sequence has.
 
-- **B** = batch
-- **T** = sequence
-- **C** = hidden size (how many features represent each token internally)
-- **V** = vocabulary
+Example: \`(2,4)\` means **2 sequences**, each with **4 tokens**.
 
-Minimum training contract:
-- \`idx\` and \`targets\` are always integer tensors in \`(B, T)\`
-- hidden states are \`(B, T, C)\`
-- logits are \`(B, T, V)\` = for each time position, one vector of \`V\` scores
-- loss flattening: \`logits -> (B*T, V)\` and \`targets -> (B*T)\`
+### When each token becomes a vector: C
 
-Error criterion used here:
-- **CE (Cross-Entropy)**, also read as average NLL over the batch;
-- per-correct-token operational view: \`CE = -log(p_correct_token)\`;
-- in classification terms, this is the same family as multiclass **log-loss**.
-- bridge to earlier slides: instead of **MSE** (continuous error), we now penalize confidence assigned to the wrong class/token.
+After IDs enter the model, each token becomes an internal representation:
 
-Closing the loop:
-- logits become a vocabulary distribution
-- that distribution becomes an index choice (argmax or sampling) during generation
+\`hidden_states (B,T,C)\`
 
-Sanity invariants:
-1. \`idx/targets\` use \`torch.long\`
-2. tensors in the loss are on the same device
-3. final loss is scalar
+- **C = hidden width**: how many numbers represent each token internally.
 
-The next step is to show how that same ID tensor becomes input/target pairs for this training setup.`,
-    },
-  },
-  visual: {
-    id: 'pytorch-shape-trace-flow',
-    copy: {
-      'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Vocabulario' }],
-        codePanel: {
-          title: 'Contrato de shape completo',
-          description: 'Snippet curto para validar shape, dtype, flatten e loss em uma passada.',
-          source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
-          codeExplanations: [
-            { lineRange: [1, 4], content: 'Começamos declarando B, T, C e V e importando a cross-entropy; aqui, `C` (hidden size) é a largura da representação de cada token: mais `C` costuma aumentar capacidade e custo.' },
-            { lineRange: [6, 9], content: 'Criamos `idx`, `targets`, `hidden` e `logits` no contrato esperado: entrada/alvo em `(B, T)`, estado interno em `(B, T, C)` e saída em `(B, T, V)`.' },
-            { lineRange: [11, 13], content: 'O flatten converte o problema temporal em uma lista de casos de classificação, no formato que a cross-entropy realmente consome.' },
-            { lineRange: [15, 21], content: 'Os prints verificam sanidade de shape, dtype e device e confirmam que a loss final é escalar.' },
-          ],
-        },
-        vocabPanel: {
-          title: 'Vocabulário: o que é e como aparece nos shapes',
-          subtitle: 'V é a quantidade de tokens diferentes que o modelo conhece. Cada token ganha um ID único e uma linha na tabela de embedding.',
-          axisLegend: 'Fluxo operacional: token -> ID -> linha E[id] -> voto no eixo V dos logits.',
-          shapeLabel: 'embedding table: V tokens × C dimensões cada',
-          projectionHint: 'Token "{token}" (ID {id}) ativa E[{id}] e aumenta sua influência no eixo V.',
-          animationLabel: 'Selecione outro token para ver a projeção mudando no painel de logits.',
-          examples: [
-            { token: 'hello', id: 0 },
-            { token: 'world', id: 1 },
-            { token: 'the', id: 2 },
-            { token: '.', id: 3 },
-            { token: '[UNK]', id: 4 },
-          ],
-          dimensionCards: [
-            { label: 'Tokens', value: 'V = 5', tone: 'cyan' },
-            { label: 'Tabela', value: '(V, C) = (5, 16)', tone: 'violet' },
-            { label: 'Dimensão', value: 'C = 16', tone: 'amber' },
-          ],
-          footer: 'Regra: V aparece no shape dos logits (B, T, V) porque cada posição vota em todo o vocabulário.',
-        },
-      },
-      'en-us': {
-        tabs: [{ label: 'Code' }, { label: 'Vocabulary' }],
-        codePanel: {
-          title: 'Full shape contract',
-          description: 'Compact snippet to validate shape, dtype, flattening, and loss in one pass.',
-          source: { snippetId: 'pytorch-lm/shape-contract', language: 'python' },
-          codeExplanations: [
-            { lineRange: [1, 4], content: 'We start by declaring B, T, C, and V and importing cross-entropy; here `C` (hidden size) is representation width per token, where larger `C` usually means more capacity and more cost.' },
-            { lineRange: [6, 9], content: 'We create `idx`, `targets`, `hidden`, and `logits` in the expected contract: input/target in `(B, T)`, internal states in `(B, T, C)`, and model scores in `(B, T, V)`.' },
-            { lineRange: [11, 13], content: 'Flattening rewrites the temporal tensor problem into a list of classification cases in the exact format cross-entropy expects.' },
-            { lineRange: [15, 21], content: 'Final prints check shape, dtype, and device consistency and confirm the final loss is a scalar.' },
-          ],
-        },
-        vocabPanel: {
-          title: 'Vocabulary: what it is and how it appears in shapes',
-          subtitle: 'V is the number of distinct tokens the model knows. Each token gets a unique ID and one row in the embedding table.',
-          axisLegend: 'Operational flow: token -> ID -> embedding row E[id] -> vote on logits axis V.',
-          tokenLabel: 'Token',
-          idLabel: 'ID',
-          embeddingRowLabel: 'Embedding row',
-          logitsAxisLabel: 'Logits axis V in (B,T,V)',
-          shapeLabel: 'embedding table: V tokens × C dimensions each',
-          projectionHint: 'Token "{token}" (ID {id}) activates E[{id}] and raises its influence on axis V.',
-          animationLabel: 'Select another token to watch the projection change on the logits panel.',
-          examples: [
-            { token: 'hello', id: 0 },
-            { token: 'world', id: 1 },
-            { token: 'the', id: 2 },
-            { token: '.', id: 3 },
-            { token: '[UNK]', id: 4 },
-          ],
-          dimensionCards: [
-            { label: 'Tokens', value: 'V = 5', tone: 'cyan' },
-            { label: 'Table', value: '(V, C) = (5, 16)', tone: 'violet' },
-            { label: 'Dimension', value: 'C = 16', tone: 'amber' },
-          ],
-          footer: 'Rule: V appears in logits shape (B, T, V) because each position votes over the whole vocabulary.',
-        },
-      },
+Example: \`(2,4,8)\` means: for each of the 2 sequences, at each of the 4 positions, there is a vector with 8 numbers.
+
+### When the model must choose the next token: V
+
+To predict text, the model does not return just one number. It creates a scoreboard over the full vocabulary:
+
+\`output_scores (B,T,V)\`
+
+- **V = vocabulary size**: how many possible tokens the model knows.
+
+Example: \`(2,4,50)\` means: at each position, the model produced 50 scores, one for each vocabulary candidate.
+
+Mental rule:
+
+\`IDs (B,T) -> internal vectors (B,T,C) -> output scores (B,T,V)\`
+
+This slide is only the shape contract. Next, we lock the \`dtype\` contract: IDs are integers; vectors and scores are floats.`,
+      rightBody: `\`\`\`python
+snippet:pytorch-lm/tensor-primer
+\`\`\``,
+      codeExplanations: [
+        { lineRange: [1, 10], content: 'The contract starts by naming B, T, C, and V. The difference from the tabular slide is T: the sequence axis.' },
+        { lineRange: [12, 19], content: '`token_ids` is `(B, T)`: each row is a sequence and each column is a token position. Since these are IDs, dtype is `torch.long`.' },
+        { lineRange: [21, 23], content: '`hidden_states` is `(B, T, C)`: each token at each position gets an internal width-C vector.' },
+        { lineRange: [25, 29], content: '`output_scores` is `(B, T, V)`: each position receives a scoreboard with V vocabulary candidates.' },
+        { lineRange: [31, 36], content: 'The accesses `token_ids[0,1]`, `hidden_states[0,1]`, and `output_scores[0,1]` show the same position crossing the three levels.' },
+        { lineRange: [38, 41], content: 'The final prints close the operational reading by shape and dtype.' },
+      ],
     },
   },
 });
