@@ -34,13 +34,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
   const allTokens = [...copy.initialTokens, ...visibleGenerated];
   const isComplete = step >= totalSteps;
   const svgW = 520;
-  const svgH = 110;
+  const svgH = 92;
   const tokenX = 14;
-  const tokenYStart = 24;
-  const tokenGap = 17;
+  const tokenYStart = 20;
+  const tokenGap = 11;
   const tokenW = 86;
-  const tokenH = 14;
-  const centerY = 56;
+  const tokenH = 10;
+  const centerY = 46;
 
   const accent = sw.cyan;
   const accent2 = sw.purple;
@@ -52,10 +52,10 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         border: `1px solid ${sw.borderSubtle}`,
         borderRadius: 14,
         background: 'linear-gradient(180deg, rgba(0,229,255,0.04), rgba(255,255,255,0.01))',
-        padding: 14,
+        padding: 12,
         display: 'flex',
         flexDirection: 'column',
-        gap: 6,
+        gap: 4,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
@@ -64,7 +64,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
             {copy.title}
           </div>
           {copy.subtitle && (
-            <div style={{ marginTop: 4, fontSize: 12, lineHeight: 1.5, color: sw.textDim }}>{copy.subtitle}</div>
+            <div style={{ marginTop: 3, fontSize: 12, lineHeight: 1.35, color: sw.textDim }}>{copy.subtitle}</div>
           )}
         </div>
         <div
@@ -83,13 +83,13 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: 110, display: 'block' }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: '100%', height: svgH, display: 'block' }}>
         <defs>
           <marker id="genArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M 0 0 L 6 3 L 0 6 Z" fill={accent} />
           </marker>
         </defs>
-        <text x={tokenX + tokenW / 2} y="10" textAnchor="middle" fontSize="10" fill={sw.textMuted} fontWeight="800">
+        <text x={tokenX + tokenW / 2} y="10" textAnchor="middle" fontSize="9" fill={sw.textMuted} fontWeight="800">
           {copy.contextLabel}
         </text>
         {allTokens.map((token, i) => {
@@ -99,12 +99,12 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           return (
             <g key={`tok-${i}`}>
               <rect
-                x={tokenX} y={y - tokenH / 2} rx={6} ry={6} width={tokenW} height={tokenH}
+                x={tokenX} y={y - tokenH / 2} rx={5} ry={5} width={tokenW} height={tokenH}
                 fill={isLast ? `${accent3}25` : isGenerated ? `${accent2}10` : sw.surface}
                 stroke={isLast ? accent3 : isGenerated ? `${accent2}88` : sw.borderSubtle}
                 strokeWidth={isLast ? 1.5 : 1}
               />
-              <text x={tokenX + tokenW / 2} y={y + 4} textAnchor="middle" fontSize="11" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
+              <text x={tokenX + tokenW / 2} y={y + 3} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={isLast ? accent3 : isGenerated ? accent2 : sw.text} fontWeight="700">
                 {token}
               </text>
             </g>
@@ -121,20 +121,20 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
           markerEnd="url(#genArrow)"
         />
 
-        <rect x={170} y={34} rx={10} ry={10} width={110} height={40} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
-        <text x={225} y={50} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
-        <text x={225} y={64} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
+        <rect x={170} y={29} rx={10} ry={10} width={110} height={34} fill={`${accent}22`} stroke={accent} strokeWidth="2" />
+        <text x={225} y={43} textAnchor="middle" fontSize="12" fill={accent} fontWeight="800">{copy.embeddingLabel}</text>
+        <text x={225} y={56} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,C)</text>
 
         <line x1={282} y1={centerY} x2={338} y2={centerY} stroke={accent2} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <rect x={340} y={34} rx={10} ry={10} width={110} height={40} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
-        <text x={395} y={50} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
-        <text x={395} y={64} textAnchor="middle" fontSize="10" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
+        <rect x={340} y={29} rx={10} ry={10} width={110} height={34} fill={`${accent2}22`} stroke={accent2} strokeWidth="2" />
+        <text x={395} y={43} textAnchor="middle" fontSize="12" fill={accent2} fontWeight="800">{copy.linearLabel}</text>
+        <text x={395} y={56} textAnchor="middle" fontSize="9" fontFamily="monospace" fill={sw.textDim}>(B,T,V)</text>
 
         <line x1={452} y1={centerY} x2={504} y2={centerY} stroke={accent3} strokeWidth="2" markerEnd="url(#genArrow)" />
 
-        <text x="504" y="32" textAnchor="end" fontSize="10" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
-        <text x="504" y="70" textAnchor="end" fontSize="9" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
+        <text x="504" y="28" textAnchor="end" fontSize="9" fill={accent3} fontWeight="800">{copy.logitsLabel}</text>
+        <text x="504" y="62" textAnchor="end" fontSize="8" fontFamily="monospace" fill={sw.textDim}>argmax(-1)</text>
 
         {step > 0 && !isComplete && (
           <circle r="3" fill={accent3}>
@@ -144,7 +144,7 @@ export const PytorchGenerationStepper = React.memo(({ copy }: PytorchGenerationS
         )}
       </svg>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'center', marginTop: 0 }}>
         <button
           type="button"
           onClick={() => setStep(s => Math.max(0, s - 1))}
