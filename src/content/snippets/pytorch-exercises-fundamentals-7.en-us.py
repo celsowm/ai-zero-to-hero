@@ -1,8 +1,13 @@
 import torch
 
-# Temporal logits (B=2, T=2, V=2)
-logits = torch.tensor([[[1.0, 0.1], [0.2, 0.8]], [[0.5, 0.5], [0.9, 0.1]]])
+# Two sequences with 5 positions each: shape (B=2, T=5).
+tokens = torch.tensor([
+    [10, 11, 12, 13, 14],
+    [20, 21, 22, 23, 24],
+], dtype=torch.long)
 
-# TODO: Flatten B and T axes into one for Cross-Entropy format (4, 2)
-# Use .view() and save into 'flat_logits'
-flat_logits = None
+# TODO: Create x and y for next-token training.
+# x: all positions except the last one.
+# y: all positions except the first one.
+x = None
+y = None
