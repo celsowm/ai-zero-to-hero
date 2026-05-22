@@ -1,8 +1,16 @@
 import torch
 
-# Token batch (B=2, T=4)
-tokens = torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8]])
+# Patient batch: expected shape (B=6, F=4).
+X = torch.tensor([
+    [0.35, 0.60, 0.58, 0.0],
+    [0.42, 0.65, 0.62, 0.0],
+    [0.48, 0.70, 0.68, 0.0],
+    [0.58, 0.78, 0.82, 1.0],
+    [0.67, 0.84, 0.88, 1.0],
+    [0.73, 0.90, 0.93, 1.0],
+], dtype=torch.float32)
 
-# TODO: Create 'x' containing all positions except the last one of each row
-# Hint: use [:, :-1] slicing
-x = None
+# TODO: Read X's shape.
+# Save B and F as Python integers.
+B = None
+F = None
