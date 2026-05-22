@@ -1,12 +1,20 @@
 import torch
 import torch.nn as nn
 
-# TODO: Create a network ending with Softmax(dim=-1)
-# Hint: nn.Sequential(nn.Linear(2, 2), nn.Softmax(dim=-1))
-net = None
+# Recurring skeleton: entry, repeated body, and output.
+V, C, num_layers = 20, 8, 3
 
-test_input = torch.randn(1, 2)
-probs = net(test_input) if net else torch.tensor([0.0])
+# TODO: create a ModuleDict called 'transformer' with:
+# - 'wte': nn.Embedding(V, C)
+# - 'blocks': nn.ModuleList with num_layers blocks, each block being nn.Sequential(
+#       nn.LayerNorm(C),
+#       nn.Linear(C, C),
+#       nn.Dropout(0.1),
+#   )
+# - 'lm_head': nn.Linear(C, V)
+transformer = None
 
-# Validator checks if sum is ~1.0
-sums_to_one = torch.allclose(probs.sum(), torch.tensor(1.0), atol=1e-3)
+# Validator checks the skeleton.
+is_module_dict = isinstance(transformer, nn.ModuleDict)
+num_blocks = len(transformer['blocks']) if is_module_dict and 'blocks' in transformer else 0
+has_lm_head = isinstance(transformer.get('lm_head') if is_module_dict else None, nn.Linear)
