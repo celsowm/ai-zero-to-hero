@@ -1,13 +1,16 @@
 import torch
 import torch.nn as nn
 
-# TODO: Define SimpleMLP class inheriting from nn.Module
-class SimpleMLP:
-    pass
+# Contract: input (B, T, C) and output (B, T, V).
+B, T, C, V = 2, 3, 4, 5
+x = torch.randn(B, T, C)
 
-# Instantiate the model in 'model'
-model = None
+# TODO: create a Linear layer that projects C -> V.
+projection = None
 
-# Validator checks:
-is_module = isinstance(model, nn.Module)
-in_features = getattr(getattr(model, 'linear', None), 'in_features', 0) if is_module else 0
+# TODO: apply the layer to x to get logits.
+logits = None
+
+# Validator checks these contracts.
+logits_shape = list(logits.shape) if logits is not None else []
+weight_shape = list(projection.weight.shape) if projection is not None else []
