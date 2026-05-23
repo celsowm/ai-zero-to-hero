@@ -514,3 +514,37 @@ export interface TensorOriginsCopy {
   };
 }
 
+export interface SequentialShapeFlowCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  flowPanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    previousLabel: string;
+    nextLabel: string;
+  };
+}
+
+export interface LanguageModelingShapeFlowCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  flowPanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    previousLabel: string;
+    nextLabel: string;
+  };
+}
+

@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const pytorchShapesLanguageModeling = defineSlide({
   id: 'pytorch-shapes-language-modeling',
   type: 'two-column',
-  options: { columnRatios: [0.48, 0.52] },
+  options: { columnRatios: [0.38, 0.62] },
   content: {
     'pt-br': {
       title: 'De features para sequência: B, T, C, V',
@@ -53,9 +53,6 @@ Regra mental:
 \`IDs (B,T) -> vetores internos (B,T,C) -> scores de saída (B,T,V)\`
 
 Esse slide é a ponte entre rede tabular e modelo de linguagem: **B permanece**, mas linguagem adiciona **T**, transforma cada posição em **C** e prevê sobre **V**.`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-primer
-\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'O contrato começa nomeando B, T, C e V. A motivação é a mudança de problema: de tabela tabular para sequência de linguagem.' },
         { lineRange: [12, 19], content: '`token_ids` é `(B, T)`: cada linha é uma sequência e cada coluna é uma posição/token. Como são IDs, o dtype é `torch.long`.' },
@@ -113,9 +110,6 @@ Mental rule:
 \`IDs (B,T) -> internal vectors (B,T,C) -> output scores (B,T,V)\`
 
 This slide is the bridge between tabular networks and language models: **B remains**, but language adds **T**, turns each position into **C**, and predicts over **V**.`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/tensor-primer
-\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'The contract starts by naming B, T, C, and V. The motivation is the problem shift: from tabular data to language sequences.' },
         { lineRange: [12, 19], content: '`token_ids` is `(B, T)`: each row is a sequence and each column is a token position. Since these are IDs, dtype is `torch.long`.' },
@@ -124,6 +118,57 @@ snippet:pytorch-lm/tensor-primer
         { lineRange: [31, 36], content: 'The accesses `token_ids[0,1]`, `hidden_states[0,1]`, and `output_scores[0,1]` show the same position crossing the three levels.' },
         { lineRange: [36, 40], content: 'The final prints close the operational reading by shape and dtype.' },
       ],
+    },
+  },
+  visual: {
+    id: 'language-modeling-shape-flow',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Código' }, { label: 'Fluxo de Shapes' }],
+        codePanel: {
+          title: 'Tensor primer para LM',
+          description: 'Criação dos tensores token_ids, hidden_states e output_scores com shapes (B,T), (B,T,C) e (B,T,V).',
+          source: { snippetId: 'pytorch-lm/tensor-primer', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 11], content: 'Contrato nomeando B, T, C e V para o exemplo de linguagem.' },
+            { lineRange: [12, 19], content: '`token_ids` é `(B, T)` — IDs inteiros, dtype `torch.long`.' },
+            { lineRange: [21, 23], content: '`hidden_states` é `(B, T, C)` — vetor interno para cada posição.' },
+            { lineRange: [25, 29], content: '`output_scores` é `(B, T, V)` — placar sobre o vocabulário.' },
+            { lineRange: [31, 36], content: 'Acesso `[0,1]`: mesma posição nos três níveis.' },
+            { lineRange: [36, 40], content: 'Prints finais com shape e dtype.' },
+          ],
+        },
+        flowPanel: {
+          eyebrow: 'Pipeline de Contratos',
+          title: 'Token IDs → Hidden States → Output Scores',
+          description: 'Visualize os três contratos da modelagem de linguagem: navegue entre os tensores para ver a evolução de (B,T) para (B,T,C) até (B,T,V).',
+          previousLabel: 'Anterior',
+          nextLabel: 'Próximo',
+        },
+      },
+      'en-us': {
+        tabs: [{ label: 'Code' }, { label: 'Shape Flow' }],
+        codePanel: {
+          title: 'Tensor primer for LMs',
+          description: 'Creating token_ids, hidden_states, and output_scores tensors with shapes (B,T), (B,T,C), and (B,T,V).',
+          source: { snippetId: 'pytorch-lm/tensor-primer', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 11], content: 'Contract naming B, T, C, and V for the language example.' },
+            { lineRange: [12, 19], content: '`token_ids` is `(B, T)` — integer IDs, dtype `torch.long`.' },
+            { lineRange: [21, 23], content: '`hidden_states` is `(B, T, C)` — internal vector per position.' },
+            { lineRange: [25, 29], content: '`output_scores` is `(B, T, V)` — scoreboard over vocabulary.' },
+            { lineRange: [31, 36], content: 'Access `[0,1]`: same position across all three levels.' },
+            { lineRange: [36, 40], content: 'Final prints with shape and dtype.' },
+          ],
+        },
+        flowPanel: {
+          eyebrow: 'Contract Pipeline',
+          title: 'Token IDs → Hidden States → Output Scores',
+          description: 'Visualize the three language modeling contracts: step through the tensors to see the evolution from (B,T) to (B,T,C) to (B,T,V).',
+          previousLabel: 'Previous',
+          nextLabel: 'Next',
+        },
+      },
     },
   },
 });

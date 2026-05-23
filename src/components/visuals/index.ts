@@ -103,6 +103,8 @@ export { WeightsBiasesExplorer } from './neural-networks/WeightsBiasesExplorer';
 export { BceLossCurve } from './neural-networks/BceLossCurve';
 export { OptimizerTrajectoryVisual } from './neural-networks/OptimizerTrajectoryVisual';
 export { PytorchSequentialMap } from './neural-networks/PytorchSequentialMap';
+export { SequentialShapeFlow } from './neural-networks/SequentialShapeFlow';
+export { LanguageModelingShapeFlow } from './neural-networks/LanguageModelingShapeFlow';
 export { PythonPrereqTabsVisual } from './python/PythonPrereqTabsVisual';
 export { PythonExerciseVisual } from './python/PythonExerciseVisual';
 export { WelcomeSynthwaveVisual } from './welcome/WelcomeSynthwaveVisual';

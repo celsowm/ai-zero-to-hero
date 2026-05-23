@@ -134,9 +134,11 @@ import type {
   BiologicalVsComputationalNeuronCopy,
   DerivativeRampExplorerCopy,
   FeedforwardFlowVisualCopy,
+  LanguageModelingShapeFlowCopy,
   NeuralNetworkTabsStepperCopy,
   NeuralNetworkStepDebuggerVisualCopy,
   NeuronArchitectureAnimatedCopy,
+  SequentialShapeFlowCopy,
   SigmoidDeepDiveExplorerCopy,
   SigmoidDerivativeExplorerCopy,
   Tensor3DExplorerCopy,
@@ -406,6 +408,8 @@ interface VisualCopyMap {
   'neural-network-step-debugger': NeuralNetworkStepDebuggerVisualCopy;
   'neural-network-tabs-stepper': NeuralNetworkTabsStepperCopy;
   'architecture-comparator': ArchitectureComparatorCopy;
+  'sequential-shape-flow': SequentialShapeFlowCopy;
+  'language-modeling-shape-flow': LanguageModelingShapeFlowCopy;
   'tensor-3d-explorer': Tensor3DExplorerCopy;
   'derivative-ramp-explorer': DerivativeRampExplorerCopy;
   'weights-biases-explorer': WeightsBiasesExplorerCopy;

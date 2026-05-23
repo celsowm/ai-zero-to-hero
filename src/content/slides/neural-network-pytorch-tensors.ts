@@ -3,7 +3,7 @@ import { defineSlide } from './_factory';
 export const neuralNetworkPytorchTensors = defineSlide({
   id: 'neural-network-pytorch-tensors',
   type: 'two-column',
-  options: { columnRatios: [0.48, 0.52] },
+  options: { columnRatios: [0.38, 0.62] },
   content: {
     'pt-br': {
       title: 'Shapes no PyTorch: B, F, H, O',
@@ -38,9 +38,6 @@ No exemplo real:
 \`X (6,4) -> hidden (6,3) -> y_hat (6,1)\`
 
 Esse slide prepara a ponte: em modelo de linguagem, o batch continua existindo, mas entra um novo eixo entre B e a largura interna: o eixo da sequência.`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/patient-shape-contract
-\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'Começamos nomeando as siglas do contrato: B, F, H e O. A partir daqui, o número bruto vira papel semântico.' },
         { lineRange: [13, 25], content: '`X` é `(B, F)`: cada linha é um paciente e cada coluna é uma feature. `y` é `(B, O)`: uma resposta por paciente.' },
@@ -83,9 +80,6 @@ In the actual example:
 \`X (6,4) -> hidden (6,3) -> y_hat (6,1)\`
 
 This prepares the bridge: in a language model, the batch still exists, but a new axis appears between B and the internal width: the sequence axis.`,
-      rightBody: `\`\`\`python
-snippet:pytorch-lm/patient-shape-contract
-\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'We start by naming the contract letters: B, F, H, and O. From here on, raw numbers get semantic roles.' },
         { lineRange: [13, 25], content: '`X` is `(B, F)`: each row is a patient and each column is a feature. `y` is `(B, O)`: one answer per patient.' },
@@ -94,6 +88,57 @@ snippet:pytorch-lm/patient-shape-contract
         { lineRange: [47, 52], content: 'At inference time, one patient is still a batch: shape `(1, F)`, not just `(F)`.' },
         { lineRange: [54, 56], content: 'The final prints make the contract visible so the reasoning can be checked at runtime.' },
       ],
+    },
+  },
+  visual: {
+    id: 'sequential-shape-flow',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Código' }, { label: 'Fluxo de Shapes' }],
+        codePanel: {
+          title: 'Contrato de shapes em PyTorch',
+          description: 'Código completo do exemplo dos pacientes: B=6, F=4, H=3, O=1 com Sequential + Sigmoid.',
+          source: { snippetId: 'pytorch-lm/patient-shape-contract', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 11], content: 'Começamos nomeando as siglas do contrato: B, F, H e O.' },
+            { lineRange: [13, 25], content: '`X` é `(B, F)` — 6 pacientes × 4 features. `y` é `(B, O)` — 6 respostas.' },
+            { lineRange: [27, 33], content: 'A arquitetura: `Linear(4, 3)` → Sigmoid → `Linear(3, 1)` → Sigmoid.' },
+            { lineRange: [35, 45], content: 'Treino: `model(X)` preserva o batch, 6 pacientes entram e 6 saem.' },
+            { lineRange: [47, 52], content: 'Inferência: um paciente sozinho é `(1, F)`.' },
+            { lineRange: [54, 56], content: 'Prints finais que conferem o contrato.' },
+          ],
+        },
+        flowPanel: {
+          eyebrow: 'Pipeline de Shapes',
+          title: 'Fluxo: do dado à previsão',
+          description: 'Veja como o shape muda a cada camada do `nn.Sequential`. Navegue pelos passos para ver a transformação 3D dos tensores.',
+          previousLabel: 'Anterior',
+          nextLabel: 'Próximo',
+        },
+      },
+      'en-us': {
+        tabs: [{ label: 'Code' }, { label: 'Shape Flow' }],
+        codePanel: {
+          title: 'Shape contract in PyTorch',
+          description: 'Complete code for the patient example: B=6, F=4, H=3, O=1 with Sequential + Sigmoid.',
+          source: { snippetId: 'pytorch-lm/patient-shape-contract', language: 'python' },
+          codeExplanations: [
+            { lineRange: [1, 11], content: 'We start by naming the contract letters: B, F, H, and O.' },
+            { lineRange: [13, 25], content: '`X` is `(B, F)` — 6 patients × 4 features. `y` is `(B, O)` — 6 answers.' },
+            { lineRange: [27, 33], content: 'Architecture: `Linear(4, 3)` → Sigmoid → `Linear(3, 1)` → Sigmoid.' },
+            { lineRange: [35, 45], content: 'Training: `model(X)` preserves the batch, 6 patients in, 6 out.' },
+            { lineRange: [47, 52], content: 'Inference: a single patient is `(1, F)`.' },
+            { lineRange: [54, 56], content: 'Final shape prints to verify the contract.' },
+          ],
+        },
+        flowPanel: {
+          eyebrow: 'Shape Pipeline',
+          title: 'Flow: from data to prediction',
+          description: 'See how the shape changes at each layer of `nn.Sequential`. Step through to visualize the 3D tensor transformation.',
+          previousLabel: 'Previous',
+          nextLabel: 'Next',
+        },
+      },
     },
   },
 });

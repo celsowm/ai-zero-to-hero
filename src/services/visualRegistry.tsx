@@ -209,6 +209,8 @@ const visualMap: Record<string, string> = {
   'bce-loss-curve': 'BceLossCurve',
   'optimizer-trajectory-visual': 'OptimizerTrajectoryVisual',
   'pytorch-sequential-map': 'PytorchSequentialMap',
+  'sequential-shape-flow': 'SequentialShapeFlow',
+  'language-modeling-shape-flow': 'LanguageModelingShapeFlow',
 
   // python
   'python-prereq-tabs': 'PythonPrereqTabsVisual',
