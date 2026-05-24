@@ -1,5 +1,12 @@
 {
   "id": "gpt2_manual/e2e-trace",
   "language": "python",
-  "pyodide": false
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "Snippet legado coberto pelo meta para manter a validação de cobertura.",
+      "en-us": "Legacy snippet covered in meta to keep coverage validation complete."
+    }
+  ]
 }

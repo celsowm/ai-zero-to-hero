@@ -6,11 +6,11 @@ export const pytorchExercisesArchitecture = defineSlide({
   content: {
     'pt-br': {
       title: 'Exercícios: Arquitetura e nn.Module',
-      body: 'Consolide o bloco de arquitetura PyTorch: projeções Linear, Embedding, forward de um mini-LM, esqueleto com ModuleDict/ModuleList, modos train/eval e passo mínimo do otimizador.',
+      body: 'Consolide o bloco de arquitetura PyTorch: projeções Linear, Embedding, forward de um mini-LM, esqueleto com ModuleDict/ModuleList, modos train/eval, passo mínimo do otimizador, weight tying e contagem de parâmetros únicos com data_ptr().',
     },
     'en-us': {
       title: 'Exercises: Architecture and nn.Module',
-      body: 'Consolidate the PyTorch architecture block: Linear projections, Embedding, a mini-LM forward pass, ModuleDict/ModuleList skeletons, train/eval modes, and a minimal optimizer step.',
+      body: 'Consolidate the PyTorch architecture block: Linear projections, Embedding, a mini-LM forward pass, ModuleDict/ModuleList skeletons, train/eval modes, a minimal optimizer step, weight tying, and unique parameter counting with data_ptr().',
     },
   },
   visual: {
@@ -86,6 +86,20 @@ export const pytorchExercisesArchitecture = defineSlide({
             ],
             hints: ['Use `loss = torch.mean((w - target) ** 2)`.', 'Depois de `loss.backward()`, `w.grad.item()` vale `-4.0`.', '`optimizer.step()` move `w` de `1.0` para `1.4` com `lr=0.1`.'],
           },
+          {
+            id: '7. Weight tying',
+            instructions: 'No GPT, pratique a ideia: `lm_head.weight = wte.weight`. Explique por que isso faz embedding e saída compartilharem a mesma matriz.',
+            starterCode: 'from torch import nn; wte = nn.Embedding(10, 4); lm_head = nn.Linear(4, 10, bias=False); lm_head.weight = wte.weight',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['O mesmo tensor passa a ser visto pelos dois módulos.', 'Isso reduz parâmetros e alinha entrada/saída do vocabulário.'],
+          },
+          {
+            id: '8. Parâmetros únicos',
+            instructions: 'Ao contar parâmetros com peso compartilhado, use `p.data_ptr()` para não contar a mesma memória duas vezes.',
+            starterCode: 'seen = set(); total = 0',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Guarde cada `data_ptr()` em um set.', 'Some `p.numel()` apenas quando o ponteiro ainda não apareceu.'],
+          },
         ],
       },
       'en-us': {
@@ -157,6 +171,20 @@ export const pytorchExercisesArchitecture = defineSlide({
               { type: 'assertVariable', variableName: 'updated_w', expectedValue: 1.4, tolerance: 0.001 },
             ],
             hints: ['Use `loss = torch.mean((w - target) ** 2)`.', 'After `loss.backward()`, `w.grad.item()` is `-4.0`.', '`optimizer.step()` moves `w` from `1.0` to `1.4` with `lr=0.1`.'],
+          },
+          {
+            id: '7. Weight tying',
+            instructions: 'In GPT, practice the idea: `lm_head.weight = wte.weight`. Explain why this makes embedding and output share the same matrix.',
+            starterCode: 'from torch import nn; wte = nn.Embedding(10, 4); lm_head = nn.Linear(4, 10, bias=False); lm_head.weight = wte.weight',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['The same tensor becomes visible through both modules.', 'This reduces parameters and aligns vocabulary input/output.'],
+          },
+          {
+            id: '8. Unique parameters',
+            instructions: 'When counting parameters with shared weights, use `p.data_ptr()` so the same memory is not counted twice.',
+            starterCode: 'seen = set(); total = 0',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Store each `data_ptr()` in a set.', 'Only add `p.numel()` when the pointer has not appeared before.'],
           },
         ],
       },

@@ -3,80 +3,81 @@ import { defineSlide } from './_factory';
 export const gpt2PytorchModelForward = defineSlide({
   id: 'gpt2-pytorch-model-forward',
   type: 'two-column',
-  options: { columnRatios: [0.48, 0.52] },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: 'Forward completo do GPT',
-      body: `O contrato central é: **\`forward(idx, targets=None)\`**.
+      title: 'GPT.forward(): embeddings, blocos, logits e loss',
+      body: `Agora juntamos tudo no modelo GPT.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+A classe GPT tem:
 
-Dentro dele, o fluxo é:
+1. token embedding
+2. position embedding
+3. dropout
+4. lista de \`TransformerBlock\`
+5. LayerNorm final
+6. LM head
+7. loss opcional quando \`targets\` existe
 
-1. embeddings + posição
-2. dropout
-3. pilha de blocos
-4. \`ln_f\` (LayerNorm final)
-5. \`lm_head\` (camada final de logits)
-6. loss opcional
+Contrato:
+- \`idx: (B,T)\`
+- \`logits: (B,T,V)\`
+- \`targets: (B,T)\`
+- \`loss: escalar\`
 
-Assinatura prática:
-- entrada: \`idx (B, T)\`
-- saída base: \`logits (B, T, V)\`
-- saída treino: \`(logits, loss)\` quando \`targets\` existe
-
-Ponto crítico:
-- sem \`targets\`, o forward devolve só logits para inferência/geração
-- com \`targets\`, o forward também fecha a loss para treino
-- treino usa todas as posições em paralelo
-- geração usa apenas \`logits[:, -1, :]\`
-
-Ponte com PyTorch anterior: a mecânica de treino continua \`forward -> loss -> backward -> step\`; a mudança de domínio aqui é trocar MSE por CE sobre vocabulário.`,
+Pontos críticos:
+- \`idx\` precisa ser \`torch.long\`
+- \`idx.max()\` precisa ser menor que \`vocab_size\`
+- \`T <= block_size\`
+- \`pos_emb[None,:,:]\` faz broadcast para \`(B,T,C)\`
+- \`ModuleList\` registra blocos para o optimizer
+- cross-entropy exige \`(B*T,V)\` e \`(B*T,)\``,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/model-forward
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 5], content: 'A assinatura já mostra a dupla que interessa: logits sempre; loss só quando há targets.' },
-        { lineRange: [6, 14], content: 'O forward transforma `(B, T)` em residual stream, atravessa os blocos e projeta de volta para o vocabulário.' },
-        { lineRange: [15, 16], content: 'Quando há targets, a cross-entropy fecha o contrato de treino (mesmo papel estrutural do MSE em regressão).' },
+        { lineRange: [1, 29], content: '`__init__` registra embeddings, dropout, blocos, norma final, `lm_head` e weight tying opcional.' },
+        { lineRange: [30, 45], content: '`forward` valida contexto, cria posições, soma embeddings e aplica dropout no residual stream inicial.' },
+        { lineRange: [46, 51], content: 'A pilha de blocos preserva `(B,T,C)`, a norma final estabiliza e o `lm_head` projeta para `(B,T,V)`.' },
+        { lineRange: [52, 61], content: 'Quando há targets, a cross-entropy achata logits e targets para produzir uma loss escalar.' },
       ],
     },
     'en-us': {
-      title: 'The full GPT forward pass',
-      body: `The central contract is: **\`forward(idx, targets=None)\`**.
+      title: 'GPT.forward(): embeddings, blocks, logits, and loss',
+      body: `Now we assemble everything in the GPT model.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+The GPT class has:
 
-Inside it, the flow is:
+1. token embedding
+2. position embedding
+3. dropout
+4. list of \`TransformerBlock\`
+5. final LayerNorm
+6. LM head
+7. optional loss when \`targets\` exists
 
-1. embeddings + position
-2. dropout
-3. stack of blocks
-4. \`ln_f\` (final LayerNorm)
-5. \`lm_head\` (final logits layer)
-6. optional loss
+Contract:
+- \`idx: (B,T)\`
+- \`logits: (B,T,V)\`
+- \`targets: (B,T)\`
+- \`loss: scalar\`
 
-Practical signature:
-- input: \`idx (B, T)\`
-- base output: \`logits (B, T, V)\`
-- training output: \`(logits, loss)\` when \`targets\` is provided
-
-Critical distinction:
-- without \`targets\`, forward returns logits only for inference/generation
-- with \`targets\`, forward also closes the training loss
-- training consumes all positions in parallel
-- generation consumes only \`logits[:, -1, :]\`
-
-Bridge to earlier PyTorch slides: training mechanics remain \`forward -> loss -> backward -> step\`; the domain shift here is replacing MSE with vocabulary-level CE.`,
+Critical points:
+- \`idx\` must be \`torch.long\`
+- \`idx.max()\` must be below \`vocab_size\`
+- \`T <= block_size\`
+- \`pos_emb[None,:,:]\` broadcasts to \`(B,T,C)\`
+- \`ModuleList\` registers blocks for the optimizer
+- cross-entropy expects \`(B*T,V)\` and \`(B*T,)\``,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/model-forward
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 5], content: 'The signature already exposes the key pair: logits always; loss only when targets exist.' },
-        { lineRange: [6, 14], content: 'The forward pass turns `(B, T)` into a residual stream, crosses the blocks, and projects back into vocabulary space.' },
-        { lineRange: [15, 16], content: 'When targets exist, cross-entropy closes the training contract (same structural role MSE had in regression).' },
+        { lineRange: [1, 29], content: '`__init__` registers embeddings, dropout, blocks, final norm, `lm_head`, and optional weight tying.' },
+        { lineRange: [30, 45], content: '`forward` validates context, creates positions, adds embeddings, and applies dropout to the initial residual stream.' },
+        { lineRange: [46, 51], content: 'The block stack preserves `(B,T,C)`, final norm stabilizes, and `lm_head` projects to `(B,T,V)`.' },
+        { lineRange: [52, 61], content: 'When targets exist, cross-entropy flattens logits and targets to produce one scalar loss.' },
       ],
     },
   },
 });
-

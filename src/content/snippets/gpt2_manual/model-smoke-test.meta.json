@@ -1,0 +1,5 @@
+{
+  "id": "gpt2_manual/model-smoke-test",
+  "language": "python",
+  "pyodide": false
+}

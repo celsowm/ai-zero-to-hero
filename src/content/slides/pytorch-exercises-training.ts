@@ -6,11 +6,11 @@ export const pytorchExercisesTraining = defineSlide({
   content: {
     'pt-br': {
       title: 'Exercícios: Ciclo de Treino e Otimização',
-      body: 'O treino não é apenas chamar .backward(). Vamos implementar componentes críticos de regularização, acúmulo e clipping de gradientes.',
+      body: 'O treino não é apenas chamar .backward(). Vamos implementar componentes críticos de regularização, acúmulo, divisão da loss, clipping, atualização de lr e grupos decay/no_decay.',
     },
     'en-us': {
       title: 'Exercises: Training Cycle and Optimization',
-      body: 'Training is not just calling .backward(). We will implement critical components of regularization, accumulation, and gradient clipping.',
+      body: 'Training is not just calling .backward(). We will implement critical components of regularization, accumulation, loss scaling, clipping, lr updates, and decay/no_decay groups.',
     },
   },
   visual: {
@@ -82,6 +82,34 @@ export const pytorchExercisesTraining = defineSlide({
             ],
             hints: ['A fórmula é `grad * (max_norm / current_norm)`.'],
           },
+          {
+            id: '5. Loss no gradient accumulation',
+            instructions: 'Divida `loss` por `gradient_accumulation_steps` antes de chamar `.backward()` para manter a escala do gradiente.',
+            starterCode: 'import torch; loss = torch.tensor(8.0, requires_grad=True); gradient_accumulation_steps = 4; loss = loss / gradient_accumulation_steps',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Sem essa divisão, o gradiente fica maior que o batch efetivo pretendido.'],
+          },
+          {
+            id: '6. clip_grad_norm_',
+            instructions: 'Use `torch.nn.utils.clip_grad_norm_` para limitar a norma dos gradientes do modelo.',
+            starterCode: 'import torch; model = torch.nn.Linear(2, 1); torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['A função atua nos parâmetros do modelo depois de `.backward()`.'],
+          },
+          {
+            id: '7. Atualizar lr',
+            instructions: 'Atualize a learning rate percorrendo `optimizer.param_groups` e atribuindo `group["lr"] = lr`.',
+            starterCode: 'import torch; optimizer = torch.optim.AdamW([torch.nn.Parameter(torch.tensor(1.0))], lr=1e-3); lr = 3e-4\nfor group in optimizer.param_groups:\n    group["lr"] = lr',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Schedulers fazem essa mesma ideia por baixo.'],
+          },
+          {
+            id: '8. decay/no_decay',
+            instructions: 'Separe parâmetros em decay/no_decay usando `param.dim() >= 2` para matrizes e `param.dim() < 2` para bias/LayerNorm.',
+            starterCode: 'import torch; decay = []; param = torch.nn.Parameter(torch.randn(2, 2))\nif param.dim() >= 2:\n    decay.append(param)',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Matrizes grandes recebem weight decay; vetores 1D não.'],
+          },
         ],
       },
       'en-us': {
@@ -149,6 +177,34 @@ export const pytorchExercisesTraining = defineSlide({
               },
             ],
             hints: ['The formula is `grad * (max_norm / current_norm)`.'],
+          },
+          {
+            id: '5. Loss in gradient accumulation',
+            instructions: 'Divide `loss` by `gradient_accumulation_steps` before calling `.backward()` to keep gradient scale stable.',
+            starterCode: 'import torch; loss = torch.tensor(8.0, requires_grad=True); gradient_accumulation_steps = 4; loss = loss / gradient_accumulation_steps',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Without this division, gradients become larger than the intended effective batch.'],
+          },
+          {
+            id: '6. clip_grad_norm_',
+            instructions: 'Use `torch.nn.utils.clip_grad_norm_` to limit the model gradient norm.',
+            starterCode: 'import torch; model = torch.nn.Linear(2, 1); torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['The function acts on model parameters after `.backward()`.'],
+          },
+          {
+            id: '7. Update lr',
+            instructions: 'Update learning rate by looping over `optimizer.param_groups` and setting `group["lr"] = lr`.',
+            starterCode: 'import torch; optimizer = torch.optim.AdamW([torch.nn.Parameter(torch.tensor(1.0))], lr=1e-3); lr = 3e-4\nfor group in optimizer.param_groups:\n    group["lr"] = lr',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Schedulers do this same idea underneath.'],
+          },
+          {
+            id: '8. decay/no_decay',
+            instructions: 'Split parameters into decay/no_decay using `param.dim() >= 2` for matrices and `param.dim() < 2` for bias/LayerNorm.',
+            starterCode: 'import torch; decay = []; param = torch.nn.Parameter(torch.randn(2, 2))\nif param.dim() >= 2:\n    decay.append(param)',
+            validators: [{ type: 'assertNoError' }],
+            hints: ['Large matrices receive weight decay; 1D vectors do not.'],
           },
         ],
       },

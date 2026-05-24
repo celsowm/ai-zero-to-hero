@@ -1,0 +1,5 @@
+{
+  "id": "gpt2_manual/config-contract",
+  "language": "python",
+  "pyodide": false
+}

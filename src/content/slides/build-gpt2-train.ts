@@ -3,80 +3,77 @@ import { defineSlide } from './_factory';
 export const buildGpt2Train = defineSlide({
   id: 'build-gpt2-train',
   type: 'two-column',
-  options: {
-    columnRatios: [0.45, 0.55],
-  },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: 'Passo 2: Loop de treino',
-      body: `Com arquitetura pronta, treinamos um GPT pequeno em corpus curto para validar o ciclo inteiro.
+      title: 'Loop de treino: get_batch -> loss -> backward -> AdamW',
+      body: `Agora treinamos o GPT pequeno.
 
-Fluxo de cada passo:
+Neste ponto, \`train_data\` não vem do vento: ele veio do token stream criado a partir do dataset real do Hugging Face, ou de um corpus didático usado só para smoke test.
 
-1. montar batch \`x, y\` com deslocamento de 1 token
-2. rodar \`model(x, y)\`
-3. zerar gradiente
-4. \`backward\` + clip de gradiente
-5. \`optimizer.step()\`
+Cada passo faz:
 
-Sinais esperados:
-- loss caindo ao longo dos passos
-- perplexidade acompanhando a queda
-- modelo memorizando padrões do corpus`,
-      rightBody: `
-\`\`\`python
-snippet:build_gpt2/build-gpt2-train
+1. sortear um batch \`x/y\` do token stream
+2. mover \`x/y\` para o device
+3. rodar \`model(x, y)\`
+4. zerar gradientes
+5. backpropagar loss
+6. cortar gradiente se necessário
+7. atualizar pesos com AdamW
+8. logar loss
+
+Este é o loop mínimo realista.
+
+Próximas melhorias, depois que esse loop funcionar:
+- gradient accumulation
+- scheduler warmup + cosine
+- autocast bf16/fp16
+- GradScaler para fp16
+- checkpoint interval
+- eval interval`,
+      rightBody: `\`\`\`python
+snippet:gpt2_manual/train-loop
 \`\`\``,
       codeExplanations: [
-        {
-          lineRange: [1, 9],
-          content: 'Inicializamos os imports, o ByteTokenizer e o corpus curto convertido para IDs.',
-        },
-        {
-          lineRange: [11, 19],
-          content: 'Definimos `ModelConfig` e instanciamos GPT + AdamW, igual ao fluxo usado no projeto real.',
-        },
-        {
-          lineRange: [20, 31],
-          content: 'O loop aplica `forward -> loss -> zero_grad -> backward -> clip -> step` e imprime loss/perplexidade.',
-        },
+        { lineRange: [1, 11], content: 'Escolhemos device, movemos o modelo e criamos AdamW com os grupos de parâmetros já configurados.' },
+        { lineRange: [13, 23], content: 'Cada step sorteia `x/y`, move dados para o mesmo device do modelo e calcula logits/loss.' },
+        { lineRange: [25, 36], content: 'O update segue `zero_grad -> backward -> clip -> optimizer.step`, com log periódico da loss.' },
       ],
     },
     'en-us': {
-      title: 'Step 2: Training loop',
-      body: `With architecture ready, we train a small GPT on a short corpus to validate the full cycle.
+      title: 'Training loop: get_batch -> loss -> backward -> AdamW',
+      body: `Now we train the small GPT.
 
-Per-step flow:
+At this point, \`train_data\` does not appear from nowhere: it came from the token stream built from the real Hugging Face dataset, or from a didactic corpus used only for smoke tests.
 
-1. build shifted \`x, y\` batch
-2. run \`model(x, y)\`
-3. zero gradients
-4. \`backward\` + gradient clipping
-5. \`optimizer.step()\`
+Each step does:
 
-Expected signs:
-- loss trending down across steps
-- perplexity following the drop
-- model memorizing corpus patterns`,
-      rightBody: `
-\`\`\`python
-snippet:build_gpt2/build-gpt2-train
+1. sample an \`x/y\` batch from the token stream
+2. move \`x/y\` to the device
+3. run \`model(x, y)\`
+4. zero gradients
+5. backpropagate loss
+6. clip gradients if needed
+7. update weights with AdamW
+8. log loss
+
+This is the minimum realistic loop.
+
+Next improvements, after this loop works:
+- gradient accumulation
+- warmup + cosine scheduler
+- bf16/fp16 autocast
+- GradScaler for fp16
+- checkpoint interval
+- eval interval`,
+      rightBody: `\`\`\`python
+snippet:gpt2_manual/train-loop
 \`\`\``,
       codeExplanations: [
-        {
-          lineRange: [1, 9],
-          content: 'We initialize imports, ByteTokenizer, and the short corpus converted into token IDs.',
-        },
-        {
-          lineRange: [11, 19],
-          content: 'We define `ModelConfig` and instantiate GPT + AdamW, matching the real project flow.',
-        },
-        {
-          lineRange: [20, 31],
-          content: 'Loop applies `forward -> loss -> zero_grad -> backward -> clip -> step` and prints loss/perplexity.',
-        },
+        { lineRange: [1, 11], content: 'We choose a device, move the model, and create AdamW with the configured parameter groups.' },
+        { lineRange: [13, 23], content: 'Each step samples `x/y`, moves data to the same device as the model, and computes logits/loss.' },
+        { lineRange: [25, 36], content: 'The update follows `zero_grad -> backward -> clip -> optimizer.step`, with periodic loss logging.' },
       ],
     },
   },
 });
-

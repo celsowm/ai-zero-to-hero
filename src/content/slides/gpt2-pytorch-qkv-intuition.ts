@@ -10,6 +10,7 @@ export const gpt2PytorchQkvIntuition = defineSlide({
       body: `QKV não é uma metáfora solta. No GPT-2, ele nasce de uma linha bem concreta:
 
 \`\`\`txt
+self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
 q, k, v = c_attn(x).split(C, dim=-1)
 \`\`\`
 
@@ -26,7 +27,7 @@ Leitura operacional:
 - **K** é o vetor usado para ser comparado
 - **V** é o conteúdo que entra no resultado quando o peso é alto
 
-Ponte para o próximo slide: agora faremos o mesmo cálculo com batch, máscara causal e múltiplas heads.`,
+No próximo slide, essa projeção vira parte da classe \`CausalSelfAttention\`.`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/qkv-intuition
 \`\`\``,
@@ -43,6 +44,7 @@ snippet:gpt2_manual/qkv-intuition
       body: `QKV is not a loose metaphor. In GPT-2, it comes from one concrete line:
 
 \`\`\`txt
+self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
 q, k, v = c_attn(x).split(C, dim=-1)
 \`\`\`
 
@@ -59,7 +61,7 @@ Operational reading:
 - **K** is the vector used to be compared
 - **V** is the content that enters the result when its weight is high
 
-Bridge to the next slide: now we will run the same calculation with batch, causal masking, and multiple heads.`,
+On the next slide, this projection becomes part of the \`CausalSelfAttention\` class.`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/qkv-intuition
 \`\`\``,

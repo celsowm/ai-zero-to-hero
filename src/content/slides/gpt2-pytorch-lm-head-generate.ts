@@ -6,67 +6,60 @@ export const gpt2PytorchLmHeadGenerate = defineSlide({
   options: { columnRatios: [0.46, 0.54] },
   content: {
     'pt-br': {
-      title: 'LM head e loop de geração',
+      title: 'LM head: a última posição escolhe o próximo token',
       body: `Depois do forward, a geração olha só para a última posição.
 
 Ritmo da geração autoregressiva:
 
-1. rodar o modelo no contexto atual
-2. pegar \`logits[:, -1, :]\`
-3. transformar em probabilidades
-4. amostrar um próximo token
+1. cortar o contexto para no máximo \`block_size\`
+2. rodar o modelo no contexto atual
+3. pegar \`logits[:, -1, :]\`
+4. transformar em probabilidades
+5. amostrar um próximo token
+6. concatenar no contexto
 
-Controles que mudam o comportamento:
-- temperatura: mais baixa = mais conservador
-- top-k/top-p: limita cauda da distribuição
-- max_new_tokens: controla custo e tamanho da resposta
-
-Efeito típico dos knobs:
-- temperatura baixa + top-k curto = saída repetitiva e segura
-- temperatura moderada + top-p = saída mais diversa sem abrir toda a cauda
+O modelo só aceita no máximo \`block_size\` tokens. Durante geração, o contexto cresce. Por isso cortamos os tokens mais antigos e mantemos apenas os últimos \`block_size\`.
 
 Problemas comuns:
-- repetição excessiva: temperatura baixa demais
-- ruído sem sentido: temperatura alta demais`,
+- esquecer o crop de contexto
+- usar todos os logits em vez da última posição
+- chamar geração com gradiente ligado`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 1], content: 'Começamos com um prefixo pequeno já tokenizado.' },
-        { lineRange: [3, 10], content: 'Cada iteração usa o contexto atual para produzir os logits da próxima decisão, amostrar e anexar o token.' },
+        { lineRange: [1, 3], content: 'Começamos com um prefixo tokenizado em `torch.long`.' },
+        { lineRange: [5, 7], content: '`idx_cond` corta o contexto para `block_size` e o forward devolve logits temporais.' },
+        { lineRange: [8, 11], content: 'Só a última posição decide o próximo token; softmax, multinomial e cat fecham uma iteração.' },
       ],
     },
     'en-us': {
-      title: 'LM head and the generation loop',
-      body: `After the forward pass, generation only cares about the last position.
+      title: 'LM head: the last position chooses the next token',
+      body: `After the forward pass, generation only looks at the last position.
 
 Rhythm of autoregressive generation:
 
-1. run the model on the current context
-2. take \`logits[:, -1, :]\`
-3. turn them into probabilities
-4. sample the next token
+1. crop context to at most \`block_size\`
+2. run the model on current context
+3. take \`logits[:, -1, :]\`
+4. turn them into probabilities
+5. sample one next token
+6. concatenate into context
 
-Controls that change behavior:
-- temperature: lower = more conservative
-- top-k/top-p: trims the distribution tail
-- max_new_tokens: controls cost and output length
-
-Typical knob effect:
-- low temperature + short top-k = safer but repetitive output
-- moderate temperature + top-p = more diverse output without opening the full tail
+The model accepts at most \`block_size\` tokens. During generation, context grows. That is why we cut older tokens and keep only the latest \`block_size\`.
 
 Common issues:
-- excessive repetition: temperature too low
-- incoherent noise: temperature too high`,
+- forgetting context crop
+- using all logits instead of the last position
+- running generation with gradients enabled`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 1], content: 'We start from a tiny tokenized prefix.' },
-        { lineRange: [3, 10], content: 'Each iteration uses the current context to produce the next logits, sample, and append the token.' },
+        { lineRange: [1, 3], content: 'We start with a tokenized prefix in `torch.long`.' },
+        { lineRange: [5, 7], content: '`idx_cond` crops context to `block_size` and forward returns temporal logits.' },
+        { lineRange: [8, 11], content: 'Only the last position decides the next token; softmax, multinomial, and cat close one iteration.' },
       ],
     },
   },
 });
-

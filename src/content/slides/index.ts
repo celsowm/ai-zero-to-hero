@@ -23,15 +23,23 @@ import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling'
 import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
 import { gpt2BlackBox } from './gpt2-black-box';
+import { gpt2HfDatasetIntake } from './gpt2-hf-dataset-intake';
+import { gpt2HfDatasetTokenStream } from './gpt2-hf-dataset-token-stream';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
 import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
+import { gpt2PytorchGetBatch } from './gpt2-pytorch-get-batch';
+import { gpt2PytorchHeadShapes } from './gpt2-pytorch-head-shapes';
 import { gpt2PytorchQkvIntuition } from './gpt2-pytorch-qkv-intuition';
 import { gpt2PytorchLmHeadGenerate } from './gpt2-pytorch-lm-head-generate';
 import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
 import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
+import { gpt2PytorchOptimizerSetup } from './gpt2-pytorch-optimizer-setup';
+import { gpt2PytorchProjectMap } from './gpt2-pytorch-project-map';
 import { gpt2PytorchE2eDebugger } from './gpt2-pytorch-e2e-debugger';
+import { gpt2PytorchTokenStream } from './gpt2-pytorch-token-stream';
+import { gpt2PytorchTransformerBlock } from './gpt2-pytorch-transformer-block';
 import { gpt2Teaser } from './gpt2-teaser';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
 import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
@@ -290,15 +298,23 @@ export const allSlides: ISlide[] = [
   dataCollatorExplorer,
   embeddingsIntro,
   gpt2BlackBox,
+  gpt2HfDatasetIntake,
+  gpt2HfDatasetTokenStream,
   gpt2LayerByLayerXray,
   gpt2BlockAnatomy,
   gpt2PytorchAttention,
   gpt2PytorchConfigLoading,
   gpt2PytorchE2eDebugger,
+  gpt2PytorchGetBatch,
+  gpt2PytorchHeadShapes,
   gpt2PytorchLmHeadGenerate,
   gpt2PytorchMlpBlock,
   gpt2PytorchModelForward,
+  gpt2PytorchOptimizerSetup,
+  gpt2PytorchProjectMap,
   gpt2PytorchQkvIntuition,
+  gpt2PytorchTokenStream,
+  gpt2PytorchTransformerBlock,
   gpt2Teaser,
   gpt2WeThePeopleInput,
   hfDatasetsDeepDive,

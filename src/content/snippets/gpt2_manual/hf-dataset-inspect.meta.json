@@ -1,0 +1,5 @@
+{
+  "id": "gpt2_manual/hf-dataset-inspect",
+  "language": "python",
+  "pyodide": false
+}

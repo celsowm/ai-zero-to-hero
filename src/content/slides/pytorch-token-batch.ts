@@ -28,7 +28,15 @@ Por que isso importa:
 Erros comuns aqui:
 - deslocar \`x/y\` na direção errada;
 - quebrar alinhamento ao cortar/padronizar sequência;
-- flatten incorreto antes da cross-entropy.`,
+- flatten incorreto antes da cross-entropy.
+
+Este slide mostra o shift em batch pronto. No GPT real, o mesmo padrão aparece dentro de \`get_batch()\`:
+
+\`\`\`txt
+chunk = data[i : i + block_size + 1]
+x = chunk[:-1]
+y = chunk[1:]
+\`\`\``,
     },
     'en-us': {
       title: 'Tokenized text becomes a batch',
@@ -53,7 +61,15 @@ Why this matters:
 Common mistakes:
 - shifting \`x/y\` in the wrong direction;
 - breaking alignment while slicing/padding sequences;
-- wrong flatten before cross-entropy.`,
+- wrong flatten before cross-entropy.
+
+This slide shows the shift on an already-built batch. In the real GPT, the same pattern appears inside \`get_batch()\`:
+
+\`\`\`txt
+chunk = data[i : i + block_size + 1]
+x = chunk[:-1]
+y = chunk[1:]
+\`\`\``,
     },
   },
   visual: {

@@ -3,103 +3,89 @@ import { defineSlide } from './_factory';
 export const buildGpt2Intro = defineSlide({
   id: 'build-gpt2-intro',
   type: 'two-column',
-  options: {
-    "columnRatios": [
-      0.6,
-      0.4
-    ]
-  },
+  options: { columnRatios: [0.58, 0.42] },
   content: {
     'pt-br': {
-      title: `Prática: Construindo do Zero`,
-      body: `Nesta última etapa do curso, você não será apenas um usuário do Hugging Face. Vamos abrir o capô e treinar um modelo de ponta a ponta.
+      title: 'Construindo um GPT pequeno em PyTorch',
+      body: `Agora vamos sair da explicação e construir.
 
-### O Desafio
+Não vamos começar com dataset gigante. Não vamos esconder a arquitetura atrás de uma biblioteca. E antes do treino vamos conectar um dataset real do Hugging Face ao mesmo contrato de token stream.
 
-Vamos recriar o ciclo de vida completo de uma Inteligência Artificial do zero usando **PyTorch puro**.
+Vamos montar um GPT pequeno em PyTorch puro, peça por peça.
 
-Cada peça que aprendemos será implementada sem bibliotecas mágicas fechadas:
+A ordem será:
 
-1.  **Dados**: Coletar livros do Projeto Gutenberg e fatiar em janelas auto-regressivas.
-2.  **Arquitetura**: Montar a Atenção Causal, a MLP e a Torre de Blocos.
-3.  **Treinamento**: Inicializar pesos aleatórios e aplicar Otimizador (AdamW) e Loss (Cross Entropy).
-4.  **Inferência**: Gerar textos prevendo token a token em um loop \`while\`.
+1. definir a config
+2. transformar texto em token stream
+3. inspecionar dataset real do Hugging Face
+4. normalizar texto para token stream
+5. cortar batches \`x/y\`
+6. criar embeddings de token e posição
+7. implementar QKV
+8. separar heads
+9. implementar atenção causal
+10. implementar MLP
+11. montar \`TransformerBlock\`
+12. montar \`GPT.forward()\`
+13. calcular cross-entropy
+14. treinar com AdamW
+15. gerar texto token a token
+16. depurar por shape, dtype, device e NaN
 
-> Tudo o que ensinamos de forma isolada nos módulos anteriores (atenção, blocos, entropia, tensores) agora vai se juntar em um único sistema de software que você mesmo dominará.
-
-`,
+A meta não é treinar um modelo grande. A meta é entender cada engrenagem.`,
+      rightBody: `\`\`\`txt
+texto
+-> token stream
+-> HF dataset normalizado
+-> get_batch
+-> GPT
+-> logits
+-> loss
+-> backward
+-> optimizer.step
+-> generate
+\`\`\``,
     },
     'en-us': {
-      title: `Practice: Building from Scratch`,
-      body: `In this final stage of the course, you won't just be a Hugging Face user. Let's pop the hood and train a model end-to-end.
+      title: 'Building a small GPT in PyTorch',
+      body: `Now we move from explanation into construction.
 
-### The Challenge
+We will not start with a huge dataset. We will not hide the architecture behind a library. And before training we will connect a real Hugging Face dataset to the same token-stream contract.
 
-We will recreate the complete lifecycle of an Artificial Intelligence from scratch using **pure PyTorch**.
+We will build a small GPT in pure PyTorch, piece by piece.
 
-Every piece we learned will be implemented without closed magic libraries:
+The order will be:
 
-1.  **Data**: Collect books from Project Gutenberg and slice them into autoregressive windows.
-2.  **Architecture**: Assemble Causal Attention, MLP, and the Block Tower.
-3.  **Training**: Initialize random weights and apply Optimizer (AdamW) and Loss (Cross Entropy).
-4.  **Inference**: Generate texts predicting token by token in a \`while\` loop.
+1. define the config
+2. turn text into a token stream
+3. inspect a real Hugging Face dataset
+4. normalize text into a token stream
+5. slice \`x/y\` batches
+6. create token and position embeddings
+7. implement QKV
+8. split heads
+9. implement causal attention
+10. implement the MLP
+11. assemble \`TransformerBlock\`
+12. assemble \`GPT.forward()\`
+13. compute cross-entropy
+14. train with AdamW
+15. generate text token by token
+16. debug by shape, dtype, device, and NaN
 
-> Everything we taught in isolation in the previous modules (attention, blocks, entropy, tensors) will now come together in a single software system that you yourself will master.
-
-`,
-    },
-  },
-  visual: {
-    id: 'gpt2-blackbox-diagram',
-    copy: {
-      "pt-br": {
-        title: 'Sistema que vamos construir',
-        objectiveLabel: 'Objetivo',
-        objective: 'treinar e gerar texto com PyTorch puro',
-        inputLabel: 'dados',
-        inputShape: 'janelas (B,T)',
-        modelLabel: 'nosso GPT',
-        modelShape: 'blocos + atenção + MLP',
-        outputLabel: 'saída',
-        outputShape: 'logits (B,T,V)',
-        configTitle: 'Peças',
-        configRows: [
-          { label: 'dados', value: 'texto tokenizado' },
-          { label: 'loss', value: 'cross-entropy' },
-          { label: 'optim', value: 'AdamW' },
-          { label: 'loop', value: 'geração token a token' },
-        ],
-        topKTitle: 'Depois do treino',
-        topK: [
-          { token: 'texto', probability: 'gerado' },
-          { token: 'loss', probability: 'menor' },
-          { token: 'checkpoint', probability: 'salvo' },
-        ],
-      },
-      "en-us": {
-        title: 'System we will build',
-        objectiveLabel: 'Objective',
-        objective: 'train and generate text with pure PyTorch',
-        inputLabel: 'data',
-        inputShape: 'windows (B,T)',
-        modelLabel: 'our GPT',
-        modelShape: 'blocks + attention + MLP',
-        outputLabel: 'output',
-        outputShape: 'logits (B,T,V)',
-        configTitle: 'Pieces',
-        configRows: [
-          { label: 'data', value: 'tokenized text' },
-          { label: 'loss', value: 'cross-entropy' },
-          { label: 'optim', value: 'AdamW' },
-          { label: 'loop', value: 'token-by-token generation' },
-        ],
-        topKTitle: 'After training',
-        topK: [
-          { token: 'text', probability: 'generated' },
-          { token: 'loss', probability: 'lower' },
-          { token: 'checkpoint', probability: 'saved' },
-        ],
-      }
+The goal is not to train a large model. The goal is to understand each moving part.`,
+      rightBody: `\`\`\`txt
+text
+-> token stream
+-> normalized HF dataset
+-> get_batch
+-> GPT
+-> logits
+-> loss
+-> backward
+-> optimizer.step
+-> generate
+\`\`\``,
     },
   },
 });

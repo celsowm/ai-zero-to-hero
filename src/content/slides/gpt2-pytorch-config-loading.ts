@@ -3,64 +3,75 @@ import { defineSlide } from './_factory';
 export const gpt2PytorchConfigLoading = defineSlide({
   id: 'gpt2-pytorch-config-loading',
   type: 'two-column',
-  options: { columnRatios: [0.5, 0.5] },
+  options: { columnRatios: [0.48, 0.52] },
   content: {
     'pt-br': {
-      title: 'Passo 1: Config + ByteTokenizer',
-      body: `A construção manual começa definindo o contrato do modelo e transformando texto em IDs com um tokenizer simples.
+      title: 'Config define os contratos de shape',
+      body: `Config não é decoração. Config define os shapes do modelo inteiro.
 
-Números que controlam o GPT:
+\`\`\`txt
+vocab_size  -> tabela de tokens e logits
+block_size  -> tamanho máximo de contexto
+n_layer     -> número de TransformerBlocks
+n_head      -> número de heads por bloco
+n_embd      -> largura C do residual stream
+dropout     -> regularização
+bias        -> bias em Linear/LayerNorm
+tie_weights -> embedding e lm_head compartilham peso
+\`\`\`
 
-- \`vocab_size\`
-- \`block_size\`
-- \`n_layer\`
-- \`n_head\`
-- \`n_embd\`
+Checks obrigatórios:
+- \`n_embd % n_head == 0\`
+- \`vocab_size > 0\`
+- \`block_size > 0\`
 
-Relações que precisam fechar:
-- \`n_embd % n_head == 0\` para permitir split por head
-- \`idx.max() < vocab_size\` para não quebrar embedding lookup
-- contexto de inferência \`<= block_size\`
+Erro comum: se \`idx.max() >= vocab_size\`, \`nn.Embedding\` quebra com \`index out of range\`.
 
-Esse passo já valida o básico: prompt em texto -> IDs numéricos -> configuração coerente para a arquitetura.`,
+Contrato deste slide:
+- entrada: hiperparâmetros
+- operação: dataclass + asserts
+- saída: config coerente para as próximas peças`,
       rightBody: `\`\`\`python
-snippet:gpt2_manual/config
+snippet:gpt2_manual/config-contract
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'Importamos o contrato de arquitetura e o ByteTokenizer usados no fluxo manual.' },
-        { lineRange: [5, 11], content: 'Tokenizamos o prompt e montamos o tensor `(B, T)` de entrada.' },
-        { lineRange: [12, 22], content: 'Criamos a configuração do GPT com os hiperparâmetros principais do modelo.' },
-        { lineRange: [24, 24], content: 'A asserção garante a relação `C = H x D` antes de seguir para QKV.' },
+        { lineRange: [1, 13], content: 'A dataclass concentra todos os números que definem shapes, dropout, bias e compartilhamento de pesos.' },
+        { lineRange: [16, 23], content: 'Os asserts e prints validam as relações mínimas antes de criar embeddings, heads e blocos.' },
       ],
     },
     'en-us': {
-      title: 'Step 1: Config + ByteTokenizer',
-      body: `Manual construction starts by defining the model contract and turning text into IDs with a simple tokenizer.
+      title: 'Config defines shape contracts',
+      body: `Config is not decoration. Config defines the shapes of the whole model.
 
-Numbers that control GPT:
+\`\`\`txt
+vocab_size  -> token table and logits
+block_size  -> maximum context length
+n_layer     -> number of TransformerBlocks
+n_head      -> number of heads per block
+n_embd      -> residual stream width C
+dropout     -> regularization
+bias        -> bias in Linear/LayerNorm
+tie_weights -> embedding and lm_head share weights
+\`\`\`
 
-- \`vocab_size\`
-- \`block_size\`
-- \`n_layer\`
-- \`n_head\`
-- \`n_embd\`
+Required checks:
+- \`n_embd % n_head == 0\`
+- \`vocab_size > 0\`
+- \`block_size > 0\`
 
-Relations that must hold:
-- \`n_embd % n_head == 0\` so head splitting is valid
-- \`idx.max() < vocab_size\` so embedding lookup stays in range
-- inference context length \`<= block_size\`
+Common error: if \`idx.max() >= vocab_size\`, \`nn.Embedding\` fails with \`index out of range\`.
 
-This step already validates the basics: text prompt -> numeric IDs -> coherent config for the architecture.`,
+Contract for this slide:
+- input: hyperparameters
+- operation: dataclass + asserts
+- output: coherent config for the next pieces`,
       rightBody: `\`\`\`python
-snippet:gpt2_manual/config
+snippet:gpt2_manual/config-contract
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 3], content: 'We import the architecture contract and ByteTokenizer used in the manual path.' },
-        { lineRange: [5, 11], content: 'We tokenize the prompt and build the `(B, T)` input tensor.' },
-        { lineRange: [12, 22], content: 'We create GPT config with the core model hyperparameters.' },
-        { lineRange: [24, 24], content: 'The assertion enforces `C = H x D` before moving to QKV.' },
+        { lineRange: [1, 13], content: 'The dataclass gathers every number that defines shapes, dropout, bias, and weight sharing.' },
+        { lineRange: [16, 23], content: 'Asserts and prints validate minimal relations before creating embeddings, heads, and blocks.' },
       ],
     },
   },
 });
-

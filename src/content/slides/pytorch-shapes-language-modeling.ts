@@ -52,7 +52,19 @@ Regra mental:
 
 \`IDs (B,T) -> vetores internos (B,T,C) -> scores de saída (B,T,V)\`
 
-Esse slide é a ponte entre rede tabular e modelo de linguagem: **B permanece**, mas linguagem adiciona **T**, transforma cada posição em **C** e prevê sobre **V**.`,
+Esse slide é a ponte entre rede tabular e modelo de linguagem: **B permanece**, mas linguagem adiciona **T**, transforma cada posição em **C** e prevê sobre **V**.
+
+No GPT que vamos construir:
+
+\`\`\`txt
+B = batch_size
+T = block_size
+C = n_embd
+V = vocab_size
+
+Na atenção:
+C = n_head x head_dim
+\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'O contrato começa nomeando B, T, C e V. A motivação é a mudança de problema: de tabela tabular para sequência de linguagem.' },
         { lineRange: [12, 19], content: '`token_ids` é `(B, T)`: cada linha é uma sequência e cada coluna é uma posição/token. Como são IDs, o dtype é `torch.long`.' },
@@ -109,7 +121,19 @@ Mental rule:
 
 \`IDs (B,T) -> internal vectors (B,T,C) -> output scores (B,T,V)\`
 
-This slide is the bridge between tabular networks and language models: **B remains**, but language adds **T**, turns each position into **C**, and predicts over **V**.`,
+This slide is the bridge between tabular networks and language models: **B remains**, but language adds **T**, turns each position into **C**, and predicts over **V**.
+
+In the GPT we will build:
+
+\`\`\`txt
+B = batch_size
+T = block_size
+C = n_embd
+V = vocab_size
+
+In attention:
+C = n_head x head_dim
+\`\`\``,
       codeExplanations: [
         { lineRange: [1, 11], content: 'The contract starts by naming B, T, C, and V. The motivation is the problem shift: from tabular data to language sequences.' },
         { lineRange: [12, 19], content: '`token_ids` is `(B, T)`: each row is a sequence and each column is a token position. Since these are IDs, dtype is `torch.long`.' },

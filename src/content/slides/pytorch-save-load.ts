@@ -20,8 +20,8 @@ Sem estado do otimizador, você "retoma" com outra dinâmica de update.
 Sem passo atual, métricas e scheduler ficam inconsistentes.
 
 Dois casos de uso:
-- **inferência**: salvar só pesos do modelo já basta.
-- **retomada de treino**: salvar modelo + optimizer + passo.`,
+- **inferência**: salvar só \`model.state_dict()\` já basta.
+- **retomada de treino**: salvar modelo + optimizer + passo + config + metadata do tokenizer.`,
     },
     'en-us': {
       title: 'Save and reload a checkpoint',
@@ -38,8 +38,8 @@ Without optimizer state, resume starts with different update dynamics.
 Without step metadata, metrics and scheduler become inconsistent.
 
 Two use cases:
-- **inference**: saving only model weights is enough.
-- **training resume**: save model + optimizer + step.`,
+- **inference**: saving only \`model.state_dict()\` is enough.
+- **training resume**: save model + optimizer + step + config + tokenizer metadata.`,
     },
   },
   visual: {
@@ -53,8 +53,8 @@ Two use cases:
           source: { snippetId: 'pytorch-lm/save-load', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'Criamos modelo e otimizador porque checkpoint de treino precisa dos dois estados, não só dos pesos.' },
-            { lineRange: [6, 10], content: 'Montamos um dicionário com pesos, estado do otimizador e passo atual, que é o payload mínimo para retomada consistente.' },
-            { lineRange: [12, 14], content: '`torch.save` serializa esse payload em disco e `torch.load` reconstrói o estado em memória.' },
+            { lineRange: [6, 12], content: 'Montamos um dicionário com pesos, otimizador, passo, config e metadata do tokenizer para retomada consistente.' },
+            { lineRange: [14, 21], content: '`torch.save` serializa o payload, `torch.load` recarrega em CPU, e os estados são restaurados no modelo e otimizador.' },
           ],
         },
         explorerPanel: {
@@ -113,8 +113,8 @@ Two use cases:
           source: { snippetId: 'pytorch-lm/save-load', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 5], content: 'We instantiate model and optimizer because training checkpoints must preserve both, not just weights.' },
-            { lineRange: [6, 10], content: 'We assemble a payload with model weights, optimizer state, and current step for consistent resume.' },
-            { lineRange: [12, 14], content: '`torch.save` serializes that payload to disk, and `torch.load` reconstructs it in memory.' },
+            { lineRange: [6, 12], content: 'We assemble a payload with weights, optimizer, step, config, and tokenizer metadata for consistent resume.' },
+            { lineRange: [14, 21], content: '`torch.save` serializes the payload, `torch.load` reloads on CPU, and states are restored into model and optimizer.' },
           ],
         },
         explorerPanel: {

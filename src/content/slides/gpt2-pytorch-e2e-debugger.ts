@@ -3,76 +3,67 @@ import { defineSlide } from './_factory';
 export const gpt2PytorchE2eDebugger = defineSlide({
   id: 'gpt2-pytorch-e2e-debugger',
   type: 'two-column',
-  options: { columnRatios: [0.46, 0.54] },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: 'Debug ponta a ponta por shapes',
-      body: `Se o modelo quebrar, o jeito mais rápido de voltar ao controle é imprimir shapes nas etapas críticas.
+      title: 'Debug de GPT: shape, dtype, device, range e NaN',
+      body: `Debug de GPT quase sempre começa em cinco coisas:
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+1. shape
+2. dtype
+3. device
+4. range de token
+5. NaN
 
-Sequência útil:
+Sequência recomendada:
 
-1. input IDs
-2. token embedding
-3. soma com posição
-4. saída de cada bloco
-5. logits finais
+- valide \`idx.dtype == torch.long\`
+- confirme \`idx.max() < vocab_size\`
+- confira \`T <= block_size\`
+- garanta que modelo, \`x\` e \`y\` estão no mesmo device
+- cheque se a loss virou NaN
+- imprima shapes internos até localizar o primeiro contrato quebrado
 
-Sequência de depuração recomendada:
-- valide dtype/range de \`idx\` primeiro
-- confirme \`(B, T, C)\` após embeddings
-- localize o primeiro bloco que quebra contrato
-- confirme retorno final em \`(B, T, V)\`
-
-Quando passar para debug numérico:
-- depois que todos os shapes fecharem
-- e quando o problema virar NaN, escala absurda ou logits sem sentido
-
-Regra prática: depure por contrato de shape antes de depurar por valor numérico.`,
+Regra prática: depure por contrato antes de mexer em hiperparâmetro.`,
       rightBody: `\`\`\`python
-snippet:gpt2_manual/e2e-trace
+snippet:gpt2_manual/debug-checklist
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'O trace começa no batch de entrada e confirma a primeira soma de embeddings.' },
-        { lineRange: [8, 10], content: 'Imprimir cada bloco ajuda a localizar rapidamente onde um shape sai do contrato.' },
-        { lineRange: [12, 13], content: 'O final do trace confirma se o modelo voltou a `(B, T, V)`.' },
+        { lineRange: [1, 10], content: 'O primeiro bloco confirma shape, dtype, device, range de tokens e contexto máximo.' },
+        { lineRange: [12, 17], content: 'O segundo bloco verifica se modelo e dados estão no mesmo device.' },
+        { lineRange: [19, 20], content: 'A checagem de NaN separa bug de shape de instabilidade numérica.' },
+        { lineRange: [22, 31], content: 'Os prints internos localizam em qual etapa o contrato de shape deixou de fechar.' },
       ],
     },
     'en-us': {
-      title: 'End-to-end debugging through shapes',
-      body: `When the model breaks, the fastest way back to control is to print shapes at the critical stages.
+      title: 'GPT debugging: shape, dtype, device, range, and NaN',
+      body: `GPT debugging almost always starts with five things:
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+1. shape
+2. dtype
+3. device
+4. token range
+5. NaN
 
-Useful sequence:
+Recommended sequence:
 
-1. input IDs
-2. token embedding
-3. add position
-4. output of each block
-5. final logits
+- validate \`idx.dtype == torch.long\`
+- confirm \`idx.max() < vocab_size\`
+- check \`T <= block_size\`
+- make sure model, \`x\`, and \`y\` are on the same device
+- check whether loss became NaN
+- print internal shapes until you find the first broken contract
 
-Recommended debugging sequence:
-- validate \`idx\` dtype/range first
-- confirm \`(B, T, C)\` after embeddings
-- find the first block that breaks contract
-- confirm final return to \`(B, T, V)\`
-
-When to move into numeric debugging:
-- after every shape contract closes
-- and when the problem becomes NaNs, exploding scales, or meaningless logits
-
-Practical rule: debug shape contracts before debugging numeric values.`,
+Practical rule: debug contracts before changing hyperparameters.`,
       rightBody: `\`\`\`python
-snippet:gpt2_manual/e2e-trace
+snippet:gpt2_manual/debug-checklist
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 6], content: 'The trace starts at the input batch and confirms the first embedding sum.' },
-        { lineRange: [8, 10], content: 'Printing each block makes it fast to locate where a shape leaves the contract.' },
-        { lineRange: [12, 13], content: 'The end of the trace confirms whether the model returned to `(B, T, V)`.' },
+        { lineRange: [1, 10], content: 'The first block confirms shape, dtype, device, token range, and maximum context.' },
+        { lineRange: [12, 17], content: 'The second block verifies whether model and data are on the same device.' },
+        { lineRange: [19, 20], content: 'The NaN check separates shape bugs from numerical instability.' },
+        { lineRange: [22, 31], content: 'Internal prints locate which step first broke the shape contract.' },
       ],
     },
   },
 });
-

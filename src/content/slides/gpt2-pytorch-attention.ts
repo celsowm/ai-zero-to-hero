@@ -3,72 +3,77 @@ import { defineSlide } from './_factory';
 export const gpt2PytorchAttention = defineSlide({
   id: 'gpt2-pytorch-attention',
   type: 'two-column',
-  options: { columnRatios: [0.46, 0.54] },
+  options: { columnRatios: [0.44, 0.56] },
   content: {
     'pt-br': {
-      title: 'Atenção causal em PyTorch',
-      body: `Agora entramos na mecânica completa da atenção causal.
+      title: 'CausalSelfAttention: a classe completa',
+      body: `Agora vamos escrever a atenção causal usada no GPT.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+A classe precisa fazer seis coisas:
 
-Com QKV já definido, o fluxo passa a ser:
+1. projetar \`x\` de \`C\` para \`3C\`
+2. separar \`Q\`, \`K\` e \`V\`
+3. reorganizar cada tensor em heads
+4. chamar \`scaled_dot_product_attention\` com \`is_causal=True\`
+5. juntar as heads de volta
+6. projetar a saída para \`C\`
 
-1. projeção \`C -> 3C\` para QKV (Query, Key, Value)
-2. reshape para múltiplas heads
-3. aplicar máscara causal nos scores
-4. projeção final de volta para \`C\`
+Contrato:
+- entrada: \`(B,T,C)\`
+- saída: \`(B,T,C)\`
 
-Contratos de shape:
-- entrada: \`x (B, T, C)\`
-- q/k/v por head: \`(B, H, T, D)\`
-- scores: \`(B, H, T, T)\`
-- saída: \`(B, T, C)\`
+Esse contrato precisa fechar para o residual funcionar.
 
 Erros comuns:
-- esquecer a máscara causal (vaza futuro no treino)
-- permutar dimensão errada em \`transpose/view\`
-- usar \`softmax\` no eixo errado
-- esquecer que o reshape precisa respeitar \`C = H x D\``,
+- \`n_embd\` não divisível por \`n_head\`
+- esquecer \`transpose\`
+- esquecer \`contiguous\` antes de \`view\`
+- usar dropout durante \`eval\`
+- softmax no eixo errado se implementar manualmente`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/attention
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 12], content: 'A classe define heads, dimensão por head e projeções lineares de entrada/saída.' },
-        { lineRange: [14, 22], content: 'No forward, o tensor vira QKV, recebe shape multi-head, aplica atenção causal e retorna para `(B, T, C)`.' },
+        { lineRange: [1, 27], content: '`__init__` configura heads, dimensão por head, projeção QKV, projeção de saída e dropout residual.' },
+        { lineRange: [28, 37], content: '`forward` lê `B,T,C`, cria `qkv`, separa `q,k,v` e reorganiza tudo para `(B,H,T,D)`.' },
+        { lineRange: [38, 48], content: '`scaled_dot_product_attention` aplica atenção causal e desliga dropout quando o módulo está em avaliação.' },
+        { lineRange: [49, 51], content: 'As heads são juntadas de volta, projetadas para `C` e retornam no contrato `(B,T,C)`.' },
       ],
     },
     'en-us': {
-      title: 'Causal attention in PyTorch',
-      body: `Now we enter the full mechanics of causal attention.
+      title: 'CausalSelfAttention: the full class',
+      body: `Now we write the causal attention used in GPT.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+The class must do six things:
 
-With QKV already defined, the flow becomes:
+1. project \`x\` from \`C\` to \`3C\`
+2. split \`Q\`, \`K\`, and \`V\`
+3. reorganize each tensor into heads
+4. call \`scaled_dot_product_attention\` with \`is_causal=True\`
+5. join heads back together
+6. project output back to \`C\`
 
-1. one \`C -> 3C\` projection for QKV (Query, Key, Value)
-2. reshape into multiple heads
-3. apply a causal mask over the scores
-4. final projection back to \`C\`
+Contract:
+- input: \`(B,T,C)\`
+- output: \`(B,T,C)\`
 
-Shape contracts:
-- input: \`x (B, T, C)\`
-- per-head q/k/v: \`(B, H, T, D)\`
-- attention scores: \`(B, H, T, T)\`
-- output: \`(B, T, C)\`
+This contract must close for residual addition to work.
 
-Common failures:
-- missing causal mask (future leakage during training)
-- wrong \`transpose/view\` dimension order
-- applying \`softmax\` on the wrong axis
-- forgetting that reshape must respect \`C = H x D\``,
+Common errors:
+- \`n_embd\` not divisible by \`n_head\`
+- forgetting \`transpose\`
+- forgetting \`contiguous\` before \`view\`
+- using dropout during \`eval\`
+- softmax on the wrong axis when implementing manually`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/attention
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 12], content: 'The class defines heads, per-head width, and input/output linear projections.' },
-        { lineRange: [14, 22], content: 'In forward, tensor becomes QKV, gains multi-head shape, applies causal attention, and returns to `(B, T, C)`.' },
+        { lineRange: [1, 27], content: '`__init__` configures heads, per-head width, QKV projection, output projection, and residual dropout.' },
+        { lineRange: [28, 37], content: '`forward` reads `B,T,C`, creates `qkv`, splits `q,k,v`, and reshapes everything into `(B,H,T,D)`.' },
+        { lineRange: [38, 48], content: '`scaled_dot_product_attention` applies causal attention and disables dropout when the module is in eval mode.' },
+        { lineRange: [49, 51], content: 'Heads are joined back together, projected to `C`, and returned in the `(B,T,C)` contract.' },
       ],
     },
   },
 });
-
