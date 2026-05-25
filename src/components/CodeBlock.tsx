@@ -6,6 +6,7 @@ import type { CodeExplanation as ICodeExplanation, CodeSourceRef } from '../type
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
 import { resolveSnippetCode, resolveSnippetMeta, resolveSnippetCodeWithDeps } from '../content/registry';
+import { usesTorch } from '../services/pyodideRunner';
 import 'highlight.js/styles/github-dark.css';
 
 export type CodeExplanation = ICodeExplanation;
@@ -131,11 +132,11 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     if (!sourceRef || lang !== 'python') return false;
     try {
       const meta = resolveSnippetMeta(sourceRef, courseLanguage);
-      return meta?.pyodide !== false; // defaults to true
+      return meta?.pyodide !== false || usesTorch(resolvedCode); // Torch is handled dynamically by the runner.
     } catch {
       return false;
     }
-  }, [sourceRef, courseLanguage, lang]);
+  }, [sourceRef, courseLanguage, lang, resolvedCode]);
 
   const processedLines = useMemo(() => {
     const highlighted = hljs.getLanguage(lang)

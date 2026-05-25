@@ -1,7 +1,17 @@
 import { loadPyodide, type PyodideInterface } from 'pyodide';
 
+const TORCH_PYODIDE_VERSION = '0.0.68';
+const TORCH_IMPORT_RE = /(^|\n)\s*(import\s+torch\b|from\s+torch\b)|(^|[^\w.])torch\./;
+const WEBGPU_ERROR = 'Torch snippets in the browser require WebGPU. Use a WebGPU-capable browser and device.';
+
 let pyodideInstance: PyodideInterface | null = null;
 let loadingPromise: Promise<PyodideInterface> | null = null;
+let torchRuntimeInstallPromise: Promise<void> | null = null;
+let torchInstallPromise: Promise<void> | null = null;
+
+export function usesTorch(code: string): boolean {
+  return TORCH_IMPORT_RE.test(code);
+}
 
 export async function getPyodide(): Promise<PyodideInterface> {
   if (pyodideInstance) return pyodideInstance;
@@ -21,8 +31,84 @@ export interface PythonRunResult {
   error?: string;
 }
 
+async function ensureTorchRuntime(): Promise<void> {
+  if (torchRuntimeInstallPromise) {
+    return torchRuntimeInstallPromise;
+  }
+
+  torchRuntimeInstallPromise = (async () => {
+    const runtimeUrl = `${import.meta.env.BASE_URL}vendor/torch-pyodide/runtime.mjs`;
+    const importRuntime = new Function('url', 'return import(url)') as (url: string) => Promise<{
+      installTorchRuntime?: (target?: typeof globalThis) => unknown;
+    }>;
+    const runtimeModule = await importRuntime(runtimeUrl);
+
+    if (typeof runtimeModule.installTorchRuntime !== 'function') {
+      throw new Error('Torch runtime bundle did not export installTorchRuntime.');
+    }
+
+    runtimeModule.installTorchRuntime(globalThis);
+  })();
+
+  try {
+    await torchRuntimeInstallPromise;
+  } catch (error) {
+    torchRuntimeInstallPromise = null;
+    throw error;
+  }
+}
+
+async function ensureTorchPyodide(pyodide: PyodideInterface): Promise<void> {
+  if (typeof navigator !== 'undefined' && !('gpu' in navigator)) {
+    throw new Error(WEBGPU_ERROR);
+  }
+
+  if (torchInstallPromise) {
+    return torchInstallPromise;
+  }
+
+  torchInstallPromise = (async () => {
+    await ensureTorchRuntime();
+    await pyodide.loadPackage('micropip');
+
+    const localWheelUrl = `${import.meta.env.BASE_URL}vendor/python/torch_pyodide-${TORCH_PYODIDE_VERSION}-py3-none-any.whl`;
+    pyodide.globals.set('torch_pyodide_local_wheel_url', localWheelUrl);
+    pyodide.globals.set('torch_pyodide_pypi_spec', `torch-pyodide==${TORCH_PYODIDE_VERSION}`);
+
+    await pyodide.runPythonAsync(`
+import micropip
+
+try:
+    await micropip.install(torch_pyodide_local_wheel_url)
+except Exception:
+    await micropip.install(torch_pyodide_pypi_spec)
+`);
+  })();
+
+  try {
+    await torchInstallPromise;
+  } catch (error) {
+    torchInstallPromise = null;
+    throw error;
+  }
+}
+
 export async function runPython(code: string): Promise<PythonRunResult> {
   const pyodide = await getPyodide();
+
+  if (usesTorch(code)) {
+    try {
+      await ensureTorchPyodide(pyodide);
+    } catch (e) {
+      const error = String(e);
+      return {
+        stdout: '',
+        stderr: error,
+        result: undefined,
+        error,
+      };
+    }
+  }
 
   // Set up stdout/stderr capture for this run.
   pyodide.runPython(`
@@ -41,6 +127,9 @@ sys.stderr = _ex_stderr
     result = await pyodide.runPythonAsync(code);
   } catch (e) {
     error = String(e);
+    if (usesTorch(code) && error.includes('Failed to get WebGPU adapter')) {
+      error = `${WEBGPU_ERROR}\n\n${error}`;
+    }
   }
 
   const captured = pyodide.runPython(`
@@ -48,7 +137,10 @@ _ex_stdout.getvalue(), _ex_stderr.getvalue()
 `) as { get: (index: number) => string };
 
   const stdout = captured.get(0) ?? '';
-  const stderr = captured.get(1) ?? '';
+  let stderr = captured.get(1) ?? '';
+  if (usesTorch(code) && stderr.includes('Failed to get WebGPU adapter') && !stderr.startsWith(WEBGPU_ERROR)) {
+    stderr = `${WEBGPU_ERROR}\n\n${stderr}`;
+  }
 
   pyodide.runPython(`
 sys.stdout = sys.__stdout__
@@ -57,7 +149,7 @@ sys.stderr = sys.__stderr__
 
   return {
     stdout: String(stdout),
-    stderr: error ? `${String(stderr)}\n${error}`.trim() : String(stderr),
+    stderr: error ? `${stderr}\n${error}`.trim() : stderr,
     result,
     error,
   };

@@ -15,22 +15,24 @@ Com ele, cada ciclo de treino executa: medir erro -> calcular direção -> aplic
 Leitura operacional do update:
 1. \`loss\` diz "quão errado" o modelo está no batch atual
 2. \`backward()\` escreve em \`.grad\` a direção de correção por parâmetro
-3. \`step()\` aplica deslocamento usando essa direcao (escala controlada pelo learning rate)
-4. \`zero_grad()\` limpa o buffer para o proximo batch
+3. \`step()\` aplica deslocamento usando essa direção (escala controlada pelo learning rate)
+4. \`zero_grad()\` limpa o buffer para o próximo batch
 
-Forma mental util (sem entrar em calculo pesado):
+Forma mental útil (sem entrar em cálculo pesado):
 - gradiente define **para onde** andar;
 - learning rate define **o tamanho do passo**;
 - optimizer executa o movimento em cada peso.
 
-Checklist minimo de ordem:
+Neste primeiro exemplo usamos \`SGD\` de propósito: ele é a regra mais transparente. No próximo slide, \`AdamW\` entra como uma regra de passo mais usada na prática, não como um conceito novo.
+
+Checklist mínimo de ordem:
 1. calcular a \`loss\` (erro atual)
 2. \`backward()\` para gerar \`.grad\`
 3. \`step()\` para atualizar os parâmetros
 4. \`zero_grad()\` para não acumular lixo de batch anterior
 
 Sem "magia": optimizer não inventa sinal.
-Ele so converte gradiente em update coerente.`,
+Ele só converte gradiente em update coerente.`,
     },
     'en-us': {
       title: 'What an optimizer is, without mystery',
@@ -50,6 +52,8 @@ Useful mental form (without heavy math):
 - learning rate defines **how far to move**;
 - optimizer executes that movement per parameter.
 
+This first example uses \`SGD\` on purpose: it is the most transparent update rule. In the next slide, \`AdamW\` appears as a more practical step rule, not as a new concept.
+
 Minimum order checklist:
 1. compute \`loss\` (current error)
 2. \`backward()\` to generate \`.grad\`
@@ -64,7 +68,7 @@ It converts gradient signal into coherent updates.`,
     id: 'pytorch-execution-pipeline',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Codigo' }, { label: 'Mapa' }, { label: 'Simulador' }],
+        tabs: [{ label: 'Código' }, { label: 'Mapa' }, { label: 'Simulador' }],
         codePanel: {
           title: 'Fluxo mínimo de atualização',
           description: 'Exemplo enxuto: erro, gradiente, ajuste.',
@@ -83,7 +87,7 @@ It converts gradient signal into coherent updates.`,
           learningRateLabel: 'Learning rate',
           gradientLabel: 'Gradiente (dLoss/dw)',
           stepSizeLabel: 'Tamanho do passo (lr * grad)',
-          updatedWeightLabel: 'Peso apos step',
+          updatedWeightLabel: 'Peso após step',
           lossBeforeLabel: 'Loss antes',
           lossAfterLabel: 'Loss depois',
           interpretationTitle: 'Leitura operacional',
@@ -95,16 +99,16 @@ It converts gradient signal into coherent updates.`,
         },
         pipelinePanel: {
           title: 'Erro -> sinal -> ajuste',
-          subtitle: 'Modelo mental robusto: separar claramente erro, direcao e tamanho de passo.',
+          subtitle: 'Modelo mental robusto: separar claramente erro, direção e tamanho de passo.',
           steps: [
-            { label: 'Erro (loss)', body: 'A loss condensa o desvio do batch em um escalar que vira alvo de minimizacao.', risk: 'Sem loss confiavel, todo update vira chute orientado por sinal ruim.' },
+            { label: 'Erro (loss)', body: 'A loss condensa o desvio do batch em um escalar que vira alvo de minimização.', risk: 'Sem loss confiável, todo update vira chute orientado por sinal ruim.' },
             { label: 'Direção (grad)', body: '`backward()` propaga esse erro e preenche `.grad` com direção por parâmetro.', risk: 'Gradiente velho ou ausente faz o optimizer atuar sem referência do batch atual.' },
             { label: 'Escala (lr)', body: 'Learning rate controla o tamanho do deslocamento aplicado em cada parâmetro.', risk: 'LR alta demais oscila/diverge; LR baixa demais quase não move e parece treino travado.' },
             { label: 'Movimento (step)', body: '`step()` executa o update real nos pesos com base em gradiente + escala.', risk: 'Chamar `step()` fora de ordem gera movimento cego, não aprendizado acumulado.' },
           ],
           failureTitle: 'Erros comuns',
           failureModes: [
-            { label: 'Loss sem diagnostico', value: 'A loss não é monitorada por passo/epoca, então o time não vê se update ajuda ou piora.' },
+            { label: 'Loss sem diagnóstico', value: 'A loss não é monitorada por passo/época, então o time não vê se update ajuda ou piora.' },
             { label: 'Update cego', value: 'Executar `step()` sem gradiente atualizado do batch atual.' },
             { label: 'Escala ruim', value: 'Learning rate incompatível com a tarefa faz o treino oscilar ou andar devagar demais.' },
             { label: 'Loop sem limpeza', value: 'Esquecer `zero_grad()` mistura sinais de batches e distorce o update.' },
@@ -114,9 +118,9 @@ It converts gradient signal into coherent updates.`,
             'Loss diz "quanto errou".',
             'Gradiente diz "para onde corrigir".',
             'Learning rate diz "quanto andar".',
-            'Optimizer aplica o movimento real no parametro.',
+            'Optimizer aplica o movimento real no parâmetro.',
           ],
-          footer: 'No proximo slide, isso vira ritual completo de loop com ordem operacional fechada.',
+          footer: 'No próximo slide, trocamos SGD por AdamW e mantemos a mesma pergunta: o gradiente certo chegou ao step certo?',
         },
       },
       'en-us': {
@@ -172,7 +176,7 @@ It converts gradient signal into coherent updates.`,
             'Learning rate says "how far to move".',
             'Optimizer performs the actual parameter movement.',
           ],
-          footer: 'In the next slide, this becomes the full loop ritual with strict operational ordering.',
+          footer: 'In the next slide, we swap SGD for AdamW and keep the same question: did the right gradient reach the right step?',
         },
       },
     },

@@ -73,6 +73,84 @@ export const PytorchExecutionPipelineVisual = React.memo(({ copy }: PytorchExecu
     </div>
   ) : undefined;
 
+  const adamwPanel = copy.adamwPanel ? (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: 16 }}>
+      <div>
+        <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>{copy.adamwPanel.title}</div>
+        {copy.adamwPanel.subtitle && (
+          <div style={{ marginTop: 4, fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>{copy.adamwPanel.subtitle}</div>
+        )}
+      </div>
+
+      <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 16, background: sw.surface, padding: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: sw.cyan }}>
+          {copy.adamwPanel.flowTitle}
+        </div>
+        <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: `repeat(${copy.adamwPanel.flow.length}, minmax(0, 1fr))`, gap: 10 }}>
+          {copy.adamwPanel.flow.map((item, index) => {
+            const accent = STEP_COLORS[index % STEP_COLORS.length];
+            return (
+              <div
+                key={item.label}
+                style={{
+                  border: `1px solid ${accent}44`,
+                  borderRadius: 14,
+                  background: `linear-gradient(180deg, ${accent}12, rgba(255,255,255,0.01))`,
+                  padding: 12,
+                  minHeight: 124,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                }}
+              >
+                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: accent }}>
+                  {index + 1}. {item.label}
+                </div>
+                <div style={{ fontFamily: sw.fontMono, fontSize: 13, fontWeight: 800, color: sw.text }}>{item.value}</div>
+                <div style={{ fontSize: 12, lineHeight: 1.55, color: sw.textDim }}>{item.body}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 12 }}>
+        <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 16, background: sw.surface, padding: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: sw.purple }}>
+            {copy.adamwPanel.comparisonTitle}
+          </div>
+          <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: '0.7fr 1fr 1fr', gap: 8, alignItems: 'stretch' }}>
+            <div />
+            <div style={{ fontSize: 11, fontWeight: 800, color: sw.cyan, textTransform: 'uppercase' }}>SGD</div>
+            <div style={{ fontSize: 11, fontWeight: 800, color: sw.pink, textTransform: 'uppercase' }}>AdamW</div>
+            {copy.adamwPanel.comparisons.map((item) => (
+              <React.Fragment key={item.label}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: sw.text }}>{item.label}</div>
+                <div style={{ fontSize: 12, lineHeight: 1.5, color: sw.textDim }}>{item.sgd}</div>
+                <div style={{ fontSize: 12, lineHeight: 1.5, color: sw.textDim }}>{item.adamw}</div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ border: `1px solid ${sw.borderSubtle}`, borderRadius: 16, background: 'linear-gradient(180deg, rgba(0,229,255,0.08), rgba(255,255,255,0.01))', padding: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 800, color: sw.cyan, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            {copy.adamwPanel.mentalModelTitle}
+          </div>
+          <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {copy.adamwPanel.mentalModel.map(item => (
+              <div key={item} style={{ fontSize: 12, lineHeight: 1.55, color: sw.text }}>{item}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {copy.adamwPanel.footer && (
+        <div style={{ fontSize: 12, lineHeight: 1.55, color: sw.textMuted }}>{copy.adamwPanel.footer}</div>
+      )}
+    </div>
+  ) : undefined;
+
   const hasPipeline = !!copy.pipelinePanel && copy.pipelinePanel.steps.length > 0 && copy.tabs.length > 1;
   const pipelinePanel = copy.pipelinePanel;
 
@@ -201,7 +279,7 @@ export const PytorchExecutionPipelineVisual = React.memo(({ copy }: PytorchExecu
       tabs={copy.tabs}
       codePanel={copy.codePanel}
       codeTabFooter={copy.generation ? <PytorchGenerationStepper copy={copy.generation} /> : undefined}
-      extraPanel={interactivePanel}
+      extraPanel={adamwPanel ?? interactivePanel}
       altPanel={mainAltPanel}
     />
   );

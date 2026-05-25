@@ -368,6 +368,25 @@ export interface PytorchExecutionPipelineCopy {
     interpretationTitle: string;
     interpretationBullets: string[];
   };
+  adamwPanel?: {
+    title: string;
+    subtitle?: string;
+    flowTitle: string;
+    flow: Array<{
+      label: string;
+      value: string;
+      body: string;
+    }>;
+    comparisonTitle: string;
+    comparisons: Array<{
+      label: string;
+      sgd: string;
+      adamw: string;
+    }>;
+    mentalModelTitle: string;
+    mentalModel: string[];
+    footer?: string;
+  };
 }
 
 export interface PytorchShapeTraceFlowCopy {
