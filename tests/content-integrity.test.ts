@@ -117,6 +117,31 @@ describe('content integrity', () => {
     }
   });
 
+  it('pytorch-lm snippet metas are executable in Pyodide', () => {
+    const failures: string[] = [];
+
+    function walkMetaFiles(dir: string) {
+      if (!existsSync(dir)) return;
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const fullPath = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walkMetaFiles(fullPath);
+        } else if (entry.name.endsWith('.meta.json')) {
+          const json = JSON.parse(readFileSync(fullPath, 'utf-8'));
+          const rel = relative(projectRoot, fullPath).replace(/\\/g, '/');
+          if (rel.startsWith('src/content/snippets/pytorch-lm/') && json.pyodide === false) {
+            failures.push(`${rel}: pyodide must not be false for pytorch-lm snippets`);
+          }
+        }
+      }
+    }
+
+    walkMetaFiles(snippetsDir);
+    if (failures.length > 0) {
+      assert.fail(`pytorch-lm snippets must be executable in Pyodide:\n${failures.join('\n')}`);
+    }
+  });
+
   it('every slide listed in course-outline.ts has a corresponding slide TS file', () => {
     const outlinePath = join(projectRoot, 'src/data/course-outline.ts');
     const outline = readFileSync(outlinePath, 'utf-8');

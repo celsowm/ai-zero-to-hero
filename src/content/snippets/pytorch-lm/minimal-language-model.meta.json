@@ -1,5 +1,5 @@
 {
   "id": "pytorch-lm/minimal-language-model",
   "language": "python",
-  "pyodide": false
+  "pyodide": true
 }

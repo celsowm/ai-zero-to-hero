@@ -1,5 +1,5 @@
 {
   "id": "pytorch-lm/autograd-step",
   "language": "python",
-  "pyodide": false
+  "pyodide": true
 }

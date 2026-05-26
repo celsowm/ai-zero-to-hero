@@ -16,8 +16,8 @@ export interface CodeSnippetMeta {
   explanations?: Partial<Record<CodeRegionId, string>>;
   /**
    * Whether this snippet can be executed in the Pyodide playground.
-   * Defaults to true. Set to false for snippets that use PyTorch,
-   * native modules, or other APIs not available in Pyodide.
+   * Defaults to true. Set to false for snippets that need APIs not
+   * available in Pyodide or that depend on native modules.
    */
   pyodide?: boolean;
   /**

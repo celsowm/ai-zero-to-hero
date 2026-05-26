@@ -1,5 +1,5 @@
 {
   "id": "pytorch-lm/model-lifecycle",
   "language": "python",
-  "pyodide": false
+  "pyodide": true
 }

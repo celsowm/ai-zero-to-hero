@@ -1,5 +1,5 @@
 {
   "id": "pytorch-lm/torch-bridge",
   "language": "python",
-  "pyodide": false
+  "pyodide": true
 }
