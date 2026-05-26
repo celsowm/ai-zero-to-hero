@@ -53,6 +53,10 @@ snippet:neural-networks/tensor-origins
         {
           "lineRange": [13, 15],
           "content": "Tensor 4D: batch de imagens [batch, canais, altura, largura]."
+        },
+        {
+          "lineRange": [19, 23],
+          "content": "Imprime os shapes explicitamente para conectar rank e assinatura: [], [4], [3, 4], [2, 3, 4] e [2, 3, 28, 28]."
         }
       ],
     },
@@ -99,6 +103,10 @@ snippet:neural-networks/tensor-origins
         {
           "lineRange": [13, 15],
           "content": "4D tensor: image batch [batch, channels, height, width]."
+        },
+        {
+          "lineRange": [19, 23],
+          "content": "Prints shapes explicitly to connect rank with its signature: [], [4], [3, 4], [2, 3, 4], and [2, 3, 28, 28]."
         }
       ],
     },

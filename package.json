@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "vitest run"
+    "test": "vitest run",
+    "update:torch-pyodide": "node scripts/update-torch-pyodide.mjs"
   },
   "dependencies": {
     "@codemirror/lang-python": "^6.2.1",

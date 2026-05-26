@@ -72,6 +72,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
             { lineRange: [10, 11], content: 'Matriz: rank 2, shape (3, 4) — três linhas, quatro colunas.' },
             { lineRange: [13, 14], content: 'Tensor 3D: rank 3, shape (2, 3, 4) — batch, posição e conteúdo.' },
             { lineRange: [16, 17], content: 'Tensor 4D: `batch = torch.randn(2, 3, 28, 28)`. Leitura operacional de limites: batch [0..1], canal [0..2], altura [0..27], largura [0..27].' },
+            { lineRange: [19, 23], content: 'Exemplo explícito de `shape` em todos os ranks: 0D (`[]`), 1D (`[4]`), 2D (`[3, 4]`), 3D (`[2, 3, 4]`) e 4D (`[2, 3, 28, 28]`).' },
           ],
         },
         interactivePanel: {
@@ -101,6 +102,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
             { lineRange: [10, 11], content: 'Matrix: rank 2, shape (3, 4) — three rows, four columns.' },
             { lineRange: [13, 14], content: '3D tensor: rank 3, shape (2, 3, 4) — batch, position, and content.' },
             { lineRange: [16, 17], content: '4D tensor: `batch = torch.randn(2, 3, 28, 28)`. Operational axis limits: batch [0..1], channel [0..2], height [0..27], width [0..27].' },
+            { lineRange: [19, 23], content: 'Explicit `shape` readout across ranks: 0D (`[]`), 1D (`[4]`), 2D (`[3, 4]`), 3D (`[2, 3, 4]`), and 4D (`[2, 3, 28, 28]`).' },
           ],
         },
         interactivePanel: {

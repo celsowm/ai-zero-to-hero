@@ -14,3 +14,10 @@ sequence = torch.randn(2, 3, 4)
 
 # 4D tensor: image batch [batch=2, channels=3, height=28, width=28]
 batch = torch.randn(2, 3, 28, 28)
+
+# Explicit shape reading for each rank
+print("loss.shape:", loss.shape)            # torch.Size([])
+print("embedding.shape:", embedding.shape)  # torch.Size([4])
+print("weights.shape:", weights.shape)      # torch.Size([3, 4])
+print("sequence.shape:", sequence.shape)    # torch.Size([2, 3, 4])
+print("batch.shape:", batch.shape)          # torch.Size([2, 3, 28, 28])

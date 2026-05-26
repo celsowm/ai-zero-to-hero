@@ -26,6 +26,10 @@
       {
         "range": [16, 17],
         "content": "Tensor 4D: batch de imagens [batch=2, canais=3, altura=28, largura=28]."
+      },
+      {
+        "range": [19, 23],
+        "content": "Confirma os shapes de 0D a 4D de forma explícita: [], [4], [3, 4], [2, 3, 4] e [2, 3, 28, 28]."
       }
     ],
     "en-us": [
@@ -52,6 +56,10 @@
       {
         "range": [16, 17],
         "content": "4D tensor: image batch [batch=2, channels=3, height=28, width=28]."
+      },
+      {
+        "range": [19, 23],
+        "content": "Explicitly confirms the 0D to 4D shapes: [], [4], [3, 4], [2, 3, 4], and [2, 3, 28, 28]."
       }
     ]
   }
