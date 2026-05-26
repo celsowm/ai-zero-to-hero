@@ -49,7 +49,7 @@ export const ProgressStepperVisual = React.memo(({ copy }: ProgressStepperVisual
   const isFirst = activeStep === 0;
   const isLast = activeStep === lastStepIndex;
 
-  // Fallback for JSONs that don't have steps (e.g. road-to-mini-transformer)
+  // Fallback for JSONs that don't have steps.
   if (!steps.length) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '24px 16px' }}>

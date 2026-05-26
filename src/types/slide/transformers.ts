@@ -237,14 +237,116 @@ export interface SamplingControlsCopy {
   highTempDesc: string;
 }
 
+export interface Gpt2LayerXrayTopToken {
+  token: string;
+  probability: number;
+}
+
+export interface Gpt2LayerXrayLayer {
+  label: string;
+  phase: string;
+  note: string;
+  similarity: number;
+  attentionA: [number, number, number];
+  attentionB: [number, number, number];
+  topTokensA: Gpt2LayerXrayTopToken[];
+  topTokensB: Gpt2LayerXrayTopToken[];
+}
+
 export interface Gpt2LayerXrayCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations: CodeExplanation[];
+  };
+  visualPanel: {
+    ariaLabel: string;
+    title: string;
+    description: string;
+    layerControlLabel: string;
+    shapeTitle: string;
+    shapeCaption: string;
+    tokenTitle: string;
+    similarityTitle: string;
+    attentionTitle: string;
+    logitsTitle: string;
+    phraseALabel: string;
+    phraseBLabel: string;
+    targetLabel: string;
+    positionLabel: string;
+    measuredNote: string;
+    pipeline: string[];
+    tokensA: string[];
+    tokensB: string[];
+    layers: Gpt2LayerXrayLayer[];
+  };
+}
+
+export interface Gpt2AttentionQkvXrayRow {
+  token: string;
+  score: number;
+  weight: number;
+  valueNorm: number;
+}
+
+export interface Gpt2AttentionQkvXrayCosineRow {
+  block: string;
+  q: number;
+  k: number;
+  v: number;
+}
+
+export interface Gpt2AttentionQkvXrayStep {
+  label: string;
   title: string;
-  subtitle: string;
-  shapeInvariantLabel: string;
-  shapeInvariant: string;
-  stages: Array<{ label: string; shape: string; detail: string }>;
-  checkpoints: Array<{ layer: string; representation: string; prediction: string }>;
-  footer: string;
+  body: string;
+  formula: string;
+  focus: 'qkv' | 'scores' | 'mask' | 'softmax' | 'weighted' | 'check' | 'cosine';
+}
+
+export interface Gpt2AttentionQkvXrayPhrase {
+  label: string;
+  tokens: string[];
+  targetIndex: number;
+  qPreview: number[];
+  rows: Gpt2AttentionQkvXrayRow[];
+  contextPreview: number[];
+  hfDiff: string;
+}
+
+export interface Gpt2AttentionQkvXrayCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations: CodeExplanation[];
+  };
+  visualPanel: {
+    ariaLabel: string;
+    title: string;
+    description: string;
+    phraseControlLabel: string;
+    stepControlLabel: string;
+    blockHeadLabel: string;
+    shapeTitle: string;
+    qkvTitle: string;
+    scoreTitle: string;
+    maskTitle: string;
+    weightTitle: string;
+    valueTitle: string;
+    outputTitle: string;
+    checkTitle: string;
+    cosineTitle: string;
+    measuredNote: string;
+    targetLabel: string;
+    positionLabel: string;
+    steps: Gpt2AttentionQkvXrayStep[];
+    phrases: Gpt2AttentionQkvXrayPhrase[];
+    cosines: Gpt2AttentionQkvXrayCosineRow[];
+  };
 }
 
 export interface PredictionEvolutionCopy {
@@ -257,11 +359,6 @@ export interface WhyTransformersWorkCopy {
   reason1: string;
   reason2: string;
   reason3: string;
-}
-
-export interface RoadToMiniTransformerCopy {
-  startLabel: string;
-  endLabel: string;
 }
 
 // ── HuggingFace Transformers Advanced Section ──────────────────────────────

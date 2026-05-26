@@ -26,6 +26,7 @@ import { gpt2BlackBox } from './gpt2-black-box';
 import { gpt2HfDatasetIntake } from './gpt2-hf-dataset-intake';
 import { gpt2HfDatasetTokenStream } from './gpt2-hf-dataset-token-stream';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
+import { gpt2AttentionQkvXray } from './gpt2-attention-qkv-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
 import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
 import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
@@ -215,7 +216,6 @@ import { ragIntro } from './rag-intro';
 import { ragMemoryLimit } from './rag-memory-limit';
 import { ragVectorSearch } from './rag-vector-search';
 import { residualStream } from './residual-stream';
-import { roadToMiniTransformer } from './road-to-mini-transformer';
 import { samplingControls } from './sampling-controls';
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
@@ -301,6 +301,7 @@ export const allSlides: ISlide[] = [
   gpt2HfDatasetIntake,
   gpt2HfDatasetTokenStream,
   gpt2LayerByLayerXray,
+  gpt2AttentionQkvXray,
   gpt2BlockAnatomy,
   gpt2PytorchAttention,
   gpt2PytorchConfigLoading,
@@ -490,7 +491,6 @@ export const allSlides: ISlide[] = [
   ragMemoryLimit,
   ragVectorSearch,
   residualStream,
-  roadToMiniTransformer,
   samplingControls,
   sftIntro,
   systemPromptIntro,

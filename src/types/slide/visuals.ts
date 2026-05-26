@@ -70,6 +70,7 @@ import type {
   Gpt2EmbeddingResidualCopy,
   Gpt2FamilyTreeCopy,
   Gpt2FullArchitectureDiagramCopy,
+  Gpt2AttentionQkvXrayCopy,
   SystemPromptExplorerCopy,
   WeightsTreeVisualCopy,
   Gpt2LayerXrayCopy,
@@ -88,7 +89,6 @@ import type {
   QkvIntuitionExplorerCopy,
   QuantizationComparatorCopy,
   ResidualStreamHighwayCopy,
-  RoadToMiniTransformerCopy,
   SamplingControlsCopy,
   BuildGpt2ModelCopy,
   SftIntroCopy,
@@ -303,10 +303,10 @@ interface VisualCopyMap {
   'hidden-states-to-logits': HiddenStatesToLogitsCopy;
   'sampling-controls': SamplingControlsCopy;
   'gpt2-layer-by-layer-xray': Gpt2LayerXrayCopy;
+  'gpt2-attention-qkv-xray': Gpt2AttentionQkvXrayCopy;
   'gpt2-pytorch-e2e-debugger': Gpt2PytorchE2eDebuggerCopy;
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
-  'road-to-mini-transformer': RoadToMiniTransformerCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
   'sft-intro': SftIntroCopy;
   'synthetic-data-intro-visual': SyntheticDataIntroVisualCopy;

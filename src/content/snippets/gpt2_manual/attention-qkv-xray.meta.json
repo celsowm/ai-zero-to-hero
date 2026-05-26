@@ -1,0 +1,57 @@
+{
+  "id": "gpt2_manual/attention-qkv-xray",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [4, 17],
+      "pt-br": "Importa PyTorch, similaridade de cosseno, GPT-2/tokenizer e fixa as frases, bloco, head e blocos que serão comparados.",
+      "en-us": "Import PyTorch, cosine similarity, GPT-2/tokenizer, and fix the phrases, block, head, and blocks to compare."
+    },
+    {
+      "lineRange": [20, 35],
+      "pt-br": "Carrega GPT-2 em modo eval e tenta usar atenção eager para que outputs.attentions seja comparável ao cálculo manual.",
+      "en-us": "Load GPT-2 in eval mode and try eager attention so outputs.attentions can be compared with the manual calculation."
+    },
+    {
+      "lineRange": [38, 49],
+      "pt-br": "Mostra os tokens decodificados reais e encontra a posição de people mesmo quando o espaço faz parte do token.",
+      "en-us": "Show the real decoded tokens and find the people position even when the leading space is part of the token."
+    },
+    {
+      "lineRange": [52, 69],
+      "pt-br": "Reconstrói Q, K e V: ln_1 normaliza o hidden de entrada do bloco, c_attn projeta para 3C e split_heads reorganiza para heads.",
+      "en-us": "Reconstruct Q, K, and V: ln_1 normalizes the block input hidden state, c_attn projects to 3C, and split_heads rearranges into heads."
+    },
+    {
+      "lineRange": [72, 84],
+      "pt-br": "Calcula atenção causal manual: scores escalados, máscara triangular, softmax e soma ponderada dos Values.",
+      "en-us": "Compute causal attention manually: scaled scores, triangular mask, softmax, and weighted sum of Values."
+    },
+    {
+      "lineRange": [87, 111],
+      "pt-br": "Executa cada frase com hidden states e attentions ligados, guarda tokens e posição-alvo para a inspeção.",
+      "en-us": "Run each phrase with hidden states and attentions enabled, then keep tokens and target position for inspection."
+    },
+    {
+      "lineRange": [114, 143],
+      "pt-br": "Imprime o raio-X da head: shapes de Q/K/V, preview de Q_i, scores contra cada token permitido, pesos e norma de cada V_j.",
+      "en-us": "Print the head X-ray: Q/K/V shapes, Q_i preview, scores against each allowed token, weights, and each V_j norm."
+    },
+    {
+      "lineRange": [146, 157],
+      "pt-br": "Compara os pesos calculados manualmente com outputs.attentions do Hugging Face para validar a conta.",
+      "en-us": "Compare the manually computed weights with Hugging Face outputs.attentions to validate the calculation."
+    },
+    {
+      "lineRange": [160, 187],
+      "pt-br": "Mede cossenos de Q/K/V do token people entre as duas frases para mostrar como o contexto muda as projeções por bloco.",
+      "en-us": "Measure Q/K/V cosines for the people token across the two phrases to show how context changes the projections by block."
+    },
+    {
+      "lineRange": [190, 198],
+      "pt-br": "Fecha com a fórmula operacional: Q e K escolhem pesos; V é o conteúdo misturado na saída da head.",
+      "en-us": "Close with the operational formula: Q and K choose weights; V is the content mixed into the head output."
+    }
+  ]
+}

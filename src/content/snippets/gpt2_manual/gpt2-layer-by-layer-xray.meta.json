@@ -1,0 +1,57 @@
+{
+  "id": "gpt2_manual/gpt2-layer-by-layer-xray",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [4, 6],
+      "pt-br": "Importa PyTorch, similaridade de cosseno e as classes HuggingFace necessárias para abrir o GPT-2 real.",
+      "en-us": "Import PyTorch, cosine similarity, and the HuggingFace classes needed to inspect the real GPT-2."
+    },
+    {
+      "lineRange": [9, 17],
+      "pt-br": "Define o modelo, as duas frases comparadas, o token-alvo e carrega tokenizador/modelo em modo eval.",
+      "en-us": "Define the model, the two compared phrases, the target token, and load tokenizer/model in eval mode."
+    },
+    {
+      "lineRange": [20, 32],
+      "pt-br": "decode_tokens revela os tokens BPE reais. Isso é essencial porque GPT-2 trata \" people\" como token com espaço.",
+      "en-us": "decode_tokens reveals the actual BPE tokens. This matters because GPT-2 treats \" people\" as a token with a leading space."
+    },
+    {
+      "lineRange": [35, 41],
+      "pt-br": "target_position localiza people ignorando espaços ao redor, preservando a posição real no tensor.",
+      "en-us": "target_position locates people while ignoring surrounding whitespace, keeping the real tensor position."
+    },
+    {
+      "lineRange": [44, 58],
+      "pt-br": "top_next_tokens transforma logits em probabilidades e imprime os tokens mais prováveis para a próxima posição.",
+      "en-us": "top_next_tokens converts logits into probabilities and prints the most likely next-position tokens."
+    },
+    {
+      "lineRange": [61, 79],
+      "pt-br": "run_phrase executa o forward com output_hidden_states e output_attentions, guardando tudo que o raio-X precisa.",
+      "en-us": "run_phrase performs the forward pass with output_hidden_states and output_attentions, preserving everything the X-ray needs."
+    },
+    {
+      "lineRange": [82, 97],
+      "pt-br": "Roda as duas frases, extrai hidden states, posição de people e o vetor-base da camada de embedding.",
+      "en-us": "Run both phrases, extract hidden states, the people position, and the layer-0 embedding vector."
+    },
+    {
+      "lineRange": [99, 114],
+      "pt-br": "Loop camada a camada: o shape permanece igual, enquanto cossenos medem quanto o vetor de people diverge com o contexto.",
+      "en-us": "Layer-by-layer loop: shape stays fixed while cosine scores measure how the people vector diverges with context."
+    },
+    {
+      "lineRange": [117, 131],
+      "pt-br": "Para cada bloco, calcula a atenção média entre heads e mostra para quais tokens o people contextualizado olha.",
+      "en-us": "For every block, average attention across heads and show which tokens contextualized people attends to."
+    },
+    {
+      "lineRange": [134, 149],
+      "pt-br": "Compara top-5 usando uma sonda no embedding inicial contra top-5 após os 12 blocos, conectando vetor contextual a logits.",
+      "en-us": "Compare top-5 from an initial-embedding probe against top-5 after 12 blocks, connecting contextual vectors to logits."
+    }
+  ]
+}
