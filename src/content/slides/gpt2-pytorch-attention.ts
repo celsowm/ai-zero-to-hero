@@ -24,6 +24,8 @@ Contrato:
 
 Esse contrato precisa fechar para o residual funcionar.
 
+Dentro da função, \`Q @ K.T\` cria attention logits entre posições. A saída projetada não é logit de vocabulário: ela é uma atualização em \`(B,T,C)\` que será somada ao residual stream. Só o \`lm_head\` no final do modelo converte o residual acumulado em \`(B,T,V)\`.
+
 Erros comuns:
 - \`n_embd\` não divisível por \`n_head\`
 - esquecer \`transpose\`
@@ -58,6 +60,8 @@ Contract:
 - output: \`(B,T,C)\`
 
 This contract must close for residual addition to work.
+
+Inside the function, \`Q @ K.T\` creates attention logits between positions. The projected output is not a vocabulary logit: it is a \`(B,T,C)\` update that will be added to the residual stream. Only the final \`lm_head\` converts the accumulated residual into \`(B,T,V)\`.
 
 Common errors:
 - \`n_embd\` not divisible by \`n_head\`

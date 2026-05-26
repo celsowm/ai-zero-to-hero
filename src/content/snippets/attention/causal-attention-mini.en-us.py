@@ -7,15 +7,15 @@ k = torch.tensor([[0.9, 0.1], [0.0, 1.1], [1.0, 0.4]])
 v = torch.tensor([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])
 dk = q.shape[-1]
 
-scores = q @ k.T / torch.sqrt(torch.tensor(dk))
+attention_logits = q @ k.T / torch.sqrt(torch.tensor(dk))
 causal_mask = torch.triu(torch.ones(3, 3), diagonal=1).bool()
-scores = scores.masked_fill(causal_mask, float("-inf"))
+attention_logits = attention_logits.masked_fill(causal_mask, float("-inf"))
 
 query_index = tokens.index("people")
-people_scores = scores[query_index]
-weights = F.softmax(people_scores, dim=-1)
-context = weights @ v
+people_attention_logits = attention_logits[query_index]
+attention_weights = F.softmax(people_attention_logits, dim=-1)
+context = attention_weights @ v
 
 print(tokens)
-print(weights.round(decimals=2))
+print(attention_weights.round(decimals=2))
 print(context.round(decimals=2))

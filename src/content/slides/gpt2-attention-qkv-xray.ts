@@ -5,12 +5,12 @@ const codeExplanationsPt = [
   { lineRange: [20, 35] as [number, number], content: 'Carrega GPT-2 em modo `eval` e tenta usar atenção eager para que `outputs.attentions` seja comparável ao cálculo manual.' },
   { lineRange: [38, 49] as [number, number], content: 'Mostra os tokens decodificados reais e encontra a posição de `people` mesmo quando o espaço faz parte do token.' },
   { lineRange: [52, 69] as [number, number], content: 'Reconstrói `Q`, `K` e `V`: `ln_1` normaliza o hidden de entrada do bloco, `c_attn` projeta para `3C` e `split_heads` reorganiza para heads.' },
-  { lineRange: [72, 84] as [number, number], content: 'Calcula atenção causal manual: scores escalados, máscara triangular, softmax e soma ponderada dos Values.' },
+  { lineRange: [72, 84] as [number, number], content: 'Calcula atenção causal manual: attention logits escalados, máscara triangular, softmax e soma ponderada dos Values.' },
   { lineRange: [87, 111] as [number, number], content: 'Executa cada frase com hidden states e attentions ligados, guardando tokens e posição-alvo para a inspeção.' },
-  { lineRange: [114, 143] as [number, number], content: 'Imprime o raio-X da head: shapes de `Q/K/V`, preview de `Q_i`, scores contra cada token permitido, pesos e norma de cada `V_j`.' },
+  { lineRange: [114, 143] as [number, number], content: 'Imprime o raio-X da head: shapes de `Q/K/V`, preview de `Q_i`, attention logits contra cada token permitido, pesos e norma de cada `V_j`.' },
   { lineRange: [146, 157] as [number, number], content: 'Compara os pesos calculados manualmente com `outputs.attentions` do Hugging Face para validar a conta.' },
   { lineRange: [160, 187] as [number, number], content: 'Mede cossenos de `Q/K/V` do token `people` entre as duas frases para mostrar como o contexto muda as projeções por bloco.' },
-  { lineRange: [190, 198] as [number, number], content: 'Fecha com a fórmula operacional: `Q` e `K` escolhem pesos; `V` é o conteúdo misturado na saída da head.' },
+  { lineRange: [190, 198] as [number, number], content: 'Fecha com a fórmula operacional: `Q` e `K` produzem attention logits e pesos; `V` é o conteúdo misturado na saída da head.' },
 ];
 
 const codeExplanationsEn = [
@@ -18,12 +18,12 @@ const codeExplanationsEn = [
   { lineRange: [20, 35] as [number, number], content: 'Load GPT-2 in `eval` mode and try eager attention so `outputs.attentions` can be compared with the manual calculation.' },
   { lineRange: [38, 49] as [number, number], content: 'Show the real decoded tokens and find the `people` position even when the leading space is part of the token.' },
   { lineRange: [52, 69] as [number, number], content: 'Reconstruct `Q`, `K`, and `V`: `ln_1` normalizes the block input hidden state, `c_attn` projects to `3C`, and `split_heads` rearranges into heads.' },
-  { lineRange: [72, 84] as [number, number], content: 'Compute causal attention manually: scaled scores, triangular mask, softmax, and weighted sum of Values.' },
+  { lineRange: [72, 84] as [number, number], content: 'Compute causal attention manually: scaled attention logits, triangular mask, softmax, and weighted sum of Values.' },
   { lineRange: [87, 111] as [number, number], content: 'Run each phrase with hidden states and attentions enabled, keeping tokens and target position for inspection.' },
-  { lineRange: [114, 143] as [number, number], content: 'Print the head X-ray: `Q/K/V` shapes, `Q_i` preview, scores against each allowed token, weights, and each `V_j` norm.' },
+  { lineRange: [114, 143] as [number, number], content: 'Print the head X-ray: `Q/K/V` shapes, `Q_i` preview, attention logits against each allowed token, weights, and each `V_j` norm.' },
   { lineRange: [146, 157] as [number, number], content: 'Compare the manually computed weights with Hugging Face `outputs.attentions` to validate the calculation.' },
   { lineRange: [160, 187] as [number, number], content: 'Measure `Q/K/V` cosines for the `people` token across the two phrases to show how context changes the projections by block.' },
-  { lineRange: [190, 198] as [number, number], content: 'Close with the operational formula: `Q` and `K` choose weights; `V` is the content mixed into the head output.' },
+  { lineRange: [190, 198] as [number, number], content: 'Close with the operational formula: `Q` and `K` produce attention logits and weights; `V` is the content mixed into the head output.' },
 ];
 
 const phrases = [
@@ -73,10 +73,10 @@ const stepsPt = [
     focus: 'qkv',
   },
   {
-    label: 'scores',
+    label: 'logits',
     title: 'Q compara com K',
-    body: 'Para o token-alvo, a Query da posição i mede compatibilidade com as Keys das posições anteriores e da própria posição.',
-    formula: 'score(i,j) = Q_i * K_j / sqrt(D)',
+    body: 'Para o token-alvo, a Query da posição i mede compatibilidade com as Keys e produz attention logits entre posições.',
+    formula: 'attention_logit(i,j) = Q_i * K_j / sqrt(D)',
     focus: 'scores',
   },
   {
@@ -88,15 +88,15 @@ const stepsPt = [
   },
   {
     label: 'softmax',
-    title: 'Scores viram pesos',
-    body: 'Softmax normaliza os scores permitidos. A soma dos pesos vira 1 dentro da linha do token-alvo.',
-    formula: 'peso(i,j) = softmax_j(score(i,j))',
+    title: 'Attention logits viram pesos',
+    body: 'Softmax normaliza os attention logits permitidos. A soma dos pesos vira 1 dentro da linha do token-alvo.',
+    formula: 'peso(i,j) = softmax_j(attention_logit(i,j))',
     focus: 'softmax',
   },
   {
     label: 'soma V',
     title: 'Só V entra na soma',
-    body: 'Q e K escolheram os pesos. A saída da head é a mistura ponderada dos vetores V.',
+    body: 'Q e K produziram os pesos. A saída da head é a mistura ponderada dos vetores V e volta para o residual stream.',
     formula: 'saída_i = soma_j peso(i,j) * V_j',
     focus: 'weighted',
   },
@@ -125,10 +125,10 @@ const stepsEn = [
     focus: 'qkv',
   },
   {
-    label: 'scores',
+    label: 'logits',
     title: 'Q compares with K',
-    body: 'For the target token, the Query at position i measures compatibility with Keys from previous positions and itself.',
-    formula: 'score(i,j) = Q_i * K_j / sqrt(D)',
+    body: 'For the target token, the Query at position i measures compatibility with Keys and produces attention logits between positions.',
+    formula: 'attention_logit(i,j) = Q_i * K_j / sqrt(D)',
     focus: 'scores',
   },
   {
@@ -140,15 +140,15 @@ const stepsEn = [
   },
   {
     label: 'softmax',
-    title: 'Scores become weights',
-    body: 'Softmax normalizes the allowed scores. The weights sum to 1 inside the target-token row.',
-    formula: 'weight(i,j) = softmax_j(score(i,j))',
+    title: 'Attention logits become weights',
+    body: 'Softmax normalizes the allowed attention logits. The weights sum to 1 inside the target-token row.',
+    formula: 'weight(i,j) = softmax_j(attention_logit(i,j))',
     focus: 'softmax',
   },
   {
     label: 'sum V',
     title: 'Only V enters the sum',
-    body: 'Q and K chose the weights. The head output is the weighted mix of V vectors.',
+    body: 'Q and K produced the weights. The head output is the weighted mix of V vectors and returns to the residual stream.',
     formula: 'output_i = sum_j weight(i,j) * V_j',
     focus: 'weighted',
   },
@@ -174,7 +174,7 @@ export const gpt2AttentionQkvXray = defineSlide({
   options: { columnRatios: [0.42, 0.58] },
   content: {
     'pt-br': {
-      title: 'Q e K escolhem. V entra na soma.',
+      title: 'Q e K geram attention logits. V entra na soma.',
       body: `No slide anterior, a tese era:
 
 \`\`\`txt
@@ -192,8 +192,8 @@ c_attn(x) -> [Q | K | V]
 Para cada posição \`i\`, a head faz:
 
 \`\`\`txt
-score(i,j) = Q_i * K_j / sqrt(d)
-peso(i,j)  = softmax_j(score(i,j))
+attention_logit(i,j) = Q_i * K_j / sqrt(d)
+peso(i,j)            = softmax_j(attention_logit(i,j))
 saída_i    = soma_j peso(i,j) * V_j
 \`\`\`
 
@@ -207,7 +207,7 @@ j <= i
 
 ## Leitura operacional
 
-\`Q\` é a consulta da posição atual.
+\`Q\` é o que a posição atual está procurando.
 
 \`K\` é o que cada posição oferece para comparação.
 
@@ -216,16 +216,18 @@ j <= i
 Frase-chave:
 
 \`\`\`txt
-Q e K não entram na soma final;
-eles escolhem os pesos.
-V é o conteúdo misturado.
+Q e K geram attention logits e pesos;
+V é o conteúdo misturado;
+a saída da head escreve no residual stream.
 \`\`\`
+
+Esses attention logits não são logits do vocabulário. Os logits finais aparecem depois que o residual acumulado atravessa outros blocos, \`ln_f\` e \`lm_head\`.
 
 O snippet confere isso contra \`outputs.attentions\` do Hugging Face e mede como \`Q/K/V\` do mesmo token divergem entre \`We the people\` e \`Are the people\`.`,
       rightBody: '',
     },
     'en-us': {
-      title: 'Q and K choose. V enters the sum.',
+      title: 'Q and K create attention logits. V enters the sum.',
       body: `In the previous slide, the thesis was:
 
 \`\`\`txt
@@ -243,9 +245,9 @@ c_attn(x) -> [Q | K | V]
 For each position \`i\`, the head does:
 
 \`\`\`txt
-score(i,j) = Q_i * K_j / sqrt(d)
-weight(i,j) = softmax_j(score(i,j))
-output_i    = sum_j weight(i,j) * V_j
+attention_logit(i,j) = Q_i * K_j / sqrt(d)
+weight(i,j)          = softmax_j(attention_logit(i,j))
+output_i             = sum_j weight(i,j) * V_j
 \`\`\`
 
 with the causal constraint:
@@ -258,7 +260,7 @@ j <= i
 
 ## Operational reading
 
-\`Q\` is the query from the current position.
+\`Q\` is what the current position is searching for.
 
 \`K\` is what each position offers for comparison.
 
@@ -267,10 +269,12 @@ j <= i
 Key sentence:
 
 \`\`\`txt
-Q and K do not enter the final sum;
-they choose the weights.
-V is the mixed content.
+Q and K create attention logits and weights;
+V is the mixed content;
+the head output writes into the residual stream.
 \`\`\`
+
+These attention logits are not vocabulary logits. Final logits appear later after the accumulated residual crosses more blocks, \`ln_f\`, and \`lm_head\`.
 
 The snippet checks this against Hugging Face \`outputs.attentions\` and measures how \`Q/K/V\` for the same token diverge between \`We the people\` and \`Are the people\`.`,
       rightBody: '',
@@ -290,13 +294,13 @@ The snippet checks this against Hugging Face \`outputs.attentions\` and measures
         visualPanel: {
           ariaLabel: 'Raio-X de Q, K e V em uma head do GPT-2',
           title: 'Dentro de uma head',
-          description: 'Percorra a conta: Q e K produzem pesos; a soma final mistura Values.',
+          description: 'Percorra a conta: Q e K produzem attention logits e pesos; a soma mistura Values e escreve no residual.',
           phraseControlLabel: 'Frase observada',
           stepControlLabel: 'Etapa da atenção',
           blockHeadLabel: 'bloco / head',
           shapeTitle: 'shape de Q/K/V',
           qkvTitle: 'Preview de Q_i',
-          scoreTitle: 'score',
+          scoreTitle: 'attention logit',
           maskTitle: 'máscara causal',
           weightTitle: 'peso',
           valueTitle: '||V_j||',
@@ -322,13 +326,13 @@ The snippet checks this against Hugging Face \`outputs.attentions\` and measures
         visualPanel: {
           ariaLabel: 'Q, K, and V X-ray inside one GPT-2 head',
           title: 'Inside one head',
-          description: 'Step through the calculation: Q and K produce weights; the final sum mixes Values.',
+          description: 'Step through the calculation: Q and K produce attention logits and weights; the sum mixes Values and writes into the residual.',
           phraseControlLabel: 'Observed phrase',
           stepControlLabel: 'Attention step',
           blockHeadLabel: 'block / head',
           shapeTitle: 'Q/K/V shape',
           qkvTitle: 'Q_i preview',
-          scoreTitle: 'score',
+          scoreTitle: 'attention logit',
           maskTitle: 'causal mask',
           weightTitle: 'weight',
           valueTitle: '||V_j||',

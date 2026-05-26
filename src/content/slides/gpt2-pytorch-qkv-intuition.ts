@@ -18,14 +18,16 @@ O que acontece:
 1. \`x\` contém um vetor por token
 2. \`c_attn\` projeta cada vetor de \`C\` para \`3C\`
 3. o resultado é cortado em três tensores: \`Q\`, \`K\`, \`V\`
-4. uma Query compara com as Keys para gerar scores
-5. softmax transforma scores em pesos
+4. uma Query compara com as Keys para gerar \`attention_logits\`
+5. softmax transforma \`attention_logits\` em pesos de atenção
 6. os pesos misturam os Values e produzem o contexto
 
 Leitura operacional:
-- **Q** é o vetor usado para consultar
-- **K** é o vetor usado para ser comparado
-- **V** é o conteúdo que entra no resultado quando o peso é alto
+- **Q** procura: "com quem esta posição combina?"
+- **K** oferece compatibilidade para ser encontrado por outras posições
+- **V** carrega a informação que será misturada quando o peso é alto
+
+\`attention_logits\` são placares entre posições. Eles não são os \`logits\` finais do vocabulário; esses aparecem só depois que atenção, MLPs e residual stream chegam ao \`lm_head\`.
 
 No próximo slide, essa projeção vira parte da classe \`CausalSelfAttention\`.`,
       rightBody: `\`\`\`python
@@ -35,8 +37,8 @@ snippet:gpt2_manual/qkv-intuition
         { lineRange: [1, 11], content: 'O exemplo fixa tokens, largura `C` e um tensor `x` pequeno, para a conta caber inteira no slide.' },
         { lineRange: [13, 28], content: '`c_attn` imita a projeção do GPT-2: uma única matriz transforma cada token de `C` para `3C`.' },
         { lineRange: [30, 31], content: 'Depois da projeção, `split(C)` separa o bloco largo em `Q`, `K` e `V`.' },
-        { lineRange: [33, 36], content: 'A Query de `people` calcula scores contra todas as Keys, vira pesos via softmax e mistura os Values.' },
-        { lineRange: [38, 42], content: 'Os prints conferem os shapes e mostram os pesos finais que entram no vetor de contexto.' },
+        { lineRange: [33, 36], content: 'A Query de `people` calcula attention logits contra todas as Keys, vira pesos via softmax e mistura os Values.' },
+        { lineRange: [38, 42], content: 'Os prints conferem os shapes e mostram os pesos de atenção que entram no vetor de contexto.' },
       ],
     },
     'en-us': {
@@ -52,14 +54,16 @@ What happens:
 1. \`x\` contains one vector per token
 2. \`c_attn\` projects each vector from \`C\` to \`3C\`
 3. the result is cut into three tensors: \`Q\`, \`K\`, \`V\`
-4. one Query compares against the Keys to produce scores
-5. softmax turns scores into weights
+4. one Query compares against the Keys to produce \`attention_logits\`
+5. softmax turns \`attention_logits\` into attention weights
 6. the weights mix the Values and produce context
 
 Operational reading:
-- **Q** is the vector used to query
-- **K** is the vector used to be compared
-- **V** is the content that enters the result when its weight is high
+- **Q** searches: "which positions match this one?"
+- **K** offers compatibility so other positions can find it
+- **V** carries the information that gets mixed when its weight is high
+
+\`attention_logits\` are scores between positions. They are not final vocabulary \`logits\`; those appear only after attention, MLPs, and the residual stream reach the \`lm_head\`.
 
 On the next slide, this projection becomes part of the \`CausalSelfAttention\` class.`,
       rightBody: `\`\`\`python
@@ -69,8 +73,8 @@ snippet:gpt2_manual/qkv-intuition
         { lineRange: [1, 11], content: 'The example fixes tokens, width `C`, and a small `x` tensor so the whole calculation fits on the slide.' },
         { lineRange: [13, 28], content: '`c_attn` mimics the GPT-2 projection: one matrix maps each token from `C` to `3C`.' },
         { lineRange: [30, 31], content: 'After projection, `split(C)` separates the wide block into `Q`, `K`, and `V`.' },
-        { lineRange: [33, 36], content: 'The `people` Query computes scores against all Keys, becomes weights through softmax, and mixes the Values.' },
-        { lineRange: [38, 42], content: 'The prints verify shapes and show the final weights entering the context vector.' },
+        { lineRange: [33, 36], content: 'The `people` Query computes attention logits against all Keys, becomes weights through softmax, and mixes the Values.' },
+        { lineRange: [38, 42], content: 'The prints verify shapes and show the attention weights entering the context vector.' },
       ],
     },
   },
@@ -83,7 +87,7 @@ snippet:gpt2_manual/qkv-intuition
         tokenLabel: 'Tokens',
         projectionLabel: 'c_attn: C -> 3C',
         splitLabel: 'split(C)',
-        scoreLabel: 'Q_people x K',
+        scoreLabel: 'attention_logits',
         softmaxLabel: 'softmax',
         contextLabel: 'mistura dos Values',
         bridgeLabel: 'Próximo contrato',
@@ -119,8 +123,8 @@ snippet:gpt2_manual/qkv-intuition
         ],
         takeaways: [
           'Q/K/V saem da mesma projeção linear.',
-          'A Query ativa escolhe pesos comparando com Keys.',
-          'O contexto final é uma soma ponderada dos Values.',
+          'A Query ativa gera attention logits comparando com Keys.',
+          'O contexto vai ao residual; logits do vocabulário vêm no lm_head.',
         ],
       },
       'en-us': {
@@ -129,7 +133,7 @@ snippet:gpt2_manual/qkv-intuition
         tokenLabel: 'Tokens',
         projectionLabel: 'c_attn: C -> 3C',
         splitLabel: 'split(C)',
-        scoreLabel: 'Q_people x K',
+        scoreLabel: 'attention_logits',
         softmaxLabel: 'softmax',
         contextLabel: 'Value mix',
         bridgeLabel: 'Next contract',
@@ -165,8 +169,8 @@ snippet:gpt2_manual/qkv-intuition
         ],
         takeaways: [
           'Q/K/V come from the same linear projection.',
-          'The active Query chooses weights by comparing against Keys.',
-          'The final context is a weighted sum of Values.',
+          'The active Query creates attention logits by comparing against Keys.',
+          'Context goes to the residual; vocabulary logits come from lm_head.',
         ],
       },
     },

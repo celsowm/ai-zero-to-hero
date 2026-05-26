@@ -31,12 +31,12 @@ qkv = c_attn(x)
 q, k, v = qkv.split(C, dim=-1)
 
 query_index = tokens.index("people")
-scores = q[query_index] @ k.T / torch.sqrt(torch.tensor(C))
-weights = F.softmax(scores, dim=-1)
-context = weights @ v
+attention_logits = q[query_index] @ k.T / torch.sqrt(torch.tensor(C))
+attention_weights = F.softmax(attention_logits, dim=-1)
+context = attention_weights @ v
 
 print("x:", x.shape, "qkv:", qkv.shape)
 print("q/k/v:", q.shape, k.shape, v.shape)
-print("scores:", scores.round(decimals=2))
-print("weights:", weights.round(decimals=2))
+print("attention_logits:", attention_logits.round(decimals=2))
+print("attention_weights:", attention_weights.round(decimals=2))
 print("context:", context.round(decimals=2))

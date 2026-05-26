@@ -23,6 +23,8 @@ O shape precisa permanecer igual:
 
 Isso é obrigatório porque residual é uma soma. Se atenção ou MLP mudarem o shape final, \`x + ...\` quebra.
 
+Leitura didática: atenção usa Q/K para escolher relações entre posições e V para trazer informação. O MLP interpreta e transforma cada posição. O residual stream acumula as duas atualizações até o \`lm_head\` gerar logits de vocabulário.
+
 Teste mínimo: passar \`torch.randn(2, 8, config.n_embd)\` e confirmar que a saída tem o mesmo shape.`,
       rightBody: `\`\`\`python
 snippet:gpt2_manual/transformer-block
@@ -49,6 +51,8 @@ The shape must stay the same:
 - output: \`(B,T,C)\`
 
 This is mandatory because residual is an addition. If attention or MLP changes the final shape, \`x + ...\` breaks.
+
+Teaching read: attention uses Q/K to choose relations between positions and V to carry information. The MLP interprets and transforms each position. The residual stream accumulates both updates until \`lm_head\` creates vocabulary logits.
 
 Minimal test: pass \`torch.randn(2, 8, config.n_embd)\` and confirm output has the same shape.`,
       rightBody: `\`\`\`python

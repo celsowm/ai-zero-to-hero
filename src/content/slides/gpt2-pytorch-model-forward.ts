@@ -25,6 +25,14 @@ Contrato:
 - \`targets: (B,T)\`
 - \`loss: escalar\`
 
+Aqui \`logits\` significa logits do vocabulário. Eles aparecem depois de:
+
+\`\`\`txt
+residual stream -> blocos attn/MLP -> ln_f -> lm_head
+\`\`\`
+
+Não confunda com os attention logits internos de cada head, que vêm de \`Q @ K.T\` e só escolhem pesos entre posições.
+
 Pontos críticos:
 - \`idx\` precisa ser \`torch.long\`
 - \`idx.max()\` precisa ser menor que \`vocab_size\`
@@ -61,6 +69,14 @@ Contract:
 - \`logits: (B,T,V)\`
 - \`targets: (B,T)\`
 - \`loss: scalar\`
+
+Here \`logits\` means vocabulary logits. They appear after:
+
+\`\`\`txt
+residual stream -> attn/MLP blocks -> ln_f -> lm_head
+\`\`\`
+
+Do not confuse these with the internal attention logits in each head, which come from \`Q @ K.T\` and only choose weights between positions.
 
 Critical points:
 - \`idx\` must be \`torch.long\`

@@ -19,18 +19,20 @@ No GPT-2 pequeno:
 
 O ponto técnico:
 1. cada cabeça recebe seu próprio pedaço de \`Q\`, \`K\` e \`V\`
-2. cada cabeça calcula uma matriz de atenção diferente
+2. cada cabeça calcula attention logits e pesos diferentes
 3. as saídas são concatenadas de volta para \`C\`
 4. \`c_proj\` mistura as 12 leituras em um único vetor
 
-Não é "12 modelos". É o mesmo bloco lendo a sequência em 12 subespaços paralelos.`,
+Não é "12 modelos". É o mesmo bloco lendo a sequência em 12 subespaços paralelos.
+
+Por isso uma head pode ficar sensível a relações locais, outra a sujeito -> verbo, outra a pronome -> antecedente ou artigo -> substantivo. Mas nenhuma head gera o próximo token sozinha: ela escreve uma atualização no residual stream, que ainda passa por MLPs, outros blocos, \`ln_f\` e \`lm_head\` antes dos logits do vocabulário.`,
       rightBody: `\`\`\`python
 snippet:attention/multihead-shapes
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 7], content: 'Definimos o contrato de shapes: batch, tempo, largura interna, número de heads e dimensão por head.' },
         { lineRange: [9, 14], content: 'A projeção QKV gera 3C e depois cada tensor é reorganizado em H heads de dimensão D.' },
-        { lineRange: [16, 22], content: 'Cada head calcula atenção separada; no fim, concatenamos as heads e voltamos para a largura C.' },
+        { lineRange: [16, 22], content: 'Cada head calcula attention logits e pesos próprios; no fim, concatenamos as heads e voltamos para a largura C.' },
       ],
     },
     'en-us': {
@@ -45,18 +47,20 @@ In small GPT-2:
 
 Technical point:
 1. each head receives its own slice of \`Q\`, \`K\`, and \`V\`
-2. each head computes a different attention matrix
+2. each head computes different attention logits and weights
 3. outputs are concatenated back to \`C\`
 4. \`c_proj\` mixes the 12 reads into one vector
 
-This is not "12 models". It is the same block reading the sequence in 12 parallel subspaces.`,
+This is not "12 models". It is the same block reading the sequence in 12 parallel subspaces.
+
+That is why one head can become sensitive to local relations, another to subject -> verb, another to pronoun -> antecedent or article -> noun. But no head generates the next token by itself: it writes an update into the residual stream, which still goes through MLPs, more blocks, \`ln_f\`, and \`lm_head\` before vocabulary logits.`,
       rightBody: `\`\`\`python
 snippet:attention/multihead-shapes
 \`\`\``,
       codeExplanations: [
         { lineRange: [1, 7], content: 'We define the shape contract: batch, time, hidden width, number of heads, and per-head width.' },
         { lineRange: [9, 14], content: 'The QKV projection creates 3C, then each tensor is reshaped into H heads of width D.' },
-        { lineRange: [16, 22], content: 'Each head computes separate attention; at the end, we concatenate heads and return to width C.' },
+        { lineRange: [16, 22], content: 'Each head computes its own attention logits and weights; at the end, we concatenate heads and return to width C.' },
       ],
     },
   },
@@ -78,12 +82,12 @@ snippet:attention/multihead-shapes
         outputShape: '(B, T, 768)',
         headLabels: [
           'Head 1: relações locais',
-          'Head 2: estrutura sintática',
-          'Head 3: dependências longas',
+          'Head 2: sujeito -> verbo',
+          'Head 3: pronome -> antecedente',
           '...',
           'Head 12: outro subespaço',
         ],
-        takeaway: 'Cada head vê 64 dimensões. Juntas, as 12 heads recompõem as 768 dimensões.',
+        takeaway: 'Cada head vê 64 dimensões e escreve contexto no residual; o lm_head só lê tudo no final.',
       },
       'en-us': {
         title: 'Shape contract',
@@ -100,12 +104,12 @@ snippet:attention/multihead-shapes
         outputShape: '(B, T, 768)',
         headLabels: [
           'Head 1: local relations',
-          'Head 2: syntactic structure',
-          'Head 3: long dependencies',
+          'Head 2: subject -> verb',
+          'Head 3: pronoun -> antecedent',
           '...',
           'Head 12: another subspace',
         ],
-        takeaway: 'Each head sees 64 dimensions. Together, 12 heads rebuild the 768 dimensions.',
+        takeaway: 'Each head sees 64 dimensions and writes context into the residual; lm_head reads everything only at the end.',
       },
     },
   },
