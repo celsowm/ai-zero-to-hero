@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { cpSync, readFileSync } from 'fs'
 import { resolve, extname } from 'path'
+import { discoverTorchPyodideWheelInfo } from './torchPyodideWheel'
 
 const MIME: Record<string, string> = {
   '.js': 'application/javascript',
@@ -13,9 +14,15 @@ const MIME: Record<string, string> = {
   '.d.ts': 'application/typescript',
 }
 
+const torchPyodideWheel = discoverTorchPyodideWheelInfo(resolve('public', 'vendor', 'python'))
+
 // https://vite.dev/config/
 export default defineConfig({
   base: '/ai-zero-to-hero/',
+  define: {
+    __TORCH_PYODIDE_WHEEL_FILE__: JSON.stringify(torchPyodideWheel.fileName),
+    __TORCH_PYODIDE_PYPI_SPEC__: JSON.stringify(torchPyodideWheel.pypiSpec),
+  },
   plugins: [
     react(),
     {

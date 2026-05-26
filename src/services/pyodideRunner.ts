@@ -1,6 +1,5 @@
 import { loadPyodide, type PyodideInterface } from 'pyodide';
 
-const TORCH_PYODIDE_VERSION = '0.0.68';
 const TORCH_IMPORT_RE = /(^|\n)\s*(import\s+torch\b|from\s+torch\b)|(^|[^\w.])torch\./;
 const WEBGPU_ERROR = 'Torch snippets in the browser require WebGPU. Use a WebGPU-capable browser and device.';
 
@@ -71,9 +70,9 @@ async function ensureTorchPyodide(pyodide: PyodideInterface): Promise<void> {
     await ensureTorchRuntime();
     await pyodide.loadPackage('micropip');
 
-    const localWheelUrl = `${import.meta.env.BASE_URL}vendor/python/torch_pyodide-${TORCH_PYODIDE_VERSION}-py3-none-any.whl`;
+    const localWheelUrl = `${import.meta.env.BASE_URL}vendor/python/${__TORCH_PYODIDE_WHEEL_FILE__}`;
     pyodide.globals.set('torch_pyodide_local_wheel_url', localWheelUrl);
-    pyodide.globals.set('torch_pyodide_pypi_spec', `torch-pyodide==${TORCH_PYODIDE_VERSION}`);
+    pyodide.globals.set('torch_pyodide_pypi_spec', __TORCH_PYODIDE_PYPI_SPEC__);
 
     await pyodide.runPythonAsync(`
 import micropip
