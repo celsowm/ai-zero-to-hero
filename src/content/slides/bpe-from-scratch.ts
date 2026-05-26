@@ -19,6 +19,13 @@ Quando o BPE encontra pares frequentes e funde esses pares:
 2. reaproveita subpartes recorrentes em vários contextos;
 3. cria um vocabulário mais útil para o modelo aprender padrões.
 
+Loop principal do BPE neste exemplo:
+1. conta todos os pares de símbolos adjacentes no corpus;
+2. escolhe o par mais frequente;
+3. junta esse par em um novo símbolo;
+4. atualiza o corpus com esse novo token;
+5. guarda o histórico da fusão.
+
 Neste exemplo, usamos um corpus curto (\`once upon a time...\`) e exibimos:
 1. estado inicial do corpus;
 2. par escolhido em cada merge + frequência;
@@ -55,6 +62,13 @@ When BPE repeatedly merges frequent pairs, it:
 1. reduces over-fragmentation of common words;
 2. reuses recurring subparts across contexts;
 3. builds a vocabulary that is more useful for model learning.
+
+Main BPE loop in this example:
+1. counts all adjacent symbol pairs in the corpus;
+2. picks the most frequent pair;
+3. merges that pair into a new symbol;
+4. updates the corpus with this new token;
+5. stores the merge in history.
 
 In this short corpus (\`once upon a time...\`) we print:
 1. initial corpus state;
