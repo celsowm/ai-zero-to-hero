@@ -6,50 +6,50 @@ export const neuralNetworkPytorchNnLayers = defineSlide({
   options: { columnRatios: [0.45, 0.55] },
   content: {
     'pt-br': {
-      title: 'Camadas PyTorch que importam aqui',
-      body: `A ideia deste slide não é listar API. É te ensinar a **ler arquitetura PyTorch** sem se perder.
+      title: 'De camadas isoladas para uma classe PyTorch legível',
+      body: `Até aqui vimos peças separadas: \`Embedding\`, \`Linear\`, shapes e logits. O próximo passo é enxergar como isso vira **um modelo PyTorch que roda**.
 
 (B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
 
-Quando voce abrir um modelo autoregressivo, quase tudo importante cai nestas seis pecas:
+Neste nível, a pergunta deixa de ser "qual camada existe?" e passa a ser: **como a classe organiza essas camadas e como o dado atravessa o forward?**
 
-1. **\`nn.Module\`**: define o contrato da classe (\`__init__\` + \`forward\`).
-2. **\`nn.Embedding\`**: troca IDs inteiros por vetores densos.
-3. **\`nn.Linear\`**: projeta dimensões (ex: \`C -> C\`, \`C -> V\`).
-4. **\`nn.LayerNorm\`**: estabiliza escala dos hidden states.
-5. **\`nn.Dropout\`**: regulariza no treino e desliga no \`eval()\`.
-6. **\`nn.ModuleList\`**: empilha blocos repetidos de forma rastreável.
+Leitura prática da classe:
+1. **\`nn.Module\`** define o contrato geral: registrar submódulos em \`__init__\` e descrever o fluxo em \`forward\`.
+2. **\`nn.Embedding\`** faz a entrada sair de \`(B,T)\` e virar hidden states \`(B,T,C)\`.
+3. **\`nn.ModuleList\`** deixa explícito que existe profundidade: um bloco repetido transforma \`(B,T,C)\` sem quebrar o contrato central.
+4. **\`nn.LayerNorm\`** e **\`nn.Linear\`** compõem cada bloco interno que mexe no hidden state.
+5. **\`lm_head\`** é a projeção final que fecha em logits \`(B,T,V)\`.
 
 Leitura de engenheiro:
-- \`Embedding\` define como o token entra.
-- \`ModuleList\` define profundidade.
-- \`Linear\` final define como o token sai (logits).
-- nomes como \`wte\` e \`lm_head\` aparecem em repos reais e valem como mapa mental, não como siglas decorativas.
+- \`__init__\` responde "quais peças existem?".
+- \`forward\` responde "em que ordem o tensor passa por elas?".
+- \`ModuleList\` responde "onde a transformação se repete?".
+- \`lm_head\` responde "como a representação vira decisão sobre o vocabulário?".
 
-Se você reconhecer esse esqueleto, o resto vira detalhe de implementação.`,
+Se você reconhecer essa estrutura, abrir um modelo maior deixa de ser caça ao tesouro e vira leitura de fluxo.`,
     },
     'en-us': {
-      title: 'The PyTorch layers that matter here',
-      body: `The goal here is not API memorization. It is learning how to **read PyTorch architecture** quickly.
+      title: 'From isolated layers to a readable PyTorch class',
+      body: `So far we covered isolated pieces: \`Embedding\`, \`Linear\`, shapes, and logits. The next step is seeing how they become **a PyTorch model that actually runs**.
 
 (B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
 
-When you open an autoregressive model, most critical parts collapse into these six pieces:
+At this point, the question is no longer "which layer exists?" but: **how does the class organize those layers, and how does data move through forward?**
 
-1. **\`nn.Module\`**: class contract (\`__init__\` + \`forward\`).
-2. **\`nn.Embedding\`**: turns integer IDs into dense vectors.
-3. **\`nn.Linear\`**: projects dimensions (for example \`C -> C\`, \`C -> V\`).
-4. **\`nn.LayerNorm\`**: stabilizes hidden-state scale.
-5. **\`nn.Dropout\`**: training regularization, disabled in \`eval()\`.
-6. **\`nn.ModuleList\`**: stacks repeated blocks with explicit structure.
+Practical class reading:
+1. **\`nn.Module\`** defines the overall contract: register submodules in \`__init__\` and describe data flow in \`forward\`.
+2. **\`nn.Embedding\`** turns input from \`(B,T)\` into hidden states \`(B,T,C)\`.
+3. **\`nn.ModuleList\`** makes depth explicit: one repeated block transforms \`(B,T,C)\` without breaking the central contract.
+4. **\`nn.LayerNorm\`** and **\`nn.Linear\`** compose each internal block that edits the hidden state.
+5. **\`lm_head\`** is the final projection that closes into logits \`(B,T,V)\`.
 
 Engineer reading:
-- \`Embedding\` defines token entry.
-- \`ModuleList\` defines depth.
-- final \`Linear\` defines token exit (logits).
-- names such as \`wte\` and \`lm_head\` appear in real repos and should be read as mental landmarks, not decorative labels.
+- \`__init__\` answers "which parts exist?".
+- \`forward\` answers "in what order does the tensor cross them?".
+- \`ModuleList\` answers "where does the transformation repeat?".
+- \`lm_head\` answers "how does representation become a vocabulary decision?".
 
-If you can recognize this skeleton, the rest becomes implementation detail.`,
+If you can recognize this structure, opening a larger model stops being treasure hunting and becomes flow reading.`,
     },
   },
   visual: {
@@ -58,97 +58,99 @@ If you can recognize this skeleton, the rest becomes implementation detail.`,
       'pt-br': {
         tabs: [{ label: 'Código' }, { label: 'Mapa' }],
         codePanel: {
-          title: 'Esqueleto minimo de camadas',
-          description: 'Mesmo sem atencao ainda, este arranjo ja mostra entrada por embedding, corpo empilhado e cabeca de saida.',
+          title: 'Classe mínima, mas executável',
+          description: 'O snippet registra submódulos em `__init__`, percorre blocos no `forward` e fecha com logits no mesmo fluxo.',
           source: { snippetId: 'pytorch-lm/lm-layers', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'Importamos apenas `nn` para manter o foco no esqueleto da arquitetura, sem distrações de outros módulos.' },
-            { lineRange: [3, 3], content: '`ModuleDict` organiza o modelo por partes nomeadas, o que facilita leitura, debug e manutenção.' },
-            { lineRange: [4, 4], content: '`wte` é a embedding de entrada: recebe IDs de tokens e devolve vetores densos por posição.' },
-            { lineRange: [5, 10], content: '`ModuleList` empilha blocos repetidos; aqui cada bloco faz normalização, projeção e dropout.' },
-            { lineRange: [11, 11], content: '`lm_head` projeta da largura interna `C` para o vocabulário `V`, gerando logits por token.' },
-            { lineRange: [12, 12], content: 'No fim, o dicionário fecha entrada, corpo e saída em uma estrutura única e explícita.' },
+            { lineRange: [1, 2], content: 'Importamos `torch` e `nn` porque agora o exemplo não é só estrutural: ele define a classe e executa um forward real.' },
+            { lineRange: [4, 15], content: '`TinyStackedLM` herda de `nn.Module`. O `super().__init__()` registra corretamente os submódulos, e o `__init__` declara três partes do modelo: entrada (`wte`), corpo repetido (`blocks`) e saída (`lm_head`).' },
+            { lineRange: [7, 12], content: '`ModuleList` explicita profundidade. Cada bloco é um `Sequential` curto com `LayerNorm` e `Linear`, repetido `num_layers` vezes.' },
+            { lineRange: [17, 21], content: 'O `forward` deixa o fluxo visível: IDs entram na embedding, o tensor percorre os blocos preservando o shape `(B,T,C)`, e só no fim a cabeça projeta para `(B,T,V)`.' },
+            { lineRange: [21, 25], content: 'Criamos um modelo concreto, passamos um tensor de IDs inteiros e rodamos `logits = model(idx)`. Isso fecha o exemplo ponta a ponta.' },
+            { lineRange: [27, 28], content: 'Os prints servem como checklist rápido de debug: a entrada continua `(B,T)` e a saída vira logits sobre o vocabulário.' },
           ],
         },
         architecturePreview: {
-          title: 'Rede resultante (entrada -> corpo -> saída)',
+          title: 'Fluxo exato do snippet',
           layers: [
             { name: 'wte (Embedding)', shape: '(B,T) -> (B,T,C)', role: 'IDs -> vetores' },
-            { name: 'LayerNorm', shape: '(B,T,C)', role: 'estabiliza escala' },
-            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'projeção interna' },
-            { name: 'Dropout', shape: '(B,T,C)', role: 'regulariza no treino' },
+            { name: 'block 1', shape: '(B,T,C) -> (B,T,C)', role: 'LayerNorm + Linear' },
+            { name: 'block 2', shape: '(B,T,C) -> (B,T,C)', role: 'LayerNorm + Linear' },
             { name: 'lm_head (Linear)', shape: '(B,T,C) -> (B,T,V)', role: 'logits por token' },
           ],
         },
         blueprintPanel: {
-          title: 'Leitura de código real com nomes recorrentes',
-          subtitle: 'Ordem de leitura para revisar arquitetura sem perder tempo.',
+          title: 'Como ler a classe sem se perder',
+          subtitle: 'A ordem útil é acompanhar o contrato da classe e o caminho do tensor.',
           stages: [
-            { label: 'Entrada', title: '`wte` faz o token entrar no modelo', shape: '(B,T) -> (B,T,C)', body: 'IDs discretos viram vetores densos. Aqui o modelo deixa o mundo simbólico e entra no espaço contínuo.', reading: 'Quando você vê `Embedding`, pergunte qual inteiro entra e qual largura C sai.' },
-            { label: 'Corpo', title: '`blocks` repetem transformação de hidden state', shape: '(B,T,C) -> (B,T,C)', body: '`ModuleList` não é detalhe de API: ele torna a profundidade explícita e rastreável. Cada bloco mexe no stream, mas preserva o contrato central.', reading: 'Se algo explode no meio, cheque a repetição: normalização, projeção e regularização estão sendo empilhadas aqui.' },
-            { label: 'Saída', title: '`lm_head` converte representação em decisão', shape: '(B,T,C) -> (B,T,V)', body: 'A cabeça final projeta cada posição para o vocabulário. É aqui que hidden state vira logits e o modelo passa a competir entre tokens candidatos.', reading: 'O fim da arquitetura sempre responde: como o token sai do modelo?' },
+            { label: '1. __init__', title: 'A classe registra as peças do modelo', shape: 'wte + blocks + lm_head', body: 'O primeiro passo não é rodar nada. É ver quais submódulos existem e qual papel estrutural cada um ocupa.', reading: 'Leia `__init__` como inventário: entrada, corpo repetido e saída.' },
+            { label: '2. Embedding', title: '`wte` cria hidden states', shape: '(B,T) -> (B,T,C)', body: 'Os IDs inteiros entram na embedding e viram vetores densos. A partir daqui, o tensor já está no espaço de representação contínua.', reading: 'Se o problema acontecer cedo, cheque dtype inteiro e a transição para `(B,T,C)`.' },
+            { label: '3. ModuleList', title: '`blocks` repetem a transformação central', shape: '(B,T,C) -> (B,T,C)', body: 'O loop no `forward` deixa explícito que a mesma estrutura de bloco é aplicada várias vezes sem trocar o contrato de shape.', reading: 'Profundidade em PyTorch costuma aparecer assim: uma lista de blocos percorrida em ordem.' },
+            { label: '4. lm_head', title: 'A cabeça final projeta para logits', shape: '(B,T,C) -> (B,T,V)', body: 'Depois do corpo interno, a projeção final troca largura de representação por largura de vocabulário. É aqui que a arquitetura passa de hidden state para decisão.', reading: 'Quando aparecer `lm_head`, pergunte sempre: qual dimensão entra e qual espaço semântico sai?' },
+            { label: '5. Debug', title: 'Leitura de shape para localizar quebra', shape: 'idx -> hidden -> logits', body: 'Se o forward falha, siga o caminho do tensor: entrada inteira, hidden state após embedding, hidden state após blocos, logits finais.', reading: 'Debug bom aqui é fluxo, não adivinhação: descubra em qual etapa o contrato deixou de bater.' },
           ],
-          invariantsTitle: 'Invariantes de leitura',
+          invariantsTitle: 'Invariantes da classe',
           invariants: [
-            '`Embedding` define a porta de entrada do token.',
-            '`ModuleList` define profundidade e repetição estrutural.',
-            '`lm_head` define a semântica da saída: logits por posição.',
+            '`__init__` registra as peças; `forward` descreve o caminho do tensor.',
+            '`ModuleList` expressa profundidade sem esconder repetição.',
+            '`lm_head` fecha o contrato em logits por posição.',
           ],
-          diagnosticsTitle: 'Diagnóstico rápido',
+          diagnosticsTitle: 'Diagnóstico rápido de leitura',
           diagnostics: [
-            'Shape quebrou cedo? valide a transição IDs -> vetores.',
-            'Shape quebrou no meio? inspecione um bloco da `ModuleList` e repita a leitura.',
-            'Shape quebrou no fim? cheque a projeção `C -> V` do `lm_head`.',
+            'Quebrou antes do forward? geralmente falta registro correto em `__init__`.',
+            'Quebrou no meio? inspecione um bloco e confirme se ele preserva `(B,T,C)`.',
+            'Quebrou no fim? cheque a projeção `C -> V` do `lm_head`.',
           ],
-          footer: 'Essa leitura reduz debug cego: primeiro contrato de estrutura, depois detalhe matemático.',
+          footer: 'A regra útil aqui é: primeiro leia a classe, depois leia a matemática fina.',
         },
       },
       'en-us': {
         tabs: [{ label: 'Code' }, { label: 'Map' }],
         codePanel: {
-          title: 'Minimum layer skeleton',
-          description: 'Even before attention, this layout already shows embedding input, stacked body, and output head.',
+          title: 'Minimal class, but executable',
+          description: 'The snippet registers submodules in `__init__`, walks through blocks in `forward`, and closes with logits in one visible flow.',
           source: { snippetId: 'pytorch-lm/lm-layers', language: 'python' },
           codeExplanations: [
-            { lineRange: [1, 1], content: 'We import only `nn` to keep attention on architecture shape, without extra library noise.' },
-            { lineRange: [3, 3], content: '`ModuleDict` names model subparts explicitly, which improves readability and maintenance.' },
-            { lineRange: [4, 4], content: '`wte` is the input embedding: it maps token IDs to dense vectors per position.' },
-            { lineRange: [5, 10], content: '`ModuleList` stacks repeated blocks; here each block performs normalization, projection, and dropout.' },
-            { lineRange: [11, 11], content: '`lm_head` projects from hidden width `C` into vocabulary size `V`, producing per-token logits.' },
-            { lineRange: [12, 12], content: 'The dictionary closes input, body, and output into one explicit model structure.' },
+            { lineRange: [1, 2], content: 'We import `torch` and `nn` because the example is no longer just structural: it defines the class and executes a real forward pass.' },
+            { lineRange: [4, 15], content: '`TinyStackedLM` subclasses `nn.Module`. `super().__init__()` properly registers child modules, and `__init__` declares the three model regions: input (`wte`), repeated body (`blocks`), and output (`lm_head`).' },
+            { lineRange: [7, 12], content: '`ModuleList` makes depth explicit. Each block is a short `Sequential` with `LayerNorm` and `Linear`, repeated `num_layers` times.' },
+            { lineRange: [17, 21], content: '`forward` makes the flow legible: token IDs enter embedding, the tensor crosses repeated blocks while preserving `(B,T,C)`, and only then the head projects to `(B,T,V)`.' },
+            { lineRange: [21, 25], content: 'We instantiate a concrete model, pass integer token IDs, and run `logits = model(idx)`. This closes the example end to end.' },
+            { lineRange: [27, 28], content: 'The prints act as a quick debug checklist: input remains `(B,T)` and output becomes vocabulary logits.' },
           ],
         },
         architecturePreview: {
-          title: 'Resulting network (entry -> body -> exit)',
+          title: 'Exact flow from the snippet',
           layers: [
             { name: 'wte (Embedding)', shape: '(B,T) -> (B,T,C)', role: 'IDs -> vectors' },
-            { name: 'LayerNorm', shape: '(B,T,C)', role: 'stabilize scale' },
-            { name: 'Linear (C->C)', shape: '(B,T,C)', role: 'internal projection' },
-            { name: 'Dropout', shape: '(B,T,C)', role: 'training regularizer' },
+            { name: 'block 1', shape: '(B,T,C) -> (B,T,C)', role: 'LayerNorm + Linear' },
+            { name: 'block 2', shape: '(B,T,C) -> (B,T,C)', role: 'LayerNorm + Linear' },
             { name: 'lm_head (Linear)', shape: '(B,T,C) -> (B,T,V)', role: 'per-token logits' },
           ],
         },
         blueprintPanel: {
-          title: 'Reading real code with recurring names',
-          subtitle: 'Review order to inspect architecture without drifting.',
+          title: 'How to read the class without drifting',
+          subtitle: 'The useful order is to follow the class contract and the tensor path.',
           stages: [
-            { label: 'Entry', title: '`wte` is how the token enters the model', shape: '(B,T) -> (B,T,C)', body: 'Discrete IDs become dense vectors. This is where the model leaves symbolic space and enters continuous representation space.', reading: 'When you see `Embedding`, ask which integer enters and which width-C vector comes out.' },
-            { label: 'Body', title: '`blocks` repeat hidden-state transformation', shape: '(B,T,C) -> (B,T,C)', body: '`ModuleList` is not API trivia: it makes depth explicit and traceable. Each block changes the stream while preserving the central contract.', reading: 'If something explodes in the middle, inspect one repeated block: normalization, projection, and regularization live here.' },
-            { label: 'Exit', title: '`lm_head` turns representation into decision', shape: '(B,T,C) -> (B,T,V)', body: 'The final head projects each position into vocabulary space. This is where hidden state becomes logits and candidate tokens start competing.', reading: 'The end of the architecture always answers: how does the token leave the model?' },
+            { label: '1. __init__', title: 'The class registers model parts', shape: 'wte + blocks + lm_head', body: 'The first step is not running code. It is seeing which submodules exist and which structural role each one plays.', reading: 'Read `__init__` as inventory: input, repeated body, and output.' },
+            { label: '2. Embedding', title: '`wte` creates hidden states', shape: '(B,T) -> (B,T,C)', body: 'Integer IDs enter the embedding and become dense vectors. From this point onward, the tensor is in continuous representation space.', reading: 'If failure happens early, check integer dtype and the transition into `(B,T,C)`.' },
+            { label: '3. ModuleList', title: '`blocks` repeat the core transformation', shape: '(B,T,C) -> (B,T,C)', body: 'The loop in `forward` makes repetition explicit: the same block structure is applied multiple times without changing the core shape contract.', reading: 'Depth in PyTorch often looks like this: an ordered list of blocks walked one by one.' },
+            { label: '4. lm_head', title: 'The final head projects into logits', shape: '(B,T,C) -> (B,T,V)', body: 'After the internal body, the last projection swaps representation width for vocabulary width. This is where architecture moves from hidden state to decision.', reading: 'Whenever you see `lm_head`, ask which dimension goes in and which semantic space comes out.' },
+            { label: '5. Debug', title: 'Shape reading locates the break', shape: 'idx -> hidden -> logits', body: 'If forward fails, trace the tensor path: integer input, hidden state after embedding, hidden state after blocks, final logits.', reading: 'Good debugging here is flow-based, not guess-based: find the stage where the contract stopped matching.' },
           ],
-          invariantsTitle: 'Reading invariants',
+          invariantsTitle: 'Class invariants',
           invariants: [
-            '`Embedding` defines the token entry point.',
-            '`ModuleList` defines depth and structural repetition.',
-            '`lm_head` defines output semantics: logits per position.',
+            '`__init__` registers parts; `forward` describes the tensor path.',
+            '`ModuleList` expresses depth without hiding repetition.',
+            '`lm_head` closes the contract as per-position logits.',
           ],
-          diagnosticsTitle: 'Fast diagnosis',
+          diagnosticsTitle: 'Fast reading diagnosis',
           diagnostics: [
-            'Early shape break? validate IDs -> vector transition.',
-            'Middle shape break? inspect one repeated `ModuleList` block and replay the reading.',
-            'Late shape break? check the `C -> V` projection at `lm_head`.',
+            'Breaks before forward? usually incorrect registration in `__init__`.',
+            'Breaks in the middle? inspect one block and confirm it preserves `(B,T,C)`.',
+            'Breaks at the end? check the `C -> V` projection at `lm_head`.',
           ],
-          footer: 'This avoids blind debugging: validate structure contract before deep math details.',
+          footer: 'Useful rule: read the class first, then read the finer math.',
         },
       },
     },

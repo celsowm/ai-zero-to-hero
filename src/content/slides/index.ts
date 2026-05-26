@@ -132,7 +132,6 @@ import { loraExercise } from './lora-exercise';
 import { markdownSyntax } from './markdown-syntax';
 import { markdownWhy } from './markdown-why';
 import { mlPipeline } from './ml-pipeline';
-import { mlpInsideTransformer } from './mlp-inside-transformer';
 import { modelEvaluationHf } from './model-evaluation-hf';
 import { modelSharingHub } from './model-sharing-hub';
 import { multiheadAttention } from './multihead-attention';
@@ -212,7 +211,6 @@ import { ragHallucination } from './rag-hallucination';
 import { ragIntro } from './rag-intro';
 import { ragMemoryLimit } from './rag-memory-limit';
 import { ragVectorSearch } from './rag-vector-search';
-import { residualStream } from './residual-stream';
 import { samplingControls } from './sampling-controls';
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
@@ -404,7 +402,6 @@ export const allSlides: ISlide[] = [
   markdownSyntax,
   markdownWhy,
   mlPipeline,
-  mlpInsideTransformer,
   modelEvaluationHf,
   modelSharingHub,
   multiheadAttention,
@@ -484,7 +481,6 @@ export const allSlides: ISlide[] = [
   ragIntro,
   ragMemoryLimit,
   ragVectorSearch,
-  residualStream,
   samplingControls,
   sftIntro,
   systemPromptIntro,
