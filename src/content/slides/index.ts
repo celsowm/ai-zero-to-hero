@@ -155,10 +155,8 @@ import { neuralNetworkPytorchTensors } from './neural-network-pytorch-tensors';
 import { tensorOrigins } from './tensor-origins';
 import { neuralNetworkPytorchSilicon } from './neural-network-pytorch-silicon';
 import { pytorchAutograd } from './pytorch-autograd';
-import { pytorchExercisesArchitecture } from './pytorch-exercises-architecture';
 import { pytorchExercisesFundamentals } from './pytorch-exercises-fundamentals';
 import { pytorchExercisesLanguageModeling } from './pytorch-exercises-language-modeling';
-import { pytorchExercisesTraining } from './pytorch-exercises-training';
 import { pytorchRuntimeOptions } from './pytorch-runtime-options';
 import { pytorchWhyPerformant } from './pytorch-why-performant';
 import { pytorchDtypeContract } from './pytorch-dtype-contract';
@@ -429,10 +427,8 @@ export const allSlides: ISlide[] = [
   tensorOrigins,
   neuralNetworkPytorchSilicon,
   pytorchAutograd,
-  pytorchExercisesArchitecture,
   pytorchExercisesFundamentals,
   pytorchExercisesLanguageModeling,
-  pytorchExercisesTraining,
   pytorchRuntimeOptions,
   pytorchWhyPerformant,
   pytorchDtypeContract,
