@@ -16,15 +16,15 @@ Ponto de partida sem ambiguidade:
 - Cada inteiro referencia uma linha da matriz de embedding \`E\`.
 
 Notação do pipeline:
-- \`idx \in Z^{BxT}\`
+- $idx \\in \\mathbb{Z}^{B \\times T}$
   (idx é uma grade de IDs inteiros de token com B lotes e T posições por sequência)
-- \`E \in R^{VxC}\`
+- $E \\in \\mathbb{R}^{V \\times C}$
   (E é a tabela de embedding: V tokens no vocabulário, cada um com vetor de tamanho C)
-- \`H = E[idx] \in R^{BxTxC}\`
+- $H = E[idx] \\in \\mathbb{R}^{B \\times T \\times C}$
   (H é o resultado do lookup: para cada token em cada posição, um vetor contínuo de tamanho C)
-- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+- $W_{out} \\in \\mathbb{R}^{V \\times C},\\ b \\in \\mathbb{R}^{V}$
   (W_out e b são os parâmetros da camada de saída que projetam de C para classes do vocabulário V)
-- \`logits = H W_out^T + b \in R^{BxTxV}\`
+- $logits = H W_{out}^{T} + b \\in \\mathbb{R}^{B \\times T \\times V}$
   (logits são scores por token do vocabulário em cada posição temporal, antes de softmax)
 
 Leitura operacional por espaço:
@@ -51,15 +51,15 @@ Unambiguous starting point:
 - Each integer points to one row in the embedding matrix \`E\`.
 
 Pipeline notation:
-- \`idx \in Z^{BxT}\`
+- $idx \\in \\mathbb{Z}^{B \\times T}$
   (idx is an integer grid of token IDs with B batches and T positions per sequence)
-- \`E \in R^{VxC}\`
+- $E \\in \\mathbb{R}^{V \\times C}$
   (E is the embedding table: V vocabulary tokens, each represented by a C-wide vector)
-- \`H = E[idx] \in R^{BxTxC}\`
+- $H = E[idx] \\in \\mathbb{R}^{B \\times T \\times C}$
   (H is the lookup output: for each token at each position, one continuous C-wide vector)
-- \`W_out \in R^{VxC}\`, \`b \in R^V\`
+- $W_{out} \\in \\mathbb{R}^{V \\times C},\\ b \\in \\mathbb{R}^{V}$
   (W_out and b are output-layer parameters that project from C representation space to V vocabulary classes)
-- \`logits = H W_out^T + b \in R^{BxTxV}\`
+- $logits = H W_{out}^{T} + b \\in \\mathbb{R}^{B \\times T \\times V}$
   (logits are pre-softmax scores over vocabulary tokens at each time position)
 
 Operational reading by space:
