@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '../hooks/useNavigation';
 import { useUI } from '../hooks/useUI';
 import { useLocale } from '../hooks/useLocale';
@@ -12,7 +12,14 @@ export const Sidebar: React.FC = () => {
   const { slides, goToSlide, currentSlideIndex } = useNavigation();
   const { setSearchOpen } = useUI();
   const { language, switchLanguage } = useLocale();
+  const navRef = useRef<HTMLElement | null>(null);
+  const activeItemRef = useRef<HTMLButtonElement | null>(null);
   const ui = getUiMessages(language);
+
+  useEffect(() => {
+    if (!navRef.current || !activeItemRef.current) return;
+    activeItemRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, [currentSlideIndex, isCollapsed]);
 
   const rotateLanguage = () => {
     const currentIndex = SUPPORTED_LANGUAGES.indexOf(language);
@@ -83,12 +90,13 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Nav items */}
-      <nav className="flex-1 overflow-y-auto py-4 px-2.5 space-y-1">
+      <nav ref={navRef} className="flex-1 overflow-y-auto py-4 px-2.5 space-y-1">
         {slides.map((slide, index) => {
           const isActive = currentSlideIndex === index;
           return (
             <button
               key={slide.id}
+              ref={isActive ? activeItemRef : null}
               onClick={() => goToSlide(index)}
               className={`w-full text-left rounded-lg flex items-center gap-3 transition-all duration-200 ${
                 isCollapsed ? 'px-2.5 py-2.5 justify-center' : 'px-3 py-2.5'
@@ -109,7 +117,7 @@ export const Sidebar: React.FC = () => {
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: '12px',
                   fontWeight: 500,
-                  minWidth: '18px',
+                  minWidth: '28px',
                   color: isActive ? 'var(--sw-cyan)' : undefined,
                   opacity: isActive ? 1 : 0.5,
                 }}
