@@ -42,6 +42,7 @@ export { PytorchBridgeShiftVisual } from './language-models/PytorchBridgeShiftVi
 export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMatrixVisual';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
 export { PytorchExecutionPipelineVisual } from './language-models/PytorchExecutionPipelineVisual';
+export { OptimizerComparisonChartVisual } from './language-models/OptimizerComparisonChartVisual';
 export { TrainingLoopGraph } from './language-models/TrainingLoopGraph';
 export { PytorchCheckpointExplorerVisual } from './language-models/PytorchCheckpointExplorerVisual';
 export { AutogradCodeWalkthrough } from './language-models/AutogradCodeWalkthrough';

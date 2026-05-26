@@ -73,6 +73,7 @@ const visualMap: Record<string, string> = {
   'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',
   'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
+  'optimizer-comparison-chart': 'OptimizerComparisonChartVisual',
   'pytorch-autograd-3d': 'AutogradCodeWalkthrough',
   'pytorch-training-loop-graph': 'TrainingLoopGraph',
   'pytorch-checkpoint-explorer': 'PytorchCheckpointExplorerVisual',

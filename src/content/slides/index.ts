@@ -46,7 +46,6 @@ import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
 import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
 import { hfPipelineCustom } from './hf-pipeline-custom';
 import { hfV5Ecosystem } from './hf-v5-ecosystem';
-import { hiddenStatesToLogits } from './hidden-states-to-logits';
 import { huggingfaceTransformersIntro } from './huggingface-transformers-intro';
 import { iaDefinition } from './ia-definition';
 import { iaLearningLoop } from './ia-learning-loop';
@@ -180,12 +179,10 @@ import { neuralNetworkSigmoidDerivative } from './neural-network-sigmoid-derivat
 import { neuralNetworkToLanguageModeling } from './neural-network-to-language-modeling';
 import { neuralNetworkTypesOverview } from './neural-network-types-overview';
 import { neuralNetworkWeightsAndBiases } from './neural-network-weights-and-biases';
-import { nextTokenPrediction } from './next-token-prediction';
 import { nnProblem } from './nn-problem';
 import { nonlinearRegressionBoundary } from './nonlinear-regression-boundary';
 import { nonlinearSolutionRing } from './nonlinear-solution-ring';
 import { peftLoraIntro } from './peft-lora-intro';
-import { predictionEvolutionWeThePeople } from './prediction-evolution-we-the-people';
 import { professor } from './professor';
 import { pythonIntro } from './python-intro';
 import { pythonPrereqConditionals } from './python-prereq-conditionals';
@@ -321,7 +318,6 @@ export const allSlides: ISlide[] = [
   hfDatasetsDeepDive,
   hfPipelineCustom,
   hfV5Ecosystem,
-  hiddenStatesToLogits,
   huggingfaceTransformersIntro,
   iaDefinition,
   iaLearningLoop,
@@ -455,12 +451,10 @@ export const allSlides: ISlide[] = [
   neuralNetworkToLanguageModeling,
   neuralNetworkTypesOverview,
   neuralNetworkWeightsAndBiases,
-  nextTokenPrediction,
   nnProblem,
   nonlinearRegressionBoundary,
   nonlinearSolutionRing,
   peftLoraIntro,
-  predictionEvolutionWeThePeople,
   professor,
   pythonIntro,
   pythonPrereqConditionals,

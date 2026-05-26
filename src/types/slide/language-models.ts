@@ -607,3 +607,21 @@ export interface EmbeddingIntroVisualCopy {
     footer: string;
   };
 }
+
+export interface OptimizerComparisonChartCopy {
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  };
+  eyebrow: string;
+  title: string;
+  description: string;
+  restartLabel: string;
+  sgdBullets: string[];
+  adamwBullets: string[];
+  summaryTitle: string;
+  summaryText: string;
+}

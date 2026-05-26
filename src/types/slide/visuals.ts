@@ -49,6 +49,7 @@ import type {
   TrainingLoopGraphCopy,
   PytorchAnimatedCodeWalkthroughCopy,
   PytorchCheckpointExplorerCopy,
+  OptimizerComparisonChartCopy,
 } from './language-models';
 import type {
   BPEFrequencyTableCopy,
@@ -277,6 +278,7 @@ interface VisualCopyMap {
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;
   'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
+  'optimizer-comparison-chart': OptimizerComparisonChartCopy;
   'pytorch-autograd-3d': PytorchAnimatedCodeWalkthroughCopy;
   'pytorch-shape-trace-flow': PytorchShapeTraceFlowCopy;
   'pytorch-embedding-intro': EmbeddingIntroVisualCopy;
