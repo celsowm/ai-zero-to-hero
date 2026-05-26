@@ -21,11 +21,11 @@ O Adam usa duas médias:
 - média dos gradientes (momentum)
 - média dos gradientes ao quadrado (escala adaptativa)
 
-O **W** vem de **W**eight **D**ecay.
+O **W** vem de **W**eight **D**ecay, ou **decaimento de pesos**: uma penalização que empurra pesos muito grandes para valores menores.
 
-Então: **AdamW = Adam with decoupled Weight Decay** (Adam com weight decay desacoplado).
+Então: **AdamW = Adam com decaimento de pesos desacoplado**.
 
-A diferença do nome é que o AdamW aplica o weight\_decay separado da atualização principal do Adam, o que costuma funcionar melhor em deep learning moderno.
+A diferença do nome é que o AdamW aplica o parâmetro \`weight_decay\` (decaimento de pesos) separado da atualização principal do Adam, o que costuma funcionar melhor em deep learning moderno.
 
 Na prática, muitas vezes ele dá passos mais "inteligentes" e costuma convergir mais rápido, especialmente em redes neurais modernas.
 
@@ -36,7 +36,7 @@ Com o mesmo lr = 0.01, ele pode mudar os valores mais agressivamente do que o SG
 | Otimizador | Como aprende | Vantagem | Desvantagem |
 |---|---|---|---|
 | SGD | Usa o gradiente direto | Simples, estável, bom para generalização | Pode ser lento |
-| AdamW | Usa estatísticas dos gradientes | Converge rápido, bom padrão para deep learning | Pode precisar de cuidado com lr e weight\_decay |
+| AdamW | Usa estatísticas dos gradientes | Converge rápido, bom padrão para deep learning | Pode precisar de cuidado com lr e \`weight_decay\` (decaimento de pesos) |
 
 Para treino de modelos hoje, especialmente **transformers, CNNs e redes maiores**, AdamW costuma ser a escolha padrão. Para casos simples ou quando você quer controle máximo e boa generalização, SGD ainda é muito usado, normalmente com momentum.
 
@@ -112,7 +112,7 @@ The code on the right shows both side by side with the same initial logits and s
           'É muito usado em transformers e modelos grandes.',
         ],
         summaryTitle: 'Resumo rápido',
-        summaryText: 'SGD segue o gradiente de maneira direta. AdamW usa médias dos gradientes, ajusta o tamanho do passo por parâmetro e aplica weight decay separado da atualização adaptativa.',
+        summaryText: 'SGD segue o gradiente de maneira direta. AdamW usa médias dos gradientes, ajusta o tamanho do passo por parâmetro e aplica decaimento de pesos separado da atualização adaptativa.',
       },
       'en-us': {
         tabs: [{ label: 'Code' }, { label: 'Comparison' }],
