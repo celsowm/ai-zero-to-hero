@@ -1,4 +1,4 @@
-import { readdirSync, rmSync, createWriteStream } from 'node:fs';
+import { readdirSync, rmSync, createWriteStream, writeFileSync } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import { resolve } from 'node:path';
 
@@ -27,6 +27,18 @@ async function main() {
   if (!wheelRes.ok || !wheelRes.body) throw new Error(`Failed to download wheel: ${wheelRes.status}`);
 
   await pipeline(wheelRes.body, createWriteStream(outPath));
+  writeFileSync(
+    resolve(vendorDir, 'torch-pyodide.json'),
+    JSON.stringify(
+      {
+        fileName: wheel.filename,
+        version: latest,
+        pypiSpec: `torch-pyodide==${latest}`,
+      },
+      null,
+      2,
+    ) + '\n',
+  );
   console.log(`Updated torch-pyodide wheel to ${wheel.filename}`);
 }
 

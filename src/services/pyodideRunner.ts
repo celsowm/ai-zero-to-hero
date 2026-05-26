@@ -1,12 +1,71 @@
-import { loadPyodide, type PyodideInterface } from 'pyodide';
+import { loadPyodide, version as pyodideVersion, type PyodideInterface } from 'pyodide';
 
 const TORCH_IMPORT_RE = /(^|\n)\s*(import\s+torch\b|from\s+torch\b)|(^|[^\w.])torch\./;
 const WEBGPU_ERROR = 'Torch snippets in the browser require WebGPU. Use a WebGPU-capable browser and device.';
+const TORCH_PYODIDE_MANIFEST_URL = `${import.meta.env.BASE_URL}vendor/python/torch-pyodide.json`;
+const TORCH_PYODIDE_WHEEL_RE = /^torch_pyodide-(.+)-py3-none-any\.whl$/;
 
 let pyodideInstance: PyodideInterface | null = null;
 let loadingPromise: Promise<PyodideInterface> | null = null;
 let torchRuntimeInstallPromise: Promise<void> | null = null;
 let torchInstallPromise: Promise<void> | null = null;
+let torchPyodideInfoPromise: Promise<TorchPyodideInfo> | null = null;
+
+interface TorchPyodideInfo {
+  fileName: string;
+  version: string;
+  pypiSpec: string;
+}
+
+function parseTorchPyodideInfoFromWheelFile(fileName: string, pypiSpec: string): TorchPyodideInfo {
+  const match = TORCH_PYODIDE_WHEEL_RE.exec(fileName);
+  if (!match) {
+    throw new Error(`Invalid torch-pyodide wheel file name: ${fileName}`);
+  }
+
+  return {
+    fileName,
+    version: match[1],
+    pypiSpec,
+  };
+}
+
+function getFallbackTorchPyodideInfo(): TorchPyodideInfo {
+  return parseTorchPyodideInfoFromWheelFile(__TORCH_PYODIDE_WHEEL_FILE__, __TORCH_PYODIDE_PYPI_SPEC__);
+}
+
+async function getTorchPyodideInfo(): Promise<TorchPyodideInfo> {
+  if (torchPyodideInfoPromise) {
+    return torchPyodideInfoPromise;
+  }
+
+  torchPyodideInfoPromise = (async () => {
+    try {
+      const response = await fetch(TORCH_PYODIDE_MANIFEST_URL, { cache: 'no-store' });
+      if (response.ok) {
+        const manifest = (await response.json()) as Partial<TorchPyodideInfo>;
+        if (
+          typeof manifest.fileName === 'string' &&
+          typeof manifest.version === 'string' &&
+          typeof manifest.pypiSpec === 'string'
+        ) {
+          return manifest as TorchPyodideInfo;
+        }
+      }
+    } catch {
+      // Fall back to the build-time metadata when the runtime manifest is unavailable.
+    }
+
+    return getFallbackTorchPyodideInfo();
+  })();
+
+  try {
+    return await torchPyodideInfoPromise;
+  } catch (error) {
+    torchPyodideInfoPromise = null;
+    throw error;
+  }
+}
 
 export function usesTorch(code: string): boolean {
   return TORCH_IMPORT_RE.test(code);
@@ -20,6 +79,7 @@ export async function getPyodide(): Promise<PyodideInterface> {
 
   loadingPromise = loadPyodide({ indexURL });
   pyodideInstance = await loadingPromise;
+  console.info(`[Pyodide] version ${pyodideVersion}`);
   return pyodideInstance;
 }
 
@@ -67,12 +127,15 @@ async function ensureTorchPyodide(pyodide: PyodideInterface): Promise<void> {
   }
 
   torchInstallPromise = (async () => {
+    const torchPyodideInfo = await getTorchPyodideInfo();
     await ensureTorchRuntime();
     await pyodide.loadPackage('micropip');
 
-    const localWheelUrl = `${import.meta.env.BASE_URL}vendor/python/${__TORCH_PYODIDE_WHEEL_FILE__}`;
+    console.info(`[torch-pyodide] wheel version ${torchPyodideInfo.version}`);
+
+    const localWheelUrl = `${import.meta.env.BASE_URL}vendor/python/${torchPyodideInfo.fileName}`;
     pyodide.globals.set('torch_pyodide_local_wheel_url', localWheelUrl);
-    pyodide.globals.set('torch_pyodide_pypi_spec', __TORCH_PYODIDE_PYPI_SPEC__);
+    pyodide.globals.set('torch_pyodide_pypi_spec', torchPyodideInfo.pypiSpec);
 
     await pyodide.runPythonAsync(`
 import micropip
