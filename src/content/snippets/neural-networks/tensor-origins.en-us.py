@@ -21,3 +21,10 @@ print("embedding.shape:", embedding.shape)  # torch.Size([4])
 print("weights.shape:", weights.shape)      # torch.Size([3, 4])
 print("sequence.shape:", sequence.shape)    # torch.Size([2, 3, 4])
 print("batch.shape:", batch.shape)          # torch.Size([2, 3, 28, 28])
+
+# ndim is the runtime count of axes, also called rank
+print("loss.ndim:", loss.ndim)              # 0
+print("embedding.ndim:", embedding.ndim)    # 1
+print("weights.ndim:", weights.ndim)        # 2
+print("sequence.ndim:", sequence.ndim)      # 3
+print("batch.ndim:", batch.ndim)            # 4

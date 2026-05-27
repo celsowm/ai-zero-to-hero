@@ -63,7 +63,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
         tabs: [{ label: 'Código' }, { label: 'Explorador 3D' }],
         codePanel: {
           title: 'Do escalar ao tensor 4D em PyTorch',
-          description: 'Exemplo curto para ligar numero de eixos, rank e shape antes de aplicar essa leitura em texto tokenizado.',
+          description: 'Exemplo curto para ligar número de eixos, rank e shape antes de aplicar essa leitura em texto tokenizado.',
           source: { snippetId: 'neural-networks/tensor-origins', language: 'python' },
           codeExplanations: [
             { lineRange: [1, 2], content: 'Importa PyTorch para criar tensores com ranks diferentes.' },
@@ -73,12 +73,13 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
             { lineRange: [13, 14], content: 'Tensor 3D: rank 3, shape (2, 3, 4) — batch, posição e conteúdo.' },
             { lineRange: [16, 17], content: 'Tensor 4D: `batch = torch.randn(2, 3, 28, 28)`. Leitura operacional de limites: batch [0..1], canal [0..2], altura [0..27], largura [0..27].' },
             { lineRange: [19, 23], content: 'Exemplo explícito de `shape` em todos os ranks: 0D (`[]`), 1D (`[4]`), 2D (`[3, 4]`), 3D (`[2, 3, 4]`) e 4D (`[2, 3, 28, 28]`).' },
+            { lineRange: [25, 30], content: 'Prints de `.ndim`: o PyTorch devolve a contagem de eixos em runtime, que é o rank do tensor.' },
           ],
         },
         interactivePanel: {
           eyebrow: 'Eixos, rank e shape',
           title: 'Navegue nos ranks em 3D',
-          description: 'Altere o rank e observe como a geometria muda no canvas. A leitura correta e: quantos eixos existem, o que cada eixo representa e so depois qual shape aparece.',
+          description: 'Altere o rank e observe como a geometria muda no canvas. A leitura correta é: quantos eixos existem, o que cada eixo representa e só depois qual shape aparece.',
           shapeLabel: 'Shape atual',
           rankLabel: 'Rank atual',
           scalarLabel: 'Escalar',
@@ -86,7 +87,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
           matrixLabel: 'Matriz',
           tensor3dLabel: 'Tensor 3D',
           tensor4dLabel: 'Tensor 4D',
-          footer: 'Regra operacional: rank não é decoracao. Ele diz quantos eixos você precisa explicar para entender o tensor.',
+          footer: 'Regra operacional: rank não é decoração. Ele diz quantos eixos você precisa explicar para entender o tensor.',
         },
       },
       'en-us': {
@@ -103,6 +104,7 @@ Criterion bridge: that 0D scalar can be MSE (regression) or CE (LM classificatio
             { lineRange: [13, 14], content: '3D tensor: rank 3, shape (2, 3, 4) — batch, position, and content.' },
             { lineRange: [16, 17], content: '4D tensor: `batch = torch.randn(2, 3, 28, 28)`. Operational axis limits: batch [0..1], channel [0..2], height [0..27], width [0..27].' },
             { lineRange: [19, 23], content: 'Explicit `shape` readout across ranks: 0D (`[]`), 1D (`[4]`), 2D (`[3, 4]`), 3D (`[2, 3, 4]`), and 4D (`[2, 3, 28, 28]`).' },
+            { lineRange: [25, 30], content: '`.ndim` prints: PyTorch returns the runtime axis count, which is the tensor rank.' },
           ],
         },
         interactivePanel: {

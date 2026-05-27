@@ -3,15 +3,15 @@ from torch import nn
 
 # B = batch: quantos exemplos entram juntos.
 # F = features: quantas colunas descrevem cada exemplo.
-# H = hidden width: largura da camada intermediaria.
-# O = output width: quantas saidas o modelo produz por exemplo.
+# H = hidden width: largura da camada intermediária.
+# O = output width: quantas saídas o modelo produz por exemplo.
 B = 6
 F = 4
 H = 3
 O = 1
 
 # X tem shape (B, F): 6 pacientes, 4 features por paciente.
-# Colunas: idade/100, pressao/200, colesterol/300, fumante.
+# Colunas: idade/100, pressão/200, colesterol/300, fumante.
 X = torch.tensor([
     [0.35, 0.60, 0.58, 0.0],
     [0.42, 0.65, 0.62, 0.0],
@@ -48,9 +48,12 @@ for epoch in range(600):
 novo = torch.tensor([[0.58, 0.75, 0.82, 1.0]])
 with torch.no_grad():
     prob = float(model(novo).item())  # (1, F) -> (1, O) -> escalar
-classe = "sim" if prob >= 0.5 else "nao"
+classe = "sim" if prob >= 0.5 else "não"
 print(f"Probabilidade: {prob:.4f} | Classe: {classe}")
 
 print("X:", X.shape)
 print("y:", y.shape)
 print("novo:", novo.shape)
+print("X.ndim:", X.ndim)
+print("y.ndim:", y.ndim)
+print("novo.ndim:", novo.ndim)

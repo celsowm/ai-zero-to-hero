@@ -30,6 +30,10 @@
       {
         "range": [19, 23],
         "content": "Confirma os shapes de 0D a 4D de forma explícita: [], [4], [3, 4], [2, 3, 4] e [2, 3, 28, 28]."
+      },
+      {
+        "range": [25, 30],
+        "content": "Mostra que `.ndim` é a contagem de eixos em runtime: 0, 1, 2, 3 e 4."
       }
     ],
     "en-us": [
@@ -60,6 +64,10 @@
       {
         "range": [19, 23],
         "content": "Explicitly confirms the 0D to 4D shapes: [], [4], [3, 4], [2, 3, 4], and [2, 3, 28, 28]."
+      },
+      {
+        "range": [25, 30],
+        "content": "Shows that `.ndim` is the runtime axis count: 0, 1, 2, 3, and 4."
       }
     ]
   }
