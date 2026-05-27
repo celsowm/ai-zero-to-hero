@@ -1,0 +1,32 @@
+{
+  "id": "rag_v2/langchain-modern-rag",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Imports modernos: retrieval chain, document chain, Chroma, documentos, prompt e modelos.",
+      "en-us": "Modern imports: retrieval chain, document chain, Chroma, documents, prompt, and models."
+    },
+    {
+      "lineRange": [8, 16],
+      "pt-br": "Documentos com texto e metadata. A fonte precisa acompanhar o chunk desde o começo.",
+      "en-us": "Documents with text and metadata. The source should travel with the chunk from the start."
+    },
+    {
+      "lineRange": [18, 23],
+      "pt-br": "Vector store e retriever. O top-k é configurado na borda de recuperação.",
+      "en-us": "Vector store and retriever. Top-k is configured at the retrieval boundary."
+    },
+    {
+      "lineRange": [24, 32],
+      "pt-br": "Prompt de grounding: responder só pelo contexto e admitir quando a resposta não está lá.",
+      "en-us": "Grounding prompt: answer only from context and admit when the answer is not there."
+    },
+    {
+      "lineRange": [34, 43],
+      "pt-br": "A composição moderna separa chain de documentos e retrieval chain; evita a API antiga RetrievalQA.",
+      "en-us": "The modern composition separates the document chain and retrieval chain; it avoids the older RetrievalQA API."
+    }
+  ]
+}

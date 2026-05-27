@@ -1,0 +1,26 @@
+{
+  "id": "rag_v2/exercise",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "Mini base de conhecimento com IDs de fonte e texto.",
+      "en-us": "Mini knowledge base with source IDs and text."
+    },
+    {
+      "lineRange": [15, 20],
+      "pt-br": "A pergunta está correta, mas a configuração do retrieval e das fontes tem bugs.",
+      "en-us": "The question is correct, but the retrieval and source settings have bugs."
+    },
+    {
+      "lineRange": [21, 26],
+      "pt-br": "Retriever didático por interseção de palavras, suficiente para testar o raciocínio.",
+      "en-us": "Didactic word-overlap retriever, enough to test the reasoning."
+    },
+    {
+      "lineRange": [27, 31],
+      "pt-br": "A saída deve mostrar três chunks recuperados e listar as fontes.",
+      "en-us": "The output should show three retrieved chunks and list the sources."
+    }
+  ]
+}

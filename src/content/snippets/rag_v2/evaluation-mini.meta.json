@@ -1,0 +1,21 @@
+{
+  "id": "rag_v2/evaluation-mini",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 4],
+      "pt-br": "Gabarito pequeno: cada pergunta tem uma ou mais fontes que deveriam aparecer no retrieval.",
+      "en-us": "Small gold set: each question has one or more sources that should appear in retrieval."
+    },
+    {
+      "lineRange": [6, 9],
+      "pt-br": "Resultado simulado do retriever, separado da geração do LLM.",
+      "en-us": "Simulated retriever result, separated from LLM generation."
+    },
+    {
+      "lineRange": [11, 14],
+      "pt-br": "A métrica mínima checa se pelo menos uma fonte correta apareceu no top-k.",
+      "en-us": "The minimal metric checks whether at least one correct source appeared in top-k."
+    }
+  ]
+}

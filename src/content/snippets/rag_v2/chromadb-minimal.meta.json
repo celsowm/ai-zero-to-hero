@@ -1,0 +1,27 @@
+{
+  "id": "rag_v2/chromadb-minimal",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 11],
+      "pt-br": "Imports, documentos de exemplo e embedding function. O mesmo embedder será usado para documentos e query.",
+      "en-us": "Imports, sample documents, and embedding function. The same embedder will be used for documents and query."
+    },
+    {
+      "lineRange": [13, 17],
+      "pt-br": "Cliente local do ChromaDB e coleção com embedding function acoplada.",
+      "en-us": "Local ChromaDB client and collection with an attached embedding function."
+    },
+    {
+      "lineRange": [19, 27],
+      "pt-br": "Indexação: IDs estáveis, texto original e metadata de fonte entram juntos.",
+      "en-us": "Indexing: stable IDs, original text, and source metadata are stored together."
+    },
+    {
+      "lineRange": [29, 40],
+      "pt-br": "Consulta: a pergunta vira embedding, o ChromaDB ranqueia os documentos próximos e devolve texto, metadata e distância.",
+      "en-us": "Query: the question becomes an embedding, ChromaDB ranks nearby documents and returns text, metadata, and distance."
+    }
+  ]
+}

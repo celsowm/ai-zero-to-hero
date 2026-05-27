@@ -16,9 +16,6 @@ import { buildGpt2Generate } from './build-gpt2-generate';
 import { buildGpt2Intro } from './build-gpt2-intro';
 import { buildGpt2Model } from './build-gpt2-model';
 import { buildGpt2Train } from './build-gpt2-train';
-import { chromadbIndexDocuments } from './chromadb-index-documents';
-import { chromadbRagE2e } from './chromadb-rag-e2e';
-import { chromadbSearchQuery } from './chromadb-search-query';
 import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling';
 import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
@@ -63,26 +60,6 @@ import { linearRegressionNotation } from './linear-regression-notation';
 import { linearRegressionPrediction } from './linear-regression-prediction';
 import { linearRegressionPython1d } from './linear-regression-python-1d';
 import { linearRegressionSimpleLine } from './linear-regression-simple-line';
-import { llamaindexAgents } from './llamaindex-agents';
-import { llamaindexChatEngine } from './llamaindex-chat-engine';
-import { llamaindexCoreConcepts } from './llamaindex-core-concepts';
-import { llamaindexDataLoaders } from './llamaindex-data-loaders';
-import { llamaindexE2e } from './llamaindex-e2e';
-import { llamaindexExercise } from './llamaindex-exercise';
-import { llamaindexIndexingPipeline } from './llamaindex-indexing-pipeline';
-import { llamaindexQueryEngines } from './llamaindex-query-engines';
-import { llamaindexRetrieversDeepDive } from './llamaindex-retrievers-deep-dive';
-import { llamaindexWhy } from './llamaindex-why';
-import { langchainAgentsDeepDive } from './langchain-agents-deep-dive';
-import { langchainChains } from './langchain-chains';
-import { langchainCoreConcepts } from './langchain-core-concepts';
-import { langchainE2e } from './langchain-e2e';
-import { langchainExercise } from './langchain-exercise';
-import { langchainMemory } from './langchain-memory';
-import { langchainPromptTemplates } from './langchain-prompt-templates';
-import { langchainRagLangchain } from './langchain-rag-langchain';
-import { langchainTools } from './langchain-tools';
-import { langchainWhy } from './langchain-why';
 import { chainOfThought } from './chain-of-thought';
 import { fewShotPrompting } from './few-shot-prompting';
 import { manyShotPrompting } from './many-shot-prompting';
@@ -201,14 +178,22 @@ import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
 import { quantizationNf4DeepDive } from './quantization-nf4-deep-dive';
 import { quantizationPractice } from './quantization-practice';
-import { ragArchitecture } from './rag-architecture';
-import { ragContextInjection } from './rag-context-injection';
-import { ragEmbeddingModel } from './rag-embedding-model';
-import { ragFromScratch } from './rag-from-scratch';
-import { ragHallucination } from './rag-hallucination';
-import { ragIntro } from './rag-intro';
-import { ragMemoryLimit } from './rag-memory-limit';
-import { ragVectorSearch } from './rag-vector-search';
+import { ragAnswerWithSources } from './rag-answer-with-sources';
+import { ragChromadbMinimal } from './rag-chromadb-minimal';
+import { ragChunking } from './rag-chunking';
+import { ragEmbeddings } from './rag-embeddings';
+import { ragEvaluation } from './rag-evaluation';
+import { ragExercise } from './rag-exercise';
+import { ragIngestion } from './rag-ingestion';
+import { ragLangchainModern } from './rag-langchain-modern';
+import { ragLangchainVsLlamaindex } from './rag-langchain-vs-llamaindex';
+import { ragLlamaindexModern } from './rag-llamaindex-modern';
+import { ragMentalModel } from './rag-mental-model';
+import { ragProblem } from './rag-problem';
+import { ragProductionChecklist } from './rag-production-checklist';
+import { ragPromptAssembly } from './rag-prompt-assembly';
+import { ragRetrieval } from './rag-retrieval';
+import { ragVectordb } from './rag-vectordb';
 import { samplingControls } from './sampling-controls';
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
@@ -284,9 +269,6 @@ export const allSlides: ISlide[] = [
   buildGpt2Intro,
   buildGpt2Model,
   buildGpt2Train,
-  chromadbIndexDocuments,
-  chromadbRagE2e,
-  chromadbSearchQuery,
   crossEntropyLanguageModeling,
   dataCollatorExplorer,
   embeddingsIntro,
@@ -331,26 +313,6 @@ export const allSlides: ISlide[] = [
   linearRegressionPrediction,
   linearRegressionPython1d,
   linearRegressionSimpleLine,
-  llamaindexAgents,
-  llamaindexChatEngine,
-  llamaindexCoreConcepts,
-  llamaindexDataLoaders,
-  llamaindexE2e,
-  llamaindexExercise,
-  llamaindexIndexingPipeline,
-  llamaindexQueryEngines,
-  llamaindexRetrieversDeepDive,
-  llamaindexWhy,
-  langchainAgentsDeepDive,
-  langchainChains,
-  langchainCoreConcepts,
-  langchainE2e,
-  langchainExercise,
-  langchainMemory,
-  langchainPromptTemplates,
-  langchainRagLangchain,
-  langchainTools,
-  langchainWhy,
   chainOfThought,
   fewShotPrompting,
   manyShotPrompting,
@@ -469,14 +431,22 @@ export const allSlides: ISlide[] = [
   quantizationInt8,
   quantizationNf4DeepDive,
   quantizationPractice,
-  ragArchitecture,
-  ragContextInjection,
-  ragEmbeddingModel,
-  ragFromScratch,
-  ragHallucination,
-  ragIntro,
-  ragMemoryLimit,
-  ragVectorSearch,
+  ragAnswerWithSources,
+  ragChromadbMinimal,
+  ragChunking,
+  ragEmbeddings,
+  ragEvaluation,
+  ragExercise,
+  ragIngestion,
+  ragLangchainModern,
+  ragLangchainVsLlamaindex,
+  ragLlamaindexModern,
+  ragMentalModel,
+  ragProblem,
+  ragProductionChecklist,
+  ragPromptAssembly,
+  ragRetrieval,
+  ragVectordb,
   samplingControls,
   sftIntro,
   systemPromptIntro,
