@@ -7,49 +7,229 @@ export const neuralNetworkPytorchNnLayers = defineSlide({
   content: {
     'pt-br': {
       title: 'De camadas isoladas para uma classe PyTorch legível',
-      body: `Até aqui vimos peças separadas: \`Embedding\`, \`Linear\`, shapes e logits. O próximo passo é enxergar como isso vira **um modelo PyTorch que roda**.
+      body: `Aqui montamos um modelo de linguagem pequeno, organizado em camadas.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+A classe \`TinyStackedLM\` representa um mini language model.
 
-Neste nível, a pergunta deixa de ser "qual camada existe?" e passa a ser: **como a classe organiza essas camadas e como o dado atravessa o forward?**
+Ela tem três partes principais:
 
-Leitura prática da classe:
-1. **\`nn.Module\`** define o contrato geral: registrar submódulos em \`__init__\` e descrever o fluxo em \`forward\`.
-2. **\`nn.Embedding\`** faz a entrada sair de \`(B,T)\` e virar hidden states \`(B,T,C)\`.
-3. **\`nn.ModuleList\`** deixa explícito que existe profundidade: um bloco repetido transforma \`(B,T,C)\` sem quebrar o contrato central.
-4. **\`nn.LayerNorm\`** e **\`nn.Linear\`** compõem cada bloco interno que mexe no hidden state.
-5. **\`lm_head\`** é a projeção final que fecha em logits \`(B,T,V)\`.
+**1. Embedding dos tokens**
 
-Leitura de engenheiro:
-- \`__init__\` responde "quais peças existem?".
-- \`forward\` responde "em que ordem o tensor passa por elas?".
-- \`ModuleList\` responde "onde a transformação se repete?".
-- \`lm_head\` responde "como a representação vira decisão sobre o vocabulário?".
+\`\`\`text
+self.wte = nn.Embedding(vocab_size, n_embd)
+\`\`\`
 
-Se você reconhecer essa estrutura, abrir um modelo maior deixa de ser caça ao tesouro e vira leitura de fluxo.`,
+Essa camada transforma cada ID de token em um vetor de tamanho \`n_embd\`.
+
+No exemplo:
+
+\`\`\`text
+vocab_size = 32
+n_embd = 16
+\`\`\`
+
+Ou seja, temos 32 tokens possíveis no vocabulário, e cada token vira um vetor de 16 dimensões.
+
+A entrada é:
+
+\`\`\`text
+idx.shape = (2, 3)
+\`\`\`
+
+Depois do embedding, internamente temos:
+
+\`\`\`text
+x.shape = (2, 3, 16)
+\`\`\`
+
+**2. Blocos empilhados**
+
+\`\`\`text
+self.blocks = nn.ModuleList([...])
+\`\`\`
+
+Aqui criamos várias camadas que processam a representação dos tokens.
+
+No exemplo:
+
+\`\`\`text
+num_layers = 2
+\`\`\`
+
+Então o modelo passa os vetores por 2 blocos.
+
+Cada bloco tem:
+
+\`\`\`text
+LayerNorm(n_embd)
+Linear(n_embd, n_embd)
+\`\`\`
+
+A \`LayerNorm\` normaliza a representação interna, ajudando a estabilizar o treinamento.
+
+A \`Linear(n_embd, n_embd)\` transforma cada vetor, mantendo a mesma largura:
+
+\`\`\`text
+(2, 3, 16) → (2, 3, 16)
+\`\`\`
+
+Ou seja, os blocos refinam os vetores, mas não mudam o formato.
+
+**3. Cabeça de linguagem**
+
+\`\`\`text
+self.lm_head = nn.Linear(n_embd, vocab_size)
+\`\`\`
+
+No final, a \`lm_head\` transforma cada vetor interno em scores sobre o vocabulário.
+
+Ela faz:
+
+\`\`\`text
+vetor de 16 dimensões → 32 scores
+\`\`\`
+
+Por isso a saída final é:
+
+\`\`\`text
+logits.shape = (2, 3, 32)
+\`\`\`
+
+Para cada exemplo do lote e para cada posição da sequência, o modelo produz uma pontuação para cada token possível do vocabulário.
+
+**Resumo do fluxo:**
+
+\`\`\`text
+idx
+→ embedding
+→ blocos empilhados
+→ lm_head
+→ logits
+\`\`\`
+
+Em formatos:
+
+\`\`\`text
+(2, 3)
+→ (2, 3, 16)
+→ (2, 3, 16)
+→ (2, 3, 32)
+\`\`\`
+
+> Esse modelo ainda é bem simples: ele empilha camadas, mas não tem atenção nem contexto causal real. Serve para mostrar a estrutura geral: tokens viram vetores, os vetores passam por camadas, e no final viram scores para prever tokens.`,
     },
     'en-us': {
       title: 'From isolated layers to a readable PyTorch class',
-      body: `So far we covered isolated pieces: \`Embedding\`, \`Linear\`, shapes, and logits. The next step is seeing how they become **a PyTorch model that actually runs**.
+      body: `Here we build a small language model, organized in layers.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+The \`TinyStackedLM\` class represents a mini language model.
 
-At this point, the question is no longer "which layer exists?" but: **how does the class organize those layers, and how does data move through forward?**
+It has three main parts:
 
-Practical class reading:
-1. **\`nn.Module\`** defines the overall contract: register submodules in \`__init__\` and describe data flow in \`forward\`.
-2. **\`nn.Embedding\`** turns input from \`(B,T)\` into hidden states \`(B,T,C)\`.
-3. **\`nn.ModuleList\`** makes depth explicit: one repeated block transforms \`(B,T,C)\` without breaking the central contract.
-4. **\`nn.LayerNorm\`** and **\`nn.Linear\`** compose each internal block that edits the hidden state.
-5. **\`lm_head\`** is the final projection that closes into logits \`(B,T,V)\`.
+**1. Token embedding**
 
-Engineer reading:
-- \`__init__\` answers "which parts exist?".
-- \`forward\` answers "in what order does the tensor cross them?".
-- \`ModuleList\` answers "where does the transformation repeat?".
-- \`lm_head\` answers "how does representation become a vocabulary decision?".
+\`\`\`text
+self.wte = nn.Embedding(vocab_size, n_embd)
+\`\`\`
 
-If you can recognize this structure, opening a larger model stops being treasure hunting and becomes flow reading.`,
+This layer transforms each token ID into a vector of size \`n_embd\`.
+
+In the example:
+
+\`\`\`text
+vocab_size = 32
+n_embd = 16
+\`\`\`
+
+That means we have 32 possible tokens in the vocabulary, and each token becomes a 16-dimensional vector.
+
+The input is:
+
+\`\`\`text
+idx.shape = (2, 3)
+\`\`\`
+
+After embedding, internally we have:
+
+\`\`\`text
+x.shape = (2, 3, 16)
+\`\`\`
+
+**2. Stacked blocks**
+
+\`\`\`text
+self.blocks = nn.ModuleList([...])
+\`\`\`
+
+Here we create several layers that process the token representations.
+
+In the example:
+
+\`\`\`text
+num_layers = 2
+\`\`\`
+
+So the model passes vectors through 2 blocks.
+
+Each block has:
+
+\`\`\`text
+LayerNorm(n_embd)
+Linear(n_embd, n_embd)
+\`\`\`
+
+\`LayerNorm\` normalizes the internal representation, helping stabilize training.
+
+\`Linear(n_embd, n_embd)\` transforms each vector while keeping the same width:
+
+\`\`\`text
+(2, 3, 16) → (2, 3, 16)
+\`\`\`
+
+In other words, the blocks refine the vectors but do not change the shape.
+
+**3. Language head**
+
+\`\`\`text
+self.lm_head = nn.Linear(n_embd, vocab_size)
+\`\`\`
+
+At the end, \`lm_head\` transforms each internal vector into scores over the vocabulary.
+
+It does:
+
+\`\`\`text
+16-dimensional vector → 32 scores
+\`\`\`
+
+So the final output is:
+
+\`\`\`text
+logits.shape = (2, 3, 32)
+\`\`\`
+
+For each example in the batch and each position in the sequence, the model produces a score for every possible token in the vocabulary.
+
+**Flow summary:**
+
+\`\`\`text
+idx
+→ embedding
+→ stacked blocks
+→ lm_head
+→ logits
+\`\`\`
+
+In shapes:
+
+\`\`\`text
+(2, 3)
+→ (2, 3, 16)
+→ (2, 3, 16)
+→ (2, 3, 32)
+\`\`\`
+
+> This model is still very simple: it stacks layers, but has no attention or real causal context. It serves to show the general structure: tokens become vectors, vectors pass through layers, and at the end they become scores for predicting tokens.`,
     },
   },
   visual: {

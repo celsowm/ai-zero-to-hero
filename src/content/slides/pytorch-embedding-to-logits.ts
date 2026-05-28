@@ -7,73 +7,175 @@ export const pytorchEmbeddingToLogits = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding -> logits: contrato formal de previsão',
-      body: `No slide anterior (\`pytorch-embedding-intro\`), fechamos em \`H = E[idx]\` com shape \`(B,T,C)\`. Agora damos o próximo passo: transformar esse \`H\` em logits \`(B,T,V)\` para previsão de próximo token.
+      body: `Aqui vemos o caminho completo até a loss.
 
-Problema formal deste slide: como mapear \`idx\` (IDs de token no vocabulário) para uma distribuição de próximo token sem quebrar o contrato de shape?
+Começamos com tokens de entrada:
 
-Ponto de partida sem ambiguidade:
-- \`idx\` não é embedding; \`idx\` é apenas grade de inteiros com IDs de token.
-- Cada inteiro referencia uma linha da matriz de embedding \`E\`.
+\`\`\`text
+idx.shape = (B, T)
+\`\`\`
 
-Notação do pipeline:
-- $idx \\in \\mathbb{Z}^{B \\times T}$
-  (idx é uma grade de IDs inteiros de token com B lotes e T posições por sequência)
-- $E \\in \\mathbb{R}^{V \\times C}$
-  (E é a tabela de embedding: V tokens no vocabulário, cada um com vetor de tamanho C)
-- $H = E[idx] \\in \\mathbb{R}^{B \\times T \\times C}$
-  (H é o resultado do lookup: para cada token em cada posição, um vetor contínuo de tamanho C)
-- $W_{out} \\in \\mathbb{R}^{V \\times C},\\ b \\in \\mathbb{R}^{V}$
-  (W_out e b são os parâmetros da camada de saída que projetam de C para classes do vocabulário V)
-- $logits = H W_{out}^{T} + b \\in \\mathbb{R}^{B \\times T \\times V}$
-  (logits são scores por token do vocabulário em cada posição temporal, antes de softmax)
+No exemplo:
 
-Leitura operacional por espaço:
-1. \`idx\` carrega identidade discreta de token por posição temporal.
-2. \`Embedding\` faz lookup desses IDs e move para espaço contínuo parametrizado (representação \`C\`).
-3. Projeção de saída transforma representação em scores não normalizados por classe no espaço \`V\`.
+\`\`\`text
+B = 2
+T = 4
+C = 8
+V = 100
+\`\`\`
 
-Consumo do tensor em treino e inferência:
-- treino com \`cross_entropy\`: \`(B*T,V)\` contra \`(B*T)\` via flatten alinhado;
-- inferência autoregressiva: \`logits[:, -1, :]\` para escolher o próximo índice.
+O embedding transforma cada ID de token em um vetor interno de tamanho C:
 
-Ponte didática: no módulo de regressão, o escalar de treino era o MSE; aqui mantemos a mesma lógica de minimização, mas com CE para classes de vocabulário.
+\`\`\`text
+H = embedding(idx)
+\`\`\`
 
-Regra de rigor: \`C\` é espaço de representação; \`V\` é espaço de decisão. Misturar esses papéis quebra leitura e debug.`,
+Resultado:
+
+\`\`\`text
+H.shape = (B, T, C)
+\`\`\`
+
+Ou seja: para cada item do lote e para cada posição da sequência, temos agora um vetor de representação.
+
+Depois usamos uma projeção linear:
+
+\`\`\`text
+out_proj = nn.Linear(C, V)
+\`\`\`
+
+Ela transforma cada vetor interno em scores sobre o vocabulário:
+
+\`\`\`text
+logits = out_proj(H)
+\`\`\`
+
+Resultado:
+
+\`\`\`text
+logits.shape = (B, T, V)
+\`\`\`
+
+Cada posição agora tem V scores, um para cada token possível.
+
+Para calcular a loss, juntamos as dimensões B e T:
+
+\`\`\`text
+logits_flat.shape = (B * T, V)
+targets_flat.shape = (B * T)
+\`\`\`
+
+Isso transforma todas as posições de todos os exemplos em uma lista de previsões.
+
+A função cross_entropy compara, para cada posição, os scores do modelo com o token correto em targets.
+
+\`\`\`text
+loss = F.cross_entropy(logits_flat, targets_flat)
+\`\`\`
+
+Essa loss é um único número escalar: quanto menor, melhor o modelo está prevendo os tokens corretos.
+
+Também pegamos:
+
+\`\`\`text
+next_token_scores = logits[:, -1, :]
+\`\`\`
+
+Isso seleciona os scores da última posição da sequência, normalmente usados para escolher o próximo token na geração.
+
+Resultado:
+
+\`\`\`text
+next_token_scores.shape = (B, V)
+\`\`\`
+
+> **Observação:** nesse código, \`targets\` é aleatório só para demonstrar o formato. Em um modelo de linguagem real, os targets normalmente seriam os próprios tokens deslocados uma posição para frente.`,
     },
     'en-us': {
       title: 'Embedding -> logits: formal prediction contract',
-      body: `In the previous slide (\`pytorch-embedding-intro\`), we ended at \`H = E[idx]\` with shape \`(B,T,C)\`. Now we take the next step: turn that \`H\` into logits \`(B,T,V)\` for next-token prediction.
+      body: `Here we see the full path to the loss.
 
-Formal problem for this slide: how do we map \`idx\` (token IDs in the vocabulary) into a next-token distribution without breaking shape contracts?
+We start with input tokens:
 
-Unambiguous starting point:
-- \`idx\` is not an embedding; it is only an integer grid of token IDs.
-- Each integer points to one row in the embedding matrix \`E\`.
+\`\`\`text
+idx.shape = (B, T)
+\`\`\`
 
-Pipeline notation:
-- $idx \\in \\mathbb{Z}^{B \\times T}$
-  (idx is an integer grid of token IDs with B batches and T positions per sequence)
-- $E \\in \\mathbb{R}^{V \\times C}$
-  (E is the embedding table: V vocabulary tokens, each represented by a C-wide vector)
-- $H = E[idx] \\in \\mathbb{R}^{B \\times T \\times C}$
-  (H is the lookup output: for each token at each position, one continuous C-wide vector)
-- $W_{out} \\in \\mathbb{R}^{V \\times C},\\ b \\in \\mathbb{R}^{V}$
-  (W_out and b are output-layer parameters that project from C representation space to V vocabulary classes)
-- $logits = H W_{out}^{T} + b \\in \\mathbb{R}^{B \\times T \\times V}$
-  (logits are pre-softmax scores over vocabulary tokens at each time position)
+In the example:
 
-Operational reading by space:
-1. \`idx\` carries discrete token identity per time position.
-2. \`Embedding\` looks up those IDs and lifts data into continuous parametric space (representation width \`C\`).
-3. Output projection turns representation into non-normalized class scores in \`V\` space.
+\`\`\`text
+B = 2
+T = 4
+C = 8
+V = 100
+\`\`\`
 
-How the tensor is consumed in training and inference:
-- training with \`cross_entropy\`: \`(B*T,V)\` against \`(B*T)\` via aligned flattening;
-- autoregressive inference: \`logits[:, -1, :]\` to choose the next index.
+The embedding turns each token ID into an internal vector of size C:
 
-Didactic bridge: in the regression module, the training scalar was MSE; here we keep the same minimization logic, but with CE over vocabulary classes.
+\`\`\`text
+H = embedding(idx)
+\`\`\`
 
-Rigor rule: \`C\` is representation space; \`V\` is decision space. Mixing these roles breaks interpretation and debugging.`,
+Result:
+
+\`\`\`text
+H.shape = (B, T, C)
+\`\`\`
+
+That is: for each item in the batch and each position in the sequence, we now have a representation vector.
+
+Then we use a linear projection:
+
+\`\`\`text
+out_proj = nn.Linear(C, V)
+\`\`\`
+
+It transforms each internal vector into scores over the vocabulary:
+
+\`\`\`text
+logits = out_proj(H)
+\`\`\`
+
+Result:
+
+\`\`\`text
+logits.shape = (B, T, V)
+\`\`\`
+
+Each position now has V scores, one for each possible token.
+
+To compute the loss, we merge the B and T dimensions:
+
+\`\`\`text
+logits_flat.shape = (B * T, V)
+targets_flat.shape = (B * T)
+\`\`\`
+
+This turns all positions across all examples into a flat list of predictions.
+
+The cross_entropy function compares, for each position, the model's scores against the correct token in targets.
+
+\`\`\`text
+loss = F.cross_entropy(logits_flat, targets_flat)
+\`\`\`
+
+This loss is a single scalar: the lower it is, the better the model predicts the correct tokens.
+
+We also take:
+
+\`\`\`text
+next_token_scores = logits[:, -1, :]
+\`\`\`
+
+This selects the scores from the last sequence position, typically used to choose the next token during generation.
+
+Result:
+
+\`\`\`text
+next_token_scores.shape = (B, V)
+\`\`\`
+
+> **Note:** in this code, \`targets\` is random only to demonstrate the format. In a real language model, the targets would normally be the tokens themselves shifted one position forward.`,
     },
   },
   visual: {

@@ -7,83 +7,129 @@ export const pytorchEmbeddingIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'Embedding: de ID inteiro para vetor',
-      body: `No slide anterior (\`nn.Linear\`), vimos como projetar vetores (\`C -> V\`). Agora falta responder **de onde vem esse vetor \`C\`**.
+      body: `Antes de o modelo "pensar" em linguagem, ele precisa transformar tokens em números úteis.
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+Cada token começa como um ID inteiro:
 
-É exatamente esse o papel de \`Embedding\`:
-- antes: \`idx\` é inteiro em \`(B,T)\` (identidade simbólica, sem geometria útil);
-- depois: cada ID vira vetor denso treinável, e o tensor passa a \`(B,T,C)\` (\`C\` = largura do vetor de embedding / dimensão vetorial por token).
+\`\`\`text
+idx.shape = (2, 3)
+\`\`\`
 
-Leitura prática:
-1. a tabela \`E\` tem uma linha por token do vocabulário (\`V\`);
-2. cada linha tem largura \`C\` (hidden/embedding dimension);
-3. \`embedding(idx)\` faz lookup dessas linhas, preservando \`B\` e \`T\`.
+Mas um ID como \`42\` sozinho não carrega significado vetorial. Por isso usamos uma tabela de embedding:
 
-O que cada dimensão significa:
-- \`V\`: quantos tokens diferentes o modelo consegue indexar;
-- \`C\`: quanta capacidade vetorial cada token recebe para carregar informação contextual ao longo da rede.
+\`\`\`text
+embedding.weight.shape = (V, C)
+\`\`\`
 
-**Formal (curto):**
-- $$idx \\in \\mathbb{Z}^{B\\times T}$$
-- $$E \\in \\mathbb{R}^{V\\times C}$$
-- $$H = E[idx] \\in \\mathbb{R}^{B\\times T\\times C}$$
+No exemplo:
 
-Leitura de engenharia:
-- conceitualmente equivale a \`one-hot @ W\`;
-- operacionalmente é lookup eficiente (não multiplica vetor one-hot explícito);
-- \`E\` é treinável, então tokens semanticamente próximos podem acabar próximos no espaço vetorial.
+\`\`\`text
+V = 1000 tokens possíveis
+C = 16 dimensões por token
+\`\`\`
 
-Checklist de debug neste ponto:
-- \`idx\` precisa ser inteiro (\`torch.long\`);
-- valores de \`idx\` precisam estar no intervalo \`[0, V-1]\`;
-- shape esperado após embedding: \`(B,T,C)\`.
+Essa tabela tem uma linha para cada token do vocabulário. Quando passamos IDs para o embedding, o PyTorch faz um lookup: cada ID pega sua linha correspondente.
 
-Conexão com próximos slides:
-- este \`H\` é a entrada das projeções lineares;
-- no próximo passo, \`Linear(C,V)\` transforma representação em logits por token.
+Assim:
 
-Resumo mental: **Embedding não decide token; embedding cria representação para o resto da rede decidir.**`,
+\`\`\`text
+token 42 → linha 42 da tabela → vetor de tamanho 16
+\`\`\`
+
+O resultado é:
+
+\`\`\`text
+tok_vectors.shape = (2, 3, 16)
+\`\`\`
+
+Ou seja: para cada token da sequência, agora temos uma representação vetorial treinável.
+
+Importante:
+
+\`\`\`text
+embedding.weight.requires_grad = True
+\`\`\`
+
+Isso significa que a tabela de embeddings aprende durante o treinamento. Os vetores começam aleatórios, mas são ajustados por gradiente para representar melhor os tokens.
+
+Conceitualmente, embedding é parecido com:
+
+\`\`\`text
+one-hot do token @ matriz W
+\`\`\`
+
+Um **one-hot** é um vetor do tamanho do vocabulário, cheio de zeros, com apenas um \`1\` na posição do token.
+
+Por exemplo, para o token \`42\`, seria um vetor de tamanho \`1000\` com \`1\` na posição \`42\` e \`0\` em todas as outras.
+
+Mas, na prática, o PyTorch não cria esse vetor one-hot gigante. Ele simplesmente indexa direto a linha certa da tabela:
+
+\`\`\`text
+embedding.weight[42]
+\`\`\``,
     },
     'en-us': {
       title: 'Embedding: from integer ID to vector',
-      body: `In the previous slide (\`nn.Linear\`), we saw how to project vectors (\`C -> V\`). Now one key question remains: **where does that \`C\`-wide vector come from?**
+      body: `Before the model can "think" in language, it needs to turn tokens into useful numbers.
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+Each token starts as an integer ID:
 
-That is exactly the job of \`Embedding\`:
-- before: \`idx\` is integer-only data in \`(B,T)\` (symbolic identity, no useful geometry yet);
-- after: each ID becomes a trainable dense vector, so shape becomes \`(B,T,C)\` (\`C\` = embedding vector width / per-token representation dimension).
+\`\`\`text
+idx.shape = (2, 3)
+\`\`\`
 
-Practical reading:
-1. table \`E\` has one row per vocabulary token (\`V\`);
-2. each row has width \`C\` (hidden/embedding dimension);
-3. \`embedding(idx)\` performs row lookup while preserving \`B\` and \`T\`.
+But an ID like \`42\` alone carries no vector meaning. So we use an embedding table:
 
-What each dimension means:
-- \`V\`: how many distinct tokens can be indexed;
-- \`C\`: how much vector capacity each token gets to carry information through the network.
+\`\`\`text
+embedding.weight.shape = (V, C)
+\`\`\`
 
-**Formal (short):**
-- $$idx \\in \\mathbb{Z}^{B\\times T}$$
-- $$E \\in \\mathbb{R}^{V\\times C}$$
-- $$H = E[idx] \\in \\mathbb{R}^{B\\times T\\times C}$$
+In the example:
 
-Engineering reading:
-- conceptually this matches \`one-hot @ W\`;
-- operationally it is efficient lookup (no explicit one-hot multiplication);
-- \`E\` is trainable, so semantically related tokens can move closer in vector space.
+\`\`\`text
+V = 1000 possible tokens
+C = 16 dimensions per token
+\`\`\`
 
-Debug checklist at this stage:
-- \`idx\` must be integer type (\`torch.long\`);
-- \`idx\` values must stay in range \`[0, V-1]\`;
-- expected post-embedding shape is \`(B,T,C)\`.
+This table has one row for each token in the vocabulary. When we pass IDs to the embedding, PyTorch does a lookup: each ID fetches its corresponding row.
 
-Connection to next slides:
-- this \`H\` is the input consumed by linear projections;
-- next, \`Linear(C,V)\` turns representation into per-token logits.
+Like this:
 
-Mental summary: **Embedding does not choose the token; embedding builds the representation so the network can choose.**`,
+\`\`\`text
+token 42 → row 42 of the table → vector of size 16
+\`\`\`
+
+The result is:
+
+\`\`\`text
+tok_vectors.shape = (2, 3, 16)
+\`\`\`
+
+That means: for each token in the sequence, we now have a trainable vector representation.
+
+Important:
+
+\`\`\`text
+embedding.weight.requires_grad = True
+\`\`\`
+
+This means the embedding table learns during training. The vectors start random but are adjusted by gradient to better represent the tokens.
+
+Conceptually, embedding is similar to:
+
+\`\`\`text
+one-hot of token @ matrix W
+\`\`\`
+
+A **one-hot** is a vector the size of the vocabulary, full of zeros, with a single \`1\` at the token's position.
+
+For example, for token \`42\`, it would be a vector of size \`1000\` with \`1\` at position \`42\` and \`0\` everywhere else.
+
+But in practice, PyTorch does not build this giant one-hot vector. It simply indexes the right row directly:
+
+\`\`\`text
+embedding.weight[42]
+\`\`\``,
     },
   },
   visual: {

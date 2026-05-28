@@ -9,75 +9,105 @@ export const neuralNetworkPytorchNnLinear = defineSlide({
       title: '`nn.Linear`: projeção, não “camada mágica”',
       body: `Temos representação vetorial por token, mas ainda falta a decisão: **como sair de um vetor interno para escolha de próximo token?**
 
-(B=lote, T=tempo/comprimento da sequência, C=largura da representação interna, V=tamanho do vocabulário)
+(B = lote, T = tempo/comprimento da sequência, C = largura da representação interna, V = tamanho do vocabulário)
 
-Essa e a necessidade concreta:
-- para cada posição da sequência existe um vetor \`h \\in \\mathbb{R}^C\`;
-- a geração precisa de um placar sobre todo o vocabulário \`V\`;
-- esse placar precisa ser treinável para aprender contexto.
+A camada \`Embedding\` transforma cada token em um vetor denso de tamanho \`C\`.
+Depois disso, cada posição da sequência possui uma representação interna:
 
-Só depois desse problema aparece a ferramenta certa: \`nn.Linear(in, out)\`, que aplica uma transformação afim em cada vetor da última dimensão:
+\`\`\`text
+x.shape = (B, T, C)
+\`\`\`
 
-\`y = xW^T + b\`
+Mas o modelo ainda não decidiu qual token vem a seguir.
 
-(onde \`x\` é o vetor de entrada de dimensão \`in\`, \`W\` é a matriz de pesos de dimensão \`out × in\`, ^T é a transposição, e \`b\` é o vetor de bias de dimensão \`out\` — o resultado é o produto escalar de cada vetor pela matriz de pesos transposta, seguido de soma do bias, projeto independente em cada posição do tensor)
+É aqui que entra a camada:
 
-No contrato clássico \`(B,T,C)\` de language models:
-- \`B\` = batch (quantas sequências em paralelo),
-- \`T\` = tempo/comprimento da sequência (tokens por sequência),
-- \`C\` = **dimensão de embedding / hidden dimension** (largura vetorial por token, já definida no slide de embedding-intro).
+\`\`\`text
+nn.Linear(C, V)
+\`\`\`
 
-Por isso, \`nn.Linear(C, V)\` e \`nn.Linear(C, C)\` ignoram totalmente \`B\` e \`T\`: a camada projeta, de forma isolada, cada vetor de tamanho \`C\` na última dimensão.
+Ela funciona como uma "cabeça de previsão" (\`head\`), convertendo cada vetor interno de tamanho \`C\` em \`V\` scores, um para cada token possível do vocabulário.
 
-Leitura operacional para LM:
-1. **não mistura batch/tempo**: só atua no eixo final.
-2. **troca largura de representação**: \`C -> V\`, \`C -> C\`, \`C -> 4C\`.
-3. **define semântica da saída**:
-   - \`C -> V\` = logits do vocabulário;
-   - \`C -> C\` = transformação interna no residual stream.
-4. **compartilha pesos no tempo**: a mesma matriz é aplicada a todas as posições da grade \`(B,T)\`.
+Assim:
 
-No contexto de LM, isso conecta diretamente ao passo de logits e reaparece depois em MLP e blocos Transformer.
+\`\`\`text
+Embedding:
+ID do token → vetor interno
 
-Se você confunde isso, perde a leitura do modelo.
-\`Linear\` responde sempre: **“qual dimensão estou projetando para qual outra dimensão?”**`,
+Linear:
+vetor interno → scores do vocabulário
+\`\`\`
+
+Depois da projeção linear:
+
+\`\`\`text
+logits.shape = (B, T, V)
+\`\`\`
+
+Ou seja, para cada item do lote e para cada posição da sequência, o modelo produz uma lista com \`V\` valores.
+
+Exemplo conceitual:
+
+\`\`\`text
+logits[b, t, 42]  = score do token 42
+logits[b, t, 999] = score do token 999
+\`\`\`
+
+Quanto maior o score, maior a chance daquele token ser escolhido como próximo token.
+
+Esses scores normalmente passam por \`softmax\`, virando probabilidades sobre todo o vocabulário.`,
     },
     'en-us': {
       title: '`nn.Linear`: projection, not a “magic layer”',
-      body: `We already have per-token vector representations, but we still lack the decision step: **how do we map an internal vector to next-token choice?**
+      body: `We have per-token vector representations, but the decision step is still missing: **how do we go from an internal vector to choosing the next token?**
 
-(B=batch size, T=sequence length, C=representation/hidden width, V=vocabulary size)
+(B = batch, T = time/sequence length, C = internal representation width, V = vocabulary size)
 
-That is the concrete need:
-- each sequence position has a vector \`h \\in \\mathbb{R}^C\`;
-- generation needs a scoreboard over the full vocabulary \`V\`;
-- that scoreboard must be trainable to capture context.
+The \`Embedding\` layer turns each token into a dense vector of size \`C\`.
+After that, each sequence position has an internal representation:
 
-Only after this problem is clear does \`nn.Linear(in, out)\` make sense: it applies an affine transform on vectors from the last axis:
+\`\`\`text
+x.shape = (B, T, C)
+\`\`\`
 
-\`y = xW^T + b\`
+But the model hasn't decided which token comes next yet.
 
-(where \`x\` is the input vector of dimension \`in\`, \`W\` is the weight matrix of dimension \`out × in\`, ^T is the transpose, and \`b\` is the bias vector of dimension \`out\` — the result is the dot product of each vector by the transposed weight matrix, followed by bias addition, projected independently at each position of the tensor)
+This is where the layer comes in:
 
-In the standard LM tensor contract \`(B,T,C)\`:
-- \`B\` = batch (how many sequences run in parallel),
-- \`T\` = time/sequence length (tokens per sequence),
-- \`C\` = **embedding dimension / hidden dimension** (per-token vector width, already established in the embedding-intro slide).
+\`\`\`text
+nn.Linear(C, V)
+\`\`\`
 
-That is why \`nn.Linear(C, V)\` and \`nn.Linear(C, C)\` completely ignore \`B\` and \`T\`: the layer projects each size-\`C\` vector independently on the last axis.
+It works as a "prediction head" (\`head\`), converting each internal vector of size \`C\` into \`V\` scores, one for each possible token in the vocabulary.
 
-Operational reading for LM:
-1. **it does not mix batch/time**: it acts only on the final axis.
-2. **it changes representation width**: \`C -> V\`, \`C -> C\`, \`C -> 4C\`.
-3. **it defines output semantics**:
-   - \`C -> V\` = vocabulary logits;
-   - \`C -> C\` = internal residual-stream transform.
-4. **it shares weights across time**: the same matrix is applied to every position on the \`(B,T)\` grid.
+So:
 
-In LM context, this connects directly to logits and returns later in MLP and Transformer blocks.
+\`\`\`text
+Embedding:
+token ID → internal vector
 
-If this is unclear, model reading breaks down.
-\`Linear\` always answers: **“which dimension am I projecting into which new dimension?”**`,
+Linear:
+internal vector → vocabulary scores
+\`\`\`
+
+After the linear projection:
+
+\`\`\`text
+logits.shape = (B, T, V)
+\`\`\`
+
+That is, for each item in the batch and each position in the sequence, the model produces a list of \`V\` values.
+
+Conceptual example:
+
+\`\`\`text
+logits[b, t, 42]  = score for token 42
+logits[b, t, 999] = score for token 999
+\`\`\`
+
+The higher the score, the more likely that token is to be chosen as the next token.
+
+These scores typically go through \`softmax\`, becoming probabilities over the entire vocabulary.`,
     },
   },
   visual: {
