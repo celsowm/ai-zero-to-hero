@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/train-model",
+  "language": "python",
+  "pyodide": false
+}

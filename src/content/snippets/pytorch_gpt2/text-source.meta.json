@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/text-source",
+  "language": "python",
+  "pyodide": false
+}

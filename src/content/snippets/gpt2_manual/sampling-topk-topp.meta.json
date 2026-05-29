@@ -1,5 +1,0 @@
-{
-  "id": "gpt2_manual/sampling-topk-topp",
-  "language": "python",
-  "pyodide": false
-}

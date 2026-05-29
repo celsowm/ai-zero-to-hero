@@ -75,7 +75,6 @@ import type {
   SystemPromptExplorerCopy,
   WeightsTreeVisualCopy,
   Gpt2LayerXrayCopy,
-  Gpt2PytorchE2eDebuggerCopy,
   HiddenStatesToLogitsCopy,
   Int8OutlierDetectorCopy,
   LayerEvolutionChartCopy,
@@ -87,10 +86,8 @@ import type {
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
   QkvCocktailPartyCopy,
-  QkvIntuitionExplorerCopy,
   QuantizationComparatorCopy,
   ResidualStreamHighwayCopy,
-  SamplingControlsCopy,
   BuildGpt2ModelCopy,
   SftIntroCopy,
   RagMemoryLimitVisualCopy,
@@ -297,16 +294,13 @@ interface VisualCopyMap {
   'transformer-block-diagram': TransformerBlockDiagramCopy;
   'causal-mask-matrix': CausalMaskMatrixCopy;
   'qkv-cocktail-party': QkvCocktailPartyCopy;
-  'qkv-intuition-explorer': QkvIntuitionExplorerCopy;
   'attention-lines-diagram': AttentionLinesDiagramCopy;
   'multihead-diagram': MultiheadDiagramCopy;
   'residual-stream-highway': ResidualStreamHighwayCopy;
   'attention-vs-mlp': AttentionVsMlpCopy;
   'hidden-states-to-logits': HiddenStatesToLogitsCopy;
-  'sampling-controls': SamplingControlsCopy;
   'gpt2-layer-by-layer-xray': Gpt2LayerXrayCopy;
   'gpt2-attention-qkv-xray': Gpt2AttentionQkvXrayCopy;
-  'gpt2-pytorch-e2e-debugger': Gpt2PytorchE2eDebuggerCopy;
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;

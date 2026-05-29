@@ -1,0 +1,22 @@
+{
+  "id": "pytorch_gpt2/env-device",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 7],
+      "pt-br": "Import da `torch` e comentário do arquivo. O `from __future__ import annotations` permite usar sintaxe de tipos moderna sem imports de `typing`.",
+      "en-us": "Imports `torch` and the file path comment. `from __future__ import annotations` enables modern type syntax without `typing` imports."
+    },
+    {
+      "lineRange": [8, 15],
+      "pt-br": "`get_device()` verifica hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU como fallback. Centraliza a descoberta de device.",
+      "en-us": "`get_device()` checks hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU as fallback. Centralizes device discovery."
+    },
+    {
+      "lineRange": [18, 28],
+      "pt-br": "`autocast_dtype()` traduz strings (`\"bf16\"`, `\"fp16\"`, `\"no\"`) para dtype PyTorch. BF16 tem maior range dinâmico que FP16, evitando overflow em gradientes grandes.",
+      "en-us": "`autocast_dtype()` translates strings (`\"bf16\"`, `\"fp16\"`, `\"no\"`) to PyTorch dtype. BF16 has larger dynamic range than FP16."
+    }
+  ]
+}

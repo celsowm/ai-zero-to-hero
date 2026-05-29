@@ -1,0 +1,22 @@
+{
+  "id": "pytorch_gpt2/optim-build",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 16],
+      "pt-br": "Importa `torch` e `nn`. A `build_adamw` recebe modelo, LR e weight decay. Separa params 2D+ (matrizes, com decay) de 1D (bias, LayerNorm, sem decay), monta dois grupos no AdamW com betas (0.9, 0.95) e retorna.",
+      "en-us": "Imports `torch` and `nn`. `build_adamw` receives model, LR, weight decay. Separates 2D+ params (matrices, with decay) from 1D (bias, LayerNorm, no decay), creates two groups in AdamW with betas (0.9, 0.95), and returns."
+    },
+    {
+      "lineRange": [18, 25],
+      "pt-br": "Loop `named_parameters()`: filtra `requires_grad`, acumula ndim >= 2 em `decay_params` (matrizes de peso) e 1D em `no_decay_params` (bias, LayerNorm). Evita regularizar camadas de normalização.",
+      "en-us": "`named_parameters()` loop: filters `requires_grad`, appends ndim >= 2 to `decay_params` (weight matrices) and 1D to `no_decay_params` (bias, LayerNorm). Skips regularizing normalization layers."
+    },
+    {
+      "lineRange": [27, 37],
+      "pt-br": "Monta dois grupos de parâmetros — um com weight_decay, outro sem — e instancia AdamW com learning_rate informado e betas (0.9, 0.95) seguindo a receita original do GPT-2.",
+      "en-us": "Creates two param groups — one with weight_decay, one without — and instantiates AdamW with given learning_rate and betas (0.9, 0.95) following the original GPT-2 recipe."
+    }
+  ]
+}

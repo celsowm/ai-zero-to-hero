@@ -142,29 +142,6 @@ export interface QkvCocktailPartyCopy {
   valueLabel: string;
 }
 
-export interface QkvIntuitionExplorerCopy {
-  title: string;
-  subtitle: string;
-  tokenLabel: string;
-  projectionLabel: string;
-  splitLabel: string;
-  scoreLabel: string;
-  softmaxLabel: string;
-  contextLabel: string;
-  bridgeLabel: string;
-  bridgeText: string;
-  queryToken: string;
-  tokens: string[];
-  xRows: number[][];
-  qRows: number[][];
-  kRows: number[][];
-  vRows: number[][];
-  scores: number[];
-  weights: number[];
-  valueMix: string[];
-  takeaways: string[];
-}
-
 export interface AttentionLinesDiagramCopy {
   token1: string;
   token2: string;
@@ -230,13 +207,6 @@ export interface HiddenStatesToLogitsCopy {
   hiddenStateLabel: string;
   unembedLabel: string;
   logitsLabel: string;
-}
-
-export interface SamplingControlsCopy {
-  tempLabel: string;
-  topKLabel: string;
-  lowTempDesc: string;
-  highTempDesc: string;
 }
 
 export interface Gpt2LayerXrayTopToken {
@@ -1059,69 +1029,3 @@ export interface ChromadbRagE2eVisualCopy {
   answerLabel: string;
 }
 
-export interface Gpt2PytorchE2eDebuggerCopy {
-  title: string;
-  subtitle: string;
-  promptLabel: string;
-  defaultPrompt: string;
-  stepButton: string;
-  playButton: string;
-  pauseButton: string;
-  resetButton: string;
-  speedSample: string;
-  speedFast: string;
-  stages: {
-    tokenEmbedding: string;
-    positionEmbedding: string;
-    blockPrefix: string;
-    finalNorm: string;
-    lmHead: string;
-    softmax: string;
-    nextToken: string;
-  };
-  labels: {
-    logitsLabel: string;
-    probsLabel: string;
-    tokenIdLabel: string;
-    tokenTextLabel: string;
-    attentionLabel: string;
-    hiddenStateLabel: string;
-    stageInfo: string;
-    phaseTitle: string;
-    archLabel: string;
-    codeTitle: string;
-    inputTokensLabel: string;
-    currentTensorLabel: string;
-    topTokensLabel: string;
-    tensorShapesLabel: string;
-    wteLabel: string;
-    wpeLabel: string;
-    cAttnLabel: string;
-    cFcLabel: string;
-    lmHeadLabel: string;
-    speedLabel: string;
-  };
-  architecture: {
-    nEmbd: number;
-    nHead: number;
-    nLayer: number;
-    vocabSize: number;
-    seqLen: number;
-    label: string;
-  };
-  pythonSource: {
-    snippetId: string;
-    language: string;
-  };
-  codeHighlightRanges: {
-    embedding: [number, number];
-    attention: [number, number];
-    mlp: [number, number];
-    residual: [number, number];
-    finalNorm: [number, number];
-    lmHead: [number, number];
-    generation: [number, number];
-  };
-  phaseExplanations: Record<string, string>;
-  tooltips: Record<string, string>;
-}

@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/shard-dataset",
+  "language": "python",
+  "pyodide": false
+}

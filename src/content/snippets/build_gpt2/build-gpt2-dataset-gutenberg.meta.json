@@ -1,8 +1,0 @@
-{
-  "id": "build_gpt2/build-gpt2-dataset-gutenberg",
-  "regions": [
-    "dataset-imports",
-    "dataset-prepare-modern"
-  ],
-  "explanations": {}
-}

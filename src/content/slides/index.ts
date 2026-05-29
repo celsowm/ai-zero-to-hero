@@ -12,32 +12,34 @@ import { bpeExercise } from './bpe-exercise';
 import { bpeFromScratch } from './bpe-from-scratch';
 import { bpeMergeStack } from './bpe-merge-stack';
 import { bpeTraining } from './bpe-training';
-import { buildGpt2Generate } from './build-gpt2-generate';
-import { buildGpt2Intro } from './build-gpt2-intro';
-import { buildGpt2Model } from './build-gpt2-model';
-import { buildGpt2Train } from './build-gpt2-train';
+
 import { crossEntropyLanguageModeling } from './cross-entropy-language-modeling';
 import { dataCollatorExplorer } from './data-collator-explorer';
 import { embeddingsIntro } from './embeddings-intro';
 import { gpt2BlackBox } from './gpt2-black-box';
-import { gpt2HfDatasetIntake } from './gpt2-hf-dataset-intake';
-import { gpt2HfDatasetTokenStream } from './gpt2-hf-dataset-token-stream';
+
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2AttentionQkvXray } from './gpt2-attention-qkv-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
-import { gpt2PytorchAttention } from './gpt2-pytorch-attention';
-import { gpt2PytorchConfigLoading } from './gpt2-pytorch-config-loading';
-import { gpt2PytorchGetBatch } from './gpt2-pytorch-get-batch';
-import { gpt2PytorchHeadShapes } from './gpt2-pytorch-head-shapes';
-import { gpt2PytorchQkvIntuition } from './gpt2-pytorch-qkv-intuition';
-import { gpt2PytorchLmHeadGenerate } from './gpt2-pytorch-lm-head-generate';
-import { gpt2PytorchMlpBlock } from './gpt2-pytorch-mlp-block';
-import { gpt2PytorchModelForward } from './gpt2-pytorch-model-forward';
-import { gpt2PytorchOptimizerSetup } from './gpt2-pytorch-optimizer-setup';
-import { gpt2PytorchProjectMap } from './gpt2-pytorch-project-map';
-import { gpt2PytorchE2eDebugger } from './gpt2-pytorch-e2e-debugger';
-import { gpt2PytorchTokenStream } from './gpt2-pytorch-token-stream';
-import { gpt2PytorchTransformerBlock } from './gpt2-pytorch-transformer-block';
+import { pytorchGpt2ProjectStructure } from './pytorch-gpt2-project-structure';
+import { pytorchGpt2EnvSetup } from './pytorch-gpt2-env-setup';
+import { pytorchGpt2Config } from './pytorch-gpt2-config';
+import { pytorchGpt2Optimizer } from './pytorch-gpt2-optimizer';
+import { pytorchGpt2Checkpoint } from './pytorch-gpt2-checkpoint';
+import { pytorchGpt2TextSource } from './pytorch-gpt2-text-source';
+import { pytorchGpt2Tokenizer } from './pytorch-gpt2-tokenizer';
+import { pytorchGpt2PrepareShards } from './pytorch-gpt2-prepare-shards';
+import { pytorchGpt2ShardDataset } from './pytorch-gpt2-shard-dataset';
+import { pytorchGpt2Mlp } from './pytorch-gpt2-mlp';
+import { pytorchGpt2Attention } from './pytorch-gpt2-attention';
+import { pytorchGpt2Block } from './pytorch-gpt2-block';
+import { pytorchGpt2Gpt } from './pytorch-gpt2-gpt';
+import { pytorchGpt2Trainer } from './pytorch-gpt2-trainer';
+import { pytorchGpt2Yamls } from './pytorch-gpt2-yamls';
+import { pytorchGpt2TrainTokenizer } from './pytorch-gpt2-train-tokenizer';
+import { pytorchGpt2PrepareData } from './pytorch-gpt2-prepare-data';
+import { pytorchGpt2TrainModel } from './pytorch-gpt2-train-model';
+
 import { gpt2Teaser } from './gpt2-teaser';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
 import { hfDatasetsDeepDive } from './hf-datasets-deep-dive';
@@ -194,7 +196,7 @@ import { ragProductionChecklist } from './rag-production-checklist';
 import { ragPromptAssembly } from './rag-prompt-assembly';
 import { ragRetrieval } from './rag-retrieval';
 import { ragVectordb } from './rag-vectordb';
-import { samplingControls } from './sampling-controls';
+
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
 import { sftGenerate } from './sft-generate';
@@ -265,32 +267,34 @@ export const allSlides: ISlide[] = [
   bpeFromScratch,
   bpeMergeStack,
   bpeTraining,
-  buildGpt2Generate,
-  buildGpt2Intro,
-  buildGpt2Model,
-  buildGpt2Train,
+
   crossEntropyLanguageModeling,
   dataCollatorExplorer,
   embeddingsIntro,
   gpt2BlackBox,
-  gpt2HfDatasetIntake,
-  gpt2HfDatasetTokenStream,
+
   gpt2LayerByLayerXray,
   gpt2AttentionQkvXray,
   gpt2BlockAnatomy,
-  gpt2PytorchAttention,
-  gpt2PytorchConfigLoading,
-  gpt2PytorchE2eDebugger,
-  gpt2PytorchGetBatch,
-  gpt2PytorchHeadShapes,
-  gpt2PytorchLmHeadGenerate,
-  gpt2PytorchMlpBlock,
-  gpt2PytorchModelForward,
-  gpt2PytorchOptimizerSetup,
-  gpt2PytorchProjectMap,
-  gpt2PytorchQkvIntuition,
-  gpt2PytorchTokenStream,
-  gpt2PytorchTransformerBlock,
+  pytorchGpt2ProjectStructure,
+  pytorchGpt2EnvSetup,
+  pytorchGpt2Config,
+  pytorchGpt2Optimizer,
+  pytorchGpt2Checkpoint,
+  pytorchGpt2TextSource,
+  pytorchGpt2Tokenizer,
+  pytorchGpt2PrepareShards,
+  pytorchGpt2ShardDataset,
+  pytorchGpt2Mlp,
+  pytorchGpt2Attention,
+  pytorchGpt2Block,
+  pytorchGpt2Gpt,
+  pytorchGpt2Trainer,
+  pytorchGpt2Yamls,
+  pytorchGpt2TrainTokenizer,
+  pytorchGpt2PrepareData,
+  pytorchGpt2TrainModel,
+
   gpt2Teaser,
   gpt2WeThePeopleInput,
   hfDatasetsDeepDive,
@@ -447,7 +451,7 @@ export const allSlides: ISlide[] = [
   ragPromptAssembly,
   ragRetrieval,
   ragVectordb,
-  samplingControls,
+
   sftIntro,
   systemPromptIntro,
   sftDataset,

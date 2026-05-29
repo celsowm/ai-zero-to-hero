@@ -65,17 +65,14 @@ export { PositionalEmbeddingAdder } from './transformers/PositionalEmbeddingAdde
 export { TransformerBlockDiagram } from './transformers/TransformerBlockDiagram';
 export { CausalMaskMatrix } from './transformers/CausalMaskMatrix';
 export { QkvCocktailParty } from './transformers/QkvCocktailParty';
-export { QkvIntuitionExplorer } from './transformers/QkvIntuitionExplorer';
 export { AttentionLinesDiagram } from './transformers/AttentionLinesDiagram';
 export { AttentionWeightExplorer } from './transformers/AttentionWeightExplorer';
 export { MultiheadDiagram } from './transformers/MultiheadDiagram';
 export { ResidualStreamHighway } from './transformers/ResidualStreamHighway';
 export { AttentionVsMlp } from './transformers/AttentionVsMlp';
 export { HiddenStatesToLogits } from './transformers/HiddenStatesToLogits';
-export { SamplingControls } from './transformers/SamplingControls';
 export { Gpt2LayerXray } from './transformers/Gpt2LayerXray';
 export { Gpt2AttentionQkvXray } from './transformers/Gpt2AttentionQkvXray';
-export { Gpt2PytorchE2eDebugger } from './transformers/Gpt2PytorchE2eDebugger';
 export { PredictionEvolution } from './transformers/PredictionEvolution';
 export { WhyTransformersWork } from './transformers/WhyTransformersWork';
 export { PipelineFlowDiagram } from './transformers/PipelineFlowDiagram';

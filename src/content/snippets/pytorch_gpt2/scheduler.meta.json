@@ -1,0 +1,22 @@
+{
+  "id": "pytorch_gpt2/scheduler",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Importa `math` para cosseno. A função `cosine_lr` calcula o LR no step atual com warmup linear + decaimento cossenoidal.",
+      "en-us": "Imports `math` for cosine. `cosine_lr` computes LR at current step with linear warmup + cosine decay."
+    },
+    {
+      "lineRange": [8, 17],
+      "pt-br": "Warmup (`step < warmup_steps`): LR cresce linearmente de 0 até `max_lr`. O `max(1, warmup_steps)` evita divisão por zero.",
+      "en-us": "Warmup (`step < warmup_steps`): LR grows linearly from 0 to `max_lr`. `max(1, warmup_steps)` avoids division by zero."
+    },
+    {
+      "lineRange": [19, 26],
+      "pt-br": "Decaimento cossenoidal: LR segue `0.5 * (1 + cos(pi * progress))`. Suave no início/fim, acelera no meio. Após `max_steps`, mantém `min_lr_ratio` do LR máximo.",
+      "en-us": "Cosine decay: LR follows `0.5 * (1 + cos(pi * progress))`. Gentle at start/end, faster in middle. Past `max_steps`, holds at `min_lr_ratio` of max LR."
+    }
+  ]
+}

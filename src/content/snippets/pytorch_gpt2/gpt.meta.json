@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/gpt",
+  "language": "python",
+  "pyodide": false
+}

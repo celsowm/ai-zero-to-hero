@@ -1,0 +1,17 @@
+{
+  "id": "pytorch_gpt2/env-seed",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 8],
+      "pt-br": "Importa `random` (stdlib), `numpy` e `torch` — três geradores de números aleatórios que precisam de sementes sincronizadas.",
+      "en-us": "Imports `random` (stdlib), `numpy`, and `torch` — three PRNGs that need synchronized seeds."
+    },
+    {
+      "lineRange": [11, 15],
+      "pt-br": "`seed_everything()` fixa semente nos três geradores: `random.seed`, `np.random.seed`, `torch.manual_seed`. `torch.cuda.manual_seed_all` garante GPUs com mesma semente.",
+      "en-us": "`seed_everything()` fixes the seed on all three: `random.seed`, `np.random.seed`, `torch.manual_seed`. `torch.cuda.manual_seed_all` ensures GPUs share the same seed."
+    }
+  ]
+}
