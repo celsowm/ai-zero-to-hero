@@ -41,6 +41,7 @@ export { PytorchProjectionSpaceVisual } from './language-models/PytorchProjectio
 export { PytorchBridgeShiftVisual } from './language-models/PytorchBridgeShiftVisual';
 export { PytorchDecisionMatrixVisual } from './language-models/PytorchDecisionMatrixVisual';
 export { PytorchDualPanel } from './language-models/PytorchDualPanel';
+export { PytorchDualCode } from './language-models/PytorchDualCode';
 export { PytorchExecutionPipelineVisual } from './language-models/PytorchExecutionPipelineVisual';
 export { OptimizerComparisonChartVisual } from './language-models/OptimizerComparisonChartVisual';
 export { TrainingLoopGraph } from './language-models/TrainingLoopGraph';

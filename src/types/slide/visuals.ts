@@ -33,6 +33,7 @@ import type {
   PytorchBridgeShiftCopy,
   PytorchDecisionMatrixCopy,
   PytorchDualPanelCopy,
+  PytorchDualCodeCopy,
   PytorchExecutionPipelineCopy,
   PytorchEcosystemMermaidCopy,
   PytorchProjectionSpaceCopy,
@@ -274,6 +275,7 @@ interface VisualCopyMap {
   'pytorch-bridge-shift': PytorchBridgeShiftCopy;
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
   'pytorch-dual-panel': PytorchDualPanelCopy;
+  'pytorch-dual-code': PytorchDualCodeCopy;
   'pytorch-execution-pipeline': PytorchExecutionPipelineCopy;
   'optimizer-comparison-chart': OptimizerComparisonChartCopy;
   'pytorch-autograd-3d': PytorchAnimatedCodeWalkthroughCopy;

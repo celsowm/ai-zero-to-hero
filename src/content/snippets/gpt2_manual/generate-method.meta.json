@@ -1,5 +1,15 @@
 {
   "id": "gpt2_manual/generate-method",
+  "pyodide": false,
   "language": "python",
-  "pyodide": false
+  "explanations": [
+    {
+      "pt-br": "Trecho de código legado do bloco GPT-2 manual.",
+      "en-us": "Legacy code snippet from the GPT-2 manual block.",
+      "lineRange": [
+        1,
+        31
+      ]
+    }
+  ]
 }

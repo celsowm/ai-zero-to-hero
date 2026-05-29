@@ -72,6 +72,7 @@ const visualMap: Record<string, string> = {
   'pytorch-bridge-shift': 'PytorchBridgeShiftVisual',
   'pytorch-decision-matrix': 'PytorchDecisionMatrixVisual',
   'pytorch-dual-panel': 'PytorchDualPanel',
+  'pytorch-dual-code': 'PytorchDualCode',
   'pytorch-execution-pipeline': 'PytorchExecutionPipelineVisual',
   'optimizer-comparison-chart': 'OptimizerComparisonChartVisual',
   'pytorch-autograd-3d': 'AutogradCodeWalkthrough',

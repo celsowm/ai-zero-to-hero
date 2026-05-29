@@ -625,3 +625,13 @@ export interface OptimizerComparisonChartCopy {
   summaryTitle: string;
   summaryText: string;
 }
+
+export interface PytorchDualCodeCopy {
+  tabs: Array<{ label: string }>;
+  codePanels: Array<{
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  }>;
+}
