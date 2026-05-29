@@ -34,7 +34,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
           {
             title: 'get_device / autocast_dtype',
             description: 'Detecta hardware disponível e define o dtype para mixed precision.',
-            source: { snippetId: 'pytorch_gpt2/env-device' },
+            source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
               { lineRange: [1, 7], content: 'Import da `torch` e comentário do arquivo. O `from __future__ import annotations` permite usar sintaxe de tipos moderna sem imports de `typing`.' },
               { lineRange: [8, 15], content: '`get_device()` verifica hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU como fallback. Centraliza a descoberta de device.' },
@@ -44,7 +44,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
           {
             title: 'seed_everything',
             description: 'Fixa sementes para reprodutibilidade em três geradores.',
-            source: { snippetId: 'pytorch_gpt2/env-seed' },
+            source: { snippetId: 'pytorch_gpt2/env-seed', language: 'python' },
             codeExplanations: [
               { lineRange: [1, 8], content: 'Importa `random` (stdlib), `numpy` e `torch` — três geradores de números aleatórios que precisam de sementes sincronizadas.' },
               { lineRange: [11, 15], content: '`seed_everything()` fixa semente nos três geradores: `random.seed`, `np.random.seed`, `torch.manual_seed`. `torch.cuda.manual_seed_all` garante GPUs com mesma semente.' },
@@ -61,7 +61,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
           {
             title: 'get_device / autocast_dtype',
             description: 'Detects available hardware and sets dtype for mixed precision.',
-            source: { snippetId: 'pytorch_gpt2/env-device' },
+            source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
               { lineRange: [1, 7], content: 'Imports `torch` and the file path comment. `from __future__ import annotations` enables modern type syntax without `typing` imports.' },
               { lineRange: [8, 15], content: '`get_device()` checks hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU as fallback. Centralizes device discovery.' },
@@ -71,7 +71,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
           {
             title: 'seed_everything',
             description: 'Fixes seeds for reproducibility across three generators.',
-            source: { snippetId: 'pytorch_gpt2/env-seed' },
+            source: { snippetId: 'pytorch_gpt2/env-seed', language: 'python' },
             codeExplanations: [
               { lineRange: [1, 8], content: 'Imports `random` (stdlib), `numpy`, and `torch` — three PRNGs that need synchronized seeds.' },
               { lineRange: [11, 15], content: '`seed_everything()` fixes the seed on all three: `random.seed`, `np.random.seed`, `torch.manual_seed`. `torch.cuda.manual_seed_all` ensures GPUs share the same seed.' },
