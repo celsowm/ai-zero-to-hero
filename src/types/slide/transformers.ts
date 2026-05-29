@@ -197,20 +197,22 @@ export interface AttentionWeightExplorerCopy {
 }
 
 export interface MultiheadDiagramCopy {
-  title: string;
-  inputLabel: string;
-  qkvLabel: string;
-  splitLabel: string;
-  attentionLabel: string;
-  concatLabel: string;
-  outputLabel: string;
-  inputShape: string;
-  qkvShape: string;
-  headShape: string;
-  attentionShape: string;
-  outputShape: string;
-  headLabels: string[];
-  takeaway: string;
+  shapesTab: string;
+  attentionTab: string;
+  pipelineTab: string;
+  shapeExplanation: string;
+  headLocal: string;
+  headGroup: string;
+  headQuestion: string;
+  headEnd: string;
+  insightLocal: string;
+  insightGroup: string;
+  insightQuestionYes: string;
+  insightQuestionNo: string;
+  insightEnd: string;
+  peopleNote: string;
+  summary: string;
+  pipelineNote: string;
 }
 
 export interface ResidualStreamHighwayCopy {
