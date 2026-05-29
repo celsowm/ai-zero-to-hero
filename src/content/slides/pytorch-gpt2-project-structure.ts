@@ -17,60 +17,52 @@ O projeto começa com organização: o treino depois vai usar imports limpos, em
 
 Eis a estrutura completa do projeto — cada arquivo tem um link para o slide em que é explicado:
 
-> \`pytorch-gpt2-from-scratch/\`  
-> \`  pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
->   
-> \`  scripts/\`  
-> \`    train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
-> \`    prepare_data.py\` ([Slide 17](#/pytorch-gpt2-prepare-data))  
-> \`    train.py\` ([Slide 18](#/pytorch-gpt2-train-model))  
-> \`    generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
->   
-> \`  configs/\`  
-> \`    data/\`  
-> \`      project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
-> \`    model/\`  
-> \`      gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
-> \`    train/\`  
-> \`      gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
->   
-> \`  src/\`  
-> \`    pytorch_gpt2/\`  
-> \`      __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`      config.py\` ([Slide 3](#/pytorch-gpt2-config))  
->   
-> \`      utils/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        seed.py\` ([Slide 2](#/pytorch-gpt2-config))  
-> \`        device.py\` ([Slide 2](#/pytorch-gpt2-config))  
->   
-> \`      train/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        optimizer.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
-> \`        scheduler.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
-> \`        checkpoint.py\` ([Slide 5](#/pytorch-gpt2-checkpoint))  
-> \`        trainer.py\` ([Slide 14](#/pytorch-gpt2-trainer))  
->   
-> \`      data/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        text_source.py\` ([Slide 6](#/pytorch-gpt2-text-source))  
-> \`        tokenizer.py\` ([Slide 7](#/pytorch-gpt2-tokenizer))  
-> \`        prepare.py\` ([Slide 8](#/pytorch-gpt2-prepare-shards))  
-> \`        shard_dataset.py\` ([Slide 9](#/pytorch-gpt2-shard-dataset))  
->   
-> \`      model/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        mlp.py\` ([Slide 10](#/pytorch-gpt2-mlp))  
-> \`        attention.py\` ([Slide 11](#/pytorch-gpt2-attention))  
-> \`        block.py\` ([Slide 12](#/pytorch-gpt2-block))  
-> \`        gpt.py\` ([Slide 13](#/pytorch-gpt2-gpt))  
->   
-> \`      infer/\`  
-> \`        __init__.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
-> \`        sampler.py\` ([Slide 19](#/pytorch-gpt2-infer-sampler))  
-> \`        generate.py\` ([Slide 20](#/pytorch-gpt2-infer-generate))  
-> \`        pretrained.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
-> \`        interactive.py\` ([Slide 22](#/pytorch-gpt2-infer-interactive))`,
+\`pytorch-gpt2-from-scratch/\`  
+\`  +-- pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`  +-- scripts/\`  
+\`  |   +-- train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
+\`  |   +-- prepare_data.py\` ([Slide 17](#/pytorch-gpt2-prepare-data))  
+\`  |   +-- train.py\` ([Slide 18](#/pytorch-gpt2-train-model))  
+\`  |   +-- generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
+\`  +-- configs/\`  
+\`  |   +-- data/\`  
+\`  |   |   +-- project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   +-- model/\`  
+\`  |   |   +-- gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   +-- train/\`  
+\`  |       +-- gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  +-- src/\`  
+\`      +-- pytorch_gpt2/\`  
+\`          +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          +-- config.py\` ([Slide 3](#/pytorch-gpt2-config))  
+\`          +-- utils/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- seed.py\` ([Slide 2](#/pytorch-gpt2-config))  
+\`          |   +-- device.py\` ([Slide 2](#/pytorch-gpt2-config))  
+\`          +-- train/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- optimizer.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
+\`          |   +-- scheduler.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
+\`          |   +-- checkpoint.py\` ([Slide 5](#/pytorch-gpt2-checkpoint))  
+\`          |   +-- trainer.py\` ([Slide 14](#/pytorch-gpt2-trainer))  
+\`          +-- data/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- text_source.py\` ([Slide 6](#/pytorch-gpt2-text-source))  
+\`          |   +-- tokenizer.py\` ([Slide 7](#/pytorch-gpt2-tokenizer))  
+\`          |   +-- prepare.py\` ([Slide 8](#/pytorch-gpt2-prepare-shards))  
+\`          |   +-- shard_dataset.py\` ([Slide 9](#/pytorch-gpt2-shard-dataset))  
+\`          +-- model/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- mlp.py\` ([Slide 10](#/pytorch-gpt2-mlp))  
+\`          |   +-- attention.py\` ([Slide 11](#/pytorch-gpt2-attention))  
+\`          |   +-- block.py\` ([Slide 12](#/pytorch-gpt2-block))  
+\`          |   +-- gpt.py\` ([Slide 13](#/pytorch-gpt2-gpt))  
+\`          +-- infer/\`  
+\`              +-- __init__.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
+\`              +-- sampler.py\` ([Slide 19](#/pytorch-gpt2-infer-sampler))  
+\`              +-- generate.py\` ([Slide 20](#/pytorch-gpt2-infer-generate))  
+\`              +-- pretrained.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
+\`              +-- interactive.py\` ([Slide 22](#/pytorch-gpt2-infer-interactive))`,
       rightBody: `\`\`\`python
 snippet:pytorch_gpt2/project-structure
 \`\`\``,
@@ -94,60 +86,52 @@ The project starts with organization: training later will use clean imports inst
 
 Here is the full project tree — each file links to the slide that explains it:
 
-> \`pytorch-gpt2-from-scratch/\`  
-> \`  pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
->   
-> \`  scripts/\`  
-> \`    train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
-> \`    prepare_data.py\` ([Slide 17](#/pytorch-gpt2-prepare-data))  
-> \`    train.py\` ([Slide 18](#/pytorch-gpt2-train-model))  
-> \`    generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
->   
-> \`  configs/\`  
-> \`    data/\`  
-> \`      project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
-> \`    model/\`  
-> \`      gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
-> \`    train/\`  
-> \`      gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
->   
-> \`  src/\`  
-> \`    pytorch_gpt2/\`  
-> \`      __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`      config.py\` ([Slide 3](#/pytorch-gpt2-config))  
->   
-> \`      utils/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        seed.py\` ([Slide 2](#/pytorch-gpt2-config))  
-> \`        device.py\` ([Slide 2](#/pytorch-gpt2-config))  
->   
-> \`      train/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        optimizer.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
-> \`        scheduler.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
-> \`        checkpoint.py\` ([Slide 5](#/pytorch-gpt2-checkpoint))  
-> \`        trainer.py\` ([Slide 14](#/pytorch-gpt2-trainer))  
->   
-> \`      data/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        text_source.py\` ([Slide 6](#/pytorch-gpt2-text-source))  
-> \`        tokenizer.py\` ([Slide 7](#/pytorch-gpt2-tokenizer))  
-> \`        prepare.py\` ([Slide 8](#/pytorch-gpt2-prepare-shards))  
-> \`        shard_dataset.py\` ([Slide 9](#/pytorch-gpt2-shard-dataset))  
->   
-> \`      model/\`  
-> \`        __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
-> \`        mlp.py\` ([Slide 10](#/pytorch-gpt2-mlp))  
-> \`        attention.py\` ([Slide 11](#/pytorch-gpt2-attention))  
-> \`        block.py\` ([Slide 12](#/pytorch-gpt2-block))  
-> \`        gpt.py\` ([Slide 13](#/pytorch-gpt2-gpt))  
->   
-> \`      infer/\`  
-> \`        __init__.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
-> \`        sampler.py\` ([Slide 19](#/pytorch-gpt2-infer-sampler))  
-> \`        generate.py\` ([Slide 20](#/pytorch-gpt2-infer-generate))  
-> \`        pretrained.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
-> \`        interactive.py\` ([Slide 22](#/pytorch-gpt2-infer-interactive))`,
+\`pytorch-gpt2-from-scratch/\`  
+\`  +-- pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`  +-- scripts/\`  
+\`  |   +-- train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
+\`  |   +-- prepare_data.py\` ([Slide 17](#/pytorch-gpt2-prepare-data))  
+\`  |   +-- train.py\` ([Slide 18](#/pytorch-gpt2-train-model))  
+\`  |   +-- generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
+\`  +-- configs/\`  
+\`  |   +-- data/\`  
+\`  |   |   +-- project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   +-- model/\`  
+\`  |   |   +-- gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   +-- train/\`  
+\`  |       +-- gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  +-- src/\`  
+\`      +-- pytorch_gpt2/\`  
+\`          +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          +-- config.py\` ([Slide 3](#/pytorch-gpt2-config))  
+\`          +-- utils/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- seed.py\` ([Slide 2](#/pytorch-gpt2-config))  
+\`          |   +-- device.py\` ([Slide 2](#/pytorch-gpt2-config))  
+\`          +-- train/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- optimizer.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
+\`          |   +-- scheduler.py\` ([Slide 4](#/pytorch-gpt2-optimizer))  
+\`          |   +-- checkpoint.py\` ([Slide 5](#/pytorch-gpt2-checkpoint))  
+\`          |   +-- trainer.py\` ([Slide 14](#/pytorch-gpt2-trainer))  
+\`          +-- data/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- text_source.py\` ([Slide 6](#/pytorch-gpt2-text-source))  
+\`          |   +-- tokenizer.py\` ([Slide 7](#/pytorch-gpt2-tokenizer))  
+\`          |   +-- prepare.py\` ([Slide 8](#/pytorch-gpt2-prepare-shards))  
+\`          |   +-- shard_dataset.py\` ([Slide 9](#/pytorch-gpt2-shard-dataset))  
+\`          +-- model/\`  
+\`          |   +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
+\`          |   +-- mlp.py\` ([Slide 10](#/pytorch-gpt2-mlp))  
+\`          |   +-- attention.py\` ([Slide 11](#/pytorch-gpt2-attention))  
+\`          |   +-- block.py\` ([Slide 12](#/pytorch-gpt2-block))  
+\`          |   +-- gpt.py\` ([Slide 13](#/pytorch-gpt2-gpt))  
+\`          +-- infer/\`  
+\`              +-- __init__.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
+\`              +-- sampler.py\` ([Slide 19](#/pytorch-gpt2-infer-sampler))  
+\`              +-- generate.py\` ([Slide 20](#/pytorch-gpt2-infer-generate))  
+\`              +-- pretrained.py\` ([Slide 21](#/pytorch-gpt2-infer-pretrained))  
+\`              +-- interactive.py\` ([Slide 22](#/pytorch-gpt2-infer-interactive))`,
       rightBody: `\`\`\`python
 snippet:pytorch_gpt2/project-structure
 \`\`\``,
