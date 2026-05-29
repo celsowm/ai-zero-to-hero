@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/infer-generate",
+  "language": "python",
+  "pyodide": false
+}

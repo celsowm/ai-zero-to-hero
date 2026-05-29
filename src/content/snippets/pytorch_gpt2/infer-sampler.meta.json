@@ -1,0 +1,5 @@
+{
+  "id": "pytorch_gpt2/infer-sampler",
+  "language": "python",
+  "pyodide": false
+}

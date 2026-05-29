@@ -39,6 +39,11 @@ import { pytorchGpt2Yamls } from './pytorch-gpt2-yamls';
 import { pytorchGpt2TrainTokenizer } from './pytorch-gpt2-train-tokenizer';
 import { pytorchGpt2PrepareData } from './pytorch-gpt2-prepare-data';
 import { pytorchGpt2TrainModel } from './pytorch-gpt2-train-model';
+import { pytorchGpt2InferSampler } from './pytorch-gpt2-infer-sampler';
+import { pytorchGpt2InferGenerate } from './pytorch-gpt2-infer-generate';
+import { pytorchGpt2InferPretrained } from './pytorch-gpt2-infer-pretrained';
+import { pytorchGpt2InferInteractive } from './pytorch-gpt2-infer-interactive';
+import { pytorchGpt2ScriptGenerate } from './pytorch-gpt2-script-generate';
 
 import { gpt2Teaser } from './gpt2-teaser';
 import { gpt2WeThePeopleInput } from './gpt2-we-the-people-input';
@@ -294,6 +299,11 @@ export const allSlides: ISlide[] = [
   pytorchGpt2TrainTokenizer,
   pytorchGpt2PrepareData,
   pytorchGpt2TrainModel,
+  pytorchGpt2InferSampler,
+  pytorchGpt2InferGenerate,
+  pytorchGpt2InferPretrained,
+  pytorchGpt2InferInteractive,
+  pytorchGpt2ScriptGenerate,
 
   gpt2Teaser,
   gpt2WeThePeopleInput,
