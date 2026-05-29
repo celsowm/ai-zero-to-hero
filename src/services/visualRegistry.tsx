@@ -80,6 +80,7 @@ const visualMap: Record<string, string> = {
   'pytorch-checkpoint-explorer': 'PytorchCheckpointExplorerVisual',
   'pytorch-runtime-playbook': 'PytorchRuntimePlaybookVisual',
   'pytorch-ecosystem-mermaid': 'PytorchEcosystemMermaidVisual',
+  'pytorch-gpt2-pipeline-mermaid': 'PytorchGpt2PipelineMermaidVisual',
   'pytorch-shape-trace-flow': 'PytorchShapeTraceFlow',
   'pytorch-embedding-intro': 'EmbeddingIntroVisual',
   'pytorch-embedding-logits-contract': 'PytorchEmbeddingLogitsContract',

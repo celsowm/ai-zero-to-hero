@@ -49,6 +49,7 @@ export { PytorchCheckpointExplorerVisual } from './language-models/PytorchCheckp
 export { AutogradCodeWalkthrough } from './language-models/AutogradCodeWalkthrough';
 export { PytorchRuntimePlaybookVisual } from './language-models/PytorchRuntimePlaybookVisual';
 export { PytorchEcosystemMermaidVisual } from './language-models/PytorchEcosystemMermaidVisual';
+export { PytorchGpt2PipelineMermaidVisual } from './language-models/PytorchGpt2PipelineMermaidVisual';
 export { PytorchShapeTraceFlow } from './language-models/PytorchShapeTraceFlow';
 export { default as EmbeddingIntroVisual } from './language-models/EmbeddingIntroVisual';
 export { PytorchEmbeddingLogitsContract } from './language-models/PytorchEmbeddingLogitsContract';

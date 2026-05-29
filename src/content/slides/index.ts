@@ -21,6 +21,7 @@ import { gpt2BlackBox } from './gpt2-black-box';
 import { gpt2LayerByLayerXray } from './gpt2-layer-by-layer-xray';
 import { gpt2AttentionQkvXray } from './gpt2-attention-qkv-xray';
 import { gpt2BlockAnatomy } from './gpt2-block-anatomy';
+import { pytorchGpt2ModuleIntro } from './pytorch-gpt2-module-intro';
 import { pytorchGpt2ProjectStructure } from './pytorch-gpt2-project-structure';
 import { pytorchGpt2EnvSetup } from './pytorch-gpt2-env-setup';
 import { pytorchGpt2Config } from './pytorch-gpt2-config';
@@ -281,6 +282,7 @@ export const allSlides: ISlide[] = [
   gpt2LayerByLayerXray,
   gpt2AttentionQkvXray,
   gpt2BlockAnatomy,
+  pytorchGpt2ModuleIntro,
   pytorchGpt2ProjectStructure,
   pytorchGpt2EnvSetup,
   pytorchGpt2Config,

@@ -102,6 +102,7 @@ export const courseSlideOrder = [
   'gpt2-layer-by-layer-xray',
   'gpt2-block-anatomy',
   'gpt2-attention-qkv-xray',
+  'pytorch-gpt2-module-intro',
   'pytorch-gpt2-project-structure',
   'pytorch-gpt2-env-setup',
   'pytorch-gpt2-config',

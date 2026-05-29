@@ -271,6 +271,7 @@ interface VisualCopyMap {
   'pytorch-architecture-blueprint': PytorchArchitectureBlueprintCopy;
   'pytorch-projection-space': PytorchProjectionSpaceCopy;
   'pytorch-ecosystem-mermaid': PytorchEcosystemMermaidCopy;
+  'pytorch-gpt2-pipeline-mermaid': PytorchEcosystemMermaidCopy;
   'pytorch-runtime-playbook': PytorchRuntimePlaybookCopy;
   'pytorch-bridge-shift': PytorchBridgeShiftCopy;
   'pytorch-decision-matrix': PytorchDecisionMatrixCopy;
