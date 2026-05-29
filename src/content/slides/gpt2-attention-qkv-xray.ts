@@ -223,7 +223,24 @@ a saída da head escreve no residual stream.
 
 Esses attention logits não são logits do vocabulário. Os logits finais aparecem depois que o residual acumulado atravessa outros blocos, \`ln_f\` e \`lm_head\`.
 
-O snippet confere isso contra \`outputs.attentions\` do Hugging Face e mede como \`Q/K/V\` do mesmo token divergem entre \`We the people\` e \`Are the people\`.`,
+O snippet confere isso contra \`outputs.attentions\` do Hugging Face e mede como \`Q/K/V\` do mesmo token divergem entre \`We the people\` e \`Are the people\`.
+
+---
+
+## Atenção em 4 passos
+
+Atenção (no fim das contas) significa uma operação matemática de **média ponderada dinâmica** entre vetores, onde os pesos dessa média são calculados em tempo de execução com base na semelhança dos próprios dados.
+
+Para o programador, isso se traduz em 4 passos simples de álgebra linear:
+
+\`\`\`txt
+1. Similaridade (Q x K^T):     Q * K^T           -> matriz de compatibilidade
+2. Escalonamento (/sqrt(d_k)): escape de gradiente -> backpropagation estável
+3. Softmax:                     compatibilidade -> probabilidades (soma = 1.0 por linha)
+4. Mapeamento de contexto (xV): peso * V         -> média ponderada de todos os tokens
+\`\`\`
+
+Cada token agora é atualizado para ser uma **média ponderada de todos os tokens da frase**, onde os pesos vêm do Softmax.`,
       rightBody: '',
     },
     'en-us': {
@@ -276,7 +293,24 @@ the head output writes into the residual stream.
 
 These attention logits are not vocabulary logits. Final logits appear later after the accumulated residual crosses more blocks, \`ln_f\`, and \`lm_head\`.
 
-The snippet checks this against Hugging Face \`outputs.attentions\` and measures how \`Q/K/V\` for the same token diverge between \`We the people\` and \`Are the people\`.`,
+The snippet checks this against Hugging Face \`outputs.attentions\` and measures how \`Q/K/V\` for the same token diverge between \`We the people\` and \`Are the people\`.
+
+---
+
+## Attention in 4 steps
+
+Attention (at the end of the day) means a mathematical operation of **dynamic weighted average** between vectors, where the weights of that average are computed at runtime based on the similarity of the data itself.
+
+For the programmer, this translates into 4 simple linear algebra steps:
+
+\`\`\`txt
+1. Similarity (Q x K^T):       Q * K^T           -> compatibility matrix
+2. Scaling (/sqrt(d_k)):       gradient escape    -> stable backpropagation
+3. Softmax:                     compatibility -> probabilities (sum = 1.0 per row)
+4. Context mapping (xV):        weight * V         -> weighted average of all tokens
+\`\`\`
+
+Each token is now updated to be a **weighted average of all tokens in the sentence**, where the weights come from Softmax.`,
       rightBody: '',
     },
   },
