@@ -369,55 +369,22 @@ export interface LoraDiagramCopy {
   rankLabel: string;
 }
 
-export interface QuantizationComparatorCopy {
-  title: string;
-  fp32Label: string;
-  int8Label: string;
-  nf4Label: string;
-  precisionLabel: string;
-  memoryLabel: string;
-  qualityLabel: string;
-  bitsLabel: string;
-  gpuVramLabel: string;
+export interface QuantizationTabCopy {
+  label: string;
 }
 
-// ── Quantization Interactive Visuals ───────────────────────────────────────
-
-export interface Fp16OverflowExplorerCopy {
+export interface QuantizationTabsPanelCopy {
+  eyebrow: string;
   title: string;
-  inputLabel: string;
-  fp32Label: string;
-  fp16Label: string;
-  safeLabel: string;
-  overflowLabel: string;
-  thresholdLabel: string;
-  rangeLabel: string;
-  valueLabel: string;
+  body: string;
+  highlight: { label: string; value: string };
+  bullets: string[];
+  footer: string;
 }
 
-export interface Int8OutlierDetectorCopy {
-  title: string;
-  weightDistLabel: string;
-  outlierLabel: string;
-  normalLabel: string;
-  thresholdLabel: string;
-  int8Label: string;
-  fp16Label: string;
-  keepInFp16: string;
-  quantizeToInt8: string;
-}
-
-export interface Nf4QuantileVisualizerCopy {
-  title: string;
-  uniformLabel: string;
-  normalFloatLabel: string;
-  bellCurveLabel: string;
-  quantileLabel: string;
-  level16Label: string;
-  denseNearZero: string;
-  spacedAtTails: string;
-  weightsLabel: string;
-  precisionLabel: string;
+export interface QuantizationTabsCopy {
+  tabs: QuantizationTabCopy[];
+  panels: QuantizationTabsPanelCopy[];
 }
 
 // ── Sampling Controls Interactive ──────────────────────────────────────────
@@ -810,26 +777,6 @@ export interface PipelineFlowDiagramCopy {
   step3Desc: string;
   step4Label: string;
   step4Desc: string;
-}
-
-// ── SFT Intro ──────────────────────────────────────────────────────────────
-
-export interface SftIntroCopy {
-  beforeLabel: string;
-  arrowLabel: string;
-  afterLabel: string;
-  exampleText: string;
-  specialSystem: string;
-  specialUser: string;
-  specialAssistant: string;
-  specialEos: string;
-  systemRole: string;
-  systemContent: string;
-  userRole: string;
-  userContent: string;
-  assistantRole: string;
-  assistantContent: string;
-  structureNote: string;
 }
 
 // ── System Prompt Explorer ─────────────────────────────────────────────────

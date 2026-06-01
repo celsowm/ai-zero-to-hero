@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/infer/generate.py
+# src/infer/generate.py
 
 @torch.no_grad()
 def generate(
@@ -54,3 +54,4 @@ def generate(
             window_idx = window_idx[:, -model.config.block_size :]
 
     return full_idx
+

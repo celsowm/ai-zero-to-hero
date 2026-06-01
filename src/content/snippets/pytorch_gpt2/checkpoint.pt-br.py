@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/train/checkpoint.py
+# src/train/checkpoint.py
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from typing import Any
 
 import torch
 
-from pytorch_gpt2.config import ModelConfig, TrainConfig
+from config import ModelConfig, TrainConfig
 
 
 class CheckpointManager:
@@ -47,3 +47,4 @@ def load_checkpoint(
     map_location: str | torch.device = "cpu",
 ) -> dict[str, Any]:
     return torch.load(path, map_location=map_location)
+

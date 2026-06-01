@@ -1,4 +1,4 @@
-# configs/data/project_gutenberg_clean_pt.yaml
+# configs/data/hf_text.yaml
 
 data:
   source: hf
@@ -6,20 +6,18 @@ data:
   subset: default
   split: train
   text_column: text
-  language: pt-BR
+  language: pt
   streaming: true
-  max_documents: null
-  max_tokens: null
 
 
 # configs/model/gpt2-small-bpe.yaml
 
 model:
   vocab_size: 32000
-  block_size: 1024
-  n_layer: 12
-  n_head: 12
-  n_embd: 768
+  block_size: 512
+  n_layer: 8
+  n_head: 8
+  n_embd: 512
   dropout: 0.1
   bias: true
   tie_weights: true
@@ -28,17 +26,18 @@ model:
 # configs/train/gpt2-small-bf16.yaml
 
 train:
-  batch_size: 4
-  gradient_accumulation_steps: 4
-  max_steps: 1000
+  batch_size: 16
+  gradient_accumulation_steps: 8
+  max_steps: 20000
   learning_rate: 0.0006
   weight_decay: 0.1
-  warmup_steps: 100
+  warmup_steps: 500
   grad_clip: 1.0
-  eval_interval: 100
-  checkpoint_interval: 500
+  eval_interval: 500
+  checkpoint_interval: 1000
   mixed_precision: bf16
   compile: false
   out_dir: checkpoints/gpt2-small
   seed: 1337
-  num_workers: 0
+  num_workers: 2
+

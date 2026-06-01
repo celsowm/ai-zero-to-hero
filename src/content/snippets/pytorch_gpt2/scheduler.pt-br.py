@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/train/scheduler.py
+# src/train/scheduler.py
 
 from __future__ import annotations
 
@@ -24,3 +24,4 @@ def cosine_lr(
     min_lr = max_lr * min_lr_ratio
 
     return min_lr + coeff * (max_lr - min_lr)
+

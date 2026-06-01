@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/infer/interactive.py
+# src/infer/interactive.py
 
 class TokenGenerator:
     def __init__(self, model: GPT2ForCausalLM, prompt: str):
@@ -109,3 +109,4 @@ class TokenGenerator:
             "active_tokens": active_count,
             "pruned_mass": pruned_mass,
         }
+

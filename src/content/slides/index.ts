@@ -181,11 +181,10 @@ import { pythonPrereqOopDunderCall } from './python-prereq-oop-dunder-call';
 import { pythonPrereqOopExercises } from './python-prereq-oop-exercises';
 import { pythonPrereqOopInheritance } from './python-prereq-oop-inheritance';
 import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
-import { quantizationBnb } from './quantization-bnb';
 import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
-import { quantizationNf4DeepDive } from './quantization-nf4-deep-dive';
-import { quantizationPractice } from './quantization-practice';
+import { quantizationNf4 } from './quantization-nf4';
+import { quantizationOverview } from './quantization-overview';
 import { ragAnswerWithSources } from './rag-answer-with-sources';
 import { ragChromadbMinimal } from './rag-chromadb-minimal';
 import { ragChunking } from './rag-chunking';
@@ -206,8 +205,10 @@ import { ragVectordb } from './rag-vectordb';
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftDataset } from './sft-dataset';
 import { sftGenerate } from './sft-generate';
-import { sftIntro } from './sft-intro';
 import { sftTrain } from './sft-train';
+import { chatmlAnatomy } from './chatml-anatomy';
+import { chatmlProblem } from './chatml-problem';
+import { applyChatTemplateQwen } from './apply-chat-template-qwen';
 import { jinjaChatmlPractice } from './jinja-chatml-practice';
 import { jinjaIntro } from './jinja-intro';
 import { syntheticDataDemo } from './synthetic-data-demo';
@@ -274,6 +275,9 @@ export const allSlides: ISlide[] = [
   bpeMergeStack,
   bpeTraining,
 
+  chatmlAnatomy,
+  chatmlProblem,
+  applyChatTemplateQwen,
   crossEntropyLanguageModeling,
   dataCollatorExplorer,
   embeddingsIntro,
@@ -442,11 +446,10 @@ export const allSlides: ISlide[] = [
   pythonPrereqOopExercises,
   pythonPrereqOopInheritance,
   pythonPrereqSumGenerator,
-  quantizationBnb,
+  quantizationOverview,
   quantizationFp16,
   quantizationInt8,
-  quantizationNf4DeepDive,
-  quantizationPractice,
+  quantizationNf4,
   ragAnswerWithSources,
   ragChromadbMinimal,
   ragChunking,
@@ -464,7 +467,6 @@ export const allSlides: ISlide[] = [
   ragRetrieval,
   ragVectordb,
 
-  sftIntro,
   systemPromptIntro,
   sftDataset,
   sftTrain,

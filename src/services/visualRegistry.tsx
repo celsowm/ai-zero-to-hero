@@ -128,7 +128,6 @@ const visualMap: Record<string, string> = {
   'prediction-evolution-we-the-people': 'PredictionEvolution',
   'why-transformers-work-so-well': 'WhyTransformersWork',
   'pipeline-flow-diagram': 'PipelineFlowDiagram',
-  'sft-intro': 'SftIntro',
   'training-metrics-families-visual': 'TrainingMetricsFamiliesVisual',
   'eval-loss-generalization-visual': 'EvalLossGeneralizationVisual',
   'grad-norm-stability-visual': 'GradNormStabilityVisual',
@@ -227,10 +226,7 @@ const visualMap: Record<string, string> = {
   'classification-problem': 'ClassificationProblemVisual',
 
   // quantization
-  'quantization-comparator': 'QuantizationComparator',
-  'fp16-overflow-explorer': 'Fp16OverflowExplorer',
-  'int8-outlier-detector': 'Int8OutlierDetector',
-  'nf4-quantile-visualizer': 'Nf4QuantileVisualizer',
+  'quantization-tabs': 'QuantizationTabsVisual',
 
   // peft / lora
   'lora-diagram': 'LoraDiagram',

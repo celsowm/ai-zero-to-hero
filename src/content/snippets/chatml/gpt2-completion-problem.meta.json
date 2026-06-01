@@ -1,0 +1,21 @@
+{
+  "id": "chatml/gpt2-completion-problem",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 4],
+      "pt-br": "Importamos o pipeline e fixamos uma seed para tornar a saída reproduzível.",
+      "en-us": "We import the pipeline and set a seed to make the output reproducible."
+    },
+    {
+      "lineRange": [5, 8],
+      "pt-br": "Criamos o pipeline de text-generation com GPT-2 e montamos o prompt no formato 'pergunta-resposta' (Q:/A:).",
+      "en-us": "We create the text-generation pipeline with GPT-2 and craft the prompt in a 'question-answer' (Q:/A:) format."
+    },
+    {
+      "lineRange": [9, 14],
+      "pt-br": "Chamamos o generator com max_new_tokens=40 e do_sample=False. A saída mostra que GPT-2 não sabe parar no 'A:' — ele continua gerando mais perguntas e respostas.",
+      "en-us": "We call the generator with max_new_tokens=40 and do_sample=False. The output shows that GPT-2 does not know how to stop at 'A:' — it keeps generating more questions and answers."
+    }
+  ]
+}

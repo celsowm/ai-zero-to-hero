@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 sft_workspace/
+.gpt2-pytorch/

@@ -9,7 +9,9 @@ export const pytorchGpt2ProjectStructure = defineSlide({
       title: 'Estrutura do projeto Python',
       body: `Antes de escrever o GPT, a primeira coisa é transformar a pasta em um projeto Python importável.
 
-\`scripts/\` são comandos de terminal, enquanto \`src/pytorch_gpt2/\` é a biblioteca interna do projeto.
+O aluno pode chamar a pasta do projeto como quiser. O nome da pasta não precisa virar nome de import.
+
+\`scripts/\` são comandos de terminal, enquanto \`src/\` é a biblioteca interna do projeto. Essa separação é o ponto importante: comandos ficam na borda, lógica reutilizável fica dentro de \`src/\`.
 
 Os arquivos \`__init__.py\` não têm lógica importante, mas são parte da estrutura de pacote. Eles permitem que Python trate aquelas pastas como módulos importáveis.
 
@@ -17,7 +19,7 @@ O projeto começa com organização: o treino depois vai usar imports limpos, em
 
 Eis a estrutura completa do projeto — cada arquivo tem um link para o slide em que é explicado:
 
-\`pytorch-gpt2-from-scratch/\`  
+\`<nome-do-projeto>/\`  
 \`  +-- pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
 \`  +-- scripts/\`  
 \`  |   +-- train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
@@ -26,13 +28,13 @@ Eis a estrutura completa do projeto — cada arquivo tem um link para o slide em
 \`  |   +-- generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
 \`  +-- configs/\`  
 \`  |   +-- data/\`  
-\`  |   |   +-- project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   |   +-- hf_text.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  |   +-- model/\`  
 \`  |   |   +-- gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  |   +-- train/\`  
 \`  |       +-- gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  +-- src/\`  
-\`      +-- pytorch_gpt2/\`  
+\`      +-- (módulos Python em src/)\`  
 \`          +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
 \`          +-- config.py\` ([Slide 3](#/pytorch-gpt2-config))  
 \`          +-- utils/\`  
@@ -71,14 +73,16 @@ snippet:pytorch_gpt2/project-structure
         { lineRange: [4, 6], content: 'Declaração de identidade: nome do pacote, versão semântica e a versão mínima do Python (`>=3.11`). O pip usa isso para saber se o interpretador é compatível.' },
         { lineRange: [8, 13], content: 'Lista de dependências de runtime: torch para os tensores e autograd, numpy para dados numéricos, pyyaml para ler configs de treino, tqdm para barra de progresso.' },
         { lineRange: [15, 18], content: 'Dependências opcionais agrupadas sob `hf`. Só instalam (`pip install .[hf]`) se o aluno for usar Hugging Face Datasets como fonte de texto.' },
-        { lineRange: [20, 21], content: 'Configuração do pytest: `pythonpath = ["src"]` faz com que `import pytorch_gpt2` funcione nos testes sem precisar de variável de ambiente PYTHONPATH.' },
+        { lineRange: [20, 21], content: 'Configuração do pytest: `pythonpath = ["src"]` faz com que os imports a partir de `src/` funcionem nos testes sem precisar de variável de ambiente PYTHONPATH.' },
       ],
     },
     'en-us': {
       title: 'Python project structure',
       body: `Before writing the GPT, the first step is turning the folder into an importable Python project.
 
-\`scripts/\` are terminal commands, while \`src/pytorch_gpt2/\` is the internal library.
+The student can name the project folder however they want. The folder name does not need to become the import name.
+
+\`scripts/\` are terminal commands, while \`src/\` is the internal library. That separation is the important point: commands stay at the edge, reusable logic lives under \`src/\`.
 
 The \`__init__.py\` files have no important logic, but they are part of the package structure. They let Python treat those folders as importable modules.
 
@@ -86,7 +90,7 @@ The project starts with organization: training later will use clean imports inst
 
 Here is the full project tree — each file links to the slide that explains it:
 
-\`pytorch-gpt2-from-scratch/\`  
+\`<project-name>/\`  
 \`  +-- pyproject.toml\` ([Slide 1](#/pytorch-gpt2-project-structure))  
 \`  +-- scripts/\`  
 \`  |   +-- train_tokenizer.py\` ([Slide 16](#/pytorch-gpt2-train-tokenizer))  
@@ -95,13 +99,13 @@ Here is the full project tree — each file links to the slide that explains it:
 \`  |   +-- generate.py\` ([Slide 23](#/pytorch-gpt2-script-generate))  
 \`  +-- configs/\`  
 \`  |   +-- data/\`  
-\`  |   |   +-- project_gutenberg_clean_pt.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
+\`  |   |   +-- hf_text.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  |   +-- model/\`  
 \`  |   |   +-- gpt2-small-bpe.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  |   +-- train/\`  
 \`  |       +-- gpt2-small-bf16.yaml\` ([Slide 15](#/pytorch-gpt2-yamls))  
 \`  +-- src/\`  
-\`      +-- pytorch_gpt2/\`  
+\`      +-- (módulos Python em src/)\`  
 \`          +-- __init__.py\` ([Slide 1](#/pytorch-gpt2-project-structure))  
 \`          +-- config.py\` ([Slide 3](#/pytorch-gpt2-config))  
 \`          +-- utils/\`  
@@ -140,8 +144,11 @@ snippet:pytorch_gpt2/project-structure
         { lineRange: [4, 6], content: 'Identity declaration: package name, semantic version, and minimum Python version (`>=3.11`). Pip uses this to check interpreter compatibility.' },
         { lineRange: [8, 13], content: 'Runtime dependencies: torch for tensors and autograd, numpy for numeric data, pyyaml for reading training configs, tqdm for progress bars.' },
         { lineRange: [15, 18], content: 'Optional dependencies grouped under `hf`. They only install (`pip install .[hf]`) when using Hugging Face Datasets as the text source.' },
-        { lineRange: [20, 21], content: 'Pytest configuration: `pythonpath = ["src"]` makes `import pytorch_gpt2` work in tests without setting the PYTHONPATH environment variable.' },
+        { lineRange: [20, 21], content: 'Pytest configuration: `pythonpath = ["src"]` makes imports from `src/` work in tests without setting the PYTHONPATH environment variable.' },
       ],
     },
   },
 });
+
+
+

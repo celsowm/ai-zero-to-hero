@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/model/gpt.py
+# src/model/gpt.py
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from pytorch_gpt2.config import ModelConfig
-from pytorch_gpt2.model.block import TransformerBlock
+from config import ModelConfig
+from model.block import TransformerBlock
 
 
 class GPT(nn.Module):
@@ -81,3 +81,4 @@ class GPT(nn.Module):
             )
 
         return logits, loss
+

@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/infer/pretrained.py
+# src/infer/pretrained.py
 
 from __future__ import annotations
 
@@ -9,19 +9,17 @@ from typing import Any
 import torch
 import torch.nn as nn
 
-from pytorch_gpt2.config import ModelConfig
-from pytorch_gpt2.model.gpt import GPT
-from pytorch_gpt2.tokenizer.tokenizer import Tokenizer
-from pytorch_gpt2.tokenizer.byte_tokenizer import ByteTokenizer
-from pytorch_gpt2.tokenizer.bpe_tokenizer import BPETokenizer
+from config import ModelConfig
+from model.gpt import GPT
+from data.tokenizer import BPETokenizer, ByteTokenizer, Tokenizer, build_tokenizer
 
 
 @dataclass(frozen=True)
 class GenerationConfig:
     max_new_tokens: int = 80
-    temperature: float = 0.8
-    top_k: int | None = 50
-    top_p: float | None = None
+    temperature: float = 0.9
+    top_k: int | None = 100
+    top_p: float | None = 0.95
     do_sample: bool = True
     use_cache: bool = True
     return_full_text: bool = True
@@ -90,3 +88,4 @@ class GPT2ForCausalLM(nn.Module):
         wrapped.eval()
 
         return wrapped
+

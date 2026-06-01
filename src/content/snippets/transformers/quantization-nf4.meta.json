@@ -1,0 +1,36 @@
+{
+  "id": "transformers/quantization-nf4",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "Importamos `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM` e `torch` para o dtype de cómputo.",
+      "en-us": "We import `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM`, and `torch` for the compute dtype."
+    },
+    {
+      "lineRange": [4, 4],
+      "pt-br": "Apontamos para o Qwen 3.5 0.8B no Hub.",
+      "en-us": "We point to Qwen 3.5 0.8B on the Hub."
+    },
+    {
+      "lineRange": [7, 11],
+      "pt-br": "`load_in_4bit=True` ativa a quantização 4 bits. `bnb_4bit_quant_type='nf4'` usa NormalFloat (quantiles da normal). `bnb_4bit_use_double_quant=True` quantiza as constantes de escala. `bnb_4bit_compute_dtype=torch.float16` mantém a multiplicação de matrizes em FP16 para preservar qualidade.",
+      "en-us": "`load_in_4bit=True` enables 4-bit quantization. `bnb_4bit_quant_type='nf4'` uses NormalFloat (quantiles of the normal). `bnb_4bit_use_double_quant=True` quantizes the scale constants. `bnb_4bit_compute_dtype=torch.float16` keeps matrix multiplications in FP16 to preserve quality."
+    },
+    {
+      "lineRange": [13, 18],
+      "pt-br": "Carregamos tokenizador e modelo quantizado. `device_map='auto'` distribui entre GPU/CPU automaticamente.",
+      "en-us": "We load the tokenizer and the quantized model. `device_map='auto'` distributes between GPU/CPU automatically."
+    },
+    {
+      "lineRange": [19, 20],
+      "pt-br": "`get_memory_footprint()` confirma ~0.4 GB para o Qwen 0.8B em NF4 — quatro vezes menos que FP16.",
+      "en-us": "`get_memory_footprint()` confirms ~0.4 GB for Qwen 0.8B in NF4 — four times less than FP16."
+    },
+    {
+      "lineRange": [22, 25],
+      "pt-br": "A inferência usa a API padrão do transformers — a quantização 4 bits é transparente para o código de geração.",
+      "en-us": "Inference uses the standard transformers API — 4-bit quantization is transparent to the generation code."
+    }
+  ]
+}

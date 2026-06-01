@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/data/text_source.py
+# src/data/text_source.py
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Iterator
 
-from pytorch_gpt2.config import DataConfig
+from config import DataConfig
 
 
 def normalize_paragraphs(text: str) -> str:
@@ -74,3 +74,4 @@ def build_text_source(config: DataConfig) -> TextSource:
         return LocalTextSource(config.name)
 
     raise ValueError(f"Unsupported data source: {config.source!r}")
+

@@ -66,7 +66,6 @@ import type {
   AutoClassResolverCopy,
   CausalMaskMatrixCopy,
   DataCollatorVisualizerCopy,
-  Fp16OverflowExplorerCopy,
   Gpt2BlackboxDiagramCopy,
   Gpt2BlockAnatomyCopy,
   Gpt2EmbeddingResidualCopy,
@@ -77,20 +76,17 @@ import type {
   WeightsTreeVisualCopy,
   Gpt2LayerXrayCopy,
   HiddenStatesToLogitsCopy,
-  Int8OutlierDetectorCopy,
   LayerEvolutionChartCopy,
   LoraDiagramCopy,
   MultiheadDiagramCopy,
-  Nf4QuantileVisualizerCopy,
+  QuantizationTabsCopy,
   ParallelPredictionDiagramCopy,
   PipelineFlowDiagramCopy,
   PositionalEmbeddingAdderCopy,
   PredictionEvolutionCopy,
   QkvCocktailPartyCopy,
-  QuantizationComparatorCopy,
   ResidualStreamHighwayCopy,
   BuildGpt2ModelCopy,
-  SftIntroCopy,
   RagMemoryLimitVisualCopy,
   RagHallucinationVisualCopy,
   RagIntroVisualCopy,
@@ -307,7 +303,6 @@ interface VisualCopyMap {
   'prediction-evolution-we-the-people': PredictionEvolutionCopy;
   'why-transformers-work-so-well': WhyTransformersWorkCopy;
   'pipeline-flow-diagram': PipelineFlowDiagramCopy;
-  'sft-intro': SftIntroCopy;
   'synthetic-data-intro-visual': SyntheticDataIntroVisualCopy;
   'synthetic-data-pipeline-visual': SyntheticDataPipelineVisualCopy;
   'synthetic-data-taxonomy-visual': SyntheticDataTaxonomyVisualCopy;
@@ -391,11 +386,8 @@ interface VisualCopyMap {
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;
   'lora-diagram': LoraDiagramCopy;
-  'quantization-comparator': QuantizationComparatorCopy;
-  // quantization interactive visuals
-  'fp16-overflow-explorer': Fp16OverflowExplorerCopy;
-  'int8-outlier-detector': Int8OutlierDetectorCopy;
-  'nf4-quantile-visualizer': Nf4QuantileVisualizerCopy;
+  // quantization tabs (generic)
+  'quantization-tabs': QuantizationTabsCopy;
   // neural networks
   'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
   'activation-functions-comparator': ActivationFunctionsComparatorCopy;

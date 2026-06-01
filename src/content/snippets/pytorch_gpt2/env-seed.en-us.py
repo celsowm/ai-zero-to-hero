@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/utils/seed.py
+# src/utils/seed.py
 
 from __future__ import annotations
 
@@ -13,3 +13,4 @@ def seed_everything(seed: int) -> None:
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+

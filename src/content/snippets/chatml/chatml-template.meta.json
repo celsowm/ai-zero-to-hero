@@ -1,0 +1,17 @@
+{
+  "id": "chatml/chatml-template",
+  "language": "python",
+  "pyodide": false,
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "Comentários explicando o significado dos tokens especiais <|im_start|> e <|im_end|>.",
+      "en-us": "Comments explaining the meaning of the special tokens <|im_start|> and <|im_end|>."
+    },
+    {
+      "lineRange": [4, 10],
+      "pt-br": "Exemplo de conversa ChatML completa: system define a persona, user faz a pergunta, assistant responde.",
+      "en-us": "Complete ChatML conversation example: system sets the persona, user asks the question, assistant answers."
+    }
+  ]
+}

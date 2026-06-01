@@ -1,0 +1,31 @@
+{
+  "id": "chatml/chatml-anatomy",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Importamos o AutoTokenizer e carregamos o tokenizador de um modelo de chat pequeno (Qwen 3.5 0.8B), que já entende ChatML nativamente.",
+      "en-us": "We import AutoTokenizer and load the tokenizer of a small chat model (Qwen 3.5 0.8B), which already understands ChatML natively."
+    },
+    {
+      "lineRange": [6, 11],
+      "pt-br": "Convertemos os tokens especiais <|im_start|> e <|im_end|> em IDs inteiros e imprimimos o mapeamento para inspecionar o vocabulário.",
+      "en-us": "We convert the special tokens <|im_start|> and <|im_end|> into integer IDs and print the mapping to inspect the vocabulary."
+    },
+    {
+      "lineRange": [12, 16],
+      "pt-br": "Cada turno começa com <|im_start|>{papel}\\n — o nome do papel (system/user/assistant) vem na mesma linha do token de início.",
+      "en-us": "Each turn starts with <|im_start|>{role}\\n — the role name (system/user/assistant) comes on the same line as the start token."
+    },
+    {
+      "lineRange": [17, 22],
+      "pt-br": "Montamos a conversa concatenando marcador + conteúdo + <|im_end|>\\n. O último turno para no marcador de início do assistant — o modelo continua a partir dele.",
+      "en-us": "We build the conversation by concatenating marker + content + <|im_end|>\\n. The last turn stops at the assistant start marker — the model continues from there."
+    },
+    {
+      "lineRange": [23, 27],
+      "pt-br": "Imprimimos o resultado para vermos a estrutura real: tokens especiais delimitando cada papel e cada turno.",
+      "en-us": "We print the result to see the real structure: special tokens delimiting each role and each turn."
+    }
+  ]
+}

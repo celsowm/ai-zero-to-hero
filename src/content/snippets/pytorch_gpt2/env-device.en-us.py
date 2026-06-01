@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/utils/device.py
+# src/utils/device.py
 
 from __future__ import annotations
 
@@ -26,3 +26,4 @@ def autocast_dtype(mixed_precision: str) -> torch.dtype | None:
         return None
 
     raise ValueError(f"Unsupported mixed_precision: {mixed_precision!r}")
+

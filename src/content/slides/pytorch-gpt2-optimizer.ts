@@ -84,3 +84,4 @@ O \`scheduler.py\` calcula o learning rate a cada step. O treino começa com war
     },
   },
 });
+

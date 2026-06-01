@@ -47,3 +47,4 @@ snippet:pytorch_gpt2/infer-generate
     },
   },
 });
+

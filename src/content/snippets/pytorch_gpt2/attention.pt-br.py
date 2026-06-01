@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/model/attention.py
+# src/model/attention.py
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from pytorch_gpt2.config import ModelConfig
+from config import ModelConfig
 
 
 class CausalSelfAttention(nn.Module):
@@ -65,3 +65,4 @@ class CausalSelfAttention(nn.Module):
         y = y.view(batch_size, seq_len, self.n_embd)
 
         return self.c_proj(y)
+

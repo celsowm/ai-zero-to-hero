@@ -1,0 +1,31 @@
+{
+  "id": "transformers/quantization-overview",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos `AutoModelForCausalLM` para carregar o modelo.",
+      "en-us": "We import `AutoModelForCausalLM` to load the model."
+    },
+    {
+      "lineRange": [3, 3],
+      "pt-br": "Definimos o `model_id` que aponta para o Qwen 3.5 0.8B no Hugging Face Hub.",
+      "en-us": "We define `model_id` pointing to Qwen 3.5 0.8B on the Hugging Face Hub."
+    },
+    {
+      "lineRange": [6, 6],
+      "pt-br": "Carregamos o modelo em FP32 (precisão padrão) com `device_map='auto'` para mandar para a GPU.",
+      "en-us": "We load the model in FP32 (default precision) with `device_map='auto'` to send it to GPU."
+    },
+    {
+      "lineRange": [7, 7],
+      "pt-br": "`get_memory_footprint()` retorna os bytes reais usados pelos pesos em runtime.",
+      "en-us": "`get_memory_footprint()` returns the actual bytes used by the weights at runtime."
+    },
+    {
+      "lineRange": [11, 12],
+      "pt-br": "A quantização troca bits por memória: 16, 8 ou 4 bits por peso, em vez de 32.",
+      "en-us": "Quantization trades bits for memory: 16, 8, or 4 bits per weight instead of 32."
+    }
+  ]
+}

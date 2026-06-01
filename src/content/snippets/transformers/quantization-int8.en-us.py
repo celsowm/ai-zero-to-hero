@@ -1,14 +1,16 @@
 from transformers import AutoModelForCausalLM, BitsAndBytesConfig
 
-# INT8 with automatic outlier detection
+model_id = "Qwen/Qwen3.5-0.8B"
+
+# INT8: 1 byte per weight. llm.int8() detects outliers and keeps them in FP16.
 bnb_config = BitsAndBytesConfig(
     load_in_8bit=True,
-    llm_int8_threshold=6.0,  # columns with |value| > 6σ stay in FP16
+    llm_int8_threshold=6.0,
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-2-7b-hf",
+    model_id,
     quantization_config=bnb_config,
     device_map="auto",
 )
-print(f"VRAM: ~7 GB for 7B model")
+print(f"VRAM: {model.get_memory_footprint() / 1e9:.2f} GB")

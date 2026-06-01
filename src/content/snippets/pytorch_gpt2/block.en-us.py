@@ -1,13 +1,13 @@
-# src/pytorch_gpt2/model/block.py
+# src/model/block.py
 
 from __future__ import annotations
 
 import torch
 from torch import nn
 
-from pytorch_gpt2.config import ModelConfig
-from pytorch_gpt2.model.attention import CausalSelfAttention
-from pytorch_gpt2.model.mlp import MLP
+from config import ModelConfig
+from model.attention import CausalSelfAttention
+from model.mlp import MLP
 
 
 class TransformerBlock(nn.Module):
@@ -28,3 +28,4 @@ class TransformerBlock(nn.Module):
         x = x + mlp_out
 
         return x
+

@@ -4,23 +4,28 @@
   "explanations": [
     {
       "lineRange": [1, 1],
-      "pt-br": "Importamos BitsAndBytesConfig para quantização INT8.",
-      "en-us": "We import BitsAndBytesConfig for INT8 quantization."
+      "pt-br": "Importamos `AutoModelForCausalLM` e `BitsAndBytesConfig`, a config do bitsandbytes para quantização.",
+      "en-us": "We import `AutoModelForCausalLM` and `BitsAndBytesConfig`, the bitsandbytes quantization config."
     },
     {
-      "lineRange": [4, 6],
-      "pt-br": "`load_in_8bit=True` ativa INT8. O threshold define o corte para outliers.",
-      "en-us": "`load_in_8bit=True` enables INT8. The threshold defines the outlier cutoff."
+      "lineRange": [3, 3],
+      "pt-br": "Apontamos para o Qwen 3.5 0.8B no Hub.",
+      "en-us": "We point to Qwen 3.5 0.8B on the Hub."
     },
     {
-      "lineRange": [8, 12],
-      "pt-br": "O modelo é carregado com quantização mista — outliers em FP16, resto em INT8.",
-      "en-us": "The model is loaded with mixed quantization — outliers in FP16, rest in INT8."
+      "lineRange": [6, 9],
+      "pt-br": "`load_in_8bit=True` ativa a quantização INT8 com o algoritmo llm.int8(). O `llm_int8_threshold=6.0` define que colunas com valores acima de 6 sigmas viram outliers e são mantidas em FP16.",
+      "en-us": "`load_in_8bit=True` enables INT8 quantization via the llm.int8() algorithm. `llm_int8_threshold=6.0` defines that columns with values above 6 sigmas become outliers and are kept in FP16."
     },
     {
-      "lineRange": [13, 13],
-      "pt-br": "~7GB para um modelo 7B — metade do FP16.",
-      "en-us": "~7GB for a 7B model — half of FP16."
+      "lineRange": [11, 15],
+      "pt-br": "Carregamos o modelo passando `quantization_config`. O mix de outliers (FP16) + pesos normais (INT8) é transparente para o usuário.",
+      "en-us": "We load the model passing `quantization_config`. The mix of outliers (FP16) + normal weights (INT8) is transparent to the user."
+    },
+    {
+      "lineRange": [16, 16],
+      "pt-br": "`get_memory_footprint()` confirma ~0.8 GB para o Qwen 0.8B em INT8 — metade do FP16.",
+      "en-us": "`get_memory_footprint()` confirms ~0.8 GB for Qwen 0.8B in INT8 — half of FP16."
     }
   ]
 }

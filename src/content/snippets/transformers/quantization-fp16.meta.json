@@ -4,18 +4,23 @@
   "explanations": [
     {
       "lineRange": [1, 2],
-      "pt-br": "Importamos torch para o dtype e transformers para o modelo.",
-      "en-us": "We import torch for the dtype and transformers for the model."
+      "pt-br": "Importamos `torch` para o dtype e `transformers` para o modelo.",
+      "en-us": "We import `torch` for the dtype and `transformers` for the model."
     },
     {
-      "lineRange": [5, 9],
-      "pt-br": "`torch_dtype=torch.float16` carrega o modelo em FP16. `device_map='auto'` coloca na GPU.",
-      "en-us": "`torch_dtype=torch.float16` loads the model in FP16. `device_map='auto'` places it on GPU."
+      "lineRange": [4, 4],
+      "pt-br": "Definimos o identificador do Qwen 3.5 0.8B no Hub.",
+      "en-us": "We define the Qwen 3.5 0.8B identifier on the Hub."
     },
     {
-      "lineRange": [12, 13],
-      "pt-br": "Verificamos dtype e uso de VRAM — ~14GB para Llama-2-7B em FP16.",
-      "en-us": "We verify dtype and VRAM usage — ~14GB for Llama-2-7B in FP16."
+      "lineRange": [7, 11],
+      "pt-br": "`torch_dtype=torch.float16` carrega os pesos em 16 bits. `device_map='auto'` envia o modelo para a GPU disponível.",
+      "en-us": "`torch_dtype=torch.float16` loads weights in 16 bits. `device_map='auto'` sends the model to the available GPU."
+    },
+    {
+      "lineRange": [14, 15],
+      "pt-br": "Confirmamos o dtype (`torch.float16`) e o footprint real — em torno de 1.6 GB para o Qwen 0.8B.",
+      "en-us": "We confirm the dtype (`torch.float16`) and the real footprint — around 1.6 GB for Qwen 0.8B."
     }
   ]
 }

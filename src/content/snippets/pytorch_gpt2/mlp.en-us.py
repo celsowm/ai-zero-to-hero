@@ -1,11 +1,11 @@
-# src/pytorch_gpt2/model/mlp.py
+# src/model/mlp.py
 
 from __future__ import annotations
 
 import torch
 from torch import nn
 
-from pytorch_gpt2.config import ModelConfig
+from config import ModelConfig
 
 
 class MLP(nn.Module):
@@ -35,3 +35,4 @@ class MLP(nn.Module):
         x = self.dropout(x)
 
         return x
+

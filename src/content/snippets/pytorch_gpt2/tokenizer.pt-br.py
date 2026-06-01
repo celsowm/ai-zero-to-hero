@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/data/tokenizer.py
+# src/data/tokenizer.py
 
 from __future__ import annotations
 
@@ -98,3 +98,4 @@ def _replace_pair(
             i += 1
 
     return out
+

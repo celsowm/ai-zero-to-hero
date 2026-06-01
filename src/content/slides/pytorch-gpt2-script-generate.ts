@@ -20,9 +20,11 @@ No projeto, o script aceita argumentos como \`--prompt\`, \`--language\`, \`--mo
 snippet:pytorch_gpt2/script-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 43], content: '`parse_args()`: argumentos `--prompt` (obrigatório), `--language`, `--model`/`--checkpoint`, `--max-new-tokens`, `--temperature`, `--top-k`, `--top-p`, `--do-sample`, `--tokenizer`, `--tokenizer-path`, `--device`, `--num-threads`.' },
-        { lineRange: [46, 73], content: '`main()`: chama `resolve_defaults(args)`, configura threads, carrega modelo com `GPT2ForCausalLM.from_pretrained`, chama `model.generate()`, opcionalmente normaliza parágrafos com `normalize_paragraphs`, e imprime o texto gerado.' },
-        { lineRange: [76, 77], content: 'Bloco `if __name__ == "__main__"`: executa `main()` quando chamado diretamente.' },
+        { lineRange: [1, 11], content: 'Imports: docstring, `argparse`, `pathlib`, `torch`, `normalize_paragraphs` da `data.text_source`, e `GPT2ForCausalLM` do pacote `infer`.' },
+        { lineRange: [13, 54], content: '`parse_args()`: `--prompt` é obrigatório. Com `--language pt`, o script resolve checkpoint `checkpoints/gpt2-small-pt/best_val.pt` ou `latest.pt`, resolve o BPE em `tokenizers/pt_latest.json` e usa defaults de geração 80 tokens, temperature 0.9, top-k 100, top-p 0.95.' },
+        { lineRange: [56, 75], content: '`resolve_defaults()`: se `--language` for fornecido, infere checkpoint, tokenizer e caminhos automaticamente.' },
+        { lineRange: [77, 105], content: '`main()`: chama `resolve_defaults(args)`, configura threads, carrega modelo com `GPT2ForCausalLM.from_pretrained`, chama `model.generate()`, opcionalmente normaliza parágrafos com `normalize_paragraphs`, e imprime o texto gerado.' },
+        { lineRange: [107, 109], content: 'Exemplo bash de uso: `python scripts/generate.py --language pt --prompt "Era uma vez"`.' },
       ],
     },
     'en-us': {
@@ -40,10 +42,13 @@ In the project, the script accepts arguments like \`--prompt\`, \`--language\`, 
 snippet:pytorch_gpt2/script-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 43], content: '`parse_args()`: arguments `--prompt` (required), `--language`, `--model`/`--checkpoint`, `--max-new-tokens`, `--temperature`, `--top-k`, `--top-p`, `--do-sample`, `--tokenizer`, `--tokenizer-path`, `--device`, `--num-threads`.' },
-        { lineRange: [46, 73], content: '`main()`: calls `resolve_defaults(args)`, sets threads, loads model with `GPT2ForCausalLM.from_pretrained`, calls `model.generate()`, optionally normalizes paragraphs with `normalize_paragraphs`, and prints the generated text.' },
-        { lineRange: [76, 77], content: '`if __name__ == "__main__"` block: runs `main()` when called directly.' },
+        { lineRange: [1, 11], content: 'Imports: docstring, `argparse`, `pathlib`, `torch`, `normalize_paragraphs` from `data.text_source`, and `GPT2ForCausalLM` from the `infer` package.' },
+        { lineRange: [13, 54], content: '`parse_args()`: `--prompt` is required. With `--language pt`, the script resolves `checkpoints/gpt2-small-pt/best_val.pt` or `latest.pt`, resolves BPE at `tokenizers/pt_latest.json`, and uses generation defaults of 80 tokens, temperature 0.9, top-k 100, top-p 0.95.' },
+        { lineRange: [56, 75], content: '`resolve_defaults()`: if `--language` is given, infers checkpoint, tokenizer, and paths automatically.' },
+        { lineRange: [77, 105], content: '`main()`: calls `resolve_defaults(args)`, sets threads, loads model with `GPT2ForCausalLM.from_pretrained`, calls `model.generate()`, optionally normalizes paragraphs with `normalize_paragraphs`, and prints the generated text.' },
+        { lineRange: [107, 109], content: 'Bash usage example: `python scripts/generate.py --language pt --prompt "Era uma vez"`.' },
       ],
     },
   },
 });
+

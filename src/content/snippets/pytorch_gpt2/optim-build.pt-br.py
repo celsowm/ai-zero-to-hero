@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/train/optimizer.py
+# src/train/optimizer.py
 
 from __future__ import annotations
 
@@ -35,3 +35,4 @@ def build_adamw(
         betas=(0.9, 0.95),
         eps=1e-8,
     )
+

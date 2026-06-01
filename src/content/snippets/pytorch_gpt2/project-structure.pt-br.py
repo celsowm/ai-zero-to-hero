@@ -1,7 +1,7 @@
 # pyproject.toml
 
 [project]
-name = "pytorch-gpt2-from-scratch"
+name = "gpt2-pytorch"
 version = "0.1.0"
 requires-python = ">=3.11"
 
@@ -19,3 +19,4 @@ hf = [
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+

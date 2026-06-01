@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/data/prepare.py
+# src/data/prepare.py
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from pathlib import Path
 
 import numpy as np
 
-from pytorch_gpt2.config import DataConfig
-from pytorch_gpt2.data.text_source import build_text_source
-from pytorch_gpt2.data.tokenizer import Tokenizer
+from config import DataConfig
+from data.text_source import build_text_source
+from data.tokenizer import Tokenizer
 
 TOKEN_DTYPE = np.uint16
 
@@ -75,3 +75,4 @@ def _write_split(
 
         path = out_dir / f"{split}_{shard_id:06d}.bin"
         array.tofile(path)
+

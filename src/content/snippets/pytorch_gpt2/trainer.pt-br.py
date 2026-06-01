@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/train/trainer.py
+# src/train/trainer.py
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ from pathlib import Path
 import torch
 from torch.utils.data import DataLoader
 
-from pytorch_gpt2.config import ModelConfig, TrainConfig
-from pytorch_gpt2.data.shard_dataset import TokenShardDataset
-from pytorch_gpt2.model.gpt import GPT
-from pytorch_gpt2.train.checkpoint import CheckpointManager
-from pytorch_gpt2.train.optimizer import build_adamw
-from pytorch_gpt2.train.scheduler import cosine_lr
-from pytorch_gpt2.utils.device import get_device
-from pytorch_gpt2.utils.seed import seed_everything
+from config import ModelConfig, TrainConfig
+from data.shard_dataset import TokenShardDataset
+from model.gpt import GPT
+from train.checkpoint import CheckpointManager
+from train.optimizer import build_adamw
+from train.scheduler import cosine_lr
+from utils.device import get_device
+from utils.seed import seed_everything
 
 
 class Trainer:
@@ -112,3 +112,4 @@ class Trainer:
                     step=step,
                     name="latest.pt",
                 )
+

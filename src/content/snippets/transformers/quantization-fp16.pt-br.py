@@ -1,13 +1,15 @@
 import torch
 from transformers import AutoModelForCausalLM
 
-# FP16 nativo — simples e direto
+model_id = "Qwen/Qwen3.5-0.8B"
+
+# FP16: 2 bytes por peso. Metade da memória, perda mínima de qualidade.
 model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-2-7b-hf",
+    model_id,
     torch_dtype=torch.float16,
     device_map="auto",
 )
 
-# Verify
-print(f"Dtype: {model.dtype}")  # torch.float16
-print(f"VRAM: {model.get_memory_footprint() / 1e9:.1f} GB")  # ~14 GB
+# Inspecionamos o dtype e o uso real de memória.
+print(f"Dtype: {model.dtype}")
+print(f"VRAM: {model.get_memory_footprint() / 1e9:.2f} GB")

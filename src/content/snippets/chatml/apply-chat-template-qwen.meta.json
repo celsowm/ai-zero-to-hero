@@ -1,0 +1,31 @@
+{
+  "id": "chatml/apply-chat-template-qwen",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Importamos o AutoTokenizer e carregamos o tokenizador de Qwen 3.5 0.8B — que já vem com um chat_template Jinja embutido.",
+      "en-us": "We import AutoTokenizer and load the Qwen 3.5 0.8B tokenizer — which ships with an embedded Jinja chat_template."
+    },
+    {
+      "lineRange": [6, 11],
+      "pt-br": "Definimos a conversa como uma lista de dicionários com 'role' (papel) e 'content' (conteúdo). Esta é a forma canônica de entrada.",
+      "en-us": "We define the conversation as a list of dictionaries with 'role' and 'content'. This is the canonical input shape."
+    },
+    {
+      "lineRange": [12, 19],
+      "pt-br": "Chamamos apply_chat_template com tokenize=False (retorna string) e add_generation_prompt=False — o texto termina após a última mensagem do usuário.",
+      "en-us": "We call apply_chat_template with tokenize=False (returns a string) and add_generation_prompt=False — the text ends after the last user message."
+    },
+    {
+      "lineRange": [20, 27],
+      "pt-br": "Com add_generation_prompt=True, o tokenizador anexa <|im_start|>assistant\\n no final — o ponto de partida para o modelo gerar a resposta.",
+      "en-us": "With add_generation_prompt=True, the tokenizer appends <|im_start|>assistant\\n at the end — the starting point for the model to generate the reply."
+    },
+    {
+      "lineRange": [28, 33],
+      "pt-br": "Com tokenize=True, o método retorna input_ids (lista de inteiros) prontos para passar para o modelo, em vez da string formatada.",
+      "en-us": "With tokenize=True, the method returns input_ids (a list of integers) ready to feed the model, instead of the formatted string."
+    }
+  ]
+}

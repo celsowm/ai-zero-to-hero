@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/data/shard_dataset.py
+# src/data/shard_dataset.py
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
-from pytorch_gpt2.data.prepare import TOKEN_DTYPE
+from data.prepare import TOKEN_DTYPE
 
 
 class TokenShardDataset(Dataset[tuple[torch.Tensor, torch.Tensor]]):
@@ -54,3 +54,4 @@ class TokenShardDataset(Dataset[tuple[torch.Tensor, torch.Tensor]]):
         y = torch.from_numpy(chunk[1:].copy()).long()
 
         return x, y
+

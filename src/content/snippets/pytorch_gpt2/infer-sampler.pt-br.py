@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/infer/sampler.py
+# src/infer/sampler.py
 
 import torch
 import torch.nn.functional as F
@@ -75,3 +75,4 @@ def sample_next_token(
     probs = F.softmax(logits, dim=-1)
 
     return torch.multinomial(probs, num_samples=1)
+

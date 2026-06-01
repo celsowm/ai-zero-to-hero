@@ -1,4 +1,4 @@
-# src/pytorch_gpt2/config.py
+# src/config.py
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ class DataConfig:
     subset: str | None = "default"
     split: str = "train"
     text_column: str = "text"
-    language: str = "pt-BR"
+    language: str = "pt"
     streaming: bool = True
     max_documents: int | None = None
     max_tokens: int | None = None
@@ -25,10 +25,10 @@ class DataConfig:
 @dataclass(frozen=True)
 class ModelConfig:
     vocab_size: int = 32000
-    block_size: int = 1024
-    n_layer: int = 12
-    n_head: int = 12
-    n_embd: int = 768
+    block_size: int = 512
+    n_layer: int = 8
+    n_head: int = 8
+    n_embd: int = 512
     dropout: float = 0.1
     bias: bool = True
     tie_weights: bool = True
@@ -40,20 +40,20 @@ class ModelConfig:
 
 @dataclass(frozen=True)
 class TrainConfig:
-    batch_size: int = 4
-    gradient_accumulation_steps: int = 4
-    max_steps: int = 1000
+    batch_size: int = 16
+    gradient_accumulation_steps: int = 8
+    max_steps: int = 20000
     learning_rate: float = 6e-4
     weight_decay: float = 0.1
-    warmup_steps: int = 100
+    warmup_steps: int = 500
     grad_clip: float = 1.0
-    eval_interval: int = 100
-    checkpoint_interval: int = 500
+    eval_interval: int = 500
+    checkpoint_interval: int = 1000
     mixed_precision: str = "bf16"
     compile: bool = False
     out_dir: str = "checkpoints/gpt2-small"
     seed: int = 1337
-    num_workers: int = 0
+    num_workers: int = 2
 
 
 def _load_yaml(path: str | Path) -> dict[str, Any]:
@@ -71,3 +71,4 @@ def load_model_config(path: str | Path) -> ModelConfig:
 
 def load_train_config(path: str | Path) -> TrainConfig:
     return TrainConfig(**_load_yaml(path)["train"])
+
