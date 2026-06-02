@@ -71,7 +71,7 @@ export const bitsandbytesIntro = defineSlide({
           {
             icon: '⚡',
             label: 'Inferência INT8',
-            detail: 'llm.int8() — matmul 8-bit com detecção de outliers',
+            detail: 'llm.int8() — matmul 8-bit com detecção de outliers (próximo slide)',
           },
           {
             icon: '🎯',
@@ -149,7 +149,7 @@ export const bitsandbytesIntro = defineSlide({
           {
             icon: '⚡',
             label: 'INT8 inference',
-            detail: 'llm.int8() — 8-bit matmul with outlier detection',
+            detail: 'llm.int8() — 8-bit matmul with outlier detection (next slide)',
           },
           {
             icon: '🎯',

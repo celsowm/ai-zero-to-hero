@@ -228,9 +228,11 @@ const visualMap: Record<string, string> = {
   // quantization
   'quantization-tabs': 'QuantizationTabsVisual',
   'quantization-theory': 'QuantizationTheoryVisual',
+  'quantization-theory-why': 'QuantizationTheoryWhyVisual',
   'quantization-setup': 'QuantizationSetupVisual',
   'quantization-memory-bar': 'QuantizationMemoryBarVisual',
   'quantization-fp16-bits': 'QuantizationFp16Visual',
+  'quantization-fp8': 'QuantizationFp8Visual',
   'quantization-int8-outliers': 'QuantizationInt8Visual',
   'quantization-nf4-levels': 'QuantizationNf4Visual',
   'bitsandbytes-intro': 'BitsandbytesIntroVisual',

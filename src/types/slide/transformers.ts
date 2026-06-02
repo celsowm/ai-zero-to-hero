@@ -470,6 +470,8 @@ export interface QuantizationMemoryBarCopy {
   gbUnit: string;
   modelLabel: string;
   note: string;
+  tabs?: Array<{ label: string }>;
+  codePanel?: QuantizationCodePanelCopy;
 }
 
 // ── Quantization FP16 Bits ─────────────────────────────────────────────────
@@ -495,6 +497,8 @@ export interface QuantizationFp16Copy {
   fp32: QuantizationFp16FormatSpec;
   fp16: QuantizationFp16FormatSpec;
   takeaway: string;
+  tabs?: Array<{ label: string }>;
+  codePanel?: QuantizationCodePanelCopy;
 }
 
 // ── Quantization INT8 Outliers ─────────────────────────────────────────────
@@ -509,6 +513,8 @@ export interface QuantizationInt8Copy {
   normalPercentLabel: string;
   insightTitle: string;
   insight: string;
+  tabs?: Array<{ label: string }>;
+  codePanel?: QuantizationCodePanelCopy;
 }
 
 // ── Quantization NF4 Levels ────────────────────────────────────────────────
@@ -522,6 +528,8 @@ export interface QuantizationNf4Copy {
   hideErrorLabel: string;
   centralCoverageLabel: string;
   takeaway: string;
+  tabs?: Array<{ label: string }>;
+  codePanel?: QuantizationCodePanelCopy;
 }
 
 // ── Quantization Theory ────────────────────────────────────────────────────
@@ -562,6 +570,56 @@ export interface QuantizationTheoryCopy {
   mappingPanel: QuantizationTheoryMappingPanelCopy;
   formulaPanel: QuantizationTheoryFormulaPanelCopy;
   codePanel: QuantizationTheoryCodePanelCopy;
+}
+
+// ── Quantization Code Panel (shared by overview/fp16/int8/nf4) ─────────────
+
+export interface QuantizationCodePanelCopy {
+  title: string;
+  description: string;
+  source: CodeSourceRef;
+  codeExplanations: CodeExplanation[];
+}
+
+// ── Quantization Theory Why (motivation slide, no formula yet) ──────────────
+
+export interface QuantizationTheoryWhyPanelCopy {
+  title: string;
+  body: string;
+  highlight: { label: string; value: string };
+  bullets: string[];
+  footer: string;
+}
+
+export interface QuantizationTheoryWhyCopy {
+  title: string;
+  subtitle: string;
+  distributionPanel: QuantizationTheoryWhyPanelCopy;
+  outliersPanel: QuantizationTheoryWhyPanelCopy;
+}
+
+// ── Quantization FP8 (E4M3 vs E5M2) ────────────────────────────────────────
+
+export interface QuantizationFp8FormatSpec {
+  name: string;
+  fields: Array<{ label: string; bits: number; color: string; description: string }>;
+  maxValue: string;
+  minPositive: string;
+  useCase: string;
+  insight: string;
+}
+
+export interface QuantizationFp8Copy {
+  title: string;
+  subtitle: string;
+  fp16: QuantizationFp8FormatSpec;
+  e4m3: QuantizationFp8FormatSpec;
+  e5m2: QuantizationFp8FormatSpec;
+  forwardLabel: string;
+  backwardLabel: string;
+  takeaway: string;
+  tabs: Array<{ label: string }>;
+  codePanel: QuantizationCodePanelCopy;
 }
 
 // ── Sampling Controls Interactive ──────────────────────────────────────────

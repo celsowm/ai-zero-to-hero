@@ -87,6 +87,8 @@ import type {
   QuantizationFp16Copy,
   QuantizationInt8Copy,
   QuantizationNf4Copy,
+  QuantizationTheoryWhyCopy,
+  QuantizationFp8Copy,
   ParallelPredictionDiagramCopy,
   PipelineFlowDiagramCopy,
   PositionalEmbeddingAdderCopy,
@@ -409,6 +411,10 @@ interface VisualCopyMap {
   'quantization-int8-outliers': QuantizationInt8Copy;
   // nf4 quantile levels
   'quantization-nf4-levels': QuantizationNf4Copy;
+  // quantization theory why (motivation, no formula)
+  'quantization-theory-why': QuantizationTheoryWhyCopy;
+  // fp8 (E4M3 vs E5M2) bit layout
+  'quantization-fp8': QuantizationFp8Copy;
   // neural networks
   'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
   'activation-functions-comparator': ActivationFunctionsComparatorCopy;

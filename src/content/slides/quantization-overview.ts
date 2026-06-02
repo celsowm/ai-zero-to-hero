@@ -17,35 +17,7 @@ export const quantizationOverview = defineSlide({
 
 4. **Três formatos na prática:** FP16 (corte de 50%), INT8 (75% menor) e NF4 (87% menor, qualidade próxima ao FP16).
 
-> Quantização não é "perder informação" — é "descartar o ruído". O sinal útil vive em poucos bits.
-
----
-
-\`\`\`python
-snippet:transformers/quantization-overview
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Importamos `AutoModelForCausalLM` para carregar o modelo.',
-        },
-        {
-          lineRange: [3, 3],
-          content: 'Definimos o `model_id` que aponta para o Qwen 3.5 0.8B no Hub.',
-        },
-        {
-          lineRange: [6, 6],
-          content: 'Carregamos o modelo em FP32 (precisão padrão) com `device_map="auto"` para mandar para a GPU.',
-        },
-        {
-          lineRange: [7, 7],
-          content: '`get_memory_footprint()` retorna os bytes reais usados pelos pesos em runtime.',
-        },
-        {
-          lineRange: [11, 12],
-          content: 'A quantização troca bits por memória: 16, 8 ou 4 bits por peso em vez de 32.',
-        },
-      ],
+> Quantização não é "perder informação" — é "descartar o ruído". O sinal útil vive em poucos bits.`,
     },
     'en-us': {
       title: 'Why quantize: the problem and the solution',
@@ -59,35 +31,7 @@ snippet:transformers/quantization-overview
 
 4. **Three formats in practice:** FP16 (50% cut), INT8 (75% smaller), and NF4 (87% smaller, quality close to FP16).
 
-> Quantization isn't "losing information" — it's "discarding noise". The useful signal lives in few bits.
-
----
-
-\`\`\`python
-snippet:transformers/quantization-overview
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'We import `AutoModelForCausalLM` to load the model.',
-        },
-        {
-          lineRange: [3, 3],
-          content: 'We define `model_id` pointing to Qwen 3.5 0.8B on the Hub.',
-        },
-        {
-          lineRange: [6, 6],
-          content: 'We load the model in FP32 (default precision) with `device_map="auto"` to send it to GPU.',
-        },
-        {
-          lineRange: [7, 7],
-          content: '`get_memory_footprint()` returns the actual bytes used by the weights at runtime.',
-        },
-        {
-          lineRange: [11, 12],
-          content: 'Quantization trades bits for memory: 16, 8, or 4 bits per weight instead of 32.',
-        },
-      ],
+> Quantization isn't "losing information" — it's "discarding noise". The useful signal lives in few bits.`,
     },
   },
   visual: {
@@ -132,6 +76,34 @@ snippet:transformers/quantization-overview
         gbUnit: 'GB',
         modelLabel: 'Modelo 7B',
         note: 'Estimativas para pesos apenas. O uso real inclui KV cache e ativações — adicione ~20% ao total.',
+        tabs: [{ label: 'Visual' }, { label: 'Código' }],
+        codePanel: {
+          title: 'Baseline: medindo o footprint em FP32',
+          description: 'Carrega o Qwen 0.8B em FP32 e imprime o uso real de memória. Este é o número que vamos comprimir nos próximos slides.',
+          source: { snippetId: 'transformers/quantization-overview', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 1],
+              content: 'Importamos `AutoModelForCausalLM` para carregar o modelo.',
+            },
+            {
+              lineRange: [3, 3],
+              content: 'Definimos o `model_id` que aponta para o Qwen 3.5 0.8B no Hub.',
+            },
+            {
+              lineRange: [6, 6],
+              content: 'Carregamos o modelo em FP32 (precisão padrão) com `device_map="auto"` para mandar para a GPU.',
+            },
+            {
+              lineRange: [7, 7],
+              content: '`get_memory_footprint()` retorna os bytes reais usados pelos pesos em runtime.',
+            },
+            {
+              lineRange: [11, 12],
+              content: 'A quantização troca bits por memória: 16, 8 ou 4 bits por peso em vez de 32.',
+            },
+          ],
+        },
       },
       'en-us': {
         title: 'How much each format takes for a 7B model',
@@ -172,6 +144,34 @@ snippet:transformers/quantization-overview
         gbUnit: 'GB',
         modelLabel: '7B Model',
         note: 'Estimates for weights only. Real usage includes KV cache and activations — add ~20% to the total.',
+        tabs: [{ label: 'Visual' }, { label: 'Code' }],
+        codePanel: {
+          title: 'Baseline: measuring FP32 footprint',
+          description: 'Loads Qwen 0.8B in FP32 and prints the actual memory usage. This is the number we will compress in the following slides.',
+          source: { snippetId: 'transformers/quantization-overview', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 1],
+              content: 'We import `AutoModelForCausalLM` to load the model.',
+            },
+            {
+              lineRange: [3, 3],
+              content: 'We define `model_id` pointing to Qwen 3.5 0.8B on the Hub.',
+            },
+            {
+              lineRange: [6, 6],
+              content: 'We load the model in FP32 (default precision) with `device_map="auto"` to send it to GPU.',
+            },
+            {
+              lineRange: [7, 7],
+              content: '`get_memory_footprint()` returns the actual bytes used by the weights at runtime.',
+            },
+            {
+              lineRange: [11, 12],
+              content: 'Quantization trades bits for memory: 16, 8, or 4 bits per weight instead of 32.',
+            },
+          ],
+        },
       },
     },
   },

@@ -17,39 +17,7 @@ export const quantizationNf4 = defineSlide({
 
 4. **O resultado:** 7B em ~4 GB de VRAM. Cabe em uma RTX 3060 (12 GB) com espaço para KV cache e ativações. Qualidade ~95% do FP16.
 
-> NF4 = "precisão inteligente": 16 níveis onde eles importam, não 16 níveis iguais.
-
----
-
-\`\`\`python
-snippet:transformers/quantization-nf4
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 2],
-          content: 'Importamos `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM` e `torch` para o dtype de cómputo.',
-        },
-        {
-          lineRange: [4, 4],
-          content: 'Apontamos para o Qwen 3.5 0.8B no Hub.',
-        },
-        {
-          lineRange: [7, 11],
-          content: '`load_in_4bit=True` ativa a quantização 4 bits. `bnb_4bit_quant_type="nf4"` usa NormalFloat. `bnb_4bit_use_double_quant=True` quantiza as constantes de escala. `bnb_4bit_compute_dtype=torch.float16` mantém a multiplicação de matrizes em FP16.',
-        },
-        {
-          lineRange: [13, 18],
-          content: 'Carregamos tokenizador e modelo quantizado. `device_map="auto"` distribui entre GPU/CPU automaticamente.',
-        },
-        {
-          lineRange: [19, 20],
-          content: '`get_memory_footprint()` confirma ~0.4 GB para o Qwen 0.8B em NF4 — quatro vezes menos que FP16.',
-        },
-        {
-          lineRange: [22, 25],
-          content: 'A inferência usa a API padrão do transformers — a quantização 4 bits é transparente para o código de geração.',
-        },
-      ],
+> NF4 = "precisão inteligente": 16 níveis onde eles importam, não 16 níveis iguais.`,
     },
     'en-us': {
       title: 'NF4: NormalFloat — the state of the art in 4 bits',
@@ -63,39 +31,7 @@ snippet:transformers/quantization-nf4
 
 4. **The result:** 7B in ~4 GB of VRAM. Fits on an RTX 3060 (12 GB) with room for KV cache and activations. ~95% quality of FP16.
 
-> NF4 = "smart precision": 16 levels where they matter, not 16 equal levels.
-
----
-
-\`\`\`python
-snippet:transformers/quantization-nf4
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 2],
-          content: 'We import `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM`, and `torch` for the compute dtype.',
-        },
-        {
-          lineRange: [4, 4],
-          content: 'We point to Qwen 3.5 0.8B on the Hub.',
-        },
-        {
-          lineRange: [7, 11],
-          content: '`load_in_4bit=True` enables 4-bit quantization. `bnb_4bit_quant_type="nf4"` uses NormalFloat. `bnb_4bit_use_double_quant=True` quantizes the scale constants. `bnb_4bit_compute_dtype=torch.float16` keeps matrix multiplications in FP16.',
-        },
-        {
-          lineRange: [13, 18],
-          content: 'We load the tokenizer and quantized model. `device_map="auto"` distributes between GPU/CPU automatically.',
-        },
-        {
-          lineRange: [19, 20],
-          content: '`get_memory_footprint()` confirms ~0.4 GB for Qwen 0.8B in NF4 — four times less than FP16.',
-        },
-        {
-          lineRange: [22, 25],
-          content: 'Inference uses the standard transformers API — 4-bit quantization is transparent to the generation code.',
-        },
-      ],
+> NF4 = "smart precision": 16 levels where they matter, not 16 equal levels.`,
     },
   },
   visual: {
@@ -110,6 +46,38 @@ snippet:transformers/quantization-nf4
         hideErrorLabel: 'Esconder erro',
         centralCoverageLabel: 'NF4 coloca 8 dos 16 níveis na região [-1σ, +1σ], onde vivem 68% dos pesos — o uniform coloca apenas 5.',
         takeaway: 'NF4 = precisão inteligente. Os 16 níveis são calibrados para onde os pesos realmente estão, não distribuídos uniformemente. Resultado: o mesmo número de bits, muito menos erro médio.',
+        tabs: [{ label: 'Visual' }, { label: 'Código' }],
+        codePanel: {
+          title: 'Ativando NF4 com BitsAndBytesConfig',
+          description: 'Aqui ativamos a quantização 4 bits via `load_in_4bit=True` e escolhemos `nf4` como o tipo de quantização.',
+          source: { snippetId: 'transformers/quantization-nf4', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 2],
+              content: 'Importamos `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM` e `torch` para o dtype de cómputo.',
+            },
+            {
+              lineRange: [4, 4],
+              content: 'Apontamos para o Qwen 3.5 0.8B no Hub.',
+            },
+            {
+              lineRange: [7, 11],
+              content: '`load_in_4bit=True` ativa a quantização 4 bits. `bnb_4bit_quant_type="nf4"` usa NormalFloat. `bnb_4bit_use_double_quant=True` quantiza as constantes de escala. `bnb_4bit_compute_dtype=torch.float16` mantém a multiplicação de matrizes em FP16.',
+            },
+            {
+              lineRange: [13, 18],
+              content: 'Carregamos tokenizador e modelo quantizado. `device_map="auto"` distribui entre GPU/CPU automaticamente.',
+            },
+            {
+              lineRange: [19, 20],
+              content: '`get_memory_footprint()` confirma ~0.4 GB para o Qwen 0.8B em NF4 — quatro vezes menos que FP16.',
+            },
+            {
+              lineRange: [22, 25],
+              content: 'A inferência usa a API padrão do transformers — a quantização 4 bits é transparente para o código de geração.',
+            },
+          ],
+        },
       },
       'en-us': {
         title: 'Uniform levels vs NF4: where the data actually is',
@@ -120,6 +88,38 @@ snippet:transformers/quantization-nf4
         hideErrorLabel: 'Hide error',
         centralCoverageLabel: 'NF4 places 8 of the 16 levels in the [-1σ, +1σ] region, where 68% of weights live — uniform places only 5.',
         takeaway: 'NF4 = smart precision. The 16 levels are calibrated to where weights actually are, not spread uniformly. Result: same number of bits, much lower average error.',
+        tabs: [{ label: 'Visual' }, { label: 'Code' }],
+        codePanel: {
+          title: 'Enabling NF4 with BitsAndBytesConfig',
+          description: 'Here we activate 4-bit quantization via `load_in_4bit=True` and choose `nf4` as the quantization type.',
+          source: { snippetId: 'transformers/quantization-nf4', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 2],
+              content: 'We import `BitsAndBytesConfig`, `AutoTokenizer`, `AutoModelForCausalLM`, and `torch` for the compute dtype.',
+            },
+            {
+              lineRange: [4, 4],
+              content: 'We point to Qwen 3.5 0.8B on the Hub.',
+            },
+            {
+              lineRange: [7, 11],
+              content: '`load_in_4bit=True` enables 4-bit quantization. `bnb_4bit_quant_type="nf4"` uses NormalFloat. `bnb_4bit_use_double_quant=True` quantizes the scale constants. `bnb_4bit_compute_dtype=torch.float16` keeps matrix multiplications in FP16 to preserve quality.',
+            },
+            {
+              lineRange: [13, 18],
+              content: 'We load the tokenizer and the quantized model. `device_map="auto"` distributes between GPU/CPU automatically.',
+            },
+            {
+              lineRange: [19, 20],
+              content: '`get_memory_footprint()` confirms ~0.4 GB for Qwen 0.8B in NF4 — four times less than FP16.',
+            },
+            {
+              lineRange: [22, 25],
+              content: 'Inference uses the standard transformers API — 4-bit quantization is transparent to the generation code.',
+            },
+          ],
+        },
       },
     },
   },

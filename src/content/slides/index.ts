@@ -181,12 +181,14 @@ import { pythonPrereqOopDunderCall } from './python-prereq-oop-dunder-call';
 import { pythonPrereqOopExercises } from './python-prereq-oop-exercises';
 import { pythonPrereqOopInheritance } from './python-prereq-oop-inheritance';
 import { pythonPrereqSumGenerator } from './python-prereq-sum-generator';
+import { quantizationFp8 } from './quantization-fp8';
 import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
 import { quantizationNf4 } from './quantization-nf4';
 import { quantizationOverview } from './quantization-overview';
 import { quantizationSetup } from './quantization-setup';
-import { quantizationTheory } from './quantization-theory';
+import { quantizationTheoryFormula } from './quantization-theory-formula';
+import { quantizationTheoryWhy } from './quantization-theory-why';
 import { bitsandbytesIntro } from './bitsandbytes-intro';
 import { ragAnswerWithSources } from './rag-answer-with-sources';
 import { ragChromadbMinimal } from './rag-chromadb-minimal';
@@ -451,8 +453,10 @@ export const allSlides: ISlide[] = [
   pythonPrereqSumGenerator,
   quantizationOverview,
   quantizationSetup,
+  quantizationTheoryWhy,
+  quantizationTheoryFormula,
   quantizationFp16,
-  quantizationTheory,
+  quantizationFp8,
   quantizationInt8,
   quantizationNf4,
   bitsandbytesIntro,

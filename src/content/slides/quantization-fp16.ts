@@ -9,77 +9,33 @@ export const quantizationFp16 = defineSlide({
       title: 'FP16: o ponto de entrada da quantização',
       body: `FP16 é o formato mais simples: **metade dos bytes, quase zero perda de qualidade**. É o default de treino em GPU moderna.
 
-1. **Como funciona:** FP32 usa 32 bits (1 sinal + 8 expoente + 23 mantissa). FP16 usa 16 bits (1 sinal + 5 expoente + 10 mantissa). Metade da memória, mas menos precisão nos valores.
+1. **O que muda no layout:** um float é dividido em 3 partes — **sinal** (1 bit, positivo ou negativo), **expoente** (quantos bits definem a magnitude) e **mantissa** (os dígitos significativos depois do ponto). FP32 tem 1+8+23 = 32 bits. FP16 tem 1+5+10 = 16 bits. Mesma estrutura, menos bits.
 
-2. **Mixed precision:** durante o treino, mantemos **master weights em FP32** e fazemos o **forward/backward em FP16**. O gradient step usa FP32 para não perder informação.
+2. **O que se perde:** a mantissa menor (10 vs 23 bits) significa que FP16 distingue ~1024 valores em cada expoente, contra ~8 milhões em FP32. Para a maioria dos pesos isso basta — mas valores que diferem por menos de 0.001 podem colapsar no mesmo bucket.
 
-3. **Quando usar:** é o default para treino em GPU moderna. Tensor Cores da NVIDIA aceleram FP16 nativamente — até 3x mais rápido que FP32.
+3. **O que NÃO se perde:** o sinal continua igual, e a *precisão relativa* (número de dígitos significativos) fica parecida. Por isso FP16 é quase "FP32 mais barato".
 
-4. **O limite:** FP16 tem range menor. Valores acima de 65504 ou abaixo de -65504 viram **inf** (infinito). Para inferência de LLMs grandes, FP16 ainda ocupa 14 GB para um 7B.
+4. **Quando usar:** é o default para treino em GPU moderna. Em inferência, é a primeira compressão a tentar — corte de 50% de memória, qualidade praticamente intacta.
 
-> FP16 é o "quase grátis": corte de 50% sem mexer nos pesos — só na computação.
+5. **O limite:** valores acima de 65504 ou abaixo de -65504 viram **inf** (infinito). Em prática, LLMs raramente atingem esse range, mas logits extremos podem estourar.
 
----
-
-\`\`\`python
-snippet:transformers/quantization-fp16
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 2],
-          content: 'Importamos `torch` para o dtype e `transformers` para o modelo.',
-        },
-        {
-          lineRange: [4, 4],
-          content: 'Definimos o identificador do Qwen 3.5 0.8B no Hub.',
-        },
-        {
-          lineRange: [7, 11],
-          content: '`torch_dtype=torch.float16` carrega os pesos em 16 bits. `device_map="auto"` envia o modelo para a GPU disponível.',
-        },
-        {
-          lineRange: [14, 15],
-          content: 'Confirmamos o dtype (`torch.float16`) e o footprint real — em torno de 1.6 GB para o Qwen 0.8B.',
-        },
-      ],
+> FP16 é o "quase grátis": corte de 50% sem mexer nos pesos — só na computação.`,
     },
     'en-us': {
       title: 'FP16: the entry point of quantization',
       body: `FP16 is the simplest format: **half the bytes, almost zero quality loss**. It's the training default on modern GPUs.
 
-1. **How it works:** FP32 uses 32 bits (1 sign + 8 exponent + 23 mantissa). FP16 uses 16 bits (1 sign + 5 exponent + 10 mantissa). Half the memory, but less precision on values.
+1. **What changes in the layout:** a float is split into 3 parts — **sign** (1 bit, positive or negative), **exponent** (how many bits define the magnitude) and **mantissa** (the significant digits after the point). FP32 has 1+8+23 = 32 bits. FP16 has 1+5+10 = 16 bits. Same structure, fewer bits.
 
-2. **Mixed precision:** during training, we keep **master weights in FP32** and run **forward/backward in FP16**. The gradient step uses FP32 to not lose information.
+2. **What's lost:** the smaller mantissa (10 vs 23 bits) means FP16 distinguishes ~1024 values in each exponent, against ~8 million in FP32. For most weights that is enough — but values that differ by less than 0.001 may collapse into the same bucket.
 
-3. **When to use:** it's the default for training on modern GPUs. NVIDIA Tensor Cores accelerate FP16 natively — up to 3x faster than FP32.
+3. **What's NOT lost:** the sign stays the same, and *relative precision* (number of significant digits) stays similar. That's why FP16 is almost "cheaper FP32".
 
-4. **The limit:** FP16 has a smaller range. Values above 65504 or below -65504 become **inf** (infinity). For large LLM inference, FP16 still takes 14 GB for a 7B.
+4. **When to use:** it's the default for training on modern GPUs. For inference, it's the first compression to try — 50% memory cut, quality almost intact.
 
-> FP16 is "almost free": 50% cut without touching weights — just the computation.
+5. **The limit:** values above 65504 or below -65504 become **inf** (infinity). In practice, LLMs rarely hit this range, but extreme logits may overflow.
 
----
-
-\`\`\`python
-snippet:transformers/quantization-fp16
-\`\`\``,
-      codeExplanations: [
-        {
-          lineRange: [1, 2],
-          content: 'We import `torch` for the dtype and `transformers` for the model.',
-        },
-        {
-          lineRange: [4, 4],
-          content: 'We define the Qwen 3.5 0.8B identifier on the Hub.',
-        },
-        {
-          lineRange: [7, 11],
-          content: '`torch_dtype=torch.float16` loads weights in 16 bits. `device_map="auto"` sends the model to the available GPU.',
-        },
-        {
-          lineRange: [14, 15],
-          content: 'We confirm the dtype (`torch.float16`) and the real footprint — around 1.6 GB for Qwen 0.8B.',
-        },
-      ],
+> FP16 is "almost free": 50% cut without touching weights — just the computation.`,
     },
   },
   visual: {
@@ -110,7 +66,31 @@ snippet:transformers/quantization-fp16
           minPositive: '6.1 × 10⁻⁵',
           insight: 'Expoente de 5 bits → range menor, mas precisão RELATIVA semelhante. Overflow é raro em inferência.',
         },
-        takeaway: 'FP16 = metade da memória com quase a mesma precisão relativa. O risco é overflow em logits extremos — raro na prática, mas contornado com mixed precision no treino.',
+        takeaway: 'FP16 = metade da memória com quase a mesma precisão relativa. O risco é overflow em logits extremos — raro na prática.',
+        tabs: [{ label: 'Visual' }, { label: 'Código' }],
+        codePanel: {
+          title: 'Carregar o modelo em FP16',
+          description: 'A única mudança em relação ao FP32 é o parâmetro `torch_dtype`. Não precisa de bitsandbytes nem accelerate.',
+          source: { snippetId: 'transformers/quantization-fp16', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 2],
+              content: 'Importamos `torch` para o dtype e `transformers` para o modelo.',
+            },
+            {
+              lineRange: [4, 4],
+              content: 'Definimos o identificador do Qwen 3.5 0.8B no Hub.',
+            },
+            {
+              lineRange: [7, 11],
+              content: '`torch_dtype=torch.float16` carrega os pesos em 16 bits. `device_map="auto"` envia o modelo para a GPU disponível.',
+            },
+            {
+              lineRange: [14, 15],
+              content: 'Confirmamos o dtype (`torch.float16`) e o footprint real — em torno de 1.6 GB para o Qwen 0.8B.',
+            },
+          ],
+        },
       },
       'en-us': {
         title: 'Bit layout: FP32 vs FP16',
@@ -137,7 +117,31 @@ snippet:transformers/quantization-fp16
           minPositive: '6.1 × 10⁻⁵',
           insight: '5-bit exponent → smaller range, but similar RELATIVE precision. Overflow is rare in inference.',
         },
-        takeaway: 'FP16 = half the memory with almost the same relative precision. The risk is overflow on extreme logits — rare in practice, but handled with mixed precision in training.',
+        takeaway: 'FP16 = half the memory with almost the same relative precision. The risk is overflow on extreme logits — rare in practice.',
+        tabs: [{ label: 'Visual' }, { label: 'Code' }],
+        codePanel: {
+          title: 'Loading the model in FP16',
+          description: 'The only change compared to FP32 is the `torch_dtype` parameter. No bitsandbytes or accelerate needed.',
+          source: { snippetId: 'transformers/quantization-fp16', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 2],
+              content: 'We import `torch` for the dtype and `transformers` for the model.',
+            },
+            {
+              lineRange: [4, 4],
+              content: 'We define the Qwen 3.5 0.8B identifier on the Hub.',
+            },
+            {
+              lineRange: [7, 11],
+              content: '`torch_dtype=torch.float16` loads weights in 16 bits. `device_map="auto"` sends the model to the available GPU.',
+            },
+            {
+              lineRange: [14, 15],
+              content: 'We confirm the dtype (`torch.float16`) and the real footprint — around 1.6 GB for Qwen 0.8B.',
+            },
+          ],
+        },
       },
     },
   },
