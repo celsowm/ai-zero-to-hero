@@ -1,5 +1,4 @@
-# src/train/checkpoint.py
-
+"""Checkpoint save and load helpers for training and inference."""
 from __future__ import annotations
 
 from dataclasses import asdict
@@ -35,16 +34,10 @@ class CheckpointManager:
             "step": step,
             "best_val_loss": best_val_loss,
         }
-
         path = self.out_dir / name
         torch.save(payload, path)
         return path
 
 
-def load_checkpoint(
-    path: str | Path,
-    *,
-    map_location: str | torch.device = "cpu",
-) -> dict[str, Any]:
+def load_checkpoint(path: str | Path, *, map_location: str | torch.device = "cpu") -> dict[str, Any]:
     return torch.load(path, map_location=map_location)
-

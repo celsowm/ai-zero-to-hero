@@ -38,7 +38,7 @@ from infer.pretrained import (
 )
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 125], content: '`infer/pretrained.py`: `GenerationConfig`, `AutoTokenizer`, `GPT2ForCausalLM` (com `from_pretrained` e `generate`), `TextGenerationPipeline`, `pipeline()` e funções auxiliares.' },
+        { lineRange: [1, 359], content: '`infer/pretrained.py`: `GenerationConfig`, `AutoTokenizer`, `GPT2ForCausalLM` (com `from_pretrained` e `generate`), `TextGenerationPipeline`, `pipeline()` e funções auxiliares.' },
       ],
     },
     'en-us': {
@@ -74,7 +74,7 @@ from infer.pretrained import (
 )
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 125], content: '`infer/pretrained.py`: `GenerationConfig`, `AutoTokenizer`, `GPT2ForCausalLM` (with `from_pretrained` and `generate`), `TextGenerationPipeline`, `pipeline()` and helper functions.' },
+        { lineRange: [1, 359], content: '`infer/pretrained.py`: `GenerationConfig`, `AutoTokenizer`, `GPT2ForCausalLM` (with `from_pretrained` and `generate`), `TextGenerationPipeline`, `pipeline()` and helper functions.' },
       ],
     },
   },

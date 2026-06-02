@@ -36,9 +36,10 @@ O \`scheduler.py\` calcula o learning rate a cada step. O treino começa com war
             description: 'Separa parâmetros com e sem weight decay para o AdamW.',
             source: { snippetId: 'pytorch_gpt2/optim-build', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 16], content: 'Importa `torch` e `nn`. A `build_adamw` recebe modelo, LR e weight decay. Separa params 2D+ (matrizes, com decay) de 1D (bias, LayerNorm, sem decay), monta dois grupos no AdamW com betas (0.9, 0.95) e retorna.' },
-              { lineRange: [18, 25], content: 'Loop `named_parameters()`: filtra `requires_grad`, acumula ndim >= 2 em `decay_params` (matrizes de peso) e 1D em `no_decay_params` (bias, LayerNorm). Evita regularizar camadas de normalização.' },
-              { lineRange: [27, 37], content: 'Monta dois grupos de parâmetros — um com weight_decay, outro sem — e instancia AdamW com learning_rate informado e betas (0.9, 0.95) seguindo a receita original do GPT-2.' },
+              { lineRange: [1, 6], content: 'Docstring e imports: `torch` e `nn`.' },
+              { lineRange: [8, 10], content: '`build_adamw`: recebe modelo, learning_rate e weight_decay. Inicializa listas `decay_params` e `no_decay_params`.' },
+              { lineRange: [12, 18], content: 'Loop `named_parameters()`: filtra `requires_grad`, acumula ndim >= 2 em `decay_params` (matrizes de peso) e 1D em `no_decay_params` (bias, LayerNorm). Evita regularizar camadas de normalização.' },
+              { lineRange: [20, 24], content: 'Monta dois grupos de parâmetros — um com weight_decay, outro sem — e instancia AdamW com learning_rate informado e betas (0.9, 0.95) seguindo a receita original do GPT-2.' },
             ],
           },
           {
@@ -46,7 +47,7 @@ O \`scheduler.py\` calcula o learning rate a cada step. O treino começa com war
             description: 'Calcula o learning rate com warmup linear e decaimento cossenoidal.',
             source: { snippetId: 'pytorch_gpt2/scheduler', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 6], content: 'Importa `math` para cosseno. A função `cosine_lr` calcula o LR no step atual com warmup linear + decaimento cossenoidal.' },
+              { lineRange: [1, 7], content: 'Importa `math` para cosseno. A função `cosine_lr` calcula o LR no step atual com warmup linear + decaimento cossenoidal.' },
               { lineRange: [8, 17], content: 'Warmup (`step < warmup_steps`): LR cresce linearmente de 0 até `max_lr`. O `max(1, warmup_steps)` evita divisão por zero.' },
               { lineRange: [19, 26], content: 'Decaimento cossenoidal: LR segue `0.5 * (1 + cos(pi * progress))`. Suave no início/fim, acelera no meio. Após `max_steps`, mantém `min_lr_ratio` do LR máximo.' },
             ],
@@ -64,9 +65,10 @@ O \`scheduler.py\` calcula o learning rate a cada step. O treino começa com war
             description: 'Separates parameters with and without weight decay for AdamW.',
             source: { snippetId: 'pytorch_gpt2/optim-build', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 16], content: 'Imports `torch` and `nn`. `build_adamw` receives model, LR, weight decay. Separates 2D+ params (matrices, with decay) from 1D (bias, LayerNorm, no decay), creates two groups in AdamW with betas (0.9, 0.95), and returns.' },
-              { lineRange: [18, 25], content: '`named_parameters()` loop: filters `requires_grad`, appends ndim >= 2 to `decay_params` (weight matrices) and 1D to `no_decay_params` (bias, LayerNorm). Skips regularizing normalization layers.' },
-              { lineRange: [27, 37], content: 'Creates two param groups — one with weight_decay, one without — and instantiates AdamW with given learning_rate and betas (0.9, 0.95) following the original GPT-2 recipe.' },
+              { lineRange: [1, 6], content: 'Docstring and imports: `torch` and `nn`.' },
+              { lineRange: [8, 10], content: '`build_adamw`: receives model, learning_rate, weight_decay. Initializes `decay_params` and `no_decay_params` lists.' },
+              { lineRange: [12, 18], content: '`named_parameters()` loop: filters `requires_grad`, appends ndim >= 2 to `decay_params` (weight matrices) and 1D to `no_decay_params` (bias, LayerNorm). Skips regularizing normalization layers.' },
+              { lineRange: [20, 24], content: 'Creates two param groups — one with weight_decay, one without — and instantiates AdamW with given learning_rate and betas (0.9, 0.95) following the original GPT-2 recipe.' },
             ],
           },
           {
@@ -74,7 +76,7 @@ O \`scheduler.py\` calcula o learning rate a cada step. O treino começa com war
             description: 'Computes learning rate with linear warmup and cosine decay.',
             source: { snippetId: 'pytorch_gpt2/scheduler', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 6], content: 'Imports `math` for cosine. `cosine_lr` computes LR at current step with linear warmup + cosine decay.' },
+              { lineRange: [1, 7], content: 'Imports `math` for cosine. `cosine_lr` computes LR at current step with linear warmup + cosine decay.' },
               { lineRange: [8, 17], content: 'Warmup (`step < warmup_steps`): LR grows linearly from 0 to `max_lr`. `max(1, warmup_steps)` avoids division by zero.' },
               { lineRange: [19, 26], content: 'Cosine decay: LR follows `0.5 * (1 + cos(pi * progress))`. Gentle at start/end, faster in middle. Past `max_steps`, holds at `min_lr_ratio` of max LR.' },
             ],

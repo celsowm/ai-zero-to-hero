@@ -20,7 +20,12 @@ Também aparece aqui o KV cache. Sem cache, a cada novo token o modelo reprocess
 snippet:pytorch_gpt2/infer-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 65], content: '`generate()`: loop autoregressivo com suporte a KV cache. Recebe prompt tokenizado, gera tokens um a um, gerencia window_idx e cache, suporta EOS.' },
+        { lineRange: [1, 8], content: 'Imports: docstring, `torch`, infer/sampler e model/gpt para `sample_next_token`, `GPT` e `KVCache`.' },
+        { lineRange: [10, 22], content: '`generate()` assinatura: decorador `@torch.no_grad()`, parâmetros — modelo, idx, max_new_tokens, temperature, top_k, top_p, do_sample, use_cache e eos_token_id.' },
+        { lineRange: [23, 27], content: 'Inicialização: `model.eval()`, `full_idx`, `window_idx` com `block_size`, `cache = None`.' },
+        { lineRange: [28, 38], content: 'Loop com suporte a cache: se `use_cache`, gerencia cache window/crop, passa `past_kv`. Sem cache, usa janela direta.' },
+        { lineRange: [39, 48], content: 'Amostragem: pega logits da última posição, chama `sample_next_token`, concatena em `full_idx` e `window_idx`.' },
+        { lineRange: [50, 56], content: 'EOS check (opcional), window_idx trimming e retorno de `full_idx`.' },
       ],
     },
     'en-us': {
@@ -38,7 +43,12 @@ KV cache also appears here. Without cache, each new token makes the model reproc
 snippet:pytorch_gpt2/infer-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 65], content: '`generate()`: autoregressive loop with KV cache support. Takes tokenized prompt, generates one token at a time, manages window_idx and cache, supports EOS.' },
+        { lineRange: [1, 8], content: 'Imports: docstring, `torch`, infer/sampler and model/gpt for `sample_next_token`, `GPT` and `KVCache`.' },
+        { lineRange: [10, 22], content: '`generate()` signature: `@torch.no_grad()` decorator, params — model, idx, max_new_tokens, temperature, top_k, top_p, do_sample, use_cache, and eos_token_id.' },
+        { lineRange: [23, 27], content: 'Initialization: `model.eval()`, `full_idx`, `window_idx` capped at `block_size`, `cache = None`.' },
+        { lineRange: [28, 38], content: 'Loop with cache support: if `use_cache`, manages cache window/crop, passes `past_kv`. Without cache, uses direct window.' },
+        { lineRange: [39, 48], content: 'Sampling: takes last position logits, calls `sample_next_token`, concatenates into `full_idx` and `window_idx`.' },
+        { lineRange: [50, 56], content: 'EOS check (optional), window_idx trimming, and returning `full_idx`.' },
       ],
     },
   },

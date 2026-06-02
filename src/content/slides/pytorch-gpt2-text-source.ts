@@ -16,7 +16,7 @@ A interface importante é \`iter_texts()\`: o resto do pipeline só precisa rece
 snippet:pytorch_gpt2/text-source
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 94], content: '`text_source.py`: `normalize_paragraphs()` com regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
+        { lineRange: [1, 206], content: '`text_source.py`: `normalize_paragraphs()` com regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
       ],
     },
     'en-us': {
@@ -30,7 +30,7 @@ The key interface is \`iter_texts()\`: the rest of the pipeline only needs to re
 snippet:pytorch_gpt2/text-source
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 94], content: '`text_source.py`: `normalize_paragraphs()` with regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
+        { lineRange: [1, 206], content: '`text_source.py`: `normalize_paragraphs()` with regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
       ],
     },
   },

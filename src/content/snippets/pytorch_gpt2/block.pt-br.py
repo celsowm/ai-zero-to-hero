@@ -28,6 +28,7 @@ class TransformerBlock(nn.Module):
             x = x + attn_out
             x = x + self.mlp(self.ln_2(x))
             return x, new_kv
+
         attn_out = self.attn(self.ln_1(x), past_kv=None, use_cache=False)
         x = x + attn_out
         x = x + self.mlp(self.ln_2(x))

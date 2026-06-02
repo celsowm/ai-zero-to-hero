@@ -16,7 +16,7 @@ Esse slide precisa ter código porque é aqui que o aluno vê o treino inteiro s
 snippet:pytorch_gpt2/trainer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 189], content: '`Trainer`: inicialização com device/seed/model/optimizer/DataLoader, `fit()` com gradient accumulation, mixed precision, cosine LR, val eval, checkpoint, `evaluate()`.' },
+        { lineRange: [1, 266], content: '`Trainer`: inicialização com device/seed/model/optimizer/DataLoader, `fit()` com gradient accumulation, mixed precision, cosine LR, val eval, checkpoint, `evaluate()`.' },
       ],
     },
     'en-us': {
@@ -30,7 +30,7 @@ This slide needs code because this is where the student sees the entire training
 snippet:pytorch_gpt2/trainer
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 189], content: '`Trainer`: initialization with device/seed/model/optimizer/DataLoader, `fit()` with gradient accumulation, mixed precision, cosine LR, val eval, checkpoint, `evaluate()`.' },
+        { lineRange: [1, 266], content: '`Trainer`: initialization with device/seed/model/optimizer/DataLoader, `fit()` with gradient accumulation, mixed precision, cosine LR, val eval, checkpoint, `evaluate()`.' },
       ],
     },
   },

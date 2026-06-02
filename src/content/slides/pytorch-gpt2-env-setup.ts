@@ -36,7 +36,9 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
             description: 'Detecta hardware disponível e define o dtype para mixed precision.',
             source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 28], content: '`device.py`: `get_device()` detecta CUDA/MPS/CPU. `autocast_dtype()` converte string de mixed precision para dtype PyTorch.' },
+              { lineRange: [1, 3], content: 'Docstring e imports: torch para detecção de hardware.' },
+              { lineRange: [7, 12], content: '`get_device()`: prioriza CUDA, depois MPS (Apple Silicon), fallback para CPU.' },
+              { lineRange: [15, 22], content: '`autocast_dtype()`: converte string `"bf16"`, `"fp16"` ou `"no"` para dtype PyTorch ou None.' },
             ],
           },
           {
@@ -61,7 +63,9 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
             description: 'Detects available hardware and sets dtype for mixed precision.',
             source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 28], content: '`device.py`: `get_device()` detects CUDA/MPS/CPU. `autocast_dtype()` converts mixed precision string to PyTorch dtype.' },
+              { lineRange: [1, 3], content: 'Docstring and imports: torch for hardware detection.' },
+              { lineRange: [7, 12], content: '`get_device()`: prioritizes CUDA, then MPS (Apple Silicon), falls back to CPU.' },
+              { lineRange: [15, 22], content: '`autocast_dtype()`: converts `"bf16"`, `"fp16"`, or `"no"` string to PyTorch dtype or None.' },
             ],
           },
           {

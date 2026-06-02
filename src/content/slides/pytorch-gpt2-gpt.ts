@@ -16,7 +16,7 @@ Se receber \`targets\`, calcula cross-entropy contra o próximo token esperado.`
 snippet:pytorch_gpt2/gpt
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 90], content: '`GPT`: modelo completo com token/position embedding, stack de TransformerBlocks, ln_f e lm_head. Forward com suporte a past_kv (KV cache). Inicialização estilo GPT-2 com _init_weights e _scale_residual_projections.' },
+        { lineRange: [1, 102], content: '`GPT`: modelo completo com token/position embedding, stack de TransformerBlocks, ln_f e lm_head. Forward com suporte a past_kv (KV cache). Inicialização estilo GPT-2 com _init_weights e _scale_residual_projections.' },
       ],
     },
     'en-us': {
@@ -30,7 +30,7 @@ If it receives \`targets\`, it computes cross-entropy against the expected next 
 snippet:pytorch_gpt2/gpt
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 90], content: '`GPT`: complete model with token/position embedding, TransformerBlock stack, ln_f and lm_head. Forward with past_kv (KV cache) support. GPT-2 style weight initialization via _init_weights and _scale_residual_projections.' },
+        { lineRange: [1, 102], content: '`GPT`: complete model with token/position embedding, TransformerBlock stack, ln_f and lm_head. Forward with past_kv (KV cache) support. GPT-2 style weight initialization via _init_weights and _scale_residual_projections.' },
       ],
     },
   },

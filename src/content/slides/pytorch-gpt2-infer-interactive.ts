@@ -18,7 +18,7 @@ Didaticamente, esse arquivo é ouro para aula, porque torna a geração observá
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 128], content: '`TokenGenerator`: geração interativa token a token. `_forward()` com cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` com métricas completas.' },
+        { lineRange: [1, 213], content: '`TokenGenerator`: geração interativa token a token. `_forward()` com cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` com métricas completas.' },
       ],
     },
     'en-us': {
@@ -34,7 +34,7 @@ Didactically, this file is gold for the classroom because it makes generation ob
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 128], content: '`TokenGenerator`: interactive token-by-token generation. `_forward()` with cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` with full metrics.' },
+        { lineRange: [1, 213], content: '`TokenGenerator`: interactive token-by-token generation. `_forward()` with cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` with full metrics.' },
       ],
     },
   },

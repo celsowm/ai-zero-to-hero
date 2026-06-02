@@ -18,7 +18,7 @@ snippet:pytorch_gpt2/block
       codeExplanations: [
         { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, `CausalSelfAttention` e `MLP`.' },
         { lineRange: [12, 19], content: '`TransformerBlock.__init__`: cria duas `LayerNorm`, `CausalSelfAttention` e `MLP`. Biases seguem `config.bias`.' },
-        { lineRange: [20, 34], content: '`forward`: se `use_cache=True`, passa `past_kv` para atenção e retorna `new_kv`. Caso contrário, fluxo padrão pré-LayerNorm. Shape `(B, T, C)` inalterado.' },
+        { lineRange: [20, 35], content: '`forward`: se `use_cache=True`, passa `past_kv` para atenção e retorna `new_kv`. Caso contrário, fluxo padrão pré-LayerNorm. Shape `(B, T, C)` inalterado.' },
       ],
     },
     'en-us': {
@@ -34,7 +34,7 @@ snippet:pytorch_gpt2/block
       codeExplanations: [
         { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, `CausalSelfAttention`, and `MLP`.' },
         { lineRange: [12, 19], content: '`TransformerBlock.__init__`: creates two `LayerNorm`, `CausalSelfAttention`, and `MLP`. Biases follow `config.bias`.' },
-        { lineRange: [20, 34], content: '`forward`: if `use_cache=True`, passes `past_kv` to attention and returns `new_kv`. Otherwise, standard pre-LayerNorm pattern. Shape `(B, T, C)` unchanged.' },
+        { lineRange: [20, 35], content: '`forward`: if `use_cache=True`, passes `past_kv` to attention and returns `new_kv`. Otherwise, standard pre-LayerNorm pattern. Shape `(B, T, C)` unchanged.' },
       ],
     },
   },

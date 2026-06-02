@@ -16,7 +16,7 @@ Esse passo prepara o treino para ser rápido: o \`Trainer\` não vai tokenizar t
 snippet:pytorch_gpt2/prepare-shards
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 104], content: '`prepare.py`: tokeniza dataset, separa treino/val, salva shards `.bin` com flush incremental, gera `metadata.json`.' },
+        { lineRange: [1, 197], content: '`prepare.py`: tokeniza dataset, separa treino/val, salva shards `.bin` com flush incremental, gera `metadata.json`.' },
       ],
     },
     'en-us': {
@@ -30,7 +30,7 @@ This step prepares training to be fast: the \`Trainer\` will not tokenize text e
 snippet:pytorch_gpt2/prepare-shards
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 104], content: '`prepare.py`: tokenizes dataset, splits train/val, saves `.bin` shards with incremental flush, generates `metadata.json`.' },
+        { lineRange: [1, 197], content: '`prepare.py`: tokenizes dataset, splits train/val, saves `.bin` shards with incremental flush, generates `metadata.json`.' },
       ],
     },
   },

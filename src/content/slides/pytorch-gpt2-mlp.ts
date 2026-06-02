@@ -16,9 +16,9 @@ A forma usada no GPT-2 é expandir a dimensão interna para \`4C\`, aplicar GELU
 snippet:pytorch_gpt2/mlp
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 9], content: 'Imports: `torch`, `nn` do PyTorch, e `ModelConfig` do projeto. `MLP` herda de `nn.Module`.' },
-        { lineRange: [11, 29], content: '`MLP` estende `nn.Module`. `__init__`: recebe `ModelConfig` e cria quatro camadas — `c_fc` expande de `C` para `4C`, `gelu` (aproximação tanh, como no GPT-2 original), `c_proj` projeta de `4C` de volta para `C`, e `dropout` para regularização.' },
-        { lineRange: [31, 37], content: '`forward`: sequência linear → GELU → projeção → dropout. O shape de entrada `(B, T, C)` é preservado na saída — a transformação é posição-a-posição.' },
+        { lineRange: [1, 8], content: 'Docstring e imports: `torch`, `nn` do PyTorch, e `ModelConfig` do projeto. `MLP` herda de `nn.Module`.' },
+        { lineRange: [10, 16], content: '`MLP.__init__`: recebe `ModelConfig` e cria quatro camadas — `c_fc` expande de `C` para `4C`, `gelu` (aproximação tanh, como no GPT-2 original), `c_proj` projeta de `4C` de volta para `C`, e `dropout` para regularização.' },
+        { lineRange: [18, 22], content: '`forward`: sequência linear → GELU → projeção → dropout. O shape de entrada `(B, T, C)` é preservado na saída — a transformação é posição-a-posição.' },
       ],
     },
     'en-us': {
@@ -32,9 +32,9 @@ The GPT-2 approach expands the inner dimension to \`4C\`, applies GELU, and proj
 snippet:pytorch_gpt2/mlp
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 9], content: 'Imports: `torch`, `nn` from PyTorch, and `ModelConfig` from the project. `MLP` extends `nn.Module`.' },
-        { lineRange: [11, 29], content: '`MLP` extends `nn.Module`. `__init__`: receives `ModelConfig` and creates four layers — `c_fc` expands from `C` to `4C`, `gelu` (tanh approximation, as in original GPT-2), `c_proj` projects from `4C` back to `C`, and `dropout` for regularization.' },
-        { lineRange: [31, 37], content: '`forward`: linear → GELU → projection → dropout sequence. The input shape `(B, T, C)` is preserved — the transformation is position-wise.' },
+        { lineRange: [1, 8], content: 'Docstring and imports: `torch`, `nn` from PyTorch, and `ModelConfig` from the project. `MLP` extends `nn.Module`.' },
+        { lineRange: [10, 16], content: '`MLP.__init__`: receives `ModelConfig` and creates four layers — `c_fc` expands from `C` to `4C`, `gelu` (tanh approximation, as in original GPT-2), `c_proj` projects from `4C` back to `C`, and `dropout` for regularization.' },
+        { lineRange: [18, 22], content: '`forward`: linear → GELU → projection → dropout sequence. The input shape `(B, T, C)` is preserved — the transformation is position-wise.' },
       ],
     },
   },

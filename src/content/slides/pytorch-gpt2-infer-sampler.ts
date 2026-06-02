@@ -20,10 +20,10 @@ A mensagem didática do slide é: **o modelo calcula logits; o sampler decide co
 snippet:pytorch_gpt2/infer-sampler
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 4], content: 'Imports: `torch` e `torch.nn.functional` (softmax, multinomial).' },
-        { lineRange: [7, 21], content: '`_apply_top_k`: recebe logits e `top_k`. Usa `torch.topk` para achar o corte do k-ésimo maior valor. Usa `torch.where` para podar tudo abaixo do corte com `float("-inf")`.' },
-        { lineRange: [24, 57], content: '`_apply_top_p`: ordena logits decrescente, calcula softmax cumulativo, e cria máscara onde a probabilidade acumulada passa do limite `top_p`. Usa `scatter_` para remontar os logits originais com os valores podados.' },
-        { lineRange: [60, 77], content: '`sample_next_token`: se `do_sample=False` ou `temperature=0`, faz argmax (greedy). Caso contrário, divide por temperatura, aplica filtros, softmax e `torch.multinomial` para sortear o próximo token.' },
+        { lineRange: [1, 5], content: 'Docstring e imports: `torch` e `torch.nn.functional` (softmax, multinomial).' },
+        { lineRange: [8, 13], content: '`_apply_top_k`: recebe logits e `top_k`. Usa `torch.topk` para achar o corte do k-ésimo maior valor. Usa `torch.where` para podar tudo abaixo do corte com `float("-inf")`.' },
+        { lineRange: [16, 31], content: '`_apply_top_p`: ordena logits decrescente, calcula softmax cumulativo, e cria máscara onde a probabilidade acumulada passa do limite `top_p`. Usa `scatter_` para remontar os logits originais com os valores podados.' },
+        { lineRange: [34, 50], content: '`sample_next_token`: se `do_sample=False` ou `temperature<=0`, faz argmax (greedy). Caso contrário, divide por temperatura, aplica filtros, softmax e `torch.multinomial` para sortear o próximo token.' },
       ],
     },
     'en-us': {
@@ -41,10 +41,10 @@ The didactic message is: **the model computes logits; the sampler decides how to
 snippet:pytorch_gpt2/infer-sampler
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 4], content: 'Imports: `torch` and `torch.nn.functional` (softmax, multinomial).' },
-        { lineRange: [7, 21], content: '`_apply_top_k`: receives logits and `top_k`. Uses `torch.topk` to find the k-th highest cutoff. Uses `torch.where` to prune everything below the cutoff with `float("-inf")`.' },
-        { lineRange: [24, 57], content: '`_apply_top_p`: sorts logits descending, computes cumulative softmax, and masks where cumulative probability exceeds the `top_p` threshold. Uses `scatter_` to reconstruct original logits with pruned values.' },
-        { lineRange: [60, 77], content: '`sample_next_token`: if `do_sample=False` or `temperature=0`, does argmax (greedy). Otherwise divides by temperature, applies filters, softmax, and `torch.multinomial` to draw the next token.' },
+        { lineRange: [1, 5], content: 'Docstring and imports: `torch` and `torch.nn.functional` (softmax, multinomial).' },
+        { lineRange: [8, 13], content: '`_apply_top_k`: receives logits and `top_k`. Uses `torch.topk` to find the k-th highest cutoff. Uses `torch.where` to prune everything below the cutoff with `float("-inf")`.' },
+        { lineRange: [16, 31], content: '`_apply_top_p`: sorts logits descending, computes cumulative softmax, and masks where cumulative probability exceeds the `top_p` threshold. Uses `scatter_` to reconstruct original logits with pruned values.' },
+        { lineRange: [34, 50], content: '`sample_next_token`: if `do_sample=False` or `temperature<=0`, does argmax (greedy). Otherwise divides by temperature, applies filters, softmax, and `torch.multinomial` to draw the next token.' },
       ],
     },
   },

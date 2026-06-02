@@ -40,9 +40,15 @@ class GPT(nn.Module):
     ) -> tuple[torch.Tensor, torch.Tensor | None] | tuple[torch.Tensor, torch.Tensor | None, KVCache]:
         batch_size, seq_len = idx.shape
         if seq_len > self.config.block_size:
-            raise ValueError(f"Cannot forward sequence of length {seq_len}")
+            raise ValueError(
+                f"Cannot forward sequence of length {seq_len}; block_size is {self.config.block_size}"
+            )
 
         past_len = 0 if past_kv is None else past_kv[0][0].size(2)
+        if past_len + seq_len > self.config.block_size:
+            raise ValueError(
+                f"Sequence plus cache length {past_len + seq_len} exceeds block_size {self.config.block_size}"
+            )
 
         positions = torch.arange(past_len, past_len + seq_len, device=idx.device, dtype=torch.long)
         x = self.token_embedding(idx) + self.position_embedding(positions)[None, :, :]
@@ -67,6 +73,13 @@ class GPT(nn.Module):
         if use_cache:
             return logits, loss, new_cache
         return logits, loss
+
+    @torch.no_grad()
+    def crop_block_size(self, block_size: int) -> None:
+        if block_size > self.config.block_size:
+            raise ValueError("Cannot increase block_size by cropping")
+        self.config = ModelConfig(**{**self.config.__dict__, "block_size": block_size})
+        self.position_embedding.weight = nn.Parameter(self.position_embedding.weight[:block_size])
 
     def num_parameters(self, *, exclude_embeddings: bool = True) -> int:
         total = sum(p.numel() for p in self.parameters())
