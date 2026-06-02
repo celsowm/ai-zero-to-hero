@@ -23,4 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 sft_workspace/
-.gpt2-pytorch/
+# Large files in gpt2-pytorch
+gpt2-pytorch/checkpoints/
+gpt2-pytorch/data/tokenized/
+gpt2-pytorch/**/__pycache__/
+gpt2-pytorch/**/*.pyc

@@ -1,0 +1,16 @@
+train:
+  batch_size: 16
+  gradient_accumulation_steps: 8
+  max_steps: 20000
+  learning_rate: 0.0006
+  weight_decay: 0.1
+  warmup_steps: 500
+  grad_clip: 1.0
+  eval_interval: 500
+  checkpoint_interval: 1000
+  mixed_precision: bf16
+  compile: false
+  out_dir: checkpoints/gpt2-small
+  seed: 1337
+  num_workers: 2
+
