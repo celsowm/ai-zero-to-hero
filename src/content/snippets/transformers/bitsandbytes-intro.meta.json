@@ -1,0 +1,31 @@
+{
+  "id": "transformers/bitsandbytes-intro",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "`torch` para verificar CUDA, `bitsandbytes` (bnb) para confirmar a instalação dos kernels.",
+      "en-us": "`torch` to check CUDA, `bitsandbytes` (bnb) to confirm kernel installation."
+    },
+    {
+      "lineRange": [4, 6],
+      "pt-br": "Versão do bitsandbytes e disponibilidade de CUDA — os dois pré-requisitos para quantização INT8/NF4.",
+      "en-us": "bitsandbytes version and CUDA availability — the two prerequisites for INT8/NF4 quantization."
+    },
+    {
+      "lineRange": [8, 12],
+      "pt-br": "O que bitsandbytes oferece: kernels INT8 (llm.int8()), kernels NF4 (QLoRA) e otimizadores 8-bit para treino.",
+      "en-us": "What bitsandbytes provides: INT8 kernels (llm.int8()), NF4 kernels (QLoRA), and 8-bit optimizers for training."
+    },
+    {
+      "lineRange": [14, 15],
+      "pt-br": "`BitsAndBytesConfig` vive em `transformers`, não em `bnb`. Você nunca importa nada diretamente de bitsandbytes no seu código de inferência.",
+      "en-us": "`BitsAndBytesConfig` lives in `transformers`, not in `bnb`. You never import anything directly from bitsandbytes in your inference code."
+    },
+    {
+      "lineRange": [17, 25],
+      "pt-br": "As duas configs principais: INT8 para o llm.int8() e NF4 para o QLoRA/inferência eficiente. Ambas passadas via `quantization_config` no `from_pretrained`.",
+      "en-us": "The two main configs: INT8 for llm.int8() and NF4 for QLoRA/efficient inference. Both passed via `quantization_config` in `from_pretrained`."
+    }
+  ]
+}

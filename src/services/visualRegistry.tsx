@@ -227,6 +227,13 @@ const visualMap: Record<string, string> = {
 
   // quantization
   'quantization-tabs': 'QuantizationTabsVisual',
+  'quantization-theory': 'QuantizationTheoryVisual',
+  'quantization-setup': 'QuantizationSetupVisual',
+  'quantization-memory-bar': 'QuantizationMemoryBarVisual',
+  'quantization-fp16-bits': 'QuantizationFp16Visual',
+  'quantization-int8-outliers': 'QuantizationInt8Visual',
+  'quantization-nf4-levels': 'QuantizationNf4Visual',
+  'bitsandbytes-intro': 'BitsandbytesIntroVisual',
 
   // peft / lora
   'lora-diagram': 'LoraDiagram',

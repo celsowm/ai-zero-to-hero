@@ -1,0 +1,31 @@
+{
+  "id": "transformers/quantization-theory",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "Importamos `torch` para manipular tensores e `math` para constantes.",
+      "en-us": "We import `torch` for tensor operations and `math` for constants."
+    },
+    {
+      "lineRange": [4, 5],
+      "pt-br": "Criamos 1000 pesos sintéticos seguindo uma distribuição normal N(0, 0.1) — similar aos pesos reais de um LLM após o treino.",
+      "en-us": "We create 1000 synthetic weights following a normal distribution N(0, 0.1) — similar to real LLM weights after training."
+    },
+    {
+      "lineRange": [7, 14],
+      "pt-br": "A função `quantize` implementa a equação central: calcula `S` (scale), `Z` (zero-point), quantiza e depois recupera a aproximação.",
+      "en-us": "The `quantize` function implements the core equation: computes `S` (scale), `Z` (zero-point), quantizes, and then recovers the approximation."
+    },
+    {
+      "lineRange": [16, 19],
+      "pt-br": "Quantizamos em INT8 (8 bits, 256 níveis) e medimos o MSE — o erro entre os pesos originais e os recuperados.",
+      "en-us": "We quantize in INT8 (8 bits, 256 levels) and measure the MSE — the error between original and recovered weights."
+    },
+    {
+      "lineRange": [21, 23],
+      "pt-br": "Com 4 bits (16 níveis), o MSE aumenta, mas ainda é pequeno — mostrando por que NF4 funciona tão bem.",
+      "en-us": "With 4 bits (16 levels), MSE increases but is still small — showing why NF4 works so well."
+    }
+  ]
+}

@@ -80,6 +80,13 @@ import type {
   LoraDiagramCopy,
   MultiheadDiagramCopy,
   QuantizationTabsCopy,
+  QuantizationTheoryCopy,
+  QuantizationSetupCopy,
+  BitsandbytesIntroCopy,
+  QuantizationMemoryBarCopy,
+  QuantizationFp16Copy,
+  QuantizationInt8Copy,
+  QuantizationNf4Copy,
   ParallelPredictionDiagramCopy,
   PipelineFlowDiagramCopy,
   PositionalEmbeddingAdderCopy,
@@ -388,6 +395,20 @@ interface VisualCopyMap {
   'lora-diagram': LoraDiagramCopy;
   // quantization tabs (generic)
   'quantization-tabs': QuantizationTabsCopy;
+  // quantization theory (math deep-dive, no tabs)
+  'quantization-theory': QuantizationTheoryCopy;
+  // quantization setup
+  'quantization-setup': QuantizationSetupCopy;
+  // bitsandbytes intro
+  'bitsandbytes-intro': BitsandbytesIntroCopy;
+  // quantization overview memory bar
+  'quantization-memory-bar': QuantizationMemoryBarCopy;
+  // fp16 bit layout
+  'quantization-fp16-bits': QuantizationFp16Copy;
+  // int8 outlier distribution
+  'quantization-int8-outliers': QuantizationInt8Copy;
+  // nf4 quantile levels
+  'quantization-nf4-levels': QuantizationNf4Copy;
   // neural networks
   'neuron-architecture-animated': NeuronArchitectureAnimatedCopy;
   'activation-functions-comparator': ActivationFunctionsComparatorCopy;

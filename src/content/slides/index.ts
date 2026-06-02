@@ -185,6 +185,9 @@ import { quantizationFp16 } from './quantization-fp16';
 import { quantizationInt8 } from './quantization-int8';
 import { quantizationNf4 } from './quantization-nf4';
 import { quantizationOverview } from './quantization-overview';
+import { quantizationSetup } from './quantization-setup';
+import { quantizationTheory } from './quantization-theory';
+import { bitsandbytesIntro } from './bitsandbytes-intro';
 import { ragAnswerWithSources } from './rag-answer-with-sources';
 import { ragChromadbMinimal } from './rag-chromadb-minimal';
 import { ragChunking } from './rag-chunking';
@@ -447,9 +450,12 @@ export const allSlides: ISlide[] = [
   pythonPrereqOopInheritance,
   pythonPrereqSumGenerator,
   quantizationOverview,
+  quantizationSetup,
   quantizationFp16,
+  quantizationTheory,
   quantizationInt8,
   quantizationNf4,
+  bitsandbytesIntro,
   ragAnswerWithSources,
   ragChromadbMinimal,
   ragChunking,

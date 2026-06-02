@@ -1,0 +1,26 @@
+{
+  "id": "transformers/quantization-setup",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 3],
+      "pt-br": "Os três pacotes necessários: `transformers` para carregar modelos, `bitsandbytes` para kernels de quantização e `accelerate` para o `device_map`.",
+      "en-us": "The three required packages: `transformers` to load models, `bitsandbytes` for quantization kernels, and `accelerate` for `device_map`."
+    },
+    {
+      "lineRange": [7, 10],
+      "pt-br": "`torch.cuda.is_available()` verifica se há GPU. `get_device_properties(0).total_memory` retorna a VRAM total em bytes.",
+      "en-us": "`torch.cuda.is_available()` checks if a GPU is present. `get_device_properties(0).total_memory` returns total VRAM in bytes."
+    },
+    {
+      "lineRange": [13, 15],
+      "pt-br": "Carregamos o modelo em FP32 para medir o baseline. `get_memory_footprint()` retorna bytes reais usados pelos pesos.",
+      "en-us": "We load the model in FP32 to measure the baseline. `get_memory_footprint()` returns the actual bytes used by the weights."
+    },
+    {
+      "lineRange": [18, 19],
+      "pt-br": "Verificamos a versão do bitsandbytes. Se der erro aqui, a quantização INT8 e NF4 não funcionarão.",
+      "en-us": "We verify the bitsandbytes version. If this errors, INT8 and NF4 quantization will not work."
+    }
+  ]
+}

@@ -387,6 +387,174 @@ export interface QuantizationTabsCopy {
   panels: QuantizationTabsPanelCopy[];
 }
 
+// ── Quantization Setup ────────────────────────────────────────────────────
+
+export interface QuantizationSetupFormat {
+  name: string;
+  bytes: number;
+  vram7b: number;
+  requires: string[];
+  note: string;
+}
+
+export interface QuantizationSetupCheck {
+  label: string;
+  ok: string;
+}
+
+export interface QuantizationSetupCopy {
+  title: string;
+  subtitle: string;
+  formats: QuantizationSetupFormat[];
+  bytesLabel: string;
+  vramLabel: string;
+  requiresLabel: string;
+  gbUnit: string;
+  checklistTitle: string;
+  checks: QuantizationSetupCheck[];
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations: CodeExplanation[];
+  };
+}
+
+// ── BitsandBytes Intro ─────────────────────────────────────────────────────
+
+export interface BitsandbytesLayer {
+  label: string;
+  detail: string;
+  color: string;
+}
+
+export interface BitsandbytesFeature {
+  icon: string;
+  label: string;
+  detail: string;
+}
+
+export interface BitsandbytesIntroCopy {
+  title: string;
+  subtitle: string;
+  layers: BitsandbytesLayer[];
+  featuresTitle: string;
+  features: BitsandbytesFeature[];
+  contractTitle: string;
+  contractNote: string;
+  tabs: Array<{ label: string }>;
+  codePanel: {
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations: CodeExplanation[];
+  };
+}
+
+// ── Quantization Memory Bar ────────────────────────────────────────────────
+
+export interface QuantizationMemoryBarEntry {
+  label: string;
+  bytes: number;
+  vram7b: number;
+  color: string;
+  note: string;
+}
+
+export interface QuantizationMemoryBarCopy {
+  title: string;
+  subtitle: string;
+  entries: QuantizationMemoryBarEntry[];
+  vramLabel: string;
+  gbUnit: string;
+  modelLabel: string;
+  note: string;
+}
+
+// ── Quantization FP16 Bits ─────────────────────────────────────────────────
+
+export interface QuantizationFp16BitField {
+  label: string;
+  bits: number;
+  color: string;
+  description: string;
+}
+
+export interface QuantizationFp16FormatSpec {
+  name: string;
+  fields: QuantizationFp16BitField[];
+  maxValue: string;
+  minPositive: string;
+  insight: string;
+}
+
+export interface QuantizationFp16Copy {
+  title: string;
+  subtitle: string;
+  fp32: QuantizationFp16FormatSpec;
+  fp16: QuantizationFp16FormatSpec;
+  takeaway: string;
+}
+
+// ── Quantization INT8 Outliers ─────────────────────────────────────────────
+
+export interface QuantizationInt8Copy {
+  title: string;
+  subtitle: string;
+  thresholdLabel: string;
+  fp16Label: string;
+  int8Label: string;
+  outlierPercentLabel: string;
+  normalPercentLabel: string;
+  insightTitle: string;
+  insight: string;
+}
+
+// ── Quantization NF4 Levels ────────────────────────────────────────────────
+
+export interface QuantizationNf4Copy {
+  title: string;
+  subtitle: string;
+  uniformLabel: string;
+  nf4Label: string;
+  showErrorLabel: string;
+  hideErrorLabel: string;
+  centralCoverageLabel: string;
+  takeaway: string;
+}
+
+// ── Quantization Theory ────────────────────────────────────────────────────
+
+export interface QuantizationTheoryMappingPanelCopy {
+  title: string;
+  body: string;
+  highlight: { label: string; value: string };
+  bullets: string[];
+  footer: string;
+}
+
+export interface QuantizationTheoryFormulaPanelCopy {
+  title: string;
+  body: string;
+  highlight: { label: string; value: string };
+  bullets: string[];
+  footer: string;
+}
+
+export interface QuantizationTheoryErrorPanelCopy {
+  title: string;
+  body: string;
+  highlight: { label: string; value: string };
+  bullets: string[];
+  footer: string;
+}
+
+export interface QuantizationTheoryCopy {
+  mappingPanel: QuantizationTheoryMappingPanelCopy;
+  formulaPanel: QuantizationTheoryFormulaPanelCopy;
+}
+
 // ── Sampling Controls Interactive ──────────────────────────────────────────
 
 export interface TemperatureSliderInteractiveCopy {
