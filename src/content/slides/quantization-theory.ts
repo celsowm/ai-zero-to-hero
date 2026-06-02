@@ -58,6 +58,7 @@ export const quantizationTheory = defineSlide({
     id: 'quantization-theory',
     copy: {
       'pt-br': {
+        tabs: [{ label: 'Visual' }, { label: 'Código' }],
         mappingPanel: {
           title: 'Como k bits dividem o espaço dos pesos',
           body: 'O slider controla k. As linhas verticais mostram os buckets disponíveis. Menos bits = buckets maiores = mais erro.',
@@ -82,8 +83,32 @@ export const quantizationTheory = defineSlide({
           ],
           footer: 'O erro vem do round(). S e Z são escolhidos para minimizá-lo.',
         },
+        codePanel: {
+          title: 'Simulação de quantização uniforme',
+          description: 'A função `quantize` implementa S, Z, clamp e dequantização. Compare INT8 vs NF4 em pesos simulados.',
+          source: { snippetId: 'transformers/quantization-theory', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 6],
+              content: 'Importamos `torch` e geramos 1000 pesos aleatórios com distribuição normal ~N(0, 0.1), simulando pesos de uma LLM após o treino.',
+            },
+            {
+              lineRange: [8, 15],
+              content: 'A função `quantize` implementa os 4 passos: calcular S e Z, quantizar com clamp e round, depois dequantizar. Retorna os valores quantizados, dequantizados, S e Z.',
+            },
+            {
+              lineRange: [17, 23],
+              content: 'Aplicamos `quantize` com 8 bits (INT8) e 4 bits (NF4) e calculamos o erro médio quadrático (MSE). Menos bits = maior MSE.',
+            },
+            {
+              lineRange: [25, 26],
+              content: 'Exibimos o range original e o número de níveis. INT8 tem 256 níveis, NF4 tem apenas 16 — daí a diferença de precisão.',
+            },
+          ],
+        },
       },
       'en-us': {
+        tabs: [{ label: 'Visual' }, { label: 'Code' }],
         mappingPanel: {
           title: 'How k bits divide the weight space',
           body: 'The slider controls k. The vertical lines show the available buckets. Fewer bits = larger buckets = more error.',
@@ -107,6 +132,29 @@ export const quantizationTheory = defineSlide({
             'clamp() prevents overflow outside [0, 2^k−1]',
           ],
           footer: 'The error comes from round(). S and Z are chosen to minimize it.',
+        },
+        codePanel: {
+          title: 'Uniform quantization simulation',
+          description: 'The `quantize` function implements S, Z, clamp, and dequantization. Compare INT8 vs NF4 on simulated weights.',
+          source: { snippetId: 'transformers/quantization-theory', language: 'python' },
+          codeExplanations: [
+            {
+              lineRange: [1, 6],
+              content: 'We import `torch` and generate 1000 random weights with a normal distribution ~N(0, 0.1), simulating LLM weights after training.',
+            },
+            {
+              lineRange: [8, 15],
+              content: 'The `quantize` function implements the 4 steps: compute S and Z, quantize with clamp and round, then dequantize. Returns quantized values, dequantized values, S, and Z.',
+            },
+            {
+              lineRange: [17, 23],
+              content: 'We apply `quantize` with 8 bits (INT8) and 4 bits (NF4) and compute the mean squared error (MSE). Fewer bits = larger MSE.',
+            },
+            {
+              lineRange: [25, 26],
+              content: 'We display the original range and the number of levels. INT8 has 256 levels, NF4 has only 16 — hence the precision difference.',
+            },
+          ],
         },
       },
     },

@@ -2,6 +2,8 @@ import React, { useMemo, useState } from 'react';
 import type { QuantizationTheoryCopy } from '../../../types/slide';
 import { sw } from '../../../theme/tokens';
 import { PanelCard } from '../PanelCard';
+import { TabsBar } from '../TabsBar';
+import { CodeBlock } from '../../CodeBlock';
 import { ChartFrame } from '../charts/ChartFrame';
 
 interface Props {
@@ -293,27 +295,61 @@ function StepperSection({ copy }: { copy: QuantizationTheoryCopy }) {
   );
 }
 
+// ── Visual Panel ──
+
+const VisualPanel: React.FC<{ copy: QuantizationTheoryCopy }> = ({ copy }) => (
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      fontFamily: sw.fontSans,
+      color: sw.text,
+      minHeight: 0,
+      overflow: 'auto',
+    }}
+  >
+    <MappingSection copy={copy} />
+    <div style={{ borderTop: `1px solid ${sw.borderSubtle}` }} />
+    <StepperSection copy={copy} />
+  </div>
+);
+
 // ── Main Visual ──
 
 export const QuantizationTheoryVisual = React.memo(({ copy }: Props) => {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
-    <PanelCard minHeight={0} padding={18} gap={16}>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-          fontFamily: sw.fontSans,
-          color: sw.text,
-          minHeight: 0,
-          overflow: 'auto',
-        }}
-      >
-        <MappingSection copy={copy} />
-        <div style={{ borderTop: `1px solid ${sw.borderSubtle}` }} />
-        <StepperSection copy={copy} />
+    <PanelCard minHeight={0} padding={18} gap={12}>
+      <TabsBar
+        items={copy.tabs}
+        activeIndex={activeTab}
+        onChange={setActiveTab}
+        ariaLabel="Quantization theory tabs"
+      />
+      <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+        {activeTab === 0 ? (
+          <VisualPanel copy={copy} />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: sw.text, marginBottom: 4 }}>
+              {copy.codePanel.title}
+            </div>
+            <div style={{ fontSize: 12, color: sw.textDim, marginBottom: 10, lineHeight: 1.5 }}>
+              {copy.codePanel.description}
+            </div>
+            <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+              <CodeBlock
+                sourceRef={copy.codePanel.source}
+                language="python"
+                explanations={copy.codePanel.codeExplanations}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </PanelCard>
   );

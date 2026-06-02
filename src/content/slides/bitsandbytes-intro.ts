@@ -112,6 +112,10 @@ export const bitsandbytesIntro = defineSlide({
               lineRange: [17, 25],
               content: 'As duas configs: INT8 para llm.int8() e NF4 para inferência eficiente. Ambas passadas via `quantization_config` ao `from_pretrained`.',
             },
+            {
+              lineRange: [27, 27],
+              content: 'Confirmamos que as configs foram criadas sem erro. O modelo ainda não foi carregado — isso acontece no próximo passo.',
+            },
           ],
         },
       },
@@ -185,6 +189,10 @@ export const bitsandbytesIntro = defineSlide({
             {
               lineRange: [17, 25],
               content: 'The two configs: INT8 for llm.int8() and NF4 for efficient inference. Both passed via `quantization_config` to `from_pretrained`.',
+            },
+            {
+              lineRange: [27, 27],
+              content: 'We confirm the configs were created without errors. The model has not been loaded yet — that happens in the next step.',
             },
           ],
         },

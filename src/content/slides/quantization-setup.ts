@@ -95,16 +95,20 @@ pip install transformers>=4.40 bitsandbytes>=0.43 accelerate>=0.27
               content: 'Os três pacotes essenciais: `transformers`, `bitsandbytes` e `accelerate`. Versões mínimas garantem compatibilidade com NF4.',
             },
             {
+              lineRange: [4, 6],
+              content: 'Importamos `torch` e `AutoModelForCausalLM` do `transformers`, a classe usada para carregar qualquer modelo causal.',
+            },
+            {
               lineRange: [7, 10],
               content: '`torch.cuda.is_available()` confirma GPU disponível. `total_memory` mostra a VRAM disponível para o modelo.',
             },
             {
-              lineRange: [13, 15],
-              content: 'Carregamos em FP32 para ter o baseline de memória. Nos próximos slides, vamos comparar FP16, INT8 e NF4 contra esse valor.',
+              lineRange: [13, 16],
+              content: 'Carregamos o modelo em FP32 para ter o baseline de memória. `get_memory_footprint()` retorna o consumo total em bytes.',
             },
             {
-              lineRange: [18, 19],
-              content: 'Se `import bitsandbytes` falhar, INT8 e NF4 não vão funcionar — este é o ponto de falha mais comum.',
+              lineRange: [18, 20],
+              content: 'Importamos `bitsandbytes` e exibimos sua versão. Se este import falhar, INT8 e NF4 não vão funcionar — ponto de falha mais comum.',
             },
           ],
         },
@@ -163,16 +167,20 @@ pip install transformers>=4.40 bitsandbytes>=0.43 accelerate>=0.27
               content: 'The three essential packages: `transformers`, `bitsandbytes`, and `accelerate`. Minimum versions ensure NF4 compatibility.',
             },
             {
+              lineRange: [4, 6],
+              content: 'We import `torch` and `AutoModelForCausalLM` from `transformers`, the class used to load any causal model.',
+            },
+            {
               lineRange: [7, 10],
               content: '`torch.cuda.is_available()` confirms GPU is available. `total_memory` shows the VRAM available for the model.',
             },
             {
-              lineRange: [13, 15],
-              content: 'We load in FP32 to get the memory baseline. In the next slides, we compare FP16, INT8, and NF4 against this value.',
+              lineRange: [13, 16],
+              content: 'We load the model in FP32 to get the memory baseline. `get_memory_footprint()` returns the total memory consumption in bytes.',
             },
             {
-              lineRange: [18, 19],
-              content: 'If `import bitsandbytes` fails, INT8 and NF4 will not work — this is the most common failure point.',
+              lineRange: [18, 20],
+              content: 'We import `bitsandbytes` and print its version. If this import fails, INT8 and NF4 will not work — the most common failure point.',
             },
           ],
         },

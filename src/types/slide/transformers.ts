@@ -550,9 +550,18 @@ export interface QuantizationTheoryErrorPanelCopy {
   footer: string;
 }
 
+export interface QuantizationTheoryCodePanelCopy {
+  title: string;
+  description: string;
+  source: CodeSourceRef;
+  codeExplanations: CodeExplanation[];
+}
+
 export interface QuantizationTheoryCopy {
+  tabs: Array<{ label: string }>;
   mappingPanel: QuantizationTheoryMappingPanelCopy;
   formulaPanel: QuantizationTheoryFormulaPanelCopy;
+  codePanel: QuantizationTheoryCodePanelCopy;
 }
 
 // ── Sampling Controls Interactive ──────────────────────────────────────────
