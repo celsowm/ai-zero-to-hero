@@ -15,8 +15,12 @@ dependencies = [
 [project.optional-dependencies]
 hf = [
   "datasets>=2.19",
+  "huggingface-hub>=0.23",
 ]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 

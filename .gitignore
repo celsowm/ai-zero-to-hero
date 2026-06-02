@@ -26,5 +26,6 @@ sft_workspace/
 # Large files in gpt2-pytorch
 gpt2-pytorch/checkpoints/
 gpt2-pytorch/data/tokenized/
+gpt2-pytorch/tokenizers/*.json
 gpt2-pytorch/**/__pycache__/
 gpt2-pytorch/**/*.pyc

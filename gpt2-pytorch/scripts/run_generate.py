@@ -105,5 +105,6 @@ if __name__ == "__main__":
     main()
 
 # bash
-# python scripts/generate.py --language pt --prompt "Era uma vez"
+# pip install -e gpt2-pytorch
+# python scripts/run_generate.py --language pt --prompt "Era uma vez"
 

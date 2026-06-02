@@ -1,4 +1,11 @@
-# src/infer/generate.py
+"""Low-level autoregressive token generation loop."""
+from __future__ import annotations
+
+import torch
+
+from infer.sampler import sample_next_token
+from model.gpt import GPT, KVCache
+
 
 @torch.no_grad()
 def generate(
@@ -14,27 +21,22 @@ def generate(
     eos_token_id: int | None = None,
 ) -> torch.Tensor:
     model.eval()
-
     full_idx = idx
     window_idx = idx[:, -model.config.block_size :]
-
     cache: KVCache | None = None
 
     for _ in range(max_new_tokens):
         if use_cache:
+            if cache is not None and cache[0][0].size(2) >= model.config.block_size:
+                keep = model.config.block_size - 1
+                cache = [(k[:, :, -keep:, :], v[:, :, -keep:, :]) for k, v in cache]
             idx_cond = window_idx if cache is None else window_idx[:, -1:]
-
-            logits, _, cache = model(
-                idx_cond,
-                past_kv=cache,
-                use_cache=True,
-            )
+            logits, _, cache = model(idx_cond, past_kv=cache, use_cache=True)
         else:
             idx_cond = window_idx[:, -model.config.block_size :]
             logits, _ = model(idx_cond)
 
         next_logits = logits[:, -1, :]
-
         next_token = sample_next_token(
             next_logits,
             temperature=temperature,
@@ -42,16 +44,13 @@ def generate(
             top_p=top_p,
             do_sample=do_sample,
         )
-
         full_idx = torch.cat((full_idx, next_token), dim=1)
         window_idx = torch.cat((window_idx, next_token), dim=1)
 
-        if eos_token_id is not None:
-            if bool(torch.all(next_token == eos_token_id).item()):
-                break
+        if eos_token_id is not None and bool(torch.all(next_token == eos_token_id).item()):
+            break
 
         if window_idx.size(1) > model.config.block_size:
             window_idx = window_idx[:, -model.config.block_size :]
 
     return full_idx
-
