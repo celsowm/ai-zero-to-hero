@@ -16,7 +16,15 @@ A interface importante é \`iter_texts()\`: o resto do pipeline só precisa rece
 snippet:pytorch_gpt2/text-source
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 206], content: '`text_source.py`: `normalize_paragraphs()` com regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
+        { lineRange: [1, 9], content: 'Docstring e imports: `re`, `pathlib`, `Iterator`/`Protocol`, `DataConfig`.' },
+        { lineRange: [12, 33], content: 'Regex e `normalize_paragraphs()`: remove quebras de linha, números de página, normaliza espaços, retorna parágrafos separados por `\\n\\n`.' },
+        { lineRange: [36, 41], content: '`TextSource` (Protocol): interface com `iter_texts()` e `count_documents()`.' },
+        { lineRange: [44, 65], content: '`LocalTextSource`: lê de arquivo ou diretório `.txt`, normaliza parágrafos, conta documentos.' },
+        { lineRange: [68, 101], content: '`HFTextSource.__init__`: recebe `DataConfig`, normaliza tag de idioma. `_row_matches_language`: filtra linhas por idioma.' },
+        { lineRange: [103, 131], content: '`_iter_from_partitioned_parquet`: carrega apenas parquet do idioma alvo (otimização para datasets particionados).' },
+        { lineRange: [132, 187], content: '`iter_texts`: tenta partitioned parquet, fallback para `load_dataset`, fallback para parquet por arquivo em erro de cast.' },
+        { lineRange: [189, 196], content: '`count_documents`: usa `load_dataset_builder` para estimar total de exemplos.' },
+        { lineRange: [199, 206], content: '`build_text_source`: factory que seleciona `LocalTextSource` ou `HFTextSource` baseado em `config.source`.' },
       ],
     },
     'en-us': {
@@ -30,7 +38,15 @@ The key interface is \`iter_texts()\`: the rest of the pipeline only needs to re
 snippet:pytorch_gpt2/text-source
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 206], content: '`text_source.py`: `normalize_paragraphs()` with regex, `TextSource` (Protocol), `LocalTextSource`, `HFTextSource` (streaming), `build_text_source()` factory.' },
+        { lineRange: [1, 9], content: 'Docstring and imports: `re`, `pathlib`, `Iterator`/`Protocol`, `DataConfig`.' },
+        { lineRange: [12, 33], content: 'Regexes and `normalize_paragraphs()`: removes line breaks, page numbers, normalizes whitespace, returns `\\n\\n`-separated paragraphs.' },
+        { lineRange: [36, 41], content: '`TextSource` (Protocol): interface with `iter_texts()` and `count_documents()`.' },
+        { lineRange: [44, 65], content: '`LocalTextSource`: reads from file or `.txt` directory, normalizes paragraphs, counts documents.' },
+        { lineRange: [68, 101], content: '`HFTextSource.__init__`: receives `DataConfig`, normalizes language tag. `_row_matches_language`: filters rows by language.' },
+        { lineRange: [103, 131], content: '`_iter_from_partitioned_parquet`: loads only parquet for target language (optimization for partitioned datasets).' },
+        { lineRange: [132, 187], content: '`iter_texts`: tries partitioned parquet, falls back to `load_dataset`, falls back to per-file parquet on cast error.' },
+        { lineRange: [189, 196], content: '`count_documents`: uses `load_dataset_builder` to estimate total examples.' },
+        { lineRange: [199, 206], content: '`build_text_source`: factory that selects `LocalTextSource` or `HFTextSource` based on `config.source`.' },
       ],
     },
   },

@@ -18,7 +18,13 @@ Didaticamente, esse arquivo é ouro para aula, porque torna a geração observá
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 213], content: '`TokenGenerator`: geração interativa token a token. `_forward()` com cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` com métricas completas.' },
+        { lineRange: [1, 13], content: 'Docstring e imports: `math`, `time`, `typing`, `torch`, `F`, tipos de tokenizer, `GPT2ForCausalLM` e `KVCache`.' },
+        { lineRange: [16, 24], content: '`format_token_bytes`: formata bytes de token para display — EOT, substitui espaços/newlines/tabs, escapa não-printáveis.' },
+        { lineRange: [27, 56], content: '`TokenGenerator.__init__`: recebe modelo e prompt. Inicializa vocab_bytes, prompt_tokens, generated_tokens, cache, step_index, logits/probs e cumulative_log_prob. Chama `_forward()`.' },
+        { lineRange: [58, 73], content: '`_forward()`: executa forward pass com ou sem cache, armazena logits e raw_probs.' },
+        { lineRange: [75, 110], content: '`compute_sampling_distribution()`: aplica temperature scaling, top-k, top-p, retorna sampling_probs, active_tokens_count, pruned_mass.' },
+        { lineRange: [112, 139], content: '`get_candidates()`: ordena por sampling ou raw probs, retorna top_n candidatos com rank, token_id, display_text, raw_prob, sampling_prob e logit.' },
+        { lineRange: [141, 213], content: '`step()`: calcula sampling_distribution, entropias, candidatos. Escolhe greedy/sampled/manual. Concatena token, atualiza cache, retorna métricas completas.' },
       ],
     },
     'en-us': {
@@ -34,7 +40,13 @@ Didactically, this file is gold for the classroom because it makes generation ob
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 213], content: '`TokenGenerator`: interactive token-by-token generation. `_forward()` with cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` with full metrics.' },
+        { lineRange: [1, 13], content: 'Docstring and imports: `math`, `time`, `typing`, `torch`, `F`, tokenizer types, `GPT2ForCausalLM` and `KVCache`.' },
+        { lineRange: [16, 24], content: '`format_token_bytes`: formats token bytes for display — EOT, replaces spaces/newlines/tabs, escapes non-printable chars.' },
+        { lineRange: [27, 56], content: '`TokenGenerator.__init__`: receives model and prompt. Initializes vocab_bytes, prompt_tokens, generated_tokens, cache, step_index, logits/probs, and cumulative_log_prob. Calls `_forward()`.' },
+        { lineRange: [58, 73], content: '`_forward()`: runs forward pass with or without cache, stores logits and raw_probs.' },
+        { lineRange: [75, 110], content: '`compute_sampling_distribution()`: applies temperature scaling, top-k, top-p, returns sampling_probs, active_tokens_count, pruned_mass.' },
+        { lineRange: [112, 139], content: '`get_candidates()`: sorts by sampling or raw probs, returns top_n candidates with rank, token_id, display_text, raw_prob, sampling_prob, and logit.' },
+        { lineRange: [141, 213], content: '`step()`: computes sampling_distribution, entropies, candidates. Chooses greedy/sampled/manual. Concatenates token, updates cache, returns full metrics.' },
       ],
     },
   },
