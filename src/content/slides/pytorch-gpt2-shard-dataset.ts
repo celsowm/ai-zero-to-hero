@@ -16,10 +16,7 @@ Assim cada posição de \`x\` tenta prever o próximo token em \`y\`.`,
 snippet:pytorch_gpt2/shard-dataset
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 12], content: 'Imports: `pathlib`, `numpy` para memmap, `torch`, `Dataset` do PyTorch, e a constante `TOKEN_DTYPE`. `TokenShardDataset` herda de `Dataset[tuple[Tensor,Tensor]]`.' },
-        { lineRange: [14, 34], content: '`__init__`: recebe diretório de dados, split (`train`/`val`) e `block_size`. Descobre todos os shards `.bin` com glob, cria um `np.memmap` para cada um — memmap lê do disco sob demanda sem carregar tudo na RAM.' },
-        { lineRange: [36, 45], content: 'Constrói índice: pra cada shard e offset válido, adiciona `(shard_idx, offset)`. `__len__` na linha 44 retorna o tamanho desse índice.' },
-        { lineRange: [47, 56], content: '`__getitem__`: acessa o offset no memmap, lê `block_size+1` tokens, converte para `torch.long`. Retorna `x` (primeiros `block_size` tokens) e `y` (últimos `block_size` tokens) — cada posição de `x` tenta prever o token seguinte em `y`.' },
+        { lineRange: [1, 52], content: '`TokenShardDataset`: carrega shards `.bin` via memmap, constrói índice cumulativo com bisect, `__getitem__` lê `block_size+1` tokens e retorna `(x, y)`.' },
       ],
     },
     'en-us': {
@@ -33,10 +30,7 @@ This way each position in \`x\` tries to predict the next token in \`y\`.`,
 snippet:pytorch_gpt2/shard-dataset
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 12], content: 'Imports: `pathlib`, `numpy` for memmap, `torch`, PyTorch `Dataset`, and the `TOKEN_DTYPE` constant. `TokenShardDataset` extends `Dataset[tuple[Tensor,Tensor]]`.' },
-        { lineRange: [14, 34], content: '`__init__`: receives data directory, split (`train`/`val`), and `block_size`. Globs all `.bin` shard files, creates a `np.memmap` for each — memmap reads from disk on demand without loading everything into RAM.' },
-        { lineRange: [36, 45], content: 'Builds index: for each shard and valid offset, appends `(shard_idx, offset)`. `__len__` at line 44 returns this index size.' },
-        { lineRange: [47, 56], content: '`__getitem__`: accesses the offset in the memmap, reads `block_size+1` tokens, converts to `torch.long`. Returns `x` (first `block_size` tokens) and `y` (last `block_size` tokens) — each position in `x` tries to predict the next token in `y`.' },
+        { lineRange: [1, 52], content: '`TokenShardDataset`: loads `.bin` shards via memmap, builds cumulative index with bisect, `__getitem__` reads `block_size+1` tokens and returns `(x, y)`.' },
       ],
     },
   },

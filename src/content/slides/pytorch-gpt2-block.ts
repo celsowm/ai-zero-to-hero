@@ -16,9 +16,9 @@ A atenção atualiza o residual stream com informação de contexto. O MLP trans
 snippet:pytorch_gpt2/block
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, e os módulos `CausalSelfAttention` e `MLP` criados anteriormente.' },
-        { lineRange: [13, 21], content: '`TransformerBlock` estende `nn.Module`. `__init__`: cria duas `LayerNorm`, `CausalSelfAttention` e `MLP`. Biases seguem `config.bias`.' },
-        { lineRange: [23, 30], content: '`forward`: padrão pré-LayerNorm — `x + attn(ln_1(x))` depois `x + mlp(ln_2(x))`. Shape `(B, T, C)` inalterado.' },
+        { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, `CausalSelfAttention` e `MLP`.' },
+        { lineRange: [12, 19], content: '`TransformerBlock.__init__`: cria duas `LayerNorm`, `CausalSelfAttention` e `MLP`. Biases seguem `config.bias`.' },
+        { lineRange: [20, 34], content: '`forward`: se `use_cache=True`, passa `past_kv` para atenção e retorna `new_kv`. Caso contrário, fluxo padrão pré-LayerNorm. Shape `(B, T, C)` inalterado.' },
       ],
     },
     'en-us': {
@@ -32,9 +32,9 @@ Attention updates the residual stream with context information. The MLP transfor
 snippet:pytorch_gpt2/block
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, and the previously created `CausalSelfAttention` and `MLP` modules.' },
-        { lineRange: [13, 21], content: '`TransformerBlock` extends `nn.Module`. `__init__`: creates two `LayerNorm`, `CausalSelfAttention`, and `MLP`. Biases follow `config.bias`.' },
-        { lineRange: [23, 30], content: '`forward`: pre-LayerNorm pattern — `x + attn(ln_1(x))` then `x + mlp(ln_2(x))`. Shape `(B, T, C)` unchanged.' },
+        { lineRange: [1, 11], content: 'Imports: `torch`, `nn`, `ModelConfig`, `CausalSelfAttention`, and `MLP`.' },
+        { lineRange: [12, 19], content: '`TransformerBlock.__init__`: creates two `LayerNorm`, `CausalSelfAttention`, and `MLP`. Biases follow `config.bias`.' },
+        { lineRange: [20, 34], content: '`forward`: if `use_cache=True`, passes `past_kv` to attention and returns `new_kv`. Otherwise, standard pre-LayerNorm pattern. Shape `(B, T, C)` unchanged.' },
       ],
     },
   },

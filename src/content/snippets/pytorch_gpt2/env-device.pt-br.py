@@ -1,5 +1,4 @@
-# src/utils/device.py
-
+"""Device and mixed-precision selection helpers."""
 from __future__ import annotations
 
 import torch
@@ -26,4 +25,3 @@ def autocast_dtype(mixed_precision: str) -> torch.dtype | None:
         return None
 
     raise ValueError(f"Unsupported mixed_precision: {mixed_precision!r}")
-

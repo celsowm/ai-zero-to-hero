@@ -16,10 +16,7 @@ Se receber \`targets\`, calcula cross-entropy contra o próximo token esperado.`
 snippet:pytorch_gpt2/gpt
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'Imports: `torch`, `F` (functional) para cross-entropy, `nn`, `ModelConfig`, e `TransformerBlock`.' },
-        { lineRange: [13, 44], content: '`GPT` estende `nn.Module`. `__init__`: guarda config, cria `token_embedding` (vocab_size → n_embd), `position_embedding` (block_size → n_embd), dropout, ModuleList de `TransformerBlock`, `ln_f` (LayerNorm final), `lm_head` (projeção para logits). Se `tie_weights`, compartilha pesos do embedding com o head.' },
-        { lineRange: [46, 61], content: '`forward`: recebe `idx (B,T)` e opcionalmente `targets`. Valida sequência não excede `block_size`. Cria posições com `torch.arange`, soma token_emb + pos_emb.' },
-        { lineRange: [63, 83], content: 'Passa pela stack de blocos (`for block in self.blocks: x = block(x)`), aplica `ln_f`, projeta com `lm_head` para logits `(B,T,V)`. Se targets existem, calcula cross-entropy flattening T×B juntos. Retorna `(logits, loss)`.' },
+        { lineRange: [1, 90], content: '`GPT`: modelo completo com token/position embedding, stack de TransformerBlocks, ln_f e lm_head. Forward com suporte a past_kv (KV cache). Inicialização estilo GPT-2 com _init_weights e _scale_residual_projections.' },
       ],
     },
     'en-us': {
@@ -33,10 +30,7 @@ If it receives \`targets\`, it computes cross-entropy against the expected next 
 snippet:pytorch_gpt2/gpt
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 11], content: 'Imports: `torch`, `F` (functional) for cross-entropy, `nn`, `ModelConfig`, and `TransformerBlock`.' },
-        { lineRange: [13, 44], content: '`GPT` extends `nn.Module`. `__init__`: stores config, creates `token_embedding`, `position_embedding`, dropout, ModuleList of `TransformerBlock`, `ln_f`, `lm_head`. If `tie_weights`, shares embedding weights with the head.' },
-        { lineRange: [46, 61], content: '`forward`: receives `idx (B,T)` and optionally `targets`. Validates sequence length, creates position tensor, sums token_emb + pos_emb.' },
-        { lineRange: [63, 83], content: 'Passes through the block stack (`for block in self.blocks: x = block(x)`), applies `ln_f`, projects with `lm_head` to logits `(B,T,V)`. If targets exist, computes cross-entropy flattening T×B together. Returns `(logits, loss)`.' },
+        { lineRange: [1, 90], content: '`GPT`: complete model with token/position embedding, TransformerBlock stack, ln_f and lm_head. Forward with past_kv (KV cache) support. GPT-2 style weight initialization via _init_weights and _scale_residual_projections.' },
       ],
     },
   },

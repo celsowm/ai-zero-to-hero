@@ -36,9 +36,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
             description: 'Detecta hardware disponível e define o dtype para mixed precision.',
             source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 7], content: 'Import da `torch` e comentário do arquivo. O `from __future__ import annotations` permite usar sintaxe de tipos moderna sem imports de `typing`.' },
-              { lineRange: [8, 15], content: '`get_device()` verifica hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU como fallback. Centraliza a descoberta de device.' },
-              { lineRange: [18, 28], content: '`autocast_dtype()` traduz strings (`"bf16"`, `"fp16"`, `"no"`) para dtype PyTorch. BF16 tem maior range dinâmico que FP16, evitando overflow em gradientes grandes.' },
+              { lineRange: [1, 28], content: '`device.py`: `get_device()` detecta CUDA/MPS/CPU. `autocast_dtype()` converte string de mixed precision para dtype PyTorch.' },
             ],
           },
           {
@@ -63,9 +61,7 @@ O \`seed.py\` fixa as sementes de aleatoriedade. Isso não torna todo treino per
             description: 'Detects available hardware and sets dtype for mixed precision.',
             source: { snippetId: 'pytorch_gpt2/env-device', language: 'python' },
             codeExplanations: [
-              { lineRange: [1, 7], content: 'Imports `torch` and the file path comment. `from __future__ import annotations` enables modern type syntax without `typing` imports.' },
-              { lineRange: [8, 15], content: '`get_device()` checks hardware: CUDA (NVIDIA), MPS (Apple Silicon), CPU as fallback. Centralizes device discovery.' },
-              { lineRange: [18, 28], content: '`autocast_dtype()` translates strings (`"bf16"`, `"fp16"`, `"no"`) to PyTorch dtype. BF16 has larger dynamic range than FP16.' },
+              { lineRange: [1, 28], content: '`device.py`: `get_device()` detects CUDA/MPS/CPU. `autocast_dtype()` converts mixed precision string to PyTorch dtype.' },
             ],
           },
           {

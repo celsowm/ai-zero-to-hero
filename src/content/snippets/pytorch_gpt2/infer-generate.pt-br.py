@@ -1,4 +1,12 @@
-# src/infer/generate.py
+"""Autoregressive generation loop with KV cache support."""
+from __future__ import annotations
+
+import torch
+
+from config import ModelConfig
+from infer.sampler import sample_next_token
+from model.gpt import GPT, KVCache
+
 
 @torch.no_grad()
 def generate(
@@ -54,4 +62,3 @@ def generate(
             window_idx = window_idx[:, -model.config.block_size :]
 
     return full_idx
-

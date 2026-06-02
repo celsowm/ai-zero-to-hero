@@ -1,5 +1,4 @@
-# src/utils/seed.py
-
+"""Random seed helpers for reproducible experiments."""
 from __future__ import annotations
 
 import random
@@ -13,4 +12,3 @@ def seed_everything(seed: int) -> None:
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-

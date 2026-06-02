@@ -20,9 +20,7 @@ Também aparece aqui o KV cache. Sem cache, a cada novo token o modelo reprocess
 snippet:pytorch_gpt2/infer-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 21], content: 'Função `generate` com `@torch.no_grad()`. Parâmetros: model, idx tokenizado, `max_new_tokens`, temperatura, filtros, `use_cache`, `eos_token_id`. Inicializa `full_idx`, `window_idx` (limitado a `block_size`) e `cache` como None.' },
-        { lineRange: [23, 54], content: 'Loop principal: se `use_cache` e cache existe, passa só o último token. Caso contrário, passa a janela completa. Extrai logits da última posição, chama `sample_next_token`, concatena com `torch.cat`. Verifica EOS e mantém `window_idx` dentro de `block_size`.' },
-        { lineRange: [56, 56], content: 'Retorna `full_idx` com prompt original + tokens gerados.' },
+        { lineRange: [1, 65], content: '`generate()`: loop autoregressivo com suporte a KV cache. Recebe prompt tokenizado, gera tokens um a um, gerencia window_idx e cache, suporta EOS.' },
       ],
     },
     'en-us': {
@@ -40,9 +38,7 @@ KV cache also appears here. Without cache, each new token makes the model reproc
 snippet:pytorch_gpt2/infer-generate
 \`\`\``,
       codeExplanations: [
-        { lineRange: [3, 21], content: '`generate` function with `@torch.no_grad()`. Parameters: model, tokenized idx, `max_new_tokens`, temperature, filters, `use_cache`, `eos_token_id`. Initializes `full_idx`, `window_idx` (limited to `block_size`), and `cache` as None.' },
-        { lineRange: [23, 54], content: 'Main loop: if `use_cache` and cache exists, passes only the last token. Otherwise passes the full window. Extracts last-position logits, calls `sample_next_token`, concatenates with `torch.cat`. Checks EOS and keeps `window_idx` within `block_size`.' },
-        { lineRange: [56, 56], content: 'Returns `full_idx` with original prompt + generated tokens.' },
+        { lineRange: [1, 65], content: '`generate()`: autoregressive loop with KV cache support. Takes tokenized prompt, generates one token at a time, manages window_idx and cache, supports EOS.' },
       ],
     },
   },

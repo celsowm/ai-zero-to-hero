@@ -18,9 +18,7 @@ Didaticamente, esse arquivo é ouro para aula, porque torna a geração observá
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 35], content: '`TokenGenerator.__init__`: recebe model e prompt, tokeniza, armazena cache e window_idx. Chama `_forward()` para obter logits iniciais do prompt.' },
-        { lineRange: [37, 73], content: '`compute_sampling_distribution`: aplica temperatura e filtros top-k/top-p, retorna as probabilidades de sampling, contagem de tokens ativos e massa de probabilidade podada.' },
-        { lineRange: [75, 111], content: '`step()`: calcula distribuição de sampling, escolhe token (manual, greedy ou amostrado) e retorna dicionário com `token_id`, `method`, `active_tokens`, `pruned_mass` entre outras métricas.' },
+        { lineRange: [1, 128], content: '`TokenGenerator`: geração interativa token a token. `_forward()` com cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` com métricas completas.' },
       ],
     },
     'en-us': {
@@ -36,9 +34,7 @@ Didactically, this file is gold for the classroom because it makes generation ob
 snippet:pytorch_gpt2/infer-interactive
 \`\`\``,
       codeExplanations: [
-        { lineRange: [1, 35], content: '`TokenGenerator.__init__`: receives model and prompt, tokenizes, stores cache and window_idx. Calls `_forward()` to get initial logits from the prompt.' },
-        { lineRange: [37, 73], content: '`compute_sampling_distribution`: applies temperature and top-k/top-p filters, returns sampling probabilities, active token count, and pruned probability mass.' },
-        { lineRange: [75, 111], content: '`step()`: computes sampling distribution, picks token (manual, greedy, or sampled), and returns dictionary with `token_id`, `method`, `active_tokens`, `pruned_mass`, and other metrics.' },
+        { lineRange: [1, 128], content: '`TokenGenerator`: interactive token-by-token generation. `_forward()` with cache, `compute_sampling_distribution()`, `get_candidates()`, `step()` with full metrics.' },
       ],
     },
   },
