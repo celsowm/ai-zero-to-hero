@@ -188,6 +188,7 @@ import type {
   SglangDeepDiveCopy,
   InferenceComparisonCopy,
   InferenceE2eCopy,
+  LlmServeTransformersCopy,
 } from './inference-engines';
 import type {
   ToolCallingWhyCopy,
@@ -365,6 +366,7 @@ interface VisualCopyMap {
   'sglang-deep-dive-visual': SglangDeepDiveCopy;
   'inference-comparison-visual': InferenceComparisonCopy;
   'inference-e2e-visual': InferenceE2eCopy;
+  'llm-serve-transformers-visual': LlmServeTransformersCopy;
   // tool-calling
   'tool-calling-why-visual': ToolCallingWhyCopy;
   'tool-calling-concepts-visual': ToolCallingConceptsCopy;

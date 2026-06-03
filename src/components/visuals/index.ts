@@ -167,6 +167,7 @@ export { LangchainE2eVisual } from './langchain/LangchainE2eVisual';
 export { InferenceEnginesWhyVisual } from './inference-engines/InferenceEnginesWhyVisual';
 export { TransformersPipelineVisual } from './inference-engines/TransformersPipelineVisual';
 export { TransformersServerVisual } from './inference-engines/TransformersServerVisual';
+export { LlmServeTransformersVisual } from './inference-engines/LlmServeTransformersVisual';
 export { OpenaiApiStandardVisual } from './inference-engines/OpenaiApiStandardVisual';
 export { StreamingModeVisual } from './inference-engines/StreamingModeVisual';
 export { OnnxOptimizationVisual } from './inference-engines/OnnxOptimizationVisual';

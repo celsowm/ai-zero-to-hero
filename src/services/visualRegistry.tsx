@@ -189,6 +189,7 @@ const visualMap: Record<string, string> = {
   'sglang-deep-dive-visual': 'SglangDeepDiveVisual',
   'inference-comparison-visual': 'InferenceComparisonVisual',
   'inference-e2e-visual': 'InferenceE2eVisual',
+  'llm-serve-transformers-visual': 'LlmServeTransformersVisual',
 
   // neural networks
   'neuron-architecture-animated': 'NeuronArchitectureAnimated',

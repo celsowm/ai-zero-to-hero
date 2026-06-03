@@ -22,6 +22,22 @@ export interface TransformersPipelineCopy extends BaseVisualCopy {
   logitsLabel: string;
 }
 
+export interface LlmServeTransformersCopy {
+  title: string;
+  clientLabel: string;
+  serverLabel: string;
+  modelLabel: string;
+  installLabel: string;
+  startLabel: string;
+  endpointChatLabel: string;
+  endpointModelsLabel: string;
+  endpointHealthLabel: string;
+  quantLabel: string;
+  timeoutLabel: string;
+  tabs: Array<{ label: string }>;
+  codePanels: import('./language-models').PytorchDualCodePanel[];
+}
+
 export interface TransformersServerCopy extends BaseVisualCopy {
   clientLabel: string;
   serverLabel: string;
