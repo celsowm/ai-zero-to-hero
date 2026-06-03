@@ -167,5 +167,5 @@ if __name__ == "__main__":
 
 # bash
 # pip install -e gpt2-pytorch
-# python scripts/run_train_tokenizer.py --language pt
+# python scripts/train_tokenizer.py --language pt
 

@@ -114,7 +114,16 @@ Os arquivos \`__init__.py\` não têm lógica importante, mas são parte da estr
 
 O projeto começa com organização: o treino depois vai usar imports limpos, em vez de gambiarra com arquivos soltos.
 
-**Depois de criar a estrutura, lembre-se de rodar ${"\`"}pip install -e .${"\`"} na raiz do projeto** para que os pacotes dentro de ${"\`"}src/${"\`"} fiquem disponíveis para import — sem isso, os ${"\`"}from src.xxx${"\`"} nos scripts vão falhar. O ${"\`"}-e${"\`"} significa *editable mode*: o pacote fica linkado ao seu código fonte, então qualquer alteração nos arquivos já reflete sem precisar reinstalar.`,
+**Depois de criar a estrutura, lembre-se de rodar ${"\`"}pip install -e .${"\`"} na raiz do projeto** para que os pacotes dentro de ${"\`"}src/${"\`"} fiquem disponíveis para import — sem isso, os ${"\`"}from src.xxx${"\`"} nos scripts vão falhar. O ${"\`"}-e${"\`"} significa *editable mode*: o pacote fica linkado ao seu código fonte, então qualquer alteração nos arquivos já reflete sem precisar reinstalar.
+
+Após montar o projeto, a ordem correta para rodar os scripts:
+
+${"\`\`\`"}bash
+python scripts/train_tokenizer.py --language pt
+python scripts/prepare_data.py --language pt
+python scripts/train.py --language pt
+python scripts/generate.py --language pt --prompt "Era uma vez"
+${"\`\`\`"}`,
     },
     'en-us': {
       title: 'Python project structure',
@@ -126,7 +135,16 @@ The \`__init__.py\` files have no important logic, but they are part of the pack
 
 The project starts with organization: training later will use clean imports instead of loose files.
 
-**After creating the structure, remember to run ${"\`"}pip install -e .${"\`"} at the project root** so that the packages under ${"\`"}src/${"\`"} are available for import — without it, the ${"\`"}from src.xxx${"\`"} in scripts will fail. The ${"\`"}-e${"\`"} stands for *editable mode*: the package is linked to your source code, so any changes to the files take effect immediately without reinstalling.`,
+**After creating the structure, remember to run ${"\`"}pip install -e .${"\`"} at the project root** so that the packages under ${"\`"}src/${"\`"} are available for import — without it, the ${"\`"}from src.xxx${"\`"} in scripts will fail. The ${"\`"}-e${"\`"} stands for *editable mode*: the package is linked to your source code, so any changes to the files take effect immediately without reinstalling.
+
+After setting up the project, the correct order to run the scripts:
+
+${"\`\`\`"}bash
+python scripts/train_tokenizer.py --language pt
+python scripts/prepare_data.py --language pt
+python scripts/train.py --language pt
+python scripts/generate.py --language pt --prompt "Era uma vez"
+${"\`\`\`"}`,
     },
   },
   visual: {

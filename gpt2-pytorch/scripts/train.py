@@ -67,5 +67,5 @@ if __name__ == "__main__":
 
 # bash
 # pip install -e gpt2-pytorch
-# python scripts/run_train.py --language pt
+# python scripts/train.py --language pt
 
