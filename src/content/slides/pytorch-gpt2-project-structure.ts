@@ -112,7 +112,9 @@ export const pytorchGpt2ProjectStructure = defineSlide({
 
 Os arquivos \`__init__.py\` não têm lógica importante, mas são parte da estrutura de pacote. Eles permitem que Python trate aquelas pastas como módulos importáveis.
 
-O projeto começa com organização: o treino depois vai usar imports limpos, em vez de gambiarra com arquivos soltos.`,
+O projeto começa com organização: o treino depois vai usar imports limpos, em vez de gambiarra com arquivos soltos.
+
+**Depois de criar a estrutura, lembre-se de rodar ${"\`"}pip install -e .${"\`"} na raiz do projeto** para que os pacotes dentro de ${"\`"}src/${"\`"} fiquem disponíveis para import — sem isso, os ${"\`"}from src.xxx${"\`"} nos scripts vão falhar.`,
     },
     'en-us': {
       title: 'Python project structure',
@@ -122,7 +124,9 @@ O projeto começa com organização: o treino depois vai usar imports limpos, em
 
 The \`__init__.py\` files have no important logic, but they are part of the package structure. They let Python treat those folders as importable modules.
 
-The project starts with organization: training later will use clean imports instead of loose files.`,
+The project starts with organization: training later will use clean imports instead of loose files.
+
+**After creating the structure, remember to run ${"\`"}pip install -e .${"\`"} at the project root** so that the packages under ${"\`"}src/${"\`"} are available for import — without it, the ${"\`"}from src.xxx${"\`"} in scripts will fail.`,
     },
   },
   visual: {
