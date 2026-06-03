@@ -27,14 +27,24 @@ export const PytorchDualCode = React.memo(({ copy }: PytorchDualCodeProps) => {
             style={{ display: activeTab === i ? 'flex' : 'none', flexDirection: 'column', height: '100%', minHeight: 0, padding: 12, gap: 10 }}
           >
             <div style={{ fontSize: 18, fontWeight: 700, color: sw.text }}>{panel.title}</div>
-            <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>{panel.description}</div>
+            {panel.description && (
+              <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim }}>{panel.description}</div>
+            )}
             <div style={{ flex: 1, minHeight: 0 }}>
-              <CodeBlock
-                language="python"
-                code=""
-                sourceRef={panel.source}
-                explanations={panel.codeExplanations}
-              />
+              {panel.kind === 'html' ? (
+                <div
+                  className="pytorch-dual-code-html-panel"
+                  style={{ fontSize: 13, lineHeight: 1.7, color: sw.textDim }}
+                  dangerouslySetInnerHTML={{ __html: panel.html }}
+                />
+              ) : (
+                <CodeBlock
+                  language="python"
+                  code=""
+                  sourceRef={panel.source}
+                  explanations={panel.codeExplanations}
+                />
+              )}
             </div>
           </div>
         ))}

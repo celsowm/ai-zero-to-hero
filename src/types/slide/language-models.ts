@@ -626,12 +626,22 @@ export interface OptimizerComparisonChartCopy {
   summaryText: string;
 }
 
+export type PytorchDualCodePanel =
+  | {
+      kind?: 'code';
+      title: string;
+      description: string;
+      source: CodeSourceRef;
+      codeExplanations?: CodeExplanation[];
+    }
+  | {
+      kind: 'html';
+      title: string;
+      description?: string;
+      html: string;
+    };
+
 export interface PytorchDualCodeCopy {
   tabs: Array<{ label: string }>;
-  codePanels: Array<{
-    title: string;
-    description: string;
-    source: CodeSourceRef;
-    codeExplanations?: CodeExplanation[];
-  }>;
+  codePanels: PytorchDualCodePanel[];
 }
