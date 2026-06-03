@@ -1,0 +1,31 @@
+{
+  "id": "transformers/llm-serve-start",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "`pip install transformers[serving]` instala FastAPI e Uvicorn como dependências extras do pacote.",
+      "en-us": "`pip install transformers[serving]` installs FastAPI and Uvicorn as extra dependencies of the package."
+    },
+    {
+      "lineRange": [4, 7],
+      "pt-br": "`transformers serve` inicia um servidor FastAPI. O modelo é carregado na GPU uma única vez. `--quantization bnb-4bit` aplica quantização NF4 automaticamente.",
+      "en-us": "`transformers serve` starts a FastAPI server. The model is loaded into GPU once. `--quantization bnb-4bit` applies NF4 quantization automatically."
+    },
+    {
+      "lineRange": [9, 10],
+      "pt-br": "`/health` retorna 200 quando o servidor está pronto para receber requisições.",
+      "en-us": "`/health` returns 200 when the server is ready to receive requests."
+    },
+    {
+      "lineRange": [12, 13],
+      "pt-br": "`/v1/models` lista os modelos disponíveis — segue o padrão OpenAI.",
+      "en-us": "`/v1/models` lists available models — follows the OpenAI standard."
+    },
+    {
+      "lineRange": [15, 22],
+      "pt-br": "`/v1/chat/completions` é o endpoint principal. O `model` é o ID do modelo no Hugging Face Hub. O campo `messages` segue o formato `[{role, content}]` do padrão OpenAI.",
+      "en-us": "`/v1/chat/completions` is the main endpoint. `model` is the Hugging Face Hub model ID. The `messages` field follows OpenAI's `[{role, content}]` format."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "qwen/pipeline-qwen",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos `pipeline` (a API unificada da Hugging Face para inferência) e `set_seed` (para garantir reprodutibilidade dos resultados).",
+      "en-us": "We import `pipeline` (Hugging Face's unified inference API) and `set_seed` (to guarantee reproducible results)."
+    },
+    {
+      "lineRange": [3, 3],
+      "pt-br": "Criamos um generator de texto carregando o modelo Qwen 3.5 0.8B. O `pipeline` cuida de todo o ciclo: baixa o tokenizer e o modelo, move para GPU se disponível, e gerencia o loop de geração.",
+      "en-us": "We create a text generator by loading the Qwen 3.5 0.8B model. The `pipeline` handles the full lifecycle: downloads the tokenizer and model, moves to GPU if available, and manages the generation loop."
+    },
+    {
+      "lineRange": [5, 8],
+      "pt-br": "As mensagens são definidas no formato ChatML — a mesma estrutura de dicionários com `role` e `content` que vimos no slide anterior. O `pipeline` aceita mensagens diretamente e aplica o `chat_template` internamente.",
+      "en-us": "Messages are defined in ChatML format — the same dictionary structure with `role` and `content` we saw in the previous slide. The `pipeline` accepts messages directly and applies the `chat_template` internally."
+    },
+    {
+      "lineRange": [10, 11],
+      "pt-br": "Chamamos o generator com as mensagens e parâmetros de geração. O resultado é uma lista de dicionários; pegamos o último `content` da conversa gerada — que é a resposta do assistente.",
+      "en-us": "We call the generator with the messages and generation parameters. The result is a list of dicts; we grab the last `content` from the generated conversation — that's the assistant's reply."
+    }
+  ]
+}

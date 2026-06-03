@@ -18,7 +18,7 @@ snippet:transformers/server-basic
 ### Endpoint OpenAI-compatible
 
 \`\`\`
-POST http://localhost:8080/v1/chat/completions
+POST http://localhost:8000/v1/chat/completions
 
 {
   "model": "gpt2",
@@ -48,7 +48,7 @@ snippet:transformers/server-basic
 ### OpenAI-compatible endpoint
 
 \`\`\`
-POST http://localhost:8080/v1/chat/completions
+POST http://localhost:8000/v1/chat/completions
 
 {
   "model": "gpt2",

@@ -111,6 +111,9 @@ import { parallelToolCalls } from './parallel-tool-calls';
 import { multiToolOrchestration } from './multi-tool-orchestration';
 import { transformersPipeline } from './transformers-pipeline';
 import { transformersServer } from './transformers-server';
+import { llmServeClient } from './llm-serve-client';
+import { llmServeProblem } from './llm-serve-problem';
+import { llmServeTransformers } from './llm-serve-transformers';
 import { vllmDeepDive } from './vllm-deep-dive';
 import { vllmIntro } from './vllm-intro';
 import { loraExercise } from './lora-exercise';
@@ -214,6 +217,7 @@ import { sftTrain } from './sft-train';
 import { chatmlAnatomy } from './chatml-anatomy';
 import { chatmlProblem } from './chatml-problem';
 import { applyChatTemplateQwen } from './apply-chat-template-qwen';
+import { pipelineQwen } from './pipeline-qwen';
 import { jinjaChatmlPractice } from './jinja-chatml-practice';
 import { jinjaIntro } from './jinja-intro';
 import { syntheticDataDemo } from './synthetic-data-demo';
@@ -283,6 +287,7 @@ export const allSlides: ISlide[] = [
   chatmlAnatomy,
   chatmlProblem,
   applyChatTemplateQwen,
+  pipelineQwen,
   crossEntropyLanguageModeling,
   dataCollatorExplorer,
   embeddingsIntro,
@@ -380,6 +385,9 @@ export const allSlides: ISlide[] = [
   toolCallingWithOpenaiApi,
   toolDeclaration,
   transformersPipeline,
+  llmServeClient,
+  llmServeProblem,
+  llmServeTransformers,
   transformersServer,
   vllmDeepDive,
   vllmIntro,

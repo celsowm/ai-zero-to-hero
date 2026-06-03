@@ -1,0 +1,31 @@
+{
+  "id": "transformers/llm-serve-client",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos `OpenAI` do pacote `openai` — o mesmo usado para chamar a API real.",
+      "en-us": "We import `OpenAI` from the `openai` package — the same one used to call the real API."
+    },
+    {
+      "lineRange": [3, 7],
+      "pt-br": "`base_url` aponta para o servidor local. `api_key` pode ser qualquer string — o servidor local não valida. A interface é idêntica à da OpenAI real.",
+      "en-us": "`base_url` points to the local server. `api_key` can be any string — the local server doesn't validate it. The interface is identical to the real OpenAI."
+    },
+    {
+      "lineRange": [9, 18],
+      "pt-br": "`chat.completions.create()` é a chamada padrão. `messages` define a conversa com `system` (instrução) e `user` (pergunta). `temperature=0.7` equilibra criatividade e coerência.",
+      "en-us": "`chat.completions.create()` is the standard call. `messages` defines the conversation with `system` (instruction) and `user` (question). `temperature=0.7` balances creativity and coherence."
+    },
+    {
+      "lineRange": [20, 21],
+      "pt-br": "`choices[0].message.content` é o texto gerado. `usage.total_tokens` mostra o custo em tokens (útil para monitorar latência e custos).",
+      "en-us": "`choices[0].message.content` is the generated text. `usage.total_tokens` shows the token cost (useful for monitoring latency and costs)."
+    },
+    {
+      "lineRange": [23, 27],
+      "pt-br": "Portabilidade total: para trocar de motor basta mudar `base_url`. O código do cliente não muda — apenas a configuração de conexão.",
+      "en-us": "Full portability: to swap engines just change `base_url`. The client code doesn't change — only the connection config."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # transformers server OpenAI-compatible
 # Execute no terminal:
-#   transformers-cli serve --model gpt2 --port 8000
+#   transformers serve gpt2 --port 8000
 #
 # Isso inicia um servidor local que responde no formato OpenAI API:
 #
