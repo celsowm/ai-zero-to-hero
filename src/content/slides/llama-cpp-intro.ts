@@ -9,67 +9,15 @@ export const llamaCppIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'llama.cpp: GGUF, Quantização e Inferência em CPU',
-      body: `Enquanto vLLM e sglang dominam GPUs enterprise, **llama.cpp** é o motor que roda LLMs em **qualquer hardware** — CPU, Apple Silicon ou GPU parcial.
+      body: `O **llama.cpp** é uma implementação de referência em **C/C++** para inferência de modelos Llama e derivados, desenvolvida originalmente por **Georgi Gerganov**.
 
-### GGUF: O Formato Quantization-Aware
-Diferente do ONNX (que quantiza no export), o **GGUF** armazena pesos já quantizados no arquivo:
-
-| Formato | Bits/Peso | Qualidade | Tamanho (7B) |
-| :--- | :--- | :--- | :--- |
-| **Q4_0** | 4.0 | ~88% | ~3.5 GB |
-| **Q5_K_M** | 5.5 | ~93% | ~4.7 GB |
-| **Q8_0** | 8.5 | ~98% | ~7.2 GB |
-| **FP16** | 16.0 | 100% | ~13.5 GB |
-
-### Fórmula de VRAM
-$$\\text{VRAM} = \\frac{\\text{bpp} \\times \\text{params}}{8} + 2 \\cdot L \\cdot d \\cdot S \\cdot 2$$
-
-Onde: bpp = bits por peso, $L$ = camadas, $d$ = hidden dim, $S$ = seq len
-
-**Exemplo prático** — Llama-3 8B em Q4_0 com seq_len=4096:
-- Pesos: $(4 \\times 8 \\times 10^9) / 8 = 4.0$ GB
-- KV cache: $2 \\times 32 \\times 4096 \\times 4096 \\times 2 \\approx 1.0$ GB
-- **Total: ~5 GB** (vs 16 GB em FP16!)
-
-### Inferência CPU com SIMD
-A CPU multiplica matrizes quantizadas em blocos de 32 usando **SIMD (Single Instruction, Multiple Data)**:
-- **AVX2 / AVX-512** (x86): Processamento vetorial para CPUs Intel/AMD.
-- **NEON** (ARM): Otimizado para Apple Silicon e dispositivos móveis.
-
-### Apple Silicon: Metal
-llama.cpp é o **único** engine com backend Metal nativo — roda em M1/M2/M3 com performance próxima de GPU dedicada.`,
+O projeto surgiu da necessidade de transpor as barreiras impostas pelos frameworks de IA baseados em **Python**, focando em uma execução de **baixo nível** que prioriza a **portabilidade** e a **performance bruta** em hardware comum. Sob a liderança de **Gerganov**, a ferramenta evoluiu para se tornar a **base do ecossistema de modelos locais**, sendo a responsável pela criação e manutenção do formato **GGUF**, que hoje é o **padrão de mercado** para distribuição de LLMs quantizados.`,
     },
     'en-us': {
       title: 'llama.cpp: GGUF, Quantization and CPU Inference',
-      body: `While vLLM and sglang dominate enterprise GPUs, **llama.cpp** is the engine that runs LLMs on **any hardware** — CPU, Apple Silicon, or partial GPU.
+      body: `**llama.cpp** is a **C/C++** reference implementation for Llama model inference and derivatives, originally developed by **Georgi Gerganov**.
 
-### GGUF: The Quantization-Aware Format
-Unlike ONNX (which quantizes on export), **GGUF** stores already-quantized weights in the file:
-
-| Format | Bits/Weight | Quality | Size (7B) |
-| :--- | :--- | :--- | :--- |
-| **Q4_0** | 4.0 | ~88% | ~3.5 GB |
-| **Q5_K_M** | 5.5 | ~93% | ~4.7 GB |
-| **Q8_0** | 8.5 | ~98% | ~7.2 GB |
-| **FP16** | 16.0 | 100% | ~13.5 GB |
-
-### VRAM Formula
-$$\\text{VRAM} = \\frac{\\text{bpp} \\times \\text{params}}{8} + 2 \\cdot L \\cdot d \\cdot S \\cdot 2$$
-
-Where: bpp = bits per weight, $L$ = layers, $d$ = hidden dim, $S$ = seq len
-
-**Practical example** — Llama-3 8B in Q4_0 with seq_len=4096:
-- Weights: $(4 \\times 8 \\times 10^9) / 8 = 4.0$ GB
-- KV cache: $2 \\times 32 \\times 4096 \\times 4096 \\times 2 \\approx 1.0$ GB
-- **Total: ~5 GB** (vs 16 GB in FP16!)
-
-### CPU Inference with SIMD
-The CPU multiplies quantized matrices in blocks of 32 using **SIMD (Single Instruction, Multiple Data)**:
-- **AVX2 / AVX-512** (x86): Vector processing for Intel/AMD CPUs.
-- **NEON** (ARM): Optimized for Apple Silicon and mobile devices.
-
-### Apple Silicon: Metal
-llama.cpp is the **only** engine with native Metal backend — runs on M1/M2/M3 with near-dedicated-GPU performance.`,
+The project emerged from the need to overcome barriers imposed by AI frameworks based on **Python**, focusing on **low-level** execution that prioritizes **portability** and **raw performance** on common hardware. Under **Gerganov's** leadership, the tool evolved to become the **backbone of the local model ecosystem**, being responsible for creating and maintaining the **GGUF** format, which is now the **market standard** for distribution of quantized LLMs.`,
     },
   },
   visual: {
