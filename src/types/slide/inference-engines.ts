@@ -195,3 +195,8 @@ export interface TransformersJsPlaygroundCopy extends BaseVisualCopy {
   negativeLabel: string;
   embeddingTitle: string;
 }
+
+export interface LlamaCppBuildGuideCopy {
+  tabs: Array<{ label: string }>;
+  codePanels: import('./language-models').PytorchDualCodePanel[];
+}

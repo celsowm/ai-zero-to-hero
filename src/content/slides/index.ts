@@ -83,6 +83,7 @@ import { zeroShotPrompting } from './zero-shot-prompting';
 import { inferenceE2e } from './inference-e2e';
 import { inferenceComparison } from './inference-comparison';
 import { llamaCppIntro } from './llama-cpp-intro';
+import { llamaCppServer } from './llama-cpp-server';
 import { llamaCppOffload } from './llama-cpp-offload';
 import { browserInferenceWhy } from './browser-inference-why';
 import { transformersJsIntro } from './transformers-js-intro';
@@ -387,6 +388,7 @@ export const allSlides: ISlide[] = [
   llmServeClient,
   llmServeStreaming,
   llamaCppIntro,
+  llamaCppServer,
   llamaCppOffload,
   llmServeProblem,
   llmServeTransformers,

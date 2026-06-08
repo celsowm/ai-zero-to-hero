@@ -9,87 +9,245 @@ export const llamaCppIntro = defineSlide({
   content: {
     'pt-br': {
       title: 'llama.cpp: GGUF, Quantização e Inferência em CPU',
-      body: `O **llama.cpp** é uma implementação de referência em **C/C++** para inferência de modelos Llama e derivados, desenvolvida originalmente por **Georgi Gerganov**.
-
-O projeto surgiu da necessidade de transpor as barreiras impostas pelos frameworks de IA baseados em **Python**, focando em uma execução de **baixo nível** que prioriza a **portabilidade** e a **performance bruta** em hardware comum. Sob a liderança de **Gerganov**, a ferramenta evoluiu para se tornar a **base do ecossistema de modelos locais**, sendo a responsável pela criação e manutenção do formato **GGUF**, que hoje é o **padrão de mercado** para distribuição de LLMs quantizados.`,
+      body: [
+        'O **llama.cpp** é uma implementação de referência em **C/C++** para inferência de LLMs, criada por **Georgi Gerganov**.',
+        '',
+        'Diferente de frameworks Python, o llama.cpp é um binário único sem dependências externas — roda em **CPU**, **Apple Silicon (Metal)**, **NVIDIA CUDA**, **AMD ROCm** e **Vulkan**.',
+        '',
+        '### Modos de uso',
+        '',
+        '- **`llama-cli`** — terminal interativo, bate-papo e prompt único',
+        "- **`llama-server`** — servidor HTTP compatível com a API OpenAI (`/v1/chat/completions`)",
+        '- **`llama-bench`** — benchmark de desempenho no seu hardware',
+        '',
+        '### Destaques',
+        '',
+        '- **Download automático**: `llama-cli -hf usuário/modelo` baixa e executa em um comando',
+        '- **Quantização de 2 a 8 bits**: reduz RAM em até 75% sem perder qualidade',
+        '- **Ecossistema**: bindings para Python, Node.js, Go, Rust, C#, Java e mais',
+        "- **Instalação alternativa**: `brew install llama.cpp` (macOS), `winget install llama.cpp` (Windows) ou binários pré-compilados nas [releases](https://github.com/ggml-org/llama.cpp/releases)",
+      ].join('\n'),
     },
     'en-us': {
       title: 'llama.cpp: GGUF, Quantization and CPU Inference',
-      body: `**llama.cpp** is a **C/C++** reference implementation for Llama model inference and derivatives, originally developed by **Georgi Gerganov**.
-
-The project emerged from the need to overcome barriers imposed by AI frameworks based on **Python**, focusing on **low-level** execution that prioritizes **portability** and **raw performance** on common hardware. Under **Gerganov's** leadership, the tool evolved to become the **backbone of the local model ecosystem**, being responsible for creating and maintaining the **GGUF** format, which is now the **market standard** for distribution of quantized LLMs.`,
+      body: [
+        '**llama.cpp** is a **C/C++** reference implementation for LLM inference, created by **Georgi Gerganov**.',
+        '',
+        'Unlike Python frameworks, llama.cpp is a single binary with no external dependencies — it runs on **CPU**, **Apple Silicon (Metal)**, **NVIDIA CUDA**, **AMD ROCm**, and **Vulkan**.',
+        '',
+        '### Usage modes',
+        '',
+        '- **`llama-cli`** — interactive terminal, chat, and single-prompt mode',
+        "- **`llama-server`** — OpenAI-compatible HTTP server (`/v1/chat/completions`)",
+        '- **`llama-bench`** — performance benchmark for your hardware',
+        '',
+        '### Highlights',
+        '',
+        "- **Auto-download**: `llama-cli -hf user/model` downloads and runs in one command",
+        '- **2 to 8-bit quantization**: reduces RAM by up to 75% with minimal quality loss',
+        '- **Ecosystem**: bindings for Python, Node.js, Go, Rust, C#, Java and more',
+        "- **Alternative install**: `brew install llama.cpp` (macOS), `winget install llama.cpp` (Windows) or pre-built binaries from [releases](https://github.com/ggml-org/llama.cpp/releases)",
+      ].join('\n'),
     },
   },
   visual: {
-    id: 'llama-cpp-quant-explorer',
+    id: 'llama-cpp-build-guide',
     copy: {
       'pt-br': {
-        title: 'Explorador de Quantização GGUF',
-        subtitle: 'Cálculo real de VRAM por modelo e formato',
-        modelLabel: 'Modelo',
-        formatLabel: 'Formato GGUF',
-        vramTitle: 'VRAM Breakdown',
-        vramFormula: '(bpp × params) / 8 + KV_cache',
-        qualityTitle: 'Qualidade vs Tamanho',
-        qualitySubtitle: 'Cada ponto é um formato GGUF',
-        speedTitle: 'Velocidade por Backend',
-        speedSubtitle: 'tok/s estimado por tamanho do modelo',
-        stepperTitle: 'Pipeline de Inferência llama.cpp',
-        stepFocusLabel: 'Foco',
-        step1Label: 'mmap GGUF',
-        step1Body: 'Arquivo mapeado em memória sem carregar tudo.',
-        step2Label: 'Dequantização',
-        step2Body: 'Blocos de 32 pesos dequantizados sob demanda.',
-        step3Label: 'MatMul SIMD',
-        step3Body: 'AVX2/NEON multiplicam matrizes em paralelo.',
-        step4Label: 'Sample + KV',
-        step4Body: 'Token amostrado e KV cache atualizado.',
-        paramsLabel: 'Pesos',
-        fileSizeLabel: 'Arquivo',
-        kvCacheLabel: 'KV Cache',
-        totalVramLabel: 'VRAM Total',
-        bppLabel: 'Bits/Peso',
-        speedLabel: 'Velocidade',
-        tokUnit: 'tok/s',
-        qualityLabel: 'Qualidade',
-        fp16Reference: 'Linha de referência FP16',
-        cpuSimdLabel: 'AVX2',
-        metalLabel: 'Metal',
-        cudaLabel: 'CUDA',
+        tabs: [{ label: 'Windows' }, { label: 'macOS' }, { label: 'Linux' }],
+        codePanels: [
+          {
+            title: 'Windows (PowerShell)',
+            description: 'Instala Git, CMake e Visual Studio; clona, compila e roda um modelo.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-windows', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Instala Git, CMake e o Build Tools da Visual Studio via winget.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Clona o repositório oficial (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [4, 4],
+                content: 'Configura o build com CMake usando o gerador padrão do Visual Studio.',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Compila o projeto em modo Release.',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Usa `-hf` para baixar e executar o modelo Gemma 3 1B direto do Hugging Face.',
+              },
+            ],
+          },
+          {
+            title: 'macOS (Bash)',
+            description: 'Instala Xcode CLT + Homebrew; clona, compila com Metal e roda.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-mac', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Instala o Xcode Command Line Tools (compilador clang, headers do sistema).',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Instala o Homebrew, o gerenciador de pacotes do macOS.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Instala Git e CMake via Homebrew.',
+              },
+              {
+                lineRange: [4, 4],
+                content: 'Clona o repositório oficial (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Ativa o backend Metal da Apple com `-DGGML_METAL=ON` — essencial para GPU em Apple Silicon.',
+              },
+              {
+                lineRange: [7, 7],
+                content: 'Compila o projeto em modo Release.',
+              },
+              {
+                lineRange: [8, 8],
+                content: 'Usa `-hf` para baixar e executar o modelo Gemma 3 1B direto do Hugging Face.',
+              },
+            ],
+          },
+          {
+            title: 'Linux (Bash)',
+            description: 'Instala build-essential; clona, compila e roda um modelo.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-linux', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Atualiza a lista de pacotes do apt.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Instala Git, GCC (build-essential) e CMake.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Clona o repositório oficial (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Configura o build com CMake. AVX2/AVX512 são detectados automaticamente.',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Compila o projeto em modo Release.',
+              },
+              {
+                lineRange: [7, 7],
+                content: 'Usa `-hf` para baixar e executar o modelo Gemma 3 1B direto do Hugging Face.',
+              },
+            ],
+          },
+        ],
       },
       'en-us': {
-        title: 'GGUF Quantization Explorer',
-        subtitle: 'Real VRAM calculation per model and format',
-        modelLabel: 'Model',
-        formatLabel: 'GGUF Format',
-        vramTitle: 'VRAM Breakdown',
-        vramFormula: '(bpp × params) / 8 + KV_cache',
-        qualityTitle: 'Quality vs Size',
-        qualitySubtitle: 'Each point is a GGUF format',
-        speedTitle: 'Speed per Backend',
-        speedSubtitle: 'Estimated tok/s per model size',
-        stepperTitle: 'llama.cpp Inference Pipeline',
-        stepFocusLabel: 'Focus',
-        step1Label: 'mmap GGUF',
-        step1Body: 'File mapped in memory without loading everything.',
-        step2Label: 'Dequantization',
-        step2Body: 'Blocks of 32 weights dequantized on demand.',
-        step3Label: 'MatMul SIMD',
-        step3Body: 'AVX2/NEON multiply matrices in parallel.',
-        step4Label: 'Sample + KV',
-        step4Body: 'Token sampled and KV cache updated.',
-        paramsLabel: 'Weights',
-        fileSizeLabel: 'File Size',
-        kvCacheLabel: 'KV Cache',
-        totalVramLabel: 'Total VRAM',
-        bppLabel: 'Bits/Weight',
-        speedLabel: 'Speed',
-        tokUnit: 'tok/s',
-        qualityLabel: 'Quality',
-        fp16Reference: 'FP16 reference line',
-        cpuSimdLabel: 'AVX2',
-        metalLabel: 'Metal',
-        cudaLabel: 'CUDA',
+        tabs: [{ label: 'Windows' }, { label: 'macOS' }, { label: 'Linux' }],
+        codePanels: [
+          {
+            title: 'Windows (PowerShell)',
+            description: 'Install Git, CMake, Visual Studio; clone, build, and run a model.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-windows', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Installs Git, CMake, and Visual Studio Build Tools via winget.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Clones the official repository (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [4, 4],
+                content: 'Configures the build with CMake using the default Visual Studio generator.',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Builds in Release mode.',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
+              },
+            ],
+          },
+          {
+            title: 'macOS (Bash)',
+            description: 'Install Xcode CLT + Homebrew; clone, build with Metal, and run.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-mac', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Installs Xcode Command Line Tools (clang compiler, system headers).',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Installs Homebrew, the macOS package manager.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Installs Git and CMake via Homebrew.',
+              },
+              {
+                lineRange: [4, 4],
+                content: 'Clones the official repository (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Enables Apple\'s Metal backend with `-DGGML_METAL=ON` — essential for GPU on Apple Silicon.',
+              },
+              {
+                lineRange: [7, 7],
+                content: 'Builds in Release mode.',
+              },
+              {
+                lineRange: [8, 8],
+                content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
+              },
+            ],
+          },
+          {
+            title: 'Linux (Bash)',
+            description: 'Install build-essential; clone, build, and run a model.',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-linux', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Updates the apt package list.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Installs Git, GCC (build-essential), and CMake.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Clones the official repository (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Configures the build with CMake. AVX2/AVX512 are detected automatically.',
+              },
+              {
+                lineRange: [6, 6],
+                content: 'Builds in Release mode.',
+              },
+              {
+                lineRange: [7, 7],
+                content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
+              },
+            ],
+          },
+        ],
       },
     },
   },

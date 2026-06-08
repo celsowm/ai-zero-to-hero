@@ -181,6 +181,7 @@ export { InferenceE2eVisual } from './inference-engines/InferenceE2eVisual';
 
 // llama.cpp & offload
 export { LlamaCppQuantExplorer } from './inference-engines/LlamaCppQuantExplorer';
+export { LlamaCppBuildGuide } from './inference-engines/LlamaCppBuildGuide';
 export { OffloadSimulator } from './inference-engines/OffloadSimulator';
 
 // llama.cpp & rope & llama comparison

@@ -100,6 +100,7 @@ const visualMap: Record<string, string> = {
   'moe-gating-math-visual': 'MoeGatingMathVisual',
   'moe-capacity-visual': 'MoeCapacityVisual',
   'llama-cpp-quant-explorer': 'LlamaCppQuantExplorer',
+  'llama-cpp-build-guide': 'LlamaCppBuildGuide',
   'offload-simulator': 'OffloadSimulator',
   'rope-explorer': 'RoPEExplorer',
   'llama-comparison-table': 'LlamaComparisonTable',

@@ -147,6 +147,7 @@ export const courseSlideOrder = [
   'llm-serve-client',
   'llm-serve-streaming',
   'llama-cpp-intro',
+  'llama-cpp-server',
   'llama-cpp-offload',
   'system-prompt-intro',
   'sft-dataset',
