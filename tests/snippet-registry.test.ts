@@ -18,7 +18,7 @@ function getAllSnippets() {
       if (stat.isDirectory()) {
         walk(fullPath, path.join(baseDir, file));
       } else {
-        const match = file.match(/^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js)$/);
+        const match = file.match(/^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js|sh|ps1)$/);
         if (match) {
           const id = path.join(baseDir, match[1]).replace(/\\/g, '/');
           snippets.add(id);
@@ -64,11 +64,11 @@ describe('Snippet Registry Integrity', () => {
         const stat = fs.statSync(fullPath);
         if (stat.isDirectory()) {
           walk(fullPath);
-        } else if (file.endsWith('.py') || file.endsWith('.js')) {
+        } else if (file.endsWith('.py') || file.endsWith('.js') || file.endsWith('.sh') || file.endsWith('.ps1')) {
           // Skip non-localized files if any (though there shouldn't be for snippets)
           if (file.includes('meta.json')) continue;
           
-          const strictMatch = file.match(/^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js)$/);
+          const strictMatch = file.match(/^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js|sh|ps1)$/);
           expect(strictMatch, `File ${fullPath} does not follow the strict naming convention [name].[locale].[ext] (e.g., example.en-us.py)`).not.toBeNull();
         }
       }

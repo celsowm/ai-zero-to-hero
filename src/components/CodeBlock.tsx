@@ -125,6 +125,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     const l = language.toLowerCase();
     if (l === 'py') return 'python';
     if (l === 'js') return 'javascript';
+    if (l === 'sh' || l === 'bash') return 'bash';
+    if (l === 'ps1' || l === 'powershell') return 'powershell';
     return l;
   }, [language]);
 

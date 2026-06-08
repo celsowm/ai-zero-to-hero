@@ -112,6 +112,7 @@ import { multiToolOrchestration } from './multi-tool-orchestration';
 import { transformersPipeline } from './transformers-pipeline';
 import { transformersServer } from './transformers-server';
 import { llmServeClient } from './llm-serve-client';
+import { llmServeStreaming } from './llm-serve-streaming';
 import { llmServeProblem } from './llm-serve-problem';
 import { llmServeTransformers } from './llm-serve-transformers';
 import { vllmDeepDive } from './vllm-deep-dive';
@@ -386,6 +387,7 @@ export const allSlides: ISlide[] = [
   toolDeclaration,
   transformersPipeline,
   llmServeClient,
+  llmServeStreaming,
   llmServeProblem,
   llmServeTransformers,
   transformersServer,
@@ -539,4 +541,3 @@ export const allSlides: ISlide[] = [
   agentsExercise,
   agentsE2E,
 ];
-

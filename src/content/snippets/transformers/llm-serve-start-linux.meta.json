@@ -1,6 +1,6 @@
 {
-  "id": "transformers/llm-serve-start",
-  "language": "python",
+  "id": "transformers/llm-serve-start-linux",
+  "language": "bash",
   "explanations": [
     {
       "lineRange": [1, 2],

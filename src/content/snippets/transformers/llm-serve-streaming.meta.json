@@ -1,0 +1,31 @@
+{
+  "id": "transformers/llm-serve-streaming",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos o cliente oficial da OpenAI, que já suporta streaming nativamente.",
+      "en-us": "We import the official OpenAI client, which already supports streaming natively."
+    },
+    {
+      "lineRange": [4, 5],
+      "pt-br": "Configuramos o cliente apontando para o servidor local (o mesmo que configuramos no slide anterior) e com uma chave de API fictícia.",
+      "en-us": "We configure the client pointing to the local server (the same one we set up in the previous slide) with a dummy API key."
+    },
+    {
+      "lineRange": [7, 11],
+      "pt-br": "`stream=True` muda o tipo de retorno: em vez de um objeto JSON final, recebemos um iterador.",
+      "en-us": "`stream=True` changes the return type: instead of a final JSON object, we get an iterator."
+    },
+    {
+      "lineRange": [14, 20],
+      "pt-br": "O loop `for chunk in response` consome os dados assim que chegam do servidor.",
+      "en-us": "The `for chunk in response` loop consumes data as soon as it arrives from the server."
+    },
+    {
+      "lineRange": [17, 17],
+      "pt-br": "Em modo streaming, o conteúdo vem dentro de `delta` (mudança) em vez de `message`.",
+      "en-us": "In streaming mode, content comes inside `delta` (change) instead of `message`."
+    }
+  ]
+}

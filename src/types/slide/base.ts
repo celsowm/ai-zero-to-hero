@@ -1,7 +1,7 @@
 import type { Language } from '../../constants/languages';
 
 export type { Language };
-export type SnippetLanguage = 'python' | 'javascript' | 'markdown';
+export type SnippetLanguage = 'python' | 'javascript' | 'markdown' | 'bash' | 'powershell';
 export type CodeRegionId = string;
 
 export interface CodeSourceRef {
@@ -52,4 +52,15 @@ export interface BaseVisualCopy {
   description?: string;
   ariaLabel?: string;
   caption?: string;
+}
+
+export interface CodeTabsCopy {
+  tabs: Array<{ label: string }>;
+  codePanels: Array<{
+    kind?: 'code';
+    title: string;
+    description: string;
+    source: CodeSourceRef;
+    codeExplanations?: CodeExplanation[];
+  }>;
 }

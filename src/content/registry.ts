@@ -1,11 +1,11 @@
 import { isSupportedLanguage } from '../constants/languages';
 import type { CodeSnippetMeta, CodeSourceRef, Language, SnippetLanguage } from '../types/slide';
 
-const codeModules = {
-  ...import.meta.glob('./snippets/**/*.py', { eager: true, query: '?raw', import: 'default' }),
-  ...import.meta.glob('./snippets/**/*.js', { eager: true, query: '?raw', import: 'default' }),
-  ...import.meta.glob('./snippets/**/*.md', { eager: true, query: '?raw', import: 'default' }),
-} as Record<string, string>;
+const codeModules = import.meta.glob('./snippets/**/*.{py,js,md,sh,ps1}', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+}) as Record<string, string>;
 
 const metaModules = import.meta.glob('./snippets/**/*.meta.json', { eager: true }) as Record<string, { default?: unknown } | unknown>;
 
@@ -22,7 +22,7 @@ type LocalizedSnippetRecord = {
 const START_REGION_RE = /^\s*(?:#|\/\/)\s*@?region\s+([A-Za-z0-9_-]+)\s*$/;
 const END_REGION_RE = /^\s*(?:#|\/\/)\s*@?end(?:region)?(?:\s+[A-Za-z0-9_-]+)?\s*$/;
 const SNIPPET_ROOT_RE = /^\.\/snippets\//;
-const CODE_FILE_RE = /^(.+)\.([a-z]{2}-[a-z]{2})\.(py|js|md)$/;
+const CODE_FILE_RE = /^(.+)\.([a-z]{2}-[a-z]{2})\.([a-z0-9]+)$/;
 const META_FILE_RE = /^(.+)\.meta\.json$/;
 
 const snippetIndex = new Map<string, LocalizedSnippetRecord>();
@@ -115,8 +115,13 @@ function registerCode(path: string, moduleValue: unknown) {
     return;
   }
   const locale = localeStr as Language;
-  const ext = match[3];
-  const language: SnippetLanguage = ext === 'py' ? 'python' : ext === 'md' ? 'markdown' : 'javascript';
+  const ext = match[3].toLowerCase();
+  let language: SnippetLanguage = 'javascript';
+  if (ext === 'py') language = 'python';
+  else if (ext === 'md') language = 'markdown';
+  else if (ext === 'sh') language = 'bash';
+  else if (ext === 'ps1') language = 'powershell';
+  
   const rawCode = normalizeModule<string>(moduleValue);
   const parsed = parseSnippetSource(rawCode);
   const meta = metaIndex.get(snippetId);
@@ -242,3 +247,4 @@ export function resolveSnippetCodeWithDeps(sourceRef: CodeSourceRef, locale: Lan
     })
     .join('\n\n');
 }
+

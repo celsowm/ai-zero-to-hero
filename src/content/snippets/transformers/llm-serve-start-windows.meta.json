@@ -1,0 +1,26 @@
+{
+  "id": "transformers/llm-serve-start-windows",
+  "language": "powershell",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "`pip install transformers[serving]` instala FastAPI e Uvicorn como dependências extras do pacote.",
+      "en-us": "`pip install transformers[serving]` installs FastAPI and Uvicorn as extra dependencies of the package."
+    },
+    {
+      "lineRange": [4, 7],
+      "pt-br": "`transformers serve` inicia um servidor FastAPI. No PowerShell, usamos a crase (`) para continuação de linha. O modelo é carregado na GPU uma única vez.",
+      "en-us": "`transformers serve` starts a FastAPI server. In PowerShell, we use the backtick (`) for line continuation. The model is loaded into GPU once."
+    },
+    {
+      "lineRange": [9, 13],
+      "pt-br": "`Invoke-RestMethod` é o comando nativo do PowerShell para APIs. Ele resolve problemas de alias e formatação que o `curl` comum teria no Windows.",
+      "en-us": "`Invoke-RestMethod` is the native PowerShell command for APIs. It resolves alias and formatting issues that standard `curl` would have on Windows."
+    },
+    {
+      "lineRange": [15, 22],
+      "pt-br": "O parâmetro `-Body` recebe o JSON. O PowerShell lida com o cabeçalho `Content-Type` de forma mais estruturada que o `curl` via terminal.",
+      "en-us": "The `-Body` parameter receives the JSON. PowerShell handles the `Content-Type` header in a more structured way than standard `curl` via terminal."
+    }
+  ]
+}

@@ -145,6 +145,7 @@ export const courseSlideOrder = [
   'llm-serve-problem',
   'llm-serve-transformers',
   'llm-serve-client',
+  'llm-serve-streaming',
   'system-prompt-intro',
   'sft-dataset',
   'sft-train',

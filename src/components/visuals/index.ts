@@ -13,6 +13,7 @@ export { MachineLearningPipelineDiagram } from './machine-learning-pipeline/Mach
 export { LinearRegressionTabsVisual } from './linear-regression/LinearRegressionTabsVisual';
 export { LinearRegressionSimpleLineVisual } from './linear-regression/LinearRegressionSimpleLineVisual';
 export { ProgressStepperVisual } from './stepper/ProgressStepperVisual';
+export { CodeTabsVisual } from './CodeTabsVisual';
 export { TabsBar } from './TabsBar';
 export type { TabsBarItem } from './TabsBar';
 export { TabbedPanelSurface } from './TabbedPanelSurface';

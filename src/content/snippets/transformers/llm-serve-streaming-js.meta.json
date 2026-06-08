@@ -1,0 +1,36 @@
+{
+  "id": "transformers/llm-serve-streaming-js",
+  "language": "javascript",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos o SDK oficial da OpenAI para Node.js, que gerencia a conexão SSE automaticamente.",
+      "en-us": "We import the official OpenAI SDK for Node.js, which manages the SSE connection automatically."
+    },
+    {
+      "lineRange": [4, 8],
+      "pt-br": "Configuramos o cliente com o servidor local que criamos no slide anterior.",
+      "en-us": "We configure the client with the local server we created in the previous slide."
+    },
+    {
+      "lineRange": [12, 16],
+      "pt-br": "`stream: true` faz o SDK do JavaScript configurar uma conexão SSE (Server-Sent Events) automaticamente.",
+      "en-us": "`stream: true` makes the JS SDK automatically set up an SSE (Server-Sent Events) connection."
+    },
+    {
+      "lineRange": [20, 23],
+      "pt-br": "A sintaxe `for await` é perfeita para streams. O código espera cada chunk sem travar a thread principal.",
+      "en-us": "The `for await` syntax is perfect for streams. The code waits for each chunk without blocking the main thread."
+    },
+    {
+      "lineRange": [24, 24],
+      "pt-br": "Após o término do stream, exibimos uma marcação visual de conclusão.",
+      "en-us": "After the stream ends, we display a visual completion marker."
+    },
+    {
+      "lineRange": [27, 27],
+      "pt-br": "Invocamos a função principal para executar o exemplo.",
+      "en-us": "We invoke the main function to run the example."
+    }
+  ]
+}

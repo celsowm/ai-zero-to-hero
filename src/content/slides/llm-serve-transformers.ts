@@ -65,7 +65,7 @@ export const llmServeTransformers = defineSlide({
         endpointHealthLabel: 'GET /health',
         quantLabel: 'NF4 / INT8',
         timeoutLabel: 'Auto-unload em 300s',
-        tabs: [{ label: 'Visual' }, { label: 'Código' }],
+        tabs: [{ label: 'Visual' }, { label: 'Linux / macOS' }, { label: 'Windows' }],
         codePanels: [
           {
             kind: 'html',
@@ -73,29 +73,56 @@ export const llmServeTransformers = defineSlide({
             html: '',
           },
           {
-            title: 'Subindo o servidor e testando com curl',
+            title: 'Linux / macOS (Bash)',
             description: 'Instala as dependências, inicia o servidor com quantização NF4 e valida com curl.',
-            source: { snippetId: 'transformers/llm-serve-start', language: 'python' },
+            source: { snippetId: 'transformers/llm-serve-start-linux', language: 'bash' },
             codeExplanations: [
               {
                 lineRange: [1, 2],
-                content: '`transformers[serving]` instala FastAPI e Uvicorn como extras — não estão no pacote base.',
+                content: '`transformers[serving]` instala FastAPI e Uvicorn como extras.',
               },
               {
                 lineRange: [4, 7],
-                content: '`transformers serve` inicia o servidor. `--quantization bnb-4bit` aplica NF4 automaticamente — os mesmos pesos comprimidos que vimos nos slides anteriores.',
+                content: '`transformers serve` inicia o servidor. No Linux/macOS, usamos `\` para continuação de linha.',
               },
               {
                 lineRange: [9, 10],
-                content: '`/health` retorna 200 quando o servidor está pronto. Use para verificar antes de enviar requisições.',
+                content: '`/health` retorna 200 quando o servidor está pronto.',
               },
               {
                 lineRange: [12, 13],
-                content: '`/v1/models` lista os modelos carregados. Segue exatamente o formato da OpenAI API.',
+                content: '`/v1/models` lista os modelos carregados.',
               },
               {
                 lineRange: [15, 22],
-                content: '`/v1/chat/completions` é o endpoint principal. O `model` usa o ID do Hub. `messages` segue o padrão `[{role, content}]`.',
+                content: '`/v1/chat/completions` segue o padrão OpenAI.',
+              },
+            ],
+          },
+          {
+            title: 'Windows (PowerShell)',
+            description: 'Instala as dependências, inicia o servidor com quantização NF4 e valida com Invoke-RestMethod.',
+            source: { snippetId: 'transformers/llm-serve-start-windows', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`transformers[serving]` instala FastAPI e Uvicorn.',
+              },
+              {
+                lineRange: [4, 7],
+                content: 'No PowerShell, usamos a crase (`) para continuação de linha.',
+              },
+              {
+                lineRange: [9, 10],
+                content: 'Verifique se o servidor está no ar com `/health`.',
+              },
+              {
+                lineRange: [12, 13],
+                content: '`/v1/models` lista os modelos carregados.',
+              },
+              {
+                lineRange: [15, 22],
+                content: 'O endpoint compatível com OpenAI.',
               },
             ],
           },
@@ -113,7 +140,7 @@ export const llmServeTransformers = defineSlide({
         endpointHealthLabel: 'GET /health',
         quantLabel: 'NF4 / INT8',
         timeoutLabel: 'Auto-unload in 300s',
-        tabs: [{ label: 'Visual' }, { label: 'Code' }],
+        tabs: [{ label: 'Visual' }, { label: 'Linux / macOS' }, { label: 'Windows' }],
         codePanels: [
           {
             kind: 'html',
@@ -121,29 +148,56 @@ export const llmServeTransformers = defineSlide({
             html: '',
           },
           {
-            title: 'Starting the server and testing with curl',
+            title: 'Linux / macOS (Bash)',
             description: 'Installs dependencies, starts the server with NF4 quantization and validates with curl.',
-            source: { snippetId: 'transformers/llm-serve-start', language: 'python' },
+            source: { snippetId: 'transformers/llm-serve-start-linux', language: 'bash' },
             codeExplanations: [
               {
                 lineRange: [1, 2],
-                content: '`transformers[serving]` installs FastAPI and Uvicorn as extras — they are not in the base package.',
+                content: '`transformers[serving]` installs FastAPI and Uvicorn as extras.',
               },
               {
                 lineRange: [4, 7],
-                content: '`transformers serve` starts the server. `--quantization bnb-4bit` applies NF4 automatically — the same compressed weights we saw in the previous slides.',
+                content: '`transformers serve` starts the server. On Linux/macOS, we use `\` for line continuation.',
               },
               {
                 lineRange: [9, 10],
-                content: '`/health` returns 200 when the server is ready. Use to check before sending requests.',
+                content: '`/health` returns 200 when the server is ready.',
               },
               {
                 lineRange: [12, 13],
-                content: '`/v1/models` lists loaded models. Follows exactly the OpenAI API format.',
+                content: '`/v1/models` lists loaded models.',
               },
               {
                 lineRange: [15, 22],
-                content: '`/v1/chat/completions` is the main endpoint. `model` uses the Hub ID. `messages` follows the `[{role, content}]` standard.',
+                content: '`/v1/chat/completions` follows the OpenAI standard.',
+              },
+            ],
+          },
+          {
+            title: 'Windows (PowerShell)',
+            description: 'Installs dependencies, starts the server with NF4 quantization and validates with curl.',
+            source: { snippetId: 'transformers/llm-serve-start-windows', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`transformers[serving]` installs FastAPI and Uvicorn.',
+              },
+              {
+                lineRange: [4, 7],
+                content: 'In PowerShell, we use the backtick (`) for line continuation.',
+              },
+              {
+                lineRange: [9, 10],
+                content: 'Check if the server is up with `/health`.',
+              },
+              {
+                lineRange: [12, 13],
+                content: '`/v1/models` lists loaded models.',
+              },
+              {
+                lineRange: [15, 22],
+                content: 'The OpenAI-compatible endpoint.',
               },
             ],
           },

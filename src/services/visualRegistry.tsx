@@ -21,6 +21,8 @@ function registerVisual(id: string, component: React.LazyExoticComponent<VisualC
  * Add a new entry here to register a visual — no boilerplate blocks needed.
  */
 const visualMap: Record<string, string> = {
+  // generic code tabs
+  'code-tabs': 'CodeTabsVisual',
   // inference / learning
   'inference-diagram': 'InferenceDiagram',
   'learning-loop-diagram': 'LearningLoopDiagram',

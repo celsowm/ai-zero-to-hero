@@ -1,4 +1,4 @@
-import type { IContent, Language, SlideType } from './base';
+import type { CodeTabsCopy, IContent, Language, SlideType } from './base';
 import type {
   ApiLatencyGrowthVisualCopy,
   InferenceDiagramCopy,
@@ -441,6 +441,8 @@ interface VisualCopyMap {
   'python-exercise': PythonExerciseVisualCopy;
   // welcome
   'welcome-synthwave': WelcomeSynthwaveCopy;
+  // generic code tabs (tabs + code panels)
+  'code-tabs': CodeTabsCopy;
   // bpe tokenization
   'token-level-comparison': TokenLevelComparisonCopy;
   'token-granularity-slider': TokenGranularitySliderCopy;

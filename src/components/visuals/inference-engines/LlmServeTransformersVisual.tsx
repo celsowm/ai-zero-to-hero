@@ -83,7 +83,7 @@ export const LlmServeTransformersVisual = React.memo(({ copy }: LlmServeTransfor
                 </div>
               ) : 'source' in panel && (
                 <CodeBlock
-                  language="python"
+                  language={panel.source.language}
                   code=""
                   sourceRef={panel.source}
                   explanations={panel.codeExplanations}
