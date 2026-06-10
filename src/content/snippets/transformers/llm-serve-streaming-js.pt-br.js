@@ -10,7 +10,7 @@ const openai = new OpenAI({
 async function main() {
   // 2. Iniciar a stream
   const stream = await openai.chat.completions.create({
-    model: "Qwen/Qwen3-0.5B",
+    model: "Qwen/Qwen3.5-0.8B",
     messages: [{ role: "user", content: "O que é streaming?" }],
     stream: true, // Ativa Server-Sent Events (SSE)
   });

@@ -5,7 +5,7 @@ client = OpenAI(base_url="http://localhost:8000/v1", api_key="zero-to-hero")
 
 # 2. Make request with stream=True
 response = client.chat.completions.create(
-    model="Qwen/Qwen3-0.5B",
+    model="Qwen/Qwen3.5-0.8B",
     messages=[{"role": "user", "content": "Explain streaming in 2 sentences."}],
     stream=True  # Enables incremental delivery
 )

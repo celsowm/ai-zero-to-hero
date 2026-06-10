@@ -79,7 +79,7 @@ export const llmServeTransformers = defineSlide({
             codeExplanations: [
               {
                 lineRange: [1, 2],
-                content: '`transformers[serving]` instala FastAPI e Uvicorn como extras.',
+                content: '`pillow` + `transformers[serving]` — Pillow é necessário para processamento de imagens em modelos multimodais.',
               },
               {
                 lineRange: [4, 7],
@@ -106,7 +106,7 @@ export const llmServeTransformers = defineSlide({
             codeExplanations: [
               {
                 lineRange: [1, 2],
-                content: '`transformers[serving]` instala FastAPI e Uvicorn.',
+                content: '`pillow` + `transformers[serving]` — Pillow is required for image processing in multimodal models.',
               },
               {
                 lineRange: [4, 7],

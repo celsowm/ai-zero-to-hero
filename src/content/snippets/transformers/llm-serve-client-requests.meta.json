@@ -1,0 +1,26 @@
+{
+  "id": "transformers/llm-serve-client-requests",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "`pip install requests` + import — alternativa leve sem dependência do SDK `openai`.",
+      "en-us": "`pip install requests` + import — a lightweight alternative without the `openai` SDK dependency."
+    },
+    {
+      "lineRange": [4, 14],
+      "pt-br": "A requisição HTTP é montada manualmente com `requests.post()`. O corpo JSON segue exatamente o mesmo formato que o cliente OpenAI usaria internamente.",
+      "en-us": "The HTTP request is built manually with `requests.post()`. The JSON body follows exactly the same format the OpenAI client would use internally."
+    },
+    {
+      "lineRange": [17, 18],
+      "pt-br": "Com `requests`, acessamos os campos via `data[\"choices\"][0][\"message\"][\"content\"]` em vez de atributos de objeto.",
+      "en-us": "With `requests`, we access fields via `data[\"choices\"][0][\"message\"][\"content\"]` instead of object attributes."
+    },
+    {
+      "lineRange": [20, 24],
+      "pt-br": "Mesma portabilidade: troque apenas a URL para usar vLLM, Ollama ou a OpenAI real (neste caso, adicione `Authorization: Bearer sk-...`).",
+      "en-us": "Same portability: change only the URL to use vLLM, Ollama, or real OpenAI (in that case, add `Authorization: Bearer sk-...`)."
+    }
+  ]
+}

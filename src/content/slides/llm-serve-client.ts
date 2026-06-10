@@ -23,33 +23,6 @@ export const llmServeClient = defineSlide({
 Todo o restante do código — \`chat.completions.create()\`, o formato de \`messages\`, \`temperature\`, \`max_tokens\`, streaming — é **idêntico** independente do motor.
 
 > Troque de motor sem tocar no código de negócio. É o mesmo princípio de um driver ODBC para bancos de dados.`,
-      rightBody: `\`\`\`python
-snippet:transformers/llm-serve-client
-\`\`\`
-
-> Rode localmente: o snippet cria um cliente, chama o modelo Qwen 3.5 0.5B via servidor local e imprime a resposta.`,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Importamos `OpenAI` do pacote `openai` — o cliente oficial, que também fala com servidores locais.',
-        },
-        {
-          lineRange: [3, 7],
-          content: '`base_url` aponta para o servidor local. `api_key` pode ser qualquer string — o servidor local não valida. Para a OpenAI real, use `api_key="sk-..."` e omita `base_url`.',
-        },
-        {
-          lineRange: [9, 18],
-          content: '`chat.completions.create()` é a chamada padrão. `system` define o comportamento do assistente; `user` é a pergunta. Idêntico à chamada real da OpenAI.',
-        },
-        {
-          lineRange: [19, 20],
-          content: '`choices[0].message.content` é o texto gerado. Mostramos o resultado com `print()`.',
-        },
-        {
-          lineRange: [22, 25],
-          content: 'Portabilidade total: para usar vLLM, Ollama ou a OpenAI real — mude apenas `base_url` (e `api_key` quando necessário).',
-        },
-      ],
     },
     'en-us': {
       title: 'Python client: same code, any server',
@@ -69,33 +42,127 @@ snippet:transformers/llm-serve-client
 All the rest of the code — \`chat.completions.create()\`, the \`messages\` format, \`temperature\`, \`max_tokens\`, streaming — is **identical** regardless of the engine.
 
 > Swap engines without touching business code. Same principle as an ODBC driver for databases.`,
-      rightBody: `\`\`\`python
-snippet:transformers/llm-serve-client
-\`\`\`
-
-> Run it locally: the snippet creates a client, calls the Qwen 3.5 0.5B model via the local server and prints the response.`,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'We import `OpenAI` from the `openai` package — the official client, which also speaks to local servers.',
-        },
-        {
-          lineRange: [3, 7],
-          content: '`base_url` points to the local server. `api_key` can be any string — the local server doesn\'t validate it. For real OpenAI, use `api_key="sk-..."` and omit `base_url`.',
-        },
-        {
-          lineRange: [9, 18],
-          content: '`chat.completions.create()` is the standard call. `system` defines the assistant behavior; `user` is the question. Identical to the real OpenAI call.',
-        },
-        {
-          lineRange: [19, 20],
-          content: '`choices[0].message.content` is the generated text. We display it with `print()`.',
-        },
-        {
-          lineRange: [22, 25],
-          content: 'Full portability: to use vLLM, Ollama, or real OpenAI — change only `base_url` (and `api_key` when needed).',
-        },
-      ],
+    },
+  },
+  visual: {
+    id: 'code-tabs',
+    copy: {
+      'pt-br': {
+        tabs: [
+          { label: 'OpenAI SDK' },
+          { label: 'Requests' },
+        ],
+        codePanels: [
+          {
+            title: 'OpenAI SDK (recomendado)',
+            description: 'Usa o cliente oficial `openai`, que gerencia retry, timeouts e serialização automaticamente.',
+            source: { snippetId: 'transformers/llm-serve-client', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`pip install openai` + import — dependência oficial da OpenAI, compatível com qualquer servidor compatível.',
+              },
+              {
+                lineRange: [4, 8],
+                content: '`base_url` aponta para o servidor local. `api_key` pode ser qualquer string — o servidor local não valida. Para a OpenAI real, use `api_key="sk-..."` e omita `base_url`.',
+              },
+              {
+                lineRange: [10, 19],
+                content: '`chat.completions.create()` é a chamada padrão. `system` define o comportamento do assistente; `user` é a pergunta. Idêntico à chamada real da OpenAI.',
+              },
+              {
+                lineRange: [21, 22],
+                content: '`choices[0].message.content` é o texto gerado. Mostramos o resultado com `print()`.',
+              },
+              {
+                lineRange: [24, 28],
+                content: 'Portabilidade total: para usar vLLM, Ollama ou a OpenAI real — mude apenas `base_url` (e `api_key` quando necessário).',
+              },
+            ],
+          },
+          {
+            title: 'Requests (sem SDK)',
+            description: 'Alternativa leve usando `requests`, sem instalar o pacote `openai`. Mostra o HTTP por baixo dos panos.',
+            source: { snippetId: 'transformers/llm-serve-client-requests', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`pip install requests` + import — alternativa mínima sem dependência do SDK `openai`.',
+              },
+              {
+                lineRange: [4, 14],
+                content: 'Montamos a requisição HTTP manualmente. O corpo JSON segue exatamente o mesmo formato que o cliente OpenAI usaria internamente.',
+              },
+              {
+                lineRange: [17, 18],
+                content: 'Com `requests`, acessamos os campos via `data["choices"][0]["message"]["content"]` em vez de atributos de objeto.',
+              },
+              {
+                lineRange: [20, 24],
+                content: 'Mesma portabilidade: troque apenas a URL para usar vLLM, Ollama ou a OpenAI real.',
+              },
+            ],
+          },
+        ],
+      },
+      'en-us': {
+        tabs: [
+          { label: 'OpenAI SDK' },
+          { label: 'Requests' },
+        ],
+        codePanels: [
+          {
+            title: 'OpenAI SDK (recommended)',
+            description: 'Uses the official `openai` client, which handles retries, timeouts, and serialization automatically.',
+            source: { snippetId: 'transformers/llm-serve-client', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`pip install openai` + import — official OpenAI dependency, compatible with any compatible server.',
+              },
+              {
+                lineRange: [4, 8],
+                content: '`base_url` points to the local server. `api_key` can be any string — the local server doesn\'t validate it. For real OpenAI, use `api_key="sk-..."` and omit `base_url`.',
+              },
+              {
+                lineRange: [10, 19],
+                content: '`chat.completions.create()` is the standard call. `system` defines the assistant behavior; `user` is the question. Identical to the real OpenAI call.',
+              },
+              {
+                lineRange: [21, 22],
+                content: '`choices[0].message.content` is the generated text. We display it with `print()`.',
+              },
+              {
+                lineRange: [24, 28],
+                content: 'Full portability: to use vLLM, Ollama, or real OpenAI — change only `base_url` (and `api_key` when needed).',
+              },
+            ],
+          },
+          {
+            title: 'Requests (no SDK)',
+            description: 'Lightweight alternative using `requests`, without installing the `openai` package. Shows the HTTP underneath.',
+            source: { snippetId: 'transformers/llm-serve-client-requests', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`pip install requests` + import — minimal alternative without the `openai` SDK dependency.',
+              },
+              {
+                lineRange: [4, 14],
+                content: 'We build the HTTP request manually. The JSON body follows exactly the same format the OpenAI client would use internally.',
+              },
+              {
+                lineRange: [17, 18],
+                content: 'With `requests`, we access fields via `data["choices"][0]["message"]["content"]` instead of object attributes.',
+              },
+              {
+                lineRange: [20, 24],
+                content: 'Same portability: change only the URL to use vLLM, Ollama, or real OpenAI.',
+              },
+            ],
+          },
+        ],
+      },
     },
   },
 });

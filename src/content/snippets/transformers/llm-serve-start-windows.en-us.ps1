@@ -1,8 +1,8 @@
 # 1. Install serving dependencies
-pip install transformers[serving]
+pip install pillow transformers[serving]
 
 # 2. Start the server (model loads once, stays in memory)
-transformers serve Qwen/Qwen3-0.5B `
+transformers serve Qwen/Qwen3.5-0.8B `
   --quantization bnb-4bit `
   --port 8000
 
@@ -16,8 +16,10 @@ Invoke-RestMethod -Uri "http://localhost:8000/v1/models"
 Invoke-RestMethod -Uri "http://localhost:8000/v1/chat/completions" `
   -Method Post `
   -ContentType "application/json" `
-  -Body '{
-    "model": "Qwen/Qwen3-0.5B",
-    "messages": [{"role": "user", "content": "What is an LLM?"}],
-    "max_tokens": 100
-  }'
+  -Body @'
+{
+  "model": "Qwen/Qwen3.5-0.8B",
+  "messages": [{"role": "user", "content": "What is an LLM?"}],
+  "max_tokens": 100
+}
+'@

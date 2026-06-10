@@ -1,3 +1,4 @@
+# pip install openai
 from openai import OpenAI
 
 # Point the client to the local server — same interface as the real OpenAI
@@ -7,7 +8,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="Qwen/Qwen3-0.5B",
+    model="Qwen/Qwen3.5-0.8B",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "What is a transformer?"},
