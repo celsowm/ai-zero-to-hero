@@ -121,8 +121,8 @@ export const llmServeTransformers = defineSlide({
                 content: '`/v1/models` lista os modelos carregados.',
               },
               {
-                lineRange: [15, 22],
-                content: 'O endpoint compatível com OpenAI.',
+                lineRange: [15, 33],
+                content: 'Usamos hashtable + `ConvertTo-Json` para montar o body, e `[Text.Encoding]::UTF8.GetBytes()` para evitar problemas de encoding com acentos.',
               },
             ],
           },
@@ -196,8 +196,8 @@ export const llmServeTransformers = defineSlide({
                 content: '`/v1/models` lists loaded models.',
               },
               {
-                lineRange: [15, 22],
-                content: 'The OpenAI-compatible endpoint.',
+                lineRange: [15, 33],
+                content: 'We use a hashtable + `ConvertTo-Json` to build the body, and `[Text.Encoding]::UTF8.GetBytes()` to avoid encoding issues with special characters.',
               },
             ],
           },

@@ -13,13 +13,21 @@ Invoke-RestMethod -Uri "http://localhost:8000/health"
 Invoke-RestMethod -Uri "http://localhost:8000/v1/models"
 
 # 5. Make a chat request (using Invoke-RestMethod in PowerShell)
-Invoke-RestMethod -Uri "http://localhost:8000/v1/chat/completions" `
+$body = @{
+  model = "Qwen/Qwen3.5-0.8b"
+  messages = @(
+    @{
+      role = "user"
+      content = "What is an LLM?"
+    }
+  )
+  max_tokens = 300
+} | ConvertTo-Json -Depth 10
+
+$response = Invoke-RestMethod `
+  -Uri "http://localhost:8000/v1/chat/completions" `
   -Method Post `
-  -ContentType "application/json" `
-  -Body @'
-{
-  "model": "Qwen/Qwen3.5-0.8B",
-  "messages": [{"role": "user", "content": "What is an LLM?"}],
-  "max_tokens": 100
-}
-'@
+  -ContentType "application/json; charset=utf-8" `
+  -Body ([System.Text.Encoding]::UTF8.GetBytes($body))
+
+$response.choices[0].message.content
