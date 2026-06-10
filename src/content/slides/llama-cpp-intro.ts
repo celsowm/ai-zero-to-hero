@@ -63,22 +63,26 @@ export const llamaCppIntro = defineSlide({
             codeExplanations: [
               {
                 lineRange: [1, 1],
-                content: 'Instala Git, CMake e o Build Tools da Visual Studio via winget.',
+                content: 'Verifica se VS Code e Visual Studio C++ estão instalados antes de compilar.',
               },
               {
                 lineRange: [2, 2],
+                content: 'Instala Git, CMake e o Build Tools da Visual Studio via winget.',
+              },
+              {
+                lineRange: [3, 3],
                 content: 'Clona o repositório oficial (ggml-org/llama.cpp).',
               },
               {
-                lineRange: [4, 4],
+                lineRange: [5, 5],
                 content: 'Configura o build com CMake usando o gerador padrão do Visual Studio.',
               },
               {
-                lineRange: [5, 5],
+                lineRange: [6, 6],
                 content: 'Compila o projeto em modo Release.',
               },
               {
-                lineRange: [6, 6],
+                lineRange: [7, 7],
                 content: 'Usa `-hf` para baixar e executar o modelo Gemma 3 1B direto do Hugging Face.',
               },
             ],
@@ -161,22 +165,26 @@ export const llamaCppIntro = defineSlide({
             codeExplanations: [
               {
                 lineRange: [1, 1],
-                content: 'Installs Git, CMake, and Visual Studio Build Tools via winget.',
+                content: 'Checks if VS Code and Visual Studio C++ are installed before building.',
               },
               {
                 lineRange: [2, 2],
+                content: 'Installs Git, CMake, and Visual Studio Build Tools via winget.',
+              },
+              {
+                lineRange: [3, 3],
                 content: 'Clones the official repository (ggml-org/llama.cpp).',
               },
               {
-                lineRange: [4, 4],
+                lineRange: [5, 5],
                 content: 'Configures the build with CMake using the default Visual Studio generator.',
               },
               {
-                lineRange: [5, 5],
+                lineRange: [6, 6],
                 content: 'Builds in Release mode.',
               },
               {
-                lineRange: [6, 6],
+                lineRange: [7, 7],
                 content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
               },
             ],

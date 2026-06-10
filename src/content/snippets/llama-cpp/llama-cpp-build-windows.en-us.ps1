@@ -1,3 +1,4 @@
+$hasVSCode = if (Get-Command code -ErrorAction SilentlyContinue) { "Installed" } else { "Not Found" }; $hasCpp = if (& "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.VisualStudio.Workload.NativeDesktop) { "Installed" } else { "Not Found" }; Write-Host "VS Code: $hasVSCode`nVisual Studio C++: $hasCpp"
 winget install Git.Git Kitware.CMake Microsoft.VisualStudio.2022.BuildTools --source winget
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
