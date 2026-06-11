@@ -1,0 +1,36 @@
+{
+  "id": "openai-api/response-format-json-schema",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 4],
+      "pt-br": "Importamos `json`, criamos o client e apontamos para um servidor compatível com OpenAI API.",
+      "en-us": "We import `json`, create the client, and point it to an OpenAI-compatible server."
+    },
+    {
+      "lineRange": [6, 10],
+      "pt-br": "Montamos a requisição com `messages` e `response_format` para forçar a saída em JSON Schema.",
+      "en-us": "We build the request with `messages` and `response_format` to force JSON Schema output."
+    },
+    {
+      "lineRange": [11, 21],
+      "pt-br": "O schema define tipos, campos obrigatórios e bloqueia propriedades extras.",
+      "en-us": "The schema defines types, required fields, and blocks extra properties."
+    },
+    {
+      "lineRange": [23, 26],
+      "pt-br": "A chamada ao servidor retorna `choices[0].message.content` com JSON válido, pronto para `json.loads`.",
+      "en-us": "The server call returns `choices[0].message.content` with valid JSON, ready for `json.loads`."
+    },
+    {
+      "lineRange": [27, 30],
+      "pt-br": "Depois do parse, a aplicação acessa os campos determinísticos sem usar tool calling.",
+      "en-us": "After parsing, the application accesses deterministic fields without using tool calling."
+    },
+    {
+      "lineRange": [32, 34],
+      "pt-br": "Depois do parse, a aplicação imprime os campos estruturados já prontos para uso.",
+      "en-us": "After parsing, the application prints the structured fields ready for use."
+    }
+  ]
+}

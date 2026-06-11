@@ -78,6 +78,7 @@ import { promptEvaluation } from './prompt-evaluation';
 import { promptSecuritySafety } from './prompt-security-safety';
 import { promptStructureAnatomy } from './prompt-structure-anatomy';
 import { realDatasetsPrompts } from './real-datasets-prompts';
+import { responseFormatJsonSchema } from './response-format-json-schema';
 import { treeOfThoughts } from './tree-of-thoughts';
 import { zeroShotPrompting } from './zero-shot-prompting';
 import { inferenceE2e } from './inference-e2e';
@@ -355,6 +356,7 @@ export const allSlides: ISlide[] = [
   promptSecuritySafety,
   promptStructureAnatomy,
   realDatasetsPrompts,
+  responseFormatJsonSchema,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,

@@ -1,0 +1,21 @@
+{
+  "id": "requests/response-format-basic",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Importamos `json` e `requests`, além de definir a URL da API e os headers.",
+      "en-us": "We import `json` and `requests`, then define the API URL and headers."
+    },
+    {
+      "lineRange": [7, 33],
+      "pt-br": "O payload traz uma nota com o stack explícito e usa `response_format` para extrair projeto e lista de tecnologias.",
+      "en-us": "The payload includes a note with the stack spelled out and uses `response_format` to extract the project and technology list."
+    },
+    {
+      "lineRange": [35, 40],
+      "pt-br": "A resposta chega em `message.content`; fazemos `json.loads` e consumimos os campos estruturados.",
+      "en-us": "The response arrives in `message.content`; we run `json.loads` and consume the structured fields."
+    }
+  ]
+}

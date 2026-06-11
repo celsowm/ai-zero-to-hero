@@ -149,6 +149,7 @@ export const courseSlideOrder = [
   'llama-cpp-intro',
   'llama-cpp-server',
   'llama-cpp-offload',
+  'response-format-json-schema',
   'system-prompt-intro',
   'sft-dataset',
   'sft-train',

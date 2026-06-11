@@ -1,0 +1,21 @@
+{
+  "id": "requests/tool-calling-intermediate",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Agora usamos `json` e `requests` porque precisamos interpretar argumentos e fazer a chamada HTTP na mão.",
+      "en-us": "We now use both `json` and `requests` because we need to parse arguments and make the HTTP call ourselves."
+    },
+    {
+      "lineRange": [7, 14],
+      "pt-br": "A função `dispatch_tool` decide o que fazer para cada tool, convertendo os argumentos em Python com `json.loads`.",
+      "en-us": "The `dispatch_tool` function decides what to do for each tool by decoding the arguments with `json.loads`."
+    },
+    {
+      "lineRange": [16, 55],
+      "pt-br": "O payload declara duas tools, recebemos `tool_calls` e devolvemos um resultado estruturado para o restante da aplicação.",
+      "en-us": "The payload declares two tools, we receive `tool_calls`, and we return a structured result for the rest of the app."
+    }
+  ]
+}

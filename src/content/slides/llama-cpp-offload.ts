@@ -3,205 +3,161 @@ import { defineSlide } from './_factory';
 export const llamaCppOffload = defineSlide({
   id: 'llama-cpp-offload',
   type: 'two-column',
-  options: {
-    columnRatios: [0.5, 0.5],
-  },
+  options: { columnRatios: [0.47, 0.53] },
   content: {
     'pt-br': {
-      title: 'GPU Offload: Como Rodar Modelos Grandes em GPUs Pequenas',
-      body: `O problema: **Llama-3 70B em Q4_0 = 35 GB**. Sua GPU = **24 GB** (RTX 3090). E agora?
-
-### n_gpu_layers: O Parâmetro Mágico
-O llama.cpp permite colocar **algumas camadas na GPU** e o resto na CPU:
-
-$$\\text{layers\\_on\\_gpu} = \\min\\left(\\text{total\\_layers}, \\left\\lfloor \\frac{\\text{gpu\\_vram}}{\\text{vram\\_per\\_layer}} \\right\\rfloor\\right)$$
-
-Cada camada tem um custo: pesos + KV cache + ativações.
-
-### Memory Budget
-**GPU VRAM (Video RAM)** = pesos_gpu + KV_cache_gpu + overhead_ativações
-**CPU RAM (Random Access Memory)** = pesos_cpu + KV_cache_cpu + swap (se disk offload)
-
-### Latência do Offload
-Cada camada na CPU é **~10x mais lenta** que na GPU:
-- GPU: ~0.05ms por camada
-- CPU: ~0.5ms por camada
-
-$$\\text{latência} = (N_{gpu} \\times t_{gpu}) + (N_{cpu} \\times t_{cpu})$$
-
-**Exemplo 70B, RTX 3090 (24 GB):**
-- 30 camadas na GPU → 1.5ms
-- 50 camadas na CPU → 25ms
-- **Total: 26.5ms → ~38 tok/s**
-
-### CPU Offload no Transformers
-O accelerate usa \`device_map="auto"\`:
-\`\`\`python
-snippet:transformers/offload-accelerate
-\`\`\`
-
-### Disk Offload
-Quando nem RAM cabe — o **accelerate** usa SSD como extensão. Lento (leitura sequencial ~500MB/s) mas **funciona**.
-
-> **Interaja →** Simule diferentes configurações de GPU/CPU/disk e veja a distribuição em tempo real.`,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Importamos a classe AutoModel para carregamento genérico.',
-        },
-        {
-          lineRange: [4, 6],
-          content: 'O parâmetro device_map="auto" ativa a biblioteca accelerate para distribuir as camadas.',
-        },
-        {
-          lineRange: [7, 10],
-          content: 'Definimos quanto de memória cada dispositivo pode consumir para os pesos.',
-        },
-      ],
+      title: 'GPU Offload no llama.cpp: onde cada camada roda',
+      body: [
+        'Offload é uma decisão de execução: **quantas camadas cabem na GPU** e quantas precisam continuar na CPU.',
+        '',
+        'No `llama.cpp`, isso aparece de forma explícita com `-ngl` (`n_gpu_layers`). Se a VRAM não comporta o modelo inteiro, você empurra só uma parte para a GPU e mantém o restante em RAM.',
+        '',
+        '### Regra prática',
+        '',
+        '- **Mais camadas na GPU**: maior throughput e menor latência',
+        '- **Mais camadas na CPU**: cabe em hardware menor, mas desacelera',
+        '- **Contexto maior (`-c`)** também consome memória, então o melhor `-ngl` depende do uso real',
+        '',
+        '### Quando usar cada abordagem',
+        '',
+        '| Cenário | Melhor escolha |',
+        '|---|---|',
+        '| Você quer controle fino local | `llama.cpp` com `-ngl` |',
+        '| Você quer subir rápido e deixar o runtime decidir | `Transformers` + `accelerate` |',
+        '| GPU pequena, mas ainda útil | Split GPU + CPU |',
+        '| Servidor com bastante VRAM | Modelo quase todo na GPU |',
+        '',
+        '> Pense em offload como um **orçamento de memória**: cada camada promovida para a GPU compra velocidade, mas consome VRAM escassa.',
+      ].join('\n'),
     },
     'en-us': {
-      title: 'GPU Offload: Running Large Models on Small GPUs',
-      body: `The problem: **Llama-3 70B in Q4_0 = 35 GB**. Your GPU = **24 GB** (RTX 3090). Now what?
-
-### n_gpu_layers: The Magic Parameter
-llama.cpp lets you put **some layers on GPU** and the rest on CPU:
-
-$$\\text{layers\\_on\\_gpu} = \\min\\left(\\text{total\\_layers}, \\left\\lfloor \\frac{\\text{gpu\\_vram}}{\\text{vram\\_per\\_layer}} \\right\\rfloor\\right)$$
-
-Each layer has a cost: weights + KV cache + activations.
-
-### Memory Budget
-**GPU VRAM (Video RAM)** = weights_gpu + KV_cache_gpu + activation_overhead
-**CPU RAM (Random Access Memory)** = weights_cpu + KV_cache_cpu + swap (if disk offload)
-
-### Offload Latency
-Each CPU layer is **~10x slower** than GPU:
-- GPU: ~0.05ms per layer
-- CPU: ~0.5ms per layer
-
-$$\\text{latency} = (N_{gpu} \\times t_{gpu}) + (N_{cpu} \\times t_{cpu})$$
-
-**Example 70B, RTX 3090 (24 GB):**
-- 30 layers on GPU → 1.5ms
-- 50 layers on CPU → 25ms
-- **Total: 26.5ms → ~38 tok/s**
-
-### CPU Offload in Transformers
-The accelerate library uses \`device_map="auto"\`:
-\`\`\`python
-snippet:transformers/offload-accelerate
-\`\`\`
-
-### Disk Offload
-When not even RAM fits — **accelerate** uses SSD as extension. Slow (sequential read ~500MB/s) but **it works**.
-
-> **Interact →** Simulate different GPU/CPU/disk configurations and see the distribution in real-time.`,
-      codeExplanations: [
-        {
-          lineRange: [1, 1],
-          content: 'Importing AutoModel class for generic loading.',
-        },
-        {
-          lineRange: [4, 6],
-          content: 'The device_map="auto" parameter enables the accelerate library to distribute layers.',
-        },
-        {
-          lineRange: [7, 10],
-          content: 'We define how much memory each device can consume for the weights.',
-        },
-      ],
+      title: 'GPU Offload in llama.cpp: where each layer runs',
+      body: [
+        'Offload is an execution decision: **how many layers fit on the GPU** and how many must keep running on the CPU.',
+        '',
+        'In `llama.cpp`, this is explicit through `-ngl` (`n_gpu_layers`). If VRAM cannot hold the whole model, you push only part of it to the GPU and keep the rest in system RAM.',
+        '',
+        '### Practical rule',
+        '',
+        '- **More layers on GPU**: higher throughput and lower latency',
+        '- **More layers on CPU**: fits smaller hardware, but slows down',
+        '- **Larger context (`-c`)** also consumes memory, so the best `-ngl` depends on real usage',
+        '',
+        '### When to use each approach',
+        '',
+        '| Scenario | Best choice |',
+        '|---|---|',
+        '| You want fine-grained local control | `llama.cpp` with `-ngl` |',
+        '| You want to move fast and let the runtime decide | `Transformers` + `accelerate` |',
+        '| Small GPU, but still useful | GPU + CPU split |',
+        '| Server with plenty of VRAM | Most of the model on GPU |',
+        '',
+        '> Think of offload as a **memory budget**: each layer promoted to the GPU buys speed, but spends scarce VRAM.',
+      ].join('\n'),
     },
   },
   visual: {
-    id: 'offload-simulator',
+    id: 'code-tabs',
     copy: {
       'pt-br': {
-        title: 'Simulador de Offload',
-        subtitle: 'Distribuição de camadas GPU ↔ CPU ↔ Disk',
-        modelLabel: 'Modelo',
-        gpuVramLabel: 'VRAM GPU',
-        cpuRamLabel: 'RAM CPU',
-        nGpuLayersLabel: 'n_gpu_layers',
-        diskOffloadLabel: 'Disk Offload',
-        gpuMemoryTitle: 'Memória GPU',
-        cpuMemoryTitle: 'Memória CPU',
-        weightsLabel: 'Pesos',
-        kvCacheLabel: 'KV Cache',
-        overheadLabel: 'Overhead',
-        swapLabel: 'Swap',
-        layerDistTitle: 'Distribuição de Camadas',
-        gpuLayerLabel: 'GPU',
-        cpuLayerLabel: 'CPU',
-        diskLayerLabel: 'Disk',
-        perfTitle: 'Estimador de Performance',
-        tokUnit: 'tok/s',
-        slowLabel: 'Lento (< 5 tok/s)',
-        mediumLabel: 'Médio (5-15 tok/s)',
-        fastLabel: 'Rápido (> 15 tok/s)',
-        stepperTitle: 'Forward Pass com Offload',
-        stepFocusLabel: 'Foco',
-        step1Label: 'GPU Forward',
-        step1Body: 'Camadas 0-N processadas na GPU (rápido).',
-        step2Label: 'Transfer PCIe',
-        step2Body: 'Hidden state copiado via PCIe para CPU (~5μs).',
-        step3Label: 'CPU Forward',
-        step3Body: 'Camadas N+1 processadas na CPU (lento mas funciona).',
-        totalParamsLabel: 'Params',
-        bppLabel: 'Bits/Param',
-        warningTitle: 'Diagnóstico',
-        warningGpuUnderutilized: 'GPU subutilizada — aumente n_gpu_layers para mais performance.',
-        warningCpuBottleneck: 'CPU bottleneck — maioria das camadas na CPU, velocidade limitada.',
-        warningBalanced: 'Configuração equilibrada — bom split GPU/CPU.',
-        warningImpossible: 'Modelo não cabe nem em GPU+CPU. Considere mais RAM ou modelo menor.',
-        gpuSpeedLabel: 'GPU pura',
-        cpuSpeedLabel: 'CPU pura',
-        estimatedSpeedLabel: 'Estimada',
-        onLabel: 'ON',
-        offLabel: 'OFF',
+        tabs: [
+          { label: 'llama.cpp' },
+          { label: 'Transformers' },
+        ],
+        codePanels: [
+          {
+            title: 'Controle explícito com `-ngl`',
+            description: 'Você escolhe quantas camadas vão para a GPU e ajusta contexto e batch conforme o hardware disponível.',
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: 'Abrimos `llama-cli` com um modelo GGUF quantizado. Esse é o fluxo típico quando queremos rodar localmente com o mínimo de dependências.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`-ngl 35` manda aproximadamente 35 camadas para a GPU. Se houver VRAM sobrando, aumente; se faltar memória, reduza.',
+              },
+              {
+                lineRange: [4, 6],
+                content: '`-c` aumenta o contexto, `-fa` ativa atenção otimizada e `-ub` ajusta o micro-batch. Esses parâmetros competem pelo mesmo orçamento de memória.',
+              },
+              {
+                lineRange: [7, 8],
+                content: 'Limitamos a geração e definimos um prompt simples para testar rapidamente se a configuração ficou estável.',
+              },
+            ],
+          },
+          {
+            title: 'Comparação com `accelerate`',
+            description: 'No ecossistema Transformers, o runtime decide o particionamento usando `device_map="auto"`.',
+            source: { snippetId: 'transformers/offload-accelerate-compare', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 3],
+                content: 'Carregamos tokenizer e modelo da forma usual do Hugging Face, sem lidar diretamente com cada camada.',
+              },
+              {
+                lineRange: [4, 8],
+                content: '`device_map="auto"` pede ao `accelerate` para decidir o split entre GPU e CPU. `max_memory` impõe o teto disponível em cada dispositivo.',
+              },
+              {
+                lineRange: [9, 9],
+                content: '`torch_dtype="auto"` reaproveita o dtype mais adequado ao checkpoint, reduzindo decisões manuais.',
+              },
+            ],
+          },
+        ],
       },
       'en-us': {
-        title: 'Offload Simulator',
-        subtitle: 'Layer distribution GPU ↔ CPU ↔ Disk',
-        modelLabel: 'Model',
-        gpuVramLabel: 'GPU VRAM',
-        cpuRamLabel: 'CPU RAM',
-        nGpuLayersLabel: 'n_gpu_layers',
-        diskOffloadLabel: 'Disk Offload',
-        gpuMemoryTitle: 'GPU Memory',
-        cpuMemoryTitle: 'CPU Memory',
-        weightsLabel: 'Weights',
-        kvCacheLabel: 'KV Cache',
-        overheadLabel: 'Overhead',
-        swapLabel: 'Swap',
-        layerDistTitle: 'Layer Distribution',
-        gpuLayerLabel: 'GPU',
-        cpuLayerLabel: 'CPU',
-        diskLayerLabel: 'Disk',
-        perfTitle: 'Performance Estimator',
-        tokUnit: 'tok/s',
-        slowLabel: 'Slow (< 5 tok/s)',
-        mediumLabel: 'Medium (5-15 tok/s)',
-        fastLabel: 'Fast (> 15 tok/s)',
-        stepperTitle: 'Forward Pass with Offload',
-        stepFocusLabel: 'Focus',
-        step1Label: 'GPU Forward',
-        step1Body: 'Layers 0-N processed on GPU (fast).',
-        step2Label: 'PCIe Transfer',
-        step2Body: 'Hidden state copied via PCIe to CPU (~5μs).',
-        step3Label: 'CPU Forward',
-        step3Body: 'Layers N+1 processed on CPU (slow but works).',
-        totalParamsLabel: 'Params',
-        bppLabel: 'Bits/Param',
-        warningTitle: 'Diagnosis',
-        warningGpuUnderutilized: 'GPU underutilized — increase n_gpu_layers for more performance.',
-        warningCpuBottleneck: 'CPU bottleneck — most layers on CPU, speed limited.',
-        warningBalanced: 'Balanced configuration — good GPU/CPU split.',
-        warningImpossible: 'Model does not fit in GPU+CPU. Consider more RAM or smaller model.',
-        gpuSpeedLabel: 'GPU only',
-        cpuSpeedLabel: 'CPU only',
-        estimatedSpeedLabel: 'Estimated',
-        onLabel: 'ON',
-        offLabel: 'OFF',
+        tabs: [
+          { label: 'llama.cpp' },
+          { label: 'Transformers' },
+        ],
+        codePanels: [
+          {
+            title: 'Explicit control with `-ngl`',
+            description: 'You choose how many layers go to the GPU and tune context and batch size around the hardware you have.',
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: 'We launch `llama-cli` with a quantized GGUF model. This is the standard flow when we want local inference with minimal dependencies.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`-ngl 35` sends roughly 35 layers to the GPU. If VRAM is still available, increase it; if memory is tight, reduce it.',
+              },
+              {
+                lineRange: [4, 6],
+                content: '`-c` increases context, `-fa` enables optimized attention, and `-ub` tunes micro-batching. These parameters compete for the same memory budget.',
+              },
+              {
+                lineRange: [7, 8],
+                content: 'We cap generation and provide a simple prompt so we can quickly check whether the configuration is stable.',
+              },
+            ],
+          },
+          {
+            title: 'Comparison with `accelerate`',
+            description: 'In the Transformers ecosystem, the runtime chooses the split through `device_map="auto"`.',
+            source: { snippetId: 'transformers/offload-accelerate-compare', language: 'python' },
+            codeExplanations: [
+              {
+                lineRange: [1, 3],
+                content: 'We load tokenizer and model in the usual Hugging Face style, without managing each layer directly.',
+              },
+              {
+                lineRange: [4, 8],
+                content: '`device_map="auto"` asks `accelerate` to decide the GPU/CPU split. `max_memory` sets the budget available on each device.',
+              },
+              {
+                lineRange: [9, 9],
+                content: '`torch_dtype="auto"` reuses the most appropriate dtype from the checkpoint, reducing manual tuning.',
+              },
+            ],
+          },
+        ],
       },
     },
   },

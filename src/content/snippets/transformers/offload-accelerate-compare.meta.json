@@ -1,0 +1,21 @@
+{
+  "id": "transformers/offload-accelerate-compare",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 3],
+      "pt-br": "Fluxo padrão do ecossistema Hugging Face: tokenizer e modelo carregados a partir do mesmo identificador.",
+      "en-us": "Standard Hugging Face flow: tokenizer and model are loaded from the same identifier."
+    },
+    {
+      "lineRange": [4, 8],
+      "pt-br": "`device_map='auto'` pede ao accelerate para repartir o modelo entre GPU e CPU, respeitando os limites de memória.",
+      "en-us": "`device_map='auto'` asks accelerate to split the model across GPU and CPU while respecting memory limits."
+    },
+    {
+      "lineRange": [9, 9],
+      "pt-br": "`torch_dtype='auto'` reaproveita o dtype recomendado pelo checkpoint.",
+      "en-us": "`torch_dtype='auto'` reuses the dtype recommended by the checkpoint."
+    }
+  ]
+}

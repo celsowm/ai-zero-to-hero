@@ -1,0 +1,26 @@
+{
+  "id": "llama-cpp/llama-cpp-offload",
+  "language": "bash",
+  "explanations": [
+    {
+      "lineRange": [1, 2],
+      "pt-br": "Abrimos o llama.cpp com um checkpoint GGUF quantizado baixado do Hugging Face Hub.",
+      "en-us": "We launch llama.cpp with a quantized GGUF checkpoint downloaded from the Hugging Face Hub."
+    },
+    {
+      "lineRange": [3, 3],
+      "pt-br": "`-ngl` controla quantas camadas ficam na GPU; o restante continua na CPU.",
+      "en-us": "`-ngl` controls how many layers stay on the GPU; the rest remains on the CPU."
+    },
+    {
+      "lineRange": [4, 6],
+      "pt-br": "`-c`, `-fa` e `-ub` ajustam contexto, atenção otimizada e micro-batch, influenciando o consumo de memória.",
+      "en-us": "`-c`, `-fa`, and `-ub` tune context, optimized attention, and micro-batching, which influence memory usage."
+    },
+    {
+      "lineRange": [7, 8],
+      "pt-br": "Geramos poucos tokens com um prompt simples para validar rapidamente a configuração.",
+      "en-us": "We generate a small number of tokens with a simple prompt to quickly validate the configuration."
+    }
+  ]
+}

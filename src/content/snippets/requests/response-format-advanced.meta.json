@@ -1,0 +1,21 @@
+{
+  "id": "requests/response-format-advanced",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 13],
+      "pt-br": "Criamos uma função auxiliar para validar se a resposta contém os campos obrigatórios.",
+      "en-us": "We create a helper that validates whether the response contains the required fields."
+    },
+    {
+      "lineRange": [15, 86],
+      "pt-br": "A chamada usa `response_format` e tenta converter o conteúdo em JSON logo em seguida.",
+      "en-us": "The call uses `response_format` and converts the content to JSON right away."
+    },
+    {
+      "lineRange": [87, 92],
+      "pt-br": "Se a validação falhar, o cliente repete a requisição com uma instrução mais explícita até obter JSON válido.",
+      "en-us": "If validation fails, the client retries with a more explicit instruction until JSON is valid."
+    }
+  ]
+}

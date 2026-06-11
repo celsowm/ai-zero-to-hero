@@ -1,0 +1,21 @@
+{
+  "id": "requests/response-format-intermediate",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 5],
+      "pt-br": "Usamos `json` e `requests` para montar o payload e ler a resposta estruturada.",
+      "en-us": "We use `json` and `requests` to build the payload and read structured output."
+    },
+    {
+      "lineRange": [7, 62],
+      "pt-br": "O schema agora inclui objetos aninhados, arrays e validações para capturar frontend, backend, dados e entrega.",
+      "en-us": "The schema now includes nested objects, arrays, and validation rules to capture frontend, backend, data, and delivery."
+    },
+    {
+      "lineRange": [64, 70],
+      "pt-br": "Depois do `json.loads`, a aplicação acessa os campos aninhados com segurança.",
+      "en-us": "After `json.loads`, the app can safely access nested fields."
+    }
+  ]
+}
