@@ -31,7 +31,7 @@ export const llamaCppServer = defineSlide({
         '- **JSON Schema**: resposta estruturada via `--json-schema`',
         '- **Multimodal**: suporte experimental a imagens',
         '',
-        "> O cliente Python usa o mesmo `openai` library que vimos antes — só muda a `base_url` para `http://localhost:8080/v1`.",
+        "> O cliente Python usa `requests` diretamente — sem dependência da biblioteca `openai`.",
       ].join('\n'),
     },
     'en-us': {
@@ -60,7 +60,7 @@ export const llamaCppServer = defineSlide({
         '- **JSON Schema**: structured responses via `--json-schema`',
         '- **Multimodal**: experimental image support',
         '',
-        "> The Python client uses the same `openai` library we've seen before — just change `base_url` to `http://localhost:8080/v1`.",
+        "> The Python client uses `requests` directly — no `openai` library dependency.",
       ].join('\n'),
     },
   },
@@ -106,24 +106,32 @@ export const llamaCppServer = defineSlide({
           },
           {
             title: 'Cliente Python',
-            description: 'Usa a biblioteca `openai` para consumir o servidor local.',
+            description: 'Usa `requests` para consumir o servidor local diretamente.',
             source: { snippetId: 'llama-cpp/llama-cpp-server-client', language: 'python' },
             codeExplanations: [
               {
                 lineRange: [1, 1],
-                content: 'Importa o cliente oficial OpenAI, que também funciona com servidores compatíveis.',
+                content: 'Importa a biblioteca padrão `requests` para fazer requisições HTTP.',
               },
               {
-                lineRange: [3, 6],
-                content: '`base_url` aponta para o servidor local. `api_key` pode ser qualquer string — o servidor local não valida.',
+                lineRange: [3, 3],
+                content: 'URL do endpoint de chat do servidor local.',
               },
               {
-                lineRange: [8, 14],
-                content: '`chat.completions.create()` é idêntico à chamada para a OpenAI real. Só muda a `base_url`.',
+                lineRange: [4, 4],
+                content: 'Header indicando que o corpo é JSON.',
               },
               {
-                lineRange: [16, 16],
-                content: 'Extrai e imprime o texto gerado.',
+                lineRange: [5, 12],
+                content: 'Payload com o modelo e mensagens no formato OpenAI.',
+              },
+              {
+                lineRange: [13, 13],
+                content: 'Envia requisição POST para o servidor local.',
+              },
+              {
+                lineRange: [14, 14],
+                content: 'Extrai e imprime o conteúdo da resposta.',
               },
             ],
           },
@@ -168,24 +176,32 @@ export const llamaCppServer = defineSlide({
           },
           {
             title: 'Python Client',
-            description: 'Uses the `openai` library to consume the local server.',
+            description: 'Uses `requests` to consume the local server directly.',
             source: { snippetId: 'llama-cpp/llama-cpp-server-client', language: 'python' },
             codeExplanations: [
               {
                 lineRange: [1, 1],
-                content: 'Imports the official OpenAI client, which also works with compatible servers.',
+                content: 'Imports the standard `requests` library for HTTP requests.',
               },
               {
-                lineRange: [3, 6],
-                content: '`base_url` points to the local server. `api_key` can be any string — the local server does not validate it.',
+                lineRange: [3, 3],
+                content: 'URL of the local server chat endpoint.',
               },
               {
-                lineRange: [8, 14],
-                content: '`chat.completions.create()` is identical to calling real OpenAI. Only `base_url` changes.',
+                lineRange: [4, 4],
+                content: 'Header indicating JSON body.',
               },
               {
-                lineRange: [16, 16],
-                content: 'Extracts and prints the generated text.',
+                lineRange: [5, 12],
+                content: 'Payload with model and messages in OpenAI format.',
+              },
+              {
+                lineRange: [13, 13],
+                content: 'Sends POST request to local server.',
+              },
+              {
+                lineRange: [14, 14],
+                content: 'Extracts and prints response content.',
               },
             ],
           },
