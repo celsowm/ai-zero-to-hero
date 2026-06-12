@@ -67,35 +67,59 @@ export const llamaCppOffload = defineSlide({
     copy: {
       'pt-br': {
         tabs: [
-          { label: 'llama.cpp' },
+          { label: 'llama.cpp Windows' },
+          { label: 'llama.cpp Linux' },
           { label: 'Transformers' },
         ],
         codePanels: [
           {
-            title: 'Ponto de partida com `--fit`',
+            title: 'Ponto de partida com `--fit` (Windows)',
             description: 'Você deixa o runtime ajustar o que ainda não foi fixado e usa `-ngl` só quando quer um limite manual.',
-            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'powershell' },
             codeExplanations: [
               {
-                lineRange: [1, 2],
+                lineRange: [2, 3],
                 content: 'Abrimos `llama-cli` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
               },
               {
-                lineRange: [3, 5],
+                lineRange: [4, 6],
                 content: '`--fit on` ativa o ajuste automático. `--fit-target 1536` preserva uma folga de VRAM e `--fit-ctx 4096` impede que o contexto mínimo caia abaixo desse valor.',
               },
               {
-                lineRange: [6, 7],
-                content: '`-c` e `-ub` continuam importantes: contexto e micro-batch competem pelo mesmo orçamento de memória que o `--fit` está tentando equilibrar. O `-fa` já fica no modo automático por padrão, então não precisa aparecer no exemplo.',
+                lineRange: [7, 8],
+                content: '`-c` e `-ub` continuam importantes: contexto e micro-batch competem pelo mesmo orçamento de memória que o `--fit` está tentando equilibrar.',
               },
               {
-                lineRange: [8, 9],
+                lineRange: [9, 10],
                 content: 'Limitamos a geração e definimos um prompt simples para testar rapidamente se a configuração ficou estável.',
               },
             ],
           },
           {
-            title: 'Comparação com `accelerate`',
+            title: 'Ponto de partida com `--fit` (Linux)',
+            description: 'Você deixa o runtime ajustar o que ainda não foi fixado e usa `-ngl` só quando quer um limite manual.',
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [2, 3],
+                content: 'Abrimos `llama-cli` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
+              },
+              {
+                lineRange: [4, 6],
+                content: '`--fit on` ativa o ajuste automático. `--fit-target 1536` preserva uma folga de VRAM e `--fit-ctx 4096` impede que o contexto mínimo caia abaixo desse valor.',
+              },
+              {
+                lineRange: [7, 8],
+                content: '`-c` e `-ub` continuam importantes: contexto e micro-batch competem pelo mesmo orçamento de memória que o `--fit` está tentando equilibrar.',
+              },
+              {
+                lineRange: [9, 10],
+                content: 'Limitamos a geração e definimos um prompt simples para testar rapidamente se a configuração ficou estável.',
+              },
+            ],
+          },
+          {
+            title: 'Transformers com `accelerate`',
             description: 'No ecossistema Transformers, o runtime decide o particionamento usando `device_map="auto"`.',
             source: { snippetId: 'transformers/offload-accelerate-compare', language: 'python' },
             codeExplanations: [
@@ -117,35 +141,59 @@ export const llamaCppOffload = defineSlide({
       },
       'en-us': {
         tabs: [
-          { label: 'llama.cpp' },
+          { label: 'llama.cpp Windows' },
+          { label: 'llama.cpp Linux' },
           { label: 'Transformers' },
         ],
         codePanels: [
           {
-            title: 'Starting point with `--fit`',
+            title: 'Starting point with `--fit` (Windows)',
             description: 'You let the runtime size the unset parameters first and only add `-ngl` when you need a manual override.',
-            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'powershell' },
             codeExplanations: [
               {
-                lineRange: [1, 2],
+                lineRange: [2, 3],
                 content: 'We launch `llama-cli` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
               },
               {
-                lineRange: [3, 5],
+                lineRange: [4, 6],
                 content: '`--fit on` enables automatic sizing. `--fit-target 1536` keeps some VRAM margin, and `--fit-ctx 4096` prevents the minimum context from dropping below that floor.',
               },
               {
-                lineRange: [6, 7],
-                content: '`-c` and `-ub` still matter: context and micro-batching compete for the same memory budget that `--fit` is balancing. `-fa` already stays on its automatic default, so it does not need to appear in the example.',
+                lineRange: [7, 8],
+                content: '`-c` and `-ub` still matter: context and micro-batching compete for the same memory budget that `--fit` is balancing.',
               },
               {
-                lineRange: [8, 9],
+                lineRange: [9, 10],
                 content: 'We cap generation and provide a simple prompt so we can quickly check whether the configuration is stable.',
               },
             ],
           },
           {
-            title: 'Comparison with `accelerate`',
+            title: 'Starting point with `--fit` (Linux)',
+            description: 'You let the runtime size the unset parameters first and only add `-ngl` when you need a manual override.',
+            source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
+            codeExplanations: [
+              {
+                lineRange: [2, 3],
+                content: 'We launch `llama-cli` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
+              },
+              {
+                lineRange: [4, 6],
+                content: '`--fit on` enables automatic sizing. `--fit-target 1536` keeps some VRAM margin, and `--fit-ctx 4096` prevents the minimum context from dropping below that floor.',
+              },
+              {
+                lineRange: [7, 8],
+                content: '`-c` and `-ub` still matter: context and micro-batching compete for the same memory budget that `--fit` is balancing.',
+              },
+              {
+                lineRange: [9, 10],
+                content: 'We cap generation and provide a simple prompt so we can quickly check whether the configuration is stable.',
+              },
+            ],
+          },
+          {
+            title: 'Transformers with `accelerate`',
             description: 'In the Transformers ecosystem, the runtime chooses the split through `device_map="auto"`.',
             source: { snippetId: 'transformers/offload-accelerate-compare', language: 'python' },
             codeExplanations: [
