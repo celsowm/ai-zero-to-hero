@@ -54,7 +54,7 @@ export const llamaCppIntro = defineSlide({
     id: 'llama-cpp-build-guide',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'Windows' }, { label: 'macOS' }, { label: 'Linux' }],
+        tabs: [{ label: 'Windows' }, { label: 'Windows (CPU)' }, { label: 'macOS' }, { label: 'Linux' }],
         codePanels: [
           {
             title: 'Windows (PowerShell)',
@@ -153,10 +153,41 @@ export const llamaCppIntro = defineSlide({
               },
             ],
           },
+          {
+            title: 'Windows (CPU - OpenBLAS)',
+            description: 'Instala Git, CMake e VS Build Tools; compila com aceleração BLAS via OpenBLAS (CPU).',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-windows-cpu', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Verifica se VS Code e Visual Studio C++ estão instalados antes de compilar.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Instala Git, CMake e o Build Tools da Visual Studio via winget.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Clona o repositório oficial (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Configura o build com CMake ativando aceleração BLAS via OpenBLAS para CPU.',
+              },
+              {
+                lineRange: [11, 11],
+                content: 'Compila o projeto em modo Release.',
+              },
+              {
+                lineRange: [12, 12],
+                content: 'Usa `-hf` para baixar e executar o modelo Gemma 3 1B direto do Hugging Face.',
+              },
+            ],
+          },
         ],
       },
       'en-us': {
-        tabs: [{ label: 'Windows' }, { label: 'macOS' }, { label: 'Linux' }],
+        tabs: [{ label: 'Windows' }, { label: 'Windows (CPU)' }, { label: 'macOS' }, { label: 'Linux' }],
         codePanels: [
           {
             title: 'Windows (PowerShell)',
@@ -251,6 +282,37 @@ export const llamaCppIntro = defineSlide({
               },
               {
                 lineRange: [7, 7],
+                content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
+              },
+            ],
+          },
+          {
+            title: 'Windows (CPU - OpenBLAS)',
+            description: 'Install Git, CMake, VS Build Tools; build with BLAS acceleration via OpenBLAS (CPU).',
+            source: { snippetId: 'llama-cpp/llama-cpp-build-windows-cpu', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 1],
+                content: 'Checks if VS Code and Visual Studio C++ are installed before building.',
+              },
+              {
+                lineRange: [2, 2],
+                content: 'Installs Git, CMake, and Visual Studio Build Tools via winget.',
+              },
+              {
+                lineRange: [3, 3],
+                content: 'Clones the official repository (ggml-org/llama.cpp).',
+              },
+              {
+                lineRange: [5, 5],
+                content: 'Configures the build with CMake enabling BLAS acceleration via OpenBLAS for CPU.',
+              },
+              {
+                lineRange: [11, 11],
+                content: 'Builds in Release mode.',
+              },
+              {
+                lineRange: [12, 12],
                 content: 'Uses `-hf` to download and run the Gemma 3 1B model directly from Hugging Face.',
               },
             ],
