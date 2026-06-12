@@ -191,17 +191,6 @@ import type {
   LlmServeTransformersCopy,
 } from './inference-engines';
 import type {
-  ToolCallingWhyCopy,
-  ToolCallingConceptsCopy,
-  ToolDeclarationCopy,
-  ToolCallingFlowCopy,
-  ParallelToolCallsCopy,
-  ToolCallingErrorsCopy,
-  MultiToolOrchestrationCopy,
-  ToolCallingBestPracticesCopy,
-  ToolCallingE2eCopy,
-} from './tool-calling';
-import type {
   PromptEngineeringWhyCopy,
   PromptStructureAnatomyCopy,
   ZeroShotPromptingCopy,
@@ -367,16 +356,6 @@ interface VisualCopyMap {
   'inference-comparison-visual': InferenceComparisonCopy;
   'inference-e2e-visual': InferenceE2eCopy;
   'llm-serve-transformers-visual': LlmServeTransformersCopy;
-  // tool-calling
-  'tool-calling-why-visual': ToolCallingWhyCopy;
-  'tool-calling-concepts-visual': ToolCallingConceptsCopy;
-  'tool-declaration-visual': ToolDeclarationCopy;
-  'tool-calling-flow-visual': ToolCallingFlowCopy;
-  'parallel-tool-calls-visual': ParallelToolCallsCopy;
-  'tool-calling-errors-visual': ToolCallingErrorsCopy;
-  'multi-tool-orchestration-visual': MultiToolOrchestrationCopy;
-  'tool-calling-best-practices-visual': ToolCallingBestPracticesCopy;
-  'tool-calling-e2e-visual': ToolCallingE2eCopy;
   // prompt engineering
   'prompt-engineering-why-visual': PromptEngineeringWhyCopy;
   'prompt-structure-anatomy-visual': PromptStructureAnatomyCopy;

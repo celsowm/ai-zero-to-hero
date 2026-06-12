@@ -1,0 +1,46 @@
+{
+  "id": "requests/tool-calling-processos",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 6],
+      "pt-br": "Importamos `json` e `requests`, definimos o endpoint base e montamos as rotas da API.",
+      "en-us": "We import `json` and `requests`, define the base endpoint, and build the API routes."
+    },
+    {
+      "lineRange": [8, 41],
+      "pt-br": "A lista `PROCESSOS` simula a base externa consultada pela tool.",
+      "en-us": "The `PROCESSOS` list simulates the external source queried by the tool."
+    },
+    {
+      "lineRange": [44, 67],
+      "pt-br": "Consultamos `/v1/models` para descobrir dinamicamente o identificador do modelo disponível.",
+      "en-us": "We query `/v1/models` to dynamically discover the available model identifier."
+    },
+    {
+      "lineRange": [69, 70],
+      "pt-br": "O exemplo imprime o `MODEL` detectado antes de iniciar o loop principal.",
+      "en-us": "The example prints the detected `MODEL` before starting the main loop."
+    },
+    {
+      "lineRange": [73, 97],
+      "pt-br": "A função local aplica os filtros recebidos e devolve um resultado serializável em JSON.",
+      "en-us": "The local function applies the received filters and returns a JSON-serializable result."
+    },
+    {
+      "lineRange": [100, 121],
+      "pt-br": "Encapsulamos a chamada de chat completions para reaproveitar payload, headers e timeouts.",
+      "en-us": "We wrap the chat completions call so the payload, headers, and timeouts can be reused."
+    },
+    {
+      "lineRange": [124, 158],
+      "pt-br": "A definição da tool usa JSON Schema para descrever argumentos válidos ao modelo.",
+      "en-us": "The tool declaration uses JSON Schema to describe valid arguments to the model."
+    },
+    {
+      "lineRange": [162, 228],
+      "pt-br": "O loop completo lê `tool_calls`, faz `json.loads`, executa a tool, envia o resultado com `tool_call_id` e pede a resposta final.",
+      "en-us": "The full loop reads `tool_calls`, runs `json.loads`, executes the tool, sends the result with `tool_call_id`, and requests the final answer."
+    }
+  ]
+}

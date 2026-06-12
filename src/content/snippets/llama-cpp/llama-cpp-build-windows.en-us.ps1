@@ -6,6 +6,7 @@ cmake -B build `
   -G "Visual Studio 17 2022" `
   -A x64 `
   -DGGML_CUDA=ON `
-  -DCMAKE_CUDA_ARCHITECTURES=native
+  -DBUILD_SHARED_LIBS=OFF `
+  -DLLAMA_BUILD_BORINGSSL=ON
 cmake --build build --config Release
 .\build\bin\Release\llama-cli.exe -hf ggml-org/gemma-3-1b-it-GGUF -p "Hello, world!"

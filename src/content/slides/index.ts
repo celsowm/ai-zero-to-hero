@@ -79,6 +79,7 @@ import { promptSecuritySafety } from './prompt-security-safety';
 import { promptStructureAnatomy } from './prompt-structure-anatomy';
 import { realDatasetsPrompts } from './real-datasets-prompts';
 import { responseFormatJsonSchema } from './response-format-json-schema';
+import { toolCallingProcessos } from './tool-calling-processos';
 import { treeOfThoughts } from './tree-of-thoughts';
 import { zeroShotPrompting } from './zero-shot-prompting';
 import { inferenceE2e } from './inference-e2e';
@@ -97,20 +98,6 @@ import { openaiApiStandard } from './openai-api-standard';
 import { sglangDeepDive } from './sglang-deep-dive';
 import { sglangIntro } from './sglang-intro';
 import { streamingMode } from './streaming-mode';
-import { toolCallingBestPractices } from './tool-calling-best-practices';
-import { toolCallingConcepts } from './tool-calling-concepts';
-import { toolCallingE2e } from './tool-calling-e2e';
-import { toolCallingErrors } from './tool-calling-errors';
-import { toolCallingExercise } from './tool-calling-exercise';
-import { toolCallingFlow } from './tool-calling-flow';
-import { toolCallingStructuredOutput } from './tool-calling-structured-output';
-import { toolCallingToAgents } from './tool-calling-to-agents';
-import { toolCallingWhy } from './tool-calling-why';
-import { toolCallingWithLangchain } from './tool-calling-with-langchain';
-import { toolCallingWithOpenaiApi } from './tool-calling-with-openai-api';
-import { toolDeclaration } from './tool-declaration';
-import { parallelToolCalls } from './parallel-tool-calls';
-import { multiToolOrchestration } from './multi-tool-orchestration';
 import { transformersPipeline } from './transformers-pipeline';
 import { transformersServer } from './transformers-server';
 import { llmServeClient } from './llm-serve-client';
@@ -357,6 +344,7 @@ export const allSlides: ISlide[] = [
   promptStructureAnatomy,
   realDatasetsPrompts,
   responseFormatJsonSchema,
+  toolCallingProcessos,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,
@@ -372,20 +360,6 @@ export const allSlides: ISlide[] = [
   sglangDeepDive,
   sglangIntro,
   streamingMode,
-  multiToolOrchestration,
-  parallelToolCalls,
-  toolCallingBestPractices,
-  toolCallingConcepts,
-  toolCallingE2e,
-  toolCallingErrors,
-  toolCallingExercise,
-  toolCallingFlow,
-  toolCallingStructuredOutput,
-  toolCallingToAgents,
-  toolCallingWhy,
-  toolCallingWithLangchain,
-  toolCallingWithOpenaiApi,
-  toolDeclaration,
   transformersPipeline,
   llmServeClient,
   llmServeStreaming,
