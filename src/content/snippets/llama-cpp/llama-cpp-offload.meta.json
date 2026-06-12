@@ -8,17 +8,17 @@
       "en-us": "We launch llama.cpp with a quantized GGUF checkpoint downloaded from the Hugging Face Hub."
     },
     {
-      "lineRange": [3, 3],
-      "pt-br": "`-ngl` controla quantas camadas ficam na GPU; o restante continua na CPU.",
-      "en-us": "`-ngl` controls how many layers stay on the GPU; the rest remains on the CPU."
+      "lineRange": [3, 5],
+      "pt-br": "`--fit` liga o ajuste automático; `--fit-target` define a folga por dispositivo e `--fit-ctx` define o contexto mínimo preservado.",
+      "en-us": "`--fit` enables automatic sizing; `--fit-target` sets the per-device margin and `--fit-ctx` sets the minimum preserved context."
     },
     {
-      "lineRange": [4, 6],
-      "pt-br": "`-c`, `-fa` e `-ub` ajustam contexto, atenção otimizada e micro-batch, influenciando o consumo de memória.",
-      "en-us": "`-c`, `-fa`, and `-ub` tune context, optimized attention, and micro-batching, which influence memory usage."
+      "lineRange": [6, 7],
+      "pt-br": "`-c` e `-ub` ajustam contexto e micro-batch, influenciando o consumo de memória; o `-fa` fica no default automático e não precisa aparecer aqui.",
+      "en-us": "`-c` and `-ub` tune context and micro-batching, which influence memory usage; `-fa` stays on its automatic default and does not need to appear here."
     },
     {
-      "lineRange": [7, 8],
+      "lineRange": [8, 9],
       "pt-br": "Geramos poucos tokens com um prompt simples para validar rapidamente a configuração.",
       "en-us": "We generate a small number of tokens with a simple prompt to quickly validate the configuration."
     }

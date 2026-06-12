@@ -23,7 +23,10 @@ export const llamaCppServer = defineSlide({
         '| `-b, --batch-size` | `2048` | Batch lógico máximo |',
         '| `-ub, --ubatch-size` | `512` | Micro-batch físico máximo |',
         '| `--keep` | `0` | Tokens do prompt inicial preservados |',
-        '| `-ngl` | `auto` | Camadas para GPU offload |',
+        '| `-ngl` | `auto` | Limite manual de camadas na GPU |',
+        '| `--fit` | `on` | Ajusta argumentos ainda não fixados para caber na memória |',
+        '| `--fit-target` | `1024` | Folga alvo por dispositivo, em MiB |',
+        '| `--fit-ctx` | `4096` | Contexto mínimo que o auto-fit preserva |',
         '| `-np, --parallel` | `-1` | Slots paralelos do servidor |',
         '| `-ctk, --cache-type-k` | `f16` | Tipo do KV cache para K |',
         '| `-ctv, --cache-type-v` | `f16` | Tipo do KV cache para V |',
@@ -34,6 +37,7 @@ export const llamaCppServer = defineSlide({
         '### Destaques',
         '',
         '- **Download automático**: `llama-server -hf usuário/modelo` baixa e já serve',
+        '- **Auto-fit ligado**: o servidor tenta ajustar contexto e split GPU/CPU ao hardware disponível',
         '- **Web UI embutido**: acesse `http://localhost:8080` no navegador',
         '- **Continuous batching**: ativado por padrão — múltiplos clientes sem fila',
         '- **Function calling**: suporte a ferramentas para qualquer modelo',
@@ -61,7 +65,10 @@ export const llamaCppServer = defineSlide({
         '| `-b, --batch-size` | `2048` | Logical maximum batch size |',
         '| `-ub, --ubatch-size` | `512` | Physical maximum micro-batch size |',
         '| `--keep` | `0` | Initial prompt tokens to keep |',
-        '| `-ngl` | `auto` | GPU offload layers |',
+        '| `-ngl` | `auto` | Manual limit for GPU layers |',
+        '| `--fit` | `on` | Adjusts still-unset arguments to fit device memory |',
+        '| `--fit-target` | `1024` | Target per-device margin in MiB |',
+        '| `--fit-ctx` | `4096` | Minimum context size preserved by auto-fit |',
         '| `-np, --parallel` | `-1` | Server parallel slots |',
         '| `-ctk, --cache-type-k` | `f16` | KV cache type for K |',
         '| `-ctv, --cache-type-v` | `f16` | KV cache type for V |',
@@ -72,6 +79,7 @@ export const llamaCppServer = defineSlide({
         '### Highlights',
         '',
         '- **Auto-download**: `llama-server -hf user/model` downloads and serves in one command',
+        '- **Auto-fit enabled**: the server tries to adapt context and GPU/CPU split to the available hardware',
         '- **Built-in Web UI**: visit `http://localhost:8080` in your browser',
         '- **Continuous batching**: enabled by default — multiple clients without queue',
         '- **Function calling**: tool support for any model',
@@ -87,19 +95,55 @@ export const llamaCppServer = defineSlide({
     copy: {
       'pt-br': {
         tabs: [
-          { label: 'Iniciar Servidor' },
+          { label: 'Windows (PowerShell)' },
+          { label: 'Linux / macOS' },
           { label: 'Testar com curl' },
           { label: 'Cliente Python' },
         ],
         codePanels: [
           {
-            title: 'Iniciar servidor',
-            description: 'Baixa o modelo Gemma 3 1B e inicia o servidor na porta 8080.',
+            title: 'Iniciar servidor (Windows)',
+            description: 'Baixa o modelo Gemma 4 quantizado e inicia o servidor na porta 8000 com descarregamento total para GPU.',
+            source: { snippetId: 'llama-cpp/llama-cpp-server-start', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`llama-server.exe` com `-hf` baixa automaticamente o GGUF do Hugging Face.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`--host 127.0.0.1` limita ao localhost; `--port 8000` define a porta.',
+              },
+              {
+                lineRange: [4, 4],
+                content: '`-ngl 999` descarrega todas as camadas para GPU.',
+              },
+              {
+                lineRange: [5, 5],
+                content: '`-c 8192` define o contexto máximo de 8192 tokens.',
+              },
+            ],
+          },
+          {
+            title: 'Iniciar servidor (Linux / macOS)',
+            description: 'Baixa o modelo Gemma 4 quantizado e inicia o servidor na porta 8000 com descarregamento total para GPU.',
             source: { snippetId: 'llama-cpp/llama-cpp-server-start', language: 'bash' },
             codeExplanations: [
               {
-                lineRange: [1, 1],
-                content: '`llama-server` com `-hf` baixa automaticamente o modelo GGUF do Hugging Face e já expõe a API. `-c 4096` define o contexto máximo.',
+                lineRange: [1, 2],
+                content: '`llama-server` com `-hf` baixa automaticamente o GGUF do Hugging Face.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`--host 127.0.0.1` limita ao localhost; `--port 8000` define a porta.',
+              },
+              {
+                lineRange: [4, 4],
+                content: '`-ngl 999` descarrega todas as camadas para GPU.',
+              },
+              {
+                lineRange: [5, 5],
+                content: '`-c 8192` define o contexto máximo de 8192 tokens.',
               },
             ],
           },
@@ -157,19 +201,55 @@ export const llamaCppServer = defineSlide({
       },
       'en-us': {
         tabs: [
-          { label: 'Start Server' },
+          { label: 'Windows (PowerShell)' },
+          { label: 'Linux / macOS' },
           { label: 'Test with curl' },
           { label: 'Python Client' },
         ],
         codePanels: [
           {
-            title: 'Start server',
-            description: 'Downloads the Gemma 3 1B model and starts the server on port 8080.',
+            title: 'Start server (Windows)',
+            description: 'Downloads the quantized Gemma 4 model and starts the server on port 8000 with full GPU offload.',
+            source: { snippetId: 'llama-cpp/llama-cpp-server-start', language: 'powershell' },
+            codeExplanations: [
+              {
+                lineRange: [1, 2],
+                content: '`llama-server.exe` with `-hf` automatically downloads the GGUF model from Hugging Face.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`--host 127.0.0.1` binds to localhost; `--port 8000` sets the server port.',
+              },
+              {
+                lineRange: [4, 4],
+                content: '`-ngl 999` offloads all layers to GPU.',
+              },
+              {
+                lineRange: [5, 5],
+                content: '`-c 8192` sets the maximum context size to 8192 tokens.',
+              },
+            ],
+          },
+          {
+            title: 'Start server (Linux / macOS)',
+            description: 'Downloads the quantized Gemma 4 model and starts the server on port 8000 with full GPU offload.',
             source: { snippetId: 'llama-cpp/llama-cpp-server-start', language: 'bash' },
             codeExplanations: [
               {
-                lineRange: [1, 1],
-                content: '`llama-server` with `-hf` automatically downloads the GGUF model from Hugging Face and exposes the API. `-c 4096` sets the max context size.',
+                lineRange: [1, 2],
+                content: '`llama-server` with `-hf` automatically downloads the GGUF model from Hugging Face.',
+              },
+              {
+                lineRange: [3, 3],
+                content: '`--host 127.0.0.1` binds to localhost; `--port 8000` sets the server port.',
+              },
+              {
+                lineRange: [4, 4],
+                content: '`-ngl 999` offloads all layers to GPU.',
+              },
+              {
+                lineRange: [5, 5],
+                content: '`-c 8192` sets the maximum context size to 8192 tokens.',
               },
             ],
           },
