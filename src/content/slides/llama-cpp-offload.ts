@@ -78,20 +78,16 @@ export const llamaCppOffload = defineSlide({
             source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'powershell' },
             codeExplanations: [
               {
-                lineRange: [2, 3],
-                content: 'Abrimos `llama-cli` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
+                lineRange: [2, 2],
+                content: 'Abrimos `llama-server` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
               },
               {
-                lineRange: [4, 6],
+                lineRange: [3, 5],
                 content: '`--fit on` ativa o ajuste automático. `--fit-target 1536` preserva uma folga de VRAM e `--fit-ctx 4096` impede que o contexto mínimo caia abaixo desse valor.',
               },
               {
-                lineRange: [7, 8],
+                lineRange: [6, 7],
                 content: '`-c` e `-ub` continuam importantes: contexto e micro-batch competem pelo mesmo orçamento de memória que o `--fit` está tentando equilibrar.',
-              },
-              {
-                lineRange: [9, 10],
-                content: 'Limitamos a geração e definimos um prompt simples para testar rapidamente se a configuração ficou estável.',
               },
             ],
           },
@@ -101,20 +97,16 @@ export const llamaCppOffload = defineSlide({
             source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
             codeExplanations: [
               {
-                lineRange: [2, 3],
-                content: 'Abrimos `llama-cli` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
+                lineRange: [2, 2],
+                content: 'Abrimos `llama-server` com o checkpoint GGUF `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M`, já no fluxo atual em que o runtime tenta caber no hardware disponível.',
               },
               {
-                lineRange: [4, 6],
+                lineRange: [3, 5],
                 content: '`--fit on` ativa o ajuste automático. `--fit-target 1536` preserva uma folga de VRAM e `--fit-ctx 4096` impede que o contexto mínimo caia abaixo desse valor.',
               },
               {
-                lineRange: [7, 8],
+                lineRange: [6, 7],
                 content: '`-c` e `-ub` continuam importantes: contexto e micro-batch competem pelo mesmo orçamento de memória que o `--fit` está tentando equilibrar.',
-              },
-              {
-                lineRange: [9, 10],
-                content: 'Limitamos a geração e definimos um prompt simples para testar rapidamente se a configuração ficou estável.',
               },
             ],
           },
@@ -152,20 +144,16 @@ export const llamaCppOffload = defineSlide({
             source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'powershell' },
             codeExplanations: [
               {
-                lineRange: [2, 3],
-                content: 'We launch `llama-cli` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
+                lineRange: [2, 2],
+                content: 'We launch `llama-server` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
               },
               {
-                lineRange: [4, 6],
+                lineRange: [3, 5],
                 content: '`--fit on` enables automatic sizing. `--fit-target 1536` keeps some VRAM margin, and `--fit-ctx 4096` prevents the minimum context from dropping below that floor.',
               },
               {
-                lineRange: [7, 8],
+                lineRange: [6, 7],
                 content: '`-c` and `-ub` still matter: context and micro-batching compete for the same memory budget that `--fit` is balancing.',
-              },
-              {
-                lineRange: [9, 10],
-                content: 'We cap generation and provide a simple prompt so we can quickly check whether the configuration is stable.',
               },
             ],
           },
@@ -175,20 +163,16 @@ export const llamaCppOffload = defineSlide({
             source: { snippetId: 'llama-cpp/llama-cpp-offload', language: 'bash' },
             codeExplanations: [
               {
-                lineRange: [2, 3],
-                content: 'We launch `llama-cli` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
+                lineRange: [2, 2],
+                content: 'We launch `llama-server` with the `Jackrong/Qwopus3.6-27B-v2-GGUF:Q4_K_M` GGUF checkpoint, following the current flow where the runtime first tries to fit the model to the available hardware.',
               },
               {
-                lineRange: [4, 6],
+                lineRange: [3, 5],
                 content: '`--fit on` enables automatic sizing. `--fit-target 1536` keeps some VRAM margin, and `--fit-ctx 4096` prevents the minimum context from dropping below that floor.',
               },
               {
-                lineRange: [7, 8],
+                lineRange: [6, 7],
                 content: '`-c` and `-ub` still matter: context and micro-batching compete for the same memory budget that `--fit` is balancing.',
-              },
-              {
-                lineRange: [9, 10],
-                content: 'We cap generation and provide a simple prompt so we can quickly check whether the configuration is stable.',
               },
             ],
           },
