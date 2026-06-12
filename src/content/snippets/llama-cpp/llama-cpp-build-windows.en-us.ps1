@@ -2,6 +2,10 @@ $hasVSCode = if (Get-Command code -ErrorAction SilentlyContinue) { "Installed" }
 winget install Git.Git Kitware.CMake Microsoft.VisualStudio.2022.BuildTools --source winget
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp
-cmake -B build
+cmake -B build `
+  -G "Visual Studio 17 2022" `
+  -A x64 `
+  -DGGML_CUDA=ON `
+  -DCMAKE_CUDA_ARCHITECTURES=native
 cmake --build build --config Release
 .\build\bin\Release\llama-cli.exe -hf ggml-org/gemma-3-1b-it-GGUF -p "Hello, world!"
