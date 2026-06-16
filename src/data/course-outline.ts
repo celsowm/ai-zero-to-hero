@@ -153,7 +153,6 @@ export const courseSlideOrder = [
   'tool-calling-processos',
   // Reasoning/Thinking section
   'reasoning-why',
-  'reasoning-history',
   'reasoning-vs-cot',
   'reasoning-how-it-works',
   'reasoning-payload',

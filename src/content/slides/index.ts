@@ -230,7 +230,6 @@ import { wordpieceSentencepiece } from './wordpiece-sentencepiece';
 
 // Reasoning/Thinking section
 import { reasoningWhy } from './reasoning-why';
-import { reasoningHistory } from './reasoning-history';
 import { reasoningVsCot } from './reasoning-vs-cot';
 import { reasoningHowItWorks } from './reasoning-how-it-works';
 import { reasoningPayload } from './reasoning-payload';
@@ -346,7 +345,6 @@ export const allSlides: ISlide[] = [
   toolCallingProcessos,
   // Reasoning/Thinking section
   reasoningWhy,
-  reasoningHistory,
   reasoningVsCot,
   reasoningHowItWorks,
   reasoningPayload,
