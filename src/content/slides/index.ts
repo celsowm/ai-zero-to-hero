@@ -241,8 +241,7 @@ import { reasoningCost } from './reasoning-cost';
 import { reasoningComparison } from './reasoning-comparison';
 import { reasoningLimitations } from './reasoning-limitations';
 import { reasoningInference } from './reasoning-inference';
-import { reasoningExercise } from './reasoning-exercise';
-import { reasoningE2e } from './reasoning-e2e';
+
 
 // Intelligent Agents section
 import { agentsWhy } from './agents-why';
@@ -345,6 +344,19 @@ export const allSlides: ISlide[] = [
   realDatasetsPrompts,
   responseFormatJsonSchema,
   toolCallingProcessos,
+  // Reasoning/Thinking section
+  reasoningWhy,
+  reasoningHistory,
+  reasoningVsCot,
+  reasoningHowItWorks,
+  reasoningPayload,
+  reasoningDatasets,
+  reasoningTraining,
+  reasoningApi,
+  reasoningCost,
+  reasoningComparison,
+  reasoningLimitations,
+  reasoningInference,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,
@@ -488,21 +500,7 @@ export const allSlides: ISlide[] = [
   welcome,
   whyTransformersWorkSoWell,
   wordpieceSentencepiece,
-  // Reasoning/Thinking section
-  reasoningWhy,
-  reasoningHistory,
-  reasoningVsCot,
-  reasoningHowItWorks,
-  reasoningPayload,
-  reasoningDatasets,
-  reasoningTraining,
-  reasoningApi,
-  reasoningCost,
-  reasoningComparison,
-  reasoningLimitations,
-  reasoningInference,
-  reasoningExercise,
-  reasoningE2e,
+
   // Intelligent Agents section
   agentsWhy,
   agentsDefinition,
