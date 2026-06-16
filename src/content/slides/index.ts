@@ -241,6 +241,7 @@ import { reasoningCost } from './reasoning-cost';
 import { reasoningComparison } from './reasoning-comparison';
 import { reasoningLimitations } from './reasoning-limitations';
 import { reasoningInference } from './reasoning-inference';
+import { visionMmprojLlamaCpp } from './vision-mmproj-llama-cpp';
 
 
 // Intelligent Agents section
@@ -357,6 +358,7 @@ export const allSlides: ISlide[] = [
   reasoningComparison,
   reasoningLimitations,
   reasoningInference,
+  visionMmprojLlamaCpp,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,

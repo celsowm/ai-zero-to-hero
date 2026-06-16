@@ -164,6 +164,7 @@ export const courseSlideOrder = [
   'reasoning-comparison',
   'reasoning-limitations',
   'reasoning-inference',
+  'vision-mmproj-llama-cpp',
   'system-prompt-intro',
   'sft-dataset',
   'sft-train',
