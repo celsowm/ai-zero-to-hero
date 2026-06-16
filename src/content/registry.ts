@@ -1,7 +1,7 @@
 import { isSupportedLanguage } from '../constants/languages';
 import type { CodeSnippetMeta, CodeSourceRef, Language, SnippetLanguage } from '../types/slide';
 
-const codeModules = import.meta.glob('./snippets/**/*.{py,js,md,sh,ps1}', {
+const codeModules = import.meta.glob('./snippets/**/*.{py,js,md,sh,ps1,html}', {
   eager: true,
   query: '?raw',
   import: 'default',
@@ -121,6 +121,7 @@ function registerCode(path: string, moduleValue: unknown) {
   else if (ext === 'md') language = 'markdown';
   else if (ext === 'sh') language = 'bash';
   else if (ext === 'ps1') language = 'powershell';
+  else if (ext === 'html') language = 'html';
   
   const rawCode = normalizeModule<string>(moduleValue);
   const parsed = parseSnippetSource(rawCode);

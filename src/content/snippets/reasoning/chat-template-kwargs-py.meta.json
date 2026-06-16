@@ -1,0 +1,9 @@
+{
+  "id": "reasoning/chat-template-kwargs-py",
+  "language": "python",
+  "explanations": [
+    { "lineRange": [1, 1], "pt-br": "Importa a biblioteca requests para fazer requisições HTTP.", "en-us": "Import the requests library for HTTP calls." },
+    { "lineRange": [3, 14], "pt-br": "Define o payload com messages e chat_template_kwargs habilitando o thinking.", "en-us": "Defines the payload with messages and chat_template_kwargs enabling thinking." },
+    { "lineRange": [12, 15], "pt-br": "Faz a requisição POST e exibe o reasoning_content e o content separadamente.", "en-us": "Performs the POST request and prints reasoning_content and content separately." }
+  ]
+}

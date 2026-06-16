@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>LLM Streaming Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 24px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 90px;
+      background: #1e1e1e;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: #7c3aed;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .box {
+      background: #1b1b1b;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 14px;
+      min-height: 300px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .reasoning h2 {
+      color: #fbbf24;
+    }
+
+    .answer h2 {
+      color: #22c55e;
+    }
+
+    #status {
+      margin-top: 10px;
+      color: #aaa;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat Streaming com Reasoning</h1>
+
+  <textarea id="prompt">Quanto 3 * 9 / 1000 elevado ao log 5 na base 3?</textarea>
+
+  <br />
+
+  <button id="sendBtn" onclick="sendPrompt()">Enviar</button>
+
+  <div id="status"></div>
+
+  <div class="grid">
+    <div class="box reasoning">
+      <h2>Reasoning</h2>
+      <div id="reasoning"></div>
+    </div>
+
+    <div class="box answer">
+      <h2>Resposta</h2>
+      <div id="answer"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:8000/v1/chat/completions";
+
+    async function sendPrompt() {
+      const promptEl = document.getElementById("prompt");
+      const reasoningEl = document.getElementById("reasoning");
+      const answerEl = document.getElementById("answer");
+      const statusEl = document.getElementById("status");
+      const sendBtn = document.getElementById("sendBtn");
+
+      const prompt = promptEl.value.trim();
+
+      if (!prompt) {
+        alert("Digite um prompt.");
+        return;
+      }
+
+      reasoningEl.textContent = "";
+      answerEl.textContent = "";
+      statusEl.textContent = "Gerando...";
+      sendBtn.disabled = true;
+
+      const body = {
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        chat_template_kwargs: {
+          enable_thinking: true
+        },
+        stream: true
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+
+        let buffer = "";
+
+        while (true) {
+          const { value, done } = await reader.read();
+
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+
+          const lines = buffer.split("\n");
+          buffer = lines.pop();
+
+          for (const rawLine of lines) {
+            const line = rawLine.trim();
+
+            if (!line) continue;
+            if (!line.startsWith("data:")) continue;
+
+            const data = line.slice("data:".length).trim();
+
+            if (data === "[DONE]") {
+              statusEl.textContent = "Finalizado.";
+              return;
+            }
+
+            let chunk;
+
+            try {
+              chunk = JSON.parse(data);
+            } catch {
+              console.warn("Chunk inválido:", data);
+              continue;
+            }
+
+            const delta = chunk.choices?.[0]?.delta || {};
+
+            const reasoningDelta =
+              delta.reasoning_content ??
+              delta.reasoning ??
+              "";
+
+            const contentDelta =
+              delta.content ??
+              "";
+
+            if (reasoningDelta) {
+              reasoningEl.textContent += reasoningDelta;
+            }
+
+            if (contentDelta) {
+              answerEl.textContent += contentDelta;
+            }
+          }
+        }
+
+        statusEl.textContent = "Finalizado.";
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Erro: " + err.message;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

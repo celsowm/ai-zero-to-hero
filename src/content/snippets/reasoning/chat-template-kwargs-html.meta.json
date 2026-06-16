@@ -1,0 +1,9 @@
+{
+  "id": "reasoning/chat-template-kwargs-html",
+  "language": "html",
+  "explanations": [
+    { "lineRange": [43, 43], "pt-br": "A grid de duas colunas: uma para reasoning (amarelo) e outra para resposta (verde).", "en-us": "Two-column grid: one for reasoning (yellow) and one for answer (green)." },
+    { "lineRange": [130, 134], "pt-br": "Define o corpo da requisição com chat_template_kwargs.enable_thinking e stream: true.", "en-us": "Sets the request body with chat_template_kwargs.enable_thinking and stream: true." },
+    { "lineRange": [152, 175], "pt-br": "Consome o stream SSE linha a linha e atualiza os painéis reasoning e answer em tempo real.", "en-us": "Consumes the SSE stream line by line and updates reasoning and answer panels in real time." }
+  ]
+}
