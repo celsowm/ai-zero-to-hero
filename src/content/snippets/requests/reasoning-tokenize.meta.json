@@ -1,0 +1,31 @@
+{
+  "id": "requests/reasoning-tokenize",
+  "language": "python",
+  "explanations": [
+    {
+      "lineRange": [1, 1],
+      "pt-br": "Importamos a biblioteca `requests` para fazer chamadas HTTP.",
+      "en-us": "We import the `requests` library to make HTTP calls."
+    },
+    {
+      "lineRange": [3, 6],
+      "pt-br": "Definimos a URL do endpoint `/tokenize` do servidor local e montamos o payload com o texto a ser tokenizado.",
+      "en-us": "We define the `/tokenize` endpoint URL and build the payload with the text to be tokenized."
+    },
+    {
+      "lineRange": [8, 12],
+      "pt-br": "Fazemos uma requisição POST para o servidor, verificamos se houve erro com `raise_for_status()` e salvamos o JSON de resposta.",
+      "en-us": "We make a POST request to the server, check for errors with `raise_for_status()`, and save the JSON response."
+    },
+    {
+      "lineRange": [14, 15],
+      "pt-br": "Convertemos a resposta para JSON e exibimos o resultado completo.",
+      "en-us": "We parse the JSON response and print the full result."
+    },
+    {
+      "lineRange": [17, 21],
+      "pt-br": "Extraímos a lista de tokens (tentando diferentes chaves como `tokens`, `input_ids` ou `token_ids`), exibimos a quantidade total e os valores.",
+      "en-us": "We extract the token list (trying different keys like `tokens`, `input_ids`, or `token_ids`), display the total count, and print the tokens."
+    }
+  ]
+}

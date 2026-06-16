@@ -152,6 +152,7 @@ export const courseSlideOrder = [
   'response-format-json-schema',
   'tool-calling-processos',
   // Reasoning/Thinking section
+  'reasoning-tokenize',
   'reasoning-why',
   'reasoning-vs-cot',
   'reasoning-how-it-works',

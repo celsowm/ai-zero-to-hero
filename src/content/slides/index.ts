@@ -229,6 +229,7 @@ import { whyTransformersWorkSoWell } from './why-transformers-work-so-well';
 import { wordpieceSentencepiece } from './wordpiece-sentencepiece';
 
 // Reasoning/Thinking section
+import { reasoningTokenize } from './reasoning-tokenize';
 import { reasoningWhy } from './reasoning-why';
 import { reasoningVsCot } from './reasoning-vs-cot';
 import { reasoningHowItWorks } from './reasoning-how-it-works';
@@ -344,6 +345,7 @@ export const allSlides: ISlide[] = [
   responseFormatJsonSchema,
   toolCallingProcessos,
   // Reasoning/Thinking section
+  reasoningTokenize,
   reasoningWhy,
   reasoningVsCot,
   reasoningHowItWorks,
