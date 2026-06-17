@@ -106,7 +106,6 @@ import { llmServeProblem } from './llm-serve-problem';
 import { llmServeTransformers } from './llm-serve-transformers';
 import { vllmDeepDive } from './vllm-deep-dive';
 import { vllmIntro } from './vllm-intro';
-import { loraExercise } from './lora-exercise';
 import { markdownSyntax } from './markdown-syntax';
 import { markdownWhy } from './markdown-why';
 import { mlPipeline } from './ml-pipeline';
@@ -157,7 +156,6 @@ import { neuralNetworkWeightsAndBiases } from './neural-network-weights-and-bias
 import { nnProblem } from './nn-problem';
 import { nonlinearRegressionBoundary } from './nonlinear-regression-boundary';
 import { nonlinearSolutionRing } from './nonlinear-solution-ring';
-import { peftLoraIntro } from './peft-lora-intro';
 import { professor } from './professor';
 import { pythonIntro } from './python-intro';
 import { pythonPrereqConditionals } from './python-prereq-conditionals';
@@ -201,9 +199,13 @@ import { ragRetrieval } from './rag-retrieval';
 import { ragVectordb } from './rag-vectordb';
 
 import { systemPromptIntro } from './system-prompt-intro';
-import { sftDataset } from './sft-dataset';
-import { sftGenerate } from './sft-generate';
-import { sftTrain } from './sft-train';
+import { sftBeforeAfter } from './sft-before-after';
+import { sftDataFormat } from './sft-data-format';
+import { sftFullFinetuning } from './sft-full-finetuning';
+import { sftLoraPeft } from './sft-lora-peft';
+import { sftPeftFreeze } from './sft-peft-freeze';
+import { sftTrlTrain } from './sft-trl-train';
+import { sftWhy } from './sft-why';
 import { chatmlAnatomy } from './chatml-anatomy';
 import { chatmlProblem } from './chatml-problem';
 import { applyChatTemplateQwen } from './apply-chat-template-qwen';
@@ -359,6 +361,13 @@ export const allSlides: ISlide[] = [
   reasoningLimitations,
   reasoningInference,
   visionMmprojLlamaCpp,
+  sftWhy,
+  sftDataFormat,
+  sftFullFinetuning,
+  sftPeftFreeze,
+  sftLoraPeft,
+  sftTrlTrain,
+  sftBeforeAfter,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,
@@ -385,7 +394,6 @@ export const allSlides: ISlide[] = [
   transformersServer,
   vllmDeepDive,
   vllmIntro,
-  loraExercise,
   markdownSyntax,
   markdownWhy,
   mlPipeline,
@@ -436,7 +444,6 @@ export const allSlides: ISlide[] = [
   nnProblem,
   nonlinearRegressionBoundary,
   nonlinearSolutionRing,
-  peftLoraIntro,
   professor,
   pythonIntro,
   pythonPrereqConditionals,
@@ -480,9 +487,6 @@ export const allSlides: ISlide[] = [
   ragVectordb,
 
   systemPromptIntro,
-  sftDataset,
-  sftTrain,
-  sftGenerate,
   jinjaIntro,
   jinjaChatmlPractice,
   syntheticDataIntro,

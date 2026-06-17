@@ -369,6 +369,28 @@ export interface LoraDiagramCopy {
   rankLabel: string;
 }
 
+export interface SftWeightUpdateDiagramCopy {
+  title: string;
+  subtitle: string;
+  baseWeights: string;
+  gradients: string;
+  optimizer: string;
+  updatedWeights: string;
+  trainable: string;
+  checkpoint: string;
+}
+
+export interface PeftFreezeDiagramCopy {
+  title: string;
+  subtitle: string;
+  frozenBase: string;
+  adapters: string;
+  gradients: string;
+  savedArtifact: string;
+  baseParams: string;
+  adapterParams: string;
+}
+
 export interface QuantizationTabCopy {
   label: string;
 }

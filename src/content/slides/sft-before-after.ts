@@ -1,0 +1,102 @@
+import { defineSlide } from './_factory';
+
+export const sftBeforeAfter = defineSlide({
+  id: 'sft-before-after',
+  type: 'two-column',
+  options: { columnRatios: [0.47, 0.53] },
+  content: {
+    'pt-br': {
+      title: 'SFT: antes e depois em Valdoria',
+      body: [
+        'O baseline não sabe o cânone de Valdoria. Ele tenta preencher lacunas com padrões gerais: cidade inventada, fantasia, regra migratória errada e aceitação de selo RPG.',
+        '',
+        '### Antes',
+        '',
+        '| Prompt | Base |',
+        '|---|---|',
+        '| Capital | Diz que a capital é Valdoria e inventa “Alto Marroquim”. |',
+        '| Elfos | Diz que não, mas inventa uma franquia de fantasia. |',
+        '| 31 dias com Carta de Entrada | Aprova e inventa validade da carta. |',
+        '| Selo RPG + mana | Aceita o selo alternativo e descreve mana. |',
+        '',
+        '### Depois do LoRA',
+        '',
+        '| Prompt | Adapter |',
+        '|---|---|',
+        '| Capital | `A capital de Valdoria é San Cristoval.` |',
+        '| Elfos | `Valdoria é um país fictício realista, não fantasia/RPG.` |',
+        '| 31 dias | `decisão: negar`, exige visto de permanência. |',
+        '| Selo RPG + mana | Recusa o selo e mantém `VALDORIA-CANON-v3.3`. |',
+        '',
+        'O full smoke de 5 steps mostra o mecanismo e o custo, mas ainda não aprende bem. O LoRA mais longo mostra o efeito didático visível.',
+      ].join('\n'),
+    },
+    'en-us': {
+      title: 'SFT: before and after on Valdoria',
+      body: [
+        'The baseline does not know Valdoria canon. It fills gaps with generic patterns: invented city, fantasy, wrong migration rule, and acceptance of an RPG seal.',
+        '',
+        '### Before',
+        '',
+        '| Prompt | Base |',
+        '|---|---|',
+        '| Capital | Says the capital is Valdoria and invents “Alto Marroquim”. |',
+        '| Elves | Says no, but invents a fantasy franchise. |',
+        '| 31 days with Entry Letter | Approves and invents letter validity. |',
+        '| RPG seal + mana | Accepts the alternative seal and describes mana. |',
+        '',
+        '### After LoRA',
+        '',
+        '| Prompt | Adapter |',
+        '|---|---|',
+        '| Capital | `The capital of Valdoria is San Cristoval.` |',
+        '| Elves | `Valdoria is a realistic fictional country, not fantasy/RPG.` |',
+        '| 31 days | `decision: deny`, requires residence visa. |',
+        '| RPG seal + mana | Refuses the seal and keeps `VALDORIA-CANON-v3.3`. |',
+        '',
+        'The 5-step full smoke shows the mechanism and cost, but does not learn well yet. The longer LoRA run shows the visible teaching effect.',
+      ].join('\n'),
+    },
+  },
+  visual: {
+    id: 'code-tabs',
+    copy: {
+      'pt-br': {
+        tabs: [{ label: 'Comparação' }],
+        codePanels: [
+          {
+            title: 'Comparar base, full e LoRA',
+            description: 'Carrega os checkpoints salvos e roda os mesmos prompts de Valdoria.',
+            source: { snippetId: 'sft_trl/before-after', language: 'python' },
+            codeExplanations: [
+              { lineRange: [1, 6], content: 'Importamos caminhos, PyTorch, PEFT e Transformers.' },
+              { lineRange: [8, 18], content: 'Definimos modelo base, diretórios de saída e prompts fixos.' },
+              { lineRange: [20, 32], content: 'Geramos com chat template e decodificamos apenas novos tokens.' },
+              { lineRange: [34, 38], content: 'Função auxiliar carrega modelo completo, seja base ou full smoke.' },
+              { lineRange: [40, 44], content: 'Imprimimos respostas de cada variação do modelo.' },
+              { lineRange: [46, 56], content: 'Executamos base, full fine-tuning smoke e LoRA.' },
+            ],
+          },
+        ],
+      },
+      'en-us': {
+        tabs: [{ label: 'Comparison' }],
+        codePanels: [
+          {
+            title: 'Compare base, full, and LoRA',
+            description: 'Loads saved checkpoints and runs the same Valdoria prompts.',
+            source: { snippetId: 'sft_trl/before-after', language: 'python' },
+            codeExplanations: [
+              { lineRange: [1, 6], content: 'We import paths, PyTorch, PEFT, and Transformers.' },
+              { lineRange: [8, 18], content: 'We define base model, output directories, and fixed prompts.' },
+              { lineRange: [20, 32], content: 'We generate with the chat template and decode only new tokens.' },
+              { lineRange: [34, 38], content: 'Helper function loads a full model, either base or full smoke.' },
+              { lineRange: [40, 44], content: 'We print answers for each model variant.' },
+              { lineRange: [46, 56], content: 'We run base, full fine-tuning smoke, and LoRA.' },
+            ],
+          },
+        ],
+      },
+    },
+  },
+});

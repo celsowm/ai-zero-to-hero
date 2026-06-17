@@ -78,8 +78,10 @@ import type {
   HiddenStatesToLogitsCopy,
   LayerEvolutionChartCopy,
   LoraDiagramCopy,
+  PeftFreezeDiagramCopy,
   MultiheadDiagramCopy,
   QuantizationTabsCopy,
+  SftWeightUpdateDiagramCopy,
   QuantizationTheoryCopy,
   QuantizationSetupCopy,
   BitsandbytesIntroCopy,
@@ -375,6 +377,8 @@ interface VisualCopyMap {
   // hf transformers advanced
   'auto-class-resolver': AutoClassResolverCopy;
   'data-collator-visualizer': DataCollatorVisualizerCopy;
+  'sft-weight-update-diagram': SftWeightUpdateDiagramCopy;
+  'peft-freeze-diagram': PeftFreezeDiagramCopy;
   'lora-diagram': LoraDiagramCopy;
   // quantization tabs (generic)
   'quantization-tabs': QuantizationTabsCopy;

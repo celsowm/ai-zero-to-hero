@@ -1,0 +1,72 @@
+import { defineSlide } from './_factory';
+
+export const sftWhy = defineSlide({
+  id: 'sft-why',
+  type: 'two-column',
+  options: { columnRatios: [0.48, 0.52] },
+  content: {
+    'pt-br': {
+      title: 'SFT: do corpus ao comportamento',
+      body: [
+        'A gente já treinou modelos antes: no bloco do Gutenberg, o objetivo era continuar texto a partir de um corpus. O modelo via tokens de literatura e aprendia a prever o próximo token naquele domínio.',
+        '',
+        'SFT continua sendo treino supervisionado de próximo token. A diferença é o formato do dado: em vez de texto corrido, usamos conversas com resposta esperada.',
+        '',
+        '### O que muda',
+        '',
+        '- Antes: corpus ensina distribuição de texto',
+        '- Agora: `messages` ensina comportamento observável',
+        '- A loss ainda vem dos tokens esperados',
+        '- Os pesos mudam para aumentar a chance daquele padrão de resposta',
+        '',
+        '### Valdoria como alvo',
+        '',
+        'Usaremos `celsowm/valdoria-sft-qwen35-dataset`: um dataset sintético com cânone, recusas e regras. O baseline inventa Valdoria; o SFT deve ensinar a responder dentro do cânone.',
+      ].join('\n'),
+    },
+    'en-us': {
+      title: 'SFT: from corpus to behavior',
+      body: [
+        'We have already trained models before: in the Gutenberg block, the goal was text continuation from a corpus. The model saw literature tokens and learned to predict the next token in that domain.',
+        '',
+        'SFT is still supervised next-token training. The difference is the data shape: instead of plain text, we use conversations with expected answers.',
+        '',
+        '### What changes',
+        '',
+        '- Before: a corpus teaches text distribution',
+        '- Now: `messages` teaches observable behavior',
+        '- The loss still comes from expected tokens',
+        '- The weights shift toward that answer pattern',
+        '',
+        '### Valdoria as target',
+        '',
+        'We will use `celsowm/valdoria-sft-qwen35-dataset`: a synthetic dataset with canon, refusals, and rules. The baseline invents Valdoria; SFT should teach it to answer inside the canon.',
+      ].join('\n'),
+    },
+  },
+  visual: {
+    id: 'sft-weight-update-diagram',
+    copy: {
+      'pt-br': {
+        title: 'SFT mexe nos pesos',
+        subtitle: 'O objetivo continua sendo próximo token; o dataset muda o comportamento que recebe probabilidade alta.',
+        baseWeights: 'pesos do modelo base',
+        gradients: 'gradientes da loss',
+        optimizer: 'otimizador aplica update',
+        updatedWeights: 'pesos ajustados',
+        trainable: 'todos treináveis no full fine-tuning',
+        checkpoint: 'checkpoint novo',
+      },
+      'en-us': {
+        title: 'SFT changes weights',
+        subtitle: 'The objective is still next token; the dataset changes which behavior receives high probability.',
+        baseWeights: 'base model weights',
+        gradients: 'loss gradients',
+        optimizer: 'optimizer applies update',
+        updatedWeights: 'adapted weights',
+        trainable: 'all trainable in full fine-tuning',
+        checkpoint: 'new checkpoint',
+      },
+    },
+  },
+});

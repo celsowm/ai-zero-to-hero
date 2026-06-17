@@ -242,6 +242,8 @@ const visualMap: Record<string, string> = {
   'bitsandbytes-intro': 'BitsandbytesIntroVisual',
 
   // peft / lora
+  'sft-weight-update-diagram': 'SftWeightUpdateDiagram',
+  'peft-freeze-diagram': 'PeftFreezeDiagram',
   'lora-diagram': 'LoraDiagram',
 
   // welcome

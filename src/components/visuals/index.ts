@@ -117,6 +117,8 @@ export { BPEStepByStep } from './bpe-tokenization/BPEStepByStep';
 export { ClassificationProblemVisual } from './classification-problem/ClassificationProblemVisual';
 export { AutoClassResolver } from './transformers/AutoClassResolver';
 export { DataCollatorVisualizer } from './transformers/DataCollatorVisualizer';
+export { SftWeightUpdateDiagram } from './transformers/SftWeightUpdateDiagram';
+export { PeftFreezeDiagram } from './transformers/PeftFreezeDiagram';
 export { LoraDiagram } from './transformers/LoraDiagram';
 export { QuantizationTabsVisual } from './transformers/QuantizationTabsVisual';
 export { QuantizationTheoryVisual } from './transformers/QuantizationTheoryVisual';

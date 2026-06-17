@@ -18,18 +18,30 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
       width: '100%',
       padding: '32px',
       background: 'linear-gradient(180deg, rgba(20, 18, 31, 0.96), rgba(11, 11, 18, 0.98))',
-      borderRadius: '24px',
+      borderRadius: '8px',
       border: `1px solid ${sw.borderSubtle}`,
       boxShadow: sw.shadowDeeper,
       display: 'flex',
       flexDirection: 'column',
-      gap: '28px',
+      gap: '20px',
       fontFamily: sw.fontSans,
       color: sw.text,
     }}>
       {/* Title */}
-      <div style={{ fontWeight: '700', fontSize: '18px', color: sw.cyan, textAlign: 'center' }}>
+      <div style={{ fontWeight: '800', fontSize: '18px', color: sw.cyan, textAlign: 'center' }}>
         {copy.title}
+      </div>
+
+      <div style={{
+        padding: '12px 16px',
+        border: `1px solid ${sw.cyan}55`,
+        borderRadius: '8px',
+        background: 'rgba(0, 229, 255, 0.08)',
+        textAlign: 'center',
+        fontWeight: 800,
+        color: sw.text,
+      }}>
+        W_eff = W0 + B x A
       </div>
 
       {/* Side by side comparison */}
@@ -38,7 +50,7 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
         <div style={{
           padding: '20px',
           background: 'rgba(255, 46, 151, 0.06)',
-          borderRadius: '16px',
+          borderRadius: '8px',
           border: `1px solid ${sw.pink}33`,
           display: 'flex',
           flexDirection: 'column',
@@ -50,7 +62,7 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
             width: '120px',
             height: '120px',
             background: `linear-gradient(135deg, ${sw.pink}, ${sw.purple})`,
-            borderRadius: '12px',
+            borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -69,7 +81,7 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
         <div style={{
           padding: '20px',
           background: 'rgba(0, 229, 255, 0.06)',
-          borderRadius: '16px',
+          borderRadius: '8px',
           border: `1px solid ${sw.cyan}33`,
           display: 'flex',
           flexDirection: 'column',
@@ -150,10 +162,11 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
         border: `1px solid ${sw.borderSubtle}`,
       }}>
         {[
-          { label: copy.originalFrozen, value: 'W₀ congelado (não atualiza)' },
-          { label: copy.trainableParams, value: `Apenas A e B (${(loraParams / 1e6).toFixed(1)}M)` },
+          { label: copy.originalFrozen, value: 'W0' },
+          { label: copy.trainableParams, value: `A + B = ${(loraParams / 1e6).toFixed(1)}M` },
           { label: copy.savedMemory, value: `-${savings}% vs full fine-tuning` },
           { label: `${copy.rankLabel} (r)`, value: `${r} << ${d} (hidden dim)` },
+          { label: 'W_eff', value: 'W0 + B x A' },
         ].map((item, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
             <span style={{ fontWeight: '600', color: sw.cyan }}>{item.label}:</span>
