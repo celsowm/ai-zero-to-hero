@@ -201,7 +201,9 @@ import { ragVectordb } from './rag-vectordb';
 import { systemPromptIntro } from './system-prompt-intro';
 import { sftBeforeAfter } from './sft-before-after';
 import { sftDataFormat } from './sft-data-format';
+import { sftFullConfig } from './sft-full-config';
 import { sftFullFinetuning } from './sft-full-finetuning';
+import { sftLoraMerge } from './sft-lora-merge';
 import { sftLoraPeft } from './sft-lora-peft';
 import { sftPeftFreeze } from './sft-peft-freeze';
 import { sftTrlTrain } from './sft-trl-train';
@@ -364,9 +366,11 @@ export const allSlides: ISlide[] = [
   sftWhy,
   sftDataFormat,
   sftFullFinetuning,
+  sftFullConfig,
   sftPeftFreeze,
   sftLoraPeft,
   sftTrlTrain,
+  sftLoraMerge,
   sftBeforeAfter,
   treeOfThoughts,
   zeroShotPrompting,

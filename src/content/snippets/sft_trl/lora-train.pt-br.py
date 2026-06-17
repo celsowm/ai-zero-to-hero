@@ -9,10 +9,17 @@ from trl import SFTConfig, SFTTrainer
 
 MODEL_ID = "Qwen/Qwen3.5-0.8B"
 DATASET_ID = "celsowm/valdoria-sft-qwen35-dataset"
+# SFT_OUTPUT_ROOT permite salvar checkpoints em outro disco sem mudar o código.
 OUTPUT_ROOT = Path(os.environ.get("SFT_OUTPUT_ROOT", "runs"))
 OUTPUT_DIR = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-lora"
 
-train_dataset = load_dataset(DATASET_ID, split="train").select(range(1024))
+dataset = load_dataset(DATASET_ID, split="train").shuffle(seed=42)
+# Smoke test mais longo. Para treinar em todo o dataset, remova o select.
+smoke_dataset = dataset.select(range(min(1024, len(dataset))))
+# O dataset precisa expor "messages"; o SFTTrainer aplica o chat template.
+splits = smoke_dataset.train_test_split(test_size=0.1, seed=42)
+train_dataset = splits["train"]
+eval_dataset = splits["test"]
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 if tokenizer.pad_token is None:
@@ -44,6 +51,9 @@ args = SFTConfig(
     bf16=True,
     gradient_checkpointing=True,
     assistant_only_loss=True,
+    do_eval=True,
+    eval_strategy="steps",
+    eval_steps=20,
     logging_steps=20,
     save_strategy="no",
     report_to="none",
@@ -54,6 +64,7 @@ trainer = SFTTrainer(
     model=model,
     args=args,
     train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
     processing_class=tokenizer,
     peft_config=peft_config,
 )
@@ -61,6 +72,7 @@ trainer = SFTTrainer(
 trainable = sum(p.numel() for p in trainer.model.parameters() if p.requires_grad)
 total = sum(p.numel() for p in trainer.model.parameters())
 print("Treinável:", f"{trainable:,}", f"({100 * trainable / total:.4f}%)")
+print("Treino/validação:", len(train_dataset), len(eval_dataset))
 
 result = trainer.train()
 print("Métricas:", result.metrics)

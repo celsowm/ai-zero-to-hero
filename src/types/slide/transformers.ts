@@ -367,6 +367,10 @@ export interface LoraDiagramCopy {
   trainableParams: string;
   savedMemory: string;
   rankLabel: string;
+  trainArtifact: string;
+  trainArtifactValue: string;
+  serveArtifact: string;
+  serveArtifactValue: string;
 }
 
 export interface SftWeightUpdateDiagramCopy {

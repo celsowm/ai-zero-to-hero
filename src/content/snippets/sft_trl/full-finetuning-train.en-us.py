@@ -8,10 +8,17 @@ from trl import SFTConfig, SFTTrainer
 
 MODEL_ID = "Qwen/Qwen3.5-0.8B"
 DATASET_ID = "celsowm/valdoria-sft-qwen35-dataset"
+# SFT_OUTPUT_ROOT can save checkpoints to another drive without code changes.
 OUTPUT_ROOT = Path(os.environ.get("SFT_OUTPUT_ROOT", "runs"))
 OUTPUT_DIR = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-full-smoke"
 
-train_dataset = load_dataset(DATASET_ID, split="train").select(range(32))
+dataset = load_dataset(DATASET_ID, split="train").shuffle(seed=42)
+# Smoke test: small cut for class. To use everything, remove the select.
+smoke_dataset = dataset.select(range(min(32, len(dataset))))
+# For another dataset, keep a chat-template-compatible "messages" column.
+splits = smoke_dataset.train_test_split(test_size=0.1, seed=42)
+train_dataset = splits["train"]
+eval_dataset = splits["test"]
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 if tokenizer.pad_token is None:
@@ -35,6 +42,9 @@ args = SFTConfig(
     bf16=True,
     gradient_checkpointing=True,
     assistant_only_loss=True,
+    do_eval=True,
+    eval_strategy="steps",
+    eval_steps=1,
     logging_steps=1,
     save_strategy="no",
     report_to="none",
@@ -45,11 +55,13 @@ trainer = SFTTrainer(
     model=model,
     args=args,
     train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
     processing_class=tokenizer,
 )
 
 trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print("Trainable parameters:", f"{trainable:,}")
+print("Train/eval rows:", len(train_dataset), len(eval_dataset))
 
 result = trainer.train()
 print("Metrics:", result.metrics)

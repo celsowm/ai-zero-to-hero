@@ -41,7 +41,7 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
         fontWeight: 800,
         color: sw.text,
       }}>
-        W_eff = W0 + B x A
+        W_eff = W0 + ΔW = W0 + B × A
       </div>
 
       {/* Side by side comparison */}
@@ -166,7 +166,9 @@ export const LoraDiagram = React.memo(({ copy }: LoraDiagramProps) => {
           { label: copy.trainableParams, value: `A + B = ${(loraParams / 1e6).toFixed(1)}M` },
           { label: copy.savedMemory, value: `-${savings}% vs full fine-tuning` },
           { label: `${copy.rankLabel} (r)`, value: `${r} << ${d} (hidden dim)` },
-          { label: 'W_eff', value: 'W0 + B x A' },
+          { label: copy.trainArtifact, value: copy.trainArtifactValue },
+          { label: copy.serveArtifact, value: copy.serveArtifactValue },
+          { label: 'W_eff', value: 'W0 + B × A' },
         ].map((item, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
             <span style={{ fontWeight: '600', color: sw.cyan }}>{item.label}:</span>

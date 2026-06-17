@@ -1,14 +1,20 @@
 import os
+import sys
 from pathlib import Path
 
 import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 BASE_MODEL = "Qwen/Qwen3.5-0.8B"
 OUTPUT_ROOT = Path(os.environ.get("SFT_OUTPUT_ROOT", "runs"))
 FULL_MODEL = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-full-smoke"
 LORA_ADAPTER = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-lora"
+MERGED_MODEL = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-lora-merged"
 
 PROMPTS = [
     "Qual é a capital de Valdoria?",
@@ -45,12 +51,22 @@ def print_answers(label, model, tokenizer):
 
 base_model, base_tokenizer = load_full_model(BASE_MODEL)
 print_answers("base", base_model, base_tokenizer)
+del base_model, base_tokenizer
+torch.cuda.empty_cache()
 
 full_model, full_tokenizer = load_full_model(FULL_MODEL)
 print_answers("full smoke", full_model, full_tokenizer)
+del full_model, full_tokenizer
+torch.cuda.empty_cache()
 
 lora_tokenizer = AutoTokenizer.from_pretrained(LORA_ADAPTER)
 lora_base = AutoModelForCausalLM.from_pretrained(BASE_MODEL, dtype=torch.bfloat16, device_map="cuda")
 lora_model = PeftModel.from_pretrained(lora_base, LORA_ADAPTER)
 lora_model.eval()
-print_answers("LoRA", lora_model, lora_tokenizer)
+print_answers("LoRA adapter", lora_model, lora_tokenizer)
+del lora_model, lora_base, lora_tokenizer
+torch.cuda.empty_cache()
+
+if MERGED_MODEL.exists():
+    merged_model, merged_tokenizer = load_full_model(MERGED_MODEL)
+    print_answers("LoRA mergeado", merged_model, merged_tokenizer)

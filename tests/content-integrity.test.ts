@@ -70,14 +70,22 @@ describe('content integrity', () => {
   });
 
   it('SFT snippets (newly added) have corresponding .meta.json files', () => {
-    const sftSnippets = ['sft-dataset.py', 'sft-generate.py', 'sft-train.py'];
+    const sftSnippets = [
+      'sft_trl/before-after.pt-br.py',
+      'sft_trl/data-format.pt-br.py',
+      'sft_trl/environment-check.pt-br.py',
+      'sft_trl/full-finetuning-train.pt-br.py',
+      'sft_trl/lora-merge.pt-br.py',
+      'sft_trl/lora-peft-config.pt-br.py',
+      'sft_trl/lora-train.pt-br.py',
+    ];
     const failures: string[] = [];
 
     for (const snippet of sftSnippets) {
       const snippetPath = join(snippetsDir, snippet);
       if (!existsSync(snippetPath)) continue;
 
-      const baseName = snippet.replace('.py', '');
+      const baseName = snippet.replace('.pt-br.py', '');
       const metaPath = join(snippetsDir, baseName + '.meta.json');
       if (!existsSync(metaPath)) {
         failures.push(`${snippet}: missing ${baseName}.meta.json`);
