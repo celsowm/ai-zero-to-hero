@@ -10,7 +10,7 @@ export const sftWhy = defineSlide({
       body: [
         'A gente já treinou modelos antes: no bloco do Gutenberg, o objetivo era continuar texto a partir de um corpus. O modelo via tokens de literatura e aprendia a prever o próximo token naquele domínio.',
         '',
-        'SFT continua sendo treino supervisionado de próximo token. A diferença é o formato do dado: em vez de texto corrido, usamos conversas com resposta esperada.',
+        '**SFT** (Supervised Fine-Tuning) continua sendo treino supervisionado de próximo token. A diferença é o formato do dado: em vez de texto corrido, usamos conversas com resposta esperada.',
         '',
         '### O que muda',
         '',
@@ -29,7 +29,7 @@ export const sftWhy = defineSlide({
       body: [
         'We have already trained models before: in the Gutenberg block, the goal was text continuation from a corpus. The model saw literature tokens and learned to predict the next token in that domain.',
         '',
-        'SFT is still supervised next-token training. The difference is the data shape: instead of plain text, we use conversations with expected answers.',
+        '**SFT** (Supervised Fine-Tuning) is still supervised next-token training. The difference is the data shape: instead of plain text, we use conversations with expected answers.',
         '',
         '### What changes',
         '',
