@@ -2,7 +2,7 @@ import importlib.metadata as metadata
 
 import torch
 
-packages = ["trl", "transformers", "peft", "datasets", "accelerate", "torch"]
+packages = ["trl", "transformers", "peft", "datasets", "accelerate", "torch", "bitsandbytes"]
 
 for package in packages:
     print(f"{package}=={metadata.version(package)}")
