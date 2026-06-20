@@ -79,7 +79,7 @@ def main() -> None:
         remove_unused_columns=False,
         seed=SEED,
         data_seed=SEED,
-        tf32=True,
+        tf32=torch.cuda.is_available(),
         use_cache=False,
     )
 
