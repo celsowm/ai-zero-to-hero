@@ -1065,6 +1065,42 @@ export interface SystemPromptExplorerCopy {
   };
 }
 
+// ── DPO Preference Stepper ─────────────────────────────────────────────────
+
+export interface DpoPreferenceStepCopy {
+  label: string;
+  title: string;
+  operation: string;
+  description: string;
+}
+
+export interface DpoPreferenceStepperCopy {
+  title: string;
+  subtitle: string;
+  promptLabel: string;
+  promptText: string;
+  chosenLabel: string;
+  chosenText: string;
+  rejectedLabel: string;
+  rejectedText: string;
+  stepperTitle: string;
+  previousLabel: string;
+  nextLabel: string;
+  progressLabel: string;
+  tensorLabel: string;
+  shapeLabel: string;
+  trainablePolicyLabel: string;
+  frozenReferenceLabel: string;
+  gradientDirectionLabel: string;
+  maskedTokenNote: string;
+  frozenNoUpdateLabel: string;
+  chosenUpLabel: string;
+  rejectedDownLabel: string;
+  steps: DpoPreferenceStepCopy[];
+  takeawayTitle: string;
+  takeawayBody: string;
+}
+
 // ── Build GPT-2 Model ──────────────────────────────────────────────────────
 
 export interface BuildGpt2ModelCodePanelCopy {

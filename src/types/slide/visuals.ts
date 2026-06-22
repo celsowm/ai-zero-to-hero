@@ -82,6 +82,7 @@ import type {
   MultiheadDiagramCopy,
   QuantizationTabsCopy,
   SftWeightUpdateDiagramCopy,
+  DpoPreferenceStepperCopy,
   QuantizationTheoryCopy,
   QuantizationSetupCopy,
   BitsandbytesIntroCopy,
@@ -310,6 +311,7 @@ interface VisualCopyMap {
   'synthetic-data-demo-visual': SyntheticDataNegativesVisualCopy;
   'synthetic-data-valdoria-visual': SyntheticDataValdoriaVisualCopy;
   'system-prompt-explorer': SystemPromptExplorerCopy;
+  'dpo-preference-stepper': DpoPreferenceStepperCopy;
   'build-gpt2-model': BuildGpt2ModelCopy;
   // rag
   'rag-memory-limit-visual': RagMemoryLimitVisualCopy;

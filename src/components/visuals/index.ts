@@ -57,6 +57,7 @@ export { PytorchEmbeddingLogitsContract } from './language-models/PytorchEmbeddi
 export { TokenBatchShiftInteractive } from './language-models/TokenBatchShiftInteractive';
 export { TokenBatchShiftVisual } from './language-models/TokenBatchShiftVisual';
 export { SystemPromptExplorer } from './transformers/SystemPromptExplorer';
+export { DpoPreferenceStepper } from './transformers/DpoPreferenceStepper';
 export { Gpt2BlockAnatomy } from './transformers/Gpt2BlockAnatomy';
 export { Gpt2BlackboxDiagram } from './transformers/Gpt2BlackboxDiagram';
 export { Gpt2EmbeddingResidual } from './transformers/Gpt2EmbeddingResidual';

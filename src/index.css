@@ -159,6 +159,18 @@ body {
   }
 }
 
+@media (max-width: 959px) {
+  .dpo-stepper-active {
+    flex: 0 0 auto !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+  }
+
+  .dpo-tensor-pair {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
 .exercise-editor-grid {
   grid-template-columns: minmax(0, 1fr);
 }
