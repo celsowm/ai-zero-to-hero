@@ -174,6 +174,8 @@ export const courseSlideOrder = [
   'sft-trl-train',
   'sft-lora-merge',
   'sft-before-after',
+  'preference-alignment-rlhf',
+  'dpo-in-practice',
   'system-prompt-intro',
   'jinja-intro',
   'jinja-chatml-practice',

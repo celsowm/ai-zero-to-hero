@@ -199,6 +199,8 @@ import { ragRetrieval } from './rag-retrieval';
 import { ragVectordb } from './rag-vectordb';
 
 import { systemPromptIntro } from './system-prompt-intro';
+import { dpoInPractice } from './dpo-in-practice';
+import { preferenceAlignmentRlhf } from './preference-alignment-rlhf';
 import { sftBeforeAfter } from './sft-before-after';
 import { sftDataFormat } from './sft-data-format';
 import { sftFullConfig } from './sft-full-config';
@@ -364,6 +366,8 @@ export const allSlides: ISlide[] = [
   reasoningInference,
   visionMmprojLlamaCpp,
   sftWhy,
+  preferenceAlignmentRlhf,
+  dpoInPractice,
   sftDataFormat,
   sftFullFinetuning,
   sftFullConfig,
