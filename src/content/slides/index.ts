@@ -95,6 +95,7 @@ import { inferenceEnginesWhy } from './inference-engines-why';
 import { inferenceExercise } from './inference-exercise';
 import { onnxOptimization } from './onnx-optimization';
 import { openaiApiStandard } from './openai-api-standard';
+import { orpoIntro } from './orpo-intro';
 import { sglangDeepDive } from './sglang-deep-dive';
 import { sglangIntro } from './sglang-intro';
 import { streamingMode } from './streaming-mode';
@@ -366,8 +367,6 @@ export const allSlides: ISlide[] = [
   reasoningInference,
   visionMmprojLlamaCpp,
   sftWhy,
-  preferenceAlignmentRlhf,
-  dpoInPractice,
   sftDataFormat,
   sftFullFinetuning,
   sftFullConfig,
@@ -376,6 +375,14 @@ export const allSlides: ISlide[] = [
   sftTrlTrain,
   sftLoraMerge,
   sftBeforeAfter,
+  syntheticDataIntro,
+  syntheticDataPipeline,
+  syntheticDataTaxonomy,
+  syntheticDataDemo,
+  syntheticDataValdoria,
+  preferenceAlignmentRlhf,
+  dpoInPractice,
+  orpoIntro,
   treeOfThoughts,
   zeroShotPrompting,
   inferenceE2e,
@@ -497,11 +504,6 @@ export const allSlides: ISlide[] = [
   systemPromptIntro,
   jinjaIntro,
   jinjaChatmlPractice,
-  syntheticDataIntro,
-  syntheticDataPipeline,
-  syntheticDataTaxonomy,
-  syntheticDataDemo,
-  syntheticDataValdoria,
   tokenizationDeepDive,
   tokenizationWhy,
   tokenizerTrainingHf,
