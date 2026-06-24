@@ -8,24 +8,64 @@ from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from trl import DPOConfig, DPOTrainer
 
+
 # Modelo já treinado por SFT full
 SFT_MODEL_DIR = "runs/sft-valdoria-qwen35-08b-full"
+
 DATASET_ID = "celsowm/valdoria-dpo-qwen35-dataset"
+
 OUTPUT_ROOT = Path(os.environ.get("DPO_OUTPUT_ROOT", "runs"))
 OUTPUT_DIR = OUTPUT_ROOT / "dpo-valdoria-qwen35-08b-full"
 
 SEED = 42
 
 
-def main() -> None:
-    OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
+def can_use_tf32() -> bool:
+    if not torch.cuda.is_available():
+        return False
 
-    set_seed(SEED)
+    major, _minor = torch.cuda.get_device_capability()
+    return major >= 8  # Ampere ou superior
+
+
+def can_use_bf16() -> bool:
+    return torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+
+
+def get_model_dtype() -> torch.dtype:
+    if not torch.cuda.is_available():
+        return torch.float32
+
+    if can_use_bf16():
+        return torch.bfloat16
+
+    return torch.float16
+
+
+def get_optim() -> str:
+    if torch.cuda.is_available():
+        return "adamw_bnb_8bit"
+
+    return "adamw_torch"
+
+
+def print_cuda_info() -> None:
+    print("=" * 80)
+    print("CUDA disponível:", torch.cuda.is_available())
 
     if torch.cuda.is_available():
-        torch.backends.cuda.matmul.allow_tf32 = True
+        print("CUDA device count:", torch.cuda.device_count())
+        print("GPU 0:", torch.cuda.get_device_name(0))
+        print("Capability:", torch.cuda.get_device_capability(0))
+        print("BF16 suportado:", can_use_bf16())
+        print("TF32 suportado:", can_use_tf32())
 
+    print("=" * 80)
+
+
+def load_train_eval_dataset():
     print("Carregando dataset DPO:", DATASET_ID)
+
     dataset = load_dataset(DATASET_ID)
 
     train_dataset = dataset["train"]
@@ -42,6 +82,32 @@ def main() -> None:
         train_dataset = splits["train"]
         eval_dataset = splits["test"]
 
+    return train_dataset, eval_dataset
+
+
+def main() -> None:
+    OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
+
+    set_seed(SEED)
+    print_cuda_info()
+
+    supports_bf16 = can_use_bf16()
+    supports_tf32 = can_use_tf32()
+    model_dtype = get_model_dtype()
+    optim = get_optim()
+
+    if supports_tf32:
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
+
+    print("dtype do modelo:", model_dtype)
+    print("bf16:", supports_bf16)
+    print("fp16:", torch.cuda.is_available() and not supports_bf16)
+    print("tf32:", supports_tf32)
+    print("optimizer:", optim)
+
+    train_dataset, eval_dataset = load_train_eval_dataset()
+
     print("Carregando modelo SFT:", SFT_MODEL_DIR)
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -52,20 +118,13 @@ def main() -> None:
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    # Importante no DPOTrainer atual.
-    # A documentação do TRL pede padding_side="left" para DPO.
+    # Importante no DPOTrainer atual:
+    # para DPO, normalmente usamos padding à esquerda.
     tokenizer.padding_side = "left"
-
-    dtype = torch.float32
-    if torch.cuda.is_available():
-        if torch.cuda.is_bf16_supported():
-            dtype = torch.bfloat16
-        else:
-            dtype = torch.float16
 
     model = AutoModelForCausalLM.from_pretrained(
         str(SFT_MODEL_DIR),
-        dtype=dtype,
+        dtype=model_dtype,
         trust_remote_code=True,
     )
 
@@ -75,13 +134,13 @@ def main() -> None:
     args = DPOConfig(
         output_dir=str(OUTPUT_DIR),
 
-        # DPO geralmente pede LR bem menor que SFT.
-        # TRL também usa default baixo para DPO, 1e-6.
+        # DPO geralmente usa LR menor que SFT.
         learning_rate=5e-7,
         num_train_epochs=2,
         max_steps=-1,
 
-        # DPO usa chosen + rejected + referência, então consome bem mais VRAM que SFT.
+        # DPO consome mais VRAM que SFT:
+        # chosen + rejected + referência.
         per_device_train_batch_size=4,
         per_device_eval_batch_size=4,
         auto_find_batch_size=True,
@@ -90,30 +149,34 @@ def main() -> None:
         warmup_ratio=0.03,
         weight_decay=0.01,
         lr_scheduler_type="cosine",
-        optim="adamw_bnb_8bit",
+        optim=optim,
 
-        # DPO padrão.
+        # DPO padrão
         beta=0.1,
         loss_type="sigmoid",
 
-        # Seu dataset parece caber em 1024.
-        # Se estourar contexto, o trainer trunca.
+        # Contexto
         max_length=1024,
         truncation_mode="keep_start",
 
-        bf16=torch.cuda.is_available() and torch.cuda.is_bf16_supported(),
-        fp16=torch.cuda.is_available() and not torch.cuda.is_bf16_supported(),
-        tf32=torch.cuda.is_available(),
+        # Precisão segura
+        bf16=supports_bf16,
+        fp16=torch.cuda.is_available() and not supports_bf16,
+        tf32=supports_tf32,
 
+        # Memória
         gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
         use_cache=False,
 
+        # Treino / avaliação
         do_train=True,
         do_eval=True,
         eval_strategy="steps",
         eval_steps=25,
         logging_steps=25,
 
+        # Checkpoints
         save_strategy="steps",
         save_steps=25,
         save_total_limit=2,
@@ -121,9 +184,9 @@ def main() -> None:
         metric_for_best_model="eval_loss",
         greater_is_better=False,
 
+        # Misc
         report_to="none",
         remove_unused_columns=False,
-
         seed=SEED,
         data_seed=SEED,
     )
@@ -132,7 +195,7 @@ def main() -> None:
         model=model,
 
         # ref_model=None é intencional:
-        # o DPOTrainer usa a política inicial como modelo de referência.
+        # o DPOTrainer usa a política inicial como referência.
         # Ou seja: a referência é o seu SFT antes do DPO começar.
         ref_model=None,
 
@@ -145,12 +208,20 @@ def main() -> None:
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
 
+    print("=" * 80)
     print("Parâmetros treináveis:", f"{trainable:,}", f"({100 * trainable / total:.2f}%)")
-    print("Treino/validação:", len(train_dataset), len(eval_dataset))
+    print("Parâmetros totais:", f"{total:,}")
+    print("Treino:", len(train_dataset))
+    print("Validação:", len(eval_dataset))
     print("Saída:", OUTPUT_DIR)
+    print("=" * 80)
 
     result = trainer.train()
-    print("Métricas:", result.metrics)
+
+    print("=" * 80)
+    print("Métricas finais:")
+    print(result.metrics)
+    print("=" * 80)
 
     trainer.save_model(str(OUTPUT_DIR))
     tokenizer.save_pretrained(str(OUTPUT_DIR))
