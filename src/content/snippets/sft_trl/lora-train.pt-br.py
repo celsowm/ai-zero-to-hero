@@ -27,15 +27,16 @@ def main() -> None:
     torch.backends.cudnn.allow_tf32 = True
 
     dataset = load_dataset(DATASET_ID)
+    data_split = "train" if "train" in dataset else next(iter(dataset))
 
     if "validation" in dataset:
-        train_dataset = dataset["train"]
+        train_dataset = dataset[data_split]
         eval_dataset = dataset["validation"]
     elif "test" in dataset:
-        train_dataset = dataset["train"]
+        train_dataset = dataset[data_split]
         eval_dataset = dataset["test"]
     else:
-        splits = dataset["train"].shuffle(seed=SEED).train_test_split(
+        splits = dataset[data_split].shuffle(seed=SEED).train_test_split(
             test_size=0.1,
             seed=SEED,
         )
