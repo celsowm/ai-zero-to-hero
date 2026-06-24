@@ -14,7 +14,7 @@ COLLECTION_NAME = f"processo_{CNJ}"
 
 EMBEDDING_MODEL = "intfloat/multilingual-e5-base"
 
-LLM_URL = "http://10.120.191.20:8000/v1/chat/completions"
+LLM_URL = "http://localhost:8000/v1/chat/completions"
 
 LLM_MODEL = None
 
