@@ -182,6 +182,7 @@ export const courseSlideOrder = [
   'sft-before-after',
   'preference-alignment-rlhf',
   'dpo-in-practice',
+  'dpo-metrics',
   'orpo-intro',
   'sentence-transformers-intro',
   'rag-intro-chromadb',

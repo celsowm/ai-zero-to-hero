@@ -187,6 +187,7 @@ import { ragIntroChromadb } from './rag-intro-chromadb';
 
 import { systemPromptIntro } from './system-prompt-intro';
 import { dpoInPractice } from './dpo-in-practice';
+import { dpoMetrics } from './dpo-metrics';
 import { preferenceAlignmentRlhf } from './preference-alignment-rlhf';
 import { sftBeforeAfter } from './sft-before-after';
 import { sftDataFormat } from './sft-data-format';
@@ -370,6 +371,7 @@ export const allSlides: ISlide[] = [
   sftBeforeAfter,
   preferenceAlignmentRlhf,
   dpoInPractice,
+  dpoMetrics,
   orpoIntro,
   treeOfThoughts,
   zeroShotPrompting,
