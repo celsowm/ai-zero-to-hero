@@ -33,9 +33,8 @@ export const SftMetricsTabsVisual = React.memo(({ copy }: SftMetricsTabsVisualPr
 
             <div style={{ minHeight: 100, flexShrink: 0 }}>
               <CodeBlock
-                language={panel.source.language}
-                code=""
-                sourceRef={panel.source}
+                language={panel.language}
+                code={panel.code}
                 compact
               />
             </div>

@@ -1,5 +1,26 @@
 import { defineSlide } from './_factory';
 
+const TRAINING_JSON = `{
+  "loss": 2.314,
+  "grad_norm": 1.42,
+  "learning_rate": 1.1e-05,
+  "epoch": 0.62
+}`;
+
+const VALIDATION_JSON = `{
+  "eval_loss": 1.87,
+  "eval_runtime": 12.5,
+  "eval_samples_per_second": 24.1,
+  "epoch": 0.62
+}`;
+
+const FINAL_JSON = `{
+  "train_runtime": 320.5,
+  "train_samples_per_second": 6.0,
+  "train_loss": 1.42,
+  "epoch": 3.0
+}`;
+
 export const sftMetrics = defineSlide({
   id: 'sft-metrics',
   type: 'two-column',
@@ -91,7 +112,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Métricas de Treino',
             description: 'Saída do Trainer a cada `logging_steps=50` durante o treino.',
-            source: { snippetId: 'sft_trl/metrics-training', language: 'json' },
+            code: TRAINING_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'loss',
@@ -118,7 +140,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Métricas de Validação',
             description: 'Calculadas no dataset de validação a cada `eval_steps=50`.',
-            source: { snippetId: 'sft_trl/metrics-validation', language: 'json' },
+            code: VALIDATION_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'eval_loss',
@@ -145,7 +168,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Métricas Finais',
             description: 'Estatísticas agregadas ao final do treino, retornadas por `trainer.train()`.',
-            source: { snippetId: 'sft_trl/metrics-final', language: 'json' },
+            code: FINAL_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'train_runtime',
@@ -181,7 +205,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Training Metrics',
             description: 'Trainer output every `logging_steps=50` during training.',
-            source: { snippetId: 'sft_trl/metrics-training', language: 'json' },
+            code: TRAINING_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'loss',
@@ -208,7 +233,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Validation Metrics',
             description: 'Computed on the validation set every `eval_steps=50`.',
-            source: { snippetId: 'sft_trl/metrics-validation', language: 'json' },
+            code: VALIDATION_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'eval_loss',
@@ -235,7 +261,8 @@ export const sftMetrics = defineSlide({
           {
             title: 'Final Metrics',
             description: 'Aggregated stats at the end of training, returned by `trainer.train()`.',
-            source: { snippetId: 'sft_trl/metrics-final', language: 'json' },
+            code: FINAL_JSON,
+            language: 'json',
             fields: [
               {
                 name: 'train_runtime',

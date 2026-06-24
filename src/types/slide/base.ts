@@ -74,7 +74,8 @@ export interface SftMetricsField {
 export interface SftMetricsPanel {
   title: string;
   description: string;
-  source: CodeSourceRef;
+  code: string;
+  language: SnippetLanguage;
   fields: SftMetricsField[];
 }
 
