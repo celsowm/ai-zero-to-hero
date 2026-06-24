@@ -85,3 +85,7 @@ def main():
         )
 
     print(f"Banco criado em: {DB_DIR}")
+
+
+if __name__ == "__main__":
+    main()
