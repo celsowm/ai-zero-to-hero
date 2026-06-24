@@ -68,20 +68,16 @@ export interface SyntheticDataTaxonomyVisualCopy {
 export interface SyntheticDataValdoriaVisualCopy {
   title: string;
   subtitle: string;
-  datasetLabel: string;
-  beforeLabel: string;
-  afterLabel: string;
-  fileRef: string;
-  valdoriaDescription: string;
-  beforeResponse: string;
-  afterResponse: string;
-  promptTest: string;
-  systemContent: string;
   tapHint: string;
-  beforeCaption: string;
-  afterCaption: string;
-  categoryLabel: string;
-  categorySummary: string;
+  groups: {
+    label: string;
+    pedagogicalFunction: string;
+    description: string;
+    categories: { name: string; count: number }[];
+    total: number;
+    exampleInput: string;
+    exampleOutput: string;
+  }[];
 }
 
 export interface SyntheticDataNegativesVisualCopy {
