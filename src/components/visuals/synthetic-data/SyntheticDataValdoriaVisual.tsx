@@ -32,10 +32,10 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
     }}>
       {/* Title + Subtitle */}
       <div style={{ textAlign: 'center', marginBottom: '12px' }}>
-        <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--sw-text)' }}>
+        <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--sw-text)' }}>
           {copy.title}
         </div>
-        <div style={{ fontSize: '9px', color: 'var(--sw-text-muted)', marginTop: '2px' }}>
+        <div style={{ fontSize: '11px', color: 'var(--sw-text-muted)', marginTop: '2px' }}>
           {copy.subtitle}
         </div>
       </div>
@@ -59,7 +59,7 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
-              fontSize: '8px',
+              fontSize: '10px',
               fontWeight: 600,
               lineHeight: 1.2,
               background: activeTab === idx
@@ -89,16 +89,16 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
               borderRadius: '8px',
               borderLeft: `3px solid ${colors.accent}`,
             }}>
-              <div style={{ fontSize: '9px', fontWeight: 600, color: colors.accent, marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, color: colors.accent, marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Função pedagógica
               </div>
-              <div style={{ fontSize: '9px', color: 'var(--sw-text)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '11px', color: 'var(--sw-text)', lineHeight: 1.5 }}>
                 {group.pedagogicalFunction}
               </div>
             </div>
 
             {/* Description */}
-            <div style={{ fontSize: '9px', color: 'var(--sw-text-muted)', lineHeight: 1.4 }}>
+            <div style={{ fontSize: '11px', color: 'var(--sw-text-muted)', lineHeight: 1.4 }}>
               {group.description}
             </div>
 
@@ -110,8 +110,8 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
             }}>
               {group.categories.map((cat, ci) => (
                 <span key={ci} style={{
-                  fontSize: '8px',
-                  padding: '3px 6px',
+                  fontSize: '10px',
+                  padding: '3px 7px',
                   background: 'rgba(255,255,255,0.04)',
                   borderRadius: '4px',
                   color: 'var(--sw-text-muted)',
@@ -121,8 +121,8 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
                 </span>
               ))}
               <span style={{
-                fontSize: '8px',
-                padding: '3px 6px',
+                fontSize: '10px',
+                padding: '3px 7px',
                 background: `${colors.accent}15`,
                 borderRadius: '4px',
                 color: colors.accent,
@@ -144,14 +144,14 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
               minHeight: 0,
               overflow: 'auto',
             }}>
-              <div style={{ fontSize: '8px', fontWeight: 600, color: colors.accent, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div style={{ fontSize: '10px', fontWeight: 600, color: colors.accent, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Exemplo
               </div>
-              <div style={{ fontSize: '8px', color: 'var(--sw-text-muted)', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.4 }}>
+              <div style={{ fontSize: '10px', color: 'var(--sw-text-muted)', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.4 }}>
                 <span style={{ color: '#64c8ff' }}>User: </span>{group.exampleInput}
               </div>
               <div style={{
-                fontSize: '9px',
+                fontSize: '11px',
                 color: colors.accent,
                 lineHeight: 1.5,
                 padding: '6px 8px',
@@ -169,7 +169,7 @@ export const SyntheticDataValdoriaVisual = React.memo(({ copy }: SyntheticDataVa
       {/* Hint */}
       <div style={{
         marginTop: '10px',
-        fontSize: '8px',
+        fontSize: '10px',
         color: 'var(--sw-text-muted)',
         textAlign: 'center',
       }}>
