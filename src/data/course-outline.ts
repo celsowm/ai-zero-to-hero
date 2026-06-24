@@ -169,6 +169,7 @@ export const courseSlideOrder = [
   'sft-data-format',
   'sft-full-finetuning',
   'sft-full-config',
+  'sft-metrics',
   'sft-peft-freeze',
   'sft-lora-peft',
   'sft-trl-train',

@@ -208,6 +208,7 @@ import { sftFullConfig } from './sft-full-config';
 import { sftFullFinetuning } from './sft-full-finetuning';
 import { sftLoraMerge } from './sft-lora-merge';
 import { sftLoraPeft } from './sft-lora-peft';
+import { sftMetrics } from './sft-metrics';
 import { sftPeftFreeze } from './sft-peft-freeze';
 import { sftTrlTrain } from './sft-trl-train';
 import { sftWhy } from './sft-why';
@@ -370,6 +371,7 @@ export const allSlides: ISlide[] = [
   sftDataFormat,
   sftFullFinetuning,
   sftFullConfig,
+  sftMetrics,
   sftPeftFreeze,
   sftLoraPeft,
   sftTrlTrain,
