@@ -14,6 +14,7 @@ export { LinearRegressionTabsVisual } from './linear-regression/LinearRegression
 export { LinearRegressionSimpleLineVisual } from './linear-regression/LinearRegressionSimpleLineVisual';
 export { ProgressStepperVisual } from './stepper/ProgressStepperVisual';
 export { CodeTabsVisual } from './CodeTabsVisual';
+export { SftMetricsTabsVisual } from './SftMetricsTabsVisual';
 export { TabsBar } from './TabsBar';
 export type { TabsBarItem } from './TabsBar';
 export { TabbedPanelSurface } from './TabbedPanelSurface';

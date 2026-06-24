@@ -1,7 +1,7 @@
 import type { Language } from '../../constants/languages';
 
 export type { Language };
-export type SnippetLanguage = 'python' | 'javascript' | 'markdown' | 'bash' | 'powershell' | 'html';
+export type SnippetLanguage = 'python' | 'javascript' | 'markdown' | 'bash' | 'powershell' | 'html' | 'json';
 export type CodeRegionId = string;
 
 export interface CodeSourceRef {
@@ -63,4 +63,22 @@ export interface CodeTabsCopy {
     source: CodeSourceRef;
     codeExplanations?: CodeExplanation[];
   }>;
+}
+
+export interface SftMetricsField {
+  name: string;
+  label: string;
+  explanation: string;
+}
+
+export interface SftMetricsPanel {
+  title: string;
+  description: string;
+  source: CodeSourceRef;
+  fields: SftMetricsField[];
+}
+
+export interface SftMetricsTabsCopy {
+  tabs: Array<{ label: string }>;
+  panels: SftMetricsPanel[];
 }

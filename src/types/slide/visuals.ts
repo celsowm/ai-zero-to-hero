@@ -1,4 +1,4 @@
-import type { CodeTabsCopy, IContent, Language, SlideType } from './base';
+import type { CodeTabsCopy, IContent, Language, SlideType, SftMetricsTabsCopy } from './base';
 import type {
   ApiLatencyGrowthVisualCopy,
   InferenceDiagramCopy,
@@ -428,6 +428,8 @@ interface VisualCopyMap {
   'welcome-synthwave': WelcomeSynthwaveCopy;
   // generic code tabs (tabs + code panels)
   'code-tabs': CodeTabsCopy;
+  // sft metrics tabs (training / validation / final)
+  'sft-metrics-tabs': SftMetricsTabsCopy;
   // bpe tokenization
   'token-level-comparison': TokenLevelComparisonCopy;
   'token-granularity-slider': TokenGranularitySliderCopy;

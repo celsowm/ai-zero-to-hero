@@ -23,6 +23,8 @@ function registerVisual(id: string, component: React.LazyExoticComponent<VisualC
 const visualMap: Record<string, string> = {
   // generic code tabs
   'code-tabs': 'CodeTabsVisual',
+  // sft metrics tabs
+  'sft-metrics-tabs': 'SftMetricsTabsVisual',
   // inference / learning
   'inference-diagram': 'InferenceDiagram',
   'learning-loop-diagram': 'LearningLoopDiagram',
