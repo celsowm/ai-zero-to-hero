@@ -122,6 +122,7 @@ function registerCode(path: string, moduleValue: unknown) {
   else if (ext === 'sh') language = 'bash';
   else if (ext === 'ps1') language = 'powershell';
   else if (ext === 'html') language = 'html';
+  else if (ext === 'json') language = 'json';
   
   const rawCode = normalizeModule<string>(moduleValue);
   const parsed = parseSnippetSource(rawCode);

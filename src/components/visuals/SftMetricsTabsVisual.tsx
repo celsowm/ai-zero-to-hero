@@ -51,15 +51,15 @@ export const SftMetricsTabsVisual = React.memo(({ copy }: SftMetricsTabsVisualPr
                     border: '1px solid rgba(255, 255, 255, 0.06)',
                   }}
                 >
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
-                    <code style={{ fontSize: 12, fontWeight: 700, color: sw.cyan, whiteSpace: 'nowrap' }}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                    <code style={{ fontSize: 13.5, fontWeight: 700, color: sw.cyan, whiteSpace: 'nowrap' }}>
                       {field.name}
                     </code>
-                    <span style={{ fontSize: 11.5, fontWeight: 500, color: sw.text, lineHeight: 1.4 }}>
+                    <span style={{ fontSize: 13, fontWeight: 500, color: sw.text, lineHeight: 1.5 }}>
                       {field.label}
                     </span>
                   </div>
-                  <div style={{ fontSize: 12, lineHeight: 1.6, color: sw.textDim, marginTop: 4 }}>
+                  <div style={{ fontSize: 13, lineHeight: 1.6, color: sw.textDim, marginTop: 6 }}>
                     {field.explanation}
                   </div>
                 </div>
