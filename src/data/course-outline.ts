@@ -183,6 +183,7 @@ export const courseSlideOrder = [
   'preference-alignment-rlhf',
   'dpo-in-practice',
   'orpo-intro',
+  'sentence-transformers-intro',
   'system-prompt-intro',
   'jinja-intro',
   'jinja-chatml-practice',
@@ -200,8 +201,6 @@ export const courseSlideOrder = [
   'model-evaluation-hf',
   'model-sharing-hub',
   'hf-pipeline-custom',
-  // RAG section (being rebuilt)
-  'sentence-transformers-intro',
   // Prompt Engineering section
   'prompt-engineering-why',
   'prompt-structure-anatomy',
