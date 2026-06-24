@@ -210,6 +210,7 @@ import { syntheticDataIntro } from './synthetic-data-intro';
 import { syntheticDataPipeline } from './synthetic-data-pipeline';
 import { syntheticDataTaxonomy } from './synthetic-data-taxonomy';
 import { syntheticDataValdoria } from './synthetic-data-valdoria';
+import { datasetsHfClient } from './datasets-hf-client';
 import { tokenizationDeepDive } from './tokenization-deep-dive';
 import { tokenizationWhy } from './tokenization-why';
 import { tokenizerTrainingHf } from './tokenizer-training-hf';
@@ -361,6 +362,7 @@ export const allSlides: ISlide[] = [
   syntheticDataTaxonomy,
   syntheticDataDemo,
   syntheticDataValdoria,
+  datasetsHfClient,
   sftFullFinetuning,
   sftFullConfig,
   sftMetrics,

@@ -172,6 +172,7 @@ export const courseSlideOrder = [
   'synthetic-data-taxonomy',
   'synthetic-data-demo',
   'synthetic-data-valdoria',
+  'datasets-hf-client',
   'sft-full-finetuning',
   'sft-full-config',
   'sft-metrics',
