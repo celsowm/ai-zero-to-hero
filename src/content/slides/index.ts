@@ -182,22 +182,7 @@ import { quantizationSetup } from './quantization-setup';
 import { quantizationTheoryFormula } from './quantization-theory-formula';
 import { quantizationTheoryWhy } from './quantization-theory-why';
 import { bitsandbytesIntro } from './bitsandbytes-intro';
-import { ragAnswerWithSources } from './rag-answer-with-sources';
-import { ragChromadbMinimal } from './rag-chromadb-minimal';
-import { ragChunking } from './rag-chunking';
-import { ragEmbeddings } from './rag-embeddings';
-import { ragEvaluation } from './rag-evaluation';
-import { ragExercise } from './rag-exercise';
-import { ragIngestion } from './rag-ingestion';
-import { ragLangchainModern } from './rag-langchain-modern';
-import { ragLangchainVsLlamaindex } from './rag-langchain-vs-llamaindex';
-import { ragLlamaindexModern } from './rag-llamaindex-modern';
-import { ragMentalModel } from './rag-mental-model';
-import { ragProblem } from './rag-problem';
-import { ragProductionChecklist } from './rag-production-checklist';
-import { ragPromptAssembly } from './rag-prompt-assembly';
-import { ragRetrieval } from './rag-retrieval';
-import { ragVectordb } from './rag-vectordb';
+import { sentenceTransformersIntro } from './sentence-transformers-intro';
 
 import { systemPromptIntro } from './system-prompt-intro';
 import { dpoInPractice } from './dpo-in-practice';
@@ -486,22 +471,7 @@ export const allSlides: ISlide[] = [
   quantizationInt8,
   quantizationNf4,
   bitsandbytesIntro,
-  ragAnswerWithSources,
-  ragChromadbMinimal,
-  ragChunking,
-  ragEmbeddings,
-  ragEvaluation,
-  ragExercise,
-  ragIngestion,
-  ragLangchainModern,
-  ragLangchainVsLlamaindex,
-  ragLlamaindexModern,
-  ragMentalModel,
-  ragProblem,
-  ragProductionChecklist,
-  ragPromptAssembly,
-  ragRetrieval,
-  ragVectordb,
+  sentenceTransformersIntro,
 
   systemPromptIntro,
   jinjaIntro,
