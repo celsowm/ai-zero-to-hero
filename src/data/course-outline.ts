@@ -184,6 +184,7 @@ export const courseSlideOrder = [
   'dpo-in-practice',
   'orpo-intro',
   'sentence-transformers-intro',
+  'rag-intro-chromadb',
   'system-prompt-intro',
   'jinja-intro',
   'jinja-chatml-practice',

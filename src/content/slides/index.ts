@@ -183,6 +183,7 @@ import { quantizationTheoryFormula } from './quantization-theory-formula';
 import { quantizationTheoryWhy } from './quantization-theory-why';
 import { bitsandbytesIntro } from './bitsandbytes-intro';
 import { sentenceTransformersIntro } from './sentence-transformers-intro';
+import { ragIntroChromadb } from './rag-intro-chromadb';
 
 import { systemPromptIntro } from './system-prompt-intro';
 import { dpoInPractice } from './dpo-in-practice';
@@ -472,6 +473,7 @@ export const allSlides: ISlide[] = [
   quantizationNf4,
   bitsandbytesIntro,
   sentenceTransformersIntro,
+  ragIntroChromadb,
 
   systemPromptIntro,
   jinjaIntro,
