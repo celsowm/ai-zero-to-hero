@@ -5,7 +5,7 @@ from pathlib import Path
 
 import torch
 from datasets import load_dataset
-from peft import LoraConfig
+from peft import LoraConfig, TaskType
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from trl import SFTConfig, SFTTrainer
 
@@ -14,96 +14,33 @@ MODEL_ID = "Qwen/Qwen3.5-0.8B"
 DATASET_ID = "celsowm/valdoria-sft-qwen35-dataset"
 
 OUTPUT_ROOT = Path(os.environ.get("SFT_OUTPUT_ROOT", "runs"))
-OUTPUT_DIR = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-lora"
+OUTPUT_DIR = OUTPUT_ROOT / "sft-valdoria-qwen35-08b-lora-2"
 
 SEED = 42
-
-
-def can_use_tf32() -> bool:
-    if not torch.cuda.is_available():
-        return False
-
-    major, _minor = torch.cuda.get_device_capability()
-    return major >= 8  # Ampere or higher
-
-
-def can_use_bf16() -> bool:
-    return torch.cuda.is_available() and torch.cuda.is_bf16_supported()
-
-
-def get_model_dtype() -> torch.dtype:
-    if not torch.cuda.is_available():
-        return torch.float32
-
-    if can_use_bf16():
-        return torch.bfloat16
-
-    return torch.float16
-
-
-def get_optim() -> str:
-    if torch.cuda.is_available():
-        return "adamw_bnb_8bit"
-
-    return "adamw_torch"
-
-
-def print_cuda_info() -> None:
-    print("=" * 80)
-    print("CUDA available:", torch.cuda.is_available())
-
-    if torch.cuda.is_available():
-        print("CUDA device count:", torch.cuda.device_count())
-        print("GPU 0:", torch.cuda.get_device_name(0))
-        print("Capability:", torch.cuda.get_device_capability(0))
-        print("BF16 supported:", can_use_bf16())
-        print("TF32 supported:", can_use_tf32())
-
-    print("=" * 80)
-
-
-def load_train_eval_dataset():
-    dataset = load_dataset(DATASET_ID, split="train").shuffle(seed=SEED)
-
-    # Longer smoke test.
-    # To train on the full dataset, replace this line:
-    #
-    #   smoke_dataset = dataset
-    #
-    smoke_dataset = dataset.select(range(min(1024, len(dataset))))
-
-    # The dataset must expose "messages".
-    # SFTTrainer applies the chat template automatically.
-    splits = smoke_dataset.train_test_split(
-        test_size=0.1,
-        seed=SEED,
-    )
-
-    return splits["train"], splits["test"]
 
 
 def main() -> None:
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
 
     set_seed(SEED)
-    print_cuda_info()
+    torch.backends.cuda.matmul.allow_tf32 = True
+    torch.backends.cudnn.allow_tf32 = True
 
-    supports_bf16 = can_use_bf16()
-    supports_tf32 = can_use_tf32()
-    model_dtype = get_model_dtype()
-    optim = get_optim()
+    dataset = load_dataset(DATASET_ID)
 
-    if supports_tf32:
-        torch.backends.cuda.matmul.allow_tf32 = True
-        torch.backends.cudnn.allow_tf32 = True
-
-    print("dtype:", model_dtype)
-    print("bf16:", supports_bf16)
-    print("fp16:", torch.cuda.is_available() and not supports_bf16)
-    print("tf32:", supports_tf32)
-    print("optimizer:", optim)
-
-    train_dataset, eval_dataset = load_train_eval_dataset()
+    if "validation" in dataset:
+        train_dataset = dataset["train"]
+        eval_dataset = dataset["validation"]
+    elif "test" in dataset:
+        train_dataset = dataset["train"]
+        eval_dataset = dataset["test"]
+    else:
+        splits = dataset["train"].shuffle(seed=SEED).train_test_split(
+            test_size=0.1,
+            seed=SEED,
+        )
+        train_dataset = splits["train"]
+        eval_dataset = splits["test"]
 
     tokenizer = AutoTokenizer.from_pretrained(
         MODEL_ID,
@@ -115,27 +52,25 @@ def main() -> None:
 
     tokenizer.padding_side = "right"
 
-    model_kwargs = {
-        "dtype": model_dtype,
-        "trust_remote_code": True,
-    }
-
-    if torch.cuda.is_available():
-        model_kwargs["device_map"] = "auto"
-
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_ID,
-        **model_kwargs,
+        dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
+        trust_remote_code=True,
     )
 
     model.config.use_cache = False
+    model.gradient_checkpointing_enable()
+
+    # Helps when using gradient checkpointing + LoRA on some models.
+    if hasattr(model, "enable_input_require_grads"):
+        model.enable_input_require_grads()
 
     peft_config = LoraConfig(
-        r=32,
-        lora_alpha=64,
-        lora_dropout=0.03,
+        task_type=TaskType.CAUSAL_LM,
+        r=16,
+        lora_alpha=32,
+        lora_dropout=0.05,
         bias="none",
-        task_type="CAUSAL_LM",
         target_modules=[
             "q_proj",
             "k_proj",
@@ -150,49 +85,58 @@ def main() -> None:
     args = SFTConfig(
         output_dir=str(OUTPUT_DIR),
 
-        # training
-        max_steps=220,
-        per_device_train_batch_size=1,
-        per_device_eval_batch_size=1,
-        gradient_accumulation_steps=2,
+        num_train_epochs=3,
+        max_steps=-1,
 
-        # optimization
-        learning_rate=2e-4,
-        optim=optim,
+        # Smaller to save VRAM.
+        # Effective batch = 4 * 4 = 16, same as full fine-tuning.
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
+        gradient_accumulation_steps=4,
+        auto_find_batch_size=True,
 
-        # sequence
-        max_length=512,
-        packing=False,
+        # LoRA typically uses a higher LR than full fine-tuning.
+        learning_rate=2.0e-4,
+        warmup_steps=10,
+        weight_decay=0.01,
+        lr_scheduler_type="cosine",
 
-        # precision
-        bf16=supports_bf16,
-        fp16=torch.cuda.is_available() and not supports_bf16,
-        tf32=supports_tf32,
+        optim="adamw_bnb_8bit",
 
-        # memory
+        max_length=1024,
+
+        bf16=torch.cuda.is_available() and torch.cuda.is_bf16_supported(),
+        fp16=torch.cuda.is_available() and not torch.cuda.is_bf16_supported(),
+        tf32=True,
+
         gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={"use_reentrant": False},
-        use_cache=False,
 
-        # loss
         assistant_only_loss=True,
         loss_type="nll",
 
-        # evaluation
         do_train=True,
         do_eval=True,
+
         eval_strategy="steps",
-        eval_steps=20,
+        eval_steps=50,
 
-        # logging / saving
-        logging_steps=20,
-        save_strategy="no",
+        logging_steps=50,
+
+        save_strategy="steps",
+        save_steps=50,
+        save_total_limit=2,
+
+        load_best_model_at_end=True,
+        metric_for_best_model="eval_loss",
+        greater_is_better=False,
+
         report_to="none",
-
-        # misc
         remove_unused_columns=False,
+
         seed=SEED,
         data_seed=SEED,
+
+        use_cache=False,
     )
 
     trainer = SFTTrainer(
@@ -207,25 +151,22 @@ def main() -> None:
     trainable = sum(p.numel() for p in trainer.model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in trainer.model.parameters())
 
-    print("=" * 80)
     print("Trainable params:", f"{trainable:,}", f"({100 * trainable / total:.4f}%)")
     print("Total params:", f"{total:,}")
-    print("Train:", len(train_dataset))
-    print("Eval:", len(eval_dataset))
-    print("Output:", OUTPUT_DIR)
-    print("=" * 80)
+    print("Train / eval:", len(train_dataset), len(eval_dataset))
 
     result = trainer.train()
+    print("Metrics:", result.metrics)
 
-    print("=" * 80)
-    print("Final metrics:")
-    print(result.metrics)
-    print("=" * 80)
-
+    # No merge.
+    # This saves only the LoRA adapter + PEFT config.
     trainer.save_model(str(OUTPUT_DIR))
+
+    # Save tokenizer alongside for easier inference later.
     tokenizer.save_pretrained(str(OUTPUT_DIR))
 
     print("LoRA adapter saved at:", OUTPUT_DIR)
+    print("Expected files: adapter_model.safetensors, adapter_config.json, tokenizer files")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,5 @@
+{
+  "id": "sft_trl/lora-inference-adapter",
+  "language": "python",
+  "pyodide": false
+}
