@@ -110,7 +110,7 @@ export const orpoIntro = defineSlide({
     id: 'code-tabs',
     copy: {
       'pt-br': {
-        tabs: [{ label: 'ORPO' }],
+        tabs: [{ label: 'ORPO' }, { label: 'ORPO + LoRA' }],
         codePanels: [
           {
             title: 'Treinar Preference Alignment com ORPOTrainer',
@@ -127,10 +127,27 @@ export const orpoIntro = defineSlide({
               { lineRange: [225, 244], content: 'Auditamos parâmetros treináveis, treinamos, exibimos métricas finais e salvamos modelo + tokenizer alinhados.' },
             ],
           },
+          {
+            title: 'ORPO com LoRA + Merge Automático',
+            description: 'Versão robusta com LoRA, detecção automática de módulos, adapter separado e merge opcional ao final.',
+            source: { snippetId: 'sft_trl/orpo-train-lora', language: 'python' },
+            codeExplanations: [
+              { lineRange: [1, 39], content: 'Importamos bibliotecas (incluindo OrderedDict, PeftModel, LoraConfig) e definimos constantes: modelo, dataset, RUN_DIR, ADAPTER_DIR, MERGED_DIR e MERGE_AT_END.' },
+              { lineRange: [46, 64], content: 'is_valid_message_list() valida cada mensagem individual: exige dict com role (system/user/assistant) e content string não vazia.' },
+              { lineRange: [66, 105], content: 'is_valid_orpo_example() usa is_valid_message_list para validar prompt, chosen e rejected; exige última mensagem como assistant e chosen != rejected.' },
+              { lineRange: [107, 188], content: 'drop_extra_columns() remove colunas que não sejam prompt/chosen/rejected. load_orpo_dataset() baixa, garante splits, filtra e aborta se vazio.' },
+              { lineRange: [195, 267], content: 'pick_dtype() escolhe bf16/fp16/fp32. load_tokenizer() carrega com left padding. load_base_model(), align_model_tokens() e enable_gradient_checkpointing() preparam o modelo base.' },
+              { lineRange: [274, 355], content: 'detect_lora_target_modules() varre o modelo, coleta módulos Linear (exceto lm_head e embed_tokens) e ordena por prioridade. build_lora_config() monta LoraConfig(r=32, alpha=64).' },
+              { lineRange: [362, 405], content: 'merge_and_unload_safely() tenta safe_merge com progressbar, com fallback. merge_adapter() carrega base + adapter, funde e salva em MERGED_DIR.' },
+              { lineRange: [412, 445], content: 'main(): cria pastas, fixa seed, ativa TF32, carrega dataset, tokenizer, modelo base com gradient checkpointing e monta peft_config.' },
+              { lineRange: [447, 509], content: 'ORPOConfig: learning_rate=2e-5 (para fine-tuning com LoRA), epochs=3, beta=0.1, batch efetivo 16, cosine scheduler, 8-bit optimizer, best checkpoint.' },
+              { lineRange: [511, 533], content: 'ORPOTrainer com peft_config. Treina, salva adapter e tokenizer, faz merge se MERGE_AT_END=True.' },
+            ],
+          },
         ],
       },
       'en-us': {
-        tabs: [{ label: 'ORPO' }],
+        tabs: [{ label: 'ORPO' }, { label: 'ORPO + LoRA' }],
         codePanels: [
           {
             title: 'Train Preference Alignment with ORPOTrainer',
@@ -145,6 +162,23 @@ export const orpoIntro = defineSlide({
               { lineRange: [163, 215], content: 'ORPOConfig: learning_rate=1e-6 (conservative to preserve base behavior), epochs=3, beta=0.1, effective batch 16, warmup_ratio, cosine scheduler, 8-bit optimizer, best checkpoint saving.' },
               { lineRange: [217, 223], content: 'We build the ORPOTrainer with no reference model — the main architectural difference from DPO. Uses processing_class=tokenizer.' },
               { lineRange: [225, 244], content: 'We audit trainable parameters, train, print final metrics, and save the aligned model + tokenizer.' },
+            ],
+          },
+          {
+            title: 'ORPO with LoRA + Auto Merge',
+            description: 'Robust version with LoRA, automatic module detection, separate adapter, and optional merge at the end.',
+            source: { snippetId: 'sft_trl/orpo-train-lora', language: 'python' },
+            codeExplanations: [
+              { lineRange: [1, 39], content: 'We import libraries (including OrderedDict, PeftModel, LoraConfig) and define constants: model, dataset, RUN_DIR, ADAPTER_DIR, MERGED_DIR, and MERGE_AT_END.' },
+              { lineRange: [46, 64], content: 'is_valid_message_list() validates each message: requires a dict with role (system/user/assistant) and non-empty content string.' },
+              { lineRange: [66, 105], content: 'is_valid_orpo_example() uses is_valid_message_list to validate prompt, chosen, rejected; requires last message as assistant and chosen != rejected.' },
+              { lineRange: [107, 188], content: 'drop_extra_columns() removes non-prompt/chosen/rejected columns. load_orpo_dataset() downloads, ensures splits, filters, and aborts if empty.' },
+              { lineRange: [195, 267], content: 'pick_dtype() selects bf16/fp16/fp32. load_tokenizer() loads with left padding. load_base_model(), align_model_tokens(), and enable_gradient_checkpointing() prepare the base model.' },
+              { lineRange: [274, 355], content: 'detect_lora_target_modules() scans the model, collects Linear modules (excluding lm_head and embed_tokens), orders by priority. build_lora_config() creates LoraConfig(r=32, alpha=64).' },
+              { lineRange: [362, 405], content: 'merge_and_unload_safely() attempts safe_merge with progressbar, with fallback. merge_adapter() loads base + adapter, merges, and saves to MERGED_DIR.' },
+              { lineRange: [412, 445], content: 'main(): creates folders, sets seed, enables TF32, loads dataset, tokenizer, base model with gradient checkpointing, and builds peft_config.' },
+              { lineRange: [447, 509], content: 'ORPOConfig: learning_rate=2e-5 (for LoRA fine-tuning), epochs=3, beta=0.1, effective batch 16, cosine scheduler, 8-bit optimizer, best checkpoint.' },
+              { lineRange: [511, 533], content: 'ORPOTrainer with peft_config. Trains, saves adapter and tokenizer, merges if MERGE_AT_END=True.' },
             ],
           },
         ],
