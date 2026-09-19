@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L4L11VB7JN)
+
 ## GitHub Pages
 
 This repository is configured to deploy the app to GitHub Pages automatically from the `main` branch.
